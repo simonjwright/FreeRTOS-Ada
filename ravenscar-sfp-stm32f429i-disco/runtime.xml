@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+
+<gprconfig>
+  <configuration>
+   <config>
+
+   type Loaders is ("ROM", "RAM", "USER");
+
+   Loader : Loaders := external ("LOADER", "ROM");
+
+   package Compiler is
+      Common_Required_Switches := ("-mlittle-endian", "-mhard-float",
+        "-mcpu=cortex-m4", "-mfpu=fpv4-sp-d16", "-mthumb");
+
+      for Leading_Required_Switches ("Ada") use
+         Compiler'Leading_Required_Switches ("Ada") &amp;
+         Common_Required_Switches;
+
+      for Leading_Required_Switches ("C") use
+         Compiler'Leading_Required_Switches ("C") &amp;
+         Common_Required_Switches;
+   end Compiler;
+
+   package Linker is
+      for Required_Switches use Linker'Required_Switches &amp;
+        ("${RUNTIME_DIR(ada)}/adalib/libgnat.a") &amp;
+        Compiler.Common_Required_Switches &amp;
+        ("-nostdlib", "-lgcc");
+
+      case Loader is
+         when "ROM" =>
+	    for Required_Switches use Linker'Required_Switches &amp;
+	    ("-T", "${RUNTIME_DIR(ada)}/adalib/stm32f4-rom.ld");
+         when "RAM" =>
+	    for Required_Switches use Linker'Required_Switches &amp;
+	    ("-T", "${RUNTIME_DIR(ada)}/adalib/stm32f4-ram.ld");
+	 when "USER" =>
+      end case;
+   end Linker;
+
+   package Binder is
+      for Required_Switches ("Ada") use Binder'Required_Switches ("Ada")
+        &amp; ("-nostdlib");
+   end Binder;
+   </config>
+  </configuration>
+</gprconfig>
