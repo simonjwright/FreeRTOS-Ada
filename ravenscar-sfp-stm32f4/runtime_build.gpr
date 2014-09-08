@@ -1,0 +1,50 @@
+project Runtime_Build is
+   for Languages use ("Ada", "Asm_Cpp", "C");
+
+   for Library_Auto_Init use "False";
+   for Library_Name use "gnat";
+   for Library_Kind use "static";
+
+   for Library_Dir use "adalib";
+   for Object_Dir use "obj";
+
+   for Source_Dirs use ("adainclude");
+
+   for Target use "arm-eabi";
+
+   type Build_Type is ("Production", "Debug");
+   Build : Build_Type := external ("BUILD", "Production");
+
+   package Builder is
+      for Switches ("Ada") use ("--RTS=" & Project'project_dir);
+   end Builder;
+
+   package Compiler is
+      CFLAGS := ("-fcallgraph-info=da",
+                 "-ffunction-sections", "-fdata-sections");
+      case Build is
+        when "Production" =>
+           CFLAGS := CFLAGS & ("-O2");
+        when "Debug" =>
+           CFLAGS := CFLAGS & ("-O0", "-g");
+      end case;
+      ALL_ADAFLAGS := ("-gnatpgn", "-nostdinc") & CFLAGS;
+      ALL_CFLAGS := ("-DIN_RTS", "-Dinhibit_libc") & CFLAGS;
+
+      NO_SIBLING_ADAFLAGS := ("-fno-optimize-sibling-calls");
+      NO_REORDER_ADAFLAGS := ("-fno-toplevel-reorder");
+
+      for Switches ("C") use ALL_CFLAGS;
+      for Switches ("Ada") use ALL_ADAFLAGS;
+
+      for Switches ("s-traceb.adb") use ALL_ADAFLAGS & ("-g")
+        & NO_SIBLING_ADAFLAGS & ("-fno-inline-functions-called-once");
+      for Switches ("s-tasdeb.adb") use ALL_ADAFLAGS & ("-g", "-O0");
+      for Switches ("a-except.adb") use ALL_ADAFLAGS
+        & ("-g", "-O1", "-fno-inline") & NO_REORDER_ADAFLAGS;
+      for Switches ("s-excdeb.adb") use ALL_ADAFLAGS & ("-g", "-O0");
+      for Switches ("s-assert.adb") use ALL_ADAFLAGS & ("-g");
+      for Switches ("a-tags.adb") use ALL_ADAFLAGS & ("-g");
+  end Compiler;
+
+end Runtime_Build;
