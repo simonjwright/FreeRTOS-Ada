@@ -33,13 +33,11 @@ with STM32F4;  use STM32F4;
 package LEDs is
    pragma Elaborate_Body;
 
-   type User_LED is (Green, Orange, Red, Blue);
+   type User_LED is (Green, Red);
 
    for User_LED use
-     (Green  => 16#1000#,
-      Orange => 16#2000#,
-      Red    => 16#4000#,
-      Blue   => 16#8000#);
+     (Green  => 16#2000#,
+      Red    => 16#4000#);
 
    --  As a result of the representation clause, avoid iterating directly over
    --  the type since that will require an implicit lookup in the generated 
@@ -50,10 +48,8 @@ package LEDs is
    --  we convert the LED values to Word values in order to write them to
    --  the register, so the size must be the same
 
-   LED3 : User_LED renames Orange;
-   LED4 : User_LED renames Green;
-   LED5 : User_LED renames Red;
-   LED6 : User_LED renames Blue;
+   LED3 : User_LED renames Green;
+   LED4 : User_LED renames Red;
 
    procedure On  (This : User_LED) with Inline;
    procedure Off (This : User_LED) with Inline;

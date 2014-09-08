@@ -37,8 +37,8 @@ package Ada.Interrupts.Names is
 
    pragma Implementation_Defined;
 
-   --  The STM32F4X reference manual defines the interrupt in Table 45
-   --  (page 250 of Doc ID 018909 Rev 4). The meaningful number, the position
+   --  The STM32F4X reference manual defines the interrupt in Table 62
+   --  (page 372 of Doc ID 018909 Rev 7). The meaningful number, the position
    --  starts at 0. Unfortunately, Interrupt_ID 0 is reserved and the SysTick
    --  interrupt (a core interrupt) is handled by the runtime like other
    --  interrupts. So the first interrupt (window watchdog) is numbered 2 while
@@ -128,5 +128,14 @@ package Ada.Interrupts.Names is
    CRYP_Interrupt                   : constant Interrupt_ID := 81;
    HASH_RNG_Interrupt               : constant Interrupt_ID := 82;
    FPU_Interrupt                    : constant Interrupt_ID := 83;
+   UART7_Interrupt                  : constant Interrupt_ID := 84;
+   UART8_Interrupt                  : constant Interrupt_ID := 85;
+   SPI4_Interrupt                   : constant Interrupt_ID := 86;
+   SPI5_Interrupt                   : constant Interrupt_ID := 87;
+   SPI6_Interrupt                   : constant Interrupt_ID := 88;
+   SAI1_Interrupt                   : constant Interrupt_ID := 89;
+   LCD_TFT_Interrupt                : constant Interrupt_ID := 90;
+   LCD_TFT_Error_Interrupt          : constant Interrupt_ID := 91;
+   DMA2D_Interrupt                  : constant Interrupt_ID := 92;
 
 end Ada.Interrupts.Names;

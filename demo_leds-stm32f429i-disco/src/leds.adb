@@ -39,21 +39,20 @@ package body LEDs is
 
    procedure On (This : User_LED) is
    begin
-      GPIOD.BSRR := As_Word (This);
+      GPIOG.BSRR := As_Word (This);
    end On;
 
 
    procedure Off (This : User_LED) is
    begin
-      GPIOD.BSRR := Shift_Left (As_Word (This), 16);
+      GPIOG.BSRR := Shift_Left (As_Word (This), 16);
    end Off;
 
 
-   All_LEDs_On  : constant Word := Green'Enum_Rep or Red'Enum_Rep or
-                                   Blue'Enum_Rep  or Orange'Enum_Rep;
+   All_LEDs_On  : constant Word := Green'Enum_Rep or Red'Enum_Rep;
 
    pragma Compile_Time_Error
-     (All_LEDs_On /= 16#F000#,
+     (All_LEDs_On /= 16#6000#,
       "Invalid representation for All_LEDs_On");
 
    All_LEDs_Off : constant Word := Shift_Left (All_LEDs_On, 16);
@@ -61,27 +60,27 @@ package body LEDs is
 
    procedure All_Off is
    begin
-      GPIOD.BSRR := All_LEDs_Off;
+      GPIOG.BSRR := All_LEDs_Off;
    end All_Off;
 
 
    procedure All_On is
    begin
-      GPIOD.BSRR := All_LEDs_On;
+      GPIOG.BSRR := All_LEDs_On;
    end All_On;
 
 
    procedure Initialize is
-      RCC_AHB1ENR_GPIOD : constant Word := 16#08#;
+      RCC_AHB1ENR_GPIOG : constant Word := 16#40#;
    begin
-      --  Enable clock for GPIO-D
-      RCC.AHB1ENR := RCC.AHB1ENR or RCC_AHB1ENR_GPIOD;
+      --  Enable clock for GPIO-G
+      RCC.AHB1ENR := RCC.AHB1ENR or RCC_AHB1ENR_GPIOG;
 
-      --  Configure PD12-15
-      GPIOD.MODER   (12 .. 15) := (others => Mode_OUT);
-      GPIOD.OTYPER  (12 .. 15) := (others => Type_PP);
-      GPIOD.OSPEEDR (12 .. 15) := (others => Speed_100MHz);
-      GPIOD.PUPDR   (12 .. 15) := (others => No_Pull);
+      --  Configure PG13-14
+      GPIOG.MODER   (13 .. 14) := (others => Mode_OUT);
+      GPIOG.OTYPER  (13 .. 14) := (others => Type_PP);
+      GPIOG.OSPEEDR (13 .. 14) := (others => Speed_100MHz);
+      GPIOG.PUPDR   (13 .. 14) := (others => No_Pull);
    end Initialize;
 
 

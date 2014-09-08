@@ -36,7 +36,7 @@ package body Button is
    protected Button is
       pragma Interrupt_Priority;
 
-      function Current_Direction return Directions;
+      function Current_Speed return Speeds;
 
    private
       procedure Interrupt_Handler;
@@ -44,7 +44,7 @@ package body Button is
          (Interrupt_Handler,
           Ada.Interrupts.Names.EXTI0_Interrupt);
 
-      Direction : Directions := Clockwise;  -- arbitrary
+      Speed : Speeds := Slow;  -- arbitrary
       Last_Time : Time := Clock;
    end Button;
 
@@ -52,10 +52,10 @@ package body Button is
 
    protected body Button is
 
-      function Current_Direction return Directions is
+      function Current_Speed return Speeds is
       begin
-         return Direction;
-      end Current_Direction;
+         return Speed;
+      end Current_Speed;
 
       procedure Interrupt_Handler is
          Now : constant Time := Clock;
@@ -65,10 +65,10 @@ package body Button is
 
          --  Debouncing
          if Now - Last_Time >= Debounce_Time then
-            if Direction = Counterclockwise then
-               Direction := Clockwise;
+            if Speed = Slow then
+               Speed := Fast;
             else
-               Direction := Counterclockwise;
+               Speed := Slow;
             end if;
 
             Last_Time := Now;
@@ -77,10 +77,10 @@ package body Button is
 
    end Button;
 
-   function Current_Direction return Directions is
+   function Current_Speed return Speeds is
    begin
-      return Button.Current_Direction;
-   end Current_Direction;
+      return Button.Current_Speed;
+   end Current_Speed;
 
    procedure Initialize is
       RCC_AHB1ENR_GPIOA : constant Word := 16#01#;

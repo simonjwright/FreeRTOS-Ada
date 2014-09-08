@@ -13,7 +13,7 @@ project Demo_Leds is
    package Builder is
       for Default_Switches ("ada") use 
          ("-g", 
-          "--RTS=/GNAT/2014/lib/gnat/arm-eabi/ravenscar-sfp-stm32f4");
+          "--RTS=arm-eabi/ravenscar-sfp-stm32f429i-disco");
 --          "--RTS=/GNATPRO/7.2.1/lib/gnat/arm-eabi/ravenscar-sfp-stm32f4");
    end Builder;
 

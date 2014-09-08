@@ -37,8 +37,6 @@ package body Last_Chance_Handler is
       pragma Unreferenced (Msg, Line);
    begin
       Off (Green);
-      Off (Orange);
-      Off (Blue);
       On (Red);
       --  No return procedure.
       pragma Warnings (Off, "*rewritten as loop");

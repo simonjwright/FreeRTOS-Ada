@@ -67,6 +67,8 @@ package STM32F4.Reset_Clock_Control is
       Reserved_10 : Word;  --  Reserved at 16#7C#
       SSCGR       : Word;  --  RCC spread spectrum clk gen. reg. at 16#80#
       PLLI2SCFGR  : Word;  --  RCC PLLI2S configuration register at 16#84#
+      PLLSAICFGR  : Word;  --  RCC PLL configuration register at 16#88#
+      DCKCFGR     : Word;  --  RCC Dedicated clock config. reg. at 16#8C#
    end record;
 
    for RCC_Register use record
@@ -104,6 +106,8 @@ package STM32F4.Reset_Clock_Control is
       Reserved_10 at 124 range 0 .. 31;
       SSCGR       at 128 range 0 .. 31;
       PLLI2SCFGR  at 132 range 0 .. 31;
+      PLLSAICFGR  at 136 range 0 .. 31;
+      DCKCFGR     at 140 range 0 .. 31;
    end record;
 
 

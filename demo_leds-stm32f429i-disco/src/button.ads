@@ -31,8 +31,8 @@
 package Button is
    pragma Elaborate_Body;
 
-   type Directions is (Clockwise, Counterclockwise);
+   type Speeds is (Slow, Fast);
 
-   function Current_Direction return Directions;
+   function Current_Speed return Speeds;
 
 end Button;

@@ -360,7 +360,7 @@ package body System.BB.Board_Support is
    function Priority_Of_Interrupt
      (Interrupt : Interrupt_ID) return Any_Priority
    is
-      --  Interrupt 2 .. 83 correspond to IRQ0 .. IRQ81
+      --  Interrupt 2 .. 92 correspond to IRQ0 .. IRQ90
 
       (if Interrupt = Alarm_Interrupt_ID then Interrupt_Priority'Last
        else To_Priority (IP (Interrupt - First_IRQ)));

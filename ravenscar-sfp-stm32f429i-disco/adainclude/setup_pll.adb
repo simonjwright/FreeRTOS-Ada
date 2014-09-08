@@ -36,15 +36,15 @@ with System.STM32F4; use System.STM32F4;
 
 procedure Setup_Pll is
 
-   subtype HSECLK_Range is Integer range   1_000_000 ..  26_000_000;
-   subtype PLLIN_Range is Integer range      950_000 ..   2_000_000;
+   subtype HSECLK_Range is Integer range   1_000_000 ..  50_000_000;
+   subtype PLLIN_Range  is Integer range   1_000_000 ..   2_000_000;
    subtype PLLVC0_Range is Integer range 192_000_000 .. 432_000_000;
-   subtype PLLOUT_Range is Integer range  24_000_000 .. 168_000_000;
-   subtype SYSCLK_Range is Integer range           1 .. 168_000_000;
-   subtype HCLK_Range is Integer range             1 .. 168_000_000;
-   subtype PCLK1_Range is Integer range            1 ..  42_000_000;
-   subtype PCLK2_Range is Integer range            1 ..  84_000_000;
-   subtype SPII2S_Range is Integer range           1 ..  37_500_000;
+   subtype PLLOUT_Range is Integer range  24_000_000 .. 180_000_000;
+   subtype SYSCLK_Range is Integer range           1 .. 180_000_000;
+   subtype HCLK_Range   is Integer range           1 .. 180_000_000;
+   subtype PCLK1_Range  is Integer range           1 ..  45_000_000;
+   subtype PCLK2_Range  is Integer range           1 ..  90_000_000;
+   subtype SPII2S_Range is Integer range           1 ..  37_500_000; -- ?
    pragma Unreferenced (SPII2S_Range);
 
    --  These internal low and high speed clocks are fixed. Do not modify.
@@ -65,10 +65,12 @@ procedure Setup_Pll is
 
    Activate_PLL    : constant Boolean := True;
    Activate_PLLI2S : constant Boolean := False;
+   Activate_PLLSAI : constant Boolean := False;
 
    pragma Assert ((if Activate_PLL then HSE_Enabled),
                   "PLL only supported with external clock");
    pragma Assert (not Activate_PLLI2S, "not yet implemented");
+   pragma Assert (not Activate_PLLSAI, "not yet implemented");
 
    -------------------------------
    -- Compute Clock Frequencies --
@@ -79,9 +81,9 @@ procedure Setup_Pll is
    PLLP_Value  : constant := 2;     -- divider may be 2, 4, 6 or 8
    PLLQ_Value  : constant := 7;     -- multiplier in range 2 .. 15
 
-   PLLCLKIN    : constant PLLIN_Range  := HSECLK / PLLM_Value;
-   PLLVC0      : constant PLLVC0_Range := PLLCLKIN * PLLN_Value;
-   PLLCLKOUT   : constant PLLOUT_Range := PLLVC0 / PLLP_Value;
+   PLLCLKIN    : constant PLLIN_Range  := HSECLK / PLLM_Value;   --    1 MHz
+   PLLVC0      : constant PLLVC0_Range := PLLCLKIN * PLLN_Value; --  336 MHz
+   PLLCLKOUT   : constant PLLOUT_Range := PLLVC0 / PLLP_Value;   --  168 MHz
 
    PLLM     : constant Word := PLLM_Value;
    PLLN     : constant Word := PLLN_Value * 2**6;
@@ -172,17 +174,28 @@ procedure Setup_Pll is
       RCC.APB1ENR := RCC_APB1ENR_PWR;
 
       --  PWR initialization
-      --  Select higher supply power for stable operation at max. freq.
-      --  (See the Symbol V12 line in table 14 of the STM32F407xx datasheet,
-      --  and table 15 p79). On the stm32f4 discovery board, VDD is 3V.
+      --
+      --  Select the SCALE_1 voltage scaling (max) to be compliant with
+      --  the 168 MHz SYSCLK of the configuration.
+      --  See: Datasheet of STM32F42x (DocID024030 Rev 4 - p93).
+      --
+      --  Notice that on STM32F42x, power scaling is effective only after
+      --  PLL is ON. If PLL is not used, the voltage scaling can not be
+      --  modified.
+      --  See RM (DocID 018909 Rev 7 - p120).
 
-      PWR.CR := PWR_CR_VOS_HIGH;
+      if Activate_PLL then
+         PWR.CR := PWR_CR_VOS_SCALE_1;
+      end if;
 
-      --  Wait until voltage supply scaling has completed
+      --  Wait until voltage supply scaling has completed after PLL is on in
+      --  case of PLL use.
 
-      loop
-         exit when PWR.CSR and PWR_CSR_VOSRDY;
-      end loop;
+      if not Activate_PLL then
+         loop
+            exit when PWR.CSR and PWR_CSR_VOSRDY;
+         end loop;
+      end if;
 
       --  Setup internal clock and wait for HSI stabilisation.
       --  The internal high speed clock is always enabled, because it is the
@@ -226,9 +239,22 @@ procedure Setup_Pll is
          end loop;
       end if;
 
+      --  Wait until voltage supply scaling has completed after PLL is on in
+      --  case of PLL use.
+
+      if Activate_PLL then
+         loop
+            exit when PWR.CSR and PWR_CSR_VOSRDY;
+         end loop;
+      end if;
+
       --  Configure flash
       --  Must be done before increasing the frequency, otherwise the CPU
       --  won't be able to fetch new instructions.
+      --  FIXME: RM suggests a procedure to ensure that flash is correctly set.
+      --
+      --  With a 165 MHz SYSCLK, 5 wait states must be configured.
+      --  See Table 11 in RM (DocID 018909 Rev 7 - p81).
 
       FLASH.ACR := FLASH_ACR.LATENCY_5WS or FLASH_ACR.ICEN or FLASH_ACR.DCEN
         or FLASH_ACR.PRFTEN;
@@ -291,14 +317,13 @@ procedure Setup_Pll is
       BRR          : Bits_16;
    begin
       RCC.APB2ENR := RCC.APB2ENR or RCC_APB2ENR_USART1;
-      RCC.AHB1ENR := RCC.AHB1ENR or RCC_AHB1ENR_GPIOB;
+      RCC.AHB1ENR := RCC.AHB1ENR or RCC_AHB1ENR_GPIOA;
 
-      GPIOB.MODER   (6 .. 7) := (Mode_AF,     Mode_AF);
-      GPIOB.OSPEEDR (6 .. 7) := (Speed_50MHz, Speed_50MHz);
-      GPIOB.OTYPER  (6 .. 7) := (Type_PP,     Type_PP);
-      GPIOB.PUPDR   (6 .. 7) := (Pull_Up,     Pull_Up);
-      GPIOB.AFRL    (6 .. 7) := (AF_USART1,   AF_USART1);
-
+      GPIOA.MODER   (9 .. 10) := (Mode_AF,     Mode_AF);
+      GPIOA.OSPEEDR (9 .. 10) := (Speed_50MHz, Speed_50MHz);
+      GPIOA.OTYPER  (9 .. 10) := (Type_PP,     Type_PP);
+      GPIOA.PUPDR   (9 .. 10) := (Pull_Up,     Pull_Up);
+      GPIOA.AFRH    (1 ..  2) := (AF_USART1,   AF_USART1);
       BRR := (Bits_16 (Frac_Divider * 16) + 50) / 100 mod 16
                or Bits_16 (Int_Divider / 100 * 16);
 

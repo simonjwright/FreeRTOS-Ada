@@ -31,31 +31,29 @@ with Ada.Real_Time; use Ada.Real_Time;
 
 package body Driver is
 
-   type Index is mod 4;
+   type Index is mod 2;
 
-   Pattern : constant array (Index) of User_LED := (Orange, Red, Blue, Green);
+   Pattern : constant array (Index) of User_LED := (Green, Red);
    --  The LEDs are not physically laid out "consecutively" in such a way that
    --  we can simply go in enumeral order to get circular rotation. Thus we
    --  define this mapping, using a consecutive index to get the physical LED
    --  blinking order desired.
 
+   Periods : constant array (Speeds) of Time_Span := (Milliseconds (150), Milliseconds (75));
+
    task body Controller is
-      Period     : constant Time_Span := Milliseconds (75);  -- arbitrary
       Next_Start : Time := Clock;
       Next_LED   : Index := 0;
    begin
       loop
          Off (Pattern (Next_LED));
 
-         if Button.Current_Direction = Counterclockwise then
-            Next_LED := Next_LED - 1;
-         else
-            Next_LED := Next_LED + 1;
-         end if;
+         Next_LED := Next_LED + 1;
 
          On (Pattern (Next_LED));
 
-         Next_Start := Next_Start + Period;
+         Next_Start := Next_Start + Periods (Button.Current_Speed);
+
          delay until Next_Start;
       end loop;
    end Controller;

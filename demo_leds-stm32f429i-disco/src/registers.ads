@@ -49,10 +49,10 @@ package Registers is
      Address => System'To_Address (GPIOA_Base);
    pragma Import (Ada, GPIOA);
 
-   GPIOD : GPIO_Register with
+   GPIOG : GPIO_Register with
      Volatile,
-     Address => System'To_Address (GPIOD_Base);
-   pragma Import (Ada, GPIOD);
+     Address => System'To_Address (GPIOG_Base);
+   pragma Import (Ada, GPIOG);
 
    EXTI : EXTI_Register with
      Volatile,

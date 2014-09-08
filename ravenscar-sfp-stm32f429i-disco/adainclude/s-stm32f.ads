@@ -54,7 +54,7 @@ package System.STM32F4 is
    AHB1_Peripheral_Base : constant := Peripheral_Base + 16#0002_0000#;
    AHB2_Peripheral_Base : constant := Peripheral_Base + 16#1000_0000#;
 
-   GPIOB_Base  : constant := AHB1_Peripheral_Base + 16#0400#;
+   GPIOA_Base  : constant := AHB1_Peripheral_Base + 16#0000#;
    FLASH_Base  : constant := AHB1_Peripheral_Base + 16#3C00#;
    USART1_Base : constant := APB2_Peripheral_Base + 16#1000#;
    RCC_Base    : constant := AHB1_Peripheral_Base + 16#3800#;
@@ -99,6 +99,8 @@ package System.STM32F4 is
       Reserved_10    : Word;  --  Reserved at 16#7C#
       SSCGR          : Word;  --  RCC spread spectrum clk gen. reg. at 16#80#
       PLLI2SCFGR     : Word;  --  RCC PLLI2S configuration register at 16#84#
+      PLLSAICFGR     : Word;  --  RCC PLL configuration register at 16#88#
+      DCKCFGR        : Word;  --  RCC Dedicated clock config. reg. at 16#8C#
    end record;
 
    RCC : RCC_Registers with Volatile, Address => System'To_Address (RCC_Base);
@@ -168,10 +170,10 @@ package System.STM32F4 is
 
       --  MCO2 prescaler
       MCO2PRE_DIV1   : constant Word := 0 * 2**27; -- MCO2 divides by 1
-      MCO2PRE_DIV2   : constant Word := 4 * 2**27; -- MCO2 divides by 4
-      MCO2PRE_DIV3   : constant Word := 5 * 2**27; -- MCO2 divides by 5
-      MCO2PRE_DIV4   : constant Word := 6 * 2**27; -- MCO2 divides by 6
-      MCO2PRE_DIV5   : constant Word := 7 * 2**27; -- MCO2 divides by 7
+      MCO2PRE_DIV2   : constant Word := 4 * 2**27; -- MCO2 divides by 2
+      MCO2PRE_DIV3   : constant Word := 5 * 2**27; -- MCO2 divides by 3
+      MCO2PRE_DIV4   : constant Word := 6 * 2**27; -- MCO2 divides by 4
+      MCO2PRE_DIV5   : constant Word := 7 * 2**27; -- MCO2 divides by 5
 
       --  I2S clock source
       I2SSRC_PLLI2S : constant Word := 0 * 2**23; -- I2SSRC is PLLI2S
@@ -202,7 +204,7 @@ package System.STM32F4 is
    RCC_APB2ENR_USART1   : constant Word := 16#10#;
 
    --  Bit definitions for RCC AHB1ENR register
-   RCC_AHB1ENR_GPIOB    : constant Word := 16#02#;
+   RCC_AHB1ENR_GPIOA    : constant Word := 16#01#;
 
    ---------
    -- PWR --
@@ -216,8 +218,11 @@ package System.STM32F4 is
    PWR : PWR_Registers with Volatile, Import,
                             Address => System'To_Address (PWR_Base);
 
-   PWR_CR_VOS_HIGH      : constant Word := 2**14; -- Core voltage set to high
-   PWR_CSR_VOSRDY       : constant Word := 2**14; -- Regulator output ready
+   PWR_CR_VOS_SCALE_3 : constant Word := 1 * 2**14;
+   PWR_CR_VOS_SCALE_2 : constant Word := 2 * 2**14;
+   PWR_CR_VOS_SCALE_1 : constant Word := 3 * 2**14;
+
+   PWR_CSR_VOSRDY   : constant Word := 1 * 2**14; -- Regulator output ready
 
    ---------------
    -- FLASH_ACR --
@@ -228,14 +233,22 @@ package System.STM32F4 is
       --  Constants for FLASH ACR register
 
       --  Wait states
-      LATENCY_0WS : constant Word := 16#0#;
-      LATENCY_1WS : constant Word := 16#1#;
-      LATENCY_2WS : constant Word := 16#2#;
-      LATENCY_3WS : constant Word := 16#3#;
-      LATENCY_4WS : constant Word := 16#4#;
-      LATENCY_5WS : constant Word := 16#5#;
-      LATENCY_6WS : constant Word := 16#6#;
-      LATENCY_7WS : constant Word := 16#7#;
+      LATENCY_0WS  : constant Word := 16#0#;
+      LATENCY_1WS  : constant Word := 16#1#;
+      LATENCY_2WS  : constant Word := 16#2#;
+      LATENCY_3WS  : constant Word := 16#3#;
+      LATENCY_4WS  : constant Word := 16#4#;
+      LATENCY_5WS  : constant Word := 16#5#;
+      LATENCY_6WS  : constant Word := 16#6#;
+      LATENCY_7WS  : constant Word := 16#7#;
+      LATENCY_8WS  : constant Word := 16#8#;
+      LATENCY_9WS  : constant Word := 16#9#;
+      LATENCY_10WS : constant Word := 16#10#;
+      LATENCY_11WS : constant Word := 16#11#;
+      LATENCY_12WS : constant Word := 16#12#;
+      LATENCY_13WS : constant Word := 16#13#;
+      LATENCY_14WS : constant Word := 16#14#;
+      LATENCY_15WS : constant Word := 16#15#;
 
       PRFTEN      : constant Word := 16#01_00#; -- Preftech enable
       ICEN        : constant Word := 16#02_00#; -- Instruction cache enable
@@ -273,7 +286,7 @@ package System.STM32F4 is
       Type_OD       : constant Bits_1 := 1; -- Open drain
 
       --  OSPEEDR constants
-      Speed_2MHz    : constant Bits_2 := 0; -- Low speed
+      Speed_4MHz    : constant Bits_2 := 0; -- Low speed
       Speed_25MHz   : constant Bits_2 := 1; -- Medium speed
       Speed_50MHz   : constant Bits_2 := 2; -- Fast speed
       Speed_100MHz  : constant Bits_2 := 3; -- High speed on 30pF, 80MHz on 15
@@ -302,9 +315,9 @@ package System.STM32F4 is
       AFRH    : Bits_8x4;
    end record;
 
-   GPIOB : GPIO_Registers with Volatile,
-                               Address => System'To_Address (GPIOB_Base);
-   pragma Import (Ada, GPIOB);
+   GPIOA : GPIO_Registers with Volatile,
+                               Address => System'To_Address (GPIOA_Base);
+   pragma Import (Ada, GPIOA);
 
    -----------
    -- USART --
