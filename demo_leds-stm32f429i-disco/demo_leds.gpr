@@ -5,15 +5,16 @@ project Demo_Leds is
    for Main use ("demo.adb");
    for Source_Dirs use ("src");
    for Object_Dir use "obj";
+   for Exec_Dir use ".";
 
    package Compiler is
       for Default_Switches ("ada") use ("-g", "-gnatwa", "-gnatQ", "-gnat12");
    end Compiler;
 
    package Builder is
-      for Default_Switches ("ada") use 
-         ("-g", 
-          "--RTS=arm-eabi/ravenscar-sfp-stm32f429i-disco");
+      for Default_Switches ("ada") use
+         ("-g",
+          "--RTS=../ravenscar-sfp-stm32f429i-disco");
 --          "--RTS=/GNATPRO/7.2.1/lib/gnat/arm-eabi/ravenscar-sfp-stm32f4");
    end Builder;
 
@@ -26,4 +27,3 @@ project Demo_Leds is
    end Ide;
 
 end Demo_Leds;
-
