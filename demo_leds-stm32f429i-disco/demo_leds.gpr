@@ -7,15 +7,16 @@ project Demo_Leds is
    for Object_Dir use "obj";
    for Exec_Dir use ".";
 
+   for Target use "arm-eabi";
+
    package Compiler is
-      for Default_Switches ("ada") use ("-g", "-gnatwa", "-gnatQ", "-gnat12");
+      for Default_Switches ("ada") use ("-gnatwa", "-gnatQ", "-gnat12");
    end Compiler;
 
    package Builder is
       for Default_Switches ("ada") use
          ("-g",
           "--RTS=../ravenscar-sfp-stm32f429i-disco");
---          "--RTS=/GNATPRO/7.2.1/lib/gnat/arm-eabi/ravenscar-sfp-stm32f4");
    end Builder;
 
    package Ide is

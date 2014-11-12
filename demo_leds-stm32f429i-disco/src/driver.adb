@@ -39,7 +39,8 @@ package body Driver is
    --  define this mapping, using a consecutive index to get the physical LED
    --  blinking order desired.
 
-   Periods : constant array (Speeds) of Time_Span := (Milliseconds (150), Milliseconds (75));
+   Periods : constant array (Speeds) of Time_Span :=
+     (Milliseconds (300), Milliseconds (150), Milliseconds (75));
 
    task body Controller is
       Next_Start : Time := Clock;

@@ -58,18 +58,18 @@ package body Button is
       end Current_Speed;
 
       procedure Interrupt_Handler is
-         Now : constant Time := Clock;
+         Now  : constant Time := Clock;
+         Next : constant array (Speeds) of Speeds :=
+           (Slow   => Medium,
+            Medium => Fast,
+            Fast   => Slow);
       begin
          --  Clear interrupt
          EXTI.PR (0) := 1;
 
          --  Debouncing
          if Now - Last_Time >= Debounce_Time then
-            if Speed = Slow then
-               Speed := Fast;
-            else
-               Speed := Slow;
-            end if;
+            Speed := Next (Speed);
 
             Last_Time := Now;
          end if;

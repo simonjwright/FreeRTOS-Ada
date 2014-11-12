@@ -31,7 +31,7 @@
 package Button is
    pragma Elaborate_Body;
 
-   type Speeds is (Slow, Fast);
+   type Speeds is (Slow, Medium, Fast);
 
    function Current_Speed return Speeds;
 
