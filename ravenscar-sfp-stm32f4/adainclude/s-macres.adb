@@ -59,12 +59,12 @@ package body System.Machine_Reset is
       pragma Unreferenced (Status);
       --  The parameter is just for ISO-C compatibility
 
-      APINT : Interfaces.Unsigned_32;
-      for APINT'Address use 16#E000_ED0C#;
-      pragma Import (Ada, APINT);
-      pragma Volatile (APINT);
+      AIRCR : Interfaces.Unsigned_32;
+      for AIRCR'Address use 16#E000_ED0C#;
+      pragma Import (Ada, AIRCR);
+      pragma Volatile (AIRCR);
    begin
-      APINT := 16#05FA_0004#;
+      AIRCR := 16#05FA_0004#;
       loop
          null;
       end loop;
