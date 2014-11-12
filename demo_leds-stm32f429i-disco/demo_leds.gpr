@@ -9,15 +9,15 @@ project Demo_Leds is
 
    for Target use "arm-eabi";
 
-   package Compiler is
-      for Default_Switches ("ada") use ("-gnatwa", "-gnatQ", "-gnat12");
-   end Compiler;
-
    package Builder is
       for Default_Switches ("ada") use
          ("-g",
           "--RTS=../ravenscar-sfp-stm32f429i-disco");
    end Builder;
+
+   package Compiler is
+      for Default_Switches ("ada") use ("-gnatwa", "-gnatQ", "-gnat12");
+   end Compiler;
 
    package Ide is
       for Gnat use "arm-eabi-gnat";

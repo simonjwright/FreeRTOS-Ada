@@ -5,12 +5,19 @@ project Demo_Leds is
    for Main use ("demo.adb");
    for Source_Dirs use ("src");
    for Object_Dir use "obj";
+   for Exec_Dir use ".";
+
+   for Target use "arm-eabi";
 
    package Builder is
       for Default_Switches ("ada") use
          ("-g",
           "--RTS=../ravenscar-sfp-stm32f4");
    end Builder;
+
+   package Compiler is
+      for Default_Switches ("ada") use ("-gnatwa", "-gnatQ", "-gnat12");
+   end Compiler;
 
    package Ide is
       for Gnat use "arm-eabi-gnat";
@@ -19,9 +26,5 @@ project Demo_Leds is
       for Program_Host use "localhost:4242";
       for Communication_Protocol use "remote";
    end Ide;
-
-   package Compiler is
-      for Default_Switches ("ada") use ("-gnatwa", "-gnatQ", "-gnat12");
-   end Compiler;
 
 end Demo_Leds;
