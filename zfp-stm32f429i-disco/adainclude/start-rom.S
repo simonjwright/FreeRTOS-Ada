@@ -81,7 +81,7 @@ _start_rom:
 	bne	0b
 
 1:
-	bl	_ada_setup_pll
+	/* bl	_ada_setup_pll */
 	bl	main
 
 	bl	exit

@@ -1,0 +1,21 @@
+syntax: glob
+
+*.ali
+*.o
+*.a
+*.bexch
+*.ci
+*.orig
+*.bin
+
+b__*.ad?
+
+.build
+obj
+test
+
+zfp-gpl
+
+auto.cgpr
+demo_leds-stm32f4/demo
+demo_leds-stm32f429i-disco/demo
