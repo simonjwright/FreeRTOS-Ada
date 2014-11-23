@@ -7,15 +7,19 @@ syntax: glob
 *.ci
 *.orig
 *.bin
+*-loc.xml
 
 b__*.ad?
 
 .build
 obj
 test
+doc
 
 zfp-gpl
 
 auto.cgpr
+gnatinspect.db
+
 demo_leds-stm32f4/demo
 demo_leds-stm32f429i-disco/demo
