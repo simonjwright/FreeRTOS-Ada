@@ -169,46 +169,111 @@ void SysTick_Handler(void)
 /*  available peripheral interrupt handler's name please refer to the startup */
 /*  file (startup_stm32f4xx.s).                                               */
 /******************************************************************************/
+//
+///********************** (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 
-///**
-//  * @brief  This function handles External line 0 interrupt request.
-//  * @param  None
-//  * @retval None
-//  */
-//void EXTI0_IRQHandler(void)
-//{
-//  HAL_GPIO_EXTI_IRQHandler(KEY_BUTTON_PIN);
-//}
-//
-//#ifdef EE_M24LR64
-///**
-//  * @brief  This function handles sEE DMA TX interrupt request.
-//  * @param  None
-//  * @retval None
-//  */
-//void EEPROM_I2C_DMA_TX_IRQHandler(void)
-//{
-//  HAL_DMA_IRQHandler(I2cHandle.hdmatx);
-//}
-//
-///**
-//  * @brief  This function handles sEE DMA RX interrupt request.
-//  * @param  None
-//  * @retval None
-//  */
-//void EEPROM_I2C_DMA_RX_IRQHandler(void)
-//{
-//  HAL_DMA_IRQHandler(I2cHandle.hdmarx);
-//}
-//#endif /* EE_M24LR64 */
-//
-///**
-//  * @}
-//  */
-//
-///**
-//  * @}
-//  */
-//
-///************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-//
+/* By sjw
+
+   The dummies in startup_stm32f429xx.s are all zero-length, so if an
+   unexpected interrupt occurs you're left guessing as to which one it
+   was.
+
+   This setup - which of course makes the code 32f429-specific - means
+   you can use the debugger to tell which interrupt handler the board
+   is spinning in.
+
+   They are all declared weak so that a 'strong' interrupt handler
+   will override them. */
+
+#define dummy_handler(name) __attribute__((weak)) void name() {while (1) {}}
+
+dummy_handler(WWDG_IRQHandler)
+dummy_handler(PVD_IRQHandler)
+dummy_handler(TAMP_STAMP_IRQHandler)
+dummy_handler(RTC_WKUP_IRQHandler)
+dummy_handler(FLASH_IRQHandler)
+dummy_handler(RCC_IRQHandler)
+dummy_handler(EXTI0_IRQHandler)
+dummy_handler(EXTI1_IRQHandler)
+dummy_handler(EXTI2_IRQHandler)
+dummy_handler(EXTI3_IRQHandler)
+dummy_handler(EXTI4_IRQHandler)
+dummy_handler(DMA1_Stream0_IRQHandler)
+dummy_handler(DMA1_Stream1_IRQHandler)
+dummy_handler(DMA1_Stream2_IRQHandler)
+dummy_handler(DMA1_Stream3_IRQHandler)
+dummy_handler(DMA1_Stream4_IRQHandler)
+dummy_handler(DMA1_Stream5_IRQHandler)
+dummy_handler(DMA1_Stream6_IRQHandler)
+dummy_handler(ADC_IRQHandler)
+dummy_handler(CAN1_TX_IRQHandler)
+dummy_handler(CAN1_RX0_IRQHandler)
+dummy_handler(CAN1_RX1_IRQHandler)
+dummy_handler(CAN1_SCE_IRQHandler)
+dummy_handler(EXTI9_5_IRQHandler)
+dummy_handler(TIM1_BRK_TIM9_IRQHandler)
+dummy_handler(TIM1_UP_TIM10_IRQHandler)
+dummy_handler(TIM1_TRG_COM_TIM11_IRQHandler)
+dummy_handler(TIM1_CC_IRQHandler)
+dummy_handler(TIM2_IRQHandler)
+dummy_handler(TIM3_IRQHandler)
+dummy_handler(TIM4_IRQHandler)
+dummy_handler(I2C1_EV_IRQHandler)
+dummy_handler(I2C1_ER_IRQHandler)
+dummy_handler(I2C2_EV_IRQHandler)
+dummy_handler(I2C2_ER_IRQHandler)
+dummy_handler(SPI1_IRQHandler)
+dummy_handler(SPI2_IRQHandler)
+dummy_handler(USART1_IRQHandler)
+dummy_handler(USART2_IRQHandler)
+dummy_handler(USART3_IRQHandler)
+dummy_handler(EXTI15_10_IRQHandler)
+dummy_handler(RTC_Alarm_IRQHandler)
+dummy_handler(OTG_FS_WKUP_IRQHandler)
+dummy_handler(TIM8_BRK_TIM12_IRQHandler)
+dummy_handler(TIM8_UP_TIM13_IRQHandler)
+dummy_handler(TIM8_TRG_COM_TIM14_IRQHandler)
+dummy_handler(TIM8_CC_IRQHandler)
+dummy_handler(DMA1_Stream7_IRQHandler)
+dummy_handler(FMC_IRQHandler)
+dummy_handler(SDIO_IRQHandler)
+dummy_handler(TIM5_IRQHandler)
+dummy_handler(SPI3_IRQHandler)
+dummy_handler(UART4_IRQHandler)
+dummy_handler(UART5_IRQHandler)
+dummy_handler(TIM6_DAC_IRQHandler)
+dummy_handler(TIM7_IRQHandler)
+dummy_handler(DMA2_Stream0_IRQHandler)
+dummy_handler(DMA2_Stream1_IRQHandler)
+dummy_handler(DMA2_Stream2_IRQHandler)
+dummy_handler(DMA2_Stream3_IRQHandler)
+dummy_handler(DMA2_Stream4_IRQHandler)
+dummy_handler(ETH_IRQHandler)
+dummy_handler(ETH_WKUP_IRQHandler)
+dummy_handler(CAN2_TX_IRQHandler)
+dummy_handler(CAN2_RX0_IRQHandler)
+dummy_handler(CAN2_RX1_IRQHandler)
+dummy_handler(CAN2_SCE_IRQHandler)
+dummy_handler(OTG_FS_IRQHandler)
+dummy_handler(DMA2_Stream5_IRQHandler)
+dummy_handler(DMA2_Stream6_IRQHandler)
+dummy_handler(DMA2_Stream7_IRQHandler)
+dummy_handler(USART6_IRQHandler)
+dummy_handler(I2C3_EV_IRQHandler)
+dummy_handler(I2C3_ER_IRQHandler)
+dummy_handler(OTG_HS_EP1_OUT_IRQHandler)
+dummy_handler(OTG_HS_EP1_IN_IRQHandler)
+dummy_handler(OTG_HS_WKUP_IRQHandler)
+dummy_handler(OTG_HS_IRQHandler)
+dummy_handler(DCMI_IRQHandler)
+dummy_handler(HASH_RNG_IRQHandler)
+dummy_handler(FPU_IRQHandler)
+dummy_handler(UART7_IRQHandler)
+dummy_handler(UART8_IRQHandler)
+dummy_handler(SPI4_IRQHandler)
+dummy_handler(SPI5_IRQHandler)
+dummy_handler(SPI6_IRQHandler)
+dummy_handler(SAI1_IRQHandler)
+dummy_handler(LTDC_IRQHandler)
+dummy_handler(LTDC_ER_IRQHandler)
+dummy_handler(DMA2D_IRQHandler)
