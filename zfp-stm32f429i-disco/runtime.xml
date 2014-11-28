@@ -4,10 +4,6 @@
   <configuration>
    <config>
 
-   type Loaders is ("ROM", "RAM", "USER");
-
-   Loader : Loaders := external ("LOADER", "ROM");
-
    package Compiler is
       Common_Required_Switches := ("-mlittle-endian", "-mhard-float",
         "-mcpu=cortex-m4", "-mfpu=fpv4-sp-d16", "-mthumb");
@@ -27,15 +23,8 @@
         Compiler.Common_Required_Switches &amp;
         ("-nostdlib", "-lgcc");
 
-      case Loader is
-         when "ROM" =>
-	    for Required_Switches use Linker'Required_Switches &amp;
-	    ("-T", "${RUNTIME_DIR(ada)}/adalib/stm32f4-rom.ld");
-         when "RAM" =>
-	    for Required_Switches use Linker'Required_Switches &amp;
-	    ("-T", "${RUNTIME_DIR(ada)}/adalib/stm32f4-ram.ld");
-	 when "USER" =>
-      end case;
+      for Required_Switches use Linker'Required_Switches &amp;
+	("-T", "${RUNTIME_DIR(ada)}/adalib/stm32f429i-flash.ld");
    end Linker;
 
    package Binder is

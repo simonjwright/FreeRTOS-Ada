@@ -4,11 +4,14 @@ STM32CUBE = $(HOME)/STM32Cube_FW_F4_V1.3.0
 
 include Makefile.inc
 
+OPTFLAGS = -O0
+DEBFLAGS = -g
+
 CC = arm-eabi-gcc
-CFLAGS = -c -g -O0 $(INCLUDES) $(DEFINES)
+CFLAGS = -c $(OPTFLAGS) $(DEBFLAGS) $(INCLUDES) $(DEFINES)
 
 AS = arm-eabi-gcc
-ASFLAGS = -c -g -O0
+ASFLAGS = -c $(OPTFLAGS) $(DEBFLAGS)
 
 AR = arm-eabi-ar
 ARFLAGS = -r -s
