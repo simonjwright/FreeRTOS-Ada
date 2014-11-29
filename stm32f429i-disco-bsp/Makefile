@@ -40,12 +40,10 @@ HAL_OBJECTS = $(patsubst %.c,%.o,$(notdir $(HAL_SOURCES)))
 hal-stamp: $(HAL_OBJECTS)
 	touch $@
 
-all:: lib lib/libbsp.a
+all:: adalib/libbsp.a
 
-lib:
-	mkdir lib
-lib/libbsp.a: $(BSP_OBJECTS) $(CMSIS_OBJECTS) $(HAL_OBJECTS)
+adalib/libbsp.a: $(BSP_OBJECTS) $(CMSIS_OBJECTS) $(HAL_OBJECTS)
 	$(AR) $(ARFLAGS) $@ $^
 
 clean:
-	-rm -f *~ *-stamp *.o lib/libbsp.a
+	-rm -f *~ *-stamp *.o adalib/libbsp.a
