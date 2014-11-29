@@ -1,0 +1,21 @@
+project ada_delay is
+   for main use ("ada_delay.adb");
+   for object_dir use ".build";
+   for source_dirs use (".");
+   for exec_dir use ".";
+   for target use "arm-eabi";
+   package builder is
+      for default_switches ("ada") use
+        (
+         "-g",
+         "-O0",
+         "--RTS=../stm32f429i-disco-bsp"
+        );
+   end builder;
+   package linker is
+      for default_switches ("ada") use
+        (
+         "-Wl,-Map," & project'project_dir & project'name & ".map"
+         );
+   end linker;
+end ada_delay;
