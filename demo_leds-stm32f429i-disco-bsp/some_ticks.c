@@ -1,3 +1,12 @@
+/*
+ * Copyright Simon Wright <simon@pushface.org>
+ *
+ * Copying and distribution of this file, with or without
+ * modification, are permitted in any medium without royalty provided
+ * the copyright notice and this notice are preserved.  This file is
+ * offered as-is, without any warranty.
+ */
+
 #include "stm32f429i_discovery.h"
 #include "stm32f4xx_hal.h"
 #include "bsp_configure_system_clock.h"
@@ -33,24 +42,10 @@ int main(void)
 
   while (1) {
     if (t_500) {
-      /* static int long_led_on = 0; */
-      /* if (long_led_on) { */
-      /*   BSP_LED_Off(long_led); */
-      /* } else { */
-      /*   BSP_LED_On(long_led); */
-      /* } */
-      /* long_led_on = !long_led_on; */
       BSP_LED_Toggle(long_led);
       t_500 = 0;
     }
     if (t_250) {
-      /* static int short_led_on = 0; */
-      /* if (short_led_on) { */
-      /*   BSP_LED_Off(short_led); */
-      /* } else { */
-      /*   BSP_LED_On(short_led); */
-      /* } */
-      /* short_led_on = !short_led_on; */
       BSP_LED_Toggle(short_led);
       t_250 = 0;
     }

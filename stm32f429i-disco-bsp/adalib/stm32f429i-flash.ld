@@ -22,6 +22,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+/*
+ * Originally copied from https://github.com/\
+ * jsnyder/elua/blob/bikeNomad-master/src/platform/stm32f4/stm32.ld
+ */
+
 /* Entry Point */
 ENTRY(Reset_Handler)
 

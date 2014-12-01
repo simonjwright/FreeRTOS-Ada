@@ -1,3 +1,10 @@
+--  Copyright Simon Wright <simon@pushface.org>
+--
+--  Copying and distribution of this file, with or without
+--  modification, are permitted in any medium without royalty provided
+--  the copyright notice and this notice are preserved.  This file is
+--  offered as-is, without any warranty.
+
 project ada_delay is
    for main use ("ada_delay.adb");
    for object_dir use ".build";
@@ -13,6 +20,7 @@ project ada_delay is
         );
    end builder;
    package linker is
+      --  --create-map-file isn't supported in this configuration
       for default_switches ("ada") use
         (
          "-Wl,-Map," & project'project_dir & project'name & ".map"
