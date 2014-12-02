@@ -1,4 +1,4 @@
-project Runtime_Build is
+project Build_Runtime is
    for Languages use ("Ada", "Asm_Cpp", "C");
 
    for Library_Auto_Init use "False";
@@ -49,4 +49,4 @@ project Runtime_Build is
       for Switches ("a-tags.adb") use ALL_ADAFLAGS & ("-g");
   end Compiler;
 
-end Runtime_Build;
+end Build_Runtime;

@@ -57,9 +57,9 @@ else
 endif
 
 adalib/libgnat.a: force
-	gprbuild -p -P runtime_build.gpr -XBUILD=$(build)
+	gprbuild -p -P build_runtime.gpr -XBUILD=$(build)
 
 clean::
-	-gprclean -P runtime_build.gpr
+	-gprclean -P build_runtime.gpr
 
 .PHONY: all clean force
