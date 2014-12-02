@@ -45,5 +45,21 @@ all:: adalib/libbsp.a
 adalib/libbsp.a: $(BSP_OBJECTS) $(CMSIS_OBJECTS) $(HAL_OBJECTS)
 	$(AR) $(ARFLAGS) $@ $^
 
-clean:
+clean::
 	-rm -f *~ *-stamp *.o adalib/libbsp.a
+
+all:: adalib/libgnat.a
+
+ifeq ($(OPTFLAGS),-O0)
+  build := Debug
+else
+  build := Production
+endif
+
+adalib/libgnat.a: force
+	gprbuild -p -P runtime_build.gpr -XBUILD=$(build)
+
+clean::
+	-gprclean -P runtime_build.gpr
+
+.PHONY: all clean force

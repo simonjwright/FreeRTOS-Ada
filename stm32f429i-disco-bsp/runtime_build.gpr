@@ -6,7 +6,7 @@ project Runtime_Build is
    for Library_Kind use "static";
 
    for Library_Dir use "adalib";
-   for Object_Dir use "obj";
+   for Object_Dir use ".build";
 
    for Source_Dirs use ("adainclude");
 
@@ -21,12 +21,14 @@ project Runtime_Build is
 
    package Compiler is
       CFLAGS := ("-fcallgraph-info=da",
-                 "-ffunction-sections", "-fdata-sections");
+                 "-ffunction-sections",
+                 "-fdata-sections");
+      CFLAGS := CFLAGS & ("-g");
       case Build is
         when "Production" =>
            CFLAGS := CFLAGS & ("-O2");
         when "Debug" =>
-           CFLAGS := CFLAGS & ("-O0", "-g");
+           CFLAGS := CFLAGS & ("-O0");
       end case;
       ALL_ADAFLAGS := ("-gnatpgn", "-nostdinc") & CFLAGS;
       ALL_CFLAGS := ("-DIN_RTS", "-Dinhibit_libc") & CFLAGS;
