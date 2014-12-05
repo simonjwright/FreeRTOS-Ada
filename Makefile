@@ -15,7 +15,7 @@
 all: ; $(error This makefile is only for building distributions,	\
 	("make dist"))
 
-NAME ?= gnat-runtimes
+NAME ?= stm32f4-gnat-rts
 subdirs := stm32f429i-disco-bsp demo_leds-stm32f429i-disco-bsp
 
 dist::
