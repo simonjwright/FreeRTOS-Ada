@@ -1,0 +1,19 @@
+This project contains various GNAT Ada Run Time Systems (RTSs)
+targeted at the STM32F4-series evaluation boards from
+STMicroelectronics (http://www.st.com).
+
+(1) ravenscar-sfp-stm32f4 is AdaCore's package for the STM32F4
+    Discovery distributed with the GNAT GPL 2014 Linux-based cross
+    compiler.
+
+(2) ravenscar-sfp-stm32f429i-disco is (1) modified at
+    https://github.com/gnlnops/gnat-stm32f429i-disco for the
+    STM32F429I Discovery.
+
+(3) stm32f429i-disco-bsp is based on the ST Cube BSPs from
+    STMicroelectronics. The source code written for this RTS has the
+    GPL Runtime Library exception. See
+    stm32f429i-disco-bsp/COPYING.STMicroelectronics for the ST Cube
+    licence terms.
+
+Each RTS has corresponding example code in demo_leds-{rts}.

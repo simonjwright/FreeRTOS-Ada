@@ -1,0 +1,96 @@
+# -*- Makefile -*-
+#
+# This package is free software; you can redistribute it and/or
+# modify it under terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 3, or
+# (at your option) any later version. It is distributed in the
+# hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; see the file COPYING3. If not, see
+# <http://www.gnu.org/licenses/>.
+#
+# Copyright Simon Wright <simon@pushface.org>
+
+# To avoid disaster
+ifndef DIST
+  $(error Must define DIST)
+endif
+
+all: ; $(error Only to be used to build distributions)
+
+dist::
+
+TOP_DISTRIBUTION_FILES =                        \
+  README                                        \
+  COPYING.MIT                                   \
+  COPYING.RUNTIME                               \
+  COPYING.STMicroelectronics                    \
+  COPYING3
+
+RTS_DISTRIBUTION_FILES =                        \
+  Makefile                                      \
+  Makefile.inc
+
+RTS_DISTRIBUTION_FILES +=			\
+  include/bsp_configure_system_clock.h		\
+  include/stm32f4xx_hal_conf.h			\
+  include/stm32f4xx_it.h
+
+RTS_DISTRIBUTION_FILES +=                       \
+  src/_init.c                                   \
+  src/bsp_configure_system_clock.c              \
+  src/startup_stm32f429xx.s                     \
+  src/stm32f4xx_it.c                            \
+  src/syscalls.c                                \
+  src/system_stm32f4xx.c
+
+RTS_DISTRIBUTION_FILES +=                       \
+  build_runtime.gpr                             \
+  runtime.xml
+
+RTS_DISTRIBUTION_FILES +=                                               \
+  adainclude/a-except.adb                                               \
+  adainclude/a-except.ads                                               \
+  adainclude/a-unccon.ads                                               \
+  adainclude/a-uncdea.ads                                               \
+  adainclude/ada.ads                                                    \
+  adainclude/g-souinf.ads                                               \
+  adainclude/gnat.ads                                                   \
+  adainclude/interfac.ads                                               \
+  adainclude/last_chance_handler.adb                                    \
+  adainclude/last_chance_handler.ads                                    \
+  adainclude/machcode.ads                                               \
+  adainclude/os_exit.adb                                                \
+  adainclude/os_exit.ads                                                \
+  adainclude/s-atacco.adb                                               \
+  adainclude/s-atacco.ads                                               \
+  adainclude/s-maccod.ads                                               \
+  adainclude/s-stoele.adb                                               \
+  adainclude/s-stoele.ads                                               \
+  adainclude/s-unstyp.ads                                               \
+  adainclude/stm32f429i_discovery-buttons.adb                           \
+  adainclude/stm32f429i_discovery-buttons.ads                           \
+  adainclude/stm32f429i_discovery-hal-configure_system_clock.adb        \
+  adainclude/stm32f429i_discovery-hal.adb                               \
+  adainclude/stm32f429i_discovery-hal.ads                               \
+  adainclude/stm32f429i_discovery-leds.adb                              \
+  adainclude/stm32f429i_discovery-leds.ads                              \
+  adainclude/stm32f429i_discovery.ads                                   \
+  adainclude/system.ads
+
+RTS_DISTRIBUTION_FILES +=                       \
+  adalib/stm32f429i-flash.ld
+
+dist:: $(TOP_DISTRIBUTION_FILES)
+	tar cf - $(TOP_DISTRIBUTION_FILES) | tar xvf - -C $(DIST)
+
+dist:: $(RTS_DISTRIBUTION_FILES)
+	mkdir $(DIST)/stm32f429i-disco-bsp
+	tar cf - $(RTS_DISTRIBUTION_FILES) | \
+	  tar xvf - -C $(DIST)/stm32f429i-disco-bsp
+	cd $(DIST)/stm32f429i-disco-bsp; make; rm -rf *.o .build
+
+.PHONY: all dist
