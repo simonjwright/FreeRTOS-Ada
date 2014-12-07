@@ -38,7 +38,7 @@ work: see the file COPYING.STMicroelectronics.
 The following non-original files don't form part of a binary
 deliverable, so don't affect the status of the binary:
 
-o runtime.xml and runtime_build.gpr are copied from AdaCore's GNAT GPL
+o build_runtime.gpr and runtime.xml are copied from AdaCore's GNAT GPL
   2014 arm-eabi distribution (for Linux).
 
 o The linker script stm32f429i-flash.ld is under an MIT licence: see
