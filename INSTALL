@@ -1,0 +1,83 @@
+You should always use gprbuild to do cross-builds. Gnatmake
+(arm-eabi-gnatmake) doesn't work nearly so well. For GPS, in
+Build-Settings-Targets, in the File tab change gnatmake and builder to
+gprbuild.
+
+You need to specify the target (arm-eabi). If you're only going to use
+the command line, you can specify --target=arm-eabi on the command
+line or in the GPR project-level attribute Target (for Target use
+"arm-eabi";). If you're going to use Emacs ada-mode, use the Target
+attribute. If you're going to use GPS, you can't use the Target
+attribute (it confuses GPS): instead, in Build-Settings-Toolchains,
+select Activate multiple toolchains setup, enter the cross-compiler
+path in 'Compiler path', enter the host compiler path in 'Tools path',
+untick 'Use the compiler in tools path to generate cross-reference
+files', and include package IDE in your GPR:
+
+   package IDE is
+      for Gnatlist use "arm-eabi-gnatls";
+   end IDE;
+
+The GNAT compiler running under gprbuild can find RTSs in various
+ways. An RTS contains an adainclude/ directory with the source of the
+RTS and an adalib/ directory with the corresponding library, linker
+script and .ali files.
+
+If not the default, the RTS is named using a "--RTS=" option. In a
+GPR, this would be in package Builder (so it's applied during all
+phases of the build):
+
+   package Builder is
+      for Default_Switches ("ada") use
+        (
+         "-g",
+         "-O0",
+         "--RTS=stm32f429i-disco-bsp"
+        );
+   end Builder;
+
+The normal place for RTSs to be installed is in the location indicated
+by "arm-eabi-gcc -print-libgcc-file-name"; for GNAT GPL 2014, that
+would be $prefix/lib/gcc/arm-eabi/4.7.4/, referred to from here as
+$lib.
+
+If the RTS is named stm32f429i-disco-bsp, the compiler will treat it
+as the default RTS (and you need a default RTS) if
+
+o $lib contains text files ada_object_path, ada_source_path containing
+  the locations of the adalib and adainclude directories of the RTS
+  respectively.
+
+o $lib contains symbolic links named adalib and adainclude to the
+  adalib and adainclude directories of the RTS respectively.
+
+Alternative RTSs are found here if they are in directories named
+rts-{name}, for example rts-stm32f429i-disco-bsp/ corresponds to
+--RTS=stm32f429i-disco-bsp.
+
+RTSs can also be located by giving the explicit path in the --RTS=
+option (this has to be an absolute path if using gnatmake, a relative
+path works fine for command line or Emacs):
+
+   package Builder is
+      for Default_Switches ("ada") use
+        (
+         "-g",
+         "-O0",
+         "--RTS=../stm32f429i-disco-bsp"
+        );
+
+It can be very useful indeed to have a link map file. Because gprbuild
+doesn't support --create-map-file with a cross-compiler, a good way to
+specify this is in package Linker in the GPR:
+
+   package Linker is
+      for Default_Switches ("ada") use
+        (
+         "-Wl,-Map," & Project'Project_Dir & Project'Name & ".map"
+         );
+   end Linker;
+
+Note the use of Project'Project_Dir and Project'Name; the first is
+especially useful because the linker ld runs in the GPR's Object_Dir,
+which is often a subdirectory of the project directory.

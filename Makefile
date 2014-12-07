@@ -17,6 +17,7 @@ all: ; $(error This makefile is only for building distributions,	\
 
 NAME ?= stm32f4-gnat-rts
 subdirs := stm32f429i-disco-bsp demo_leds-stm32f429i-disco-bsp
+TOP_LEVEL_FILES = INSTALL
 
 dist::
 
@@ -34,6 +35,7 @@ $(NAME)-$(DATE).tar.gz: $(NAME)-$(DATE)
 $(NAME)-$(DATE):
 	rm -rf $@
 	mkdir $@
+	cp $(TOP_LEVEL_FILES) $@/
 	for sub in $(subdirs); do				\
 	  make -C $$sub -f Makefile.dist dist DIST=$(PWD)/$@;	\
 	done
