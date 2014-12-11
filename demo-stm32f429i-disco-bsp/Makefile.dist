@@ -23,6 +23,8 @@ all: ; $(error Only to be used to build distributions)
 
 dist::
 
+THIS := demo-stm32f429i-disco-bsp
+
 DEMO_DISTRIBUTION_FILES =			\
   Makefile
 
@@ -45,13 +47,15 @@ DEMO_DISTRIBUTION_FILES +=			\
 
 DEMO_DISTRIBUTION_FILES +=			\
   ada_delay.gpr					\
-  ada_delay.adb 				\
+  ada_delay.adb					\
   clocking.ads					\
-  clocking.adb
+  clocking.adb					\
+  lcd.adb					\
+  lcd.gpr
 
 dist:: $(DEMO_DISTRIBUTION_FILES)
-	mkdir $(DIST)/demo_leds-stm32f429i-disco-bsp
+	mkdir $(DIST)/$(THIS)
 	tar cf - $(DEMO_DISTRIBUTION_FILES) | \
-	  tar xvf - -C $(DIST)/demo_leds-stm32f429i-disco-bsp
+	  tar xvf - -C $(DIST)/$(THIS)
 
 .PHONY: all dist

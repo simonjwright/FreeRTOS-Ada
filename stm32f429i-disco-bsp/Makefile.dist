@@ -23,6 +23,8 @@ all: ; $(error Only to be used to build distributions)
 
 dist::
 
+THIS := stm32f429i-disco-bsp
+
 TOP_DISTRIBUTION_FILES =                        \
   README                                        \
   COPYING.MIT                                   \
@@ -73,9 +75,11 @@ RTS_DISTRIBUTION_FILES +=                                               \
   adainclude/s-unstyp.ads                                               \
   adainclude/stm32f429i_discovery-buttons.adb                           \
   adainclude/stm32f429i_discovery-buttons.ads                           \
-  adainclude/stm32f429i_discovery-hal-configure_system_clock.adb        \
+  adainclude/stm32f429i_discovery-configure_external_clock.ads          \
   adainclude/stm32f429i_discovery-hal.adb                               \
   adainclude/stm32f429i_discovery-hal.ads                               \
+  adainclude/stm32f429i_discovery-lcd.adb                               \
+  adainclude/stm32f429i_discovery-lcd.ads                               \
   adainclude/stm32f429i_discovery-leds.adb                              \
   adainclude/stm32f429i_discovery-leds.ads                              \
   adainclude/stm32f429i_discovery.ads                                   \
@@ -88,9 +92,9 @@ dist:: $(TOP_DISTRIBUTION_FILES)
 	tar cf - $(TOP_DISTRIBUTION_FILES) | tar xvf - -C $(DIST)
 
 dist:: $(RTS_DISTRIBUTION_FILES)
-	mkdir $(DIST)/stm32f429i-disco-bsp
+	mkdir $(DIST)/$(THIS)
 	tar cf - $(RTS_DISTRIBUTION_FILES) | \
-	  tar xvf - -C $(DIST)/stm32f429i-disco-bsp
-	cd $(DIST)/stm32f429i-disco-bsp; make; rm -rf *.o .build
+	  tar xvf - -C $(DIST)/$(THIS)
+	cd $(DIST)/$(THIS); make; rm -rf *.o .build
 
 .PHONY: all dist
