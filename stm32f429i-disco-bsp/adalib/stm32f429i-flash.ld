@@ -153,7 +153,10 @@ SECTIONS
     } >sram
 
     end = .;
-    PROVIDE( _estack = 0x2002ffff);
+    /* Atollic have 0x2002ffff. This seems unaligned. But it works for them.
+       The LCD stuff (in Ada) fails miserably with that setting; where does
+       the st-link/GDB stuff fit? */
+    PROVIDE( _estack = 0x20030000);
 
     /DISCARD/ :
     {

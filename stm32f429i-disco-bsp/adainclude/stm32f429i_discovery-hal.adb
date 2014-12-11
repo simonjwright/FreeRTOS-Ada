@@ -18,10 +18,9 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-package body STM32F429I_Discovery.HAL is
+with Interfaces;
 
-   procedure Configure_System_Clock;
-   procedure Configure_System_Clock is separate;
+package body STM32F429I_Discovery.HAL is
 
    procedure Initialize is
       procedure HAL_Init with
@@ -30,7 +29,15 @@ package body STM32F429I_Discovery.HAL is
         External_Name => "HAL_Init";
    begin
       HAL_Init;
-      Configure_System_Clock;
    end Initialize;
+
+   procedure Wait (Milliseconds : Natural) is
+      procedure HAL_Delay (Milliseconds : Interfaces.Unsigned_32) with
+        Import,
+        Convention => C,
+        External_Name => "HAL_Delay";
+   begin
+      HAL_Delay (Interfaces.Unsigned_32 (Milliseconds));
+   end Wait;
 
 end STM32F429I_Discovery.HAL;

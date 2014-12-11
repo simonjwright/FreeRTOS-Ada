@@ -7,6 +7,7 @@ syntax: glob
 *.ci
 *.orig
 *.bin
+*.map
 *-loc.xml
 
 b__*.ad?
@@ -15,6 +16,7 @@ b__*.ad?
 obj
 test
 doc
+stm32f4-gnat-rts*
 
 zfp-gpl
 

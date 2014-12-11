@@ -22,4 +22,6 @@ package STM32F429I_Discovery.HAL with Pure is
 
    procedure Initialize;
 
+   procedure Wait (Milliseconds : Natural);
+
 end STM32F429I_Discovery.HAL;

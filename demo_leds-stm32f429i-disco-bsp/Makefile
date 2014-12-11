@@ -65,10 +65,8 @@ cc_delay.cc: cc_delay.hh
 ada_delay: force
 	gprbuild --target=arm-eabi -p -P ada_delay -largs $(LDFLAGS)
 
-# Working on auto-generated attempt at header translation
-ada-specs: ada_interfacing.h
-	[ -d specs ] || mkdir specs
-	cd specs; $(CXX) $(INCLUDES) ../ada_interfacing.h -fdump-ada-spec
+lcd: force
+	gprbuild --target=arm-eabi -p -P lcd -largs $(LDFLAGS)
 
 %.bin: %
 	arm-eabi-objcopy -O binary $< $@
