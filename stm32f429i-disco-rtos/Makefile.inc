@@ -1,7 +1,13 @@
 # -*- Makefile -*-
 
-# Various definitions of STM32F429I-Discovery locations in the
-# STM32CUBE firmware support package.
+# Various definitions of STM32F429I-Discovery/FreeRTOS locations in
+# the STM32CUBE firmware support package.
+
+# Work out the location of this file (the top level of rtos),
+# without the trailing /. Must be before other includes.
+RTOS := $(shell echo $(dir $(abspath $(lastword $(MAKEFILE_LIST)))) \
+	| sed -e "s;/$$;;")
+BSP := $(RTOS)
 
 STM32CUBE ?= $(HOME)/STM32Cube_FW_F4_V1.3.0
 
@@ -24,15 +30,13 @@ BSP_COMPONENTS_INCLUDES = $(BSP_COMPONENTS) 	\
 
 STM32INCLUDES += $(BSP_COMPONENTS_INCLUDES)
 
-# Work out the location of this file (the top level of stm32f429i-disco-bsp),
-# without the trailing /.
-BSP := $(shell echo $(dir $(abspath $(lastword $(MAKEFILE_LIST)))) \
-	| sed -e "s;/$$;;")
+FREERTOS = $(STM32CUBE)/Middlewares/Third_Party/FreeRTOS/Source
 
-INCLUDES = $(patsubst %,-I%,$(STM32INCLUDES) $(BSP)/include)
+FREERTOSINCLUDES = $(FREERTOS)/CMSIS_RTOS \
+  $(FREERTOS)/include \
+  $(FREERTOS)/portable/GCC/ARM_CM4F
+
+INCLUDES = $(patsubst %,-I%,$(STM32INCLUDES) $(FREERTOSINCLUDES) $(BSP)/include)
 
 # for CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 DEFINES = -DSTM32F429xx=1 -DUSE_HAL_DRIVER=1
-
-CC = arm-eabi-gcc
-CFLAGS = -c -g -O0 $(INCLUDES) $(DEFINES)

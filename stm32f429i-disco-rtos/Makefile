@@ -20,33 +20,29 @@ BSP_SRC   = $(STM32CUBE)/Drivers/BSP/STM32F429I-Discovery
 CMSIS_SRC = src
 HAL_SRC   = $(STM32CUBE)/Drivers/STM32F4xx_HAL_Driver/Src
 
-VPATH = $(BSP_SRC) $(BSP_COMPONENTS) $(CMSIS_SRC) $(HAL_SRC)
+# All the sources except MemMang, where there are alternative
+# implementations and we can only choose 1. Note the :=, to force
+# ordering.
+VPATH := $(BSP_SRC) $(BSP_COMPONENTS) $(CMSIS_SRC) $(HAL_SRC)
+VPATH += $(FREERTOS) $(FREERTOS)/CMSIS_RTOS $(FREERTOS)/portable/GCC/ARM_CM4F
 
-BSP_SOURCES =  $(notdir $(wildcard $(BSP_SRC)/*.c))
-BSP_SOURCES += $(notdir $(wildcard $(patsubst %,%/*.c,$(BSP_COMPONENTS))))
-BSP_OBJECTS =  $(patsubst %.c,%.o,$(notdir $(BSP_SOURCES)))
-bsp-stamp: $(BSP_OBJECTS)
-	touch $@
+C_SOURCES := $(notdir $(wildcard $(patsubst %,%/*.c,$(VPATH))))
+S_SOURCES := $(notdir $(wildcard $(patsubst %,%/*.s,$(VPATH))))
 
-CMSIS_C_SOURCES = $(notdir $(wildcard $(CMSIS_SRC)/*.c))
-CMSIS_S_SOURCES = $(notdir $(wildcard $(CMSIS_SRC)/*.s))
-CMSIS_OBJECTS = $(patsubst %.c,%.o,$(notdir $(CMSIS_C_SOURCES))) \
-                $(patsubst %.s,%.o,$(notdir $(CMSIS_S_SOURCES)))
-cmsis-stamp: $(CMSIS_OBJECTS)
-	touch $@
+# Choose the memory manager implementation.
+C_SOURCES += heap_1.c
+# Now update the VPATH so we can find the source of the memory manager.
+VPATH += $(FREERTOS)/portable/MemMang
 
-HAL_SOURCES = $(notdir $(wildcard $(HAL_SRC)/*.c))
-HAL_OBJECTS = $(patsubst %.c,%.o,$(notdir $(HAL_SOURCES)))
-hal-stamp: $(HAL_OBJECTS)
-	touch $@
+OBJECTS := $(patsubst %.c,%.o,$(C_SOURCES)) $(patsubst %.s,%.o,$(S_SOURCES))
 
-all:: adalib/libbsp.a
+all:: adalib/libbsp-rtos.a
 
-adalib/libbsp.a: $(BSP_OBJECTS) $(CMSIS_OBJECTS) $(HAL_OBJECTS)
+adalib/libbsp-rtos.a: $(OBJECTS)
 	$(AR) $(ARFLAGS) $@ $^
 
 clean::
-	-rm -f *~ *-stamp *.o adalib/libbsp.a
+	-rm *~ *.orig *.o
 
 all:: adalib/libgnat.a
 
@@ -63,3 +59,16 @@ clean::
 	-gprclean -P build_runtime.gpr
 
 .PHONY: all clean force
+
+MAIN_OBJS = main.o
+
+main: $(MAIN_OBJS) libbsp-rtos.a
+	$(CC) $(DEBUG) $^ -o $@ \
+	  -Wl,-Tadalib/stm32f429i-flash.ld \
+	  -Wl,-Map,$@.map
+
+clean::
+	-rm main main.bin
+
+%.bin: %
+	arm-eabi-objcopy -O binary $^ $@
