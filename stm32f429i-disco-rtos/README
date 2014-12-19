@@ -1,0 +1,50 @@
+This is an Ada Runtime System (RTS) for the GCC Ada compiler (GNAT),
+targeted to the STMicroelectronics STM32F429I Discovery board (see
+http://www.st.com/).
+
+The RTS is a true zero-footprint system. Package System contains the
+following restrictions:
+
+   pragma Restrictions (No_Allocators);
+   pragma Restrictions (No_Delay);
+   pragma Restrictions (No_Dispatch);
+   pragma Restrictions (No_Enumeration_Maps);
+   pragma Restrictions (No_Exception_Propagation);
+   pragma Restrictions (No_Finalization);
+   pragma Restrictions (No_Implicit_Dynamic_Code);
+   pragma Restrictions (No_Protected_Types);
+   pragma Restrictions (No_Recursion);
+   pragma Restrictions (No_Secondary_Stack);
+   pragma Restrictions (No_Tasking);
+
+The RTS contains object code for all the relevant drivers from
+STMicroelectronics' STM32Cube_FW_F4_V1.3.0 package, but not the source
+code. Makefile.inc (altered as necessary to match the place where you
+have installed the STM32Cube package) can be included in your own
+Makefiles to provide access to the drivers' header and source files;
+see the demonstration's Makefile.
+
+The RTS has been built with no optimisation (-O0) and for debugging
+(-g), using GNAT GPL 2014 for arm-eabi-darwin-bin[1] on Mac OS X (it
+should work out of the box with a Linux-hosted cross-compiler). Ada, C
+and C++ demo programs are included.
+
+The RTS is intended to support commercial binary distributions[2]. The
+Ada source code has either been derived from FSF GCC (4.9.1) or
+written for this work; see the files COPYING3 and COPYING.RUNTIME. The
+C source has either been derived from STMCube or written for this
+work: see the file COPYING.STMicroelectronics.
+
+The following non-original files don't form part of a binary
+deliverable, so don't affect the status of the binary:
+
+o build_runtime.gpr and runtime.xml are copied from AdaCore's GNAT GPL
+  2014 arm-eabi distribution (for Linux).
+
+o The linker script stm32f429i-flash.ld is under an MIT licence: see
+  COPYING.MIT.
+
+[1] http://sourceforge.net/projects/gnuada/files/GNAT_GPL%20Mac%20OS%20X/2014-arm-eabi-darwin-bin/
+[2] STMicroelectronics' evaluation product licence agreement at
+www.st.com/epla forbids the sale of products including this board, so
+this work would have to be reconfigured for a different board anyway.
