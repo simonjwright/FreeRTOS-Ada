@@ -20,7 +20,7 @@
    package Linker is
       for Required_Switches use Linker'Required_Switches &amp;
         ("${RUNTIME_DIR(ada)}/adalib/libgnat.a") &amp;
-        ("${RUNTIME_DIR(ada)}/adalib/libbsp.a") &amp;
+        ("${RUNTIME_DIR(ada)}/adalib/libbsp-rtos.a") &amp;
         Compiler.Common_Required_Switches &amp;
         ("-nostdlib", "-lgcc");
 

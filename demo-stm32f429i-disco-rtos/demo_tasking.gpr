@@ -1,0 +1,29 @@
+--  Copyright Simon Wright <simon@pushface.org>
+--
+--  Copying and distribution of this file, with or without
+--  modification, are permitted in any medium without royalty provided
+--  the copyright notice and this notice are preserved.  This file is
+--  offered as-is, without any warranty.
+
+project Demo_Tasking is
+   for Main use ("demo_tasking.adb");
+   for Object_Dir use ".build-demo";
+   for Source_Dirs use (".");
+   for Exec_Dir use ".";
+   for Target use "arm-eabi";
+   package Builder is
+      for Default_Switches ("ada") use
+        (
+         "-g",
+         "-O0",
+         "--RTS=../stm32f429i-disco-rtos"
+        );
+   end Builder;
+   package Linker is
+      --  --create-map-file isn't supported in this configuration
+      for Default_Switches ("ada") use
+        (
+         "-Wl,-Map," & Project'Project_Dir & Project'Name & ".map"
+         );
+   end Linker;
+end Demo_Tasking;

@@ -35,6 +35,8 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
+pragma Profile (Ravenscar);
+
 --  These restrictions were taken from http://wiki.osdev.org/Ada_Bare_bones
 pragma Discard_Names;
 pragma Normalize_Scalars;
@@ -44,11 +46,12 @@ pragma Restrictions (No_Dispatch);
 pragma Restrictions (No_Enumeration_Maps);
 pragma Restrictions (No_Exception_Propagation);
 pragma Restrictions (No_Finalization);
-pragma Restrictions (No_Implicit_Dynamic_Code);
-pragma Restrictions (No_Protected_Types);
 pragma Restrictions (No_Recursion);
 pragma Restrictions (No_Secondary_Stack);
-pragma Restrictions (No_Tasking);
+
+--  pragma Restrictions (No_Implicit_Dynamic_Code) not applied; it
+--  forbids trampolines, which are needed for 'Unrestricted_Access,
+--  especially for foreign-convention subprograms.
 
 package System is
    pragma Pure;
@@ -107,17 +110,18 @@ package System is
 
    --  Priority-related Declarations (RM D.1)
 
-   --  These declarations are present merely to meet the RM
-   --  requirement. They have no meaning in a ZFP runtime.
+   --  These declarations correspond to CMSIS_OS (not sure whether
+   --  there is actually such a thing as an interrupt priority in this
+   --  OS).
 
-   Max_Priority           : constant Positive := 30;
-   Max_Interrupt_Priority : constant Positive := 31;
+   Max_Priority           : constant Positive := 2;
+   Max_Interrupt_Priority : constant Positive := 3;
 
-   subtype Any_Priority       is Integer      range  0 .. 31;
-   subtype Priority           is Any_Priority range  0 .. 30;
-   subtype Interrupt_Priority is Any_Priority range 31 .. 31;
+   subtype Any_Priority       is Integer      range -3 .. 3;
+   subtype Priority           is Any_Priority range -3 .. 2;
+   subtype Interrupt_Priority is Any_Priority range 3 .. 3;
 
-   Default_Priority : constant Priority := 15;
+   Default_Priority : constant Priority := 0;
 
 private
 

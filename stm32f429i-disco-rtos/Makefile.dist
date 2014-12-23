@@ -23,13 +23,15 @@ all: ; $(error Only to be used to build distributions)
 
 dist::
 
-THIS := stm32f429i-disco-bsp
+THIS := stm32f429i-disco-rtos
 
-TOP_DISTRIBUTION_FILES =                        \
-  README                                        \
-  COPYING.MIT                                   \
-  COPYING.RUNTIME                               \
-  COPYING.STMicroelectronics                    \
+TOP_DISTRIBUTION_FILES =			\
+  README					\
+  COPYING.ARM					\
+  COPYING.FreeRTOS				\
+  COPYING.MIT					\
+  COPYING.RUNTIME				\
+  COPYING.STMicroelectronics			\
   COPYING3
 
 RTS_DISTRIBUTION_FILES =                        \
@@ -53,37 +55,49 @@ RTS_DISTRIBUTION_FILES +=                       \
   build_runtime.gpr                             \
   runtime.xml
 
-RTS_DISTRIBUTION_FILES +=                                               \
-  adainclude/a-except.adb                                               \
-  adainclude/a-except.ads                                               \
-  adainclude/a-unccon.ads                                               \
-  adainclude/a-uncdea.ads                                               \
-  adainclude/ada.ads                                                    \
-  adainclude/g-souinf.ads                                               \
-  adainclude/gnat.ads                                                   \
-  adainclude/interfac.ads                                               \
-  adainclude/last_chance_handler.adb                                    \
-  adainclude/last_chance_handler.ads                                    \
-  adainclude/machcode.ads                                               \
-  adainclude/os_exit.adb                                                \
-  adainclude/os_exit.ads                                                \
-  adainclude/s-atacco.adb                                               \
-  adainclude/s-atacco.ads                                               \
-  adainclude/s-maccod.ads                                               \
-  adainclude/s-stoele.adb                                               \
-  adainclude/s-stoele.ads                                               \
-  adainclude/s-unstyp.ads                                               \
-  adainclude/stm32f429i_discovery-buttons.adb                           \
-  adainclude/stm32f429i_discovery-buttons.ads                           \
-  adainclude/stm32f429i_discovery-configure_external_clock.ads          \
-  adainclude/stm32f429i_discovery-hal.adb                               \
-  adainclude/stm32f429i_discovery-hal.ads                               \
-  adainclude/stm32f429i_discovery-lcd.adb                               \
-  adainclude/stm32f429i_discovery-lcd.ads                               \
-  adainclude/stm32f429i_discovery-leds.adb                              \
-  adainclude/stm32f429i_discovery-leds.ads                              \
-  adainclude/stm32f429i_discovery.ads                                   \
+RTS_DISTRIBUTION_FILES +=			\
+  adainclude/a-except.adb			\
+  adainclude/a-except.ads			\
+  adainclude/a-unccon.ads			\
+  adainclude/a-uncdea.ads			\
+  adainclude/ada.ads				\
+  adainclude/cmsis_os.ads			\
+  adainclude/g-souinf.ads			\
+  adainclude/gnat.ads				\
+  adainclude/interfac.ads			\
+  adainclude/last_chance_handler.adb		\
+  adainclude/last_chance_handler.ads		\
+  adainclude/machcode.ads			\
+  adainclude/os_exit.adb			\
+  adainclude/os_exit.ads			\
+  adainclude/s-atacco.adb			\
+  adainclude/s-atacco.ads			\
+  adainclude/s-maccod.ads			\
+  adainclude/s-parame.ads			\
+  adainclude/s-stoele.adb			\
+  adainclude/s-stoele.ads			\
+  adainclude/s-taprob.ads			\
+  adainclude/s-tarest.adb			\
+  adainclude/s-tarest.ads			\
+  adainclude/s-tasinf.ads			\
+  adainclude/s-taskin.ads			\
+  adainclude/s-tasres.ads			\
+  adainclude/s-tposen.adb			\
+  adainclude/s-tposen.ads			\
+  adainclude/s-unstyp.ads			\
   adainclude/system.ads
+
+RTS_DISTRIBUTION_FILES +=					\
+  adainclude/stm32f429i_discovery-buttons.adb			\
+  adainclude/stm32f429i_discovery-buttons.ads			\
+  adainclude/stm32f429i_discovery-configure_external_clock.ads	\
+  adainclude/stm32f429i_discovery-hal.adb			\
+  adainclude/stm32f429i_discovery-hal.ads			\
+  adainclude/stm32f429i_discovery-lcd.adb			\
+  adainclude/stm32f429i_discovery-lcd.ads			\
+  adainclude/stm32f429i_discovery-leds.adb			\
+  adainclude/stm32f429i_discovery-leds.ads			\
+  adainclude/stm32f429i_discovery.ads
 
 RTS_DISTRIBUTION_FILES +=                       \
   adalib/stm32f429i-flash.ld

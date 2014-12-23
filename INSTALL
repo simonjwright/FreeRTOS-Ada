@@ -66,6 +66,7 @@ path works fine for command line or Emacs):
          "-O0",
          "--RTS=../stm32f429i-disco-bsp"
         );
+   end Builder;
 
 It can be very useful indeed to have a link map file. Because gprbuild
 doesn't support --create-map-file with a cross-compiler, a good way to
