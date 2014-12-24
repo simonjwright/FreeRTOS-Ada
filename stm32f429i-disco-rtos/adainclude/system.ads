@@ -41,7 +41,6 @@ pragma Profile (Ravenscar);
 pragma Discard_Names;
 pragma Normalize_Scalars;
 pragma Restrictions (No_Allocators);
-pragma Restrictions (No_Delay);
 pragma Restrictions (No_Dispatch);
 pragma Restrictions (No_Enumeration_Maps);
 pragma Restrictions (No_Exception_Propagation);
@@ -76,7 +75,7 @@ package System is
    Max_Mantissa          : constant := 63;
    Fine_Delta            : constant := 2.0 ** (-Max_Mantissa);
 
-   Tick                  : constant := 0.000_001;
+   Tick                  : constant := 0.001;
 
    --  Storage-related Declarations
 

@@ -1,20 +1,15 @@
-with CMSIS_OS;
-with Interfaces;
+with Ada.Real_Time;
 
 package body LEDs is
 
    task body LED is
-      Status : CMSIS_OS.osStatus;
-      use type CMSIS_OS.osStatus;
+      Next : Ada.Real_Time.Time := Ada.Real_Time.Clock;
+      use type Ada.Real_Time.Time;
    begin
       loop
-         Status :=
-           CMSIS_OS.osDelay
-             (Millisec => Interfaces.Unsigned_32 (Period_Millis));
-         if Status /= CMSIS_OS.osOK then
-            raise Program_Error;
-         end if;
          STM32F429I_Discovery.LEDs.Toggle (The_LED);
+         Next := Next + Ada.Real_Time.Milliseconds (Period_Millis);
+         delay until Next;
       end loop;
    end LED;
 
