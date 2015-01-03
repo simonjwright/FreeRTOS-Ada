@@ -2,11 +2,11 @@
 --                                                                          --
 --                  GNAT RUN-TIME LIBRARY (GNARL) COMPONENTS                --
 --                                                                          --
---                   A D A . R E A L _ T I M E . D E L A Y S                --
+--                        S Y S T E M . T A S K I N G                       --
 --                                                                          --
---                                  B o d y                                 --
+--                                  S p e c                                 --
 --                                                                          --
---         Copyright (C) 1992-2010, Free Software Foundation, Inc.          --
+--          Copyright (C) 1992-2013, Free Software Foundation, Inc.         --
 --                                                                          --
 -- GNARL is free software; you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -29,35 +29,17 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
-with CMSIS_OS;
-with Interfaces;
+with Ada.Unchecked_Conversion;
+with FreeRTOS;
+with System;
 
-package body Ada.Real_Time.Delays is
+package body System.Tasking is
 
-   procedure Delay_Until (T : Time) is
-      Status : CMSIS_OS.osStatus;
-      use type CMSIS_OS.osStatus;
-      Timespan_To_Delay : constant Time_Span := T - Clock;
-      --  ??? need to round, see ARM
-      OS_Ticks_To_Delay : constant Integer := Timespan_To_Delay / Tick;
+   function Self return Task_Id is
+      function Convert_Task_Id
+        is new Ada.Unchecked_Conversion (System.Address, Task_Id);
    begin
-      if OS_Ticks_To_Delay > 0 then
-         Status :=
-           CMSIS_OS.osDelay
-             (Millisec => Interfaces.Unsigned_32 (OS_Ticks_To_Delay));
-         if Status /= CMSIS_OS.osOK then
-            raise Program_Error with "error in osDelay";
-         end if;
-      end if;
-   end Delay_Until;
+      return Convert_Task_Id (FreeRTOS.Get_Application_Parameter);
+   end Self;
 
-   -----------------
-   -- To_Duration --
-   -----------------
-
-   function To_Duration (T : Time) return Duration is
-   begin
-      return To_Duration (Time_Span (T));
-   end To_Duration;
-
-end Ada.Real_Time.Delays;
+end System.Tasking;

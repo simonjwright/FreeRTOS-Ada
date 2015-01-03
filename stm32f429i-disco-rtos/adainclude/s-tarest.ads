@@ -1,3 +1,51 @@
+------------------------------------------------------------------------------
+--                                                                          --
+--                 GNAT RUN-TIME LIBRARY (GNARL) COMPONENTS                 --
+--                                                                          --
+--     S Y S T E M . T A S K I N G . R E S T R I C T E D . S T A G E S      --
+--                                                                          --
+--                                  S p e c                                 --
+--                                                                          --
+--          Copyright (C) 1992-2012, Free Software Foundation, Inc.         --
+--                                                                          --
+-- GNARL is free software; you can  redistribute it  and/or modify it under --
+-- terms of the  GNU General Public License as published  by the Free Soft- --
+-- ware  Foundation;  either version 3,  or (at your option) any later ver- --
+-- sion.  GNAT is distributed in the hope that it will be useful, but WITH- --
+-- OUT ANY WARRANTY;  without even the  implied warranty of MERCHANTABILITY --
+-- or FITNESS FOR A PARTICULAR PURPOSE.                                     --
+--                                                                          --
+-- As a special exception under Section 7 of GPL version 3, you are granted --
+-- additional permissions described in the GCC Runtime Library Exception,   --
+-- version 3.1, as published by the Free Software Foundation.               --
+--                                                                          --
+-- You should have received a copy of the GNU General Public License and    --
+-- a copy of the GCC Runtime Library Exception along with this program;     --
+-- see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see    --
+-- <http://www.gnu.org/licenses/>.                                          --
+--                                                                          --
+-- GNARL was developed by the GNARL team at Florida State University.       --
+-- Extensive contributions were provided by Ada Core Technologies, Inc.     --
+--                                                                          --
+------------------------------------------------------------------------------
+
+--  This is a simplified version of the System.Tasking.Stages package,
+--  intended to be used in a restricted run time.
+
+--  This package represents the high level tasking interface used by the
+--  compiler to expand Ada 95 tasking constructs into simpler run time calls
+--  (aka GNARLI, GNU Ada Run-time Library Interface)
+
+--  Note: the compiler generates direct calls to this interface, via Rtsfind.
+--  Any changes to this interface may require corresponding compiler changes
+--  in exp_ch9.adb and possibly exp_ch7.adb
+
+--  The restricted GNARLI is also composed of System.Protected_Objects and
+--  System.Protected_Objects.Single_Entry
+
+--  Modified for the STM32 GNAT RTS, by leaving out parts that aren't
+--  called.
+
 with System.Parameters;
 with System.Task_Info;
 

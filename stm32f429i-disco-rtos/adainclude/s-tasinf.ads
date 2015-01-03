@@ -1,4 +1,4 @@
-package System.Task_Info is
+package System.Task_Info with Preelaborate is
 
    type Task_Info_Type is (Default);
 

@@ -1,5 +1,5 @@
 /*
-    FreeRTOS V7.6.0 - Copyright (C) 2013 Real Time Engineers Ltd. 
+    FreeRTOS V7.6.0 - Copyright (C) 2013 Real Time Engineers Ltd.
     All rights reserved
 
     VISIT http://www.FreeRTOS.org TO ENSURE YOU ARE USING THE LATEST VERSION.
@@ -103,7 +103,7 @@
 #define configCHECK_FOR_STACK_OVERFLOW	        0
 #define configUSE_RECURSIVE_MUTEXES		1
 #define configUSE_MALLOC_FAILED_HOOK	        0
-#define configUSE_APPLICATION_TASK_TAG	        0
+#define configUSE_APPLICATION_TASK_TAG	        1
 #define configUSE_COUNTING_SEMAPHORES	        1
 #define configGENERATE_RUN_TIME_STATS	        0
 
@@ -152,19 +152,18 @@ to all Cortex-M ports, and do not rely on any particular library functions. */
 /* !!!! configMAX_SYSCALL_INTERRUPT_PRIORITY must not be set to zero !!!!
 See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html. */
 #define configMAX_SYSCALL_INTERRUPT_PRIORITY 	( configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )
-	
+
 /* Normal assert() semantics without relying on the provision of an assert.h
 header file. */
-#define configASSERT( x ) if( ( x ) == 0 ) { taskDISABLE_INTERRUPTS(); for( ;; ); }	
-	
+#define configASSERT( x ) if( ( x ) == 0 ) { taskDISABLE_INTERRUPTS(); for( ;; ); }
+
 /* Definitions that map the FreeRTOS port interrupt handlers to their CMSIS
 standard names. */
 #define vPortSVCHandler SVC_Handler
 #define xPortPendSVHandler PendSV_Handler
 
-/* IMPORTANT: This define MUST be commented when used with STM32Cube firmware, 
+/* IMPORTANT: This define MUST be commented when used with STM32Cube firmware,
               to prevent overwriting SysTick_Handler defined within STM32Cube HAL */
 /* #define xPortSysTickHandler SysTick_Handler */
 
 #endif /* FREERTOS_CONFIG_H */
-

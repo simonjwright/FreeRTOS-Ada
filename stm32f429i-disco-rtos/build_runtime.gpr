@@ -29,7 +29,7 @@ project Build_Runtime is
         when "Debug" =>
            CFLAGS := CFLAGS & ("-O0");
       end case;
-      ALL_ADAFLAGS := ("-gnatpgn", "-nostdinc") & CFLAGS;
+      ALL_ADAFLAGS := ("-gnatpgn", "-gnatqQ", "-nostdinc") & CFLAGS;
       ALL_CFLAGS := ("-DIN_RTS", "-Dinhibit_libc") & CFLAGS;
 
       NO_SIBLING_ADAFLAGS := ("-fno-optimize-sibling-calls");

@@ -1,7 +1,7 @@
 with Interfaces;
 with System;
 
-package CMSIS_OS is
+package CMSIS_OS with Preelaborate is
 
    use type Interfaces.Integer_32;
 
@@ -34,77 +34,30 @@ package CMSIS_OS is
    osErrorOS              : constant osStatus := 16#ff#;
    os_status_reserved     : constant osStatus := 16#7fff_ffff#;
 
-   --  ???
-   type os_timer_type is
-     (OsTimerOnce,
-      OsTimerPeriodic) with
-        Convention => C;
+   osWaitForever : constant Interfaces.Unsigned_32 := 16#ffff_ffff#;
+
+   ---------------
+   --  Threads  --
+   ---------------
 
    type os_pthread is access procedure (Arg1 : System.Address)
-   with
-     Convention => C;
-
-   --  ???
-   type os_ptimer is access procedure (Arg1 : System.Address)
    with
      Convention => C;
 
    type osThreadId is private;
    Null_osThreadId : constant osThreadId;
 
-   --  ???
-   type osTimerId is private;
-
-   type osMutexId is private;
-
    type os_thread_def is record
       Name      : System.Address; -- Interfaces.C.Strings.chars_ptr
       Pthread   : os_pthread;
       Tpriority : osPriority;
       Instances : Interfaces.Unsigned_32;
-      Stacksize : Interfaces.Unsigned_32;
+      Stacksize : Interfaces.Unsigned_32;  -- in words, not bytes
    end record
    with
      Convention => C_Pass_By_Copy;
 
    subtype osThreadDef_t is os_thread_def;
-
-   --  ???
-   type os_timer_def is record
-      Ptimer : os_ptimer;
-   end record
-   with
-     Convention => C_Pass_By_Copy;
-
-   subtype osTimerDef_t is os_timer_def;
-
-   type os_mutex_def is record
-      Dummy : aliased Interfaces.Unsigned_32;
-   end record
-   with
-     Convention => C_Pass_By_Copy;
-
-   subtype osMutexDef_t is os_mutex_def;
-
-   function osKernelStart
-     (Thread_Def : access constant osThreadDef_t;
-      Argument : System.Address) return osStatus
-   with
-     Import,
-     Convention => C,
-     External_Name => "osKernelStart";
-
-   function osKernelSysTick return Interfaces.Unsigned_32
-   with
-     Import,
-     Convention => C,
-     External_Name => "osKernelSysTick";
-
-   function osKernelRunning return Interfaces.Integer_32
-   with
-     Import,
-     Convention => C,
-     External_Name => "osKernelRunning";
 
    function osThreadCreate
      (Thread_Def : access constant osThreadDef_t;
@@ -151,17 +104,124 @@ package CMSIS_OS is
      Convention => C,
      External_Name => "osDelay";
 
+   ---------------
+   --  Mutexes  --
+   ---------------
+
+   type osMutexId is private;
+   Null_osMutexId : constant osMutexId;
+
+   type os_mutex_def is record
+      Dummy : aliased Interfaces.Unsigned_32;
+   end record
+   with
+     Convention => C_Pass_By_Copy;
+
+   subtype osMutexDef_t is os_mutex_def;
+
+   function osMutexCreate
+     (Mutex_Def : access constant osMutexDef_t) return osMutexId
+   with
+     Import,
+     Convention => C,
+     External_Name => "osMutexCreate";
+
+   function osMutexWait
+     (Mutex_Def : osMutexId;
+      Millisec : Interfaces.Unsigned_32 := osWaitForever) return osStatus
+   with
+     Import,
+     Convention => C,
+     External_Name => "osMutexWait";
+
+   function osMutexRelease
+     (Mutex_Def : osMutexId) return osStatus
+   with
+     Import,
+     Convention => C,
+     External_Name => "osMutexRelease";
+
+   ------------------
+   --  Semaphores  --
+   ------------------
+
+   type osSemaphoreId is private;
+   Null_osSemaphoreId : constant osSemaphoreId;
+
+   type os_semaphore_def is record
+      Dummy : aliased Interfaces.Unsigned_32;
+   end record
+   with
+     Convention => C_Pass_By_Copy;
+
+   subtype osSemaphoreDef_t is os_mutex_def;
+
+   function osSemaphoreCreate
+     (Semaphore_Def : access constant osSemaphoreDef_t;
+      Count : Interfaces.Integer_32) return osSemaphoreId
+   with
+     Import,
+     Convention => C,
+     External_Name => "osSemaphoreCreate";
+
+   function osSemaphoreWait
+     (Semaphore_Def : osSemaphoreId;
+      Millisec : Interfaces.Unsigned_32 := osWaitForever) return osStatus
+   with
+     Import,
+     Convention => C,
+     External_Name => "osSemaphoreWait";
+
+   function osSemaphoreRelease
+     (Semaphore_Def : osSemaphoreId) return osStatus
+   with
+     Import,
+     Convention => C,
+     External_Name => "osSemaphoreRelease";
+
+   --------------
+   --  Kernel  --
+   --------------
+
+   function osKernelStart
+     (Thread_Def : access constant osThreadDef_t;
+      Argument : System.Address) return osStatus
+   with
+     Import,
+     Convention => C,
+     External_Name => "osKernelStart";
+
+   function osKernelSysTick return Interfaces.Unsigned_32
+   with
+     Import,
+     Convention => C,
+     External_Name => "osKernelSysTick";
+
+   function osKernelRunning return Interfaces.Integer_32
+   with
+     Import,
+     Convention => C,
+     External_Name => "osKernelRunning";
+
 private
 
-   type osThreadId is new System.Address;
+   --  Would have declared as "new System.Address" but then couldn't
+   --  create Null_osThreadId because it wouldn't be static (as
+   --  required since this unit needs to be preelaborable).
+
+   type osThreadId is mod 2 ** Standard'Address_Size;
    --  task_h.xTaskHandle
 
-   Null_osThreadId : constant osThreadId := osThreadId (System.Null_Address);
+   Null_osThreadId : constant osThreadId := 0;
 
-   type osTimerId is new System.Address;
-   --  timers_h.xTimerHandle
-
-   type osMutexId is new System.Address;
+   type osMutexId is mod 2 ** Standard'Address_Size;
    --  semphr_h.xSemaphoreHandle -> queue_h.xQueueHandle
+
+   Null_osMutexId : constant osMutexId := 0;
+
+   type osSemaphoreId is mod 2 ** Standard'Address_Size;
+   --  semphr_h.xSemaphoreHandle -> queue_h.xQueueHandle
+
+   Null_osSemaphoreId : constant osSemaphoreId := 0;
 
 end CMSIS_OS;

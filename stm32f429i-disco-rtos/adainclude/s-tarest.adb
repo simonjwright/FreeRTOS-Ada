@@ -1,3 +1,4 @@
+with Ada.Unchecked_Conversion;
 with CMSIS_OS;
 with FreeRTOS;
 with Interfaces;
@@ -10,6 +11,7 @@ package body System.Tasking.Restricted.Stages is
    --  address of its Parameters.
 
    type Parameters is record
+      ATCB          : Task_Id;
       Task_Proc     : Task_Procedure_Access;
       Discriminants : System.Address;
    end record;
@@ -18,11 +20,19 @@ package body System.Tasking.Restricted.Stages is
      is new System.Address_To_Access_Conversions (Object => Parameters);
 
    procedure Wrapper (Arg1 : System.Address) is
+      function Convert_Task_Id
+        is new Ada.Unchecked_Conversion (Task_Id, System.Address);
       P : constant Parameters_Conversion.Object_Pointer :=
         Parameters_Conversion.To_Pointer (Arg1);
    begin
+      --  Save the ATCB in the FreeRTOS TCB
+      FreeRTOS.Set_Application_Parameter (Convert_Task_Id (P.ATCB));
+      --  Call the task procedure
       P.Task_Proc (P.Discriminants);
+      --  If we return here, something wrong has happened - what?
    end Wrapper;
+
+   Null_Task_Name : constant String := (1 => ASCII.NUL);
 
    procedure Create_Restricted_Task
      (Priority      : Integer;
@@ -41,7 +51,6 @@ package body System.Tasking.Restricted.Stages is
       pragma Unreferenced (Task_Info);
       pragma Unreferenced (CPU);
       pragma Unreferenced (Chain);
-      pragma Unreferenced (Created_Task);
 
       --  Note, much complication because (although it's not
       --  explicitly stated) FreeRTOS expects the thread parameters to
@@ -51,7 +60,7 @@ package body System.Tasking.Restricted.Stages is
       subtype Name is String (1 .. Task_Image'Length + 1);
       package Name_Conversion
         is new System.Address_To_Access_Conversions (Name);
-      Name_Address : constant System.Address := FreeRTOS.Malloc (Name'Length);
+      Name_Address : System.Address;
 
       package Thread_Definition_Conversion
         is new System.Address_To_Access_Conversions (CMSIS_OS.osThreadDef_t);
@@ -67,15 +76,21 @@ package body System.Tasking.Restricted.Stages is
         constant Parameters_Conversion.Object_Pointer :=
         Parameters_Conversion.To_Pointer (Wrapper_Parameter_Address);
 
-      Thread : CMSIS_OS.osThreadId;
-
       use type System.Address;
       use type CMSIS_OS.osThreadId;
    begin
-      if Name_Address = System.Null_Address then
-         raise Storage_Error with "couldn't allocate name";
+      if Name'Length = 1 then
+         --  The Task_Image passed was zero-length, presumably because
+         --  of pragma Discard_Names.
+         Name_Address := Null_Task_Name'Address;
+      else
+         Name_Address := FreeRTOS.Malloc (Name'Length);
+         if Name_Address = System.Null_Address then
+            raise Storage_Error with "couldn't allocate name";
+         end if;
+         Name_Conversion.To_Pointer (Name_Address).all :=
+           Task_Image & ASCII.NUL;
       end if;
-      Name_Conversion.To_Pointer (Name_Address).all := Task_Image & ASCII.NUL;
 
       if Thread_Definition_Address = System.Null_Address then
          raise Storage_Error with "couldn't allocate thread definition";
@@ -95,13 +110,16 @@ package body System.Tasking.Restricted.Stages is
       if Wrapper_Parameter_Address = System.Null_Address then
          raise Storage_Error with "couldn't allocate wrapper";
       end if;
-      Wrapper_Parameter_Access.all := (Task_Proc     => State,
+      Wrapper_Parameter_Access.all := (ATCB          => Created_Task,
+                                       Task_Proc     => State,
                                        Discriminants => Discriminants);
 
-      Thread :=
+      Created_Task.Common.Thread :=
         CMSIS_OS.osThreadCreate (Thread_Def => Thread_Definition_Access,
                                  Argument   => Wrapper_Parameter_Address);
-      Elaborated.all := Thread /= CMSIS_OS.Null_osThreadId;
+      --  The Entry_Call belongs to the task, so Self can be set up now.
+      Created_Task.Entry_Call.Self := Created_Task;
+      Elaborated.all := Created_Task.Common.Thread /= CMSIS_OS.Null_osThreadId;
    end Create_Restricted_Task;
 
    procedure Activate_Restricted_Tasks

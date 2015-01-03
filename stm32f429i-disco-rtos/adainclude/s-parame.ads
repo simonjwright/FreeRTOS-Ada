@@ -1,4 +1,4 @@
-package System.Parameters is
+package System.Parameters with Preelaborate is
 
    type Size_Type is new Integer;
 

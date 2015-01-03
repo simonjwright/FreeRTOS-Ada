@@ -1,3 +1,34 @@
+------------------------------------------------------------------------------
+--                                                                          --
+--                  GNAT RUN-TIME LIBRARY (GNARL) COMPONENTS                --
+--                                                                          --
+--                        S Y S T E M . T A S K I N G                       --
+--                                                                          --
+--                                  S p e c                                 --
+--                                                                          --
+--          Copyright (C) 1992-2013, Free Software Foundation, Inc.         --
+--                                                                          --
+-- GNARL is free software; you can  redistribute it  and/or modify it under --
+-- terms of the  GNU General Public License as published  by the Free Soft- --
+-- ware  Foundation;  either version 3,  or (at your option) any later ver- --
+-- sion.  GNAT is distributed in the hope that it will be useful, but WITH- --
+-- OUT ANY WARRANTY;  without even the  implied warranty of MERCHANTABILITY --
+-- or FITNESS FOR A PARTICULAR PURPOSE.                                     --
+--                                                                          --
+-- As a special exception under Section 7 of GPL version 3, you are granted --
+-- additional permissions described in the GCC Runtime Library Exception,   --
+-- version 3.1, as published by the Free Software Foundation.               --
+--                                                                          --
+-- You should have received a copy of the GNU General Public License and    --
+-- a copy of the GCC Runtime Library Exception along with this program;     --
+-- see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see    --
+-- <http://www.gnu.org/licenses/>.                                          --
+--                                                                          --
+-- GNARL was developed by the GNARL team at Florida State University.       --
+-- Extensive contributions were provided by Ada Core Technologies, Inc.     --
+--                                                                          --
+------------------------------------------------------------------------------
+
 --  This package provides an optimized version of Protected_Objects.Operations
 --  and Protected_Objects.Entries making the following assumptions:
 
@@ -50,6 +81,23 @@ package System.Tasking.Protected_Objects.Single_Entry with Elaborate_Body is
    --  with the same argument will return until the corresponding call to
    --  Unlock has been made by the caller.
 
+   procedure Lock_Read_Only_Entry
+     (Object : Protection_Entry_Access);
+   --  Lock a protected object for read access. Upon return, the caller owns
+   --  the lock for read access, and no other calls to Lock with the same
+   --  argument will return until the corresponding call to Unlock has been
+   --  made by the caller. Other calls to Lock_Read_Only may (but need not)
+   --  return before the call to Unlock, and the corresponding callers will
+   --  also own the lock for read access.
+
+   procedure Unlock_Entry (Object : Protection_Entry_Access);
+   --  Relinquish ownership of the lock for the object represented by the
+   --  Object parameter. If this ownership was for write access, or if it was
+   --  for read access where there are no other read access locks outstanding,
+   --  one (or more, in the case of Lock_Read_Only) of the tasks waiting on
+   --  this lock (if any) will be given the lock and allowed to return from
+   --  the Lock or Lock_Read_Only call.
+
    procedure Service_Entry (Object : Protection_Entry_Access);
    --  Service the entry queue of the specified object, executing the
    --  corresponding body of any queued entry call that is waiting on True
@@ -60,8 +108,46 @@ package System.Tasking.Protected_Objects.Single_Entry with Elaborate_Body is
    --  This must be called with abort deferred and with the corresponding
    --  object locked. Object is unlocked on return.
 
-private
+   procedure Protected_Single_Entry_Call
+     (Object              : Protection_Entry_Access;
+      Uninterpreted_Data  : System.Address);
+   --  Make a protected entry call to the specified object
+   --
+   --  Pends a protected entry call on the protected object represented by
+   --  Object. A pended call is not queued; it may be executed immediately
+   --  or queued, depending on the state of the entry barrier.
+   --
+   --    Uninterpreted_Data
+   --      This will be returned by Next_Entry_Call when this call is serviced.
+   --      It can be used by the compiler to pass information between the
+   --      caller and the server, in particular entry parameters.
 
-   type Protection_Entry is limited null record;
+   function Protected_Count_Entry (Object : Protection_Entry) return Natural;
+   --  Return the number of entry calls on Object (0 or 1)
+
+   function Protected_Single_Entry_Caller
+     (Object : Protection_Entry) return Task_Id;
+   --  Return value of E'Caller, where E is the protected entry currently being
+   --  handled. This will only work if called from within an entry body, as
+   --  required by the LRM (C.7.1(14)).
+
+private
+   type Protection_Entry is record
+      Common : aliased Protection;
+      --  State of the protected object. This part is common to any protected
+      --  object, including those without entries.
+
+      Compiler_Info : System.Address;
+      --  Pointer to compiler-generated record representing protected object
+
+      Call_In_Progress : Entry_Call_Link;
+      --  Pointer to the entry call being executed (if any)
+
+      Entry_Body : Entry_Body_Access;
+      --  Pointer to executable code for the entry body of the protected type
+
+      Entry_Queue : Entry_Call_Link;
+      --  Place to store the waiting entry call (if any)
+   end record;
 
 end System.Tasking.Protected_Objects.Single_Entry;
