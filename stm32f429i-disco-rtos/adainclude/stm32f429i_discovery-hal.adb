@@ -45,4 +45,6 @@ package body STM32F429I_Discovery.HAL is
       HAL_Delay (Interfaces.Unsigned_32 (Milliseconds));
    end Wait;
 
+begin
+   Initialize;
 end STM32F429I_Discovery.HAL;

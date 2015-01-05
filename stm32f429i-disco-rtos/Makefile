@@ -59,16 +59,3 @@ clean::
 	-gprclean -P build_runtime.gpr
 
 .PHONY: all clean force
-
-MAIN_OBJS = main.o
-
-main: $(MAIN_OBJS) libbsp-rtos.a
-	$(CC) $(DEBUG) $^ -o $@ \
-	  -Wl,-Tadalib/stm32f429i-flash.ld \
-	  -Wl,-Map,$@.map
-
-clean::
-	-rm main main.bin
-
-%.bin: %
-	arm-eabi-objcopy -O binary $^ $@

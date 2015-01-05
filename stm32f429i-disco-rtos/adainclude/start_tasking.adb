@@ -18,10 +18,19 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-package STM32F429I_Discovery.HAL with Elaborate_Body is
+with CMSIS_OS;
+with System;
 
-   procedure Initialize;
+procedure Start_Tasking is
+   Status : CMSIS_OS.osStatus;
+   use type CMSIS_OS.osStatus;
+begin
 
-   procedure Wait (Milliseconds : Natural);
+   Status := CMSIS_OS.osKernelStart (null, System.Null_Address);
+   if Status /= CMSIS_OS.osOK then
+      raise Program_Error with "osKernelStart failed";
+   else
+      raise Program_Error with "osKernelStart shouldn't have returned";
+   end if;
 
-end STM32F429I_Discovery.HAL;
+end Start_Tasking;

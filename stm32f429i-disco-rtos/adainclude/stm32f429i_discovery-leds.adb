@@ -18,6 +18,10 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
+with STM32F429I_Discovery.HAL;
+pragma Unreferenced (STM32F429I_Discovery.HAL);
+pragma Elaborate_All (STM32F429I_Discovery.HAL);
+
 package body STM32F429I_Discovery.LEDs is
 
    type Board_LED is (LED_3, LED_4) with
@@ -65,4 +69,6 @@ package body STM32F429I_Discovery.LEDs is
       BSP_LED_Toggle (Board_LEDs (The_LED));
    end Toggle;
 
+begin
+   Initialize;
 end STM32F429I_Discovery.LEDs;

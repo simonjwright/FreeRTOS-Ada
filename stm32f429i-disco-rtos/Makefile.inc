@@ -40,3 +40,8 @@ INCLUDES = $(patsubst %,-I%,$(STM32INCLUDES) $(FREERTOSINCLUDES) $(BSP)/include)
 
 # for CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 DEFINES = -DSTM32F429xx=1 -DUSE_HAL_DRIVER=1
+
+# Generally useful target for creating a binary image downloadable
+# with st-flash.
+%.bin: %
+	arm-eabi-objcopy -O binary $^ $@
