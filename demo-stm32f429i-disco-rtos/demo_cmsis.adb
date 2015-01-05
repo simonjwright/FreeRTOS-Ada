@@ -1,5 +1,13 @@
+--  Copyright (C) Simon Wright <simon@pushface.org>
+
+--  This unit is free software; you can redistribute it and/or modify it
+--  as you wish. This unit is distributed in the hope that it will be
+--  useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+--  of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+--  This demonstrates the use of CMSIS_OS/FreeRTOS to provide tasking.
+
 with CMSIS_OS;
-with STM32F429I_Discovery.HAL;
 with STM32F429I_Discovery.LEDs;
 with System;
 
@@ -68,9 +76,6 @@ procedure Demo_Cmsis is
    Status : CMSIS_OS.osStatus;
    use type CMSIS_OS.osStatus;
 begin
-   STM32F429I_Discovery.HAL.Initialize;
-   STM32F429I_Discovery.LEDs.Initialize;
-
    Status := CMSIS_OS.osKernelStart (null, System.Null_Address);
    if Status /= CMSIS_OS.osOK then
       raise Program_Error with "osKernelStart failed";
