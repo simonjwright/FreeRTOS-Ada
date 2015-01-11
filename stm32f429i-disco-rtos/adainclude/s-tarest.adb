@@ -1,14 +1,54 @@
+------------------------------------------------------------------------------
+--                                                                          --
+--                 GNAT RUN-TIME LIBRARY (GNARL) COMPONENTS                 --
+--                                                                          --
+--     S Y S T E M . T A S K I N G . R E S T R I C T E D . S T A G E S      --
+--                                                                          --
+--                                  B o d y                                 --
+--                                                                          --
+--          Copyright (C) 2015, Simon Wright <simon@pushface.org>           --
+--                                                                          --
+-- GNARL is free software; you can  redistribute it  and/or modify it under --
+-- terms of the  GNU General Public License as published  by the Free Soft- --
+-- ware  Foundation;  either version 3,  or (at your option) any later ver- --
+-- sion.  GNAT is distributed in the hope that it will be useful, but WITH- --
+-- OUT ANY WARRANTY;  without even the  implied warranty of MERCHANTABILITY --
+-- or FITNESS FOR A PARTICULAR PURPOSE.                                     --
+--                                                                          --
+-- As a special exception under Section 7 of GPL version 3, you are granted --
+-- additional permissions described in the GCC Runtime Library Exception,   --
+-- version 3.1, as published by the Free Software Foundation.               --
+--                                                                          --
+-- You should have received a copy of the GNU General Public License and    --
+-- a copy of the GCC Runtime Library Exception along with this program;     --
+-- see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see    --
+-- <http://www.gnu.org/licenses/>.                                          --
+--                                                                          --
+-- GNARL was developed by the GNARL team at Florida State University.       --
+-- Extensive contributions were provided by Ada Core Technologies, Inc.     --
+--                                                                          --
+------------------------------------------------------------------------------
+
+--  This is a simplified version of the System.Tasking.Stages package,
+--  intended to be used in a restricted run time.
+
+--  This package represents the high level tasking interface used by the
+--  compiler to expand Ada 95 tasking constructs into simpler run time calls.
+
+--  This is is the version for the STM32 GNAT RTS project.
+
 with Ada.Unchecked_Conversion;
-with CMSIS_OS;
-with FreeRTOS;
+with FreeRTOS.Memory;
+with FreeRTOS.TCB;
 with Interfaces;
 with System.Address_To_Access_Conversions;
 
 package body System.Tasking.Restricted.Stages is
 
    procedure Wrapper (Arg1 : System.Address) with Convention => C;
-   --  This is the procedure passed to osThreadCreate. Arg1 is the
-   --  address of its Parameters.
+   --  This is the procedure passed to
+   --  FreeRTOS.Tasks.Create_Task. Arg1 is the address of its
+   --  Parameters.
 
    type Parameters is record
       ATCB          : Task_Id;
@@ -26,13 +66,13 @@ package body System.Tasking.Restricted.Stages is
         Parameters_Conversion.To_Pointer (Arg1);
    begin
       --  Save the ATCB in the FreeRTOS TCB
-      FreeRTOS.Set_Application_Parameter (Convert_Task_Id (P.ATCB));
+      FreeRTOS.TCB.Set_Application_Parameter (Convert_Task_Id (P.ATCB));
       --  Call the task procedure
       P.Task_Proc (P.Discriminants);
       --  If we return here, something wrong has happened - what?
    end Wrapper;
 
-   Null_Task_Name : constant String := (1 => ASCII.NUL);
+   --  Null_Task_Name : constant String := (1 => ASCII.NUL);
 
    procedure Create_Restricted_Task
      (Priority      : Integer;
@@ -52,74 +92,35 @@ package body System.Tasking.Restricted.Stages is
       pragma Unreferenced (CPU);
       pragma Unreferenced (Chain);
 
-      --  Note, much complication because (although it's not
-      --  explicitly stated) FreeRTOS expects the thread parameters to
-      --  be available at least until the thread terminates (which, in
-      --  Ravenscar, it won't do except under error conditions). (???)
-
-      subtype Name is String (1 .. Task_Image'Length + 1);
-      package Name_Conversion
-        is new System.Address_To_Access_Conversions (Name);
-      Name_Address : System.Address;
-
-      package Thread_Definition_Conversion
-        is new System.Address_To_Access_Conversions (CMSIS_OS.osThreadDef_t);
-      Thread_Definition_Address : constant System.Address :=
-        FreeRTOS.Malloc (CMSIS_OS.osThreadDef_t'Max_Size_In_Storage_Elements);
-      Thread_Definition_Access :
-        constant Thread_Definition_Conversion.Object_Pointer :=
-        Thread_Definition_Conversion.To_Pointer (Thread_Definition_Address);
-
       Wrapper_Parameter_Address : constant System.Address :=
-        FreeRTOS.Malloc (Parameters'Max_Size_In_Storage_Elements);
+        FreeRTOS.Memory.Malloc (Parameters'Max_Size_In_Storage_Elements);
       Wrapper_Parameter_Access :
         constant Parameters_Conversion.Object_Pointer :=
         Parameters_Conversion.To_Pointer (Wrapper_Parameter_Address);
 
-      use type System.Address;
-      use type CMSIS_OS.osThreadId;
+      use type FreeRTOS.Tasks.Task_Handle;
    begin
-      if Name'Length = 1 then
-         --  The Task_Image passed was zero-length, presumably because
-         --  of pragma Discard_Names.
-         Name_Address := Null_Task_Name'Address;
-      else
-         Name_Address := FreeRTOS.Malloc (Name'Length);
-         if Name_Address = System.Null_Address then
-            raise Storage_Error with "couldn't allocate name";
-         end if;
-         Name_Conversion.To_Pointer (Name_Address).all :=
-           Task_Image & ASCII.NUL;
-      end if;
-
-      if Thread_Definition_Address = System.Null_Address then
-         raise Storage_Error with "couldn't allocate thread definition";
-      end if;
-      Thread_Definition_Access.all :=
-        (Name       => Name_Address,
-         Pthread    => Wrapper'Access,
-         Tpriority  =>
-           Interfaces.Integer_32 ((if Priority = Unspecified_Priority
-                                   then System.Default_Priority
-                                   else Priority)),
-         Instances  => 0,
-         Stacksize  =>
-           Interfaces.Unsigned_32
-             (System.Parameters.Adjust_Storage_Size (Size)));
-
       if Wrapper_Parameter_Address = System.Null_Address then
-         raise Storage_Error with "couldn't allocate wrapper";
+         raise Storage_Error with "couldn't allocate task wrapper";
       end if;
       Wrapper_Parameter_Access.all := (ATCB          => Created_Task,
                                        Task_Proc     => State,
                                        Discriminants => Discriminants);
 
       Created_Task.Common.Thread :=
-        CMSIS_OS.osThreadCreate (Thread_Def => Thread_Definition_Access,
-                                 Argument   => Wrapper_Parameter_Address);
+        FreeRTOS.Tasks.Create_Task
+          (Code        => Wrapper'Access,
+           Name        => Task_Image,
+           Stack_Depth =>
+             Natural (System.Parameters.Adjust_Storage_Size (Size)),
+           Parameters  => Wrapper_Parameter_Address,
+           Priority    => (if Priority = Unspecified_Priority
+                           then System.Default_Priority
+                           else Priority));
       --  The Entry_Call belongs to the task, so Self can be set up now.
       Created_Task.Entry_Call.Self := Created_Task;
-      Elaborated.all := Created_Task.Common.Thread /= CMSIS_OS.Null_osThreadId;
+      Elaborated.all :=
+        Created_Task.Common.Thread /= FreeRTOS.Tasks.Null_Task_Handle;
    end Create_Restricted_Task;
 
    procedure Activate_Restricted_Tasks

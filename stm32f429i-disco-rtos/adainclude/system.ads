@@ -109,18 +109,19 @@ package System is
 
    --  Priority-related Declarations (RM D.1)
 
-   --  These declarations correspond to CMSIS_OS (not sure whether
-   --  there is actually such a thing as an interrupt priority in this
-   --  OS).
+   --  These declarations correspond to FreeRTOS as configured in STM Cube.
 
-   Max_Priority           : constant Positive := 2;
-   Max_Interrupt_Priority : constant Positive := 3;
+   Max_Priority           : constant Positive := 6;
+   Max_Interrupt_Priority : constant Positive := 7;
 
-   subtype Any_Priority       is Integer      range -3 .. 3;
-   subtype Priority           is Any_Priority range -3 .. 2;
-   subtype Interrupt_Priority is Any_Priority range 3 .. 3;
+   subtype Any_Priority       is Integer      range 0 .. 7;
+   subtype Priority           is Any_Priority
+     range Any_Priority'First .. 6;
+   subtype Interrupt_Priority is Any_Priority
+     range Priority'Last + 1 .. Any_Priority'Last;
 
-   Default_Priority : constant Priority := 0;
+   Default_Priority : constant Priority :=
+     (Priority'First + Priority'Last) / 2;
 
 private
 

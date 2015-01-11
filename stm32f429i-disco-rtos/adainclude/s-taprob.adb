@@ -79,15 +79,7 @@ package body System.Tasking.Protected_Objects is
          Init_Priority  := System.Priority'Last;
       end if;
 
-      declare
-         Dummy : aliased constant CMSIS_OS.osMutexDef_t := (Dummy => 0);
-         --  Unlike with tasks, FreeRTOS doesn't use this value (even
-         --  though CMSIS_OS provides it, presumably for commonality)
-         --  so it's OK to declare it on the stack.
-      begin
-         Object.L := CMSIS_OS.osMutexCreate (Dummy'Access);
-      end;
-
+      Object.L := FreeRTOS.Mutexes.Create_Mutex;
       Object.Ceiling := System.Any_Priority (Init_Priority);
       Object.New_Ceiling := System.Any_Priority (Init_Priority);
       Object.Owner := Null_Task;
@@ -132,17 +124,7 @@ package body System.Tasking.Protected_Objects is
       --     raise Program_Error;
       --  end if;
 
-      declare
-         Status : constant CMSIS_OS.osStatus :=
-           CMSIS_OS.osMutexWait (Object.L);
-         --  Wait indefinitely until available
-         use type CMSIS_OS.osStatus;
-      begin
-         if Status /= CMSIS_OS.osOK then
-            raise Program_Error with "error waiting on mutex";
-            --  Nice to record why!
-         end if;
-      end;
+      FreeRTOS.Mutexes.Take (Object.L);
 
       --  if Parameters.Runtime_Traces then
       --     Send_Trace_Info (PO_Lock);
@@ -197,18 +179,7 @@ package body System.Tasking.Protected_Objects is
          raise Program_Error with "external call on same object";
       end if;
 
-      declare
-         Status : constant CMSIS_OS.osStatus :=
-           CMSIS_OS.osMutexWait (Object.L);
-         --  Wait indefinitely until available
-         use type CMSIS_OS.osStatus;
-      begin
-         if Status /= CMSIS_OS.osOK then
-            raise Program_Error with "error waiting on mutex";
-            --  Nice to record why!
-         end if;
-      end;
-
+      FreeRTOS.Mutexes.Take (Object.L);
       --  if Parameters.Runtime_Traces then
       --     Send_Trace_Info (PO_Lock);
       --  end if;
@@ -290,16 +261,7 @@ package body System.Tasking.Protected_Objects is
          Object.Ceiling := Object.New_Ceiling;
       end if;
 
-      declare
-         Status : constant CMSIS_OS.osStatus :=
-           CMSIS_OS.osMutexRelease (Object.L);
-         use type CMSIS_OS.osStatus;
-      begin
-         if Status /= CMSIS_OS.osOK then
-            raise Program_Error with "error releasing mutex";
-            --  Nice to record why!
-         end if;
-      end;
+      FreeRTOS.Mutexes.Give (Object.L);
 
       --  if Parameters.Runtime_Traces then
       --     Send_Trace_Info (PO_Unlock);

@@ -103,9 +103,11 @@
 #define configCHECK_FOR_STACK_OVERFLOW	        0
 #define configUSE_RECURSIVE_MUTEXES		1
 #define configUSE_MALLOC_FAILED_HOOK	        0
-#define configUSE_APPLICATION_TASK_TAG	        1
+#define configUSE_APPLICATION_TASK_TAG	        1 /* for Task_Id in TCB */
 #define configUSE_COUNTING_SEMAPHORES	        1
 #define configGENERATE_RUN_TIME_STATS	        0
+
+#define configUSE_TIME_SLICING                  0 /* don't want round-robin */
 
 /* Co-routine definitions. */
 #define configUSE_CO_ROUTINES 		        0

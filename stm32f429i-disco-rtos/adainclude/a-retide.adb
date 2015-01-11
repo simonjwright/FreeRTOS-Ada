@@ -29,25 +29,23 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
-with CMSIS_OS;
 with Interfaces;
 
 package body Ada.Real_Time.Delays is
 
    procedure Delay_Until (T : Time) is
-      Status : CMSIS_OS.osStatus;
-      use type CMSIS_OS.osStatus;
+      procedure vTaskDelay (Ticks_To_Delay : Interfaces.Unsigned_32)
+      with
+        Import,
+        Convention => C,
+        External_Name => "vTaskDelay";
       Timespan_To_Delay : constant Time_Span := T - Clock;
       --  ??? need to round, see ARM
-      OS_Ticks_To_Delay : constant Integer := Timespan_To_Delay / Tick;
+      Ticks_To_Delay : constant Integer := Timespan_To_Delay / Tick;
    begin
-      if OS_Ticks_To_Delay > 0 then
-         Status :=
-           CMSIS_OS.osDelay
-             (Millisec => Interfaces.Unsigned_32 (OS_Ticks_To_Delay));
-         if Status /= CMSIS_OS.osOK then
-            raise Program_Error with "error in osDelay";
-         end if;
+      if Ticks_To_Delay > 0 then
+         vTaskDelay
+           (Ticks_To_Delay => Interfaces.Unsigned_32 (Ticks_To_Delay));
       end if;
    end Delay_Until;
 

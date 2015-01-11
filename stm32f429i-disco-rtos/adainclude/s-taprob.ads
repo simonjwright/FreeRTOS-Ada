@@ -48,7 +48,7 @@
 --  Note: this package has been copied from GCC 4.9.1 and heavily
 --  modified for the STM32 GNAT RTS, which has Ravenscar restrictions.
 
-private with CMSIS_OS;
+private with FreeRTOS.Mutexes;
 
 package System.Tasking.Protected_Objects is
 
@@ -213,7 +213,7 @@ package System.Tasking.Protected_Objects is
 
 private
    type Protection is record
-      L : aliased CMSIS_OS.osMutexId;
+      L : aliased FreeRTOS.Mutexes.Mutex_Handle;
       --  Lock used to ensure mutual exclusive access to the protected object
 
       Ceiling : System.Any_Priority;

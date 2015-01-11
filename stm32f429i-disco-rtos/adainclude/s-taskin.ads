@@ -34,17 +34,10 @@
 --  Note: the compiler generates direct calls to this interface, via Rtsfind.
 --  Any changes to this interface may require corresponding compiler changes.
 
---  with Ada.Exceptions;
---  with Ada.Unchecked_Conversion;
+--  This file has been extensively modified from the GCC 4.9.1 version
+--  for the STM32 GNAT RTS project.
 
---  with System.Parameters;
---  with System.Task_Info;
---  with System.Soft_Links;
---  with System.Task_Primitives;
---  with System.Stack_Usage;
---  with System.Multiprocessors;
-
-with CMSIS_OS;
+with FreeRTOS.Tasks;
 
 package System.Tasking with Preelaborate is
 
@@ -572,7 +565,7 @@ package System.Tasking with Preelaborate is
       --  is False, and will not need the mutex to do so. Once a task sets
       --  Pending_ATC_Level = 0, no other task can access this field.
 
-      Thread : CMSIS_OS.osThreadId;
+      Thread : FreeRTOS.Tasks.Task_Handle;
       --  Control block used by the underlying low-level tasking service
       --  (GNULLI).
       --

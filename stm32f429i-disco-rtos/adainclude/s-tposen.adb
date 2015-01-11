@@ -33,7 +33,7 @@
 --  Any changes to this interface may require corresponding compiler changes.
 
 with Ada.Unchecked_Conversion;
-with FreeRTOS;
+with FreeRTOS.Tasks;
 
 package body System.Tasking.Protected_Objects.Single_Entry is
 
@@ -202,17 +202,15 @@ package body System.Tasking.Protected_Objects.Single_Entry is
    --------------------
 
    package body Task_Operations is
-      function To_Address
-        is new Ada.Unchecked_Conversion (CMSIS_OS.osThreadId, System.Address);
 
       procedure Sleep (T : Task_Id) is
       begin
-         FreeRTOS.Suspend (To_Address (T.Common.Thread));
+         FreeRTOS.Tasks.Suspend (T.Common.Thread);
       end Sleep;
 
       procedure Wakeup (T : Task_Id) is
       begin
-         FreeRTOS.Resume (To_Address (T.Common.Thread));
+         FreeRTOS.Tasks.Resume (T.Common.Thread);
       end Wakeup;
    end Task_Operations;
 

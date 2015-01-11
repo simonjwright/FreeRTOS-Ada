@@ -18,9 +18,6 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
---  Although CMSIS_OS/FreeRTOS have facilities to start the main
---  program as a task, I can't see how to invoke this with the
---  binder-generated startup code. Also, CMSIS_OS.osKernelStart
---  doesn't return!
+--  FreeRTOS's vTaskStartScheduler() doesn't return!
 
 procedure Start_Tasking with No_Return;

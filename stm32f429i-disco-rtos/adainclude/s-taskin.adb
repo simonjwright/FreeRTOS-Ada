@@ -30,8 +30,7 @@
 ------------------------------------------------------------------------------
 
 with Ada.Unchecked_Conversion;
-with FreeRTOS;
-with System;
+with FreeRTOS.TCB;
 
 package body System.Tasking is
 
@@ -39,7 +38,7 @@ package body System.Tasking is
       function Convert_Task_Id
         is new Ada.Unchecked_Conversion (System.Address, Task_Id);
    begin
-      return Convert_Task_Id (FreeRTOS.Get_Application_Parameter);
+      return Convert_Task_Id (FreeRTOS.TCB.Get_Application_Parameter);
    end Self;
 
 end System.Tasking;

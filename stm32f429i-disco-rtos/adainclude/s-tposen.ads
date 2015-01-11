@@ -54,6 +54,9 @@
 --  Any changes to this interface may require corresponding compiler changes
 --  in exp_ch9.adb and possibly exp_ch7.adb
 
+--  This file has been extensively modified from the GCC 4.9.1 version
+--  for the STM32 GNAT RTS project.
+
 package System.Tasking.Protected_Objects.Single_Entry with Elaborate_Body is
 
    ----------------------------------------------------------------------------

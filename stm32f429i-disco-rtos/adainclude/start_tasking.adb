@@ -18,19 +18,13 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-with CMSIS_OS;
-with System;
-
 procedure Start_Tasking is
-   Status : CMSIS_OS.osStatus;
-   use type CMSIS_OS.osStatus;
+   procedure vTaskStartScheduler
+   with
+     Import,
+     Convention => C,
+     External_Name => "vTaskStartScheduler",
+     No_Return;
 begin
-
-   Status := CMSIS_OS.osKernelStart (null, System.Null_Address);
-   if Status /= CMSIS_OS.osOK then
-      raise Program_Error with "osKernelStart failed";
-   else
-      raise Program_Error with "osKernelStart shouldn't have returned";
-   end if;
-
+   vTaskStartScheduler;
 end Start_Tasking;

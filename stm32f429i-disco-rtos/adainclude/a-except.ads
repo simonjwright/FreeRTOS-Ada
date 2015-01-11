@@ -23,22 +23,21 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-private with System;
+package Ada.Exceptions with Preelaborate is
 
-package Ada.Exceptions is
-   pragma Preelaborate;
-
-   type Exception_Id is private;
-   pragma Preelaborable_Initialization (Exception_Id);
+   type Exception_Id is private
+   with
+     Preelaborable_Initialization;
 
    Null_Id : constant Exception_Id;
 
-   procedure Raise_Exception (E : Exception_Id; Message : String := "");
-   pragma No_Return (Raise_Exception);
+   procedure Raise_Exception (E : Exception_Id; Message : String := "")
+   with
+     No_Return;
 
 private
 
-   type Exception_Id is access all System.Address;
-   Null_Id : constant Exception_Id := null;
+   type Exception_Id is new Integer;
+   Null_Id : constant Exception_Id := -1;
 
 end Ada.Exceptions;
