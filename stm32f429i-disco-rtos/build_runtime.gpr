@@ -20,8 +20,9 @@ project Build_Runtime is
    end Builder;
 
    package Compiler is
-      CFLAGS := ("-ffunction-sections",
-                 "-fdata-sections");
+      CFLAGS := external_as_list("INCLUDES", " ");
+      CFLAGS := CFLAGS & ("-ffunction-sections",
+                          "-fdata-sections");
       CFLAGS := CFLAGS & ("-g");
       case Build is
         when "Production" =>

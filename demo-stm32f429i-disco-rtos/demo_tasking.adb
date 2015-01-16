@@ -6,7 +6,7 @@
 --  of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 --  This is the main program of the demonstration of the
---  CMSIS_OS/FreeRTOS-based Ravenscar-style runtime system.
+--  FreeRTOS-based Ravenscar-style runtime system.
 
 --  The body of the program is in the LEDs package; we just need it to
 --  be included.
@@ -15,10 +15,10 @@ pragma Unreferenced (LEDs);
 
 --  For the moment, the tasking kernel has to be started explicitly in
 --  user code.
-with Start_Tasking;
+with FreeRTOS.Tasks;
 
 procedure Demo_Tasking is
 begin
-   Start_Tasking;
+   FreeRTOS.Tasks.Start_Scheduler;
    --  does not return
 end Demo_Tasking;

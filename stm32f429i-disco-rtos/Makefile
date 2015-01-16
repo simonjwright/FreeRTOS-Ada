@@ -53,7 +53,10 @@ else
 endif
 
 adalib/libgnat.a: force
-	gprbuild -p -P build_runtime.gpr -XBUILD=$(build)
+	gprbuild -p				\
+	  -P build_runtime.gpr			\
+	  -XBUILD=$(build)			\
+	  -XINCLUDES="$(INCLUDES)"
 
 clean::
 	-gprclean -P build_runtime.gpr

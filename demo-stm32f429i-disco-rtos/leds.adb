@@ -16,11 +16,11 @@ package body LEDs is
 
    task type LED (The_LED       : STM32F429I_Discovery.LEDs.LED;
                   Period_Millis : Positive) is
-      pragma Storage_Size (256);
+      pragma Storage_Size (512 + 256);
    end LED;
 
    task Actor is
-      pragma Storage_Size (256);
+      pragma Storage_Size (512 + 256);
       pragma Priority (System.Default_Priority + 1);
    end Actor;
 
