@@ -13,7 +13,7 @@ package body FreeRTOS.Tasks is
       Stack_Depth : Natural;                       -- in bytes
       Parameters  : System.Address;                -- passed to Code
       Priority    : System.Any_Priority)
-     return Task_Handle is
+     return not null Task_Handle is
       --  Code: the procedure to be executed
       --  Name: of task
       --  Stack_Depth: in bytes
@@ -48,7 +48,7 @@ package body FreeRTOS.Tasks is
 
       Task_Name : constant String := Name & ASCII.NUL;
       Status : Status_Code := Fail;
-      Result : Task_Handle := Null_Task_Handle;
+      Result : Task_Handle;
 
    begin
       Status :=
@@ -69,5 +69,18 @@ package body FreeRTOS.Tasks is
 
       return Result;
    end Create_Task;
+
+   procedure Set_Priority (T  : not null Task_Handle;
+                           To : System.Any_Priority) is
+      procedure vTaskPrioritySet (T            : Task_Handle;
+                                  New_Priority : Unsigned_Base_Type)
+      with
+        Import,
+        Convention => C,
+        External_Name => "vTaskPrioritySet";
+   begin
+      vTaskPrioritySet (T            => T,
+                        New_Priority => Unsigned_Base_Type (To));
+   end Set_Priority;
 
 end FreeRTOS.Tasks;

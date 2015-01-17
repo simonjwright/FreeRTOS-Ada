@@ -2,9 +2,10 @@
 --                                                                          --
 --                  GNAT RUN-TIME LIBRARY (GNARL) COMPONENTS                --
 --                                                                          --
---                        S Y S T E M . T A S K I N G                       --
+--     S Y S T E M . T A S K I N G . P R O T E C T E D _ O B J E C T S .    --
+--                          S I N G L E _ E N T R Y                         --
 --                                                                          --
---                                  S p e c                                 --
+--                                  B o d y                                 --
 --                                                                          --
 --          Copyright (C) 1992-2013, Free Software Foundation, Inc.         --
 --                                                                          --
@@ -212,6 +213,7 @@ package body System.Tasking.Protected_Objects.Single_Entry is
       begin
          FreeRTOS.Tasks.Resume (T.Common.Thread);
       end Wakeup;
+
    end Task_Operations;
 
 end System.Tasking.Protected_Objects.Single_Entry;

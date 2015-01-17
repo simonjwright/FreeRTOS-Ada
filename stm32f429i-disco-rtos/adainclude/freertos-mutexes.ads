@@ -1,17 +1,17 @@
 package FreeRTOS.Mutexes with Preelaborate is
 
-   type Mutex_Handle is private;
-   Null_Mutex_Handle : constant Mutex_Handle;
+   type Mutex (<>) is limited private;
+   type Mutex_Handle is access all Mutex;
 
-   function Create_Mutex return Mutex_Handle;
+   function Create_Mutex return not null Mutex_Handle;
 
-   procedure Give (The_Mutex : Mutex_Handle);
+   procedure Give (The_Mutex : not null Mutex_Handle);
 
-   procedure Take (The_Mutex : Mutex_Handle);
+   procedure Take (The_Mutex : not null Mutex_Handle);
 
 private
 
-   type Mutex_Handle is mod 2 ** Standard'Address_Size;
-   Null_Mutex_Handle : constant Mutex_Handle := 0;
+   type Mutex is null record;
+   --  Of course it isn't really, but it is opaque to us.
 
 end FreeRTOS.Mutexes;

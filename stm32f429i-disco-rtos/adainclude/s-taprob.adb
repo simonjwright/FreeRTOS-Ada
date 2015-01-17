@@ -81,7 +81,6 @@ package body System.Tasking.Protected_Objects is
 
       Object.L := FreeRTOS.Mutexes.Create_Mutex;
       Object.Ceiling := System.Any_Priority (Init_Priority);
-      Object.New_Ceiling := System.Any_Priority (Init_Priority);
       Object.Owner := Null_Task;
    end Initialize_Protection;
 
@@ -100,8 +99,7 @@ package body System.Tasking.Protected_Objects is
    ----------
 
    procedure Lock (Object : Protection_Access) is
-      Ceiling_Violation : constant Boolean := False;
-
+      Self_Id : constant Task_Id := Self;
    begin
       --  The lock is made without deferring abort
 
@@ -120,9 +118,13 @@ package body System.Tasking.Protected_Objects is
       --  is already the protected object's owner). If this is the case hence
       --  Program_Error must be raised.
 
-      --  if Detect_Blocking and then Object.Owner = Self then
-      --     raise Program_Error;
-      --  end if;
+      if Object.Owner = Self_Id then
+         raise Program_Error with "external call on same object";
+      end if;
+
+      if Self_Id.Common.Base_Priority > Object.Ceiling then
+         raise Program_Error with "ceiling violation";
+      end if;
 
       FreeRTOS.Mutexes.Take (Object.L);
 
@@ -130,26 +132,20 @@ package body System.Tasking.Protected_Objects is
       --     Send_Trace_Info (PO_Lock);
       --  end if;
 
-      if Ceiling_Violation then
-         raise Program_Error with "ceiling violation";
-      end if;
-
       --  We are entering in a protected action, so that we increase
       --  the protected object nesting level and update the protected
       --  object's owner.
 
-      declare
-         Self_Id : constant Task_Id := Self;
-      begin
-         --  Update the protected object's owner
+      --  Update the protected object's owner
+      Object.Owner := Self_Id;
 
-         Object.Owner := Self_Id;
+      --  Increase protected object nesting level
+      Self_Id.Common.Protected_Action_Nesting :=
+        Self_Id.Common.Protected_Action_Nesting + 1;
 
-         --  Increase protected object nesting level
-
-         Self_Id.Common.Protected_Action_Nesting :=
-           Self_Id.Common.Protected_Action_Nesting + 1;
-      end;
+      --  Update the priority
+      FreeRTOS.Tasks.Set_Priority
+        (Self_Id.Common.Thread, To => Object.Ceiling);
    end Lock;
 
    --------------------
@@ -157,8 +153,7 @@ package body System.Tasking.Protected_Objects is
    --------------------
 
    procedure Lock_Read_Only (Object : Protection_Access) is
-      Ceiling_Violation : constant Boolean := False;
-
+      Self_Id : constant Task_Id := Self;
    begin
       --  If pragma Detect_Blocking is active then, as described in the ARM
       --  9.5.1, par. 15, we must check whether this is an external call on
@@ -175,7 +170,7 @@ package body System.Tasking.Protected_Objects is
       --  provided for possible future use), and second, it largely simplifies
       --  the implementation.
 
-      if Object.Owner = Self then
+      if Object.Owner = Self_Id then
          raise Program_Error with "external call on same object";
       end if;
 
@@ -184,82 +179,76 @@ package body System.Tasking.Protected_Objects is
       --     Send_Trace_Info (PO_Lock);
       --  end if;
 
-      if Ceiling_Violation then
+      if Self_Id.Common.Base_Priority > Object.Ceiling then
          raise Program_Error with "ceiling violation";
       end if;
 
       --  We are entering in a protected action, so we increase the protected
       --  object nesting level.
 
-      declare
-         Self_Id : constant Task_Id := Self;
-      begin
-         --  Update the protected object's owner
+      --  Update the protected object's owner
+      Object.Owner := Self_Id;
 
-         Object.Owner := Self_Id;
+      --  Increase protected object nesting level
+      Self_Id.Common.Protected_Action_Nesting :=
+        Self_Id.Common.Protected_Action_Nesting + 1;
 
-         --  Increase protected object nesting level
-
-         Self_Id.Common.Protected_Action_Nesting :=
-           Self_Id.Common.Protected_Action_Nesting + 1;
-      end;
+      --  Update the priority
+      FreeRTOS.Tasks.Set_Priority
+        (Self_Id.Common.Thread, To => Object.Ceiling);
    end Lock_Read_Only;
 
    -----------------
    -- Set_Ceiling --
    -----------------
 
-   procedure Set_Ceiling
-     (Object : Protection_Access;
-      Prio   : System.Any_Priority) is
-   begin
-      Object.New_Ceiling := Prio;
-   end Set_Ceiling;
+   --  procedure Set_Ceiling
+   --    (Object : Protection_Access;
+   --     Prio   : System.Any_Priority) is
+   --  begin
+   --     Object.New_Ceiling := Prio;
+   --  end Set_Ceiling;
 
    ------------
    -- Unlock --
    ------------
 
    procedure Unlock (Object : Protection_Access) is
-   begin
-      --  We are exiting from a protected action, so that we decrease
-      --  the protected object nesting level and remove ownership of
-      --  the protected object.
-
-      declare
          Self_Id : constant Task_Id := Self;
+   begin
+      --  We are exiting from a protected action, so that we reset the
+      --  priority, decrease the protected object nesting level and
+      --  remove ownership of the protected object.
+      --
+      --  Calls to this procedure can only take place when being within
+      --  a protected action and when the caller is the protected
+      --  object's owner.
 
-      begin
-         --  Calls to this procedure can only take place when being within
-         --  a protected action and when the caller is the protected
-         --  object's owner.
-
-         if Self_Id.Common.Protected_Action_Nesting = 0
-           or else Object.Owner /= Self_Id
-         then
-            raise Program_Error with "improper call of Unlock";
-         end if;
-
-         --  Remove ownership of the protected object
-
-         Object.Owner := Null_Task;
-
-         --  We are exiting from a protected action, so we decrease the
-         --  protected object nesting level.
-
-         Self_Id.Common.Protected_Action_Nesting :=
-           Self_Id.Common.Protected_Action_Nesting - 1;
-      end;
-
-      --  Before releasing the mutex we must actually update its ceiling
-      --  priority if it has been changed.
-
-      if Object.New_Ceiling /= Object.Ceiling then
-         --  System.Task_Primitives.Operations.Set_Ceiling
-         --    (Object.L'Access, Object.New_Ceiling);
-
-         Object.Ceiling := Object.New_Ceiling;
+      if Self_Id.Common.Protected_Action_Nesting = 0
+        or else Object.Owner /= Self_Id
+      then
+         raise Program_Error with "improper call of Unlock";
       end if;
+
+      --  Remove ownership of the protected object
+
+      Object.Owner := Null_Task;
+
+      --  We are exiting from a protected action, so we decrease the
+      --  protected object nesting level.
+
+      Self_Id.Common.Protected_Action_Nesting :=
+        Self_Id.Common.Protected_Action_Nesting - 1;
+
+      --  if Object.New_Ceiling /= Object.Ceiling then
+      --     --  System.Task_Primitives.Operations.Set_Ceiling
+      --     --    (Object.L'Access, Object.New_Ceiling);
+
+      --     Object.Ceiling := Object.New_Ceiling;
+      --  end if;
+
+      FreeRTOS.Tasks.Set_Priority
+        (Self_Id.Common.Thread, To => Self_Id.Common.Base_Priority);
 
       FreeRTOS.Mutexes.Give (Object.L);
 

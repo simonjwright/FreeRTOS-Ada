@@ -198,9 +198,9 @@ package System.Tasking.Protected_Objects is
    --  need not) return before the call to Unlock, and the corresponding
    --  callers will also own the lock for read access.
 
-   procedure Set_Ceiling
-     (Object : Protection_Access;
-      Prio   : System.Any_Priority);
+   --  procedure Set_Ceiling
+   --    (Object : Protection_Access;
+   --     Prio   : System.Any_Priority);
    --  Sets the new ceiling priority of the protected object
 
    procedure Unlock (Object : Protection_Access);
@@ -219,7 +219,7 @@ private
       Ceiling : System.Any_Priority;
       --  Ceiling priority associated to the protected object
 
-      New_Ceiling : System.Any_Priority;
+      --  New_Ceiling : System.Any_Priority;
       --  New ceiling priority associated to the protected object. In case
       --  of assignment of a new ceiling priority to the protected object the
       --  frontend generates a call to set_ceiling to save the new value in

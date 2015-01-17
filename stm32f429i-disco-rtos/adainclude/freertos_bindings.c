@@ -39,7 +39,7 @@ portBASE_TYPE _gnat_xQueueSend(xQueueHandle xQueue,
   return xQueueSendToBack(xQueue, pvItemToQueue, xTicksToWait);
 }
 
-portBASE_TYPE _gnat_xQueueSendToBackFromISR
+portBASE_TYPE _gnat_xQueueSendFromISR
   (xQueueHandle xQueue,
    const void *pvItemToQueue,
    portBASE_TYPE *pxHigherPriorityTaskWoken) {

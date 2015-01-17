@@ -510,7 +510,7 @@ package System.Tasking with Preelaborate is
       --  The task on which this task depends.
       --  See also Master_Level and Master_Within.
 
-      --  Base_Priority : System.Any_Priority;
+      Base_Priority : System.Priority;
       --  Base priority, not changed during entry calls, only changed
       --  via dynamic priorities package.
       --

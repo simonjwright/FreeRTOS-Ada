@@ -107,6 +107,9 @@ package body System.Tasking.Restricted.Stages is
                                        Task_Proc     => State,
                                        Discriminants => Discriminants);
 
+      Created_Task.Common.Base_Priority := (if Priority = Unspecified_Priority
+                                            then System.Default_Priority
+                                            else Priority);
       Created_Task.Common.Thread :=
         FreeRTOS.Tasks.Create_Task
           (Code        => Wrapper'Access,
@@ -114,13 +117,10 @@ package body System.Tasking.Restricted.Stages is
            Stack_Depth =>
              Natural (System.Parameters.Adjust_Storage_Size (Size)),
            Parameters  => Wrapper_Parameter_Address,
-           Priority    => (if Priority = Unspecified_Priority
-                           then System.Default_Priority
-                           else Priority));
+           Priority    => Created_Task.Common.Base_Priority);
       --  The Entry_Call belongs to the task, so Self can be set up now.
       Created_Task.Entry_Call.Self := Created_Task;
-      Elaborated.all :=
-        Created_Task.Common.Thread /= FreeRTOS.Tasks.Null_Task_Handle;
+      Elaborated.all := Created_Task.Common.Thread /= null;
    end Create_Restricted_Task;
 
    procedure Activate_Restricted_Tasks

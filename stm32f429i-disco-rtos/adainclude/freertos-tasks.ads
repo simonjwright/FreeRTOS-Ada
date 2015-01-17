@@ -3,14 +3,14 @@ with System;
 
 package FreeRTOS.Tasks with Preelaborate is
 
-   type Task_Handle is private;
-   Null_Task_Handle : constant Task_Handle;
+   type TCB (<>) is private;
+   type Task_Handle is access all TCB;
 
    --  Conversion utilities for our own use.
    function To_Task_Handle (A : System.Address) return Task_Handle;
    function To_Address (T : Task_Handle) return System.Address;
 
-   type Task_Code is access procedure (Arg1 : System.Address)
+   type Task_Code is not null access procedure (Arg1 : System.Address)
    with
      Convention => C;
 
@@ -20,7 +20,7 @@ package FreeRTOS.Tasks with Preelaborate is
       Stack_Depth : Natural;
       Parameters  : System.Address;
       Priority    : System.Any_Priority)
-     return Task_Handle;
+     return not null Task_Handle;
    --  Code: the procedure to be executed
    --  Name: of task
    --  Stack_Depth: in bytes
@@ -28,13 +28,16 @@ package FreeRTOS.Tasks with Preelaborate is
    --  Priority: of task
    --  May raise Program_Error if the task couldn't be created.
 
-   procedure Resume (T : Task_Handle)
+   procedure Set_Priority (T  : not null Task_Handle;
+                           To : System.Any_Priority);
+
+   procedure Resume (T : not null Task_Handle)
    with
      Import,
      Convention => C,
      External_Name => "vTaskResume";
 
-   procedure Suspend (T : Task_Handle)
+   procedure Suspend (T : not null Task_Handle)
    with
      Import,
      Convention => C,
@@ -49,8 +52,8 @@ package FreeRTOS.Tasks with Preelaborate is
 
 private
 
-   type Task_Handle is mod 2 ** Standard'Address_Size;
-   Null_Task_Handle : constant Task_Handle := 0;
+   type TCB is null record;
+   --  Of course it isn't really, but it is opaque to us.
 
    function Convert
      is new Ada.Unchecked_Conversion (System.Address, Task_Handle);
