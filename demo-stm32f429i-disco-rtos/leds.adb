@@ -12,19 +12,34 @@ with Ada.Real_Time;
 with STM32F429I_Discovery.LEDs;
 with System;
 
+with Buttons;
+
 package body LEDs is
 
-   task type LED (The_LED       : STM32F429I_Discovery.LEDs.LED;
-                  Period_Millis : Positive) is
-      pragma Storage_Size (512 + 256);
-   end LED;
+   task type Fixed_LED (The_LED       : STM32F429I_Discovery.LEDs.LED;
+                        Period_Millis : Positive)
+   with
+     Storage_Size => 512 + 256
+   is
+   end Fixed_LED;
 
-   task Actor is
-      pragma Storage_Size (512 + 256);
-      pragma Priority (System.Default_Priority + 1);
+   task type Variable_LED (The_LED : STM32F429I_Discovery.LEDs.LED)
+   with
+     Storage_Size => 512 + 256
+   is
+   end Variable_LED;
+
+   task Actor
+   with
+     Storage_Size => 512 + 256,
+     Priority => 5
+   is
    end Actor;
 
-   protected Guard is
+   protected Guard
+   with
+     Priority => 5
+   is
       entry Action (The_LED : out STM32F429I_Discovery.LEDs.LED);
       procedure Toggle (The_LED : STM32F429I_Discovery.LEDs.LED);
    private
@@ -32,7 +47,7 @@ package body LEDs is
       L      : STM32F429I_Discovery.LEDs.LED;
    end Guard;
 
-   task body LED is
+   task body Fixed_LED is
       Next : Ada.Real_Time.Time := Ada.Real_Time.Clock;
       use type Ada.Real_Time.Time;
    begin
@@ -41,7 +56,18 @@ package body LEDs is
          Next := Next + Ada.Real_Time.Milliseconds (Period_Millis);
          delay until Next;
       end loop;
-   end LED;
+   end Fixed_LED;
+
+   task body Variable_LED is
+      Next : Ada.Real_Time.Time := Ada.Real_Time.Clock;
+      use type Ada.Real_Time.Time;
+   begin
+      loop
+         Guard.Toggle (The_LED);
+         Next := Next + Buttons.Interval;
+         delay until Next;
+      end loop;
+   end Variable_LED;
 
    task body Actor is
       The_LED : STM32F429I_Discovery.LEDs.LED;
@@ -65,7 +91,7 @@ package body LEDs is
       end Toggle;
    end Guard;
 
-   Red   : LED (STM32F429I_Discovery.LEDs.Red,   1000);
-   Green : LED (STM32F429I_Discovery.LEDs.Green, 125);
+   Red   : Fixed_LED (STM32F429I_Discovery.LEDs.Red, 1000);
+   Green : Variable_LED (STM32F429I_Discovery.LEDs.Green);
 
 end LEDs;
