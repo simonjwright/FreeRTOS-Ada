@@ -1,3 +1,5 @@
+with FreeRTOS.Tasks;
+
 package body FreeRTOS.Queues is
 
    package body Generic_Queues is
@@ -26,7 +28,7 @@ package body FreeRTOS.Queues is
          function xQueueSend
            (Queue         :        Queue_Handle;
             Item_To_Queue : access Item;
-            Ticks_To_Wait :        Unsigned_Base_Type) return Status_Code
+            Ticks_To_Wait :        Tick_Type) return Status_Code
          with
            Import,
            Convention => C,
@@ -37,19 +39,20 @@ package body FreeRTOS.Queues is
          Status :=
            xQueueSend (Queue         => To,
                        Item_To_Queue => Item_To_Pass'Access,
-                       Ticks_To_Wait => Unsigned_Base_Type (Ticks_To_Wait));
+                       Ticks_To_Wait => (if Ticks_To_Wait = 0
+                                         then Max_Delay
+                                         else Tick_Type (Ticks_To_Wait)));
          if Status /= Pass then
             raise Program_Error with "error sending item";
          end if;
       end Send;
 
-      procedure Send_From_ISR (To : not null Queue_Handle;
-                               The_Item : Item;
-                               Higher_Priority_Task_Woken : out Boolean) is
+      procedure Send_From_ISR (To       : not null Queue_Handle;
+                               The_Item : Item) is
          function xQueueSendFromISR
-           (Queue : Queue_Handle;
-            Item_To_Queue : access Item;
-            Higher_Priority_Task_Woken : out Base_Type) return Status_Code
+           (Queue                      :        Queue_Handle;
+            Item_To_Queue              : access Item;
+            Higher_Priority_Task_Woken : out    Base_Type) return Status_Code
          with
            Import,
            Convention => C,
@@ -60,16 +63,16 @@ package body FreeRTOS.Queues is
       begin
          Status :=
            xQueueSendFromISR
-             (Queue         => To,
-              Item_To_Queue => Item_To_Pass'Access,
+             (Queue                      => To,
+              Item_To_Queue              => Item_To_Pass'Access,
               Higher_Priority_Task_Woken => Task_Needs_Waking);
          if Status /= Pass then
             raise Program_Error with "error sending item from isr";
          end if;
-         Higher_Priority_Task_Woken := Task_Needs_Waking /= 0;
+         Tasks.Yield_From_ISR (Integer (Task_Needs_Waking));
       end Send_From_ISR;
 
-      procedure Overwrite (To : not null Queue_Handle;
+      procedure Overwrite (To       : not null Queue_Handle;
                            The_Item : Item) is
          function xQueueOverwrite
            (Queue         :        Queue_Handle;
@@ -89,12 +92,12 @@ package body FreeRTOS.Queues is
          end if;
       end Overwrite;
 
-      function Read (From : not null Queue_Handle;
+      function Read (From          : not null Queue_Handle;
                      Ticks_To_Wait : Natural := 0) return Item is
          function XQueueReceive
            (Queue         :     Queue_Handle;
             Buffer        : out Item;
-            Ticks_To_Wait :     Unsigned_Base_Type) return Status_Code
+            Ticks_To_Wait :     Tick_Type) return Status_Code
          with
            Import,
            Convention => C,
@@ -103,9 +106,12 @@ package body FreeRTOS.Queues is
          Status : Status_Code;
       begin
          Status :=
-           XQueueReceive (Queue         => From,
-                          Buffer        => Result,
-                          Ticks_To_Wait => Unsigned_Base_Type (Ticks_To_Wait));
+           XQueueReceive
+             (Queue         => From,
+              Buffer        => Result,
+              Ticks_To_Wait => (if Ticks_To_Wait = 0
+                                then Max_Delay
+                                else Tick_Type (Ticks_To_Wait)));
          if Status /= Pass then
             raise Program_Error with "error reading item";
          end if;

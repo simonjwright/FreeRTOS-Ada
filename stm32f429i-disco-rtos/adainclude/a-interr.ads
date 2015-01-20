@@ -1,12 +1,16 @@
 ------------------------------------------------------------------------------
 --                                                                          --
---                 GNAT RUN-TIME LIBRARY (GNARL) COMPONENTS                 --
+--                        GNAT RUN-TIME COMPONENTS                          --
 --                                                                          --
---                              F R E E R T O S                             --
+--                       A D A . I N T E R R U P T S                        --
 --                                                                          --
---                                  S p e c                                 --
+--                                 S p e c                                  --
 --                                                                          --
---           Copyright (C) 2015 Simon Wright <simon@pushface.org>           --
+--          Copyright (C) 1992-2009, Free Software Foundation, Inc.         --
+--                                                                          --
+-- This specification is derived from the Ada Reference Manual for use with --
+-- GNAT. The copyright notice above, and the license provisions that follow --
+-- apply solely to the  contents of the part following the private keyword. --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -24,37 +28,42 @@
 -- see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see    --
 -- <http://www.gnu.org/licenses/>.                                          --
 --                                                                          --
--- This interface to FreeRTOS is part of the STM32F4 GNAT RTS port.         --
+-- GNAT was originally developed  by the GNAT team at  New York University. --
+-- Extensive contributions were provided by Ada Core Technologies Inc.      --
 --                                                                          --
 ------------------------------------------------------------------------------
 
-private with Interfaces;
+--  Modified from the GCC 4.9.1 version for the STM32F4 GNAT RTS
+--  project.
 
-package FreeRTOS with Pure is
+with System;
 
-private
+package Ada.Interrupts is
 
-   --  from portmacro.h,
-   --  portBASE_TYPE is long
+   --  See RM0090 (DocID018909 Rev 7) Table 62.
+   type Interrupt_ID is range 0 .. 90;
+   --  Has to match System.Interrupts.Interrupt_ID.
 
-   type Base_Type is new Interfaces.Integer_32;
-   type Unsigned_Base_Type is new Interfaces.Unsigned_32;
+   type Parameterless_Handler is access protected procedure;
 
-   subtype Tick_Type is Unsigned_Base_Type;
+   function Is_Reserved (Interrupt : Interrupt_ID) return Boolean;
 
-   Max_Delay : constant Tick_Type := 16#ffff_ffff#;
+   function Is_Attached (Interrupt : Interrupt_ID) return Boolean;
 
-   --  From projdefs.h.
+   function Current_Handler
+     (Interrupt : Interrupt_ID) return Parameterless_Handler;
 
-   subtype Status_Code is Base_Type;
+   procedure Attach_Handler
+     (New_Handler : Parameterless_Handler;
+      Interrupt   : Interrupt_ID);
 
-   Fail                               : constant Status_Code := 0;
-   Pass                               : constant Status_Code := 1;
-   --  Queue_Empty                        : constant Status_Code := 0;
-   --  Queue_Full                         : constant Status_Code := 0;
-   --  Could_Not_Allocate_Required_Memory : constant Status_Code := -1;
-   --  No_Task_To_Run                     : constant Status_Code := -2;
-   --  Queue_Blocked                      : constant Status_Code := -4;
-   --  Queue_Yield                        : constant Status_Code := -5;
+   procedure Exchange_Handler
+     (Old_Handler : out Parameterless_Handler;
+      New_Handler : Parameterless_Handler;
+      Interrupt   : Interrupt_ID);
 
-end FreeRTOS;
+   procedure Detach_Handler (Interrupt : Interrupt_ID);
+
+   function Reference (Interrupt : Interrupt_ID) return System.Address;
+
+end Ada.Interrupts;

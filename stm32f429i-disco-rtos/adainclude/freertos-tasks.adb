@@ -1,4 +1,5 @@
 with Interfaces;
+with System.Machine_Code;
 
 package body FreeRTOS.Tasks is
 
@@ -70,7 +71,18 @@ package body FreeRTOS.Tasks is
       return Result;
    end Create_Task;
 
-   procedure Set_Priority (T  : not null Task_Handle;
+   function Get_Priority
+     (T : Task_Handle) return System.Any_Priority is
+      function uxTaskPriorityGet (T : Task_Handle) return Unsigned_Base_Type
+      with
+        Import,
+        Convention => C,
+        External_Name => "uxTaskPriorityGet";
+   begin
+      return System.Any_Priority (uxTaskPriorityGet (T));
+   end Get_Priority;
+
+   procedure Set_Priority (T  : Task_Handle;
                            To : System.Any_Priority) is
       procedure vTaskPrioritySet (T            : Task_Handle;
                                   New_Priority : Unsigned_Base_Type)
@@ -82,5 +94,16 @@ package body FreeRTOS.Tasks is
       vTaskPrioritySet (T            => T,
                         New_Priority => Unsigned_Base_Type (To));
    end Set_Priority;
+
+   function In_ISR return Boolean is
+      IPSR : Interfaces.Unsigned_32;
+      use type Interfaces.Unsigned_32;
+   begin
+      System.Machine_Code.Asm
+        ("mrs %0, ipsr",
+         Outputs => Interfaces.Unsigned_32'Asm_Output ("=r", IPSR),
+         Volatile => True);
+      return (IPSR and 16#ff#) /= 0;
+   end In_ISR;
 
 end FreeRTOS.Tasks;

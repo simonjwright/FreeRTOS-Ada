@@ -1,7 +1,5 @@
 package body FreeRTOS.Mutexes is
 
-   Max_Delay : constant Unsigned_Base_Type := 16#ffff_ffff#;
-
    function Create_Mutex return not null Mutex_Handle is
       function xSemaphoreCreateMutex return Mutex_Handle
       with
@@ -34,13 +32,11 @@ package body FreeRTOS.Mutexes is
    procedure Take (The_Mutex : not null Mutex_Handle) is
       function xSemaphoreTake
         (Semaphore  : Mutex_Handle;
-         Block_Time : Unsigned_Base_Type) return Status_Code
+         Block_Time : Tick_Type) return Status_Code
       with
         Import,
         Convention => C,
         External_Name => "_gnat_xSemaphoreTake";
-      --  Block_Time will be 0 anyway, for "indefinitely", but it's
-      --  a long in this port because configUSE_16_BIT_TICKS == 0.
       Status : Status_Code;
    begin
       Status := xSemaphoreTake (Semaphore  => The_Mutex,

@@ -71,8 +71,7 @@ package body System.Tasking.Protected_Objects.Single_Entry is
       Lock (Object.Common'Access);
    end Lock_Entry;
 
-   procedure Lock_Read_Only_Entry
-     (Object : Protection_Entry_Access) is
+   procedure Lock_Read_Only_Entry (Object : Protection_Entry_Access) is
    begin
       Lock_Read_Only (Object.Common'Access);
    end Lock_Read_Only_Entry;

@@ -109,14 +109,18 @@ package System is
 
    --  Priority-related Declarations (RM D.1)
 
-   --  These declarations correspond to FreeRTOS as configured in STM Cube.
+   --  These declarations correspond to FreeRTOS as originally
+   --  configured in STM Cube (thread priorities 0 .. 7), with
+   --  priorities 8 to 18 mapped to Cortex interrupt priorities 15
+   --  (lowest) to 5 (highest that can be used by ISRs that call
+   --  interrupt-safe FreeRTOS API functions).
 
-   Max_Priority           : constant Positive := 6;
-   Max_Interrupt_Priority : constant Positive := 7;
+   Max_Priority           : constant Positive := 7;
+   Max_Interrupt_Priority : constant Positive := 8 + (15 - 5);
 
-   subtype Any_Priority       is Integer      range 0 .. 7;
+   subtype Any_Priority       is Integer range 0 .. Max_Interrupt_Priority;
    subtype Priority           is Any_Priority
-     range Any_Priority'First .. 6;
+     range Any_Priority'First .. Max_Priority;
    subtype Interrupt_Priority is Any_Priority
      range Priority'Last + 1 .. Any_Priority'Last;
 

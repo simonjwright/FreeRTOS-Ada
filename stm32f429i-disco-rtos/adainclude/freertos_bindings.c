@@ -26,6 +26,19 @@
 #include <FreeRTOS.h>
 #include <queue.h>
 #include <semphr.h>
+#include <task.h>
+
+void _gnat_disable_interrupts(void) {
+  taskDISABLE_INTERRUPTS();
+}
+
+void _gnat_enable_interrupts(void) {
+  taskENABLE_INTERRUPTS();
+}
+
+void _gnat_yield_from_isr(int switch_required) {
+  portEND_SWITCHING_ISR(switch_required);
+}
 
 xQueueHandle _gnat_xQueueCreate(unsigned portBASE_TYPE uxQueueLength,
                                 unsigned portBASE_TYPE uxItemSize) {

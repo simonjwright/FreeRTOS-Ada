@@ -91,7 +91,15 @@
 #define configUSE_TICK_HOOK			0
 #define configCPU_CLOCK_HZ			( SystemCoreClock )
 #define configTICK_RATE_HZ			( ( portTickType ) 1000 )
-#define configMAX_PRIORITIES			( ( unsigned portBASE_TYPE ) 8 )
+
+/* Extend the number of priority levels to cope with Ada ceiling
+   priorities, which mean we need to raise a task waiting for an ISR
+   to a priority corresponding to that interrupt's priority. So we
+   need the additional priorities 8 (interrupt priority 15) to 18
+   (interrupt priority 5, the highest that can use API interrupt-safe
+   functions). */
+#define configMAX_PRIORITIES			( ( unsigned portBASE_TYPE ) 19 )
+
 #define configMINIMAL_STACK_SIZE		( ( unsigned short ) 128 )
 #define configTOTAL_HEAP_SIZE			( ( size_t ) ( 15 * 1024 ) )
 #define configMAX_TASK_NAME_LEN			( 16 )
