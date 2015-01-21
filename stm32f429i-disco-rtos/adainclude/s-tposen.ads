@@ -58,6 +58,21 @@
 --  This file has been extensively modified from the GCC 4.9.1 version
 --  for the STM32 GNAT RTS project.
 
+private with FreeRTOS.Queues;
+--  The first version of the FreeRTOS-based variant of this package
+--  used task Suspend and Resume to manage blocking of a task on an
+--  entry barrier.
+--
+--  However, given that the Resume call might be made from an ISR (is
+--  that even legal?), there is a race condition where the Suspend
+--  call might happen after the Resume which was supposed to waken the
+--  task.
+--
+--  For this reason, we use a Queue to manage the interaction. The
+--  Queue will remember the Give (actually Give_From_ISR) if the
+--  interrupt happens after the entry has been unlocked but before the
+--  task Takes.
+
 package System.Tasking.Protected_Objects.Single_Entry with Elaborate_Body is
 
    ----------------------------------------------------------------------------
@@ -152,6 +167,9 @@ private
 
       Entry_Queue : Entry_Call_Link;
       --  Place to store the waiting entry call (if any)
+
+      Barrier_Queue : FreeRTOS.Queues.Queue_Handle;
+      --  Suspend here on the entry barrier
    end record;
 
 end System.Tasking.Protected_Objects.Single_Entry;

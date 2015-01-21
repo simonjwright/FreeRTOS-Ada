@@ -33,7 +33,6 @@
 --  Note: the compiler generates direct calls to this interface, via Rtsfind.
 --  Any changes to this interface may require corresponding compiler changes.
 
-with Ada.Unchecked_Conversion;
 with FreeRTOS.Tasks;
 
 package body System.Tasking.Protected_Objects.Single_Entry is
@@ -42,9 +41,12 @@ package body System.Tasking.Protected_Objects.Single_Entry is
    -- Local packages --
    --------------------
 
+   type Queue_Item is null record;
+   package Barrier_Queues is new FreeRTOS.Queues.Generic_Queues (Queue_Item);
+
    package Task_Operations is
-      procedure Sleep (T : Task_Id) with Inline;
-      procedure Wakeup (T : Task_Id) with Inline;
+      procedure Sleep (Object : Protection_Entry_Access);
+      procedure Wakeup (Object : Protection_Entry_Access);
    end Task_Operations;
 
    ------------------------
@@ -64,6 +66,7 @@ package body System.Tasking.Protected_Objects.Single_Entry is
       Object.Call_In_Progress := null;
       Object.Entry_Body := Entry_Body;
       Object.Entry_Queue := null;
+      Object.Barrier_Queue := Barrier_Queues.Create (Length => 1);
    end Initialize_Protection_Entry;
 
    procedure Lock_Entry (Object : Protection_Entry_Access) is
@@ -126,7 +129,7 @@ package body System.Tasking.Protected_Objects.Single_Entry is
          Object.Entry_Queue := Entry_Call'Access;
          Unlock_Entry (Object);
 
-         Task_Operations.Sleep (Self_Id);
+         Task_Operations.Sleep (Object);
       end if;
 
       --  The call is either `Done' or not. It cannot be cancelled since there
@@ -159,8 +162,6 @@ package body System.Tasking.Protected_Objects.Single_Entry is
 
    procedure Service_Entry (Object : Protection_Entry_Access) is
       Entry_Call : constant Entry_Call_Link := Object.Entry_Queue;
-      Caller     : Task_Id;
-
    begin
       if Entry_Call /= null then
          if Object.Entry_Body.Barrier (Object.Compiler_Info, 1) then
@@ -176,10 +177,9 @@ package body System.Tasking.Protected_Objects.Single_Entry is
             Object.Entry_Body.Action
               (Object.Compiler_Info, Entry_Call.Uninterpreted_Data, 1);
             Object.Call_In_Progress := null;
-            Caller := Entry_Call.Self;
             Unlock_Entry (Object);
 
-            Task_Operations.Wakeup (Caller);
+            Task_Operations.Wakeup (Object);
          else
             --  Just unlock the entry
 
@@ -203,14 +203,21 @@ package body System.Tasking.Protected_Objects.Single_Entry is
 
    package body Task_Operations is
 
-      procedure Sleep (T : Task_Id) is
+      procedure Sleep (Object : Protection_Entry_Access) is
+         Dummy : Queue_Item with Unreferenced;
       begin
-         FreeRTOS.Tasks.Suspend (T.Common.Thread);
+         Dummy := Barrier_Queues.Read (Object.Barrier_Queue);
       end Sleep;
 
-      procedure Wakeup (T : Task_Id) is
+      procedure Wakeup (Object : Protection_Entry_Access) is
       begin
-         FreeRTOS.Tasks.Resume (T.Common.Thread);
+         if FreeRTOS.Tasks.In_ISR then
+            Barrier_Queues.Send_From_ISR (To => Object.Barrier_Queue,
+                                          The_Item => (null record));
+         else
+            Barrier_Queues.Send (To => Object.Barrier_Queue,
+                                 The_Item => (null record));
+         end if;
       end Wakeup;
 
    end Task_Operations;
