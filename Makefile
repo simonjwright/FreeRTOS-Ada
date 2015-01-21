@@ -16,7 +16,11 @@ all: ; $(error This makefile is only for building distributions,	\
 	("make dist"))
 
 NAME ?= stm32f4-gnat-rts
-subdirs := stm32f429i-disco-bsp demo-stm32f429i-disco-bsp
+subdirs :=					\
+  stm32f429i-disco-bsp				\
+  demo-stm32f429i-disco-bsp			\
+  stm32f429i-disco-rtos				\
+  demo-stm32f429i-disco-rtos
 TOP_LEVEL_FILES = INSTALL
 
 dist::

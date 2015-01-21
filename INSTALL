@@ -32,7 +32,7 @@ phases of the build):
         (
          "-g",
          "-O0",
-         "--RTS=stm32f429i-disco-bsp"
+         "--RTS=stm32f429i-disco-rtos"
         );
    end Builder;
 
@@ -46,7 +46,7 @@ as the default RTS (and you need a default RTS) if
 
 o $lib contains text files ada_object_path, ada_source_path containing
   the locations of the adalib and adainclude directories of the RTS
-  respectively.
+  respectively; or
 
 o $lib contains symbolic links named adalib and adainclude to the
   adalib and adainclude directories of the RTS respectively.
@@ -68,7 +68,7 @@ path works fine for command line or Emacs):
         );
    end Builder;
 
-It can be very useful indeed to have a link map file. Because gprbuild
+It can be very useful indeed to have a link map file. In case gprbuild
 doesn't support --create-map-file with a cross-compiler, a good way to
 specify this is in package Linker in the GPR:
 

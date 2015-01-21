@@ -27,7 +27,6 @@ THIS := stm32f429i-disco-rtos
 
 TOP_DISTRIBUTION_FILES =			\
   README					\
-  COPYING.ARM					\
   COPYING.FreeRTOS				\
   COPYING.MIT					\
   COPYING.RUNTIME				\
@@ -39,6 +38,7 @@ RTS_DISTRIBUTION_FILES =                        \
   Makefile.inc
 
 RTS_DISTRIBUTION_FILES +=			\
+  include/FreeRTOSConfig.h			\
   include/bsp_configure_system_clock.h		\
   include/stm32f4xx_hal_conf.h			\
   include/stm32f4xx_it.h
@@ -58,10 +58,27 @@ RTS_DISTRIBUTION_FILES +=                       \
 RTS_DISTRIBUTION_FILES +=			\
   adainclude/a-except.adb			\
   adainclude/a-except.ads			\
+  adainclude/a-interr.adb			\
+  adainclude/a-interr.ads			\
+  adainclude/a-intnam.ads			\
+  adainclude/a-reatim.adb			\
+  adainclude/a-reatim.ads			\
+  adainclude/a-retide.adb			\
+  adainclude/a-retide.ads			\
   adainclude/a-unccon.ads			\
   adainclude/a-uncdea.ads			\
   adainclude/ada.ads				\
-  adainclude/cmsis_os.ads			\
+  adainclude/freertos-memory.ads		\
+  adainclude/freertos-mutexes.adb		\
+  adainclude/freertos-mutexes.ads		\
+  adainclude/freertos-queues.adb		\
+  adainclude/freertos-queues.ads		\
+  adainclude/freertos-tasks.adb			\
+  adainclude/freertos-tasks.ads			\
+  adainclude/freertos-tcb.adb			\
+  adainclude/freertos-tcb.ads			\
+  adainclude/freertos.ads			\
+  adainclude/freertos_bindings.c		\
   adainclude/g-souinf.ads			\
   adainclude/gnat.ads				\
   adainclude/interfac.ads			\
@@ -70,16 +87,23 @@ RTS_DISTRIBUTION_FILES +=			\
   adainclude/machcode.ads			\
   adainclude/os_exit.adb			\
   adainclude/os_exit.ads			\
+  adainclude/s-arit64.adb			\
+  adainclude/s-arit64.ads			\
   adainclude/s-atacco.adb			\
   adainclude/s-atacco.ads			\
+  adainclude/s-interr.adb			\
+  adainclude/s-interr.ads			\
   adainclude/s-maccod.ads			\
+  adainclude/s-parame.adb			\
   adainclude/s-parame.ads			\
   adainclude/s-stoele.adb			\
   adainclude/s-stoele.ads			\
+  adainclude/s-taprob.adb			\
   adainclude/s-taprob.ads			\
   adainclude/s-tarest.adb			\
   adainclude/s-tarest.ads			\
   adainclude/s-tasinf.ads			\
+  adainclude/s-taskin.adb			\
   adainclude/s-taskin.ads			\
   adainclude/s-tasres.ads			\
   adainclude/s-tposen.adb			\
