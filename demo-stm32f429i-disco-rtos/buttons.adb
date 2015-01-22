@@ -69,6 +69,26 @@ package body Buttons is
    end Button;
 
    task Debouncer;
+
+   protected body Button is
+      entry Wait_For_Trigger when Triggered is
+      begin
+         Triggered := False;
+      end Wait_For_Trigger;
+
+      procedure Handler is
+         procedure HAL_GPIO_EXTI_IRQHandler
+           (GPIO_Pin : Unsigned_16)
+         with
+           Import,
+           Convention => C,
+           External_Name => "HAL_GPIO_EXTI_IRQHandler";
+      begin
+         HAL_GPIO_EXTI_IRQHandler (16#0001#);
+         Triggered := True;
+      end Handler;
+   end Button;
+
    task body Debouncer is
       use type Ada.Real_Time.Time;
       use type Unsigned_32;
@@ -81,26 +101,6 @@ package body Buttons is
          end if;
       end loop;
    end Debouncer;
-
-   procedure HAL_GPIO_EXTI_IRQHandler
-     (GPIO_Pin : Unsigned_16)
-   with
-     Import,
-     Convention => C,
-     External_Name => "HAL_GPIO_EXTI_IRQHandler";
-
-   protected body Button is
-      entry Wait_For_Trigger when Triggered is
-      begin
-         Triggered := False;
-      end Wait_For_Trigger;
-
-      procedure Handler is
-      begin
-         HAL_GPIO_EXTI_IRQHandler (16#0001#);
-         Triggered := True;
-      end Handler;
-   end Button;
 
 begin
    Initialize;
