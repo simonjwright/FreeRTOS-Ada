@@ -21,9 +21,10 @@ Makefiles to provide access to the drivers' header and source files;
 see the demonstration's Makefile.
 
 The RTS has been built with no optimisation (-O0) and for debugging
-(-g), using GNAT GPL 2014 for arm-eabi-darwin-bin[1] on Mac OS X (it
-should work out of the box with a Linux-hosted cross-compiler). Ada, C
-and C++ demo programs are included.
+(-g), using GCC 4.9.1 for arm-eabi-darwin13-bin[1] on Mac OS X (it
+should work out of the box (but after recompilation!) with a
+Linux-hosted cross-compiler). Ada, C and C++ demo programs are
+included.
 
 The RTS is intended to support commercial binary distributions[2]. The
 Ada source code has either been derived from FSF GCC (4.9.1) or
@@ -43,7 +44,7 @@ o build_runtime.gpr and runtime.xml originated in AdaCore's GNAT GPL
 o The linker script stm32f429i-flash.ld is under an MIT licence: see
   COPYING.MIT.
 
-[1] http://sourceforge.net/projects/gnuada/files/GNAT_GPL%20Mac%20OS%20X/2014-arm-eabi-darwin-bin/
+[1] https://sourceforge.net/projects/gnuada/files/GNAT_GCC%20Mac%20OS%20X/4.9.1bis/arm-eabi/
 [2] STMicroelectronics' evaluation product licence agreement at
 www.st.com/epla forbids the sale of products including this board, so
 this work would have to be reconfigured for a different board anyway.

@@ -25,16 +25,14 @@ dist::
 
 THIS := stm32f429i-disco-rtos
 
-TOP_DISTRIBUTION_FILES =			\
+RTS_DISTRIBUTION_FILES =			\
   README					\
   COPYING.FreeRTOS				\
   COPYING.MIT					\
   COPYING.RUNTIME				\
   COPYING.STMicroelectronics			\
-  COPYING3
-
-RTS_DISTRIBUTION_FILES =                        \
-  Makefile                                      \
+  COPYING3					\
+  Makefile					\
   Makefile.inc
 
 RTS_DISTRIBUTION_FILES +=			\
@@ -125,9 +123,6 @@ RTS_DISTRIBUTION_FILES +=					\
 
 RTS_DISTRIBUTION_FILES +=                       \
   adalib/stm32f429i-flash.ld
-
-dist:: $(TOP_DISTRIBUTION_FILES)
-	tar cf - $(TOP_DISTRIBUTION_FILES) | tar xvf - -C $(DIST)
 
 dist:: $(RTS_DISTRIBUTION_FILES)
 	mkdir $(DIST)/$(THIS)

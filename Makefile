@@ -21,7 +21,7 @@ subdirs :=					\
   demo-stm32f429i-disco-bsp			\
   stm32f429i-disco-rtos				\
   demo-stm32f429i-disco-rtos
-TOP_LEVEL_FILES = INSTALL
+TOP_LEVEL_FILES = INSTALL README
 
 dist::
 
