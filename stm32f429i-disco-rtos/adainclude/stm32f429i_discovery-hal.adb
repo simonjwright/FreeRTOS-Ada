@@ -22,20 +22,6 @@ with Interfaces;
 
 package body STM32F429I_Discovery.HAL is
 
-   procedure Initialize is
-      procedure HAL_Init with
-        Import,
-        Convention => C,
-        External_Name => "HAL_Init";
-      procedure Configure_System_Clock with
-        Import,
-        Convention => C,
-        External_Name => "_bsp_configure_system_clock";
-   begin
-      HAL_Init;
-      Configure_System_Clock;
-   end Initialize;
-
    procedure Wait (Milliseconds : Natural) is
       procedure HAL_Delay (Milliseconds : Interfaces.Unsigned_32) with
         Import,
@@ -45,6 +31,4 @@ package body STM32F429I_Discovery.HAL is
       HAL_Delay (Interfaces.Unsigned_32 (Milliseconds));
    end Wait;
 
-begin
-   Initialize;
 end STM32F429I_Discovery.HAL;
