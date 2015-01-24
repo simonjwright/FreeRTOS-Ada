@@ -30,6 +30,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
+with FreeRTOS.Tasks;
 with Interfaces;
 
 package body Ada.Real_Time is
@@ -130,21 +131,25 @@ package body Ada.Real_Time is
 
    function Clock return Time is
       --  This is a simple-minded version, which is only valid up to
-      --  2**32 / 1000 seconds from system startup. This is 10^6
-      --  seconds, approximately 10 days.
+      --  2**32 / 1000 seconds from system startup. This is
+      --  approximately 50 days.
 
       --  FreeRTOSConfig.h has set configUSE_16_BIT_TICKS to 0 (so we
       --  get 32-bit ticks) and configTICK_RATE_HZ to 1000.
-
-      --  NB looking at cmsis_os.c, there's a different interface for
-      --  calls from an ISR.
       function xTaskGetTickCount return Interfaces.Unsigned_32
       with
         Import,
         Convention => C,
         External_Name => "xTaskGetTickCount";
+      function xTaskGetTickCountFromISR return Interfaces.Unsigned_32
+      with
+        Import,
+        Convention => C,
+        External_Name => "xTaskGetTickCountFromISR";
    begin
-      return Time_Base (xTaskGetTickCount) * Tick;
+      return Tick * Time_Base ((if FreeRTOS.Tasks.In_ISR
+                                then xTaskGetTickCountFromISR
+                                else xTaskGetTickCount));
    end Clock;
 
    ------------------
