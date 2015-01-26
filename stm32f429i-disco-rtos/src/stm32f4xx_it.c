@@ -232,9 +232,11 @@ void SysTick_Handler(void)
    'object' is the actual PO. */
 typedef void (*handler_wrapper)(void *object);
 
-/* Array, to be indexed from Ada as 0 .. 90, of handler
-   wrappers. Called from the weak IRQ handlers defined below if not
-   null.
+/* Array, to be indexed from Ada as Interrupt_ID (0 .. 90), of handler
+   wrappers. The index values also match IRQn_Type, in
+   $CUBE/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f429xx.h.
+
+   Called from the weak IRQ handlers defined below if not null.
 
    The Ada side will register handlers here; see
    System.Interupts.Install_Restricted_Handlers. */

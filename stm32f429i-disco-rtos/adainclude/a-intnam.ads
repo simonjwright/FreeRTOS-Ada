@@ -1,6 +1,9 @@
 package Ada.Interrupts.Names is
 
-   --  These numbers have to match those in src/stm32f429xx_it.c
+   --  These numbers, those in
+   --  $CUBE/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f429xx.h,
+   --  and those in src/stm32f429xx_it.c all must match.
+
    WWDG_IRQ               : constant Interrupt_ID := 0;
    PVD_IRQ                : constant Interrupt_ID := 1;
    TAMP_STAMP_IRQ         : constant Interrupt_ID := 2;
