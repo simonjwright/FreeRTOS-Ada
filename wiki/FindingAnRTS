@@ -30,3 +30,14 @@ RTSs can also be located by giving the explicit path in the `--RTS=` option (thi
           "--RTS=../stm32f429i-disco-rtos"
          );
     end Builder;
+
+You’ll probably need an absolute path if using GPS; it looks as though, for a semantic check or possibly to compile a single file, GPS changes to the source directory before compiling the file, and of course you’ll have specified the RTS relative to the project file location. You could do this:
+
+    package Builder is
+       for Default_Switches ("ada") use
+         (
+          "-g",
+          "-O0",
+          "--RTS=“ & Project’Project_Dir & "../stm32f429i-disco-rtos"
+         );
+    end Builder;
