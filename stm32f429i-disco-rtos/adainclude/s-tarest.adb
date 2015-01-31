@@ -69,7 +69,10 @@ package body System.Tasking.Restricted.Stages is
       FreeRTOS.TCB.Set_Application_Parameter (Convert_Task_Id (P.ATCB));
       --  Call the task procedure
       P.Task_Proc (P.Discriminants);
-      --  If we return here, something wrong has happened - what?
+      --  If we return here, the task procedure has exited (and not
+      --  because of an exception, which would already have reached
+      --  the last chance handler).
+      raise Program_Error with "task exited, not allowed in Ravenscar";
    end Wrapper;
 
    --  Null_Task_Name : constant String := (1 => ASCII.NUL);
