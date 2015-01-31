@@ -30,7 +30,7 @@ C_SOURCES := $(notdir $(wildcard $(patsubst %,%/*.c,$(VPATH))))
 S_SOURCES := $(notdir $(wildcard $(patsubst %,%/*.s,$(VPATH))))
 
 # Choose the memory manager implementation.
-C_SOURCES += heap_1.c
+C_SOURCES += heap_4.c
 # Now update the VPATH so we can find the source of the memory manager.
 VPATH += $(FREERTOS)/portable/MemMang
 
@@ -42,7 +42,7 @@ adalib/libbsp-rtos.a: $(OBJECTS)
 	$(AR) $(ARFLAGS) $@ $^
 
 clean::
-	-rm *~ *.orig *.o
+	-rm *~ *.orig *.o adalib/libbsp-rtos.a
 
 all:: adalib/libgnat.a
 
@@ -60,5 +60,7 @@ adalib/libgnat.a: force
 
 clean::
 	-gprclean -P build_runtime.gpr
+	-rm adalib/libgnat.a adalib/*.ali
+	-rm -rf .build
 
 .PHONY: all clean force
