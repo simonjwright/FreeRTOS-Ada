@@ -50,6 +50,12 @@ package body System.Interrupts is
       --  The lowest interrupt priority is 15, the highest permissible
       --  one to avoid trampling on FreeRTOS is 5 (see
       --  include/FreeRTOSConfig.h).
+      procedure HAL_NVIC_EnableIRQ (IRQ_N : Interfaces.Unsigned_32)
+      with
+        Import,
+        Convention => C,
+        External_Name => "HAL_NVIC_EnableIRQ";
+      --  Defined in stm32f4xx_hal_cortex.h.
    begin
       for H of Handlers loop
          declare
@@ -59,13 +65,14 @@ package body System.Interrupts is
             if Interrupt_Handlers (H.Interrupt) /= null then
                raise Program_Error with "interrupt already registered";
             end if;
+            Interrupt_Handlers (H.Interrupt) := Impl.Wrapper;
+            Interrupt_Handler_Parameters (H.Interrupt) := Impl.Object;
             HAL_NVIC_SetPriority
               (IRQ_N => Interfaces.Unsigned_32 (H.Interrupt),
                Preempt_Priority => Interfaces.Unsigned_32
                  (15 - (Prio - System.Interrupt_Priority'First)),
                Subpriority => 0);
-            Interrupt_Handlers (H.Interrupt) := Impl.Wrapper;
-            Interrupt_Handler_Parameters (H.Interrupt) := Impl.Object;
+            HAL_NVIC_EnableIRQ (Interfaces.Unsigned_32 (H.Interrupt));
          end;
       end loop;
    end Install_Restricted_Handlers;
