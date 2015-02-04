@@ -1,0 +1,28 @@
+[TOC]
+
+***
+
+[Tasking requires explicit start](tickets:#5)
+----
+The generated code for invoking the Ada main program in `demo_tasking.adb` is
+
+    procedure Ada_Main_Program;
+    pragma Import (Ada, Ada_Main_Program, "_ada_demo_tasking");
+
+    procedure main is
+       Ensure_Reference : aliased System.Address := Ada_Main_Program_Name'Address;
+       pragma Volatile (Ensure_Reference);
+    begin
+       adainit;
+       Ada_Main_Program;
+    end;
+
+and `adainit` invokes the elaborations of the closure (creating all the tasks; this is Ravenscar, so all tasks are created at library level by elaboration). There is no way of affecting this code.
+
+The FreeRTOS call `vTaskStartScheduler()` doesn’t return, so there is nowhere to insert it so as to make a FreeRTOS task out of the main program.
+
+The present solution is to require you to end your main program by calling
+
+    FreeRTOS.Tasks.Start_Scheduler;
+
+as its last statement.
