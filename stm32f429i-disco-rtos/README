@@ -5,13 +5,10 @@ http://www.st.com/).
 The RTS supports Ravenscar tasking. Package System contains the
 following additional restrictions:
 
-   pragma Restrictions (No_Allocators);
-   pragma Restrictions (No_Dispatch);
    pragma Restrictions (No_Enumeration_Maps);
    pragma Restrictions (No_Exception_Propagation);
    pragma Restrictions (No_Finalization);
    pragma Restrictions (No_Recursion);
-   pragma Restrictions (No_Secondary_Stack);
 
 The RTS contains object code for all the relevant drivers from
 STMicroelectronics' STM32Cube_FW_F4_V1.3.0 package, but not the source
