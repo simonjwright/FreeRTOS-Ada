@@ -68,4 +68,8 @@ package System.Parameters with Preelaborate is
    --    when Size < Minimum_Stack_Size, return Minimum_Stack_Size
    --    otherwise return given Size
 
+   function Secondary_Stack_Size (Stack_Size : Size_Type) return Size_Type;
+   --  The secondary stack is allocated as part of the task's stack,
+   --  whose size is passed in Stack_Size.
+
 end System.Parameters;

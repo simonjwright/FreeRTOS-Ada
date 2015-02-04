@@ -33,6 +33,9 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
+--  This file has been modified from the GCC 4.9.1 version for the
+--  STM32 GNAT RTS project.
+
 with System;
 with System.Storage_Elements;
 
@@ -47,11 +50,11 @@ package Ada.Tags is
 
    function Expanded_Name (T : Tag) return String;
 
-   function Wide_Expanded_Name (T : Tag) return Wide_String;
-   pragma Ada_05 (Wide_Expanded_Name);
+   --  function Wide_Expanded_Name (T : Tag) return Wide_String;
+   --  pragma Ada_05 (Wide_Expanded_Name);
 
-   function Wide_Wide_Expanded_Name (T : Tag) return Wide_Wide_String;
-   pragma Ada_05 (Wide_Wide_Expanded_Name);
+   --  function Wide_Wide_Expanded_Name (T : Tag) return Wide_Wide_String;
+   --  pragma Ada_05 (Wide_Wide_Expanded_Name);
 
    function External_Tag (T : Tag) return String;
 

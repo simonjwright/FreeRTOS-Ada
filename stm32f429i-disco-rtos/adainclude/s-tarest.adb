@@ -54,6 +54,7 @@ package body System.Tasking.Restricted.Stages is
       ATCB          : Task_Id;
       Task_Proc     : Task_Procedure_Access;
       Discriminants : System.Address;
+      SStack_Size   : System.Parameters.Size_Type;
    end record;
 
    package Parameters_Conversion
@@ -62,13 +63,25 @@ package body System.Tasking.Restricted.Stages is
    procedure Wrapper (Arg1 : System.Address) is
       function Convert_Task_Id
         is new Ada.Unchecked_Conversion (Task_Id, System.Address);
+
       P : constant Parameters_Conversion.Object_Pointer :=
         Parameters_Conversion.To_Pointer (Arg1);
+
+      Secondary_Stack :
+        aliased System.Secondary_Stack.Stack (Size => P.SStack_Size);
+      --  At this point, the stack is the task's stack
    begin
       --  Save the ATCB in the FreeRTOS TCB
       FreeRTOS.TCB.Set_Application_Parameter (Convert_Task_Id (P.ATCB));
+
+      --  Register the secondary stack
+      P.ATCB.Secondary_Stack := Secondary_Stack'Unchecked_Access;
+      --  Unchecked_Access is OK because it can only be accessed from
+      --  the current task, within Task_Proc.
+
       --  Call the task procedure
       P.Task_Proc (P.Discriminants);
+
       --  If we return here, the task procedure has exited (and not
       --  because of an exception, which would already have reached
       --  the last chance handler).
@@ -95,6 +108,9 @@ package body System.Tasking.Restricted.Stages is
       pragma Unreferenced (CPU);
       pragma Unreferenced (Chain);
 
+      Actual_Stack_Size : constant System.Parameters.Size_Type :=
+        System.Parameters.Adjust_Storage_Size (Size);
+
       Wrapper_Parameter_Address : constant System.Address :=
         FreeRTOS.Memory.Malloc (Parameters'Max_Size_In_Storage_Elements);
       Wrapper_Parameter_Access :
@@ -106,9 +122,12 @@ package body System.Tasking.Restricted.Stages is
       if Wrapper_Parameter_Address = System.Null_Address then
          raise Storage_Error with "couldn't allocate task wrapper";
       end if;
-      Wrapper_Parameter_Access.all := (ATCB          => Created_Task,
-                                       Task_Proc     => State,
-                                       Discriminants => Discriminants);
+      Wrapper_Parameter_Access.all :=
+        (ATCB          => Created_Task,
+         Task_Proc     => State,
+         Discriminants => Discriminants,
+         SStack_Size   =>
+           System.Parameters.Secondary_Stack_Size (Actual_Stack_Size));
 
       Created_Task.Common.Base_Priority := (if Priority = Unspecified_Priority
                                             then System.Default_Priority
@@ -117,8 +136,7 @@ package body System.Tasking.Restricted.Stages is
         FreeRTOS.Tasks.Create_Task
           (Code        => Wrapper'Access,
            Name        => Task_Image,
-           Stack_Depth =>
-             Natural (System.Parameters.Adjust_Storage_Size (Size)),
+           Stack_Depth => Natural (Actual_Stack_Size),
            Parameters  => Wrapper_Parameter_Address,
            Priority    => Created_Task.Common.Base_Priority);
       --  The Entry_Call belongs to the task, so Self can be set up now.

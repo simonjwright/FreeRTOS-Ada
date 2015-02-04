@@ -35,17 +35,18 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
+--  This file has been extensively modified for the STM32 GNAT RTS
+--  project.
+
 pragma Profile (Ravenscar);
 
 --  These restrictions were taken from http://wiki.osdev.org/Ada_Bare_bones
 pragma Discard_Names;
 pragma Normalize_Scalars;
-pragma Restrictions (No_Dispatch);
 pragma Restrictions (No_Enumeration_Maps);
 pragma Restrictions (No_Exception_Propagation);
 pragma Restrictions (No_Finalization);
 pragma Restrictions (No_Recursion);
-pragma Restrictions (No_Secondary_Stack);
 
 --  pragma Restrictions (No_Implicit_Dynamic_Code) not applied; it
 --  forbids trampolines, which are needed for 'Unrestricted_Access,

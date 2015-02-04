@@ -29,13 +29,16 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
+--  This file has been modified from the GCC 4.9.1 version for the
+--  STM32 GNAT RTS project.
+
 with Ada.Exceptions;
 with Ada.Unchecked_Conversion;
 
 with System.HTable;
 with System.Storage_Elements; use System.Storage_Elements;
-with System.WCh_Con;          use System.WCh_Con;
-with System.WCh_StW;          use System.WCh_StW;
+--  with System.WCh_Con;          use System.WCh_Con;
+--  with System.WCh_StW;          use System.WCh_StW;
 
 pragma Elaborate_All (System.HTable);
 
@@ -1020,32 +1023,32 @@ package body Ada.Tags is
    -- Wide_Expanded_Name --
    ------------------------
 
-   WC_Encoding : Character;
-   pragma Import (C, WC_Encoding, "__gl_wc_encoding");
-   --  Encoding method for source, as exported by binder
+   --  WC_Encoding : Character;
+   --  pragma Import (C, WC_Encoding, "__gl_wc_encoding");
+   --  --  Encoding method for source, as exported by binder
 
-   function Wide_Expanded_Name (T : Tag) return Wide_String is
-      S : constant String := Expanded_Name (T);
-      W : Wide_String (1 .. S'Length);
-      L : Natural;
-   begin
-      String_To_Wide_String
-        (S, W, L, Get_WC_Encoding_Method (WC_Encoding));
-      return W (1 .. L);
-   end Wide_Expanded_Name;
+   --  function Wide_Expanded_Name (T : Tag) return Wide_String is
+   --     S : constant String := Expanded_Name (T);
+   --     W : Wide_String (1 .. S'Length);
+   --     L : Natural;
+   --  begin
+   --     String_To_Wide_String
+   --       (S, W, L, Get_WC_Encoding_Method (WC_Encoding));
+   --     return W (1 .. L);
+   --  end Wide_Expanded_Name;
 
    -----------------------------
    -- Wide_Wide_Expanded_Name --
    -----------------------------
 
-   function Wide_Wide_Expanded_Name (T : Tag) return Wide_Wide_String is
-      S : constant String := Expanded_Name (T);
-      W : Wide_Wide_String (1 .. S'Length);
-      L : Natural;
-   begin
-      String_To_Wide_Wide_String
-        (S, W, L, Get_WC_Encoding_Method (WC_Encoding));
-      return W (1 .. L);
-   end Wide_Wide_Expanded_Name;
+   --  function Wide_Wide_Expanded_Name (T : Tag) return Wide_Wide_String is
+   --     S : constant String := Expanded_Name (T);
+   --     W : Wide_Wide_String (1 .. S'Length);
+   --     L : Natural;
+   --  begin
+   --     String_To_Wide_Wide_String
+   --       (S, W, L, Get_WC_Encoding_Method (WC_Encoding));
+   --     return W (1 .. L);
+   --  end Wide_Wide_Expanded_Name;
 
 end Ada.Tags;

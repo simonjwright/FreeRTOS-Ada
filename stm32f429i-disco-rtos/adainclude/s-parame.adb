@@ -45,4 +45,8 @@ package body System.Parameters is
 
    function Minimum_Stack_Size return Size_Type is (768);
 
+   function Secondary_Stack_Size (Stack_Size : Size_Type) return Size_Type
+     is ((Stack_Size * 10) / 100);
+   --  10%
+
 end System.Parameters;

@@ -38,6 +38,7 @@
 --  for the STM32 GNAT RTS project.
 
 with FreeRTOS.Tasks;
+with System.Secondary_Stack;
 
 package System.Tasking with Preelaborate is
 
@@ -719,6 +720,9 @@ package System.Tasking with Preelaborate is
    record
       Common : Common_ATCB;
       --  The common part between various tasking implementations
+
+      Secondary_Stack : System.Secondary_Stack.Stack_Ptr;
+      --  Protection : only accessed at task creation.
 
       Entry_Call : aliased Entry_Call_Record;
       --  Protection: This field is used on entry call "queues" associated

@@ -31,45 +31,39 @@
 
 pragma Compiler_Unit_Warning;
 
+with System.Parameters;
 with System.Storage_Elements;
 
-package System.Secondary_Stack is
+package System.Secondary_Stack with Preelaborate is
 
-   package SSE renames System.Storage_Elements;
+   --  The secondary stack for a task is an area in the task's stack
+   --  reserved for managing objects of indefinite type
+   --  (e.g. Strings).
+   --
+   --  The secondary stack is created as an object in the
+   --  System.Tasking.Restricted.Stages Wrapper procedure.
+   --
+   --  In this implementation, the main program doesn't have a
+   --  secondary stack, and Program_Error will be raised if it
+   --  attempts to use one.
 
-   Default_Secondary_Stack_Size : Natural := 10 * 1024;
-   --  Default size of a secondary stack. May be modified by binder -D switch
-   --  which causes the binder to generate an appropriate assignment in the
-   --  binder generated file.
+   type Stack (Size : System.Parameters.Size_Type) is private;
+   type Stack_Ptr is access all Stack with Storage_Size => 0;
 
-   procedure SS_Init
-     (Stk  : in out Address;
-      Size : Natural := Default_Secondary_Stack_Size);
-   --  Initialize the secondary stack with a main stack of the given Size.
-   --
-   --  If System.Parameters.Sec_Stack_Percentage equals Dynamic, Stk is really
-   --  an OUT parameter that will be allocated on the heap. Then all further
-   --  allocations which do not overflow the main stack will not generate
-   --  dynamic (de)allocation calls. If the main Stack overflows, a new
-   --  chuck of at least the same size will be allocated and linked to the
-   --  previous chunk.
-   --
-   --  Otherwise (Sec_Stack_Percentage between 0 and 100), Stk is an IN
-   --  parameter that is already pointing to a Stack_Id. The secondary stack
-   --  in this case is fixed, and any attempt to allocate more than the initial
-   --  size will result in a Storage_Error being raised.
-   --
-   --  Note: the reason that Stk is passed is that SS_Init is called before
-   --  the proper interface is established to obtain the address of the
-   --  stack using System.Soft_Links.Get_Sec_Stack_Addr.
+   --  procedure SS_Init
+   --    (Stk : in out System.Address;
+   --     Size : Natural);
+   --  Initialize a secondary stack at the given address to the given
+   --  Size.
 
    procedure SS_Allocate
-     (Addr         : out Address;
-      Storage_Size : SSE.Storage_Count);
-   --  Allocate enough space for a 'Storage_Size' bytes object with Maximum
-   --  alignment. The address of the allocated space is returned in Addr.
+     (Addr         : out System.Address;
+      Storage_Size : System.Storage_Elements.Storage_Count);
+   --  Allocate enough space for a 'Storage_Size' bytes object with
+   --  maximum alignment from the current task's stack. The address of
+   --  the allocated space is returned in Addr.
 
-   procedure SS_Free (Stk : in out Address);
+   --  procedure SS_Free (Stk : in out Address);
    --  Release the memory allocated for the Secondary Stack. That is
    --  to say, all the allocated chunks. Upon return, Stk will be set
    --  to System.Null_Address.
@@ -81,11 +75,9 @@ package System.Secondary_Stack is
    --  Return the Mark corresponding to the current state of the stack
 
    procedure SS_Release (M : Mark_Id);
-   --  Restore the state of the stack corresponding to the mark M. If an
-   --  additional chunk have been allocated, it will never be freed during a
-   --  ??? missing comment here
+   --  Restore the state of the stack corresponding to the mark M.
 
-   function SS_Get_Max return Long_Long_Integer;
+   --  function SS_Get_Max return Long_Long_Integer;
    --  Return maximum used space in storage units for the current secondary
    --  stack. For a dynamically allocated secondary stack, the returned
    --  result is always -1. For a statically allocated secondary stack,
@@ -93,27 +85,33 @@ package System.Secondary_Stack is
    --  far during execution of the program to the current secondary stack,
    --  i.e. the secondary stack for the current task.
 
-   generic
-      with procedure Put_Line (S : String);
-   procedure SS_Info;
+   --  generic
+   --     with procedure Put_Line (S : String);
+   --  procedure SS_Info;
    --  Debugging procedure used to print out secondary Stack allocation
    --  information. This procedure is generic in order to avoid a direct
    --  dependance on a particular IO package.
 
 private
    SS_Pool : Integer;
-   --  Unused entity that is just present to ease the sharing of the pool
-   --  mechanism for specific allocation/deallocation in the compiler
+   --  Unused entity that is just present to ease the sharing of the
+   --  pool mechanism for specific allocation/deallocation in the
+   --  compiler (???)
 
-   type SS_Ptr is new SSE.Integer_Address;
-   --  Stack pointer value for secondary stack
+   type Memory_Array
+     is array (System.Parameters.Size_Type range <>)
+     of System.Storage_Elements.Storage_Element
+   with
+     Alignment => Standard'Maximum_Alignment;
 
-   type Mark_Id is record
-      Sstk : System.Address;
-      Sptr : SS_Ptr;
+   --  This stack grows up.
+   type Stack (Size : System.Parameters.Size_Type) is record
+      Top : System.Parameters.Size_Type := 1;
+      Mem : Memory_Array (1 .. Size);
    end record;
-   --  A mark value contains the address of the secondary stack structure,
-   --  as returned by System.Soft_Links.Get_Sec_Stack_Addr, and a stack
-   --  pointer value corresponding to the point of the mark call.
+
+   type Mark_Id is new System.Parameters.Size_Type;
+   --  A mark value contains a stack pointer value corresponding to
+   --  the point of the mark call.
 
 end System.Secondary_Stack;
