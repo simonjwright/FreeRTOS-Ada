@@ -20,8 +20,7 @@ see the demonstration's Makefile.
 The RTS has been built with no optimisation (-O0) and for debugging
 (-g), using GCC 4.9.1 for arm-eabi-darwin13-bin[1] on Mac OS X (it
 should work out of the box (but after recompilation!) with a
-Linux-hosted cross-compiler). Ada, C and C++ demo programs are
-included.
+Linux-hosted cross-compiler). Demo programs are included.
 
 The RTS is intended to support commercial binary distributions[2]. The
 Ada source code has either been derived from FSF GCC (4.9.1) or
