@@ -19,19 +19,19 @@ package body LEDs is
    task type Fixed_LED (The_LED       : STM32F429I_Discovery.LEDs.LED;
                         Period_Millis : Positive)
    with
-     Storage_Size => 512 + 256
+     Storage_Size => 1024
    is
    end Fixed_LED;
 
    task type Variable_LED (The_LED : STM32F429I_Discovery.LEDs.LED)
    with
-     Storage_Size => 512 + 256
+     Storage_Size => 1024
    is
    end Variable_LED;
 
    task Actor
    with
-     Storage_Size => 512 + 256,
+     Storage_Size => 1024,
      Priority => 5
    is
    end Actor;

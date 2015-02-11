@@ -16,7 +16,7 @@ project Testbed is
         (
          "-g",
          "-O0",
-         "--RTS=../stm32f429i-disco-rtos"
+         "--RTS=" & Project'Project_Dir & "../stm32f429i-disco-rtos"
         );
    end Builder;
    package Linker is
