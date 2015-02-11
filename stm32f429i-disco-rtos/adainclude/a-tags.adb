@@ -705,7 +705,7 @@ package body Ada.Tags is
             Msg2 (1 .. Msg1'Length) := Msg1;
             Msg2 (Msg1'Length + 1 .. Msg1'Length + External'Length) :=
               External;
-            Ada.Exceptions.Raise_Exception (Tag_Error'Identity, Msg2);
+            raise Tag_Error with Msg2;
          end;
       end if;
 

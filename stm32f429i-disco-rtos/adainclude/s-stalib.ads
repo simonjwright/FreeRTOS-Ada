@@ -52,10 +52,7 @@ pragma Polling (Off);
 
 with Ada.Unchecked_Conversion;
 
-package System.Standard_Library is
-   pragma Warnings (Off);
-   pragma Preelaborate_05;
-   pragma Warnings (On);
+package System.Standard_Library with Elaborate_Body, Preelaborate is
 
    subtype Big_String is String (1 .. Positive'Last);
    pragma Suppress_Initialization (Big_String);
@@ -240,12 +237,12 @@ package System.Standard_Library is
    -- Subprograms --
    -----------------
 
-   procedure Abort_Undefer_Direct;
-   pragma Inline (Abort_Undefer_Direct);
-   --  A little procedure that just calls Abort_Undefer.all, for use in
+   --  procedure Abort_Undefer_Direct;
+   --  pragma Inline (Abort_Undefer_Direct);
+   --  --  A little procedure that just calls Abort_Undefer.all, for use in
    --  clean up procedures, which only permit a simple subprogram name.
 
-   procedure Adafinal;
+   --  procedure Adafinal;
    --  Performs the Ada Runtime finalization the first time it is invoked.
    --  All subsequent calls are ignored.
 

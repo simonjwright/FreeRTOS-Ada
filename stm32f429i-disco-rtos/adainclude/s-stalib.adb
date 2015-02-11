@@ -36,7 +36,7 @@ pragma Compiler_Unit_Warning;
 --  of System.Standard_Library, since this would cause order of elaboration
 --  problems (Elaborate_Body would have the same problem).
 
-pragma Polling (Off);
+--  pragma Polling (Off);
 --  We must turn polling off for this unit, because otherwise we get
 --  elaboration circularities with Ada.Exceptions if polling is on.
 
@@ -44,7 +44,7 @@ pragma Warnings (Off);
 --  Kill warnings from unused withs. These unused with's are here to make
 --  sure the relevant units are loaded and properly elaborated.
 
-with System.Soft_Links;
+--  with System.Soft_Links;
 --  Referenced directly from generated code using external symbols so it
 --  must always be present in a build, even if no unit has a direct with
 --  of this unit. Also referenced from exception handling routines.
@@ -61,7 +61,7 @@ pragma Warnings (On);
 
 package body System.Standard_Library is
 
-   Runtime_Finalized : Boolean := False;
+   --  Runtime_Finalized : Boolean := False;
    --  Set to True when adafinal is called. Used to ensure that subsequent
    --  calls to adafinal after the first have no effect.
 
@@ -69,22 +69,22 @@ package body System.Standard_Library is
    -- Abort_Undefer_Direct --
    --------------------------
 
-   procedure Abort_Undefer_Direct is
-   begin
-      System.Soft_Links.Abort_Undefer.all;
-   end Abort_Undefer_Direct;
+   --  procedure Abort_Undefer_Direct is
+   --  begin
+   --     System.Soft_Links.Abort_Undefer.all;
+   --  end Abort_Undefer_Direct;
 
    --------------
    -- Adafinal --
    --------------
 
-   procedure Adafinal is
-   begin
-      if not Runtime_Finalized then
-         Runtime_Finalized := True;
-         System.Soft_Links.Adafinal.all;
-      end if;
-   end Adafinal;
+   --  procedure Adafinal is
+   --  begin
+   --     if not Runtime_Finalized then
+   --        Runtime_Finalized := True;
+   --        System.Soft_Links.Adafinal.all;
+   --     end if;
+   --  end Adafinal;
 
    -----------------
    -- Break_Start --

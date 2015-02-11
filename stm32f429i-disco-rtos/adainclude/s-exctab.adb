@@ -31,10 +31,23 @@
 
 pragma Compiler_Unit_Warning;
 
+with FreeRTOS.Tasks;
+--  Not sure this is actually even required, since exceptions should
+--  be registered at library level => at elaboration, and the kernel
+--  isn't running yet.
 with System.HTable;
-with System.Soft_Links;   use System.Soft_Links;
+--  with System.Soft_Links;   use System.Soft_Links;
 
 package body System.Exception_Table is
+
+   type Locking_Procedure
+     is access procedure
+   with Convention => C;
+
+   Lock_Task : constant Locking_Procedure :=
+     FreeRTOS.Tasks.Enter_Critical_Region'Access;
+   Unlock_Task : constant Locking_Procedure :=
+     FreeRTOS.Tasks.Exit_Critical_Region'Access;
 
    use System.Standard_Library;
 

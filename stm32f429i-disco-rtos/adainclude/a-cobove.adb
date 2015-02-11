@@ -27,6 +27,8 @@
 -- This unit was originally developed by Matthew J Heaney.                  --
 ------------------------------------------------------------------------------
 
+pragma Style_Checks (Off);
+
 with Ada.Containers.Generic_Array_Sort;
 
 with System; use type System.Address;
@@ -303,15 +305,15 @@ package body Ada.Containers.Bounded_Vectors is
 
       return Result;
 
-   exception
-      when others =>
-         BL := BL - 1;
-         LL := LL - 1;
+   --  exception
+   --     when others =>
+   --        BL := BL - 1;
+   --        LL := LL - 1;
 
-         BR := BR - 1;
-         LR := LR - 1;
+   --        BR := BR - 1;
+   --        LR := LR - 1;
 
-         raise;
+   --        raise;
    end "=";
 
    ------------
@@ -725,11 +727,11 @@ package body Ada.Containers.Bounded_Vectors is
    -- Finalize --
    --------------
 
-   procedure Finalize (Object : in out Iterator) is
-      B : Natural renames Object.Container.Busy;
-   begin
-      B := B - 1;
-   end Finalize;
+   --  procedure Finalize (Object : in out Iterator) is
+   --     B : Natural renames Object.Container.Busy;
+   --  begin
+   --     B := B - 1;
+   --  end Finalize;
 
    ----------
    -- Find --
@@ -781,12 +783,12 @@ package body Ada.Containers.Bounded_Vectors is
             return Cursor'(Container'Unrestricted_Access, Result);
          end if;
 
-      exception
-         when others =>
-            B := B - 1;
-            L := L - 1;
+      --  exception
+      --     when others =>
+      --        B := B - 1;
+      --        L := L - 1;
 
-            raise;
+      --        raise;
       end;
    end Find;
 
@@ -824,12 +826,12 @@ package body Ada.Containers.Bounded_Vectors is
 
       return Result;
 
-   exception
-      when others =>
-         B := B - 1;
-         L := L - 1;
+   --  exception
+   --     when others =>
+   --        B := B - 1;
+   --        L := L - 1;
 
-         raise;
+   --        raise;
    end Find_Index;
 
    -----------
@@ -845,28 +847,28 @@ package body Ada.Containers.Bounded_Vectors is
       end if;
    end First;
 
-   function First (Object : Iterator) return Cursor is
-   begin
-      --  The value of the iterator object's Index component influences the
-      --  behavior of the First (and Last) selector function.
+   --  function First (Object : Iterator) return Cursor is
+   --  begin
+   --     --  The value of the iterator object's Index component influences the
+   --     --  behavior of the First (and Last) selector function.
 
-      --  When the Index component is No_Index, this means the iterator
-      --  object was constructed without a start expression, in which case the
-      --  (forward) iteration starts from the (logical) beginning of the entire
-      --  sequence of items (corresponding to Container.First, for a forward
-      --  iterator).
+   --     --  When the Index component is No_Index, this means the iterator
+   --     --  object was constructed without a start expression, in which case the
+   --     --  (forward) iteration starts from the (logical) beginning of the entire
+   --     --  sequence of items (corresponding to Container.First, for a forward
+   --     --  iterator).
 
-      --  Otherwise, this is iteration over a partial sequence of items.
-      --  When the Index component isn't No_Index, the iterator object was
-      --  constructed with a start expression, that specifies the position
-      --  from which the (forward) partial iteration begins.
+   --     --  Otherwise, this is iteration over a partial sequence of items.
+   --     --  When the Index component isn't No_Index, the iterator object was
+   --     --  constructed with a start expression, that specifies the position
+   --     --  from which the (forward) partial iteration begins.
 
-      if Object.Index = No_Index then
-         return First (Object.Container.all);
-      else
-         return Cursor'(Object.Container, Object.Index);
-      end if;
-   end First;
+   --     if Object.Index = No_Index then
+   --        return First (Object.Container.all);
+   --     else
+   --        return Cursor'(Object.Container, Object.Index);
+   --     end if;
+   --  end First;
 
    -------------------
    -- First_Element --
@@ -935,12 +937,12 @@ package body Ada.Containers.Bounded_Vectors is
 
             return Result;
 
-         exception
-            when others =>
-               B := B - 1;
-               L := L - 1;
+         --  exception
+         --     when others =>
+         --        B := B - 1;
+         --        L := L - 1;
 
-               raise;
+         --        raise;
          end;
       end Is_Sorted;
 
@@ -1034,15 +1036,15 @@ package body Ada.Containers.Bounded_Vectors is
             SB := SB - 1;
             SL := SL - 1;
 
-         exception
-            when others =>
-               TB := TB - 1;
-               TL := TL - 1;
+         --  exception
+         --     when others =>
+         --        TB := TB - 1;
+         --        TL := TL - 1;
 
-               SB := SB - 1;
-               SL := SL - 1;
+         --        SB := SB - 1;
+         --        SL := SL - 1;
 
-               raise;
+         --        raise;
          end;
       end Merge;
 
@@ -1095,12 +1097,12 @@ package body Ada.Containers.Bounded_Vectors is
             B := B - 1;
             L := L - 1;
 
-         exception
-            when others =>
-               B := B - 1;
-               L := L - 1;
+         --  exception
+         --     when others =>
+         --        B := B - 1;
+         --        L := L - 1;
 
-               raise;
+         --        raise;
          end;
       end Sort;
 
@@ -1883,94 +1885,94 @@ package body Ada.Containers.Bounded_Vectors is
          for Indx in Index_Type'First .. Container.Last loop
             Process (Cursor'(Container'Unrestricted_Access, Indx));
          end loop;
-      exception
-         when others =>
-            B := B - 1;
-            raise;
+      --  exception
+      --     when others =>
+      --        B := B - 1;
+      --        raise;
       end;
 
       B := B - 1;
    end Iterate;
 
-   function Iterate
-     (Container : Vector)
-      return Vector_Iterator_Interfaces.Reversible_Iterator'Class
-   is
-      V : constant Vector_Access := Container'Unrestricted_Access;
-      B : Natural renames V.Busy;
+   --  function Iterate
+   --    (Container : Vector)
+   --     return Vector_Iterator_Interfaces.Reversible_Iterator'Class
+   --  is
+   --     V : constant Vector_Access := Container'Unrestricted_Access;
+   --     B : Natural renames V.Busy;
 
-   begin
-      --  The value of its Index component influences the behavior of the First
-      --  and Last selector functions of the iterator object. When the Index
-      --  component is No_Index (as is the case here), this means the iterator
-      --  object was constructed without a start expression. This is a complete
-      --  iterator, meaning that the iteration starts from the (logical)
-      --  beginning of the sequence of items.
+   --  begin
+   --     --  The value of its Index component influences the behavior of the First
+   --     --  and Last selector functions of the iterator object. When the Index
+   --     --  component is No_Index (as is the case here), this means the iterator
+   --     --  object was constructed without a start expression. This is a complete
+   --     --  iterator, meaning that the iteration starts from the (logical)
+   --     --  beginning of the sequence of items.
 
-      --  Note: For a forward iterator, Container.First is the beginning, and
-      --  for a reverse iterator, Container.Last is the beginning.
+   --     --  Note: For a forward iterator, Container.First is the beginning, and
+   --     --  for a reverse iterator, Container.Last is the beginning.
 
-      return It : constant Iterator :=
-        (Limited_Controlled with
-           Container => V,
-           Index     => No_Index)
-      do
-         B := B + 1;
-      end return;
-   end Iterate;
+   --     return It : constant Iterator :=
+   --       (Limited_Controlled with
+   --          Container => V,
+   --          Index     => No_Index)
+   --     do
+   --        B := B + 1;
+   --     end return;
+   --  end Iterate;
 
-   function Iterate
-     (Container : Vector;
-      Start     : Cursor)
-      return Vector_Iterator_Interfaces.Reversible_Iterator'Class
-   is
-      V : constant Vector_Access := Container'Unrestricted_Access;
-      B : Natural renames V.Busy;
+   --  function Iterate
+   --    (Container : Vector;
+   --     Start     : Cursor)
+   --     return Vector_Iterator_Interfaces.Reversible_Iterator'Class
+   --  is
+   --     V : constant Vector_Access := Container'Unrestricted_Access;
+   --     B : Natural renames V.Busy;
 
-   begin
-      --  It was formerly the case that when Start = No_Element, the partial
-      --  iterator was defined to behave the same as for a complete iterator,
-      --  and iterate over the entire sequence of items. However, those
-      --  semantics were unintuitive and arguably error-prone (it is too easy
-      --  to accidentally create an endless loop), and so they were changed,
-      --  per the ARG meeting in Denver on 2011/11. However, there was no
-      --  consensus about what positive meaning this corner case should have,
-      --  and so it was decided to simply raise an exception. This does imply,
-      --  however, that it is not possible to use a partial iterator to specify
-      --  an empty sequence of items.
+   --  begin
+   --     --  It was formerly the case that when Start = No_Element, the partial
+   --     --  iterator was defined to behave the same as for a complete iterator,
+   --     --  and iterate over the entire sequence of items. However, those
+   --     --  semantics were unintuitive and arguably error-prone (it is too easy
+   --     --  to accidentally create an endless loop), and so they were changed,
+   --     --  per the ARG meeting in Denver on 2011/11. However, there was no
+   --     --  consensus about what positive meaning this corner case should have,
+   --     --  and so it was decided to simply raise an exception. This does imply,
+   --     --  however, that it is not possible to use a partial iterator to specify
+   --     --  an empty sequence of items.
 
-      if Start.Container = null then
-         raise Constraint_Error with
-           "Start position for iterator equals No_Element";
-      end if;
+   --     if Start.Container = null then
+   --        raise Constraint_Error with
+   --          "Start position for iterator equals No_Element";
+   --     end if;
 
-      if Start.Container /= V then
-         raise Program_Error with
-           "Start cursor of Iterate designates wrong vector";
-      end if;
+   --     if Start.Container /= V then
+   --        raise Program_Error with
+   --          "Start cursor of Iterate designates wrong vector";
+   --     end if;
 
-      if Start.Index > V.Last then
-         raise Constraint_Error with
-           "Start position for iterator equals No_Element";
-      end if;
+   --     if Start.Index > V.Last then
+   --        raise Constraint_Error with
+   --          "Start position for iterator equals No_Element";
+   --     end if;
 
-      --  The value of its Index component influences the behavior of the First
-      --  and Last selector functions of the iterator object. When the Index
-      --  component is not No_Index (as is the case here), it means that this
-      --  is a partial iteration, over a subset of the complete sequence of
-      --  items. The iterator object was constructed with a start expression,
-      --  indicating the position from which the iteration begins. Note that
-      --  the start position has the same value irrespective of whether this is
-      --  a forward or reverse iteration.
+   --     --  The value of its Index component influences the behavior of the First
+   --     --  and Last selector functions of the iterator object. When the Index
+   --     --  component is not No_Index (as is the case here), it means that this
+   --     --  is a partial iteration, over a subset of the complete sequence of
+   --     --  items. The iterator object was constructed with a start expression,
+   --     --  indicating the position from which the iteration begins. Note that
+   --     --  the start position has the same value irrespective of whether this is
+   --     --  a forward or reverse iteration.
 
-      return It : constant Iterator :=
-        (Limited_Controlled with
-           Container => V,
-           Index     => Start.Index)
-      do
-         B := B + 1;
-      end return;
-   end Iterate;
+   --     return It : constant Iterator :=
+   --       (Limited_Controlled with
+   --          Container => V,
+   --          Index     => Start.Index)
+   --     do
+   --        B := B + 1;
+   --     end return;
+   --  end Iterate;
 
    ----------
    -- Last --
@@ -1985,27 +1987,27 @@ package body Ada.Containers.Bounded_Vectors is
       end if;
    end Last;
 
-   function Last (Object : Iterator) return Cursor is
-   begin
-      --  The value of the iterator object's Index component influences the
-      --  behavior of the Last (and First) selector function.
+   --  function Last (Object : Iterator) return Cursor is
+   --  begin
+   --     --  The value of the iterator object's Index component influences the
+   --     --  behavior of the Last (and First) selector function.
 
-      --  When the Index component is No_Index, this means the iterator object
-      --  was constructed without a start expression, in which case the
-      --  (reverse) iteration starts from the (logical) beginning of the entire
-      --  sequence (corresponding to Container.Last, for a reverse iterator).
+   --     --  When the Index component is No_Index, this means the iterator object
+   --     --  was constructed without a start expression, in which case the
+   --     --  (reverse) iteration starts from the (logical) beginning of the entire
+   --     --  sequence (corresponding to Container.Last, for a reverse iterator).
 
-      --  Otherwise, this is iteration over a partial sequence of items. When
-      --  the Index component is not No_Index, the iterator object was
-      --  constructed with a start expression, that specifies the position from
-      --  which the (reverse) partial iteration begins.
+   --     --  Otherwise, this is iteration over a partial sequence of items. When
+   --     --  the Index component is not No_Index, the iterator object was
+   --     --  constructed with a start expression, that specifies the position from
+   --     --  which the (reverse) partial iteration begins.
 
-      if Object.Index = No_Index then
-         return Last (Object.Container.all);
-      else
-         return Cursor'(Object.Container, Object.Index);
-      end if;
-   end Last;
+   --     if Object.Index = No_Index then
+   --        return Last (Object.Container.all);
+   --     else
+   --        return Cursor'(Object.Container, Object.Index);
+   --     end if;
+   --  end Last;
 
    ------------------
    -- Last_Element --
@@ -2117,17 +2119,17 @@ package body Ada.Containers.Bounded_Vectors is
       end if;
    end Next;
 
-   function Next (Object : Iterator; Position : Cursor) return Cursor is
-   begin
-      if Position.Container = null then
-         return No_Element;
-      elsif Position.Container /= Object.Container then
-         raise Program_Error with
-           "Position cursor of Next designates wrong vector";
-      else
-         return Next (Position);
-      end if;
-   end Next;
+   --  function Next (Object : Iterator; Position : Cursor) return Cursor is
+   --  begin
+   --     if Position.Container = null then
+   --        return No_Element;
+   --     elsif Position.Container /= Object.Container then
+   --        raise Program_Error with
+   --          "Position cursor of Next designates wrong vector";
+   --     else
+   --        return Next (Position);
+   --     end if;
+   --  end Next;
 
    procedure Next (Position : in out Cursor) is
    begin
@@ -2187,17 +2189,17 @@ package body Ada.Containers.Bounded_Vectors is
       end if;
    end Previous;
 
-   function Previous (Object : Iterator; Position : Cursor) return Cursor is
-   begin
-      if Position.Container = null then
-         return No_Element;
-      elsif Position.Container /= Object.Container then
-         raise Program_Error with
-           "Position cursor of Previous designates wrong vector";
-      else
-         return Previous (Position);
-      end if;
-   end Previous;
+   --  function Previous (Object : Iterator; Position : Cursor) return Cursor is
+   --  begin
+   --     if Position.Container = null then
+   --        return No_Element;
+   --     elsif Position.Container /= Object.Container then
+   --        raise Program_Error with
+   --          "Position cursor of Previous designates wrong vector";
+   --     else
+   --        return Previous (Position);
+   --     end if;
+   --  end Previous;
 
    -------------------
    -- Query_Element --
@@ -2222,11 +2224,11 @@ package body Ada.Containers.Bounded_Vectors is
 
       begin
          Process (V.Elements (To_Array_Index (Index)));
-      exception
-         when others =>
-            L := L - 1;
-            B := B - 1;
-            raise;
+      --  exception
+      --     when others =>
+      --        L := L - 1;
+      --        B := B - 1;
+      --        raise;
       end;
 
       L := L - 1;
@@ -2497,12 +2499,12 @@ package body Ada.Containers.Bounded_Vectors is
             return Cursor'(Container'Unrestricted_Access, Result);
          end if;
 
-      exception
-         when others =>
-            B := B - 1;
-            L := L - 1;
+      --  exception
+      --     when others =>
+      --        B := B - 1;
+      --        L := L - 1;
 
-            raise;
+      --        raise;
       end;
    end Reverse_Find;
 
@@ -2543,12 +2545,12 @@ package body Ada.Containers.Bounded_Vectors is
 
       return Result;
 
-   exception
-      when others =>
-         B := B - 1;
-         L := L - 1;
+   --  exception
+   --     when others =>
+   --        B := B - 1;
+   --        L := L - 1;
 
-         raise;
+   --        raise;
    end Reverse_Find_Index;
 
    ---------------------
@@ -2569,10 +2571,10 @@ package body Ada.Containers.Bounded_Vectors is
          for Indx in reverse Index_Type'First .. Container.Last loop
             Process (Cursor'(Container'Unrestricted_Access, Indx));
          end loop;
-      exception
-         when others =>
-            B := B - 1;
-            raise;
+      --  exception
+      --     when others =>
+      --        B := B - 1;
+      --        raise;
       end;
 
       B := B - 1;
@@ -2923,11 +2925,11 @@ package body Ada.Containers.Bounded_Vectors is
 
       begin
          Process (Container.Elements (To_Array_Index (Index)));
-      exception
-         when others =>
-            L := L - 1;
-            B := B - 1;
-            raise;
+      --  exception
+      --     when others =>
+      --        L := L - 1;
+      --        B := B - 1;
+      --        raise;
       end;
 
       L := L - 1;

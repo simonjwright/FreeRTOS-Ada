@@ -75,6 +75,18 @@ package FreeRTOS.Tasks with Preelaborate is
      Convention => C,
      External_Name => "_gnat_enable_interrupts";
 
+   procedure Enter_Critical_Region
+   with
+     Import,
+     Convention => C,
+     External_Name => "_gnat_enter_critical";
+
+   procedure Exit_Critical_Region
+   with
+     Import,
+     Convention => C,
+     External_Name => "_gnat_exit_critical";
+
    function In_ISR return Boolean;
 
    procedure Yield_From_ISR (Higher_Priority_Task_Woken : Integer)

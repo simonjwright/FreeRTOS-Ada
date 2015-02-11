@@ -40,7 +40,7 @@ with System;
 with System.Storage_Elements;
 
 package Ada.Tags is
-   pragma Preelaborate_05;
+   pragma Preelaborate;
    --  In accordance with Ada 2005 AI-362
 
    type Tag is private;

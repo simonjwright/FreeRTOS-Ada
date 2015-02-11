@@ -36,6 +36,14 @@ void _gnat_enable_interrupts(void) {
   taskENABLE_INTERRUPTS();
 }
 
+void _gnat_enter_critical(void) {
+  taskENTER_CRITICAL();
+}
+
+void _gnat_exit_critical(void) {
+  taskEXIT_CRITICAL();
+}
+
 void _gnat_yield_from_isr(int switch_required) {
   portEND_SWITCHING_ISR(switch_required);
 }
