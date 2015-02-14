@@ -1,3 +1,7 @@
+[TOC]
+
+----
+
 There are some source code constructs that, while perfectly legal and working under desktop compilations, cause errors with this RTS. This is probably caused by misunderstanding of the exact interface between the compiler and the RTS, which is complex (to put it mildly).
 
 Protected spec hides package Interfaces [tickets:2]
@@ -5,6 +9,7 @@ Protected spec hides package Interfaces [tickets:2]
 
 A protected spec makes Interfaces invisible to objects declared later: in
 
+    :::ada
     protected Foo is
        ...
     end Foo;
@@ -27,6 +32,7 @@ GCC 5.0.0 doesn’t have this error.
 
 A workround (which allowed the package which revealed the problem to be built) was to explicitly state the restriction in the body:
 
+    :::ada
     pragma Restrictions (No_Implicit_Heap_Allocations);
 
     with Ada.Containers.Bounded_Vectors;
@@ -39,3 +45,29 @@ A workround (which allowed the package which revealed the problem to be built) w
        package Line_Vectors
          is new Ada.Containers.Bounded_Vectors (Index_Type   => Index,
                                                 Element_Type => Line);
+
+`Attach_Handler` must be in pragma form
+====
+
+In this code
+
+    :::ada
+    protected Button
+    with
+      Interrupt_Priority => System.Interrupt_Priority'First
+    is
+       entry Wait_For_Trigger;
+    private
+       Triggered : Boolean := False;
+       procedure Handler;
+       pragma Attach_Handler (Handler, Ada.Interrupts.Names.EXTI0_IRQ);
+    end Button;
+
+you would have liked to attach the handler using the aspect syntax,
+
+    :::ada
+       procedure Handler
+       with
+         Attach_Handler => Ada.Interrupts.Names.EXTI0_IRQ;
+
+but this doesn’t work in GCC 4.9.1 (it’s OK in GNAT GPL 2014 & GCC 5.0.0).

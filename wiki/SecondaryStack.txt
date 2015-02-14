@@ -1,14 +1,17 @@
 The *secondary stack* is what GNAT uses to manage functions which return objects of an indefinite type: for example,
 
+    :::ada
     function F return String;
 
 Desktop GNAT manages the secondary stack in the heap, so that it can be of unbounded size. This implementation, however, manages it by carving out a proportion of each task’s stack; currently this is 10%, but this can be altered globally in `System.Parameters` (`s-parame.adb`) in function `Secondary_Stack_Size`:
 
+    :::ada
     function Secondary_Stack_Size (Stack_Size : Size_Type) return Size_Type
       is ((Stack_Size * 10) / 100);
 
 If you have a function returning a large indefinite type (a long `String`, say, or an indefinite array of large objects, you’ll need to allocate a larger stack for the using task:
 
+    :::ada
     task type T
     with
       Storage_Size => 10_000

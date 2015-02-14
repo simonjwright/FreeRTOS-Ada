@@ -6,6 +6,7 @@
 ----
 The generated code for invoking the Ada main program in `demo_tasking.adb` is
 
+    :::ada
     procedure Ada_Main_Program;
     pragma Import (Ada, Ada_Main_Program, "_ada_demo_tasking");
 
@@ -23,6 +24,7 @@ The FreeRTOS call `vTaskStartScheduler()` doesn’t return, so there is nowhere 
 
 The present solution is to require you to end your main program by calling
 
+    :::ada
     FreeRTOS.Tasks.Start_Scheduler;
 
 as its last statement.
