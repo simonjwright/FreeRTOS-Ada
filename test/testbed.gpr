@@ -15,7 +15,7 @@ project Testbed is
       for Default_Switches ("ada") use
         (
          "-g",
-         "-O0",
+         "-Og",
          "--RTS=" & Project'Project_Dir & "../stm32f429i-disco-rtos"
         );
    end Builder;

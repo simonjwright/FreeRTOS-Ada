@@ -28,7 +28,7 @@ project Build_Runtime is
         when "Production" =>
            CFLAGS := CFLAGS & ("-O2");
         when "Debug" =>
-           CFLAGS := CFLAGS & ("-O0");
+           CFLAGS := CFLAGS & ("-Og");
       end case;
       ALL_ADAFLAGS := ("-gnatpgn", "-gnatqQ", "-nostdinc") & CFLAGS;
       ALL_CFLAGS := ("-DIN_RTS", "-Dinhibit_libc") & CFLAGS;

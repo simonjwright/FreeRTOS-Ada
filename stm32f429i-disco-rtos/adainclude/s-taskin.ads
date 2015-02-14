@@ -100,6 +100,8 @@ package System.Tasking with Preelaborate is
    type Ada_Task_Control_Block;
 
    type Task_Id is access all Ada_Task_Control_Block;
+   pragma No_Strict_Aliasing (Task_Id);
+
    for Task_Id'Size use Standard'Address_Size;
 
    Null_Task : constant Task_Id := null;
@@ -545,8 +547,8 @@ package System.Tasking with Preelaborate is
       --  accepts an entry or when Created activates, at which points Self is
       --  suspended.
 
-      Protected_Action_Nesting : Natural;
-      pragma Atomic (Protected_Action_Nesting);
+      Protected_Action_Nesting : Natural with Atomic;
+      --  pragma Atomic (Protected_Action_Nesting);
       --  The dynamic level of protected action nesting for this task. This
       --  field is needed for checking whether potentially blocking operations
       --  are invoked from protected actions. pragma Atomic is used because it
