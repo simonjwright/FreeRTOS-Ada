@@ -4,7 +4,7 @@ STM32CUBE = $(HOME)/STM32Cube_FW_F4_V1.3.0
 
 include Makefile.inc
 
-OPTFLAGS = -O0
+OPTFLAGS ?= -Og
 DEBFLAGS = -g
 
 CC = arm-eabi-gcc
@@ -47,6 +47,7 @@ clean::
 all:: adalib/libgnat.a
 
 ifeq ($(OPTFLAGS),-O0)
+else ifeq ($(OPTFLAGS),-Og)
   build := Debug
 else
   build := Production

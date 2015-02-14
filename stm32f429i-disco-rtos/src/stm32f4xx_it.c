@@ -83,8 +83,12 @@ void NMI_Handler(void)
  * This function records the register values of the hard fault from
  * the stack frame of the HardFault_Handler.
  * See http://www.freertos.org/Debugging-Hard-Faults-On-Cortex-M-Microcontrollers.html
+ * NB! making this function static would mean that GCC at anything
+ * other than -O0 would optimise it away, not having noticed the
+ * reference from ASM. Hence the __ decoration.
  */
-static void prvGetRegistersFromStack(uint32_t *pulFaultStackAddress);
+void __prvGetRegistersFromStack(uint32_t *pulFaultStackAddress);
+
 __attribute__((naked)) void HardFault_Handler(void)
 {
   __asm volatile
@@ -96,10 +100,11 @@ __attribute__((naked)) void HardFault_Handler(void)
      " ldr r1, [r0, #24]                                         \n"
      " ldr r2, handler2_address_const                            \n"
      " bx r2                                                     \n"
-     " handler2_address_const: .word prvGetRegistersFromStack    \n"
+     " handler2_address_const: .word __prvGetRegistersFromStack  \n"
      );
 }
-static void prvGetRegistersFromStack(uint32_t *pulFaultStackAddress)
+
+void __prvGetRegistersFromStack(uint32_t *pulFaultStackAddress)
 {
   /* These are volatile to try and prevent the compiler/linker
      optimising them away as the variables never actually get used.

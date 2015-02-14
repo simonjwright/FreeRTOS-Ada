@@ -1,0 +1,41 @@
+There are some source code constructs that, while perfectly legal and working under desktop compilations, cause errors with this RTS. This is probably caused by misunderstanding of the exact interface between the compiler and the RTS, which is complex (to put it mildly).
+
+Protected spec hides package Interfaces [tickets:2]
+====
+
+A protected spec makes Interfaces invisible to objects declared later: in
+
+    protected Foo is
+       ...
+    end Foo;
+
+    Bar : Interfaces.Unsigned_16;
+
+you get warnings like
+
+    cant_see_interface.ada:34:14: "Interfaces" is not visible
+    cant_see_interface.ada:34:14: non-visible declaration at interfac.ads:38
+
+One workround is to `use Interfaces;` (**before it has disappeared from view**).
+
+Compiler mistakes restriction violation [tickets:11]
+====
+
+A package containing an instantiation of `Ada.Containers.Bounded_Vectors` couldn’t be linked because the compiler (GCC 4.9.1 and GNAT GPL 2014) had mistakenly decided that it violated the restriction `No_Implicit_Heap_Allocations` (which is part of the Ravenscar profile).
+
+GCC 5.0.0 doesn’t have this error.
+
+A workround (which allowed the package which revealed the problem to be built) was to explicitly state the restriction in the body:
+
+    pragma Restrictions (No_Implicit_Heap_Allocations);
+
+    with Ada.Containers.Bounded_Vectors;
+
+    package body Containing is
+
+       subtype Index is Natural range 0 .. 19;
+       subtype Line is String (1 .. 20);
+
+       package Line_Vectors
+         is new Ada.Containers.Bounded_Vectors (Index_Type   => Index,
+                                                Element_Type => Line);

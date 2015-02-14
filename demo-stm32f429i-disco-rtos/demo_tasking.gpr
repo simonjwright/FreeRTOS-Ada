@@ -15,7 +15,7 @@ project Demo_Tasking is
       for Default_Switches ("ada") use
         (
          "-g",
-         "-O0",
+         "-Og",
          "--RTS=../stm32f429i-disco-rtos"
         );
    end Builder;
