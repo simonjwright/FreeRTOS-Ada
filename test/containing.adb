@@ -5,6 +5,10 @@
 --  useful, but WITHOUT ANY WARRANTY; without even the implied warranty
 --  of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
+pragma Restrictions (No_Implicit_Heap_Allocations);
+--  Without this, GNAT GPL 2014 & GCC 4.9.1 think that this unit
+--  violates the restriction (which isn't allowed in Ravenscar).
+
 with Ada.Containers.Bounded_Vectors;
 
 package body Containing is
