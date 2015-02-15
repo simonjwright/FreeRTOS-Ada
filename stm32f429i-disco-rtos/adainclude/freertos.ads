@@ -18,7 +18,8 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-private with Interfaces;
+with Interfaces;
+--  This could be 'private with', but that triggers GCC PR64866.
 
 package FreeRTOS with Pure is
 
