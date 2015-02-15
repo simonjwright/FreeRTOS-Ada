@@ -18,9 +18,9 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-with FreeRTOS.Tasks;
+with System.FreeRTOS.Tasks;
 
-package body FreeRTOS.Queues is
+package body System.FreeRTOS.Queues is
 
    package body Generic_Queues is
 
@@ -140,4 +140,4 @@ package body FreeRTOS.Queues is
 
    end Generic_Queues;
 
-end FreeRTOS.Queues;
+end System.FreeRTOS.Queues;

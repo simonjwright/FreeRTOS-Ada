@@ -31,7 +31,7 @@
 
 pragma Compiler_Unit_Warning;
 
-with FreeRTOS.Tasks;
+with System.FreeRTOS.Tasks;
 --  Not sure this is actually even required, since exceptions should
 --  be registered at library level => at elaboration, and the kernel
 --  isn't running yet.

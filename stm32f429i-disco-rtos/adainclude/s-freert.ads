@@ -21,7 +21,7 @@
 with Interfaces;
 --  This could be 'private with', but that triggers GCC PR64866.
 
-package FreeRTOS with Pure is
+package System.FreeRTOS with Pure is
 
 private
 
@@ -48,4 +48,4 @@ private
    --  Queue_Blocked                      : constant Status_Code := -4;
    --  Queue_Yield                        : constant Status_Code := -5;
 
-end FreeRTOS;
+end System.FreeRTOS;

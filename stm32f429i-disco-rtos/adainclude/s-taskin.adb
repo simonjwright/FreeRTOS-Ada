@@ -30,7 +30,7 @@
 ------------------------------------------------------------------------------
 
 with Ada.Unchecked_Conversion;
-with FreeRTOS.TCB;
+with System.FreeRTOS.TCB;
 
 package body System.Tasking is
 

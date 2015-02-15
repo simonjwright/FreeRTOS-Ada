@@ -18,9 +18,7 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-with System;
-
-package FreeRTOS.Tasks with Preelaborate is
+package System.FreeRTOS.Tasks with Preelaborate is
 
    type TCB (<>) is private;
    type Task_Handle is access all TCB;
@@ -109,4 +107,4 @@ private
    type TCB is null record;
    --  Of course it isn't really, but it is opaque to us.
 
-end FreeRTOS.Tasks;
+end System.FreeRTOS.Tasks;

@@ -18,7 +18,7 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-with FreeRTOS.Tasks;
+with System.FreeRTOS.Tasks;
 with System.Tasking;
 
 package body System.Secondary_Stack is

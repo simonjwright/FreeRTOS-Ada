@@ -21,7 +21,7 @@
 with Interfaces;
 with System.Machine_Code;
 
-package body FreeRTOS.Tasks is
+package body System.FreeRTOS.Tasks is
 
    --  from portmacro.h,
    --  portSTACK_TYPE is unsigned long (stack size units)
@@ -140,4 +140,4 @@ package body FreeRTOS.Tasks is
       return XTaskGetSchedulerState = 1;
    end Scheduler_Is_Running;
 
-end FreeRTOS.Tasks;
+end System.FreeRTOS.Tasks;

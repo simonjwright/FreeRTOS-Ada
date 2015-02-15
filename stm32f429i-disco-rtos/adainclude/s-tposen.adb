@@ -33,7 +33,7 @@
 --  Note: the compiler generates direct calls to this interface, via Rtsfind.
 --  Any changes to this interface may require corresponding compiler changes.
 
-with FreeRTOS.Tasks;
+with System.FreeRTOS.Tasks;
 
 package body System.Tasking.Protected_Objects.Single_Entry is
 

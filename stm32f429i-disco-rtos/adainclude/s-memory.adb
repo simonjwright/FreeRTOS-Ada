@@ -43,7 +43,7 @@
 
 pragma Compiler_Unit_Warning;
 
-with FreeRTOS.Memory;
+with System.FreeRTOS.Memory;
 
 package body System.Memory is
 

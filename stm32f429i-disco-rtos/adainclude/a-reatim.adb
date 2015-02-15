@@ -30,8 +30,8 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
-with FreeRTOS.Tasks;
 with Interfaces;
+with System.FreeRTOS.Tasks;
 
 package body Ada.Real_Time is
 
@@ -147,7 +147,7 @@ package body Ada.Real_Time is
         Convention => C,
         External_Name => "xTaskGetTickCountFromISR";
    begin
-      return Tick * Time_Base ((if FreeRTOS.Tasks.In_ISR
+      return Tick * Time_Base ((if System.FreeRTOS.Tasks.In_ISR
                                 then xTaskGetTickCountFromISR
                                 else xTaskGetTickCount));
    end Clock;

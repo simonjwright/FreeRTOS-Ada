@@ -48,7 +48,7 @@
 --  Note: this package has been copied from GCC 4.9.1 and heavily
 --  modified for the STM32 GNAT RTS, which has Ravenscar restrictions.
 
-private with FreeRTOS.Mutexes;
+with System.FreeRTOS.Mutexes;
 
 package System.Tasking.Protected_Objects is
 

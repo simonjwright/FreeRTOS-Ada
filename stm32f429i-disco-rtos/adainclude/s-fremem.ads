@@ -18,20 +18,19 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-package FreeRTOS.Mutexes with Preelaborate is
+package System.FreeRTOS.Memory with Preelaborate is
 
-   type Mutex (<>) is limited private;
-   type Mutex_Handle is access all Mutex;
+   function Malloc
+     (Size : Natural) return System.Address
+   with
+     Import,
+     Convention => C,
+     External_Name => "pvPortMalloc";
 
-   function Create_Mutex return not null Mutex_Handle;
+   procedure Free (Ptr : System.Address)
+   with
+     Import,
+     Convention => C,
+     External_Name => "vPortFree";
 
-   procedure Give (The_Mutex : not null Mutex_Handle);
-
-   procedure Take (The_Mutex : not null Mutex_Handle);
-
-private
-
-   type Mutex is null record;
-   --  Of course it isn't really, but it is opaque to us.
-
-end FreeRTOS.Mutexes;
+end System.FreeRTOS.Memory;

@@ -38,10 +38,10 @@
 --  This is is the version for the STM32 GNAT RTS project.
 
 with Ada.Unchecked_Conversion;
-with FreeRTOS.Memory;
-with FreeRTOS.TCB;
 with Interfaces;
 with System.Address_To_Access_Conversions;
+with System.FreeRTOS.Memory;
+with System.FreeRTOS.TCB;
 
 package body System.Tasking.Restricted.Stages is
 

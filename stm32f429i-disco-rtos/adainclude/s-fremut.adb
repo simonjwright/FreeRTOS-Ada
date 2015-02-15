@@ -18,7 +18,7 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-package body FreeRTOS.Mutexes is
+package body System.FreeRTOS.Mutexes is
 
    function Create_Mutex return not null Mutex_Handle is
       function xSemaphoreCreateMutex return Mutex_Handle
@@ -67,4 +67,4 @@ package body FreeRTOS.Mutexes is
       end if;
    end Take;
 
-end FreeRTOS.Mutexes;
+end System.FreeRTOS.Mutexes;

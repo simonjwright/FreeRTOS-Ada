@@ -18,7 +18,7 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-package FreeRTOS.Queues with Preelaborate is
+package System.FreeRTOS.Queues with Preelaborate is
 
    type Queue (<>) is private;
    type Queue_Handle is access all Queue;
@@ -53,4 +53,4 @@ private
    type Queue is null record;
    --  Of course it isn't really, but it is opaque to us.
 
-end FreeRTOS.Queues;
+end System.FreeRTOS.Queues;

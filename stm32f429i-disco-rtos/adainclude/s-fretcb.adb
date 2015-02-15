@@ -18,7 +18,7 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-package body FreeRTOS.TCB is
+package body System.FreeRTOS.TCB is
 
    function Get_Application_Parameter return System.Address is
       function xTaskGetApplicationTaskTag
@@ -42,4 +42,4 @@ package body FreeRTOS.TCB is
       vTaskSetApplicationTaskTag (System.Null_Address, Parameter);
    end Set_Application_Parameter;
 
-end FreeRTOS.TCB;
+end System.FreeRTOS.TCB;

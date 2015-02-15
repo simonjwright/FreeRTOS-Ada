@@ -58,7 +58,7 @@
 --  This file has been extensively modified from the GCC 4.9.1 version
 --  for the STM32 GNAT RTS project.
 
-private with FreeRTOS.Queues;
+with System.FreeRTOS.Queues;
 --  The first version of the FreeRTOS-based variant of this package
 --  used task Suspend and Resume to manage blocking of a task on an
 --  entry barrier.

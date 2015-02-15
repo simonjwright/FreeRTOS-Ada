@@ -37,7 +37,7 @@
 --  This file has been extensively modified from the GCC 4.9.1 version
 --  for the STM32 GNAT RTS project.
 
-with FreeRTOS.Tasks;
+with System.FreeRTOS.Tasks;
 with System.Secondary_Stack;
 
 package System.Tasking with Preelaborate is

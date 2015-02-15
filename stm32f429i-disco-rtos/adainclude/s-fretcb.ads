@@ -18,9 +18,7 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-with System;
-
-package FreeRTOS.TCB with Preelaborate is
+package System.FreeRTOS.TCB with Preelaborate is
 
    --  Requires configUSE_APPLICATION_TASK_TAG to be set in
    --  FreeRTOSConfig.h.
@@ -33,4 +31,4 @@ package FreeRTOS.TCB with Preelaborate is
    --  this will be the corresponding ATCB.
    procedure Set_Application_Parameter (Parameter : System.Address);
 
-end FreeRTOS.TCB;
+end System.FreeRTOS.TCB;
