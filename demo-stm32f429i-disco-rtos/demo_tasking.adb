@@ -9,7 +9,7 @@
 --  FreeRTOS-based Ravenscar-style runtime system.
 
 --  The body of the program is in the LEDs package; we just need it to
---  be included.
+--  be included. The Buttons package is referenced from LEDs.
 with LEDs;
 pragma Unreferenced (LEDs);
 

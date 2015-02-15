@@ -1,3 +1,15 @@
+--  Copyright (C) Simon Wright <simon@pushface.org>
+
+--  This unit is free software; you can redistribute it and/or modify it
+--  as you wish. This unit is distributed in the hope that it will be
+--  useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+--  of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+pragma Restrictions (No_Implicit_Heap_Allocations);
+--  Without this, GNAT GPL 2014 & GCC 4.9.1 think that this unit
+--  violates the restriction (which isn't allowed in Ravenscar).
+
+with Ada.Containers.Bounded_Vectors;
 with Ada.Interrupts.Names;
 with Interfaces;
 with System;
@@ -30,22 +42,25 @@ package body Buttons is
        Convention => C,
        External_Name => "BSP_PB_GetState";
 
-   procedure Initialize is
+   procedure Initialize_BSP is
    begin
       BSP_PB_Init (Button_Key, BUTTON_MODE_EXTI);
-   end Initialize;
+   end Initialize_BSP;
 
-   use Interfaces;
-   --  ??? For some reason to do with this RTS, the compiler can't see
-   --  Interfaces in Interfaces.Unsigned_* after the PO
-   --  definition. It can see Unsigned_*..
+   --  Intervals contains all the possible intervals (between toggling
+   --  the green LED). The idea is that each time the button is
+   --  pressed we move on to the next interval.
+   --
+   --  We're only using Bounded_Vectors here to show that it works:
+   --  obviously an array would be better suited to this problem!
 
-   Intervals : constant array (Natural range <>) of Ada.Real_Time.Time_Span
-     := (Ada.Real_Time.Milliseconds (50),
-         Ada.Real_Time.Milliseconds (100),
-         Ada.Real_Time.Milliseconds (200),
-         Ada.Real_Time.Milliseconds (500),
-         Ada.Real_Time.Milliseconds (1000));
+   package Interval_Containers
+     is new Ada.Containers.Bounded_Vectors
+       (Index_Type   => Natural,
+        Element_Type => Ada.Real_Time.Time_Span,
+        "="          => Ada.Real_Time."=");
+
+   Intervals : Interval_Containers.Vector (5);
 
    Current_Index : Natural := 0
      with Volatile;
@@ -78,7 +93,7 @@ package body Buttons is
 
       procedure Handler is
          procedure HAL_GPIO_EXTI_IRQHandler
-           (GPIO_Pin : Unsigned_16)
+           (GPIO_Pin : Interfaces.Unsigned_16)
          with
            Import,
            Convention => C,
@@ -91,17 +106,28 @@ package body Buttons is
 
    task body Debouncer is
       use type Ada.Real_Time.Time;
-      use type Unsigned_32;
+      use type Interfaces.Unsigned_32;
    begin
       loop
          Button.Wait_For_Trigger;
          delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (100);
          if BSP_PB_GetState (Button_Key) /= 0 then
-            Current_Index := (Current_Index + 1) mod Intervals'Length;
+            Current_Index :=
+              (Current_Index + 1) mod Natural (Intervals.Length);
          end if;
       end loop;
    end Debouncer;
 
 begin
-   Initialize;
+   Initialize_BSP;
+   --  This code is called during elaboration from the environment
+   --  task; that means, it turns out, that we can't use
+   --  Intervals.Insert_Space (0, 5) and then use array indexing
+   --  notation (Intervals (0) := whatever), because that uses the
+   --  secondary stack ...
+   Intervals.Append (Ada.Real_Time.Milliseconds (50));
+   Intervals.Append (Ada.Real_Time.Milliseconds (100));
+   Intervals.Append (Ada.Real_Time.Milliseconds (200));
+   Intervals.Append (Ada.Real_Time.Milliseconds (500));
+   Intervals.Append (Ada.Real_Time.Milliseconds (1000));
 end Buttons;
