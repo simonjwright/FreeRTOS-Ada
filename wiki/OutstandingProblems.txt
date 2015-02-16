@@ -25,6 +25,6 @@ The FreeRTOS call `vTaskStartScheduler()` doesn’t return, so there is nowhere 
 The present solution is to require you to end your main program by calling
 
     :::ada
-    FreeRTOS.Tasks.Start_Scheduler;
+    Start_FreeRTOS_Scheduler;
 
 as its last statement.
