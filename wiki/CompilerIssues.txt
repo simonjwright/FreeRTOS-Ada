@@ -4,25 +4,6 @@
 
 There are some source code constructs that, while perfectly legal and working under desktop compilations, cause errors with this RTS. This is probably caused by misunderstanding of the exact interface between the compiler and the RTS, which is complex (to put it mildly).
 
-Protected spec hides package Interfaces [tickets:2]
-====
-
-A protected spec makes Interfaces invisible to objects declared later: in
-
-    :::ada
-    protected Foo is
-       ...
-    end Foo;
-
-    Bar : Interfaces.Unsigned_16;
-
-you get warnings like
-
-    cant_see_interface.ada:34:14: "Interfaces" is not visible
-    cant_see_interface.ada:34:14: non-visible declaration at interfac.ads:38
-
-One workround is to `use Interfaces;` (**before it has disappeared from view**).
-
 Compiler mistakes restriction violation [tickets:11]
 ====
 
