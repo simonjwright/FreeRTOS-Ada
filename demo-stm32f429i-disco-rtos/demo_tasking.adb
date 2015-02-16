@@ -15,7 +15,7 @@ pragma Unreferenced (LEDs);
 
 --  For the moment, the tasking kernel has to be started explicitly in
 --  user code.
-with FreeRTOS.Tasks;
+with System.FreeRTOS.Tasks;
 
 with Ada.Unchecked_Deallocation;
 
@@ -32,6 +32,6 @@ begin
    if V /= null then
       raise Program_Error with "failed to free allocated variable";
    end if;
-   FreeRTOS.Tasks.Start_Scheduler;
+   System.FreeRTOS.Tasks.Start_Scheduler;
    --  does not return
 end Demo_Tasking;

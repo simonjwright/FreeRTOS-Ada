@@ -9,7 +9,7 @@ with Containing;
 with Dispatching;
 with Strings;
 
-with FreeRTOS.Tasks;
+with System.FreeRTOS.Tasks;
 
 procedure Testbed is
    function Fail (S : String) return String is
@@ -22,5 +22,5 @@ begin
    --  begin
    --     null;
    --  end;
-   FreeRTOS.Tasks.Start_Scheduler;
+   System.FreeRTOS.Tasks.Start_Scheduler;
 end Testbed;
