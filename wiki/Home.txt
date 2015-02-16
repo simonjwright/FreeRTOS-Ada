@@ -2,6 +2,7 @@ This wiki contains information which may be useful to developers using the RTSs 
 
 * [Finding an RTS](FindingAnRTS)
 * [Secondary Stack](SecondaryStack)
+* [Exception Handling](ExceptionHandling)
 * [Outstanding Problems](OutstandingProblems)
 * [Compiler Issues](CompilerIssues)
 

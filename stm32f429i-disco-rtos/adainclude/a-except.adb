@@ -18,17 +18,25 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-with Last_Chance_Handler;
+with System;
 
 package body Ada.Exceptions is
+
+   procedure Last_Chance_Handler
+     (Message : System.Address; Line : Integer)
+   with
+     Import,
+     Convention => C,
+     External_Name => "__gnat_last_chance_handler",
+     No_Return;
 
    procedure Raise_Exception (E : Exception_Id; Message : String := "")
    is
       pragma Unreferenced (E);
    begin
-      pragma Warnings (Off);
+      --  pragma Warnings (Off);
       Last_Chance_Handler (Message'Address, 0);
-      pragma Warnings (On);
+      --  pragma Warnings (On);
    end Raise_Exception;
 
 end Ada.Exceptions;
