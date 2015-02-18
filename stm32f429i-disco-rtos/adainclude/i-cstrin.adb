@@ -29,6 +29,8 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
+--  Modified from GCC 4.9.1 for STM32F4 GNAT RTS.
+
 with System; use System;
 with System.Storage_Elements; use System.Storage_Elements;
 
@@ -41,11 +43,13 @@ package body Interfaces.C.Strings is
    --  since arbitrary addresses can be converted, and it is quite likely that
    --  this type will in fact be used for aliasing values of other types.
 
+   subtype C_Address is System.Address;
+
    function To_chars_ptr is
-      new Ada.Unchecked_Conversion (System.Parameters.C_Address, chars_ptr);
+      new Ada.Unchecked_Conversion (C_Address, chars_ptr);
 
    function To_Address is
-      new Ada.Unchecked_Conversion (chars_ptr, System.Parameters.C_Address);
+      new Ada.Unchecked_Conversion (chars_ptr, C_Address);
 
    -----------------------
    -- Local Subprograms --
@@ -70,10 +74,10 @@ package body Interfaces.C.Strings is
    --  compatible, so we directly import here the malloc and free routines.
 
    function Memory_Alloc (Size : size_t) return chars_ptr;
-   pragma Import (C, Memory_Alloc, System.Parameters.C_Malloc_Linkname);
+   pragma Import (C, Memory_Alloc, "pvPortMalloc");
 
    procedure Memory_Free (Address : chars_ptr);
-   pragma Import (C, Memory_Free, "__gnat_free");
+   pragma Import (C, Memory_Free, "vPortFree");
 
    ---------
    -- "+" --

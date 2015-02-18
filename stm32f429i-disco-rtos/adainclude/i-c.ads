@@ -13,7 +13,8 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
-with System.Parameters;
+--  Modified from GCC 4.9.1 for STM32F4 GNAT RTS.
+--  The main change is the omission of wide characters.
 
 package Interfaces.C is
    pragma Pure;
@@ -31,11 +32,11 @@ package Interfaces.C is
    --  Note: the Integer qualifications used in the declaration of type long
    --  avoid ambiguities when compiling in the presence of s-auxdec.ads and
    --  a non-private system.address type.
+   --  Note: not applicable in the STM32F4 GNAT RTS version.
 
    type int   is new Integer;
    type short is new Short_Integer;
-   type long  is range -(2 ** (System.Parameters.long_bits - Integer'(1)))
-     .. +(2 ** (System.Parameters.long_bits - Integer'(1))) - 1;
+   type long  is new Long_Integer;
 
    type signed_char is range SCHAR_MIN .. SCHAR_MAX;
    for signed_char'Size use CHAR_BIT;
@@ -52,12 +53,13 @@ package Interfaces.C is
    --  Note: the Integer qualifications used in the declaration of ptrdiff_t
    --  avoid ambiguities when compiling in the presence of s-auxdec.ads and
    --  a non-private system.address type.
+   --  Note: not applicable in the STM32F4 GNAT RTS version.
 
    type ptrdiff_t is
-     range -(2 ** (System.Parameters.ptr_bits - Integer'(1))) ..
-           +(2 ** (System.Parameters.ptr_bits - Integer'(1)) - 1);
+     range -(2 ** (Standard'Address_Size - Integer'(1))) ..
+           +(2 ** (Standard'Address_Size - Integer'(1)) - 1);
 
-   type size_t is mod 2 ** System.Parameters.ptr_bits;
+   type size_t is mod 2 ** Standard'Address_Size;
 
    --  Floating-Point
 
@@ -101,130 +103,132 @@ package Interfaces.C is
       Count    : out Natural;
       Trim_Nul : Boolean := True);
 
-   ------------------------------------
-   -- Wide Character and Wide String --
-   ------------------------------------
+   pragma Style_Checks (Off);
+   --  ------------------------------------
+   --  -- Wide Character and Wide String --
+   --  ------------------------------------
 
-   type wchar_t is new Wide_Character;
-   for wchar_t'Size use Standard'Wchar_T_Size;
+   --  type wchar_t is new Wide_Character;
+   --  for wchar_t'Size use Standard'Wchar_T_Size;
 
-   wide_nul : constant wchar_t := wchar_t'First;
+   --  wide_nul : constant wchar_t := wchar_t'First;
 
-   function To_C   (Item : Wide_Character) return wchar_t;
-   function To_Ada (Item : wchar_t)        return Wide_Character;
+   --  function To_C   (Item : Wide_Character) return wchar_t;
+   --  function To_Ada (Item : wchar_t)        return Wide_Character;
 
-   type wchar_array is array (size_t range <>) of aliased wchar_t;
+   --  type wchar_array is array (size_t range <>) of aliased wchar_t;
 
-   function Is_Nul_Terminated (Item : wchar_array) return Boolean;
+   --  function Is_Nul_Terminated (Item : wchar_array) return Boolean;
 
-   function To_C
-     (Item       : Wide_String;
-      Append_Nul : Boolean := True) return wchar_array;
+   --  function To_C
+   --    (Item       : Wide_String;
+   --     Append_Nul : Boolean := True) return wchar_array;
 
-   function To_Ada
-     (Item     : wchar_array;
-      Trim_Nul : Boolean := True) return Wide_String;
+   --  function To_Ada
+   --    (Item     : wchar_array;
+   --     Trim_Nul : Boolean := True) return Wide_String;
 
-   procedure To_C
-     (Item       : Wide_String;
-      Target     : out wchar_array;
-      Count      : out size_t;
-      Append_Nul : Boolean := True);
+   --  procedure To_C
+   --    (Item       : Wide_String;
+   --     Target     : out wchar_array;
+   --     Count      : out size_t;
+   --     Append_Nul : Boolean := True);
 
-   procedure To_Ada
-     (Item     : wchar_array;
-      Target   : out Wide_String;
-      Count    : out Natural;
-      Trim_Nul : Boolean := True);
+   --  procedure To_Ada
+   --    (Item     : wchar_array;
+   --     Target   : out Wide_String;
+   --     Count    : out Natural;
+   --     Trim_Nul : Boolean := True);
+
+   --  --  The remaining declarations are for Ada 2005 (AI-285)
+
+   --  --  ISO/IEC 10646:2003 compatible types defined by SC22/WG14 document N1010
+
+   --  type char16_t is new Wide_Character;
+   --  pragma Ada_05 (char16_t);
+
+   --  char16_nul : constant char16_t := char16_t'Val (0);
+   --  pragma Ada_05 (char16_nul);
+
+   --  function To_C (Item : Wide_Character) return char16_t;
+   --  pragma Ada_05 (To_C);
+
+   --  function To_Ada (Item : char16_t) return Wide_Character;
+   --  pragma Ada_05 (To_Ada);
+
+   --  type char16_array is array (size_t range <>) of aliased char16_t;
+   --  pragma Ada_05 (char16_array);
+
+   --  function Is_Nul_Terminated (Item : char16_array) return Boolean;
+   --  pragma Ada_05 (Is_Nul_Terminated);
+
+   --  function To_C
+   --    (Item       : Wide_String;
+   --     Append_Nul : Boolean := True) return char16_array;
+   --  pragma Ada_05 (To_C);
+
+   --  function To_Ada
+   --    (Item     : char16_array;
+   --     Trim_Nul : Boolean := True) return Wide_String;
+   --  pragma Ada_05 (To_Ada);
+
+   --  procedure To_C
+   --    (Item       : Wide_String;
+   --     Target     : out char16_array;
+   --     Count      : out size_t;
+   --     Append_Nul : Boolean := True);
+   --  pragma Ada_05 (To_C);
+
+   --  procedure To_Ada
+   --    (Item     : char16_array;
+   --     Target   : out Wide_String;
+   --     Count    : out Natural;
+   --     Trim_Nul : Boolean := True);
+   --  pragma Ada_05 (To_Ada);
+
+   --  type char32_t is new Wide_Wide_Character;
+   --  pragma Ada_05 (char32_t);
+
+   --  char32_nul : constant char32_t := char32_t'Val (0);
+   --  pragma Ada_05 (char32_nul);
+
+   --  function To_C (Item : Wide_Wide_Character) return char32_t;
+   --  pragma Ada_05 (To_C);
+
+   --  function To_Ada (Item : char32_t) return Wide_Wide_Character;
+   --  pragma Ada_05 (To_Ada);
+
+   --  type char32_array is array (size_t range <>) of aliased char32_t;
+   --  pragma Ada_05 (char32_array);
+
+   --  function Is_Nul_Terminated (Item : char32_array) return Boolean;
+   --  pragma Ada_05 (Is_Nul_Terminated);
+
+   --  function To_C
+   --    (Item       : Wide_Wide_String;
+   --     Append_Nul : Boolean := True) return char32_array;
+   --  pragma Ada_05 (To_C);
+
+   --  function To_Ada
+   --    (Item     : char32_array;
+   --     Trim_Nul : Boolean := True) return Wide_Wide_String;
+   --  pragma Ada_05 (To_Ada);
+
+   --  procedure To_C
+   --    (Item       : Wide_Wide_String;
+   --     Target     : out char32_array;
+   --     Count      : out size_t;
+   --     Append_Nul : Boolean := True);
+   --  pragma Ada_05 (To_C);
+
+   --  procedure To_Ada
+   --    (Item     : char32_array;
+   --     Target   : out Wide_Wide_String;
+   --     Count    : out Natural;
+   --     Trim_Nul : Boolean := True);
+   --  pragma Ada_05 (To_Ada);
+   pragma Style_Checks (On);
 
    Terminator_Error : exception;
-
-   --  The remaining declarations are for Ada 2005 (AI-285)
-
-   --  ISO/IEC 10646:2003 compatible types defined by SC22/WG14 document N1010
-
-   type char16_t is new Wide_Character;
-   pragma Ada_05 (char16_t);
-
-   char16_nul : constant char16_t := char16_t'Val (0);
-   pragma Ada_05 (char16_nul);
-
-   function To_C (Item : Wide_Character) return char16_t;
-   pragma Ada_05 (To_C);
-
-   function To_Ada (Item : char16_t) return Wide_Character;
-   pragma Ada_05 (To_Ada);
-
-   type char16_array is array (size_t range <>) of aliased char16_t;
-   pragma Ada_05 (char16_array);
-
-   function Is_Nul_Terminated (Item : char16_array) return Boolean;
-   pragma Ada_05 (Is_Nul_Terminated);
-
-   function To_C
-     (Item       : Wide_String;
-      Append_Nul : Boolean := True) return char16_array;
-   pragma Ada_05 (To_C);
-
-   function To_Ada
-     (Item     : char16_array;
-      Trim_Nul : Boolean := True) return Wide_String;
-   pragma Ada_05 (To_Ada);
-
-   procedure To_C
-     (Item       : Wide_String;
-      Target     : out char16_array;
-      Count      : out size_t;
-      Append_Nul : Boolean := True);
-   pragma Ada_05 (To_C);
-
-   procedure To_Ada
-     (Item     : char16_array;
-      Target   : out Wide_String;
-      Count    : out Natural;
-      Trim_Nul : Boolean := True);
-   pragma Ada_05 (To_Ada);
-
-   type char32_t is new Wide_Wide_Character;
-   pragma Ada_05 (char32_t);
-
-   char32_nul : constant char32_t := char32_t'Val (0);
-   pragma Ada_05 (char32_nul);
-
-   function To_C (Item : Wide_Wide_Character) return char32_t;
-   pragma Ada_05 (To_C);
-
-   function To_Ada (Item : char32_t) return Wide_Wide_Character;
-   pragma Ada_05 (To_Ada);
-
-   type char32_array is array (size_t range <>) of aliased char32_t;
-   pragma Ada_05 (char32_array);
-
-   function Is_Nul_Terminated (Item : char32_array) return Boolean;
-   pragma Ada_05 (Is_Nul_Terminated);
-
-   function To_C
-     (Item       : Wide_Wide_String;
-      Append_Nul : Boolean := True) return char32_array;
-   pragma Ada_05 (To_C);
-
-   function To_Ada
-     (Item     : char32_array;
-      Trim_Nul : Boolean := True) return Wide_Wide_String;
-   pragma Ada_05 (To_Ada);
-
-   procedure To_C
-     (Item       : Wide_Wide_String;
-      Target     : out char32_array;
-      Count      : out size_t;
-      Append_Nul : Boolean := True);
-   pragma Ada_05 (To_C);
-
-   procedure To_Ada
-     (Item     : char32_array;
-      Target   : out Wide_Wide_String;
-      Count    : out Natural;
-      Trim_Nul : Boolean := True);
-   pragma Ada_05 (To_Ada);
 
 end Interfaces.C;

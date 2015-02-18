@@ -5,18 +5,33 @@
 --  useful, but WITHOUT ANY WARRANTY; without even the implied warranty
 --  of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
+--  This program has no visible functionality; the idea is to use the
+--  debugger to check that the expected effect has happened.
+
 with Containing;
+--  Ada.Containers
+
 with Dispatching;
+--  Tagged types
+
 with Strings;
+--  Secondary stack
+
 with Last_Chance_Handler;
+--  Check we can supply our own version, replacing libgnat's weak one.
+
+with Interfaces.C.Strings;
+--  Check we can build with this package in the closure.
 
 with Start_FreeRTOS_Scheduler;
 
 procedure Testbed is
-   function Fail (S : String) return String is
+   function Use_Secondary_Stack (S : String) return String;
+   --  Is this allowed in the environment task?
+   function Use_Secondary_Stack (S : String) return String is
    begin
       return S (S'First .. Positive'Min (10, S'Length) + S'First - 1);
-   end Fail;
+   end Use_Secondary_Stack;
 begin
    declare
       Err : exception;
@@ -28,7 +43,7 @@ begin
       when Err => null;
    end;
    declare
-      S : constant String := Fail ("hello world");
+      S : constant String := Use_Secondary_Stack ("hello world");
    begin
       null;
    end;

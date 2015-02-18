@@ -46,7 +46,7 @@
 
 --  Modified from GCC 4.9.1 for STM32F4 GNAT RTS.
 
-package System.Parameters with Preelaborate is
+package System.Parameters with Pure is
 
    type Size_Type is new Integer;
 

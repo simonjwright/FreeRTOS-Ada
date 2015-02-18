@@ -33,11 +33,13 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
+--  Modified from GCC 4.9.1 for STM32F4 GNAT RTS.
+
 package Interfaces.C.Strings is
    pragma Preelaborate;
 
    type char_array_access is access all char_array;
-   for char_array_access'Size use System.Parameters.ptr_bits;
+   for char_array_access'Size use Standard'Address_Size;
 
    pragma No_Strict_Aliasing (char_array_access);
    --  Since this type is used for external interfacing, with the pointer
@@ -93,7 +95,7 @@ package Interfaces.C.Strings is
 
 private
    type chars_ptr is access all Character;
-   for chars_ptr'Size use System.Parameters.ptr_bits;
+   for chars_ptr'Size use Standard'Address_Size;
 
    pragma No_Strict_Aliasing (chars_ptr);
    --  Since this type is used for external interfacing, with the pointer
