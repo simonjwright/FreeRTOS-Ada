@@ -16,6 +16,8 @@ project Demo_Tasking is
         (
          "-g",
          "-Og",
+         "-ffunction-sections",
+         "-fdata-sections",
          "--RTS=../stm32f429i-disco-rtos"
         );
    end Builder;
@@ -23,6 +25,7 @@ project Demo_Tasking is
       --  --create-map-file isn't supported in this configuration
       for Default_Switches ("ada") use
         (
+         "-Wl,-gc-sections",
          "-Wl,-Map," & Project'Project_Dir & Project'Name & ".map"
          );
    end Linker;

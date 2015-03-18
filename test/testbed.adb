@@ -27,7 +27,7 @@ with Start_FreeRTOS_Scheduler;
 
 procedure Testbed is
    function Use_Secondary_Stack (S : String) return String;
-   --  Is this allowed in the environment task?
+   --  Is this allowed in the environment task? NO!
    function Use_Secondary_Stack (S : String) return String is
    begin
       return S (S'First .. Positive'Min (10, S'Length) + S'First - 1);
@@ -42,10 +42,10 @@ begin
    exception
       when Err => null;
    end;
-   declare
-      S : constant String := Use_Secondary_Stack ("hello world");
-   begin
-      null;
-   end;
+   --  declare
+   --     S : constant String := Use_Secondary_Stack ("hello world");
+   --  begin
+   --     null;
+   --  end;
    Start_FreeRTOS_Scheduler;
 end Testbed;

@@ -10,6 +10,7 @@ pragma Restrictions (No_Implicit_Heap_Allocations);
 --  violates the restriction (which isn't allowed in Ravenscar).
 
 with Ada.Containers.Bounded_Vectors;
+with Ada.Real_Time;
 
 package body Containing is
 
@@ -24,12 +25,18 @@ package body Containing is
 
    task T;
    task body T is
+      use Ada.Real_Time;
    begin
       for J in Index loop
          Lines.Append ((others => '*'));
       end loop;
+
       for J in Index loop
          Lines (J) := (others => Character'Val (Character'Pos ('a') + J));
+      end loop;
+
+      loop
+         delay until Clock + Milliseconds (1_000);
       end loop;
    end T;
 
