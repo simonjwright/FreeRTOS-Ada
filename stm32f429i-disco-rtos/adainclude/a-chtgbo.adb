@@ -55,12 +55,12 @@ package body Ada.Containers.Hash_Tables.Generic_Bounded_Operations is
 
       return Result;
 
-   exception
-      when others =>
-         B := B - 1;
-         L := L - 1;
+   --  exception
+   --     when others =>
+   --        B := B - 1;
+   --        L := L - 1;
 
-         raise;
+   --        raise;
    end Checked_Index;
 
    -----------
@@ -405,15 +405,15 @@ package body Ada.Containers.Hash_Tables.Generic_Bounded_Operations is
 
       return Result;
 
-   exception
-      when others =>
-         BL := BL - 1;
-         LL := LL - 1;
+   --  exception
+   --     when others =>
+   --        BL := BL - 1;
+   --        LL := LL - 1;
 
-         BR := BR - 1;
-         LR := LR - 1;
+   --        BR := BR - 1;
+   --        LR := LR - 1;
 
-         raise;
+   --        raise;
    end Generic_Equal;
 
    -----------------------

@@ -54,12 +54,12 @@ package body Ada.Containers.Hash_Tables.Generic_Bounded_Keys is
 
       return Result;
 
-   exception
-      when others =>
-         B := B - 1;
-         L := L - 1;
+   --  exception
+   --     when others =>
+   --        B := B - 1;
+   --        L := L - 1;
 
-         raise;
+   --        raise;
    end Checked_Equivalent_Keys;
 
    -------------------
@@ -86,12 +86,12 @@ package body Ada.Containers.Hash_Tables.Generic_Bounded_Keys is
 
       return Result;
 
-   exception
-      when others =>
-         B := B - 1;
-         L := L - 1;
+   --  exception
+   --     when others =>
+   --        B := B - 1;
+   --        L := L - 1;
 
-         raise;
+   --        raise;
    end Checked_Index;
 
    --------------------------
@@ -297,12 +297,12 @@ package body Ada.Containers.Hash_Tables.Generic_Bounded_Keys is
          B := B - 1;
          L := L - 1;
 
-      exception
-         when others =>
-            B := B - 1;
-            L := L - 1;
+      --  exception
+      --     when others =>
+      --        B := B - 1;
+      --        L := L - 1;
 
-            raise;
+      --        raise;
       end;
 
       --  Replace_Element is allowed to change a node's key to Key

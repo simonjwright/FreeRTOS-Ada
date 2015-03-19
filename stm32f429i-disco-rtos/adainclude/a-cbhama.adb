@@ -435,16 +435,16 @@ package body Ada.Containers.Bounded_Hashed_Maps is
    -- Finalize --
    --------------
 
-   procedure Finalize (Object : in out Iterator) is
-   begin
-      if Object.Container /= null then
-         declare
-            B : Natural renames Object.Container.all.Busy;
-         begin
-            B := B - 1;
-         end;
-      end if;
-   end Finalize;
+   --  procedure Finalize (Object : in out Iterator) is
+   --  begin
+   --     if Object.Container /= null then
+   --        declare
+   --           B : Natural renames Object.Container.all.Busy;
+   --        begin
+   --           B := B - 1;
+   --        end;
+   --     end if;
+   --  end Finalize;
 
    ----------
    -- Find --
@@ -475,10 +475,10 @@ package body Ada.Containers.Bounded_Hashed_Maps is
       end if;
    end First;
 
-   function First (Object : Iterator) return Cursor is
-   begin
-      return Object.Container.First;
-   end First;
+   --  function First (Object : Iterator) return Cursor is
+   --  begin
+   --     return Object.Container.First;
+   --  end First;
 
    -----------------
    -- Has_Element --
@@ -716,28 +716,30 @@ package body Ada.Containers.Bounded_Hashed_Maps is
 
       begin
          Local_Iterate (Container);
-      exception
-         when others =>
-            B := B - 1;
-            raise;
+      --  exception
+      --     when others =>
+      --        B := B - 1;
+      --        raise;
       end;
 
       B := B - 1;
    end Iterate;
 
-   function Iterate
-     (Container : Map) return Map_Iterator_Interfaces.Forward_Iterator'Class
-   is
-      B  : Natural renames Container'Unrestricted_Access.all.Busy;
+   pragma Style_Checks (Off);
+   --  function Iterate
+   --    (Container : Map) return Map_Iterator_Interfaces.Forward_Iterator'Class
+   --  is
+   --     B  : Natural renames Container'Unrestricted_Access.all.Busy;
 
-   begin
-      return It : constant Iterator :=
-        (Limited_Controlled with
-           Container => Container'Unrestricted_Access)
-      do
-         B := B + 1;
-      end return;
-   end Iterate;
+   --  begin
+   --     return It : constant Iterator :=
+   --       (Limited_Controlled with
+   --          Container => Container'Unrestricted_Access)
+   --     do
+   --        B := B + 1;
+   --     end return;
+   --  end Iterate;
+   pragma Style_Checks (On);
 
    ---------
    -- Key --
@@ -820,22 +822,22 @@ package body Ada.Containers.Bounded_Hashed_Maps is
       Position := Next (Position);
    end Next;
 
-   function Next
-     (Object   : Iterator;
-      Position : Cursor) return Cursor
-   is
-   begin
-      if Position.Container = null then
-         return No_Element;
-      end if;
+   --  function Next
+   --    (Object   : Iterator;
+   --     Position : Cursor) return Cursor
+   --  is
+   --  begin
+   --     if Position.Container = null then
+   --        return No_Element;
+   --     end if;
 
-      if Position.Container /= Object.Container then
-         raise Program_Error with
-           "Position cursor of Next designates wrong map";
-      end if;
+   --     if Position.Container /= Object.Container then
+   --        raise Program_Error with
+   --          "Position cursor of Next designates wrong map";
+   --     end if;
 
-      return Next (Position);
-   end Next;
+   --     return Next (Position);
+   --  end Next;
 
    -------------------
    -- Query_Element --
@@ -868,11 +870,11 @@ package body Ada.Containers.Bounded_Hashed_Maps is
 
          begin
             Process (N.Key, N.Element);
-         exception
-            when others =>
-               L := L - 1;
-               B := B - 1;
-               raise;
+         --  exception
+         --     when others =>
+         --        L := L - 1;
+         --        B := B - 1;
+         --        raise;
          end;
 
          L := L - 1;
@@ -1117,11 +1119,11 @@ package body Ada.Containers.Bounded_Hashed_Maps is
 
          begin
             Process (N.Key, N.Element);
-         exception
-            when others =>
-               L := L - 1;
-               B := B - 1;
-               raise;
+         --  exception
+         --     when others =>
+         --        L := L - 1;
+         --        B := B - 1;
+         --        raise;
          end;
 
          L := L - 1;
