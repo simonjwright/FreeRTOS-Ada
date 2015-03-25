@@ -31,9 +31,6 @@
 
 pragma Compiler_Unit_Warning;
 
-with Ada.Exceptions;
-with System.Exceptions_Debug;
-
 package body System.Assertions is
 
    --------------------------
@@ -42,8 +39,7 @@ package body System.Assertions is
 
    procedure Raise_Assert_Failure (Msg : String) is
    begin
-      System.Exceptions_Debug.Debug_Raise_Assert_Failure;
-      Ada.Exceptions.Raise_Exception (Assert_Failure'Identity, Msg);
+      raise Assert_Failure with Msg;
    end Raise_Assert_Failure;
 
 end System.Assertions;
