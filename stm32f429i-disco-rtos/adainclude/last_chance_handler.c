@@ -24,8 +24,13 @@
 // write your own version, in Ada if you like, perhaps to output the
 // exception message to LCD.
 
+#include <FreeRTOS.h>
+#include <task.h>
+
 __attribute__((weak))
 void __gnat_last_chance_handler(const char *message, int line) {
+  taskDISABLE_INTERRUPTS();
+  vTaskSuspendAll();
   // Loop indefinitely: use the debugger to examine the backtrace.
   while (1) {}
 }
