@@ -48,6 +48,7 @@ project Build_Runtime is
       for Switches ("s-excdeb.adb") use ALL_ADAFLAGS & ("-g", "-O0");
       for Switches ("s-assert.adb") use ALL_ADAFLAGS & ("-g");
       for Switches ("a-tags.adb") use ALL_ADAFLAGS & ("-g");
+      for Switches ("last_chance_handler.c") use ALL_CFLAGS & ("-g", "-O0");
   end Compiler;
 
 end Build_Runtime;
