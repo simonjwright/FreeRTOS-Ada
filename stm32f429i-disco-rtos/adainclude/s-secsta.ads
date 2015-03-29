@@ -34,7 +34,8 @@ pragma Compiler_Unit_Warning;
 with System.Parameters;
 with System.Storage_Elements;
 
-package System.Secondary_Stack with Preelaborate is
+package System.Secondary_Stack is
+   pragma Preelaborate;
 
    --  The secondary stack for a task is an area in the task's stack
    --  reserved for managing objects of indefinite type
@@ -42,10 +43,6 @@ package System.Secondary_Stack with Preelaborate is
    --
    --  The secondary stack is created as an object in the
    --  System.Tasking.Restricted.Stages Wrapper procedure.
-   --
-   --  In this implementation, the main program doesn't have a
-   --  secondary stack, and Program_Error will be raised if it
-   --  attempts to use one.
 
    type Stack (Size : System.Parameters.Size_Type) is private;
    type Stack_Ptr is access all Stack with Storage_Size => 0;

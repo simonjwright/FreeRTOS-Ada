@@ -33,12 +33,14 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
+--  Modified from GCC 4.9.1 for STM32F4 GNAT RTS, which has Ravenscar
+--  restrictions.
+
 with System;
 with System.Tasking;
 
 package Ada.Task_Identification is
-   pragma Preelaborate_05;
-   --  In accordance with Ada 2005 AI-362
+   pragma Preelaborate;
 
    type Task_Id is private;
    pragma Preelaborable_Initialization (Task_Id);
@@ -46,25 +48,19 @@ package Ada.Task_Identification is
    Null_Task_Id : constant Task_Id;
 
    function "=" (Left, Right : Task_Id) return Boolean;
-   pragma Inline ("=");
 
    function Image (T : Task_Id) return String;
 
    function Current_Task return Task_Id;
-   pragma Inline (Current_Task);
 
    function Environment_Task return Task_Id;
-   pragma Inline (Environment_Task);
 
    procedure Abort_Task (T : Task_Id);
-   pragma Inline (Abort_Task);
    --  Note: parameter is mode IN, not IN OUT, per AI-00101
 
    function Is_Terminated (T : Task_Id) return Boolean;
-   pragma Inline (Is_Terminated);
 
    function Is_Callable (T : Task_Id) return Boolean;
-   pragma Inline (Is_Callable);
 
    function Activation_Is_Complete (T : Task_Id) return Boolean;
 
