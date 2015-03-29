@@ -2,6 +2,10 @@
  * This file was created by Simon Wright <simon@pushface.org> from
  * STM32Cube_FW_F4_V1.3.0/Projects/STM32F429I-Discovery/BSP/Src/main.c.
  *
+ * The clock initialization function, _bsp_configure_system_clock(),
+ * is defined as a weak symbol so it can be overridden if you need to
+ * use an external external crystal rather than the one on the board.
+ *
  * The original file's header comment is shown below.
  */
 
@@ -72,7 +76,7 @@
   * @param  None
   * @retval None
   */
-void _bsp_configure_system_clock(void)
+__attribute__((weak)) void _bsp_configure_system_clock(void)
 {
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
   RCC_OscInitTypeDef RCC_OscInitStruct;

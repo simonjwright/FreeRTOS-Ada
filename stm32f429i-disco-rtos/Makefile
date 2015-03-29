@@ -34,15 +34,28 @@ C_SOURCES += heap_4.c
 # Now update the VPATH so we can find the source of the memory manager.
 VPATH += $(FREERTOS)/portable/MemMang
 
-OBJECTS := $(patsubst %.c,%.o,$(C_SOURCES)) $(patsubst %.s,%.o,$(S_SOURCES))
+# Set up the C/ASM target object files, in the OBJ directory
+OBJ := .build-c
+BARE_OBJS := $(patsubst %.c,%.o,$(C_SOURCES)) $(patsubst %.s,%.o,$(S_SOURCES))
+OBJECTS := $(patsubst %,$(OBJ)/%,$(BARE_OBJS))
+
+$(OBJ):
+	mkdir $(OBJ)
+
+$(OBJ)/%.o: %.c
+	$(CC) $(CFLAGS) $< -o $@
+$(OBJ)/%.o: %.s
+	$(AS) $(ASFLAGS) $< -o $@
 
 all:: adalib/libbsp-rtos.a
 
-adalib/libbsp-rtos.a: $(OBJECTS)
+adalib/libbsp-rtos.a:: $(OBJ)
+adalib/libbsp-rtos.a:: $(OBJECTS)
 	$(AR) $(ARFLAGS) $@ $^
 
 clean::
-	-rm *~ *.orig *.o adalib/libbsp-rtos.a
+	-rm -f *~ *.orig adalib/libbsp-rtos.a
+	-rm -rf $(OBJ)
 
 all:: adalib/libgnat.a
 
