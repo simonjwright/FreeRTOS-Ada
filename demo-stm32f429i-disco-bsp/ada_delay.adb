@@ -6,12 +6,10 @@
 --  offered as-is, without any warranty.
 
 with Clocking;
-with STM32F429I_Discovery.HAL;
 with STM32F429I_Discovery.Buttons;
 with STM32F429I_Discovery.LEDs;
 
 procedure Ada_Delay is
-
    use all type STM32F429I_Discovery.LEDs.LED;
 
    type Speed is (Slow, Fast);
@@ -23,10 +21,7 @@ procedure Ada_Delay is
                 Fast => Green),
       True =>  (Slow => Green,
                 Fast => Red));
-
 begin
-   STM32F429I_Discovery.HAL.Initialize;
-
    STM32F429I_Discovery.Buttons.Initialize;
    STM32F429I_Discovery.LEDs.Initialize;
 

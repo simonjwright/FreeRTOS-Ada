@@ -22,15 +22,6 @@ with Interfaces;
 
 package body STM32F429I_Discovery.HAL is
 
-   procedure Initialize is
-      procedure HAL_Init with
-        Import,
-        Convention => C,
-        External_Name => "HAL_Init";
-   begin
-      HAL_Init;
-   end Initialize;
-
    procedure Wait (Milliseconds : Natural) is
       procedure HAL_Delay (Milliseconds : Interfaces.Unsigned_32) with
         Import,

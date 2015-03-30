@@ -57,7 +57,7 @@ package body STM32F429I_Discovery.Buttons is
 
    --  Connecting EXTI0 (pin 0 only) to HAL_GPIO_EXTI_IRQHandler.
    --  Presumably if there are other interrupts for this GPIO they
-   --  have to be coped with too, but this is from the main.c example.
+   --  have to be coped with too, but ths is from the main.c example.
 
    procedure EXTI0_IRQHandler with
      Export,

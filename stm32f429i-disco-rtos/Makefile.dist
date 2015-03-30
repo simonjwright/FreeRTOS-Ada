@@ -149,18 +149,6 @@ RTS_DISTRIBUTION_FILES +=			\
   adainclude/freertos_bindings.c		\
   adainclude/last_chance_handler.c
 
-RTS_DISTRIBUTION_FILES +=					\
-  adainclude/stm32f429i_discovery-buttons.adb			\
-  adainclude/stm32f429i_discovery-buttons.ads			\
-  adainclude/stm32f429i_discovery-configure_external_clock.ads	\
-  adainclude/stm32f429i_discovery-hal.adb			\
-  adainclude/stm32f429i_discovery-hal.ads			\
-  adainclude/stm32f429i_discovery-lcd.adb			\
-  adainclude/stm32f429i_discovery-lcd.ads			\
-  adainclude/stm32f429i_discovery-leds.adb			\
-  adainclude/stm32f429i_discovery-leds.ads			\
-  adainclude/stm32f429i_discovery.ads
-
 RTS_DISTRIBUTION_FILES +=                       \
   adalib/stm32f429i-flash.ld
 

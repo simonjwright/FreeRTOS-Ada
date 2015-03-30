@@ -18,6 +18,8 @@ test
 doc
 stm32f4-gnat-rts*
 
+stm32f429xx_h.ads
+
 auto.cgpr
 gnatinspect.db
 

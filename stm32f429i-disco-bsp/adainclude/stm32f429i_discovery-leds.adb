@@ -65,4 +65,6 @@ package body STM32F429I_Discovery.LEDs is
       BSP_LED_Toggle (Board_LEDs (The_LED));
    end Toggle;
 
+begin
+   Initialize;
 end STM32F429I_Discovery.LEDs;

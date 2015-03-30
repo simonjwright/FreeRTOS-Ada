@@ -18,9 +18,11 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-package STM32F429I_Discovery.HAL with Pure is
+--  Note, the HAL needs to be initialized (and the system clock
+--  configured) before any other HAL-related calls are made; this is
+--  done in the startup assembly code, startup_stm32f429xx.s.
 
-   procedure Initialize;
+package STM32F429I_Discovery.HAL with Elaborate_Body is
 
    procedure Wait (Milliseconds : Natural);
 

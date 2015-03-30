@@ -5,6 +5,8 @@
 --  the copyright notice and this notice are preserved.  This file is
 --  offered as-is, without any warranty.
 
+with "../stm32f429i-disco-bsp/stm32f429i_disco_bsp";
+
 project Demo_Tasking is
    for Main use ("demo_tasking.adb");
    for Object_Dir use ".build-demo";

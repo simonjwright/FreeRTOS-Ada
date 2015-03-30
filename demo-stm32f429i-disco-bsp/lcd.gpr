@@ -1,3 +1,12 @@
+--  Copyright Simon Wright <simon@pushface.org>
+--
+--  Copying and distribution of this file, with or without
+--  modification, are permitted in any medium without royalty provided
+--  the copyright notice and this notice are preserved.  This file is
+--  offered as-is, without any warranty.
+
+with "../stm32f429i-disco-bsp/stm32f429i_disco_bsp";
+
 project LCD is
    for Target use "arm-eabi";
    for Main use ("lcd.adb");
@@ -8,7 +17,7 @@ project LCD is
       for Default_Switches ("ada") use
         ("-g",
          "-O0",
-         "--RTS=../stm32f429i-disco-bsp");
+         "--RTS=../stm32f429i-disco-rtos");
    end Builder;
    package Linker is
       for Default_Switches ("ada") use

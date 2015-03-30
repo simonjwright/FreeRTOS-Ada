@@ -19,7 +19,7 @@
 --  If not, see <http://www.gnu.org/licenses/>.
 
 with Interfaces;
-with System; use System;  -- See Display_String_At_Line
+with System;
 
 package body STM32F429I_Discovery.LCD is
 
@@ -33,31 +33,31 @@ package body STM32F429I_Discovery.LCD is
 
    C_Colors : constant array (Color) of Interfaces.Unsigned_32 :=
      (Blue         => 16#FF0000FF#,
-        Green         => 16#FF00FF00#,
-        Red           => 16#FFFF0000#,
-        Cyan          => 16#FF00FFFF#,
-        Magenta       => 16#FFFF00FF#,
-        Yellow        => 16#FFFFFF00#,
-        Light_Blue    => 16#FF8080FF#,
-        Light_Green   => 16#FF80FF80#,
-        Light_Red     => 16#FFFF8080#,
-        Light_Cyan    => 16#FF80FFFF#,
-        Light_Magenta => 16#FFFF80FF#,
-        Light_Yellow  => 16#FFFFFF80#,
-        Dark_Blue     => 16#FF000080#,
-        Dark_Green    => 16#FF008000#,
-        Dark_Red      => 16#FF800000#,
-        Dark_Cyan     => 16#FF008080#,
-        Dark_Magenta  => 16#FF800080#,
-        Dark_Yellow   => 16#FF808000#,
-        White         => 16#FFFFFFFF#,
-        Light_Gray    => 16#FFD3D3D3#,
-        Gray          => 16#FF808080#,
-        Dark_Gray     => 16#FF404040#,
-        Black         => 16#FF000000#,
-        Brown         => 16#FFA52A2A#,
-        Orange        => 16#FFFFA500#,
-        Transparent   => 16#FF000000#);
+      Green         => 16#FF00FF00#,
+      Red           => 16#FFFF0000#,
+      Cyan          => 16#FF00FFFF#,
+      Magenta       => 16#FFFF00FF#,
+      Yellow        => 16#FFFFFF00#,
+      Light_Blue    => 16#FF8080FF#,
+      Light_Green   => 16#FF80FF80#,
+      Light_Red     => 16#FFFF8080#,
+      Light_Cyan    => 16#FF80FFFF#,
+      Light_Magenta => 16#FFFF80FF#,
+      Light_Yellow  => 16#FFFFFF80#,
+      Dark_Blue     => 16#FF000080#,
+      Dark_Green    => 16#FF008000#,
+      Dark_Red      => 16#FF800000#,
+      Dark_Cyan     => 16#FF008080#,
+      Dark_Magenta  => 16#FF800080#,
+      Dark_Yellow   => 16#FF808000#,
+      White         => 16#FFFFFFFF#,
+      Light_Gray    => 16#FFD3D3D3#,
+      Gray          => 16#FF808080#,
+      Dark_Gray     => 16#FF404040#,
+      Black         => 16#FF000000#,
+      Brown         => 16#FFA52A2A#,
+      Orange        => 16#FFFFA500#,
+      Transparent   => 16#FF000000#);
 
    type C_Font is record
       Table  : access constant Interfaces.Unsigned_8;
@@ -188,11 +188,9 @@ package body STM32F429I_Discovery.LCD is
    end Clear_String_Line;
 
    procedure Display_String_At_Line (Line : Natural; Message : String) is
-      --  For some reason, System.Address will semantic-check but not
-      --  compile because 'System is not visible'.
       procedure BSP_LCD_DisplayStringAtLine
         (Line : Interfaces.Unsigned_16;
-         Ptr  : Address) with
+         Ptr  : System.Address) with
            Import,
            Convention => C,
            External_Name => "BSP_LCD_DisplayStringAtLine";

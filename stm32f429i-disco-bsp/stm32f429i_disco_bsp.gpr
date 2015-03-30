@@ -1,0 +1,24 @@
+library project STM32F429I_Disco_BSP is
+
+   for Library_Name use "stm32f429i_disco_bsp";
+   for Library_Kind use "static";
+   for Library_Dir use "adalib";
+
+   for Source_Dirs use ("adainclude");
+
+   for Object_Dir use ".build";
+
+   for Target use "arm-eabi";
+
+   package Builder is
+      for Default_Switches ("ada") use
+        (
+         "-g",
+         "-Og",
+         "-ffunction-sections",
+         "-fdata-sections",
+         "--RTS=../stm32f429i-disco-rtos"
+        );
+   end Builder;
+
+end STM32F429I_Disco_BSP;

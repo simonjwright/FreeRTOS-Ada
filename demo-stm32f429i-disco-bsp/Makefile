@@ -1,6 +1,6 @@
 all:
 
-include ../stm32f429i-disco-bsp/Makefile.inc
+include ../stm32f429i-disco-rtos/Makefile.inc
 
 # Definitions for C, C++
 INCLUDES += -I$(STM32CUBE)/Projects/STM32F429I-Discovery/Examples/BSP/Inc
