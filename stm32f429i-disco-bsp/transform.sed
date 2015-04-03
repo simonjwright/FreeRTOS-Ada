@@ -61,12 +61,14 @@ s/[ ]*>>[ ]*([0-9]+)/ \/ 2 ** \1/g
 # Hex constants
 s/0x([a-fA-F0-9]+)/16#\1#/g
 
+# Make all records volatile
+s/end record/end record with Volatile/
+
 # Aliased objects of a type (to hold space)
 /--  unsupported macro: ([a-zA-Z0-9_]+) \(\(([a-zA-Z0-9_]+TypeDef) \*\)[ ]*([a-zA-Z0-9_]+)\)/ {
 s/--  unsupported macro: ([a-zA-Z0-9_]+) \(\(([a-zA-Z0-9_]+TypeDef) \*\)[ ]*([a-zA-Z0-9_]+)\)/\1 : aliased \2\
      with Import,\
      Convention => Ada,\
-     Volatile,\
      Address => To_Address (\3);/
 H
 d
