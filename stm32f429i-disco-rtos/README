@@ -17,10 +17,10 @@ have installed the STM32Cube package) can be included in your own
 Makefiles to provide access to the drivers' header and source files;
 see the demonstration's Makefile.
 
-The RTS has been built with no optimisation (-O0) and for debugging
-(-g), using GCC 4.9.1 for arm-eabi-darwin13-bin[1] on Mac OS X (it
-should work out of the box (but after recompilation!) with a
-Linux-hosted cross-compiler). Demo programs are included.
+The RTS is supplied built with for debugging (-g) and with suitable
+optimisation (-Og), using GCC 4.9.1 for arm-eabi-darwin13-bin[1] on
+Mac OS X (it should work out of the box with a Linux-hosted GCC 4.9.1
+cross-compiler). Demo programs are included.
 
 The RTS is intended to support commercial binary distributions[2]. The
 Ada source code has either been derived from FSF GCC (4.9.1) or

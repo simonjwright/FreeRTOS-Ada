@@ -4,7 +4,7 @@ This means that any unhandled exception in a subprogram will immediately result 
 
 Also, you can't use the `raise` statement to do partial handling, as in
 
-<!-- language: lang-ada -->
+    :::ada
     declare
        Err : exception;
     begin
@@ -21,16 +21,18 @@ Also, you can't use the `raise` statement to do partial handling, as in
 
 The RTS's last chance exception handler is written as
 
-<!-- language: lang-c -->
-     __attribute__((weak))
-     void __gnat_last_chance_handler(const char *message, int line) {
-       // Loop indefinitely: use the debugger to examine the backtrace.
-       while (1) {}
-     }
+    :::c
+    __attribute__((weak))
+    void __gnat_last_chance_handler(const char *message, int line) {
+      taskDISABLE_INTERRUPTS();
+      vTaskSuspendAll();
+      // Loop indefinitely: use the debugger to examine the backtrace.
+      while (1) {}
+    }
 
 and the `weak` attribute means that you can write your own version to do something more immediately useful, provided it matches the spec
 
-<!-- language: lang-ada -->
+    :::ada
     procedure Last_Chance_Handler
       (Message : System.Address; Line : Integer)
     with
@@ -38,4 +40,4 @@ and the `weak` attribute means that you can write your own version to do somethi
       Convention => C,
       External_Name => "__gnat_last_chance_handler";
 
-Note that at the moment the `Line` parameter is always `0`.
+Note that at the moment the `Line` parameter is always `0` (this may be affected by the *binder* argument `-E`).

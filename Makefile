@@ -41,7 +41,8 @@ $(NAME)-$(DATE).tar.gz: $(NAME)-$(DATE)
 $(NAME)-$(DATE):
 	rm -rf $@
 	mkdir $@
-	cp $(TOP_LEVEL_FILES) $@/
+	cp INSTALL $@/
+	cp README-for-distribution $@/README
 	for sub in $(subdirs); do				\
 	  make -C $$sub -f Makefile.dist dist DIST=$(PWD)/$@;	\
 	done

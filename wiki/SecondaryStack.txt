@@ -21,4 +21,4 @@ If you have a function returning a large indefinite type (a long `String`, say, 
 Note:
 
 * `Storage_Error` will be raised if you try to use more secondary stack than is available.
-* The main program can’t use the secondary stack (because, in this implementation, it isn’t running as a task): `Program_Error` will be raised if you try.
+* The main program's secondary stack has size 256 (see `s-secsta.adb` if you need to change this).

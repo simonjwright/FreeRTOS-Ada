@@ -1,0 +1,34 @@
+20150406
+========
+
+This release has been reorganised from previous releases.
+
+There is one RTS, stm32f4-disco-rtos, and one BSP, stm32f4-disco-bsp.
+
+Changes to the RTS from the previous release:
+---------------------------------------------
+
+These units (and supporting units) are now included:
+
+  Ada.Containers.Bounded_Vectors (*)
+  Ada.Containers.Bounded_Hashed_Maps (*)
+  Ada.Containers.Generic_Array_Sort
+  Ada.Containers.Generic_Constrained_Array_Sort
+  Ada.IO_Exceptions
+  Ada.Streams
+  Ada.Task_Identification
+  Interfaces.C
+  Interfaces.C.Strings
+  System.Assertions
+
+  (*) The new iterators (for some F in Foo loop ...) are NOT supported
+      (they require finalization).
+
+The STM32F429I_Discovery tree has been moved to the BSP.
+
+The following tickets have been fixed:
+
+  2  Protected spec hides package Interfaces
+  14 Last_Chance_Handler doesn’t stop tasking
+
+Tasking is started by calling Start_FreeRTOS_Scheduler.
