@@ -23,6 +23,9 @@ with Last_Chance_Handler;
 with Interfaces.C.Strings;
 --  Check we can build with this package in the closure.
 
+with SO;
+--  Check suspension objects.
+
 with Start_FreeRTOS_Scheduler;
 
 procedure Testbed is

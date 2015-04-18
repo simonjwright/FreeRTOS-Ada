@@ -33,12 +33,11 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
-with System.Task_Primitives;
-
-with Ada.Finalization;
+--  This file has been modified from the GCC 4.9.1 version for the
+--  STM32 GNAT RTS project.
 
 package Ada.Synchronous_Task_Control is
-   pragma Preelaborate_05;
+   pragma Preelaborate;
    --  In accordance with Ada 2005 AI-362
 
    type Suspension_Object is limited private;
@@ -53,26 +52,19 @@ package Ada.Synchronous_Task_Control is
 
 private
 
-   procedure Initialize (S : in out Suspension_Object);
-   --  Initialization for Suspension_Object
+   protected type Suspension_Object is
+      procedure Set_True;
+      procedure Set_False;
+      function Current_State return Boolean;
+      entry Suspend_Until_True;
+   private
+      State : Boolean := False;
+   end Suspension_Object;
 
-   procedure Finalize (S : in out Suspension_Object);
-   --  Finalization for Suspension_Object
-
-   type Suspension_Object is
-     new Ada.Finalization.Limited_Controlled with
-   record
-      SO : System.Task_Primitives.Suspension_Object;
-      --  Use low-level suspension objects so that the synchronization
-      --  functionality provided by this object can be achieved using
-      --  efficient operating system primitives.
-   end record;
-
-   pragma Inline (Set_True);
-   pragma Inline (Set_False);
-   pragma Inline (Current_State);
-   pragma Inline (Suspend_Until_True);
-   pragma Inline (Initialize);
-   pragma Inline (Finalize);
+   --  Note: ARM D.10(10) requires PE to be raised if a task calls
+   --  Suspend_Until_True on an SO while another task is already
+   --  waiting on that SO. No special action here; such a call is
+   --  forbidden by Ravenscar, and will raise PE with "entry call
+   --  already queued".
 
 end Ada.Synchronous_Task_Control;
