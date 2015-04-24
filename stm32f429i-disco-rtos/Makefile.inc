@@ -9,7 +9,7 @@ RTOS := $(shell echo $(dir $(abspath $(lastword $(MAKEFILE_LIST)))) \
 	| sed -e "s;/$$;;")
 BSP := $(RTOS)
 
-STM32CUBE ?= $(HOME)/STM32Cube_FW_F4_V1.3.0
+STM32CUBE ?= $(HOME)/STM32Cube_FW_F4_V1.5.0
 
 STM32INCLUDES = $(STM32CUBE)/Drivers/BSP/STM32F429I-Discovery	\
   $(STM32CUBE)/Drivers/CMSIS/Device/ST/STM32F4xx/Include	\
@@ -40,6 +40,8 @@ INCLUDES = $(patsubst %,-I%,$(STM32INCLUDES) $(FREERTOSINCLUDES) $(BSP)/include)
 
 # for CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 DEFINES = -DSTM32F429xx=1 -DUSE_HAL_DRIVER=1
+# for stm32f4xx_hal_conf.h, stm32f429i-disco
+DEFINES += -DHSE_VALUE=8000000 -DLSI_VALUE=40000
 
 # Generally useful target for creating a binary image downloadable
 # with st-flash.

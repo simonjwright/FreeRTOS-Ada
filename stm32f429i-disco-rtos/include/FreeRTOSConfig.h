@@ -98,7 +98,7 @@
    need the additional priorities 8 (interrupt priority 15) to 18
    (interrupt priority 5, the highest that can use API interrupt-safe
    functions). */
-#define configMAX_PRIORITIES			( ( unsigned portBASE_TYPE ) 19 )
+#define configMAX_PRIORITIES			( 19 )
 
 #define configMINIMAL_STACK_SIZE		( ( unsigned short ) 128 )
 #define configTOTAL_HEAP_SIZE			( ( size_t ) ( 15 * 1024 ) )

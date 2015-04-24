@@ -1,7 +1,5 @@
 all::
 
-STM32CUBE = $(HOME)/STM32Cube_FW_F4_V1.3.0
-
 include Makefile.inc
 
 OPTFLAGS ?= -Og
