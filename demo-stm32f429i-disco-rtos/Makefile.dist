@@ -36,6 +36,18 @@ DEMO_DISTRIBUTION_FILES +=			\
   leds.adb					\
   leds.ads
 
+DEMO_DISTRIBUTION_FILES +=			\
+  demo_cmsis.adb				\
+  demo_cmsis.gpr
+
+DEMO_DISTRIBUTION_FILES +=			\
+  lcd.adb					\
+  lcd.gpr
+
+DEMO_DISTRIBUTION_FILES +=			\
+  main.c					\
+  main.h
+
 dist:: $(DEMO_DISTRIBUTION_FILES)
 	mkdir $(DIST)/$(THIS)
 	tar cf - $(DEMO_DISTRIBUTION_FILES) | \

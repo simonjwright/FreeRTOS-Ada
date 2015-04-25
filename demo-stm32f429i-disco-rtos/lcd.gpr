@@ -7,25 +7,22 @@
 
 with "../stm32f429i-disco-bsp/stm32f429i_disco_bsp";
 
-project Demo_Cmsis is
-   for Main use ("demo_cmsis.adb");
-   for Object_Dir use ".build-demo";
-   for Source_Dirs use (".");
-   for Exec_Dir use ".";
+project LCD is
    for Target use "arm-eabi";
+   for Main use ("lcd.adb");
+   for Source_Files use ("lcd.adb");
+   for Exec_Dir use ".";
+   for Object_Dir use ".build-demo";
    package Builder is
       for Default_Switches ("ada") use
-        (
-         "-g",
-         "-Og",
-         "--RTS=../stm32f429i-disco-rtos"
-        );
+        ("-g",
+         "-O0",
+         "--RTS=../stm32f429i-disco-rtos");
    end Builder;
    package Linker is
-      --  --create-map-file isn't supported in this configuration
       for Default_Switches ("ada") use
         (
          "-Wl,-Map," & Project'Project_Dir & Project'Name & ".map"
          );
    end Linker;
-end Demo_Cmsis;
+end LCD;
