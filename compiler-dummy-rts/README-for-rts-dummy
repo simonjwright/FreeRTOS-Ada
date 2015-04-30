@@ -1,0 +1,5 @@
+This isn't a real RTS; instead, it's the minimal set of files required
+to allow gprconfig to recognise a compiler as usable.
+
+Copy to a newly-built cross-compiler's RTS directory: for example,
+$prefix/lib/gcc/arm-eabi/5.1.0/.
