@@ -31,11 +31,6 @@ void HAL_SYSTICK_Callback(void)
 
 int main(void)
 {
-  HAL_Init();
-
-  /* Configure the system clock to 180 Mhz, and SysTick to 1 ms */
-  _bsp_configure_system_clock();
-
   /* Configure LED3 and LED4 */
   BSP_LED_Init(LED3);
   BSP_LED_Init(LED4);

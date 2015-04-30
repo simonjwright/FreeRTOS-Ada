@@ -9,7 +9,7 @@ CC = arm-eabi-gcc
 CXX = arm-eabi-g++
 CFLAGS = $(INCLUDES) $(DEFINES) $(DEBUG) $(EXTRA_CFLAGS)
 CXXFLAGS = $(INCLUDES) $(DEFINES) $(DEBUG) $(EXTRA_CFLAGS)
-LIBS    = -L$(BSP)/adalib -lbsp
+LIBS    = -L$(BSP)/adalib -lbsp-rtos
 LDC     = stm32f429i-flash.ld
 
 # Definitions for all links
