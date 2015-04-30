@@ -5,13 +5,13 @@ include Makefile.inc
 OPTFLAGS ?= -Og
 DEBFLAGS = -g
 
-CC = arm-eabi-gcc
-CFLAGS = -c $(OPTFLAGS) $(DEBFLAGS) $(INCLUDES) $(DEFINES)
+CC = $(TARGET)-gcc
+CFLAGS = -c $(TARGET_OPTS) $(OPTFLAGS) $(DEBFLAGS) $(INCLUDES) $(DEFINES)
 
-AS = arm-eabi-gcc
+AS = $(TARGET)-gcc
 ASFLAGS = -c $(OPTFLAGS) $(DEBFLAGS)
 
-AR = arm-eabi-ar
+AR = $(TARGET)-ar
 ARFLAGS = -r -s
 
 BSP_SRC   = $(STM32CUBE)/Drivers/BSP/STM32F429I-Discovery
@@ -67,6 +67,8 @@ endif
 adalib/libgnat.a: force
 	gprbuild -p				\
 	  -P build_runtime.gpr			\
+	  -XTARGET=$(TARGET)			\
+	  -XTARGET_OPTS="$(TARGET_OPTS)"	\
 	  -XBUILD=$(build)			\
 	  -XINCLUDES="$(INCLUDES)"
 

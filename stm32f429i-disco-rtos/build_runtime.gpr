@@ -10,7 +10,7 @@ project Build_Runtime is
 
    for Source_Dirs use ("adainclude");
 
-   for Target use "arm-eabi";
+   for Target use external ("TARGET", "arm-eabi");
 
    type Build_Type is ("Production", "Debug");
    Build : Build_Type := external ("BUILD", "Debug");
@@ -20,8 +20,9 @@ project Build_Runtime is
    end Builder;
 
    package Compiler is
-      COMMON_FLAGS := ("-ffunction-sections",
-                       "-fdata-sections");
+      COMMON_FLAGS :=
+        ("-ffunction-sections", "-fdata-sections")
+        & external_as_list ("TARGET_OPTS", " ");
       case Build is
         when "Production" =>
            COMMON_FLAGS := COMMON_FLAGS & ("-O2");
