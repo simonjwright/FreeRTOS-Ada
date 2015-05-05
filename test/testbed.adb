@@ -26,6 +26,8 @@ with Interfaces.C.Strings;
 with SO;
 --  Check suspension objects.
 
+with Streams;
+
 with Start_FreeRTOS_Scheduler;
 
 procedure Testbed is
@@ -45,10 +47,11 @@ begin
    exception
       when Err => null;
    end;
-   --  declare
-   --     S : constant String := Use_Secondary_Stack ("hello world");
-   --  begin
-   --     null;
-   --  end;
+   declare
+      S : constant String := Use_Secondary_Stack ("hello world");
+   begin
+      null;
+   end;
+   Streams.Check (42);
    Start_FreeRTOS_Scheduler;
 end Testbed;

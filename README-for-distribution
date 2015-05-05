@@ -1,9 +1,10 @@
-20150406
+2015mmdd
 ========
 
 This release has been reorganised from previous releases.
 
-There is one RTS, stm32f4-disco-rtos, and one BSP, stm32f4-disco-bsp.
+There is one RTS, stm32f429i-disco-rtos, and one BSP,
+stm32f429i-disco-bsp.
 
 Changes to the RTS from the previous release:
 ---------------------------------------------
