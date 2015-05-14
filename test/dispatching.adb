@@ -16,12 +16,14 @@ package body Dispatching is
    task T;
 
    task body T is
-      D : Derived;
+      D : constant access Base'Class := new Derived;
    begin
       declare
-         C : Character := D.Basis;
-         V : Integer := D.Value;
+         C : constant Character := D.Basis;
+         V : constant Integer := D.Value;
       begin
+         pragma Assert (C = 'a', "wrong C");
+         pragma Assert (V = 42, "wrong V");
          null;
       end;
       declare

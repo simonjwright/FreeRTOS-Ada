@@ -18,9 +18,11 @@ with Strings;
 --  Secondary stack
 
 with Last_Chance_Handler;
+pragma Unreferenced (Last_Chance_Handler);
 --  Check we can supply our own version, replacing libgnat's weak one.
 
 with Interfaces.C.Strings;
+pragma Unreferenced (Interfaces.C.Strings);
 --  Check we can build with this package in the closure.
 
 with SO;
@@ -32,7 +34,6 @@ with Start_FreeRTOS_Scheduler;
 
 procedure Testbed is
    function Use_Secondary_Stack (S : String) return String;
-   --  Is this allowed in the environment task? NO!
    function Use_Secondary_Stack (S : String) return String is
    begin
       return S (S'First .. Positive'Min (10, S'Length) + S'First - 1);
@@ -48,7 +49,8 @@ begin
       when Err => null;
    end;
    declare
-      S : constant String := Use_Secondary_Stack ("hello world");
+      S : constant String := Use_Secondary_Stack ("hello world")
+        with Unreferenced;
    begin
       null;
    end;

@@ -16,14 +16,18 @@ project Testbed is
         (
          "-g",
          "-Og",
-         "--RTS=" & Project'Project_Dir & "../stm32f429i-disco-rtos"
+         "--RTS=" & Project'Project_Dir & "../stm32f429i-disco-rtos",
+         "--create-map-file"
         );
    end Builder;
-   package Linker is
-      --  --create-map-file isn't supported in this configuration
+   package Compiler is
       for Default_Switches ("ada") use
         (
-         "-Wl,-Map," & Project'Project_Dir & Project'Name & ".map"
-         );
+         "-gnatqQafoy",
+         "-gnatwaL.X"
+        );
+   end Compiler;
+   package Linker is
+      for Map_File_Option use "-Wl,-Map," & Project'Project_Dir;
    end Linker;
 end Testbed;
