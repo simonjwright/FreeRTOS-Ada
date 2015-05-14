@@ -133,9 +133,9 @@ package body System.FreeRTOS.Tasks is
         Convention => C,
         External_Name => "xTaskGetSchedulerState";
       --  Possible values are (FreeRTOS 8.1.2)
-      --  #define taskSCHEDULER_SUSPENDED	( ( BaseType_t ) 0 )
-      --  #define taskSCHEDULER_NOT_STARTED	( ( BaseType_t ) 1 )
-      --  #define taskSCHEDULER_RUNNING		( ( BaseType_t ) 2 )
+      --  #define taskSCHEDULER_SUSPENDED       ( ( BaseType_t ) 0 )
+      --  #define taskSCHEDULER_NOT_STARTED     ( ( BaseType_t ) 1 )
+      --  #define taskSCHEDULER_RUNNING         ( ( BaseType_t ) 2 )
    begin
       return XTaskGetSchedulerState = 2;
    end Scheduler_Is_Running;
