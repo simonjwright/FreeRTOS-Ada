@@ -29,6 +29,8 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
+--  Modified from GCC 4.9.1 for STM32F4 GNAT RTS.
+
 with Ada.Finalization;
 with System.Storage_Elements;
 with System.Storage_Pools;
@@ -122,9 +124,6 @@ package System.Finalization_Masters is
 
    function Objects (Master : Finalization_Master) return FM_Node_Ptr;
    --  Return the header of the doubly-linked list of controlled objects
-
-   procedure Print_Master (Master : Finalization_Master);
-   --  Debug routine, outputs the contents of a master
 
    procedure Set_Finalize_Address
      (Master       : in out Finalization_Master;

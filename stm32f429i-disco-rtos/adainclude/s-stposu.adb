@@ -29,13 +29,16 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
+--  Modified from GCC 4.9.1 for STM32F4 GNAT RTS.
+
 with Ada.Exceptions;           use Ada.Exceptions;
 with Ada.Unchecked_Conversion;
 
-with System.Address_Image;
+--  with System.Address_Image;
+with System.FreeRTOS.Tasks;
 with System.Finalization_Masters; use System.Finalization_Masters;
-with System.IO;                   use System.IO;
-with System.Soft_Links;           use System.Soft_Links;
+--  with System.IO;                   use System.IO;
+--  with System.Soft_Links;           use System.Soft_Links;
 with System.Storage_Elements;     use System.Storage_Elements;
 
 with System.Storage_Pools.Subpools.Finalization;
@@ -208,9 +211,9 @@ package body System.Storage_Pools.Subpools is
          --    Read  - allocation, finalization
          --    Write - finalization
 
-         Lock_Task.all;
+         FreeRTOS.Tasks.Enter_Critical_Region;
          Allocation_Locked := Finalization_Started (Master.all);
-         Unlock_Task.all;
+         FreeRTOS.Tasks.Exit_Critical_Region;
 
          --  Do not allow the allocation of controlled objects while the
          --  associated master is being finalized.
@@ -262,7 +265,7 @@ package body System.Storage_Pools.Subpools is
       --  Step 4: Attachment
 
       if Is_Controlled then
-         Lock_Task.all;
+         FreeRTOS.Tasks.Enter_Critical_Region;
 
          --  Map the allocated memory into a FM_Node record. This converts the
          --  top of the allocated bits into a list header. If there is padding
@@ -327,7 +330,7 @@ package body System.Storage_Pools.Subpools is
             Finalize_Address_Table_In_Use := True;
          end if;
 
-         Unlock_Task.all;
+         FreeRTOS.Tasks.Exit_Critical_Region;
 
       --  Non-controlled allocation
 
@@ -346,14 +349,14 @@ package body System.Storage_Pools.Subpools is
 
       pragma Assert (N.Prev = null and then N.Next = null);
 
-      Lock_Task.all;
+      FreeRTOS.Tasks.Enter_Critical_Region;
 
       L.Next.Prev := N;
       N.Next := L.Next;
       L.Next := N;
       N.Prev := L;
 
-      Unlock_Task.all;
+      FreeRTOS.Tasks.Exit_Critical_Region;
 
       --  Note: No need to unlock in case of an exception because the above
       --  code can never raise one.
@@ -382,7 +385,7 @@ package body System.Storage_Pools.Subpools is
       --  Step 1: Detachment
 
       if Is_Controlled then
-         Lock_Task.all;
+         FreeRTOS.Tasks.Enter_Critical_Region;
 
          --  Destroy the relation pair object - Finalize_Address since it is no
          --  longer needed.
@@ -435,7 +438,7 @@ package body System.Storage_Pools.Subpools is
 
          N_Size := Storage_Size + Header_And_Padding;
 
-         Unlock_Task.all;
+         FreeRTOS.Tasks.Exit_Critical_Region;
 
       else
          N_Addr := Addr;
@@ -473,14 +476,14 @@ package body System.Storage_Pools.Subpools is
 
       pragma Assert (N.Next /= null and then N.Prev /= null);
 
-      Lock_Task.all;
+      FreeRTOS.Tasks.Enter_Critical_Region;
 
       N.Prev.Next := N.Next;
       N.Next.Prev := N.Prev;
       N.Prev := null;
       N.Next := null;
 
-      Unlock_Task.all;
+      FreeRTOS.Tasks.Exit_Critical_Region;
 
       --  Note: No need to unlock in case of an exception because the above
       --  code can never raise one.
@@ -501,8 +504,8 @@ package body System.Storage_Pools.Subpools is
 
    procedure Finalize_Pool (Pool : in out Root_Storage_Pool_With_Subpools) is
       Curr_Ptr : SP_Node_Ptr;
-      Ex_Occur : Exception_Occurrence;
-      Raised   : Boolean := False;
+      --  Ex_Occur : Exception_Occurrence;
+      --  Raised   : Boolean := False;
 
       function Is_Empty_List (L : not null SP_Node_Ptr) return Boolean;
       --  Determine whether a list contains only one element, the dummy head
@@ -547,21 +550,21 @@ package body System.Storage_Pools.Subpools is
          begin
             Finalize_And_Deallocate (Curr_Ptr.Subpool);
 
-         exception
-            when Fin_Occur : others =>
-               if not Raised then
-                  Raised := True;
-                  Save_Occurrence (Ex_Occur, Fin_Occur);
-               end if;
+         --  exception
+         --     when Fin_Occur : others =>
+         --        if not Raised then
+         --           Raised := True;
+         --           Save_Occurrence (Ex_Occur, Fin_Occur);
+         --        end if;
          end;
       end loop;
 
       --  If the finalization of a particular master failed, reraise the
       --  exception now.
 
-      if Raised then
-         Reraise_Occurrence (Ex_Occur);
-      end if;
+      --  if Raised then
+      --     Reraise_Occurrence (Ex_Occur);
+      --  end if;
    end Finalize_Pool;
 
    ------------------------------
@@ -618,150 +621,6 @@ package body System.Storage_Pools.Subpools is
    begin
       return Subpool.Owner;
    end Pool_Of_Subpool;
-
-   ----------------
-   -- Print_Pool --
-   ----------------
-
-   procedure Print_Pool (Pool : Root_Storage_Pool_With_Subpools) is
-      Head      : constant SP_Node_Ptr := Pool.Subpools'Unrestricted_Access;
-      Head_Seen : Boolean := False;
-      SP_Ptr    : SP_Node_Ptr;
-
-   begin
-      --  Output the contents of the pool
-
-      --    Pool      : 0x123456789
-      --    Subpools  : 0x123456789
-      --    Fin_Start : TRUE <or> FALSE
-      --    Controller: OK <or> NOK
-
-      Put ("Pool      : ");
-      Put_Line (Address_Image (Pool'Address));
-
-      Put ("Subpools  : ");
-      Put_Line (Address_Image (Pool.Subpools'Address));
-
-      Put ("Fin_Start : ");
-      Put_Line (Pool.Finalization_Started'Img);
-
-      Put ("Controlled: ");
-      if Pool.Controller.Enclosing_Pool = Pool'Unrestricted_Access then
-         Put_Line ("OK");
-      else
-         Put_Line ("NOK (ERROR)");
-      end if;
-
-      SP_Ptr := Head;
-      while SP_Ptr /= null loop  --  Should never be null
-         Put_Line ("V");
-
-         --  We see the head initially; we want to exit when we see the head a
-         --  second time.
-
-         if SP_Ptr = Head then
-            exit when Head_Seen;
-
-            Head_Seen := True;
-         end if;
-
-         --  The current element is null. This should never happend since the
-         --  list is circular.
-
-         if SP_Ptr.Prev = null then
-            Put_Line ("null (ERROR)");
-
-         --  The current element points back to the correct element
-
-         elsif SP_Ptr.Prev.Next = SP_Ptr then
-            Put_Line ("^");
-
-         --  The current element points to an erroneous element
-
-         else
-            Put_Line ("? (ERROR)");
-         end if;
-
-         --  Output the contents of the node
-
-         Put ("|Header: ");
-         Put (Address_Image (SP_Ptr.all'Address));
-         if SP_Ptr = Head then
-            Put_Line (" (dummy head)");
-         else
-            Put_Line ("");
-         end if;
-
-         Put ("|  Prev: ");
-
-         if SP_Ptr.Prev = null then
-            Put_Line ("null");
-         else
-            Put_Line (Address_Image (SP_Ptr.Prev.all'Address));
-         end if;
-
-         Put ("|  Next: ");
-
-         if SP_Ptr.Next = null then
-            Put_Line ("null");
-         else
-            Put_Line (Address_Image (SP_Ptr.Next.all'Address));
-         end if;
-
-         Put ("|  Subp: ");
-
-         if SP_Ptr.Subpool = null then
-            Put_Line ("null");
-         else
-            Put_Line (Address_Image (SP_Ptr.Subpool.all'Address));
-         end if;
-
-         SP_Ptr := SP_Ptr.Next;
-      end loop;
-   end Print_Pool;
-
-   -------------------
-   -- Print_Subpool --
-   -------------------
-
-   procedure Print_Subpool (Subpool : Subpool_Handle) is
-   begin
-      if Subpool = null then
-         Put_Line ("null");
-         return;
-      end if;
-
-      --  Output the contents of a subpool
-
-      --    Owner : 0x123456789
-      --    Master: 0x123456789
-      --    Node  : 0x123456789
-
-      Put ("Owner : ");
-      if Subpool.Owner = null then
-         Put_Line ("null");
-      else
-         Put_Line (Address_Image (Subpool.Owner'Address));
-      end if;
-
-      Put ("Master: ");
-      Put_Line (Address_Image (Subpool.Master'Address));
-
-      Put ("Node  : ");
-      if Subpool.Node = null then
-         Put ("null");
-
-         if Subpool.Owner = null then
-            Put_Line (" OK");
-         else
-            Put_Line (" (ERROR)");
-         end if;
-      else
-         Put_Line (Address_Image (Subpool.Node'Address));
-      end if;
-
-      Print_Master (Subpool.Master);
-   end Print_Subpool;
 
    -------------------------
    -- Set_Pool_Of_Subpool --

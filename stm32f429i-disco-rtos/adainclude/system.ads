@@ -45,7 +45,6 @@ pragma Discard_Names;
 pragma Normalize_Scalars;
 pragma Restrictions (No_Enumeration_Maps);
 pragma Restrictions (No_Exception_Propagation);
-pragma Restrictions (No_Finalization);
 pragma Restrictions (No_Recursion);
 
 --  pragma Restrictions (No_Implicit_Dynamic_Code) not applied; it

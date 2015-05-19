@@ -31,7 +31,7 @@
 
 pragma Compiler_Unit_Warning;
 
---  with Ada.Unchecked_Deallocation;
+with Ada.Unchecked_Deallocation;
 with System.String_Hash;
 
 package body System.HTable is
@@ -225,174 +225,174 @@ package body System.HTable is
    -- Simple_HTable --
    -------------------
 
-   --  package body Simple_HTable is
+   package body Simple_HTable is
 
-   --     type Element_Wrapper;
-   --     type Elmt_Ptr is access all Element_Wrapper;
-   --     type Element_Wrapper is record
-   --        K    : Key;
-   --        E    : Element;
-   --        Next : Elmt_Ptr;
-   --     end record;
+      type Element_Wrapper;
+      type Elmt_Ptr is access all Element_Wrapper;
+      type Element_Wrapper is record
+         K    : Key;
+         E    : Element;
+         Next : Elmt_Ptr;
+      end record;
 
-   --     procedure Free is new
-   --       Ada.Unchecked_Deallocation (Element_Wrapper, Elmt_Ptr);
+      procedure Free is new
+        Ada.Unchecked_Deallocation (Element_Wrapper, Elmt_Ptr);
 
-   --     procedure Set_Next (E : Elmt_Ptr; Next : Elmt_Ptr);
-   --     function  Next     (E : Elmt_Ptr) return Elmt_Ptr;
-   --     function  Get_Key  (E : Elmt_Ptr) return Key;
+      procedure Set_Next (E : Elmt_Ptr; Next : Elmt_Ptr);
+      function  Next     (E : Elmt_Ptr) return Elmt_Ptr;
+      function  Get_Key  (E : Elmt_Ptr) return Key;
 
-   --     package Tab is new Static_HTable (
-   --       Header_Num => Header_Num,
-   --       Element    => Element_Wrapper,
-   --       Elmt_Ptr   => Elmt_Ptr,
-   --       Null_Ptr   => null,
-   --       Set_Next   => Set_Next,
-   --       Next       => Next,
-   --       Key        => Key,
-   --       Get_Key    => Get_Key,
-   --       Hash       => Hash,
-   --       Equal      => Equal);
+      package Tab is new Static_HTable (
+        Header_Num => Header_Num,
+        Element    => Element_Wrapper,
+        Elmt_Ptr   => Elmt_Ptr,
+        Null_Ptr   => null,
+        Set_Next   => Set_Next,
+        Next       => Next,
+        Key        => Key,
+        Get_Key    => Get_Key,
+        Hash       => Hash,
+        Equal      => Equal);
 
-   --     ---------
-   --     -- Get --
-   --     ---------
+      ---------
+      -- Get --
+      ---------
 
-   --     function  Get (K : Key) return Element is
-   --        Tmp : constant Elmt_Ptr := Tab.Get (K);
-   --     begin
-   --        if Tmp = null then
-   --           return No_Element;
-   --        else
-   --           return Tmp.E;
-   --        end if;
-   --     end Get;
+      function  Get (K : Key) return Element is
+         Tmp : constant Elmt_Ptr := Tab.Get (K);
+      begin
+         if Tmp = null then
+            return No_Element;
+         else
+            return Tmp.E;
+         end if;
+      end Get;
 
-   --     ---------------
-   --     -- Get_First --
-   --     ---------------
+      ---------------
+      -- Get_First --
+      ---------------
 
-   --     function Get_First return Element is
-   --        Tmp : constant Elmt_Ptr := Tab.Get_First;
-   --     begin
-   --        if Tmp = null then
-   --           return No_Element;
-   --        else
-   --           return Tmp.E;
-   --        end if;
-   --     end Get_First;
+      function Get_First return Element is
+         Tmp : constant Elmt_Ptr := Tab.Get_First;
+      begin
+         if Tmp = null then
+            return No_Element;
+         else
+            return Tmp.E;
+         end if;
+      end Get_First;
 
-   --     procedure Get_First (K : in out Key; E : out Element) is
-   --        Tmp : constant Elmt_Ptr := Tab.Get_First;
-   --     begin
-   --        if Tmp = null then
-   --           E := No_Element;
-   --        else
-   --           K := Tmp.K;
-   --           E := Tmp.E;
-   --        end if;
-   --     end Get_First;
+      procedure Get_First (K : in out Key; E : out Element) is
+         Tmp : constant Elmt_Ptr := Tab.Get_First;
+      begin
+         if Tmp = null then
+            E := No_Element;
+         else
+            K := Tmp.K;
+            E := Tmp.E;
+         end if;
+      end Get_First;
 
-   --     -------------
-   --     -- Get_Key --
-   --     -------------
+      -------------
+      -- Get_Key --
+      -------------
 
-   --     function Get_Key (E : Elmt_Ptr) return Key is
-   --     begin
-   --        return E.K;
-   --     end Get_Key;
+      function Get_Key (E : Elmt_Ptr) return Key is
+      begin
+         return E.K;
+      end Get_Key;
 
-   --     --------------
-   --     -- Get_Next --
-   --     --------------
+      --------------
+      -- Get_Next --
+      --------------
 
-   --     function Get_Next return Element is
-   --        Tmp : constant Elmt_Ptr := Tab.Get_Next;
-   --     begin
-   --        if Tmp = null then
-   --           return No_Element;
-   --        else
-   --           return Tmp.E;
-   --        end if;
-   --     end Get_Next;
+      function Get_Next return Element is
+         Tmp : constant Elmt_Ptr := Tab.Get_Next;
+      begin
+         if Tmp = null then
+            return No_Element;
+         else
+            return Tmp.E;
+         end if;
+      end Get_Next;
 
-   --     procedure Get_Next (K : in out Key; E : out Element) is
-   --        Tmp : constant Elmt_Ptr := Tab.Get_Next;
-   --     begin
-   --        if Tmp = null then
-   --           E := No_Element;
-   --        else
-   --           K := Tmp.K;
-   --           E := Tmp.E;
-   --        end if;
-   --     end Get_Next;
+      procedure Get_Next (K : in out Key; E : out Element) is
+         Tmp : constant Elmt_Ptr := Tab.Get_Next;
+      begin
+         if Tmp = null then
+            E := No_Element;
+         else
+            K := Tmp.K;
+            E := Tmp.E;
+         end if;
+      end Get_Next;
 
-   --     ----------
-   --     -- Next --
-   --     ----------
+      ----------
+      -- Next --
+      ----------
 
-   --     function Next (E : Elmt_Ptr) return Elmt_Ptr is
-   --     begin
-   --        return E.Next;
-   --     end Next;
+      function Next (E : Elmt_Ptr) return Elmt_Ptr is
+      begin
+         return E.Next;
+      end Next;
 
-   --     ------------
-   --     -- Remove --
-   --     ------------
+      ------------
+      -- Remove --
+      ------------
 
-   --     procedure Remove  (K : Key) is
-   --        Tmp : Elmt_Ptr;
+      procedure Remove  (K : Key) is
+         Tmp : Elmt_Ptr;
 
-   --     begin
-   --        Tmp := Tab.Get (K);
+      begin
+         Tmp := Tab.Get (K);
 
-   --        if Tmp /= null then
-   --           Tab.Remove (K);
-   --           Free (Tmp);
-   --        end if;
-   --     end Remove;
+         if Tmp /= null then
+            Tab.Remove (K);
+            Free (Tmp);
+         end if;
+      end Remove;
 
-   --     -----------
-   --     -- Reset --
-   --     -----------
+      -----------
+      -- Reset --
+      -----------
 
-   --     procedure Reset is
-   --        E1, E2 : Elmt_Ptr;
+      procedure Reset is
+         E1, E2 : Elmt_Ptr;
 
-   --     begin
-   --        E1 := Tab.Get_First;
-   --        while E1 /= null loop
-   --           E2 := Tab.Get_Next;
-   --           Free (E1);
-   --           E1 := E2;
-   --        end loop;
+      begin
+         E1 := Tab.Get_First;
+         while E1 /= null loop
+            E2 := Tab.Get_Next;
+            Free (E1);
+            E1 := E2;
+         end loop;
 
-   --        Tab.Reset;
-   --     end Reset;
+         Tab.Reset;
+      end Reset;
 
-   --     ---------
-   --     -- Set --
-   --     ---------
+      ---------
+      -- Set --
+      ---------
 
-   --     procedure Set (K : Key; E : Element) is
-   --        Tmp : constant Elmt_Ptr := Tab.Get (K);
-   --     begin
-   --        if Tmp = null then
-   --           Tab.Set (new Element_Wrapper'(K, E, null));
-   --        else
-   --           Tmp.E := E;
-   --        end if;
-   --     end Set;
+      procedure Set (K : Key; E : Element) is
+         Tmp : constant Elmt_Ptr := Tab.Get (K);
+      begin
+         if Tmp = null then
+            Tab.Set (new Element_Wrapper'(K, E, null));
+         else
+            Tmp.E := E;
+         end if;
+      end Set;
 
-   --     --------------
-   --     -- Set_Next --
-   --     --------------
+      --------------
+      -- Set_Next --
+      --------------
 
-   --     procedure Set_Next (E : Elmt_Ptr; Next : Elmt_Ptr) is
-   --     begin
-   --        E.Next := Next;
-   --     end Set_Next;
-   --  end Simple_HTable;
+      procedure Set_Next (E : Elmt_Ptr; Next : Elmt_Ptr) is
+      begin
+         E.Next := Next;
+      end Set_Next;
+   end Simple_HTable;
 
    ----------
    -- Hash --

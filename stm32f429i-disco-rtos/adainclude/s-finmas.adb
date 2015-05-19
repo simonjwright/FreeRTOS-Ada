@@ -29,12 +29,12 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
+--  Modified from GCC 4.9.1 for STM32F4 GNAT RTS.
+
 with Ada.Exceptions; use Ada.Exceptions;
 
-with System.Address_Image;
+with System.FreeRTOS.Tasks;
 with System.HTable;           use System.HTable;
-with System.IO;               use System.IO;
-with System.Soft_Links;       use System.Soft_Links;
 with System.Storage_Elements; use System.Storage_Elements;
 
 package body System.Finalization_Masters is
@@ -76,9 +76,9 @@ package body System.Finalization_Masters is
 
    procedure Attach (N : not null FM_Node_Ptr; L : not null FM_Node_Ptr) is
    begin
-      Lock_Task.all;
+      FreeRTOS.Tasks.Enter_Critical_Region;  -- ??? interrupts
       Attach_Unprotected (N, L);
-      Unlock_Task.all;
+      FreeRTOS.Tasks.Exit_Critical_Region;
 
       --  Note: No need to unlock in case of an exception because the above
       --  code can never raise one.
@@ -125,9 +125,9 @@ package body System.Finalization_Masters is
 
    procedure Detach (N : not null FM_Node_Ptr) is
    begin
-      Lock_Task.all;
+      FreeRTOS.Tasks.Enter_Critical_Region;
       Detach_Unprotected (N);
-      Unlock_Task.all;
+      FreeRTOS.Tasks.Exit_Critical_Region;
 
       --  Note: No need to unlock in case of an exception because the above
       --  code can never raise one.
@@ -154,9 +154,7 @@ package body System.Finalization_Masters is
    overriding procedure Finalize (Master : in out Finalization_Master) is
       Cleanup  : Finalize_Address_Ptr;
       Curr_Ptr : FM_Node_Ptr;
-      Ex_Occur : Exception_Occurrence;
       Obj_Addr : Address;
-      Raised   : Boolean := False;
 
       function Is_Empty_List (L : not null FM_Node_Ptr) return Boolean;
       --  Determine whether a list contains only one element, the dummy head
@@ -173,14 +171,14 @@ package body System.Finalization_Masters is
    --  Start of processing for Finalize
 
    begin
-      Lock_Task.all;
+      FreeRTOS.Tasks.Enter_Critical_Region;
 
       --  Synchronization:
       --    Read  - allocation, finalization
       --    Write - finalization
 
       if Master.Finalization_Started then
-         Unlock_Task.all;
+         FreeRTOS.Tasks.Exit_Critical_Region;
 
          --  Double finalization may occur during the handling of stand alone
          --  libraries or the finalization of a pool with subpools. Due to the
@@ -237,15 +235,7 @@ package body System.Finalization_Masters is
             Cleanup := Finalize_Address_Unprotected (Obj_Addr);
          end if;
 
-         begin
-            Cleanup (Obj_Addr);
-         exception
-            when Fin_Occur : others =>
-               if not Raised then
-                  Raised := True;
-                  Save_Occurrence (Ex_Occur, Fin_Occur);
-               end if;
-         end;
+         Cleanup (Obj_Addr);
 
          --  When the master is a heterogeneous collection, destroy the object
          --  - Finalize_Address pair since it is no longer needed.
@@ -264,14 +254,8 @@ package body System.Finalization_Masters is
          end if;
       end loop;
 
-      Unlock_Task.all;
+      FreeRTOS.Tasks.Exit_Critical_Region;
 
-      --  If the finalization of a particular object failed or Finalize_Address
-      --  was not set, reraise the exception now.
-
-      if Raised then
-         Reraise_Occurrence (Ex_Occur);
-      end if;
    end Finalize;
 
    ----------------------
@@ -366,129 +350,6 @@ package body System.Finalization_Masters is
       return Master.Objects'Unrestricted_Access;
    end Objects;
 
-   ------------------
-   -- Print_Master --
-   ------------------
-
-   procedure Print_Master (Master : Finalization_Master) is
-      Head      : constant FM_Node_Ptr := Master.Objects'Unrestricted_Access;
-      Head_Seen : Boolean := False;
-      N_Ptr     : FM_Node_Ptr;
-
-   begin
-      --  Output the basic contents of a master
-
-      --    Master   : 0x123456789
-      --    Is_Hmgen : TURE <or> FALSE
-      --    Base_Pool: null <or> 0x123456789
-      --    Fin_Addr : null <or> 0x123456789
-      --    Fin_Start: TRUE <or> FALSE
-
-      Put ("Master   : ");
-      Put_Line (Address_Image (Master'Address));
-
-      Put ("Is_Hmgen : ");
-      Put_Line (Master.Is_Homogeneous'Img);
-
-      Put ("Base_Pool: ");
-      if Master.Base_Pool = null then
-         Put_Line ("null");
-      else
-         Put_Line (Address_Image (Master.Base_Pool'Address));
-      end if;
-
-      Put ("Fin_Addr : ");
-      if Master.Finalize_Address = null then
-         Put_Line ("null");
-      else
-         Put_Line (Address_Image (Master.Finalize_Address'Address));
-      end if;
-
-      Put ("Fin_Start: ");
-      Put_Line (Master.Finalization_Started'Img);
-
-      --  Output all chained elements. The format is the following:
-
-      --    ^ <or> ? <or> null
-      --    |Header: 0x123456789 (dummy head)
-      --    |  Prev: 0x123456789
-      --    |  Next: 0x123456789
-      --    V
-
-      --  ^ - the current element points back to the correct element
-      --  ? - the current element points back to an erroneous element
-      --  n - the current element points back to null
-
-      --  Header - the address of the list header
-      --  Prev   - the address of the list header which the current element
-      --           points back to
-      --  Next   - the address of the list header which the current element
-      --           points to
-      --  (dummy head) - present if dummy head
-
-      N_Ptr := Head;
-      while N_Ptr /= null loop  --  Should never be null
-         Put_Line ("V");
-
-         --  We see the head initially; we want to exit when we see the head a
-         --  second time.
-
-         if N_Ptr = Head then
-            exit when Head_Seen;
-
-            Head_Seen := True;
-         end if;
-
-         --  The current element is null. This should never happen since the
-         --  list is circular.
-
-         if N_Ptr.Prev = null then
-            Put_Line ("null (ERROR)");
-
-         --  The current element points back to the correct element
-
-         elsif N_Ptr.Prev.Next = N_Ptr then
-            Put_Line ("^");
-
-         --  The current element points to an erroneous element
-
-         else
-            Put_Line ("? (ERROR)");
-         end if;
-
-         --  Output the header and fields
-
-         Put ("|Header: ");
-         Put (Address_Image (N_Ptr.all'Address));
-
-         --  Detect the dummy head
-
-         if N_Ptr = Head then
-            Put_Line (" (dummy head)");
-         else
-            Put_Line ("");
-         end if;
-
-         Put ("|  Prev: ");
-
-         if N_Ptr.Prev = null then
-            Put_Line ("null");
-         else
-            Put_Line (Address_Image (N_Ptr.Prev.all'Address));
-         end if;
-
-         Put ("|  Next: ");
-
-         if N_Ptr.Next = null then
-            Put_Line ("null");
-         else
-            Put_Line (Address_Image (N_Ptr.Next.all'Address));
-         end if;
-
-         N_Ptr := N_Ptr.Next;
-      end loop;
-   end Print_Master;
-
    -------------------
    -- Set_Base_Pool --
    -------------------
@@ -514,9 +375,9 @@ package body System.Finalization_Masters is
       --    Read  - finalization
       --    Write - allocation, outside
 
-      Lock_Task.all;
+      FreeRTOS.Tasks.Enter_Critical_Region;
       Set_Finalize_Address_Unprotected (Master, Fin_Addr_Ptr);
-      Unlock_Task.all;
+      FreeRTOS.Tasks.Exit_Critical_Region;
    end Set_Finalize_Address;
 
    --------------------------------------
@@ -555,9 +416,9 @@ package body System.Finalization_Masters is
       --    Read  - finalization
       --    Write - outside
 
-      Lock_Task.all;
+      FreeRTOS.Tasks.Enter_Critical_Region;
       Master.Is_Homogeneous := False;
-      Unlock_Task.all;
+      FreeRTOS.Tasks.Exit_Critical_Region;
    end Set_Is_Heterogeneous;
 
 end System.Finalization_Masters;

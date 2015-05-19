@@ -33,6 +33,8 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
+--  Modified from GCC 4.9.1 for STM32F4 GNAT RTS.
+
 with Ada.Finalization;
 with System.Finalization_Masters;
 with System.Storage_Elements;
@@ -348,11 +350,5 @@ private
 
    procedure Initialize_Pool (Pool : in out Root_Storage_Pool_With_Subpools);
    --  Setup the doubly linked list of subpools
-
-   procedure Print_Pool (Pool : Root_Storage_Pool_With_Subpools);
-   --  Debug routine, output the contents of a pool_with_subpools
-
-   procedure Print_Subpool (Subpool : Subpool_Handle);
-   --  Debug routine, output the contents of a subpool
 
 end System.Storage_Pools.Subpools;

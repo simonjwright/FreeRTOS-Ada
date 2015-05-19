@@ -38,7 +38,7 @@ with System.Finalization_Root;
 pragma Warnings (On);
 
 package Ada.Finalization is
-   pragma Pure_12;
+   pragma Pure;
    --  Ada.Finalization is declared pure in Ada 2012 (AI05-0212)
 
    pragma Preelaborate;
