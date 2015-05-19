@@ -66,7 +66,10 @@ package body Containing is
 
       for J in Index loop
          declare
-            L : Line with Volatile;
+            L : Line
+              with
+                Volatile,
+                Unreferenced;
          begin
             L := Mapped_Lines (J);
             Mapped_Lines (J) :=

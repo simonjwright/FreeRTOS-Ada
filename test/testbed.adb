@@ -9,10 +9,16 @@
 --  debugger to check that the expected effect has happened.
 
 with Containing;
+pragma Unreferenced (Containing);
 --  Ada.Containers
 
 with Dispatching;
+pragma Unreferenced (Dispatching);
 --  Tagged types
+
+with Finalizing;
+pragma Unreferenced (Finalizing);
+--  Ada.Finalization
 
 with Strings;
 --  Secondary stack
@@ -26,9 +32,11 @@ pragma Unreferenced (Interfaces.C.Strings);
 --  Check we can build with this package in the closure.
 
 with SO;
+pragma Unreferenced (SO);
 --  Check suspension objects.
 
 with Streams;
+pragma Unreferenced (Streams);
 
 with Start_FreeRTOS_Scheduler;
 
