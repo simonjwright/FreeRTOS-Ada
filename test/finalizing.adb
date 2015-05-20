@@ -25,12 +25,14 @@ package body Finalizing is
       An_F : constant F := (Ada.Finalization.Controlled with V => 42);
    begin
       loop
-         declare
-            Another_F : F := (Ada.Finalization.Controlled with V => 0);
          begin
-            Finalize_Called := False;
-            Another_F := An_F;
-            pragma Assert (Another_F.V = 42, "wrong V");
+            declare
+               Another_F : F := (Ada.Finalization.Controlled with V => 0);
+            begin
+               Finalize_Called := False;
+               Another_F := An_F;
+               pragma Assert (Another_F.V = 42, "wrong V");
+            end;
             pragma Assert (Finalize_Called, "Finalize not called");
          end;
          declare
@@ -64,7 +66,7 @@ package body Finalizing is
 
    procedure Finalize (Obj : in out F) is
    begin
-      null;
+      Finalize_Called := True;
    end Finalize;
 
 end Finalizing;

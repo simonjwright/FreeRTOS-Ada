@@ -24,7 +24,9 @@ package body Containing is
 
    Vectored_Lines : Line_Vectors.Vector (20);
 
-   task Vectors;
+   task Vectors
+   with
+     Storage_Size => 2048;
    task body Vectors is
       use Ada.Real_Time;
    begin
@@ -36,6 +38,10 @@ package body Containing is
          Vectored_Lines (J) :=
            (others => Character'Val (Character'Pos ('a') + J));
       end loop;
+
+      pragma Assert
+        ((for some L of Vectored_Lines => L = Line'(others => 's')),
+           "line 's' missing");
 
       loop
          delay until Clock + Milliseconds (1_000);
