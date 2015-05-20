@@ -31,10 +31,10 @@
 -- This unit was originally developed by Matthew J Heaney.                  --
 ------------------------------------------------------------------------------
 
---  with Ada.Iterator_Interfaces;
+with Ada.Iterator_Interfaces;
 
 private with Ada.Streams;
---  private with Ada.Finalization;
+private with Ada.Finalization;
 
 generic
    type Index_Type is range <>;
@@ -54,9 +54,9 @@ package Ada.Containers.Bounded_Vectors is
 
    type Vector (Capacity : Count_Type) is tagged private with
       Constant_Indexing => Constant_Reference,
-      Variable_Indexing => Reference;
-      --  Default_Iterator  => Iterate,
-      --  Iterator_Element  => Element_Type;
+      Variable_Indexing => Reference,
+      Default_Iterator  => Iterate,
+      Iterator_Element  => Element_Type;
 
    pragma Preelaborable_Initialization (Vector);
 
@@ -69,8 +69,8 @@ package Ada.Containers.Bounded_Vectors is
 
    function Has_Element (Position : Cursor) return Boolean;
 
-   --  package Vector_Iterator_Interfaces is new
-   --     Ada.Iterator_Interfaces (Cursor, Has_Element);
+   package Vector_Iterator_Interfaces is new
+      Ada.Iterator_Interfaces (Cursor, Has_Element);
 
    overriding function "=" (Left, Right : Vector) return Boolean;
 
@@ -328,14 +328,14 @@ package Ada.Containers.Bounded_Vectors is
      (Container : Vector;
       Process   : not null access procedure (Position : Cursor));
 
-   --  function Iterate
-   --    (Container : Vector)
-   --     return Vector_Iterator_Interfaces.Reversible_Iterator'Class;
+   function Iterate
+     (Container : Vector)
+      return Vector_Iterator_Interfaces.Reversible_Iterator'Class;
 
-   --  function Iterate
-   --    (Container : Vector;
-   --     Start     : Cursor)
-   --     return Vector_Iterator_Interfaces.Reversible_Iterator'class;
+   function Iterate
+     (Container : Vector;
+      Start     : Cursor)
+      return Vector_Iterator_Interfaces.Reversible_Iterator'class;
 
    generic
       with function "<" (Left, Right : Element_Type) return Boolean is <>;
@@ -365,7 +365,7 @@ private
    pragma Inline (Previous);
 
    use Ada.Streams;
-   --  use Ada.Finalization;
+   use Ada.Finalization;
 
    type Elements_Array is array (Count_Type range <>) of aliased Element_Type;
    function "=" (L, R : Elements_Array) return Boolean is abstract;
@@ -443,24 +443,24 @@ private
 
    No_Element : constant Cursor := Cursor'(null, Index_Type'First);
 
-   --  type Iterator is new Limited_Controlled and
-   --    Vector_Iterator_Interfaces.Reversible_Iterator with
-   --  record
-   --     Container : Vector_Access;
-   --     Index     : Index_Type'Base;
-   --  end record;
+   type Iterator is new Limited_Controlled and
+     Vector_Iterator_Interfaces.Reversible_Iterator with
+   record
+      Container : Vector_Access;
+      Index     : Index_Type'Base;
+   end record;
 
-   --  overriding procedure Finalize (Object : in out Iterator);
+   overriding procedure Finalize (Object : in out Iterator);
 
-   --  overriding function First (Object : Iterator) return Cursor;
-   --  overriding function Last  (Object : Iterator) return Cursor;
+   overriding function First (Object : Iterator) return Cursor;
+   overriding function Last  (Object : Iterator) return Cursor;
 
-   --  overriding function Next
-   --    (Object   : Iterator;
-   --     Position : Cursor) return Cursor;
+   overriding function Next
+     (Object   : Iterator;
+      Position : Cursor) return Cursor;
 
-   --  overriding function Previous
-   --    (Object   : Iterator;
-   --     Position : Cursor) return Cursor;
+   overriding function Previous
+     (Object   : Iterator;
+      Position : Cursor) return Cursor;
 
 end Ada.Containers.Bounded_Vectors;
