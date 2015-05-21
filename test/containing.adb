@@ -30,20 +30,26 @@ package body Containing is
    task body Vectors is
       use Ada.Real_Time;
    begin
-      for J in Index loop
-         Vectored_Lines.Append ((others => '*'));
-      end loop;
-
-      for J in Index loop
-         Vectored_Lines (J) :=
-           (others => Character'Val (Character'Pos ('a') + J));
-      end loop;
-
-      pragma Assert
-        ((for some L of Vectored_Lines => L = Line'(others => 's')),
-           "line 's' missing");
-
       loop
+         Vectored_Lines.Clear;
+
+         for J in Index loop
+            Vectored_Lines.Append ((others => '*'));
+         end loop;
+
+         for J in Index loop
+            Vectored_Lines (J) :=
+              (others => Character'Val (Character'Pos ('a') + J));
+         end loop;
+
+         pragma Assert
+           ((for some L of Vectored_Lines => L = Line'(others => 's')),
+              "line 's' missing");
+
+         pragma Assert
+           ((for all L of Vectored_Lines => L /= Line'(others => 'u')),
+              "line 'u' present");
+
          delay until Clock + Milliseconds (1_000);
       end loop;
    end Vectors;
@@ -64,26 +70,29 @@ package body Containing is
    task body Maps is
       use Ada.Real_Time;
    begin
-      for J in Index loop
-         Mapped_Lines.Insert
-           (Key      => J,
-            New_Item => (others => Character'Val (Character'Pos ('a') + J)));
-      end loop;
-
-      for J in Index loop
-         declare
-            L : Line
-              with
-                Volatile,
-                Unreferenced;
-         begin
-            L := Mapped_Lines (J);
-            Mapped_Lines (J) :=
-              (others => Character'Val (Character'Pos ('a') + 19 - J));
-         end;
-      end loop;
-
       loop
+         Mapped_Lines.Clear;
+
+         for J in Index loop
+            Mapped_Lines.Insert
+              (Key      => J,
+               New_Item => (others =>
+                              Character'Val (Character'Pos ('a') + J)));
+         end loop;
+
+         for J in Index loop
+            declare
+               L : Line
+                 with
+                   Volatile,
+                   Unreferenced;
+            begin
+               L := Mapped_Lines (J);
+               Mapped_Lines (J) :=
+                 (others => Character'Val (Character'Pos ('a') + 19 - J));
+            end;
+         end loop;
+
          delay until Clock + Milliseconds (1_000);
       end loop;
    end Maps;
