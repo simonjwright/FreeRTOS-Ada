@@ -18,23 +18,23 @@ package body Dispatching is
    task body T is
       D : constant access Base'Class := new Derived;
    begin
-      declare
-         C : constant Character := D.Basis;
-         V : constant Integer := D.Value;
-      begin
-         pragma Assert (C = 'a', "wrong C");
-         pragma Assert (V = 42, "wrong V");
-         null;
-      end;
-      declare
-         Next : Ada.Real_Time.Time := Ada.Real_Time.Clock;
-         use type Ada.Real_Time.Time;
-      begin
-         loop
+      loop
+         declare
+            C : constant Character := D.Basis;
+            V : constant Integer := D.Value;
+         begin
+            pragma Assert (C = 'a', "wrong C");
+            pragma Assert (V = 42, "wrong V");
+            null;
+         end;
+         declare
+            Next : Ada.Real_Time.Time := Ada.Real_Time.Clock;
+            use type Ada.Real_Time.Time;
+         begin
             Next := Next + Ada.Real_Time.Milliseconds (500);
             delay until Next;
-         end loop;
-      end;
+         end;
+      end loop;
    end T;
 
 end Dispatching;
