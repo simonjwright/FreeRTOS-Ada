@@ -20,8 +20,7 @@ project Runtime_Build is
    end Builder;
 
    package Compiler is
-      CFLAGS := ("-fcallgraph-info=da",
-                 "-ffunction-sections", "-fdata-sections");
+      CFLAGS := ("-ffunction-sections", "-fdata-sections");
       case Build is
         when "Production" =>
            CFLAGS := CFLAGS & ("-O2");
