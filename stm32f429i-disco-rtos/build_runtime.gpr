@@ -29,7 +29,10 @@ project Build_Runtime is
         when "Debug" =>
            COMMON_FLAGS := COMMON_FLAGS & ("-g", "-Og");
       end case;
-      ALL_ADAFLAGS := ("-gnatpgn", "-gnatqQ", "-nostdinc") & COMMON_FLAGS;
+      ALL_ADAFLAGS :=
+        ("-gnatpgn", "-gnatqQ", "-nostdinc")
+        & COMMON_FLAGS
+        & external_as_list ("EXTRA_ADAFLAGS", " ");
       ALL_CFLAGS :=
         external_as_list("INCLUDES", " ")
         & external_as_list("DEFINES", " ")

@@ -14,8 +14,9 @@ with Containing;
 with Dispatching;
 --  Tagged types
 
-with Strings;
---  Secondary stack
+with Iteration;
+pragma Unreferenced (Iteration);
+--  Generalized iteration
 
 with Last_Chance_Handler;
 pragma Unreferenced (Last_Chance_Handler);
@@ -29,6 +30,9 @@ with SO;
 --  Check suspension objects.
 
 with Streams;
+
+with Strings;
+--  Secondary stack
 
 with Start_FreeRTOS_Scheduler;
 
