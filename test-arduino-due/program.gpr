@@ -1,0 +1,31 @@
+project program is
+   for main use ("program.adb");
+   for target use "arm-eabi";
+   for runtime ("ada") use project'project_dir & "../arduino-due";
+   for object_dir use ".build";
+   for exec_dir use ".";
+   package builder is
+      for default_Switches ("ada") use
+        (
+         "-g",
+         "-Og",
+         "-ffunction-sections",
+         "-fdata-sections",
+         "--create-map-file"
+        );
+   end builder;
+   package compiler is
+      for default_switches ("ada") use
+        (
+         "-gnatqQafoy",
+         "-gnatwaL",
+         "-gnatwaL.X");
+   end compiler;
+   package Linker is
+      for Default_Switches ("ada") use
+        (
+         "-Wl,-gc-sections",
+         "-Wl,-Map," & Project'Project_Dir
+        );
+   end Linker;
+end program;
