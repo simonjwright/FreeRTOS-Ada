@@ -9,6 +9,7 @@ with "../stm32f429i-disco-bsp/stm32f429i_disco_bsp";
 
 project LCD is
    for Target use "arm-eabi";
+   for Runtime ("ada") use Project'Project_Dir & "../stm32f429i-disco-rtos";
    for Main use ("lcd.adb");
    for Source_Files use ("lcd.adb");
    for Exec_Dir use ".";
@@ -16,8 +17,8 @@ project LCD is
    package Builder is
       for Default_Switches ("ada") use
         ("-g",
-         "-O0",
-         "--RTS=../stm32f429i-disco-rtos");
+         "-O0"
+        );
    end Builder;
    package Linker is
       for Default_Switches ("ada") use

@@ -9,6 +9,7 @@ library project STM32F429I_Disco_BSP is
    for Object_Dir use ".build";
 
    for Target use "arm-eabi";
+   for Runtime ("ada") use Project'Project_Dir & "../stm32f429i-disco-rtos";
 
    package Builder is
       for Default_Switches ("ada") use
@@ -16,8 +17,7 @@ library project STM32F429I_Disco_BSP is
          "-g",
          "-Og",
          "-ffunction-sections",
-         "-fdata-sections",
-         "--RTS=../stm32f429i-disco-rtos"
+         "-fdata-sections"
         );
    end Builder;
 

@@ -1,0 +1,7 @@
+*multilib:
+. !marm !mthumb !mfloat-abi=hard;
+arm marm !mthumb !mfloat-abi=hard;
+thumb !marm mthumb !mfloat-abi=hard;
+fpu !marm mthumb mfloat-abi=hard;
+fpu !marm !mthumb mfloat-abi=hard;
+arm/fpu marm !mthumb mfloat-abi=hard;

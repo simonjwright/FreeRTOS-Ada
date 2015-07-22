@@ -13,12 +13,12 @@ project Demo_Cmsis is
    for Source_Dirs use (".");
    for Exec_Dir use ".";
    for Target use "arm-eabi";
+   for Runtime ("ada") use Project'Project_Dir & "../stm32f429i-disco-rtos";
    package Builder is
       for Default_Switches ("ada") use
         (
          "-g",
-         "-Og",
-         "--RTS=../stm32f429i-disco-rtos"
+         "-Og"
         );
    end Builder;
    package Linker is

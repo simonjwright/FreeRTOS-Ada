@@ -8,7 +8,7 @@ project Build_Runtime is
    for Library_Dir use "adalib";
    for Object_Dir use ".build";
 
-   for Source_Dirs use ("adainclude");
+   for Source_Dirs use ("adainclude", "../common");
 
    for Target use external ("TARGET", "arm-eabi");
 

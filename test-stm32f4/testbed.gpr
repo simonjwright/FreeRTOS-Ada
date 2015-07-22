@@ -5,11 +5,9 @@
 --  the copyright notice and this notice are preserved.  This file is
 --  offered as-is, without any warranty.
 
-with "../stm32f429i-disco-bsp/stm32f429i_disco_bsp";
-
-project Demo_Tasking is
-   for Main use ("demo_tasking.adb");
-   for Object_Dir use ".build-demo";
+project Testbed is
+   for Main use ("testbed.adb");
+   for Object_Dir use ".build";
    for Source_Dirs use (".");
    for Exec_Dir use ".";
    for Target use "arm-eabi";
@@ -19,16 +17,17 @@ project Demo_Tasking is
         (
          "-g",
          "-Og",
-         "-ffunction-sections",
-         "-fdata-sections",
          "--create-map-file"
         );
    end Builder;
-   package Linker is
+   package Compiler is
       for Default_Switches ("ada") use
         (
-         "-Wl,-gc-sections",
-         "-Wl,-Map," & Project'Project_Dir & Project'Name & ".map"
-         );
+         "-gnatqQafoy",
+         "-gnatwaL.X"
+        );
+   end Compiler;
+   package Linker is
+      for Map_File_Option use "-Wl,-Map," & Project'Project_Dir;
    end Linker;
-end Demo_Tasking;
+end Testbed;

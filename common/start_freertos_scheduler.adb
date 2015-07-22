@@ -23,4 +23,5 @@ with System.FreeRTOS.Tasks;
 procedure Start_FreeRTOS_Scheduler is
 begin
    System.FreeRTOS.Tasks.Start_Scheduler;
+   raise Program_Error with "Start_Scheduler returned";
 end Start_FreeRTOS_Scheduler;
