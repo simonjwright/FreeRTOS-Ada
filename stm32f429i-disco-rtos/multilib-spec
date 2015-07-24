@@ -1,7 +1,13 @@
 *multilib:
-. !marm !mthumb !mfloat-abi=hard;
-arm marm !mthumb !mfloat-abi=hard;
-thumb !marm mthumb !mfloat-abi=hard;
-fpu !marm mthumb mfloat-abi=hard;
-fpu !marm !mthumb mfloat-abi=hard;
-arm/fpu marm !mthumb mfloat-abi=hard;
+. !march=armv7-r !mfloat-abi=hard !mlittle-endian !mbig-endian;
+arm march=armv7-r !mfloat-abi=hard !mlittle-endian !mbig-endian;
+fpu !march=armv7-r mfloat-abi=hard !mlittle-endian !mbig-endian;
+le !march=armv7-r !mfloat-abi=hard mlittle-endian !mbig-endian;
+be !march=armv7-r !mfloat-abi=hard !mlittle-endian mbig-endian;
+fpu/le !march=armv7-r mfloat-abi=hard mlittle-endian !mbig-endian;
+fpu/be !march=armv7-r mfloat-abi=hard !mlittle-endian mbig-endian;
+arm/fpu march=armv7-r mfloat-abi=hard !mlittle-endian !mbig-endian;
+arm/le march=armv7-r !mfloat-abi=hard mlittle-endian !mbig-endian;
+arm/be march=armv7-r !mfloat-abi=hard !mlittle-endian mbig-endian;
+arm/fpu/le march=armv7-r mfloat-abi=hard mlittle-endian !mbig-endian;
+arm/fpu/be march=armv7-r mfloat-abi=hard !mlittle-endian mbig-endian;
