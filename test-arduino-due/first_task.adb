@@ -1,3 +1,10 @@
+--  Copyright (C) Simon Wright <simon@pushface.org>
+
+--  This unit is free software; you can redistribute it and/or modify it
+--  as you wish. This unit is distributed in the hope that it will be
+--  useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+--  of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
 with Ada.Interrupts.Names;
 with Ada.Real_Time;
 with System;
@@ -54,27 +61,17 @@ package body First_Task is
       --  Clear the output pin
       PIOB.CODR := (Output_Pin => 1, others => 0);
 
-      Button.Wait;
       loop
-         --  Set the output pin for 500 ms
-         PIOB.SODR := (Output_Pin => 1, others => 0);
-         delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (500);
-         --  Clear the output pin for 500 ms
-         PIOB.CODR := (Output_Pin => 1, others => 0);
-         delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (500);
+         Button.Wait;
+
+         if PIOB.PDSR (Input_Pin) /= 0 then  -- pulled-up
+            --  Clear the output pin
+            PIOB.CODR := (Output_Pin => 1, others => 0);
+         else
+            --  Set the output pin
+            PIOB.SODR := (Output_Pin => 1, others => 0);
+         end if;
       end loop;
-
-      --  loop
-      --     Button.Wait;
-
-      --     if PIOB.PDSR (Input_Pin) /= 0 then  -- pulled-up
-      --        --  Clear the output pin
-      --        PIOB.CODR := (Output_Pin => 1, others => 0);
-      --     else
-      --        --  Set the output pin
-      --        PIOB.SODR := (Output_Pin => 1, others => 0);
-      --     end if;
-      --  end loop;
    end T;
 
 begin
@@ -100,6 +97,7 @@ begin
    PIOB.REHLSR := (Input_Pin => 1, others => 0);
 
    --  .. debounce slow clock multiplier (32 kHz, => 5 ms)
+   --  XXX SCDR should be at least Unsigned_32.
    PIOB.SCDR := (5 | 7 => 1, others => 0);
 
    --  .. debounce ..

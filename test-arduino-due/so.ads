@@ -5,5 +5,5 @@
 --  useful, but WITHOUT ANY WARRANTY; without even the implied warranty
 --  of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-package First_Task with Elaborate_Body is
-end First_Task;
+package SO with Elaborate_Body is
+end SO;
