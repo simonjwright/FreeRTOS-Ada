@@ -54,20 +54,27 @@ package body First_Task is
       --  Clear the output pin
       PIOB.CODR := (Output_Pin => 1, others => 0);
 
+      Button.Wait;
       loop
-         Button.Wait;
-
-         --  debounce
-         --  delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (10);
-
-         if PIOB.PDSR (Input_Pin) /= 0 then  -- pulled-up
-            --  Clear the output pin
-            PIOB.CODR := (Output_Pin => 1, others => 0);
-         else
-            --  Set the output pin
-            PIOB.SODR := (Output_Pin => 1, others => 0);
-         end if;
+         --  Set the output pin for 500 ms
+         PIOB.SODR := (Output_Pin => 1, others => 0);
+         delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (500);
+         --  Clear the output pin for 500 ms
+         PIOB.CODR := (Output_Pin => 1, others => 0);
+         delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (500);
       end loop;
+
+      --  loop
+      --     Button.Wait;
+
+      --     if PIOB.PDSR (Input_Pin) /= 0 then  -- pulled-up
+      --        --  Clear the output pin
+      --        PIOB.CODR := (Output_Pin => 1, others => 0);
+      --     else
+      --        --  Set the output pin
+      --        PIOB.SODR := (Output_Pin => 1, others => 0);
+      --     end if;
+      --  end loop;
    end T;
 
 begin
