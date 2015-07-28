@@ -10,7 +10,7 @@ with Ada.Synchronous_Task_Control;
 
 package body SO is
 
-   The_SO: Ada.Synchronous_Task_Control.Suspension_Object;
+   The_SO : Ada.Synchronous_Task_Control.Suspension_Object;
 
    task T;
    task body T is
