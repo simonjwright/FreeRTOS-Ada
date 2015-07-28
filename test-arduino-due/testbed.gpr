@@ -8,7 +8,7 @@
 project Testbed is
    for Main use ("testbed.adb");
    for Object_Dir use ".build";
-   for Source_Dirs use (".");
+   for Source_Dirs use (".", "../test-common");
    for Exec_Dir use ".";
    for Target use "arm-eabi";
    for Runtime ("ada") use Project'Project_Dir & "../arduino-due";
