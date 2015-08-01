@@ -38,7 +38,7 @@ package Registers.ATSAM3X8.PIO with Preelaborate is
       SCIFSR : aliased Bits_32x1;
       DIFSR  : aliased Bits_32x1;
       IFDGSR : aliased Bits_32x1;
-      SCDR   : aliased Bits_32x1;
+      SCDR   : aliased Interfaces.Unsigned_32;
       OWER   : aliased Bits_32x1;
       OWDR   : aliased Bits_32x1;
       OWSR   : aliased Bits_32x1;

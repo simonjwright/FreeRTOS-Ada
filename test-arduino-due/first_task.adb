@@ -7,6 +7,7 @@
 
 with Ada.Interrupts.Names;
 with Ada.Real_Time;
+with Interfaces;
 with System;
 
 with Registers.ATSAM3X8.PIO;
@@ -74,6 +75,7 @@ package body First_Task is
       end loop;
    end T;
 
+   use type Interfaces.Unsigned_32;
 begin
    --  Enable PIOB
    PMC.PCER0 := (PIOB_IRQ => 1, others => 0);
@@ -96,9 +98,8 @@ begin
    --  .. enable interrupts from Input_Pin on rising edge (button-up) ..
    PIOB.REHLSR := (Input_Pin => 1, others => 0);
 
-   --  .. debounce slow clock multiplier (32 kHz, => 5 ms)
-   --  XXX SCDR should be at least Unsigned_32.
-   PIOB.SCDR := (5 | 7 => 1, others => 0);
+   --  .. debounce slow clock multiplier (32 kHz, => 5 ms, 200 Hz)
+   PIOB.SCDR := 32678 / 200;
 
    --  .. debounce ..
    PIOB.DIFSR := (Input_Pin => 1, others => 0);
