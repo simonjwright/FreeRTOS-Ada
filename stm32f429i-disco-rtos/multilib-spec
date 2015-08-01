@@ -1,6 +1,0 @@
-# The compilers are built for cortex-m3, cortex-m4, so there should be
-# no arm code.
-
-*multilib:
-. !mfloat-abi=hard;
-fpu mfloat-abi=hard;
