@@ -24,18 +24,13 @@ library project Build_Runtime is
      );
 
    for Target use external ("TARGET", "arm-eabi");
+   for Runtime ("ada") use Project'Project_Dir;
 
    type Build_Type is ("Production", "Debug");
    Build : Build_Type := external ("BUILD", "Debug");
 
-   package Builder is
-      for Switches ("Ada") use ("--RTS=" & Project'project_dir);
-   end Builder;
-
    package Compiler is
-      COMMON_FLAGS :=
-        ("-ffunction-sections", "-fdata-sections")
-        & external_as_list ("TARGET_OPTS", " ");
+      COMMON_FLAGS := ("-ffunction-sections", "-fdata-sections");
       case Build is
         when "Production" =>
            COMMON_FLAGS := COMMON_FLAGS & ("-O2");
