@@ -33,12 +33,12 @@ ENTRY(program_initialization)
 /* Force linking of syscalls.o. The reason this is needed is that the
    symbols in it are only referenced later on in the linking order
    (from libc.a, typically). */
-/* EXTERN(_sbrk) */
+EXTERN(_sbrk)
 
 /* For the same reason, force linking of _init.o (in case the
    application has failed to provide a real _init; _init.o contains a
    weak version). */
-/* EXTERN(_init) */
+EXTERN(_init)
 
 MEMORY
 {
