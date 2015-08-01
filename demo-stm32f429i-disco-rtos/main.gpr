@@ -7,25 +7,27 @@
 
 with "../stm32f429i-disco-bsp/stm32f429i_disco_bsp";
 
-project Demo_Tasking is
-   for Main use ("demo_tasking.adb");
-   for Object_Dir use ".build-demo";
-   for Source_Dirs use (".");
-   for Exec_Dir use ".";
+project Main is
+
+   for Languages use ("c");
+   for Main use ("main.c");
    for Target use "arm-eabi";
    for Runtime ("ada") use Project'Project_Dir & "../stm32f429i-disco-rtos";
+   for Object_Dir use ".build-main";
+   for Exec_Dir use ".";
+
    package Builder is
-      for Default_Switches ("ada") use
-        (
-         "-g",
-         "-Og",
-         "-ffunction-sections",
-         "-fdata-sections",
-         "--create-map-file"
-        );
+      for Default_Switches ("c") use ("--create-map-file");
    end Builder;
+
+   package Compiler is
+      for Switches ("c") use
+        external_as_list ("CFLAGS", " ");
+   end Compiler;
+
    package Linker is
-      for Default_Switches ("ada") use ("-Wl,-gc-sections");
+      for Switches ("c") use external_as_list ("LDFLAGS", " ");
       for Map_File_Option use "-Wl,-Map," & Project'Project_Dir;
    end Linker;
-end Demo_Tasking;
+
+end Main;

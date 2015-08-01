@@ -17,13 +17,11 @@ project LCD is
    package Builder is
       for Default_Switches ("ada") use
         ("-g",
-         "-O0"
+         "-O0",
+         "--create-map-file"
         );
    end Builder;
    package Linker is
-      for Default_Switches ("ada") use
-        (
-         "-Wl,-Map," & Project'Project_Dir & Project'Name & ".map"
-         );
+      for Map_File_Option use "-Wl,-Map," & Project'Project_Dir;
    end Linker;
 end LCD;

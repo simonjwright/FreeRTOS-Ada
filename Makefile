@@ -15,13 +15,22 @@
 all: ; $(error This makefile is only for building distributions,	\
 	("make dist"))
 
-NAME ?= stm32f4-gnat-rts
+NAME ?= cortex-gnat-rts
 
 # Note the order, which is necssary.
-subdirs :=					\
+subdirs =					\
+  common					\
+  test-common
+
+subdirs +=					\
+  arduino-due					\
+  test-arduino-due
+
+subdirs +=					\
   stm32f429i-disco-rtos				\
   stm32f429i-disco-bsp				\
-  demo-stm32f429i-disco-rtos
+  demo-stm32f429i-disco-rtos			\
+  test-stm32f4
 
 TOP_LEVEL_FILES = INSTALL README
 

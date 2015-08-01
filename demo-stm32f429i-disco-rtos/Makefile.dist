@@ -45,6 +45,7 @@ DEMO_DISTRIBUTION_FILES +=			\
   lcd.gpr
 
 DEMO_DISTRIBUTION_FILES +=			\
+  main.gpr					\
   main.c					\
   main.h
 

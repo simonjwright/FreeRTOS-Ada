@@ -1,16 +1,19 @@
+# Copyright Simon Wright <simon@pushface.org>
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered as-is,
+# without any warranty.
+
 all::
 
 include ../stm32f429i-disco-rtos/Makefile.inc
 
 # Definitions for C, C++
 INCLUDES += -I$(STM32CUBE)/Projects/STM32F429I-Discovery/Examples/BSP/Inc
-DEBUG = -g -O0
-CC = arm-eabi-gcc
-CXX = arm-eabi-g++
-CFLAGS = $(INCLUDES) $(DEFINES) $(DEBUG) $(EXTRA_CFLAGS)
-CXXFLAGS = $(INCLUDES) $(DEFINES) $(DEBUG) $(EXTRA_CFLAGS)
-LIBS    = -L$(BSP)/adalib -lbsp-rtos
-LDC     = stm32f429i-flash.ld
+DEBUG     = -g -O0
+CFLAGS    = $(INCLUDES) $(DEFINES) $(DEBUG) $(EXTRA_CFLAGS) $(TARGET_OPTS)
+CXXFLAGS  = $(INCLUDES) $(DEFINES) $(DEBUG) $(EXTRA_CFLAGS) $(TARGET_OPTS)
 
 demo_tasking: force
 	gprbuild -p -P $@ -largs $(LDFLAGS)
@@ -20,24 +23,22 @@ demo_cmsis: force
 	gprbuild -p -P $@ -largs $(LDFLAGS)
 all:: demo_cmsis.bin
 
-lcd:force
+lcd: force
 	gprbuild -p -P $@ -largs $(LDFLAGS)
 all:: lcd.bin
 
-main: main.o
-	$(CC) $(DEBUG) $^ -o $@			\
-	  $(LIBS) $(LDFLAGS)			\
-	  -Wl,-T,$(LDC) -Wl,-Map,$@.map
-main.c: main.h
+main: force
+	gprbuild -p -P $@			\
+	  -XCFLAGS="$(CFLAGS)"			\
+	  -XLDFLAGS="$(LDFLAGS)"
 all:: main.bin
-
-#%.bin: %
-#	arm-eabi-objcopy -O binary $< $@
 
 clean:
 	rm -f main
 	rm -f *~ *.bin *.o
-	gprclean -P demo_tasking
-	gprclean -P demo_cmsis
+	-gprclean -P demo_tasking
+	-gprclean -P demo_cmsis
+	-gprclean -P main
+	rm -rf .build*
 
 .PHONY: clean force
