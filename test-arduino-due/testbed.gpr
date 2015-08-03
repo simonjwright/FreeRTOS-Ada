@@ -11,7 +11,7 @@ project Testbed is
    for Source_Dirs use (".", "../test-common");
    for Exec_Dir use ".";
    for Target use "arm-eabi";
-   for Runtime ("ada") use Project'Project_Dir & "../arduino-due";
+   for Runtime ("ada") use Testbed'Project_Dir & "../arduino-due";
    package Builder is
       for Default_Switches ("ada") use
         (
@@ -28,6 +28,6 @@ project Testbed is
         );
    end Compiler;
    package Linker is
-      for Map_File_Option use "-Wl,-Map," & Project'Project_Dir;
+      for Map_File_Option use "-Wl,-Map," & Testbed'Project_Dir;
    end Linker;
 end Testbed;

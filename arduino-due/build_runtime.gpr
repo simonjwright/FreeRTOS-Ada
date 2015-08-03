@@ -24,7 +24,7 @@ library project Build_Runtime is
      );
 
    for Target use external ("TARGET", "arm-eabi");
-   for Runtime ("ada") use Project'Project_Dir;
+   for Runtime ("ada") use Build_Runtime'Project_Dir;
 
    type Build_Type is ("Production", "Debug");
    Build : Build_Type := external ("BUILD", "Debug");
