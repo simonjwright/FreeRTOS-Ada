@@ -158,14 +158,6 @@ SECTIONS
        the st-link/GDB stuff fit? */
     PROVIDE( _estack = 0x20030000);
 
-    /DISCARD/ :
-    {
-        libc.a ( * )
-        libm.a ( * )
-        libgcc.a ( * )
-        libstdc++.a ( * )
-    }
-
     /DISCARD/ : { *(.note.GNU-stack) *(.gnu_debuglink) *(.gnu.lto_*) }
 
 /*
