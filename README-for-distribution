@@ -1,35 +1,21 @@
-2015mmdd
+20150810
 ========
 
-This release has been reorganised from previous releases.
+This release includes an RTS for the Arduino Due.
 
 There is one RTS, stm32f429i-disco-rtos, and one BSP,
 stm32f429i-disco-bsp.
 
-Changes to the RTS from the previous release:
----------------------------------------------
-
-These units (and supporting units) are now included:
-
-  Ada.Containers.Bounded_Vectors (*)
-  Ada.Containers.Bounded_Hashed_Maps (*)
-  Ada.Containers.Generic_Array_Sort
-  Ada.Containers.Generic_Constrained_Array_Sort
-  Ada.IO_Exceptions
-  Ada.Streams
-  Ada.Task_Identification
-  Interfaces.C
-  Interfaces.C.Strings
-  System.Assertions
-
-  (*) The new iterators (for some F in Foo loop ...) are NOT supported
-      (they require finalization).
-
-The STM32F429I_Discovery tree has been moved to the BSP.
+There have been no changes to the RTS from the previous release:
 
 The following tickets have been fixed:
 
-  2  Protected spec hides package Interfaces
-  14 Last_Chance_Handler doesn’t stop tasking
+13  Duration should be 64-bit
+16  Can't use secondary stack from main program
 
-Tasking is started by calling Start_FreeRTOS_Scheduler.
+A beginning has been made on ticket 7, Project structure is
+inflexible: the common code between the RTSs and the tests has been
+extracted (to common/ and test-common/ respectively).
+
+Ticked 11 can't be fixed in this project, but is fixed in GNAT GPL
+2015 and FSF GCC 5.1.0.

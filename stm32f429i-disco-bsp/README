@@ -4,7 +4,7 @@ Ada compiler (GNAT) using the Runtime System (RTS)
 stm324f29i-disco-rtos.
 
 The RTS contains object code for all the relevant drivers from
-STMicroelectronics' STM32Cube_FW_F4_V1.3.0 package, but not the source
+STMicroelectronics' STM32Cube_FW_F4_V1.6.0 package, but not the source
 code. This BSP contains packages to support the user pushbutton, the
 user LEDs, and the LCD, as well as a package (stm32f429xx_h.ads)
 containing machine-generated interfaces to all the board hardware. To
@@ -12,9 +12,9 @@ use the last, you need STMicroelectronics' manual RM0090
 (DocID018909).
 
 The BSP is supplied built with for debugging (-g) and with suitable
-optimisation (-Og), using GCC 4.9.1 for arm-eabi-darwin13-bin[1] on
-Mac OS X (it should work out of the box with a Linux-hosted GCC 4.9.1
-cross-compiler).
+optimisation (-Og), using using GNAT GPL 2015[1] on Mac OS X (it
+should work out of the box with a Linux-hosted GCC 4.9.1
+cross-compiler, but will need recompiling for another compiler).
 
 The BSP is intended to support commercial binary
 distributions[2]. stm32f429xx_h.ads is derived from STMicroelectronics
@@ -22,7 +22,7 @@ source supplied in STMCube and is subject to their copyright; see the
 file COPYING.STMicroelectronics. Other Ada source code has been
 written for this work; see the files COPYING3 and COPYING.RUNTIME.
 
-[1] https://sourceforge.net/projects/gnuada/files/GNAT_GCC%20Mac%20OS%20X/4.9.1bis/arm-eabi/
+[1] https://sourceforge.net/projects/gnuada/files/GNAT_GPL%20Mac%20OS%20X/2015-arm-eabi-darwin-bin-bis/
 [2] STMicroelectronics' evaluation product licence agreement at
 www.st.com/epla forbids the sale of products including this board, so
 this work would have to be reconfigured for a different board anyway.
