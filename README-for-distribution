@@ -17,5 +17,5 @@ A beginning has been made on ticket 7, Project structure is
 inflexible: the common code between the RTSs and the tests has been
 extracted (to common/ and test-common/ respectively).
 
-Ticked 11 can't be fixed in this project, but is fixed in GNAT GPL
+Ticket 11 can't be fixed in this project, but is fixed in GNAT GPL
 2015 and FSF GCC 5.1.0.
