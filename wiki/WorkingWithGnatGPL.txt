@@ -1,7 +1,3 @@
-[TOC]
-
-----
-
 C library
 ====
 
@@ -27,8 +23,3 @@ and then make and install:
 
     $ make
     $ sudo make install
-
-C++ library
-====
-
-For [reasons I don't understand](http://stackoverflow.com/questions/31656189/cross-ld-can-t-find-libstdc-a-but-shouldn-t-have-been-looking), you may need a `libstdc++.a` even though there's no obvious reason for it (especially since the AdaCore compiler is built without C++ support!). An [empty version of this library](https://www.dropbox.com/s/pvtd577lhkxtfye/libstdc%2B%2B.a?dl=0) can be placed in `$prefix/arm-eabi/lib/`.
