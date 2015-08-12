@@ -1,6 +1,6 @@
 # -*- Makefile -*-
 
-STM32CUBE ?= $(HOME)/STM32Cube_FW_F4_V1.6.0
+STM32CUBE ?= $(HOME)/STM32Cube_FW_F4_V1.7.0
 
 # Work out the location of this file (the top level of rtos),
 # without the trailing /. Must be before other includes.
