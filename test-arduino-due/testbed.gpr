@@ -5,6 +5,8 @@
 --  the copyright notice and this notice are preserved.  This file is
 --  offered as-is, without any warranty.
 
+with "../arduino-due-bsp/arduino_due_bsp";
+
 project Testbed is
    for Main use ("testbed.adb");
    for Object_Dir use ".build";
@@ -17,6 +19,8 @@ project Testbed is
         (
          "-g",
          "-Og",
+         "-ffunction-sections",
+         "-fdata-sections",
          "--create-map-file"
         );
    end Builder;
@@ -28,6 +32,7 @@ project Testbed is
         );
    end Compiler;
    package Linker is
+      for Default_Switches ("ada") use ("-Wl,-gc-sections");
       for Map_File_Option use "-Wl,-Map," & Testbed'Project_Dir;
    end Linker;
 end Testbed;
