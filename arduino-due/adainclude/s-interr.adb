@@ -58,7 +58,6 @@ package body System.Interrupts is
    type Bits_32x1_Array is array (Natural range <>) of Bits_32x1;
    type Bits_32x8_Array is array (Natural range <>) of Bits_32x8;
 
-   pragma Warnings (Off, "16512 bits of ""NVIC_T"" unused");
    type NVIC_T is record
       ISER : Bits_32x1_Array (0 .. 7);
       ICER : Bits_32x1_Array (0 .. 7);
@@ -66,10 +65,10 @@ package body System.Interrupts is
       ICPR : Bits_32x1_Array (0 .. 7);
       IABR : Bits_32x1_Array (0 .. 7);
       IPR  : Bits_32x8_Array (0 .. 59);
+      STIR : Interfaces.Unsigned_32;
    end record
-   with Convention => Ada, Volatile, Size => 8 * (16#0BFC# + 4);
+   with Convention => Ada, Volatile, Size => 8 * (16#0E00# + 4);
    --  See ARMv7M Architecture Reference Manual, 2 Dec 2014, Table B3-8
-   pragma Warnings (On, "16512 bits of ""NVIC_T"" unused");
 
    for NVIC_T use record
       ISER at 16#0000# range 0 .. 255;
@@ -78,6 +77,7 @@ package body System.Interrupts is
       ICPR at 16#0180# range 0 .. 255;
       IABR at 16#0200# range 0 .. 255;
       IPR  at 16#0300# range 0 .. 1919;
+      STIR at 16#0E00# range 0 .. 31;
    end record;
 
    NVIC : NVIC_T
@@ -130,8 +130,10 @@ package body System.Interrupts is
    end Install_Restricted_Handlers;
 
    --  Startup contains a weak definition of this symbol; so when this
-   --  package is called in, by elaboration of user code that actually
-   --  uses interrupts, this definition will be used instead.
+   --  package is called in, during the link of user code that
+   --  actually uses interrupts, this definition will be used instead.
+   --
+   --  IRQ_Handler is called for all peripheral interrupts.
    procedure IRQ_Handler
    with Export, Convention => Ada, External_Name => "IRQ_Handler";
 

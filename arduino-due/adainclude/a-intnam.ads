@@ -19,6 +19,7 @@
 --  If not, see <http://www.gnu.org/licenses/>.
 
 --  Interrupts for the ATSAM3X8 as found in Arduino Due.
+--  See Atmel-11057C-ATARM-SAM3X-SAM3A-Datasheet_23-Mar-15, Table 9.1.
 
 package Ada.Interrupts.Names is
    pragma Pure;

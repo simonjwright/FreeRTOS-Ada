@@ -34,14 +34,14 @@
 ------------------------------------------------------------------------------
 
 --  Modified from the GCC 4.9.1 version for the Cortex GNAT RTS
---  project.
+--  project (Arduino Due RTS).
 
 with System;
 
 package Ada.Interrupts is
    pragma Pure;
 
-   --  See RM0090 (DocID018909 Rev 7) Table 62.
+   --  See Atmel-11057C-ATARM-SAM3X-SAM3A-Datasheet_23-Mar-15, Table 9.1.
    type Interrupt_ID is range 0 .. 44;
    --  Has to match System.Interrupts.Interrupt_ID.
 
