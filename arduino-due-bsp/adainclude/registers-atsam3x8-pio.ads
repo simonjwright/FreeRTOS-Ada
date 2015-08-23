@@ -110,32 +110,32 @@ package Registers.ATSAM3X8.PIO with Preelaborate is
       WPSR   at 16#e8# range 0 .. 31;
    end record;
 
-   PIOA : PIO
+   PIOA : aliased PIO
      with
        Import,
        Convention => Ada,
        Address => System'To_Address (16#400E0E00#);
-   PIOB : PIO
+   PIOB : aliased PIO
      with
        Import,
        Convention => Ada,
        Address => System'To_Address (16#400E1000#);
-   PIOC : PIO
+   PIOC : aliased PIO
      with
        Import,
        Convention => Ada,
        Address => System'To_Address (16#400E1200#);
-   PIOD : PIO
+   PIOD : aliased PIO
      with
        Import,
        Convention => Ada,
        Address => System'To_Address (16#400E1400#);
-   PIOE : PIO
+   PIOE : aliased PIO
      with
        Import,
        Convention => Ada,
        Address => System'To_Address (16#400E1600#);
-   PIOF : PIO
+   PIOF : aliased PIO
      with
        Import,
        Convention => Ada,
