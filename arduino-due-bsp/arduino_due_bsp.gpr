@@ -1,6 +1,6 @@
 library project Arduino_Due_BSP is
 
-   for Library_Name use "arduino_due_bsp";
+   for Library_Name use "arduino-due-bsp";
    for Library_Kind use "static";
    for Library_Dir use "adalib";
 

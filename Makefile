@@ -20,10 +20,12 @@ NAME ?= cortex-gnat-rts
 # Note the order, which is necssary.
 subdirs =					\
   common					\
+  bsp-common					\
   test-common
 
 subdirs +=					\
   arduino-due					\
+  arduino-due-bsp				\
   test-arduino-due
 
 subdirs +=					\

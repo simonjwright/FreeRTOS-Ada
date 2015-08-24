@@ -23,33 +23,17 @@ all: ; $(error Only to be used to build distributions)
 
 dist::
 
-THIS := test-arduino-due
+THIS := bsp-common
 
 DISTRIBUTION_FILES =				\
-  Makefile
-
-DISTRIBUTION_FILES +=				\
-  first.gpr					\
-  program.gpr					\
-  testbed.gpr
-
-DISTRIBUTION_FILES +=				\
-  first.adb					\
-  first_task.adb				\
-  first_task.ads				\
-  handler.adb					\
-  handler.ads					\
-  interrupts.adb				\
-  interrupts.ads				\
-  program.adb					\
-  program.ads					\
-  testbed.adb					\
-  time.adb					\
-  time.ads
+  registers-cortex-nvic.ads			\
+  registers-cortex-systick.ads			\
+  registers-cortex.ads				\
+  registers.ads
 
 dist:: $(DISTRIBUTION_FILES)
 	mkdir $(DIST)/$(THIS)
-	tar cf - $(DISTRIBUTION_FILES) | \
+	tar cf - $(DISTRIBUTION_FILES) |	\
 	  tar xvf - -C $(DIST)/$(THIS)
 
 .PHONY: all dist

@@ -1,0 +1,14 @@
+This is a Board Support Package (BSP) for the Arduino Due (see
+http://www.arduino.org/) in Ada for the GCC Ada compiler (GNAT) using
+the Runtime System (RTS) arduino-due.
+
+The BSP is supplied built with for debugging (-g) and with suitable
+optimisation (-Og), using GNAT GPL 2015[1] on Mac OS X (it should work
+out of the box with a Linux-hosted GNAT GPL 2015 cross-compiler, but
+will need recompiling for another compiler).
+
+The BSP is intended to support commercial binary distributions. The
+Ada source code has been written for this work; see the files COPYING3
+and COPYING.RUNTIME.
+
+[1] https://sourceforge.net/projects/gnuada/files/GNAT_GPL%20Mac%20OS%20X/2015-arm-eabi-darwin-bin-bis/

@@ -23,33 +23,25 @@ all: ; $(error Only to be used to build distributions)
 
 dist::
 
-THIS := test-arduino-due
+THIS := arduino-due-bsp
 
 DISTRIBUTION_FILES =				\
-  Makefile
+  README					\
+  COPYING.RUNTIME				\
+  COPYING3					\
+  Makefile					\
+  arduino_due_bsp.gpr
 
-DISTRIBUTION_FILES +=				\
-  first.gpr					\
-  program.gpr					\
-  testbed.gpr
-
-DISTRIBUTION_FILES +=				\
-  first.adb					\
-  first_task.adb				\
-  first_task.ads				\
-  handler.adb					\
-  handler.ads					\
-  interrupts.adb				\
-  interrupts.ads				\
-  program.adb					\
-  program.ads					\
-  testbed.adb					\
-  time.adb					\
-  time.ads
+DISTRIBUTION_FILES +=                                           \
+  adainclude/registers-atsam3x8-peripheral_identifiers.ads      \
+  adainclude/registers-atsam3x8-pio.ads                         \
+  adainclude/registers-atsam3x8-pmc.ads                         \
+  adainclude/registers-atsam3x8.ads
 
 dist:: $(DISTRIBUTION_FILES)
 	mkdir $(DIST)/$(THIS)
 	tar cf - $(DISTRIBUTION_FILES) | \
 	  tar xvf - -C $(DIST)/$(THIS)
+	cd $(DIST)/$(THIS); make; rm -rf *.o .build
 
 .PHONY: all dist
