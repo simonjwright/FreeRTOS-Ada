@@ -11,7 +11,7 @@ following additional restrictions:
    pragma Restrictions (No_Recursion);
 
 The RTS contains object code for all the relevant drivers from
-STMicroelectronics' STM32Cube_FW_F4_V1.6.0 package, but not the source
+STMicroelectronics' STM32Cube_FW_F4_V1.7.0 package, but not the source
 code. Makefile.inc (altered as necessary to match the place where you
 have installed the STM32Cube package) can be included in your own
 Makefiles to provide access to the drivers' header and source files;
