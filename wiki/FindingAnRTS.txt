@@ -20,6 +20,8 @@ There are two places where RTSs can be installed:
 * in the location indicated by `arm-eabi-gcc -print-libgcc-file-name`; for GNAT GPL 2015, that would be `$prefix/lib/gcc/arm-eabi/4.9.3/`, referred to from here as `$lib`.
 * in `$prefix/arm-eabi/lib/gnat`.
 
+You can also work with an RTS in its build location.
+
 In `$lib`:
 ----
 
@@ -31,6 +33,14 @@ If the RTS is named `stm32f429i-disco-rtos`, the compiler will treat it as the d
 * `$lib` contains symbolic links named `adalib` and `adainclude` to the `adalib` and `adainclude` directories of the RTS respectively.
 
 Alternative RTSs are found here if they are in directories named `rts-{name}`, for example `rts-stm32f429i-disco-rtos/` corresponds to `--RTS=stm32f429i-disco-rtos`.
+
+In `$prefix/arm-eabi/lib/gnat`:
+----
+
+The directory containing the RTS is just called `{name}`, e.g. `stm32f429i-disco-rtos`.
+
+In the build location:
+----
 
 RTSs can also be located by giving the explicit path in the `Runtime ("ada")` attribute or the `--RTS=` option (this has to be an absolute path with GPRBUILD GPL 2015):
 
@@ -46,8 +56,3 @@ RTSs can also be located by giving the explicit path in the `Runtime ("ada")` at
 or
 
     for Runtime ("ada") use Project’Project_Dir & "../stm32f429i-disco-rtos";
-
-In `$prefix/arm-eabi/lib/gnat`:
-----
-
-The directory containing the RTS is just called `{name}`, e.g. `stm32f429i-disco-rtos`.
