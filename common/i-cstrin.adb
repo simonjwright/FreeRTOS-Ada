@@ -29,7 +29,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  Modified from GCC 4.9.1 for STM32F4 GNAT RTS.
+--  Modified from GCC 4.9.1 for Cortex GNAT RTS.
 
 with System; use System;
 with System.Storage_Elements; use System.Storage_Elements;

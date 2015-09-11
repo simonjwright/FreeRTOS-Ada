@@ -56,7 +56,7 @@
 --  in exp_ch9.adb and possibly exp_ch7.adb
 
 --  This file has been extensively modified from the GCC 4.9.1 version
---  for the STM32 GNAT RTS project.
+--  for the Cortex GNAT RTS project.
 
 with System.FreeRTOS.Queues;
 --  The first version of the FreeRTOS-based variant of this package

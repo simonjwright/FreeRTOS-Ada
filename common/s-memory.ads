@@ -29,7 +29,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  Copied from GCC 4.9.1 as part of the STM32F4 GNAT RTS port.
+--  Copied from GCC 4.9.1 as part of the Cortex GNAT RTS port.
 
 --  This package provides the low level memory allocation/deallocation
 --  mechanisms used by GNAT.

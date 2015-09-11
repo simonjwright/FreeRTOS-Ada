@@ -29,7 +29,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  Modified from GCC 4.9.1 as part of the STM32F4 GNAT RTS port.
+--  Modified from GCC 4.9.1 as part of the Cortex GNAT RTS port.
 
 --  This implementation assumes that the underlying malloc/free/realloc
 --  implementation is thread safe, and thus, no additional lock is required.

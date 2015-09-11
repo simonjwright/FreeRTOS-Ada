@@ -35,7 +35,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  This file has been extensively modified for the STM32 GNAT RTS
+--  This file has been extensively modified for the Cortex GNAT RTS
 --  project.
 
 pragma Profile (Ravenscar);

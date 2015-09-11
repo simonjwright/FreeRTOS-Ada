@@ -29,7 +29,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  This is the version for STM32F4 GNAT RTS.
+--  This is the version for Cortex GNAT RTS.
 
 package body System.Parameters is
 

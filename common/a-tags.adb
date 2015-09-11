@@ -30,7 +30,7 @@
 ------------------------------------------------------------------------------
 
 --  This file has been modified from the GCC 4.9.1 version for the
---  STM32 GNAT RTS project.
+--  Cortex GNAT RTS project.
 
 with Ada.Exceptions;
 with Ada.Unchecked_Conversion;

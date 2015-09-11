@@ -33,7 +33,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  Modified from GCC 4.9.1 for STM32F4 GNAT RTS.
+--  Modified from GCC 4.9.1 for Cortex GNAT RTS.
 
 package Interfaces.C.Strings is
    pragma Preelaborate;

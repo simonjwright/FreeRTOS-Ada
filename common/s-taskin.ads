@@ -35,7 +35,7 @@
 --  Any changes to this interface may require corresponding compiler changes.
 
 --  This file has been extensively modified from the GCC 4.9.1 version
---  for the STM32 GNAT RTS project.
+--  for the Cortex GNAT RTS project.
 
 with System.FreeRTOS.Tasks;
 with System.Secondary_Stack;

@@ -46,7 +46,7 @@
 --  in exp_ch9.adb and possibly exp_ch7.adb and exp_attr.adb
 
 --  Note: this package has been copied from GCC 4.9.1 and heavily
---  modified for the STM32 GNAT RTS, which has Ravenscar restrictions.
+--  modified for the Cortex GNAT RTS, which has Ravenscar restrictions.
 
 with System.FreeRTOS.Mutexes;
 

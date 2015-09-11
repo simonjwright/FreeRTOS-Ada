@@ -35,7 +35,7 @@
 --  This package represents the high level tasking interface used by the
 --  compiler to expand Ada 95 tasking constructs into simpler run time calls.
 
---  This is is the version for the STM32 GNAT RTS project.
+--  This is is the version for the Cortex GNAT RTS project.
 
 with Ada.Unchecked_Conversion;
 with Interfaces;

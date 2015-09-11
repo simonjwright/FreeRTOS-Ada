@@ -29,7 +29,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  Modified from GCC 4.9.1 for STM32F4 GNAT RTS.
+--  Modified from GCC 4.9.1 for Cortex GNAT RTS.
 --  The main change is the omission of wide characters.
 
 package body Interfaces.C is

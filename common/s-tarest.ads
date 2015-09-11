@@ -43,7 +43,7 @@
 --  The restricted GNARLI is also composed of System.Protected_Objects and
 --  System.Protected_Objects.Single_Entry
 
---  Modified for the STM32 GNAT RTS, by leaving out parts that aren't
+--  Modified for the Cortex GNAT RTS, by leaving out parts that aren't
 --  called.
 
 with System.Parameters;
