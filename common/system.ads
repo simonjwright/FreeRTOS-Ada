@@ -40,7 +40,6 @@
 
 pragma Profile (Ravenscar);
 
---  These restrictions were taken from http://wiki.osdev.org/Ada_Bare_bones
 pragma Discard_Names;
 pragma Normalize_Scalars;
 pragma Restrictions (No_Enumeration_Maps);

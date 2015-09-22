@@ -1,6 +1,6 @@
 library project Build_Runtime is
 
-   FreeRTOS := external ("HOME") & "/FreeRTOSV8.2.1/";
+   FreeRTOS := external ("HOME") & "/FreeRTOSV8.2.2/";
 
    for Languages use ("Ada", "C");
 

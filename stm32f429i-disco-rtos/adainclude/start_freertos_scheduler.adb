@@ -20,7 +20,10 @@
 
 with System.FreeRTOS.Tasks;
 
-procedure Start_FreeRTOS_Scheduler is
+procedure Start_FreeRTOS_Scheduler (Disable_Watchdog : Boolean := True) is
+   --  On STM32F4, the watchdog isn't enabled by default (I think
+   --  there may be some NVRAM settings you can change to alter this).
+   pragma Unreferenced (Disable_Watchdog);
 begin
    System.FreeRTOS.Tasks.Start_Scheduler;
    raise Program_Error with "Start_Scheduler returned";

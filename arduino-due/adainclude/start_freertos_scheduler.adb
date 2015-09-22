@@ -18,18 +18,24 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
---  The FreeRTOS scheduler is actually started in
---  System.FreeRTOS.Tasks.Start_Scheduler, but if we make users call
---  that they will get the warning that System.FreeRTOS.Tasks is an
---  implementation unit. This procedure is provided so they don't have
---  to say "-gnatwI" to suppress the warning.
+with Interfaces;
+with System.FreeRTOS.Tasks;
 
---  The behaviour of the watchdog feature is board-dependent. On
---  Arduino Due (and probably boards using other Atmel chips), the
---  watchdog is initially enabled; on STM32F4 it is not. In both
---  cases, the watchdog settings can only be changed once (after each
---  reset), so if your aplication needs to use the watchdog you should
---  set Disable_Watchdog False.
-procedure Start_FreeRTOS_Scheduler (Disable_Watchdog : Boolean := True)
-with
-  No_Return;
+procedure Start_FreeRTOS_Scheduler (Disable_Watchdog : Boolean := True) is
+   --  The Watchdog Timer Mode Register. See
+   --  Atmel-11057C-ATARM-SAM3X-SAM3A-Datasheet_23-Mar-15, section
+   --  15.5.2.
+   WDT_MR : Interfaces.Unsigned_32
+     with
+       Import,
+       Convention => Ada,
+       Volatile,
+       Address => System'To_Address (16#400E1A54#);
+   WDT_MR_WDDIS : constant Interfaces.Unsigned_32 := 16#0000_8000#; -- bit 15
+begin
+   if Disable_Watchdog then
+      WDT_MR := WDT_MR_WDDIS;
+   end if;
+   System.FreeRTOS.Tasks.Start_Scheduler;
+   raise Program_Error with "Start_Scheduler returned";
+end Start_FreeRTOS_Scheduler;
