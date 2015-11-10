@@ -8,11 +8,10 @@ project Demo_Leds is
    for Exec_Dir use ".";
 
    for Target use "arm-eabi";
+   for Runtime ("ada") use "ravenscar-sfp-stm32f4";
 
    package Builder is
-      for Default_Switches ("ada") use
-         ("-g",
-          "--RTS=../ravenscar-sfp-stm32f4");
+      for Default_Switches ("ada") use ("-g");
    end Builder;
 
    package Compiler is

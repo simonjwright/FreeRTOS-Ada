@@ -1,0 +1,24 @@
+library project Arduino_Due_BSP is
+
+   for Library_Name use "arduino-due-bsp";
+   for Library_Kind use "static";
+   for Library_Dir use "adalib";
+
+   for Source_Dirs use ("../bsp-common", "adainclude");
+
+   for Object_Dir use ".build";
+
+   for Target use "arm-eabi";
+   for Runtime ("ada") use project'Project_Dir & "../arduino-due";
+
+   package Builder is
+      for Default_Switches ("ada") use
+        (
+         "-g",
+         "-Og",
+         "-ffunction-sections",
+         "-fdata-sections"
+        );
+   end Builder;
+
+end Arduino_Due_BSP;

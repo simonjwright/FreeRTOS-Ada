@@ -1,0 +1,143 @@
+# -*- Makefile -*-
+#
+# This package is free software; you can redistribute it and/or
+# modify it under terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 3, or
+# (at your option) any later version. It is distributed in the
+# hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; see the file COPYING3. If not, see
+# <http://www.gnu.org/licenses/>.
+#
+# Copyright Simon Wright <simon@pushface.org>
+
+# To avoid disaster
+ifndef DIST
+  $(error Must define DIST)
+endif
+
+all: ; $(error Only to be used to build distributions)
+
+dist::
+
+THIS := common
+
+RTS_DISTRIBUTION_FILES =			\
+  README					\
+  COPYING.RUNTIME				\
+  COPYING3
+
+RTS_DISTRIBUTION_FILES +=			\
+  a-cbhama.adb					\
+  a-cbhama.ads					\
+  a-cgarso.adb					\
+  a-cgarso.ads					\
+  a-cgcaso.adb					\
+  a-cgcaso.ads					\
+  a-chtgbk.adb					\
+  a-chtgbk.ads					\
+  a-chtgbo.adb					\
+  a-chtgbo.ads					\
+  a-cobove.adb					\
+  a-cobove.ads					\
+  a-cohata.ads					\
+  a-contai.ads					\
+  a-coprnu.adb					\
+  a-coprnu.ads					\
+  a-except.adb					\
+  a-except.ads					\
+  a-ioexce.ads					\
+  a-reatim.adb					\
+  a-reatim.ads					\
+  a-retide.adb					\
+  a-retide.ads					\
+  a-stream.adb					\
+  a-stream.ads					\
+  a-sytaco.adb					\
+  a-sytaco.ads					\
+  a-tags.adb					\
+  a-tags.ads					\
+  a-taside.adb					\
+  a-taside.ads					\
+  a-unccon.ads					\
+  a-uncdea.ads					\
+  ada.ads					\
+  g-souinf.ads					\
+  gnat.ads					\
+  i-c.adb					\
+  i-c.ads					\
+  i-cstrin.adb					\
+  i-cstrin.ads					\
+  interfac.ads					\
+  machcode.ads					\
+  os_exit.adb					\
+  os_exit.ads					\
+  s-arit64.adb					\
+  s-arit64.ads					\
+  s-assert.adb					\
+  s-assert.ads					\
+  s-atacco.adb					\
+  s-atacco.ads					\
+  s-casuti.adb					\
+  s-casuti.ads					\
+  s-exctab.adb					\
+  s-exctab.ads					\
+  s-freert.ads					\
+  s-fremem.ads					\
+  s-fremut.adb					\
+  s-fremut.ads					\
+  s-freque.adb					\
+  s-freque.ads					\
+  s-fretas.adb					\
+  s-fretas.ads					\
+  s-fretcb.adb					\
+  s-fretcb.ads					\
+  s-htable.adb					\
+  s-htable.ads					\
+  s-maccod.ads					\
+  s-memory.adb					\
+  s-memory.ads					\
+  s-parame.adb					\
+  s-parame.ads					\
+  s-secsta.adb					\
+  s-secsta.ads					\
+  s-stalib.adb					\
+  s-stalib.ads					\
+  s-stoele.adb					\
+  s-stoele.ads					\
+  s-stratt.adb					\
+  s-stratt.ads					\
+  s-strhas.adb					\
+  s-strhas.ads					\
+  s-taprob.adb					\
+  s-taprob.ads					\
+  s-tarest.adb					\
+  s-tarest.ads					\
+  s-tasinf.ads					\
+  s-taskin.adb					\
+  s-taskin.ads					\
+  s-tasres.ads					\
+  s-tposen.adb					\
+  s-tposen.ads					\
+  s-unstyp.ads					\
+  s-valuns.adb					\
+  s-valuns.ads					\
+  s-valuti.adb					\
+  s-valuti.ads					\
+  start_freertos_scheduler.adb			\
+  start_freertos_scheduler.ads			\
+  system.ads
+
+RTS_DISTRIBUTION_FILES +=			\
+  freertos_bindings.c				\
+  last_chance_handler.c
+
+dist:: $(RTS_DISTRIBUTION_FILES)
+	mkdir $(DIST)/$(THIS)
+	tar cf - $(RTS_DISTRIBUTION_FILES) |	\
+	  tar xvf - -C $(DIST)/$(THIS)
+
+.PHONY: all dist

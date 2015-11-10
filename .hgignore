@@ -1,5 +1,8 @@
 syntax: glob
 
+# Maciej's book examples
+Ada_on_Cortex
+
 *.ali
 *.o
 *.a
@@ -16,7 +19,7 @@ b__*.ad?
 obj
 test
 doc
-stm32f4-gnat-rts*
+cortex-gnat-rts*
 
 stm32f429xx_h.ads
 

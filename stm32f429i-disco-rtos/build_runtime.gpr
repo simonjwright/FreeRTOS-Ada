@@ -8,7 +8,7 @@ project Build_Runtime is
    for Library_Dir use "adalib";
    for Object_Dir use ".build";
 
-   for Source_Dirs use ("adainclude");
+   for Source_Dirs use ("adainclude", "../common");
 
    for Target use external ("TARGET", "arm-eabi");
 
@@ -29,7 +29,10 @@ project Build_Runtime is
         when "Debug" =>
            COMMON_FLAGS := COMMON_FLAGS & ("-g", "-Og");
       end case;
-      ALL_ADAFLAGS := ("-gnatpgn", "-gnatqQ", "-nostdinc") & COMMON_FLAGS;
+      ALL_ADAFLAGS :=
+        ("-gnatpgn", "-gnatqQ", "-nostdinc")
+        & COMMON_FLAGS
+        & external_as_list ("EXTRA_ADAFLAGS", " ");
       ALL_CFLAGS :=
         external_as_list("INCLUDES", " ")
         & external_as_list("DEFINES", " ")

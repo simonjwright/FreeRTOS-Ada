@@ -1,0 +1,47 @@
+# -*- Makefile -*-
+#
+# This package is free software; you can redistribute it and/or
+# modify it under terms of the GNU General Public License as
+# published by the Free Software Foundation; either version 3, or
+# (at your option) any later version. It is distributed in the
+# hope that it will be useful, but WITHOUT ANY WARRANTY; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; see the file COPYING3. If not, see
+# <http://www.gnu.org/licenses/>.
+#
+# Copyright Simon Wright <simon@pushface.org>
+
+# To avoid disaster
+ifndef DIST
+  $(error Must define DIST)
+endif
+
+all: ; $(error Only to be used to build distributions)
+
+dist::
+
+THIS := arduino-due-bsp
+
+DISTRIBUTION_FILES =				\
+  README					\
+  COPYING.RUNTIME				\
+  COPYING3					\
+  Makefile					\
+  arduino_due_bsp.gpr
+
+DISTRIBUTION_FILES +=                                           \
+  adainclude/registers-atsam3x8-peripheral_identifiers.ads      \
+  adainclude/registers-atsam3x8-pio.ads                         \
+  adainclude/registers-atsam3x8-pmc.ads                         \
+  adainclude/registers-atsam3x8.ads
+
+dist:: $(DISTRIBUTION_FILES)
+	mkdir $(DIST)/$(THIS)
+	tar cf - $(DISTRIBUTION_FILES) | \
+	  tar xvf - -C $(DIST)/$(THIS)
+	cd $(DIST)/$(THIS); make; rm -rf *.o .build
+
+.PHONY: all dist

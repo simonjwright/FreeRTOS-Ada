@@ -1,6 +1,6 @@
 --  Copyright Simon Wright <simon@pushface.org>
 --
---  This file is part of the STM32F4 GNAT RTS project. This file is
+--  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
 --  terms of the GNU General Public License as published by the Free
 --  Software Foundation; either version 3, or (at your option) any
@@ -20,7 +20,11 @@
 
 with System.FreeRTOS.Tasks;
 
-procedure Start_FreeRTOS_Scheduler is
+procedure Start_FreeRTOS_Scheduler (Disable_Watchdog : Boolean := True) is
+   --  On STM32F4, the watchdog isn't enabled by default (I think
+   --  there may be some NVRAM settings you can change to alter this).
+   pragma Unreferenced (Disable_Watchdog);
 begin
    System.FreeRTOS.Tasks.Start_Scheduler;
+   raise Program_Error with "Start_Scheduler returned";
 end Start_FreeRTOS_Scheduler;

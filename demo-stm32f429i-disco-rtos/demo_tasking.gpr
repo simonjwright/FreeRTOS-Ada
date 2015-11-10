@@ -13,6 +13,7 @@ project Demo_Tasking is
    for Source_Dirs use (".");
    for Exec_Dir use ".";
    for Target use "arm-eabi";
+   for Runtime ("ada") use Project'Project_Dir & "../stm32f429i-disco-rtos";
    package Builder is
       for Default_Switches ("ada") use
         (
@@ -20,15 +21,11 @@ project Demo_Tasking is
          "-Og",
          "-ffunction-sections",
          "-fdata-sections",
-         "--RTS=../stm32f429i-disco-rtos"
+         "--create-map-file"
         );
    end Builder;
    package Linker is
-      --  --create-map-file isn't supported in this configuration
-      for Default_Switches ("ada") use
-        (
-         "-Wl,-gc-sections",
-         "-Wl,-Map," & Project'Project_Dir & Project'Name & ".map"
-         );
+      for Default_Switches ("ada") use ("-Wl,-gc-sections");
+      for Map_File_Option use "-Wl,-Map," & Project'Project_Dir;
    end Linker;
 end Demo_Tasking;

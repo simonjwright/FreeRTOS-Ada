@@ -1,4 +1,4 @@
---  Modified from the GCC 4.9.1 version for the STM32F4 GNAT RTS
+--  Modified from the GCC 4.9.1 version for the Cortex GNAT RTS
 --  project.
 
 package body Ada.Interrupts is

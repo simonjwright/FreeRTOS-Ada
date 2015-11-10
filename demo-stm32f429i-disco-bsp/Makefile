@@ -7,8 +7,8 @@ INCLUDES += -I$(STM32CUBE)/Projects/STM32F429I-Discovery/Examples/BSP/Inc
 DEBUG = -g -O0
 CC = arm-eabi-gcc
 CXX = arm-eabi-g++
-CFLAGS = $(INCLUDES) $(DEFINES) $(DEBUG) $(EXTRA_CFLAGS)
-CXXFLAGS = $(INCLUDES) $(DEFINES) $(DEBUG) $(EXTRA_CFLAGS)
+CFLAGS = $(INCLUDES) $(DEFINES) $(DEBUG) $(EXTRA_CFLAGS) $(TARGET_OPTS)
+CXXFLAGS = $(INCLUDES) $(DEFINES) $(DEBUG) $(EXTRA_CFLAGS) $(TARGET_OPTS)
 LIBS    = -L$(BSP)/adalib -lbsp-rtos
 LDC     = stm32f429i-flash.ld
 
@@ -39,7 +39,7 @@ DELAY_OBJ = \
   $(addsuffix .o,$(basename $(DELAY_SRC)))
 
 delay: $(DELAY_OBJ)
-	$(CC) $(DEBUG) $^ -o $@			\
+	$(CC) $(DEBUG) $(TARGET_OPTS) $^ -o $@			\
 	  $(LIBS) $(LDFLAGS)			\
 	  -Wl,-T,$(LDC) -Wl,-Map,$@.map
 
@@ -57,7 +57,7 @@ CC_DELAY_OBJ = \
   $(addsuffix .o,$(basename $(CC_DELAY_SRC)))
 
 cc_delay: $(CC_DELAY_OBJ)
-	$(CXX) $(DEBUG) $^ -o $@		\
+	$(CXX) $(DEBUG) $(TARGET_OPTS) $^ -o $@		\
 	  -lstdc++ $(LIBS) -Wl,-v		\
 	  -Wl,-T,$(LDC) -Wl,-Map,$@.map
 cc_delay.cc: cc_delay.hh

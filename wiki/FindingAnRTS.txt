@@ -1,6 +1,6 @@
-The GNAT compiler running under gprbuild can find RTSs in various ways. An RTS contains an `adainclude/` directory with the source of the RTS and an `adalib/` directory with the corresponding library, linker script and `.ali` files.
+The GNAT compiler running under gprbuild can find RTSs in various ways. An RTS usually contains an `adainclude/` directory with the source of the RTS and an `adalib/` directory with the corresponding library, linker script and `.ali` files (these defaults can be changed by listing the source directory, or colon-separated directories, in `ada_source_path`, and the object directory in `ada_object_path`).
 
-If not the default, the RTS is named using a `--RTS=` option. In a GPR, this would be in package Builder (so it's applied during all phases of the build):
+If not the default, the RTS can be named on the command using a `--RTS=` option. In a GPR, you can do this in package Builder (so it's applied during all phases of the build):
 
     package Builder is
        for Default_Switches ("ada") use
@@ -11,7 +11,21 @@ If not the default, the RTS is named using a `--RTS=` option. In a GPR, this wou
          );
     end Builder;
 
-The normal place for RTSs to be installed is in the location indicated by `arm-eabi-gcc -print-libgcc-file-name`; for GNAT GPL 2014, that would be `$prefix/lib/gcc/arm-eabi/4.7.4/`, referred to from here as `$lib`.
+or, with GPRBUILD GPL 2015, via an attribute:
+
+    for Runtime ("ada") use "stm32f429i-disco-rtos";
+
+There are two places where RTSs can be installed:
+
+* in the location indicated by `arm-eabi-gcc -print-libgcc-file-name`; for GNAT GPL 2015, that would be `$prefix/lib/gcc/arm-eabi/4.9.3/`, referred to from here as `$lib`.
+* in `$prefix/arm-eabi/lib/gnat`.
+
+You can also work with an RTS in its build location.
+
+In `$lib`:
+----
+
+The directory containing the RTS should be called `rts-{name}`, for example `rts-stm32f429i-disco-rtos`.
 
 If the RTS is named `stm32f429i-disco-rtos`, the compiler will treat it as the default RTS (and you need a default RTS) if
 
@@ -20,18 +34,15 @@ If the RTS is named `stm32f429i-disco-rtos`, the compiler will treat it as the d
 
 Alternative RTSs are found here if they are in directories named `rts-{name}`, for example `rts-stm32f429i-disco-rtos/` corresponds to `--RTS=stm32f429i-disco-rtos`.
 
-RTSs can also be located by giving the explicit path in the `--RTS=` option (this has to be an absolute path if using `arm-eabi-gnatmake`, a relative path works fine for command line or Emacs):
+In `$prefix/arm-eabi/lib/gnat`:
+----
 
-    package Builder is
-       for Default_Switches ("ada") use
-         (
-          "-g",
-          "-O0",
-          "--RTS=../stm32f429i-disco-rtos"
-         );
-    end Builder;
+The directory containing the RTS is just called `{name}`, e.g. `stm32f429i-disco-rtos`.
 
-You’ll probably need an absolute path if using GPS; it looks as though, for a semantic check or possibly to compile a single file, GPS changes to the source directory before compiling the file, and of course you’ll have specified the RTS relative to the project file location. You could do this:
+In the build location:
+----
+
+RTSs can also be located by giving the explicit path in the `Runtime ("ada")` attribute or the `--RTS=` option (this has to be an absolute path with GPRBUILD GPL 2015):
 
     package Builder is
        for Default_Switches ("ada") use
@@ -41,3 +52,7 @@ You’ll probably need an absolute path if using GPS; it looks as though, for a 
           "--RTS=“ & Project’Project_Dir & "../stm32f429i-disco-rtos"
          );
     end Builder;
+
+or
+
+    for Runtime ("ada") use Project’Project_Dir & "../stm32f429i-disco-rtos";

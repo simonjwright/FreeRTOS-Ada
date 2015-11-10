@@ -1,32 +1,22 @@
-This project contains various GNAT Ada Run Time Systems (RTSs)
-targeted at the STM32F4-series evaluation boards from
-STMicroelectronics (http://www.st.com). A particular release may not
-contain all of the RTSs.
+This project contains various GNAT Ada Run Time Systems (RTSs) based
+on FreeRTOS (http://www.freertos.org) and targeted at boards with
+Cortex-M3, -M4, -M4F MCUs (Arduino Due from http://www.arduino.org,
+the STM32F4-series evaluation boards from STMicroelectronics at
+http://www.st.com). A particular release may not contain all of the
+RTSs.
 
-(1) ravenscar-sfp-stm32f4 is AdaCore's package for the STM32F4
-    Discovery distributed with the GNAT GPL 2014 Linux-based cross
-    compiler.
+(1) arduino-due is a Ravenscar-style RTOS based on FreeRTOS from
+    http://www.freertos.org.
 
-    Demos in demo_leds-stm32f4/.
+    See arduino-due/COPYING* for licensing terms.
 
-(2) ravenscar-sfp-stm32f429i-disco is (1) modified at
-    https://github.com/gnlnops/gnat-stm32f429i-disco for the
-    STM32F429I Discovery.
+    Tests in test-arduino-due/.
 
-    Demos in demo_leds-stm32f429i-disco/.
-
-(3) stm32f429i-disco-bsp is based on the ST Cube BSPs from
-    STMicroelectronics. The source code written for this RTS has the
-    GPL Runtime Library exception.
-
-    See stm32f429i-disco-bsp/COPYING* for licensing terms.
-
-    Demos in demo-stm32f429i-disco-bsp/.
-
-(4) stm32f429i-disco-rtos is a Ravenscar-style RTS based on the ST
+(2) stm32f429i-disco-rtos is a Ravenscar-style RTS based on the ST
     Cube BSPs from STMicroelectronics and their packaged FreeRTOS
     kernel. The Ada source is based on GCC 4.9.1.
 
     See stm32f429i-disco-rtos/COPYING* for licensing terms.
 
+    Tests in test-stm32f4/.
     Demos in demo-stm32f429i-disco-rtos/.

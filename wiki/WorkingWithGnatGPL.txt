@@ -1,0 +1,25 @@
+C library
+====
+
+These RTSs need a C library. The GNAT GPL cross-compiler as supplied by AdaCore for Linux and Windows doesn't include a C library, so you'll need to build your own and install it. These instructions are for Linux; for Windows, at least the `--prefix` setting will need to change to match your compiler.
+
+Obtain [Newlib](https://sourceware.org/newlib/), unpack it into `newlib-2.2.0` (or later version, of course). You'll need to build in a parallel directory (in other words, *don't* `configure` in the source directory!). Assuming your GNAT GPL 2015 compiler is installed at /opt/gnat-gpl-2015,
+
+    mkdir newlib-2.2.0-build
+    cd newlib-2.2.0-build
+    ../newlib-2.2.0/configure \
+      --build=x86_64-pc-linux-gnu \
+      --target=arm-eabi \
+      --prefix=/opt/gnat-gpl-2015 \
+      --with-arch=armv7 \
+      --with-mode-thumb \
+      --enable-multilib \
+      --with-gnu-as \
+      --with-gnu-ld \
+      --disable-nls \
+      --disable-newlib-supplied-syscalls
+
+and then make and install:
+
+    $ make
+    $ sudo make install

@@ -1,0 +1,4 @@
+This is the shared part of an Ada Runtime System (RTS) for the GCC Ada
+compiler (GNAT), targeted to the STMicroelectronics STM32F429I
+Discovery board (see http://www.st.com) and to Arduino Due (see
+http://www.arduino.org).

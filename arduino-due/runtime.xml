@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+
+<gprconfig>
+  <configuration>
+   <config>
+   package Compiler is
+   Common_Required_Switches :=
+       ("-mlittle-endian", "-msoft-float",
+        "-mcpu=cortex-m3", "-mthumb");
+
+      for Leading_Required_Switches ("Ada") use
+         Compiler'Leading_Required_Switches ("Ada") &amp;
+         Common_Required_Switches;
+
+      for Leading_Required_Switches ("C") use
+         Compiler'Leading_Required_Switches ("C") &amp;
+         Common_Required_Switches;
+   end Compiler;
+
+   package Linker is
+      for Required_Switches use Linker'Required_Switches &amp;
+        ("${RUNTIME_DIR(ada)}/adalib/libgnat.a") &amp;
+        Compiler.Common_Required_Switches &amp;
+        ("-nostdlib", "-lgcc", "-lc");
+
+      for Required_Switches use Linker'Required_Switches &amp;
+	("-T", "${RUNTIME_DIR(ada)}/adalib/due-flash.ld");
+   end Linker;
+
+   package Binder is
+      for Required_Switches ("Ada") use Binder'Required_Switches ("Ada")
+        &amp; ("-nostdlib");
+   end Binder;
+   </config>
+  </configuration>
+</gprconfig>
