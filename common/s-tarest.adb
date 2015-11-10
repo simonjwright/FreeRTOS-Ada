@@ -40,8 +40,8 @@
 with Ada.Unchecked_Conversion;
 with Interfaces;
 with System.Address_To_Access_Conversions;
-with System.FreeRTOS.Memory;
 with System.FreeRTOS.TCB;
+with System.Memory;
 
 package body System.Tasking.Restricted.Stages is
 
@@ -112,7 +112,7 @@ package body System.Tasking.Restricted.Stages is
         System.Parameters.Adjust_Storage_Size (Size);
 
       Wrapper_Parameter_Address : constant System.Address :=
-        FreeRTOS.Memory.Malloc (Parameters'Max_Size_In_Storage_Elements);
+        Memory.Alloc (Parameters'Max_Size_In_Storage_Elements);
       Wrapper_Parameter_Access :
         constant Parameters_Conversion.Object_Pointer :=
         Parameters_Conversion.To_Pointer (Wrapper_Parameter_Address);
