@@ -47,7 +47,7 @@ begin
       Err : exception;
    begin
       begin
-         raise Err with "test";
+         raise Err;
       end;
    exception
       when Err => null;
