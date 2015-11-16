@@ -31,11 +31,11 @@
 -- This unit was originally developed by Matthew J Heaney.                  --
 ------------------------------------------------------------------------------
 
---  with Ada.Iterator_Interfaces;
+with Ada.Iterator_Interfaces;
 
 private with Ada.Containers.Hash_Tables;
 private with Ada.Streams;
---  private with Ada.Finalization;
+private with Ada.Finalization;
 
 generic
    type Key_Type is private;
@@ -51,9 +51,9 @@ package Ada.Containers.Bounded_Hashed_Maps is
 
    type Map (Capacity : Count_Type; Modulus : Hash_Type) is tagged private with
       Constant_Indexing => Constant_Reference,
-      Variable_Indexing => Reference;
-      --  Default_Iterator  => Iterate,
-      --  Iterator_Element  => Element_Type;
+      Variable_Indexing => Reference,
+      Default_Iterator  => Iterate,
+      Iterator_Element  => Element_Type;
 
    pragma Preelaborable_Initialization (Map);
 
@@ -71,8 +71,8 @@ package Ada.Containers.Bounded_Hashed_Maps is
    function Has_Element (Position : Cursor) return Boolean;
    --  Equivalent to Position /= No_Element
 
-   --  package Map_Iterator_Interfaces is new
-   --    Ada.Iterator_Interfaces (Cursor, Has_Element);
+   package Map_Iterator_Interfaces is new
+     Ada.Iterator_Interfaces (Cursor, Has_Element);
 
    function "=" (Left, Right : Map) return Boolean;
    --  For each key/element pair in Left, equality attempts to find the key in
@@ -310,8 +310,8 @@ package Ada.Containers.Bounded_Hashed_Maps is
       Process   : not null access procedure (Position : Cursor));
    --  Calls Process for each node in the map
 
-   --  function Iterate (Container : Map)
-   --     return Map_Iterator_Interfaces.Forward_Iterator'class;
+   function Iterate (Container : Map)
+      return Map_Iterator_Interfaces.Forward_Iterator'class;
 
 private
    pragma Inline (Length);
@@ -340,7 +340,7 @@ private
 
    use HT_Types;
    use Ada.Streams;
-   --  use Ada.Finalization;
+   use Ada.Finalization;
 
    procedure Write
      (Stream    : not null access Root_Stream_Type'Class;
@@ -414,18 +414,19 @@ private
      (Hash_Table_Type with Capacity => 0, Modulus => 0);
 
    No_Element : constant Cursor := (Container => null, Node => 0);
-   --  type Iterator is new Limited_Controlled and
-   --    Map_Iterator_Interfaces.Forward_Iterator with
-   --  record
-   --     Container : Map_Access;
-   --  end record;
 
-   --  overriding procedure Finalize (Object : in out Iterator);
+   type Iterator is new Limited_Controlled and
+     Map_Iterator_Interfaces.Forward_Iterator with
+   record
+      Container : Map_Access;
+   end record;
 
-   --  overriding function First (Object : Iterator) return Cursor;
+   overriding procedure Finalize (Object : in out Iterator);
 
-   --  overriding function Next
-   --    (Object   : Iterator;
-   --     Position : Cursor) return Cursor;
+   overriding function First (Object : Iterator) return Cursor;
+
+   overriding function Next
+     (Object   : Iterator;
+      Position : Cursor) return Cursor;
 
 end Ada.Containers.Bounded_Hashed_Maps;

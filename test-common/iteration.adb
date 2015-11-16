@@ -5,12 +5,14 @@
 --  useful, but WITHOUT ANY WARRANTY; without even the implied warranty
 --  of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
+with Ada.Containers.Bounded_Vectors;
+with Ada.Containers.Bounded_Hashed_Maps;
 with Ada.Real_Time;
 
 package body Iteration is
 
-   task T;
-   task body T is
+   task Arrays;
+   task body Arrays is
       subtype Index is Positive range 1 .. 10;
       A : array (Index) of Integer;
       use type Ada.Real_Time.Time;
@@ -27,6 +29,62 @@ package body Iteration is
          end if;
          delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds (2);
       end loop;
-   end T;
+   end Arrays;
+
+   task Vectors;
+   task body Vectors is
+      subtype Index is Positive range 1 .. 10;
+      package Integer_Vectors
+        is new Ada.Containers.Bounded_Vectors (Index_Type => Index,
+                                               Element_Type => Natural);
+      V : Integer_Vectors.Vector (Capacity => 10);
+      use type Ada.Real_Time.Time;
+   begin
+      loop
+         V.Clear;
+         V.Append (New_Item => 0, Count => 10);
+         if (for some J of V => J = 42) then
+            raise Constraint_Error with "existential quantifier succeeded";
+         end if;
+         V.Clear;
+         V.Append (New_Item => 42, Count => 10);
+         if not (for all J of V => J = 42) then
+            raise Constraint_Error with "universal quantifier failed";
+         end if;
+         delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds (2);
+      end loop;
+   end Vectors;
+
+   task Maps;
+   task body Maps is
+      subtype Key_Type is Positive range 1 .. 10;
+      function Hash (Key : Key_Type) return Ada.Containers.Hash_Type
+        is (Ada.Containers.Hash_Type (Key));
+      package Integer_Maps
+        is new Ada.Containers.Bounded_Hashed_Maps (Key_Type => Key_Type,
+                                                   Element_Type => Natural,
+                                                   Hash => Hash,
+                                                   Equivalent_Keys => "=");
+      M : Integer_Maps.Map (Capacity => 10, Modulus => 7);
+      use type Ada.Real_Time.Time;
+   begin
+      loop
+         M.Clear;
+         for J in Key_Type loop
+            M.Insert (Key => J, New_Item => 0);
+         end loop;
+         if (for some J of M => J = 42) then
+            raise Constraint_Error with "existential quantifier succeeded";
+         end if;
+         M.Clear;
+         for J in Key_Type loop
+            M.Insert (Key => J, New_Item => 42);
+         end loop;
+         if not (for all J of M => J = 42) then
+            raise Constraint_Error with "universal quantifier failed";
+         end if;
+         delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds (2);
+      end loop;
+   end Maps;
 
 end Iteration;
