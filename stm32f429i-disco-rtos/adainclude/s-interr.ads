@@ -17,6 +17,11 @@
 --  and a copy of the GCC Runtime Library Exception along with this
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
+--                                                                          --
+------------------------------------------------------------------------------
+
+--  Modified from the GCC 4.9.1 version for the Cortex GNAT RTS
+--  project, for STM32F4.
 
 package System.Interrupts is
 

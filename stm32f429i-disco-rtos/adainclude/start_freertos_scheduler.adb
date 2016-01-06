@@ -18,6 +18,8 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
+--  This is the STM32F4 version.
+
 with System.FreeRTOS.Tasks;
 
 procedure Start_FreeRTOS_Scheduler (Disable_Watchdog : Boolean := True) is
