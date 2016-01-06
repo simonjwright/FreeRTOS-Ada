@@ -18,6 +18,8 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
+--  This is the Arduino Due version.
+
 with Interfaces;
 with System.FreeRTOS.Tasks;
 
