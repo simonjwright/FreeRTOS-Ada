@@ -1,4 +1,4 @@
-// Copyright (C) 2015 Simon Wright <simon@pushface.org>
+// Copyright (C) 2016 Free Software Foundation, Inc.
 //
 // GNAT is free software;  you can  redistribute it  and/or modify it under
 // terms of the  GNU General Public License as published  by the Free Soft-

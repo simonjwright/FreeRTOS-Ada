@@ -1,3 +1,5 @@
+# Copyright (C) 2016 Free Software Foundation, Inc.
+#
 # This file is part of the Cortex GNAT RTS package.
 #
 # The Cortex GNAT RTS package is free software; you can redistribute

@@ -1,10 +1,4 @@
-------------------------------------------------------------------------------
---                                                                          --
---                        GNAT RUN-TIME COMPONENTS                          --
---                                                                          --
---              A D A . T A S K _ I D E N T I F I C A T I O N               --
---                                                                          --
---  Copyright Simon Wright <simon@pushface.org>
+--  Copyright (C) 2016 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
