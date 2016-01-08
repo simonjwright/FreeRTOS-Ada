@@ -32,22 +32,13 @@ DISTRIBUTION_FILES =				\
 
 DISTRIBUTION_FILES +=				\
   first.gpr					\
-  program.gpr					\
   testbed.gpr
 
 DISTRIBUTION_FILES +=				\
   first.adb					\
   first_task.adb				\
   first_task.ads				\
-  handler.adb					\
-  handler.ads					\
-  interrupts.adb				\
-  interrupts.ads				\
-  program.adb					\
-  program.ads					\
-  testbed.adb					\
-  time.adb					\
-  time.ads
+  testbed.adb
 
 dist:: $(DISTRIBUTION_FILES)
 	mkdir $(DIST)/$(THIS)

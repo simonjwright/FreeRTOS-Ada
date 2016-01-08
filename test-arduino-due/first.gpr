@@ -1,11 +1,31 @@
-project first is
-   for main use ("first.adb");
-   for target use "arm-eabi";
-   for runtime ("ada") use project'project_dir & "../arduino-due";
-   for object_dir use ".build";
-   for exec_dir use ".";
-   package builder is
-      for default_Switches ("ada") use
+--  Copyright (C) Simon Wright <simon@pushface.org>
+
+--  This file is part of the Cortex GNAT RTS package.
+--
+--  The Cortex GNAT RTS package is free software; you can redistribute
+--  it and/or modify it under the terms of the GNU General Public
+--  License as published by the Free Software Foundation; either
+--  version 3 of the License, or (at your option) any later version.
+--
+--  This program is distributed in the hope that it will be useful,
+--  but WITHOUT ANY WARRANTY; without even the implied warranty of
+--  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+--  General Public License for more details.
+--
+--  You should have received a copy of the GNU General Public License
+--  along with this program; see the file COPYING3.  If not, see
+--  <http://www.gnu.org/licenses/>.
+
+with "../arduino-due-bsp/arduino_due_bsp";
+
+project First is
+   for Main use ("first.adb");
+   for Target use "arm-eabi";
+   for Runtime ("ada") use project'Project_Dir & "../arduino-due";
+   for Object_Dir use ".build";
+   for Exec_Dir use ".";
+   package Builder is
+      for Default_Switches ("ada") use
         (
          "-g",
          "-Og",
@@ -13,19 +33,19 @@ project first is
          "-fdata-sections",
          "--create-map-file"
         );
-   end builder;
-   package compiler is
-      for default_switches ("ada") use
+   end Builder;
+   package Compiler is
+      for Default_Switches ("ada") use
         (
          "-gnatqQafoy",
          "-gnatwaL",
          "-gnatwaL.X");
-   end compiler;
+   end Compiler;
    package Linker is
       for Default_Switches ("ada") use
         (
          "-Wl,-gc-sections",
-         "-Wl,-Map," & Project'Project_Dir
+         "-Wl,-Map," & project'Project_Dir
         );
    end Linker;
-end first;
+end First;

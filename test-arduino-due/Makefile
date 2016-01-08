@@ -16,16 +16,13 @@
 
 all:: testbed
 
-programs = first testbed program
+programs = first testbed
 
 testbed: force
 	gprbuild -p -P testbed.gpr
 
 first: force
 	gprbuild -p -P first.gpr
-
-program: force
-	gprbuild -p -P program.gpr
 
 %.bin: %
 	arm-eabi-objcopy -O binary $< $@
