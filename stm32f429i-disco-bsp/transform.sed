@@ -30,7 +30,7 @@
 s/pragma Ada_2005/pragma Ada_2012/
 
 # Don't need stdint.h
-/with stdint_h;/d
+/with (sys_u)?stdint_h;/d
 
 # Need to 'use' stm32f429xx_h
 s/with stm32f429xx_h;/with stm32f429xx_h; use stm32f429xx_h;/
@@ -105,7 +105,7 @@ s/--  unsupported macro: ([a-zA-Z0-9_]+_TypeDef) ([a-zA-Z0-9_]+_TypeDef)/subtype
 s/--  unsupported macro: ([a-zA-Z0-9_]+) (.*)/\1 : constant := \2;/
 
 # Unsigned types in parameters/record components
-s/stdint_h.uint(8|16|32|64)_t/Interfaces.Unsigned_\1/g
+s/(sys_u)?stdint_h.uint(8|16|32|64)_t/Interfaces.Unsigned_\2/g
 
 # Case collision in stm32f4xx_ll_fmc_h.ads
 s/(FMC_NAND_ECC_(DIS|EN)ABLE)/\1_C/
