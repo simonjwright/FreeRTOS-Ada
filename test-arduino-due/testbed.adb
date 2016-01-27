@@ -19,10 +19,6 @@
 --  This program has no visible functionality; the idea is to use the
 --  debugger to check that the expected effect has happened.
 
-with First_Task;
-pragma Unreferenced (First_Task);
---  Tasking, interrupts
-
 with Containing;
 --  Ada.Containers
 

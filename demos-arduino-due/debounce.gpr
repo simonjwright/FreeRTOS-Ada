@@ -1,0 +1,51 @@
+--  Copyright (C) 2016 Free Software Foundation, Inc.
+
+--  This file is part of the Cortex GNAT RTS package.
+--
+--  The Cortex GNAT RTS package is free software; you can redistribute
+--  it and/or modify it under the terms of the GNU General Public
+--  License as published by the Free Software Foundation; either
+--  version 3 of the License, or (at your option) any later version.
+--
+--  This program is distributed in the hope that it will be useful,
+--  but WITHOUT ANY WARRANTY; without even the implied warranty of
+--  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+--  General Public License for more details.
+--
+--  You should have received a copy of the GNU General Public License
+--  along with this program; see the file COPYING3.  If not, see
+--  <http://www.gnu.org/licenses/>.
+
+with "../arduino-due-bsp/arduino_due_bsp";
+
+project Debounce is
+   for Main use ("debounce.adb");
+   for Target use "arm-eabi";
+   for Runtime ("ada") use project'Project_Dir & "../arduino-due";
+   for Object_Dir use ".build";
+   for Exec_Dir use ".";
+   package Builder is
+      for Default_Switches ("ada") use
+        (
+         "-g",
+         "-Og",
+         "-ffunction-sections",
+         "-fdata-sections",
+         "--create-map-file"
+        );
+   end Builder;
+   package Compiler is
+      for Default_Switches ("ada") use
+        (
+         "-gnatqQafoy",
+         "-gnatwaL",
+         "-gnatwaL.X");
+   end Compiler;
+   package Linker is
+      for Default_Switches ("ada") use
+        (
+         "-Wl,-gc-sections",
+         "-Wl,-Map," & project'Project_Dir
+        );
+   end Linker;
+end Debounce;
