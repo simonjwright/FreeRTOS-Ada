@@ -1,9 +1,7 @@
-# Copyright Simon Wright <simon@pushface.org>
-#
-# Copying and distribution of this file, with or without modification,
-# are permitted in any medium without royalty provided the copyright
-# notice and this notice are preserved.  This file is offered as-is,
-# without any warranty.
+# This file is free software; you can redistribute it and/or modify it
+# as you wish. This file is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 all::
 

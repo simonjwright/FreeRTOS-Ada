@@ -5,10 +5,10 @@
 --                               S Y S T E M                                --
 --                                                                          --
 --                                 S p e c                                  --
---                          (ARM Cortex M4 Version)                         --
+--                          (ARM Cortex M Version)                          --
 --                 (Derived from GNU-Linux/ARMEL Version)                   --
 --                                                                          --
---          Copyright (C) 1992-2010, Free Software Foundation, Inc.         --
+--       Copyright (C) 1992-2010, 2016, Free Software Foundation, Inc.      --
 --                                                                          --
 -- This specification is derived from the Ada Reference Manual for use with --
 -- GNAT. The copyright notice above, and the license provisions that follow --

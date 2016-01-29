@@ -8,6 +8,7 @@
 --                                                                          --
 --            Copyright (C) 1991-1994, Florida State University             --
 --                     Copyright (C) 1995-2011, AdaCore                     --
+--            Copyright (C) 2016, Free Software Foundation Inc.             --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --

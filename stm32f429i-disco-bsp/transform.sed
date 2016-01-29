@@ -1,3 +1,21 @@
+# Copyright (C) 2016 Free Software Foundation, Inc.
+#
+# This file is part of the Cortex GNAT RTS package.
+#
+# The Cortex GNAT RTS package is free software; you can redistribute
+# it and/or modify it under the terms of the GNU General Public
+# License as published by the Free Software Foundation; either version
+# 3 of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; see the file COPYING3.  If not, see
+#  <http://www.gnu.org/licenses/>.
+
 # This sed script processes the raw output of arm-eabi-gcc
 # -fdump-ada-spec run on STMicroelectronics' Cube headers into
 # something more useful; especially, turns most "unsupported macros"
@@ -12,7 +30,7 @@
 s/pragma Ada_2005/pragma Ada_2012/
 
 # Don't need stdint.h
-/with stdint_h;/d
+/with (sys_u)?stdint_h;/d
 
 # Need to 'use' stm32f429xx_h
 s/with stm32f429xx_h;/with stm32f429xx_h; use stm32f429xx_h;/
@@ -87,7 +105,7 @@ s/--  unsupported macro: ([a-zA-Z0-9_]+_TypeDef) ([a-zA-Z0-9_]+_TypeDef)/subtype
 s/--  unsupported macro: ([a-zA-Z0-9_]+) (.*)/\1 : constant := \2;/
 
 # Unsigned types in parameters/record components
-s/stdint_h.uint(8|16|32|64)_t/Interfaces.Unsigned_\1/g
+s/(sys_u)?stdint_h.uint(8|16|32|64)_t/Interfaces.Unsigned_\2/g
 
 # Case collision in stm32f4xx_ll_fmc_h.ads
 s/(FMC_NAND_ECC_(DIS|EN)ABLE)/\1_C/

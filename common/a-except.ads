@@ -1,4 +1,4 @@
---  Copyright Simon Wright <simon@pushface.org>
+--  Copyright (C) 2016 Free Software Foundation, Inc.
 --
 --  This specification is derived from the Ada Reference Manual for
 --  use with GNAT. The copyright notice above, and the license
