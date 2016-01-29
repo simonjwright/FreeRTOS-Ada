@@ -27,6 +27,13 @@
 -- This unit was originally developed by Matthew J Heaney.                  --
 ------------------------------------------------------------------------------
 
+--  Modified from the 4.9.1 release for the Cortex GNAT Runtime System
+--  project.
+--
+--  The changes consist of suppressing finalization (not supported in
+--  the RTS), generalized iteration (which relies on finalization),
+--  and exception handling (not supported in the RTS).
+
 pragma Style_Checks (Off);
 
 with Ada.Containers.Generic_Array_Sort;

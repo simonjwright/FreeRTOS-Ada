@@ -31,6 +31,12 @@
 -- This unit was originally developed by Matthew J Heaney.                  --
 ------------------------------------------------------------------------------
 
+--  Modified from the 4.9.1 release for the Cortex GNAT Runtime System
+--  project.
+--
+--  The changes consist of suppressing finalization (not supported in
+--  the RTS) and generalized iteration (which relies on finalization).
+
 --  with Ada.Iterator_Interfaces;
 
 private with Ada.Streams;
