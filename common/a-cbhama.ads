@@ -35,9 +35,10 @@
 --  project.
 --
 --  The changes consist of suppressing finalization (not supported in
---  the RTS) and generalized iteration (which relies on finalization).
+--  the RTS) and tampering checks (so that generalized iteration need
+--  not rely on finalization).
 
---  with Ada.Iterator_Interfaces;
+with Ada.Iterator_Interfaces;
 
 private with Ada.Containers.Hash_Tables;
 private with Ada.Streams;
@@ -57,9 +58,9 @@ package Ada.Containers.Bounded_Hashed_Maps is
 
    type Map (Capacity : Count_Type; Modulus : Hash_Type) is tagged private with
       Constant_Indexing => Constant_Reference,
-      Variable_Indexing => Reference;
-      --  Default_Iterator  => Iterate,
-      --  Iterator_Element  => Element_Type;
+      Variable_Indexing => Reference,
+      Default_Iterator  => Iterate,
+      Iterator_Element  => Element_Type;
 
    pragma Preelaborable_Initialization (Map);
 
@@ -77,8 +78,8 @@ package Ada.Containers.Bounded_Hashed_Maps is
    function Has_Element (Position : Cursor) return Boolean;
    --  Equivalent to Position /= No_Element
 
-   --  package Map_Iterator_Interfaces is new
-   --    Ada.Iterator_Interfaces (Cursor, Has_Element);
+   package Map_Iterator_Interfaces is new
+     Ada.Iterator_Interfaces (Cursor, Has_Element);
 
    function "=" (Left, Right : Map) return Boolean;
    --  For each key/element pair in Left, equality attempts to find the key in
@@ -316,8 +317,8 @@ package Ada.Containers.Bounded_Hashed_Maps is
       Process   : not null access procedure (Position : Cursor));
    --  Calls Process for each node in the map
 
-   --  function Iterate (Container : Map)
-   --     return Map_Iterator_Interfaces.Forward_Iterator'class;
+   function Iterate (Container : Map)
+      return Map_Iterator_Interfaces.Forward_Iterator'class;
 
 private
    pragma Inline (Length);
@@ -420,18 +421,18 @@ private
      (Hash_Table_Type with Capacity => 0, Modulus => 0);
 
    No_Element : constant Cursor := (Container => null, Node => 0);
-   --  type Iterator is new Limited_Controlled and
-   --    Map_Iterator_Interfaces.Forward_Iterator with
-   --  record
-   --     Container : Map_Access;
-   --  end record;
+   type Iterator is new -- Limited_Controlled and
+     Map_Iterator_Interfaces.Forward_Iterator with
+   record
+      Container : Map_Access;
+   end record;
 
    --  overriding procedure Finalize (Object : in out Iterator);
 
-   --  overriding function First (Object : Iterator) return Cursor;
+   overriding function First (Object : Iterator) return Cursor;
 
-   --  overriding function Next
-   --    (Object   : Iterator;
-   --     Position : Cursor) return Cursor;
+   overriding function Next
+     (Object   : Iterator;
+      Position : Cursor) return Cursor;
 
 end Ada.Containers.Bounded_Hashed_Maps;

@@ -31,8 +31,8 @@
 --  project.
 --
 --  The changes consist of suppressing finalization (not supported in
---  the RTS), generalized iteration (which relies on finalization),
---  and exception handling (not supported in the RTS).
+--  the RTS) and tampering checks (so that generalized iteration need
+--  not rely on finalization).
 
 with Ada.Containers.Hash_Tables.Generic_Bounded_Operations;
 pragma Elaborate_All (Ada.Containers.Hash_Tables.Generic_Bounded_Operations);
@@ -482,10 +482,10 @@ package body Ada.Containers.Bounded_Hashed_Maps is
       end if;
    end First;
 
-   --  function First (Object : Iterator) return Cursor is
-   --  begin
-   --     return Object.Container.First;
-   --  end First;
+   function First (Object : Iterator) return Cursor is
+   begin
+      return Object.Container.First;
+   end First;
 
    -----------------
    -- Has_Element --
@@ -732,21 +732,20 @@ package body Ada.Containers.Bounded_Hashed_Maps is
       B := B - 1;
    end Iterate;
 
-   pragma Style_Checks (Off);
-   --  function Iterate
-   --    (Container : Map) return Map_Iterator_Interfaces.Forward_Iterator'Class
-   --  is
-   --     B  : Natural renames Container'Unrestricted_Access.all.Busy;
+   function Iterate
+     (Container : Map) return Map_Iterator_Interfaces.Forward_Iterator'Class
+   is
+      --  B  : Natural renames Container'Unrestricted_Access.all.Busy;
 
-   --  begin
-   --     return It : constant Iterator :=
-   --       (Limited_Controlled with
-   --          Container => Container'Unrestricted_Access)
-   --     do
-   --        B := B + 1;
-   --     end return;
-   --  end Iterate;
-   pragma Style_Checks (On);
+   begin
+      return It : constant Iterator :=
+        ( -- Limited_Controlled with
+           Container => Container'Unrestricted_Access)
+      do
+         null;
+         --  B := B + 1;
+      end return;
+   end Iterate;
 
    ---------
    -- Key --
@@ -829,22 +828,22 @@ package body Ada.Containers.Bounded_Hashed_Maps is
       Position := Next (Position);
    end Next;
 
-   --  function Next
-   --    (Object   : Iterator;
-   --     Position : Cursor) return Cursor
-   --  is
-   --  begin
-   --     if Position.Container = null then
-   --        return No_Element;
-   --     end if;
+   function Next
+     (Object   : Iterator;
+      Position : Cursor) return Cursor
+   is
+   begin
+      if Position.Container = null then
+         return No_Element;
+      end if;
 
-   --     if Position.Container /= Object.Container then
-   --        raise Program_Error with
-   --          "Position cursor of Next designates wrong map";
-   --     end if;
+      if Position.Container /= Object.Container then
+         raise Program_Error with
+           "Position cursor of Next designates wrong map";
+      end if;
 
-   --     return Next (Position);
-   --  end Next;
+      return Next (Position);
+   end Next;
 
    -------------------
    -- Query_Element --

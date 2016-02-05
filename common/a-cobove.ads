@@ -35,9 +35,10 @@
 --  project.
 --
 --  The changes consist of suppressing finalization (not supported in
---  the RTS) and generalized iteration (which relies on finalization).
+--  the RTS) and tampering checks (so that generalized iteration need
+--  not rely on finalization).
 
---  with Ada.Iterator_Interfaces;
+with Ada.Iterator_Interfaces;
 
 private with Ada.Streams;
 --  private with Ada.Finalization;
@@ -60,9 +61,9 @@ package Ada.Containers.Bounded_Vectors is
 
    type Vector (Capacity : Count_Type) is tagged private with
       Constant_Indexing => Constant_Reference,
-      Variable_Indexing => Reference;
-      --  Default_Iterator  => Iterate,
-      --  Iterator_Element  => Element_Type;
+      Variable_Indexing => Reference,
+      Default_Iterator  => Iterate,
+      Iterator_Element  => Element_Type;
 
    pragma Preelaborable_Initialization (Vector);
 
@@ -75,8 +76,8 @@ package Ada.Containers.Bounded_Vectors is
 
    function Has_Element (Position : Cursor) return Boolean;
 
-   --  package Vector_Iterator_Interfaces is new
-   --     Ada.Iterator_Interfaces (Cursor, Has_Element);
+   package Vector_Iterator_Interfaces is new
+      Ada.Iterator_Interfaces (Cursor, Has_Element);
 
    overriding function "=" (Left, Right : Vector) return Boolean;
 
@@ -334,14 +335,14 @@ package Ada.Containers.Bounded_Vectors is
      (Container : Vector;
       Process   : not null access procedure (Position : Cursor));
 
-   --  function Iterate
-   --    (Container : Vector)
-   --     return Vector_Iterator_Interfaces.Reversible_Iterator'Class;
+   function Iterate
+     (Container : Vector)
+      return Vector_Iterator_Interfaces.Reversible_Iterator'Class;
 
-   --  function Iterate
-   --    (Container : Vector;
-   --     Start     : Cursor)
-   --     return Vector_Iterator_Interfaces.Reversible_Iterator'class;
+   function Iterate
+     (Container : Vector;
+      Start     : Cursor)
+      return Vector_Iterator_Interfaces.Reversible_Iterator'class;
 
    generic
       with function "<" (Left, Right : Element_Type) return Boolean is <>;
@@ -379,8 +380,8 @@ private
    type Vector (Capacity : Count_Type) is tagged record
       Elements : Elements_Array (1 .. Capacity) := (others => <>);
       Last     : Extended_Index := No_Index;
-      Busy     : Natural := 0;
-      Lock     : Natural := 0;
+      --  Busy     : Natural := 0;
+      --  Lock     : Natural := 0;
    end record;
 
    procedure Write
@@ -449,24 +450,24 @@ private
 
    No_Element : constant Cursor := Cursor'(null, Index_Type'First);
 
-   --  type Iterator is new Limited_Controlled and
-   --    Vector_Iterator_Interfaces.Reversible_Iterator with
-   --  record
-   --     Container : Vector_Access;
-   --     Index     : Index_Type'Base;
-   --  end record;
+   type Iterator is new  -- Limited_Controlled and
+     Vector_Iterator_Interfaces.Reversible_Iterator with
+   record
+      Container : Vector_Access;
+      Index     : Index_Type'Base;
+   end record;
 
    --  overriding procedure Finalize (Object : in out Iterator);
 
-   --  overriding function First (Object : Iterator) return Cursor;
-   --  overriding function Last  (Object : Iterator) return Cursor;
+   overriding function First (Object : Iterator) return Cursor;
+   overriding function Last  (Object : Iterator) return Cursor;
 
-   --  overriding function Next
-   --    (Object   : Iterator;
-   --     Position : Cursor) return Cursor;
+   overriding function Next
+     (Object   : Iterator;
+      Position : Cursor) return Cursor;
 
-   --  overriding function Previous
-   --    (Object   : Iterator;
-   --     Position : Cursor) return Cursor;
+   overriding function Previous
+     (Object   : Iterator;
+      Position : Cursor) return Cursor;
 
 end Ada.Containers.Bounded_Vectors;
