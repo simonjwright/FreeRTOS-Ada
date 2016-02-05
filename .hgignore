@@ -32,3 +32,11 @@ demo_leds-stm32f429i-disco/demo
 demo-stm32f429i-disco-bsp/ada_delay
 demo-stm32f429i-disco-rtos/demo_cmsis
 demo-stm32f429i-disco-rtos/demo_tasking
+demo-stm32f429i-disco-rtos/lcd
+
+demos-arduino-due/debounce
+demos-arduino-due/first
+
+test-arduino-due/testbed
+
+test-stm32f4/

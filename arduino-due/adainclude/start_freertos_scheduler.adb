@@ -26,14 +26,15 @@ with System.FreeRTOS.Tasks;
 procedure Start_FreeRTOS_Scheduler (Disable_Watchdog : Boolean := True) is
    --  The Watchdog Timer Mode Register. See
    --  Atmel-11057C-ATARM-SAM3X-SAM3A-Datasheet_23-Mar-15, section
-   --  15.5.2.
+   --  15.5.4.
    WDT_MR : Interfaces.Unsigned_32
      with
        Import,
        Convention => Ada,
        Volatile,
        Address => System'To_Address (16#400E1A54#);
-   WDT_MR_WDDIS : constant Interfaces.Unsigned_32 := 16#0000_8000#; -- bit 15
+   WDT_MR_WDDIS : constant Interfaces.Unsigned_32
+     := Interfaces.Shift_Left (1, 15);  -- bit 15
 begin
    if Disable_Watchdog then
       WDT_MR := WDT_MR_WDDIS;
