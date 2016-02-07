@@ -5,16 +5,19 @@ the STM32F4-series evaluation boards from STMicroelectronics at
 http://www.st.com). A particular release may not contain all of the
 RTSs.
 
+The Ada source is either original or based on GCC 4.9.1.
+
 (1) arduino-due is a Ravenscar-style RTOS based on FreeRTOS from
     http://www.freertos.org.
 
     See arduino-due/COPYING* for licensing terms.
 
     Tests in test-arduino-due/.
+    Demos in demos-arduino-due/.
 
 (2) stm32f429i-disco-rtos is a Ravenscar-style RTS based on the ST
     Cube BSPs from STMicroelectronics and their packaged FreeRTOS
-    kernel. The Ada source is based on GCC 4.9.1.
+    kernel.
 
     See stm32f429i-disco-rtos/COPYING* for licensing terms.
 
