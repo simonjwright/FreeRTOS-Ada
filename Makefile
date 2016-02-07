@@ -30,7 +30,8 @@ subdirs =					\
 subdirs +=					\
   arduino-due					\
   arduino-due-bsp				\
-  test-arduino-due
+  test-arduino-due				\
+  demos-arduino-due
 
 subdirs +=					\
   stm32f429i-disco-rtos				\

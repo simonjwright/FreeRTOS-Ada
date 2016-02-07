@@ -16,6 +16,9 @@
 --  along with this program; see the file COPYING3.  If not, see
 --  <http://www.gnu.org/licenses/>.
 
+--  This package, in file debounce_hardware.adb, is the
+--  hardware-implemented version of debouncing.
+
 with Ada.Interrupts.Names;
 with Ada.Real_Time;
 with Interfaces;
@@ -29,7 +32,7 @@ use Registers.ATSAM3X8.PIO;
 use Registers.ATSAM3X8.PMC;
 use Registers.ATSAM3X8.Peripheral_Identifiers;
 
-package body Debounce_Hardware is
+package body Debounce_Impl is
 
    --  The input pin is PB14 (digital pin 53).
    Input_Pin : constant := 14;
@@ -124,7 +127,7 @@ begin
    PIOB.DIFSR := (Input_Pin => 1, others => 0);
 
    --  .. enable debounce ..
-   --   PIOB.IFER := (Input_Pin => 1, others => 0);
+   PIOB.IFER := (Input_Pin => 1, others => 0);
 
    --  .. enable interrupts.
    PIOB.IER := (Input_Pin => 1, others => 0);
@@ -135,4 +138,4 @@ begin
    --  .. as output.
    PIOB.OER := (Output_Pin => 1, others => 0);
 
-end Debounce_Hardware;
+end Debounce_Impl;

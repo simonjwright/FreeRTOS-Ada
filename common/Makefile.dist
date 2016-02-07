@@ -54,6 +54,7 @@ RTS_DISTRIBUTION_FILES +=			\
   a-except.adb					\
   a-except.ads					\
   a-ioexce.ads					\
+  a-iteint.ads					\
   a-reatim.adb					\
   a-reatim.ads					\
   a-retide.adb					\
@@ -131,7 +132,6 @@ RTS_DISTRIBUTION_FILES +=			\
   s-valuns.ads					\
   s-valuti.adb					\
   s-valuti.ads					\
-  start_freertos_scheduler.adb			\
   start_freertos_scheduler.ads			\
   system.ads
 

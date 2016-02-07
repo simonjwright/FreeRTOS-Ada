@@ -19,12 +19,22 @@
 with "../arduino-due-bsp/arduino_due_bsp";
 
 project Debounce is
+
+   type Implementation_Type is ("software", "hardware");
+   Implementation : Implementation_Type := external ("IMPL", "software");
+
    for Main use ("debounce.adb");
    for Target use "arm-eabi";
    for Runtime ("ada") use project'Project_Dir & "../arduino-due";
-   for Object_Dir use ".build";
+   for Object_Dir use ".build-" & Implementation;
    for Exec_Dir use ".";
+
+   package Naming is
+      for Body ("Debounce_Impl") use "debounce_" & Implementation & ".adb";
+   end Naming;
+
    package Builder is
+      for Executable ("debounce.adb") use "debounce_" & Implementation;
       for Default_Switches ("ada") use
         (
          "-g",

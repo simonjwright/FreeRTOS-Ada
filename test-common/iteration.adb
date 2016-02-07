@@ -22,17 +22,7 @@ with Ada.Real_Time;
 
 package body Iteration is
 
-   type FreeRTOS_Task_P is access Integer;
-   function Stack_High_Water_Mark
-     (Tsk : FreeRTOS_Task_P := null)
-     return Integer
-     with Import,
-     Convention => C,
-     External_Name => "uxTaskGetStackHighWaterMark";
-
-   Hwm_Arrays, Hwm_Vectors, Hwm_Maps : Integer with Volatile;
-
-   task Arrays with Storage_Size => 2048;
+   task Arrays with Storage_Size => 1024;
    task body Arrays is
       subtype Index is Positive range 1 .. 10;
       A : array (Index) of Integer;
@@ -40,7 +30,6 @@ package body Iteration is
       use Ada.Real_Time;
    begin
       loop
-         Hwm_Arrays := Stack_High_Water_Mark;
          A := (others => 0);
          if (for some J of A => J = 42) then
             raise Constraint_Error with "existential quantifier succeeded";
@@ -64,7 +53,6 @@ package body Iteration is
    begin
       delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds (1);
       loop
-         Hwm_Vectors := Stack_High_Water_Mark;
          V.Clear;
          V.Append (New_Item => 0, Count => 10);
          if (for some J of V => J = 42) then
@@ -94,7 +82,6 @@ package body Iteration is
    begin
       delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds (2);
       loop
-         Hwm_Maps := Stack_High_Water_Mark;
          M.Clear;
          for J in Key_Type loop
             M.Insert (Key => J, New_Item => 0);

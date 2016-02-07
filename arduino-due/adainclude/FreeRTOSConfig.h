@@ -80,10 +80,10 @@
  *----------------------------------------------------------*/
 
 /* Ensure stdint is only used by the compiler, and not the assembler. */
-/* #if defined(__ICCARM__) || defined(__CC_ARM) || defined(__GNUC__) */
-/* 	#include <stdint.h> */
-/* 	extern uint32_t SystemCoreClock; */
-/* #endif */
+#if defined(__ICCARM__) || defined(__CC_ARM) || defined(__GNUC__)
+	#include <stdint.h>
+	extern uint32_t SystemCoreClock;
+#endif
 
 
 #define configUSE_PREEMPTION			1
@@ -133,7 +133,7 @@
 /* Updated for FreeRTOS 8, per http://www.freertos.org/a00110.html */
 #define INCLUDE_eTaskGetState                   0
 #define INCLUDE_pcTaskGetTaskName               0
-#define INCLUDE_uxTaskGetStackHighWaterMark     1
+#define INCLUDE_uxTaskGetStackHighWaterMark     0
 #define INCLUDE_uxTaskPriorityGet               1
 #define INCLUDE_vTaskCleanUpResources	        0
 #define INCLUDE_vTaskDelay                      1

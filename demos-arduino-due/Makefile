@@ -1,8 +1,6 @@
-# -*- Makefile -*-
+# This file is part of the Cortex GNAT RTS package.
 #
 # Copyright (C) 2016 Free Software Foundation, Inc.
-#
-# This file is part of the Cortex GNAT RTS package.
 #
 # The Cortex GNAT RTS package is free software; you can redistribute
 # it and/or modify it under the terms of the GNU General Public
@@ -18,29 +16,26 @@
 #  along with this program; see the file COPYING3.  If not, see
 #  <http://www.gnu.org/licenses/>.
 
-# To avoid disaster
-ifndef DIST
-  $(error Must define DIST)
-endif
+all:: first
 
-all: ; $(error Only to be used to build distributions)
+first: force
+	gprbuild -p -P first.gpr
 
-dist::
+debounce: debounce_software debounce_hardware
 
-THIS := test-arduino-due
+debounce_software: force
+	gprbuild -p -P debounce.gpr -XIMPL=software
 
-DISTRIBUTION_FILES =				\
-  Makefile
+debounce_hardware: force
+	gprbuild -p -P debounce.gpr -XIMPL=hardware
 
-DISTRIBUTION_FILES +=				\
-  testbed.gpr
+%.bin: %
+	arm-eabi-objcopy -O binary $< $@
 
-DISTRIBUTION_FILES +=				\
-  testbed.adb
+clean:
+	-gprclean -P first
+	-gprclean -P debounce -XIMPL=software
+	-gprclean -P debounce -XIMPL=hardware
+	rm -f *.bin
 
-dist:: $(DISTRIBUTION_FILES)
-	mkdir $(DIST)/$(THIS)
-	tar cf - $(DISTRIBUTION_FILES) | \
-	  tar xvf - -C $(DIST)/$(THIS)
-
-.PHONY: all dist
+.PHONY: all build clean force

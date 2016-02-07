@@ -1,4 +1,4 @@
-20150825
+201602dd
 ========
 
 This release includes an RTS for the Arduino Due, arduino-due, and a
@@ -7,9 +7,18 @@ minimal BSP, arduino-due-bsp.
 For the STM32F429I-DISCO, there is one RTS, stm32f429i-disco-rtos, and
 one BSP, stm32f429i-disco-bsp.
 
-There have been no changes to the RTS from the previous release. The
-standard packages included (there are more, implementation-specific,
-ones) are:
+In this release,
+
+* the Containers support generalized iteration ("for all E of C
+  loop"). Note, this is achieved by removing tampering checks. While
+  tampering errors are rare, it would be as well to check algorithms
+  using a fully-featured desktop compiler.
+
+* FreeRTOS is configured to detect stack overflow (if it is detected,
+  the RTS loops inside vApplicationStackOverflowHook()).
+
+The standard packages included (there are more,
+implementation-specific, ones) are:
 
 Ada
 Ada.Containers
@@ -19,6 +28,7 @@ Ada.Exceptions
 Ada.IO_Exceptions
 Ada.Interrupts
 Ada.Interrupts.Names
+Ada.Iterator_Interfaces
 Ada.Real_Time
 Ada.Streams
 Ada.Synchronous_Task_Control

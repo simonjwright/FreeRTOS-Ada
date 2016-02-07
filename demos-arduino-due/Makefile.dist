@@ -27,16 +27,23 @@ all: ; $(error Only to be used to build distributions)
 
 dist::
 
-THIS := test-arduino-due
+THIS := demos-arduino-due
 
 DISTRIBUTION_FILES =				\
   Makefile
 
 DISTRIBUTION_FILES +=				\
-  testbed.gpr
+  first.gpr					\
+  first.adb					\
+  first_task.adb				\
+  first_task.ads
 
 DISTRIBUTION_FILES +=				\
-  testbed.adb
+  debounce.gpr					\
+  debounce.adb					\
+  debounce_impl.ads				\
+  debounce_hardware.adb				\
+  debounce_software.adb
 
 dist:: $(DISTRIBUTION_FILES)
 	mkdir $(DIST)/$(THIS)
