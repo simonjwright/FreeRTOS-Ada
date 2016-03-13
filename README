@@ -12,7 +12,19 @@ RTSs.
 
     Tests in test-arduino-due/.
 
-(2) stm32f429i-disco-rtos is a Ravenscar-style RTS based on the ST
+    arduino-due-bsp/ contains some initial support for board
+    peripherals.
+
+(2) stm32f429i is a Ravenscar-style RTOS based on FreeRTOS from
+    http://www.freertos.org.
+
+    See stm32f429i/COPYING* for licensing terms.
+
+    Board support (spec files only) is included in the RTS.
+
+    Tests in test-stm32f429i/.
+
+(3) stm32f429i-disco-rtos is a Ravenscar-style RTS based on the ST
     Cube BSPs from STMicroelectronics and their packaged FreeRTOS
     kernel. The Ada source is based on GCC 4.9.1.
 
@@ -20,3 +32,5 @@ RTSs.
 
     Tests in test-stm32f4/.
     Demos in demo-stm32f429i-disco-rtos/.
+
+    Board support in stm32f429i-disco-bsp/.

@@ -27,7 +27,7 @@ all: ; $(error Only to be used to build distributions)
 
 dist::
 
-THIS := test-arduino-due
+THIS := test-stm32f429i
 
 DISTRIBUTION_FILES =				\
   Makefile
@@ -36,7 +36,11 @@ DISTRIBUTION_FILES +=				\
   testbed.gpr
 
 DISTRIBUTION_FILES +=				\
-  testbed.adb
+  testbed.adb					\
+  floating_point.ads				\
+  floating_point.adb				\
+  heartbeat.ads					\
+  heartbeat.adb
 
 dist:: $(DISTRIBUTION_FILES)
 	mkdir $(DIST)/$(THIS)

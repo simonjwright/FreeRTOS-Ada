@@ -1,5 +1,3 @@
-# -*- Makefile -*-
-#
 # Copyright (C) 2016 Free Software Foundation, Inc.
 #
 # This file is part of the Cortex GNAT RTS package.
@@ -14,33 +12,14 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
-#  You should have received a copy of the GNU General Public License
-#  along with this program; see the file COPYING3.  If not, see
-#  <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License
+# along with this program; see the file COPYING3. If not, see
+# <http://www.gnu.org/licenses/>.
 
-# To avoid disaster
-ifndef DIST
-  $(error Must define DIST)
-endif
+all:
+	gprbuild -p -P build_runtime.gpr
 
-all: ; $(error Only to be used to build distributions)
+clean:
+	gprclean -P build_runtime.gpr
 
-dist::
-
-THIS := test-arduino-due
-
-DISTRIBUTION_FILES =				\
-  Makefile
-
-DISTRIBUTION_FILES +=				\
-  testbed.gpr
-
-DISTRIBUTION_FILES +=				\
-  testbed.adb
-
-dist:: $(DISTRIBUTION_FILES)
-	mkdir $(DIST)/$(THIS)
-	tar cf - $(DISTRIBUTION_FILES) | \
-	  tar xvf - -C $(DIST)/$(THIS)
-
-.PHONY: all dist
+.PHONY: all clean

@@ -1,5 +1,3 @@
-# -*- Makefile -*-
-#
 # Copyright (C) 2016 Free Software Foundation, Inc.
 #
 # This file is part of the Cortex GNAT RTS package.
@@ -18,29 +16,18 @@
 #  along with this program; see the file COPYING3.  If not, see
 #  <http://www.gnu.org/licenses/>.
 
-# To avoid disaster
-ifndef DIST
-  $(error Must define DIST)
-endif
+all: testbed.bin
 
-all: ; $(error Only to be used to build distributions)
+testbed: force
+	gprbuild -p -P testbed
+clean::
+	gprclean -P testbed
 
-dist::
+clean::
+	-rm *~ *.ali *.o *.bin
+	-rm -rf .build
 
-THIS := test-arduino-due
+%.bin: %
+	arm-eabi-objcopy -O binary $^ $@
 
-DISTRIBUTION_FILES =				\
-  Makefile
-
-DISTRIBUTION_FILES +=				\
-  testbed.gpr
-
-DISTRIBUTION_FILES +=				\
-  testbed.adb
-
-dist:: $(DISTRIBUTION_FILES)
-	mkdir $(DIST)/$(THIS)
-	tar cf - $(DISTRIBUTION_FILES) | \
-	  tar xvf - -C $(DIST)/$(THIS)
-
-.PHONY: all dist
+.PHONY: all clean force

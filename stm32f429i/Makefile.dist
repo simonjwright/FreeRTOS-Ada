@@ -27,7 +27,7 @@ all: ; $(error Only to be used to build distributions)
 
 dist::
 
-THIS := arduino-due
+THIS := stm32f429i
 
 RTS_DISTRIBUTION_FILES =			\
   README					\
@@ -55,12 +55,13 @@ RTS_DISTRIBUTION_FILES +=			\
 
 RTS_DISTRIBUTION_FILES +=			\
   adainclude/FreeRTOSConfig.h			\
-  adainclude/heap_4.c				\
-  adainclude/_init.c				\
-  adainclude/syscalls.c
+  adainclude/heap_4.c
 
 RTS_DISTRIBUTION_FILES +=                       \
-  adalib/due-flash.ld
+  stm32f429x/*.ads
+
+RTS_DISTRIBUTION_FILES +=                       \
+  adalib/stm32f429i-flash.ld
 
 dist:: $(RTS_DISTRIBUTION_FILES)
 	mkdir $(DIST)/$(THIS)

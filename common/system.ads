@@ -40,8 +40,6 @@
 
 pragma Profile (Ravenscar);
 
-pragma Discard_Names;
-pragma Normalize_Scalars;
 pragma Restrictions (No_Enumeration_Maps);
 pragma Restrictions (No_Exception_Propagation);
 pragma Restrictions (No_Recursion);
@@ -49,6 +47,8 @@ pragma Restrictions (No_Recursion);
 --  pragma Restrictions (No_Implicit_Dynamic_Code) not applied; it
 --  forbids trampolines, which are needed for 'Unrestricted_Access,
 --  especially for foreign-convention subprograms.
+
+pragma Discard_Names;
 
 package System is
    pragma Pure;
