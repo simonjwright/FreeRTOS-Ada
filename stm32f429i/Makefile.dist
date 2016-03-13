@@ -48,7 +48,6 @@ RTS_DISTRIBUTION_FILES +=			\
   adainclude/a-intnam.ads			\
   adainclude/s-interr.adb			\
   adainclude/s-interr.ads			\
-  adainclude/start_freertos_scheduler.adb	\
   adainclude/startup-set_up_clock.adb		\
   adainclude/startup.adb			\
   adainclude/startup.ads			\
@@ -56,10 +55,7 @@ RTS_DISTRIBUTION_FILES +=			\
 
 RTS_DISTRIBUTION_FILES +=			\
   adainclude/FreeRTOSConfig.h			\
-  adainclude/heap_4.c				\
-  adainclude/_init.c				\
-  adainclude/syscalls.c				\
-  adainclude/vApplicationStackOverflowHook.c
+  adainclude/heap_4.c
 
 RTS_DISTRIBUTION_FILES +=                       \
   adalib/due-flash.ld

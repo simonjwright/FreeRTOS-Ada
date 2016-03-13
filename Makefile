@@ -34,6 +34,10 @@ subdirs +=					\
   demos-arduino-due
 
 subdirs +=					\
+  stm32f429i					\
+  test-stm32f429i
+
+subdirs +=					\
   stm32f429i-disco-rtos				\
   stm32f429i-disco-bsp				\
   demo-stm32f429i-disco-rtos			\

@@ -77,7 +77,7 @@ s/[ ]*<<[ ]*([0-9]+)/ * 2 ** \1/g
 s/[ ]*>>[ ]*([0-9]+)/ \/ 2 ** \1/g
 
 # Hex constants
-s/0x([a-fA-F0-9]+)/16#\1#/g
+s/0x([a-fA-F0-9]+)U?/16#\1#/g
 
 # Make all records volatile
 s/end record/end record with Volatile/
@@ -101,8 +101,11 @@ x
 # Typedefs that are type renamings
 s/--  unsupported macro: ([a-zA-Z0-9_]+_TypeDef) ([a-zA-Z0-9_]+_TypeDef)/subtype \1 is \2;/
 
+# Constants defined as names
+s/--  unsupported macro: ([a-zA-Z0-9_]+) ([a-zA-Z][a-zA-Z0-9_]*)/\1 : constant := \2;/
+
 # Remaining constants
-s/--  unsupported macro: ([a-zA-Z0-9_]+) (.*)/\1 : constant := \2;/
+s/--  unsupported macro: ([a-zA-Z0-9_]+) ([^U]*)U?/\1 : constant := \2;/
 
 # Unsigned types in parameters/record components
 s/(sys_u)?stdint_h.uint(8|16|32|64)_t/Interfaces.Unsigned_\2/g

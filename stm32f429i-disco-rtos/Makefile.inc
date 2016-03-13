@@ -18,7 +18,7 @@
 # along with this program; see the file COPYING3.  If not see
 # <http://www.gnu.org/licenses/>.
 
-STM32CUBE ?= $(HOME)/STM32Cube_FW_F4_V1.10.0
+STM32CUBE ?= $(HOME)/STM32Cube_FW_F4_V1.11.0
 
 # Work out the location of this file (the top level of rtos),
 # without the trailing /. Must be before other includes.
