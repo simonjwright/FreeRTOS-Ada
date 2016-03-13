@@ -131,7 +131,6 @@ RTS_DISTRIBUTION_FILES +=			\
   s-valuns.ads					\
   s-valuti.adb					\
   s-valuti.ads					\
-  start_freertos_scheduler.adb			\
   start_freertos_scheduler.ads			\
   system.ads
 

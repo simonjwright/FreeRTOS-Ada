@@ -1,0 +1,44 @@
+--  Copyright (C) 2016 Free Software Foundation, Inc.
+--
+--  This file is part of the Cortex GNAT RTS package.
+--
+--  The Cortex GNAT RTS package is free software; you can redistribute
+--  it and/or modify it under the terms of the GNU General Public
+--  License as published by the Free Software Foundation; either
+--  version 3 of the License, or (at your option) any later version.
+--
+--  This program is distributed in the hope that it will be useful,
+--  but WITHOUT ANY WARRANTY; without even the implied warranty of
+--  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+--  General Public License for more details.
+--
+--  You should have received a copy of the GNU General Public License
+--  along with this program; see the file COPYING3.  If not, see
+--  <http://www.gnu.org/licenses/>.
+
+project Testbed is
+   for Main use ("testbed.adb");
+   for Object_Dir use ".build";
+   for Source_Dirs use (".", "../test-common");
+   for Exec_Dir use ".";
+   for Target use "arm-eabi";
+   for Runtime ("ada") use Project'Project_Dir & "../stm32f429i";
+   package Builder is
+      for Default_Switches ("ada") use
+        (
+         "-g",
+         "-Og",
+         "--create-map-file"
+        );
+   end Builder;
+   package Compiler is
+      for Default_Switches ("ada") use
+        (
+         "-gnatqQafoy",
+         "-gnatwaL.X"
+        );
+   end Compiler;
+   package Linker is
+      for Map_File_Option use "-Wl,-Map," & Project'Project_Dir;
+   end Linker;
+end Testbed;
