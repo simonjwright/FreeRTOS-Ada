@@ -28,6 +28,6 @@ clean::
 	-rm -rf .build
 
 %.bin: %
-	$(TARGET)-objcopy -O binary $^ $@
+	arm-eabi-objcopy -O binary $^ $@
 
 .PHONY: all clean force
