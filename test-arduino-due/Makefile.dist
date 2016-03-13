@@ -33,13 +33,9 @@ DISTRIBUTION_FILES =				\
   Makefile
 
 DISTRIBUTION_FILES +=				\
-  first.gpr					\
   testbed.gpr
 
 DISTRIBUTION_FILES +=				\
-  first.adb					\
-  first_task.adb				\
-  first_task.ads				\
   testbed.adb
 
 dist:: $(DISTRIBUTION_FILES)

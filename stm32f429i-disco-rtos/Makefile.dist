@@ -65,6 +65,7 @@ RTS_DISTRIBUTION_FILES +=			\
   adainclude/cmsis_os.ads			\
   adainclude/s-interr.adb			\
   adainclude/s-interr.ads			\
+  adainclude/start_freertos_scheduler.adb
 
 RTS_DISTRIBUTION_FILES +=                       \
   adalib/stm32f429i-flash.ld

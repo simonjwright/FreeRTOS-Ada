@@ -48,6 +48,7 @@ RTS_DISTRIBUTION_FILES +=			\
   adainclude/a-intnam.ads			\
   adainclude/s-interr.adb			\
   adainclude/s-interr.ads			\
+  adainclude/start_freertos_scheduler.adb	\
   adainclude/startup-set_up_clock.adb		\
   adainclude/startup.adb			\
   adainclude/startup.ads

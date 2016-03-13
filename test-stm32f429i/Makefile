@@ -27,4 +27,7 @@ clean::
 	-rm *~ *.ali *.o *.bin
 	-rm -rf .build
 
+%.bin: %
+	$(TARGET)-objcopy -O binary $^ $@
+
 .PHONY: all clean force
