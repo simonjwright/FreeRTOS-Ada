@@ -22,7 +22,7 @@ written for this work; see the files COPYING3 and COPYING.RUNTIME.
 
 The RTS is based on FreeRTOS[2]. See COPYING.FreeRTOS.
 
-Board support (spec files only) is generated using a forked svd2ada[3.
+Board support (spec files only) is generated using a forked svd2ada[3].
 
 The following non-original files don't form part of a binary
 deliverable, so don't affect the status of the binary:
