@@ -25,6 +25,12 @@ with Containing;
 with Dispatching;
 --  Tagged types
 
+with Floating_Point;
+--  Floating point
+
+with Heartbeat;
+--  Timing
+
 with Iteration;
 pragma Unreferenced (Iteration);
 --  Generalized iteration

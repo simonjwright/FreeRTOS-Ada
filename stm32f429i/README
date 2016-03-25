@@ -10,7 +10,7 @@ following additional restrictions:
    pragma Restrictions (No_Finalization);
    pragma Restrictions (No_Recursion);
 
-The RTS is supplied built with for debugging (-g) and with suitable
+The RTS is supplied built for debugging (-g) and with suitable
 optimisation (-Og), using GNAT GPL 2015[1] on Mac OS X (it should work
 out of the box with a Linux-hosted GNAT GPL 2015 cross-compiler, but
 will need recompiling for another compiler). Demo programs are

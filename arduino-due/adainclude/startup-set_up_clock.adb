@@ -18,7 +18,8 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-with Interfaces;
+with ATSAM3X8E.EFC; use ATSAM3X8E.EFC;
+with ATSAM3X8E.PMC; use ATSAM3X8E.PMC;
 
 separate (Startup)
 procedure Set_Up_Clock is
@@ -29,136 +30,105 @@ procedure Set_Up_Clock is
    --  source/templates/system_sam3x.c and macros in
    --  include/sam3x8e.h.
 
-   EEFC_FMR0 : Interfaces.Unsigned_32
-     with
-       Import,
-       Convention => Ada,
-       Volatile,
-       Address => System'To_Address (16#400E0A00#);
-
-   EEFC_FMR1 : Interfaces.Unsigned_32
-     with
-       Import,
-       Convention => Ada,
-       Volatile,
-       Address => System'To_Address (16#400E0C00#);
-
-   CKGR_MOR : Interfaces.Unsigned_32
-     with
-       Import,
-       Convention => Ada,
-       Volatile,
-       Address => System'To_Address (16#400E0620#);
-
-   CKGR_MCFR : Interfaces.Unsigned_32
-     with
-       Import,
-       Convention => Ada,
-       Volatile,
-       Address => System'To_Address (16#400E0624#);
-
-   CKGR_PLLAR : Interfaces.Unsigned_32
-     with
-       Import,
-       Convention => Ada,
-       Volatile,
-       Address => System'To_Address (16#400E0628#);
-
-   PMC_SR : Interfaces.Unsigned_32
-     with
-       Import,
-       Convention => Ada,
-       Volatile,
-       Address => System'To_Address (16#400E0668#);
-
-   PMC_MCKR : Interfaces.Unsigned_32
-     with
-       Import,
-       Convention => Ada,
-       Volatile,
-       Address => System'To_Address (16#400E0630#);
-
-   FMR : Interfaces.Unsigned_32;
-   MCKR : Interfaces.Unsigned_32;
-
-   use type Interfaces.Unsigned_32;
+   use type ATSAM3X8E.Bit;
 begin
    --  Set Flash wait states (FWS) to 4 in both banks
-   FMR := EEFC_FMR0 and (not 16#00000F00#);
-   EEFC_FMR0 := FMR or 16#00000400#;
-   FMR := EEFC_FMR1 and (not 16#00000F00#);
-   EEFC_FMR1 := FMR or 16#00000400#;
+   declare
+      FMR : FMR_Register;
+   begin
+      FMR             := EFC0_Periph.FMR;
+      FMR.FWS         := 4;
+      EFC0_Periph.FMR := FMR;
+      FMR             := EFC1_Periph.FMR;
+      FMR.FWS         := 4;
+      EFC1_Periph.FMR := FMR;
+   end;
 
-   --  Write CKGR_MOR to select the Main Clock
-   CKGR_MOR :=
-     16#00370000# or  -- KEY
-     16#00000800# or  -- MOSCXTST
-     16#00000008# or  -- MOSCRCEN
-     16#00000001#;    -- MOSCXTEN
+   --  Select the Main Clock
+   PMC_Periph.CKGR_MOR := (KEY      => 16#37#,
+                           MOSCXTEN => 1,     -- main crystal oscillator enable
+                           MOSCRCEN => 1,     -- main on-chip rc osc. enable
+                           MOSCXTST => 8,     -- startup time
+                           others   => <>);
+   --  XXX shouldn't this give 4 MHz, not 12?
 
-   --  Loop until stable - check MOSCXTS, bit 0
+   --  Loop until stable
    loop
-      exit when (PMC_SR and 16#00000001#) /= 0;
+      exit when PMC_Periph.PMC_SR.MOSCXTS /= 0;
    end loop;
 
    --  Select the Main oscillator
-   CKGR_MOR := CKGR_MOR or
-     16#00370000# or  -- KEY
-     16#01000000#;    -- MOSCSEL
+   declare
+      CKGR_MOR : CKGR_MOR_Register;
+   begin
+      CKGR_MOR            := PMC_Periph.CKGR_MOR;
+      CKGR_MOR.KEY        := 16#37#;
+      CKGR_MOR.MOSCSEL    := 1;
+      PMC_Periph.CKGR_MOR := CKGR_MOR;
+   end;
 
-   --  Loop until selected - check MOSCSELS, bit 16, is 0 - or not???
+   --  Loop until selected
    loop
-      exit when (PMC_SR and 16#00010000#) /= 0;
+      exit when PMC_Periph.PMC_SR.MOSCSELS /= 0;
    end loop;
 
    --  Disable PLLA (?hardware bugfix?)
-   CKGR_PLLAR :=
-     16#20000000# or  -- ONE
-     16#00000000#;    -- MULA = 0, DIVA = 0, => disable
+   PMC_Periph.CKGR_PLLAR := (ONE    => 1,
+                             MULA   => 0,
+                             DIVA   => 0,
+                             others => <>);
 
    --  Set PLLA to multiply by 14, count 16#3f#, divide by 1 (=>
    --  enable PLL); Main Clock is 12 MHz, => 168 Mhz
-   CKGR_PLLAR :=
-     16#20000000# or  -- ONE
-     16#000D0000# or  -- MULA (multiplier - 1)
-     16#00003F00# or  -- PLLACOUNT
-     16#00000001#;    -- DIVA
+   PMC_Periph.CKGR_PLLAR := (ONE       => 1,
+                             MULA      => 13,   -- multipler - 1
+                             PLLACOUNT => 16#3f#,
+                             DIVA      => 1,
+                             others    => <>);
 
-   --  Loop until ready - check LOCKA, bit 1
+   --  Loop until ready
    loop
-      exit when (PMC_SR and 16#00000002#) /= 0;
-   end loop;
-
-   --  Select Main Clock, PRES 0 (no prescaling)
-   --  Set CSS
-   MCKR := PMC_MCKR and (not 16#0000000f#);
-   PMC_MCKR := MCKR or 16#00000001#;
-   --  Loop until ready - check MCKRDY, bit 3
-   loop
-      exit when (PMC_SR and 16#00000008#) /= 0;
-   end loop;
-   --  Set PRES
-   MCKR := PMC_MCKR and (not 16#00000030#);
-   PMC_MCKR := MCKR;
-   --  Loop until ready - check MCKRDY, bit 3
-   loop
-      exit when (PMC_SR and 16#00000008#) /= 0;
+      exit when PMC_Periph.PMC_SR.LOCKA /= 0;
    end loop;
 
-   --  Select PLLA with PRES=1 (=> prescale by 2); other way round from
-   --  Main_Clock above, as recommended
-   --  Set PRES
-   MCKR := PMC_MCKR and (not 16#00000030#);
-   PMC_MCKR := MCKR or 16#00000010#;
-   --  Loop until ready - check MCKRDY, bit 3
-   loop
-      exit when (PMC_SR and 16#00000008#) /= 0;
-   end loop;
-   --  Set CSS
-   MCKR := PMC_MCKR and (not 16#0000000f#);
-   PMC_MCKR := MCKR or 16#00000002#;
-   --  Loop until ready - check MCKRDY, bit 3
-   loop
-      exit when (PMC_SR and 16#00000008#) /= 0;
-   end loop;
+   declare
+      PMC_MCKR : PMC_MCKR_Register;
+   begin
+      --  Select Main Clock, PRES 0 (no prescaling)
+      PMC_Periph.PMC_MCKR := (CSS    => Main_Clk,
+                              others => <>);
+      --  Loop until ready
+      loop
+         exit when PMC_Periph.PMC_SR.MCKRDY /= 0;
+      end loop;
+
+      --  Set PRES 8
+      PMC_MCKR            := PMC_Periph.PMC_MCKR;
+      PMC_MCKR.PRES       := Clk_8;
+      PMC_Periph.PMC_MCKR := PMC_MCKR;
+      --  Loop until ready
+      loop
+         exit when PMC_Periph.PMC_SR.MCKRDY /= 0;
+      end loop;
+
+      --  Select PLLA with PRES 1 (=> prescale by 2); other way round from
+      --  Main_Clock above, as recommended
+      --  Set PRES
+      PMC_MCKR            := PMC_Periph.PMC_MCKR;
+      PMC_MCKR.PRES       := Clk_2;
+      PMC_Periph.PMC_MCKR := PMC_MCKR;
+      --  Loop until ready
+      loop
+         exit when PMC_Periph.PMC_SR.MCKRDY /= 0;
+      end loop;
+
+      --  Set CSS
+      PMC_MCKR            := PMC_Periph.PMC_MCKR;
+      PMC_MCKR.CSS        := Plla_Clk;
+      PMC_Periph.PMC_MCKR := PMC_MCKR;
+      --  Loop until ready
+      loop
+         exit when PMC_Periph.PMC_SR.MCKRDY /= 0;
+      end loop;
+   end;
 end Set_Up_Clock;

@@ -36,6 +36,7 @@ library project Build_Runtime is
    for Source_Dirs use
      (
       "adainclude",
+      "atsam3x8e",
       "../common",
       FreeRTOS_Source,
       FreeRTOS_Portable

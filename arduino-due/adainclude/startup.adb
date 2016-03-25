@@ -39,13 +39,8 @@ package body Startup is
    procedure Program_Initialization
    with
      Export,
-     Convention => Asm,
+     Convention => Ada,
      External_Name => "program_initialization",
-     No_Return;
-   pragma Machine_Attribute (Program_Initialization, "naked");
-
-   procedure Complete_Program_Initialization
-   with
      No_Return;
 
    procedure Set_Up_Clock;
@@ -60,13 +55,6 @@ package body Startup is
      External_Name => "main";
 
    procedure Program_Initialization is
-   begin
-      --  _estack: the first address after the top of stack space
-      System.Machine_Code.Asm ("ldr sp, =_estack", Volatile => True);
-      Complete_Program_Initialization;
-   end Program_Initialization;
-
-   procedure Complete_Program_Initialization is
       --  The following symbols are set up in the linker script:
       --
       --  _sidata: the start of read/write data in Flash, to be copied
@@ -120,7 +108,7 @@ package body Startup is
       loop
          null;
       end loop;
-   end Complete_Program_Initialization;
+   end Program_Initialization;
 
    -------------------------
    --  Interrupt vectors  --
@@ -206,17 +194,16 @@ package body Startup is
    type Handler is access procedure;
 
    Vectors : array (-14 .. Ada.Interrupts.Names.CAN1_IRQ) of Handler :=
-     (-9 .. -6 | -4 .. -3 => null,                      -- reserved
-      -14                 => Dummy_Handler'Access,      -- NMI
-      -13                 => HardFault_Handler'Access,  -- HardFault
-      -12                 => Dummy_Handler'Access,      -- MemManagement
-      -11                 => Dummy_Handler'Access,      -- BusFault
-      -10                 => Dummy_Handler'Access,      -- UsageFault
-      -5                  => SVC_Handler'Access,        -- SVCall
-      -2                  => PendSV_Handler'Access,     -- PendSV
-      -1                  => SysTick_Handler'Access,    -- SysTick
-      0 .. Ada.Interrupts.Names.CAN1_IRQ =>
-                             IRQ_Handler'Access)
+     (-9 .. -6 | -4 .. -3 => null,                     -- reserved
+      -14                 => Dummy_Handler'Access,     -- NMI
+      -13                 => HardFault_Handler'Access, -- HardFault
+      -12                 => Dummy_Handler'Access,     -- MemManagement
+      -11                 => Dummy_Handler'Access,     -- BusFault
+      -10                 => Dummy_Handler'Access,     -- UsageFault
+      -5                  => SVC_Handler'Access,       -- SVCall
+      -2                  => PendSV_Handler'Access,    -- PendSV
+      -1                  => SysTick_Handler'Access,   -- SysTick
+      others              => IRQ_Handler'Access)
      with
        Export,
        Convention         => Ada,
