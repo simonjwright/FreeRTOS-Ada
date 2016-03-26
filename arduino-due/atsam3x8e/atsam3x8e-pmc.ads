@@ -209,7 +209,7 @@ package ATSAM3X8E.PMC is
    subtype PMC_PCER0_PID_Element is ATSAM3X8E.Bit;
 
    --  PMC_PCER0_PID array
-   type PMC_PCER0_PID_Field_Array is array (0 .. 29) of PMC_PCER0_PID_Element
+   type PMC_PCER0_PID_Field_Array is array (2 .. 31) of PMC_PCER0_PID_Element
      with Component_Size => 1, Size => 30;
 
    --  Type definition for PMC_PCER0_PID
@@ -258,7 +258,7 @@ package ATSAM3X8E.PMC is
    subtype PMC_PCDR0_PID_Element is ATSAM3X8E.Bit;
 
    --  PMC_PCDR0_PID array
-   type PMC_PCDR0_PID_Field_Array is array (0 .. 29) of PMC_PCDR0_PID_Element
+   type PMC_PCDR0_PID_Field_Array is array (2 .. 31) of PMC_PCDR0_PID_Element
      with Component_Size => 1, Size => 30;
 
    --  Type definition for PMC_PCDR0_PID
@@ -307,7 +307,7 @@ package ATSAM3X8E.PMC is
    subtype PMC_PCSR0_PID_Element is ATSAM3X8E.Bit;
 
    --  PMC_PCSR0_PID array
-   type PMC_PCSR0_PID_Field_Array is array (0 .. 29) of PMC_PCSR0_PID_Element
+   type PMC_PCSR0_PID_Field_Array is array (2 .. 31) of PMC_PCSR0_PID_Element
      with Component_Size => 1, Size => 30;
 
    --  Type definition for PMC_PCSR0_PID
