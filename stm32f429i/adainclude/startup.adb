@@ -23,8 +23,6 @@ with Interfaces;
 with System.Machine_Code;
 with System.Storage_Elements;
 
-with STM32F429x.RCC; use STM32F429x.RCC;
-
 package body Startup is
 
    --  Program_Initialization is the program entry point.
