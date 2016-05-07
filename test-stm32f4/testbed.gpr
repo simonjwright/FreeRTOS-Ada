@@ -22,7 +22,7 @@ project Testbed is
    for Source_Dirs use (".", "../test-common");
    for Exec_Dir use ".";
    for Target use "arm-eabi";
-   for Runtime ("ada") use Project'Project_Dir & "../stm32f429i-disco-rtos";
+   for Runtime ("ada") use Project'Project_Dir & "../stm32f4";
    package Builder is
       for Default_Switches ("ada") use
         (

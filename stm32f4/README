@@ -1,0 +1,38 @@
+This is an Ada Runtime System (RTS) for the GCC Ada compiler (GNAT),
+targeted to the STMicroelectronics STM32F429I Discovery board (see
+http://www.st.com/).
+
+The RTS supports Ravenscar tasking. Package System contains the
+following additional restrictions:
+
+   pragma Restrictions (No_Enumeration_Maps);
+   pragma Restrictions (No_Exception_Propagation);
+   pragma Restrictions (No_Finalization);
+   pragma Restrictions (No_Recursion);
+
+The RTS is supplied built for debugging (-g) and with suitable
+optimisation (-Og), using GNAT GPL 2015[1] on Mac OS X (it should work
+out of the box with a Linux-hosted GNAT GPL 2015 cross-compiler, but
+will need recompiling for another compiler). Demo programs are
+included.
+
+The RTS is intended to support commercial binary distributions. The
+Ada source code has either been derived from FSF GCC (4.9.1) or
+written for this work; see the files COPYING3 and COPYING.RUNTIME.
+
+The RTS is based on FreeRTOS[2]. See COPYING.FreeRTOS.
+
+Board support (spec files only) is generated using a forked svd2ada[3].
+
+The following non-original files don't form part of a binary
+deliverable, so don't affect the status of the binary:
+
+o build_runtime.gpr and runtime.xml originated in AdaCore's GNAT GPL
+  2014 arm-eabi distribution (for Linux).
+
+o The linker script stm32f429i-flash.ld is under an MIT licence: see
+  COPYING.MIT.
+
+[1] https://sourceforge.net/projects/gnuada/files/GNAT_GPL%20Mac%20OS%20X/2015-arm-eabi-darwin-bin-bis/
+[2] http://www.freertos.org
+[3] https://github.com/simonjwright/svd2ada
