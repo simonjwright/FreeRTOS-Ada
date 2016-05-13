@@ -48,7 +48,7 @@
 --  Note: this package has been copied from GCC 4.9.1 and heavily
 --  modified for the Cortex GNAT RTS, which has Ravenscar restrictions.
 
-with System.FreeRTOS.Mutexes;
+private with System.FreeRTOS.Semaphores;
 
 package System.Tasking.Protected_Objects is
 
@@ -213,7 +213,7 @@ package System.Tasking.Protected_Objects is
 
 private
    type Protection is record
-      L : aliased FreeRTOS.Mutexes.Mutex_Handle;
+      L : aliased FreeRTOS.Semaphores.Semaphore_Handle;
       --  Lock used to ensure mutual exclusive access to the protected object
 
       Ceiling : System.Any_Priority;

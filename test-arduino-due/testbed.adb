@@ -43,6 +43,9 @@ with Interfaces.C.Strings;
 pragma Unreferenced (Interfaces.C.Strings);
 --  Check we can build with this package in the closure.
 
+with Interrupts;
+--  Check interrupt handling.
+
 with SO;
 --  Check suspension objects.
 

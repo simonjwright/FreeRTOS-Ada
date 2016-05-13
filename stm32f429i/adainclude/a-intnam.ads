@@ -18,9 +18,7 @@
 
 package Ada.Interrupts.Names is
 
-   --  These numbers, those in
-   --  $CUBE/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f429xx.h,
-   --  and those in src/stm32f429xx_it.c all must match.
+   --  See RM0090 (DocID018909 Rev 11) Table 61.
 
    WWDG_IRQ               : constant Interrupt_ID := 0;
    PVD_IRQ                : constant Interrupt_ID := 1;
@@ -101,7 +99,7 @@ package Ada.Interrupts.Names is
    OTG_HS_WKUP_IRQ        : constant Interrupt_ID := 76;
    OTG_HS_IRQ             : constant Interrupt_ID := 77;
    DCMI_IRQ               : constant Interrupt_ID := 78;
-   --  CRYP_IRQ, not present on stm32f429xx
+   CRYP_IRQ               : constant Interrupt_ID := 79; -- may not be present
    HASH_RNG_IRQ           : constant Interrupt_ID := 80;
    FPU_IRQ                : constant Interrupt_ID := 81;
    UART7_IRQ              : constant Interrupt_ID := 82;

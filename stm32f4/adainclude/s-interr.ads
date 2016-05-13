@@ -30,7 +30,7 @@ package System.Interrupts is
    --  Used (via rtsfind) when Interrupt_Priority isn't specified for
    --  a PO. This can only happen if the pragma form is used.
 
-   type Interrupt_ID is range 0 .. 90;
+   type Interrupt_ID is range 0 .. 81;
    --  Has to match Ada.Interrupts.Interrupt_ID.
 
    subtype System_Interrupt_ID is Interrupt_ID;

@@ -211,7 +211,7 @@ package body Startup is
    type Handler is access procedure;
 
    use type Ada.Interrupts.Interrupt_ID;
-   Vectors : array (-14 .. Ada.Interrupts.Names.DMA2D_IRQ) of Handler :=
+   Vectors : array (-14 .. Ada.Interrupts.Names.FPU_IRQ) of Handler :=
      (-9 .. -6 | -4 .. -3 => null,                      -- reserved
       -14                 => Dummy_Handler'Access,      -- NMI
       -13                 => HardFault_Handler'Access,  -- HardFault

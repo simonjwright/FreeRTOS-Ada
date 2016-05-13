@@ -40,8 +40,8 @@ with System;
 
 package Ada.Interrupts is
 
-   --  See RM0090 (DocID018909 Rev 7) Table 62.
-   type Interrupt_ID is range 0 .. 90;
+   --  See RM0090 (DocID018909 Rev 11) Table 61.
+   type Interrupt_ID is range 0 .. 81;
    --  Has to match System.Interrupts.Interrupt_ID.
 
    type Parameterless_Handler is access protected procedure;
