@@ -18,7 +18,10 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-package System.FreeRTOS.Tasks with Preelaborate is
+pragma Restrictions (No_Elaboration_Code);
+
+package System.FreeRTOS.Tasks is
+   pragma Preelaborate;
 
    type TCB (<>) is private;
    type Task_Handle is access all TCB;

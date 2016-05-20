@@ -46,7 +46,8 @@
 
 --  Modified from GCC 4.9.1 for Cortex GNAT RTS.
 
-package System.Parameters with Pure is
+package System.Parameters is
+   pragma Pure;
 
    type Size_Type is new Integer;
 

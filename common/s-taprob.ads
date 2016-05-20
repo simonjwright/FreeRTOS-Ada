@@ -48,9 +48,12 @@
 --  Note: this package has been copied from GCC 4.9.1 and heavily
 --  modified for the Cortex GNAT RTS, which has Ravenscar restrictions.
 
-private with System.FreeRTOS.Semaphores;
+pragma Restrictions (No_Elaboration_Code);
+
+with System.FreeRTOS.Semaphores;
 
 package System.Tasking.Protected_Objects is
+   pragma Preelaborate;
 
    ---------------------------------
    -- Compiler Interface (GNARLI) --

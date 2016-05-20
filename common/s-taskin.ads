@@ -37,10 +37,13 @@
 --  This file has been extensively modified from the GCC 4.9.1 version
 --  for the Cortex GNAT RTS project.
 
+pragma Restrictions (No_Elaboration_Code);
+
 with System.FreeRTOS.Tasks;
 with System.Secondary_Stack;
 
-package System.Tasking with Preelaborate is
+package System.Tasking is
+   pragma Preelaborate;
 
    -------------------
    -- Locking Rules --

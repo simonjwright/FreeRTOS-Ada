@@ -1,0 +1,3 @@
+gpr_file=testbed.gpr
+target=arm-eabi-
+runtime=../stm32f4

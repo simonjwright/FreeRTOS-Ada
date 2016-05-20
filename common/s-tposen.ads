@@ -58,23 +58,9 @@
 --  This file has been extensively modified from the GCC 4.9.1 version
 --  for the Cortex GNAT RTS project.
 
-with System.FreeRTOS.Queues;
---  The first version of the FreeRTOS-based variant of this package
---  used task Suspend and Resume to manage blocking of a task on an
---  entry barrier.
---
---  However, given that the Resume call might be made from an ISR (is
---  that even legal?), there is a race condition where the Suspend
---  call might happen after the Resume which was supposed to waken the
---  task.
---
---  For this reason, we use a Queue to manage the interaction. The
---  Queue will remember the Give (actually Give_From_ISR) if the
---  interrupt happens after the entry has been unlocked but before the
---  task Takes.
-
-package System.Tasking.Protected_Objects.Single_Entry with Elaborate_Body is
-
+pragma Restrictions (No_Elaboration_Code);
+package System.Tasking.Protected_Objects.Single_Entry is
+   pragma Preelaborate;
    ----------------------------------------------------------------------------
    --                         copied from GCC 4.9.1                          --
    ----------------------------------------------------------------------------
@@ -151,6 +137,25 @@ package System.Tasking.Protected_Objects.Single_Entry with Elaborate_Body is
    --  required by the LRM (C.7.1(14)).
 
 private
+   --  The first version of the FreeRTOS-based variant of this package
+   --  used task Suspend and Resume to manage blocking of a task on an
+   --  entry barrier.
+   --
+   --  However, given that the Resume call might be made from an ISR (is
+   --  that even legal?), there is a race condition where the Suspend
+   --  call might happen after the Resume which was supposed to waken the
+   --  task.
+   --
+   --  For this reason, we use a Queue to manage the interaction. The
+   --  Queue will remember the Give (actually Give_From_ISR) if the
+   --  interrupt happens after the entry has been unlocked but before the
+   --  task Takes.
+   --
+   --  We declare our own interface here, rather than using
+   --  System.FreeRTOS.Queues, to avoid the need for elaboration.
+   type Queue is null record;  -- not really, but opaque to us
+   type Queue_Handle is access all Queue;
+
    type Protection_Entry is record
       Common : aliased Protection;
       --  State of the protected object. This part is common to any protected
@@ -168,7 +173,7 @@ private
       Entry_Queue : Entry_Call_Link;
       --  Place to store the waiting entry call (if any)
 
-      Barrier_Queue : FreeRTOS.Queues.Queue_Handle;
+      Barrier_Queue : Queue_Handle;
       --  Suspend here on the entry barrier
    end record;
 

@@ -31,5 +31,8 @@
 
 --  This is the parent package of the GNAT restricted tasking run time
 
+pragma Restrictions (No_Elaboration_Code);
+
 package System.Tasking.Restricted is
+   pragma Preelaborate;
 end System.Tasking.Restricted;

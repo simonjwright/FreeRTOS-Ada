@@ -41,7 +41,10 @@
 
 --  This is the Cortex GNAT RTS version of this module.
 
-package System.Task_Info with Preelaborate is
+pragma Restrictions (No_Elaboration_Code);
+
+package System.Task_Info is
+   pragma Preelaborate;
 
    type Task_Info_Type is (Default);
 
