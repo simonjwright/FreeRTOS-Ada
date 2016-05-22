@@ -36,6 +36,8 @@ DISTRIBUTION_FILES +=				\
   testbed.gpr
 
 DISTRIBUTION_FILES +=				\
+  heartbeat.ads					\
+  heartbeat.adb					\
   testbed.adb
 
 dist:: $(DISTRIBUTION_FILES)

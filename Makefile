@@ -21,27 +21,22 @@ all: ; $(error This makefile is only for building distributions,	\
 
 NAME ?= cortex-gnat-rts
 
-# Note the order, which is necssary.
+# The "common" sibdirs must come first.
 subdirs =					\
   common					\
-  bsp-common					\
   test-common
 
 subdirs +=					\
   arduino-due					\
-  arduino-due-bsp				\
-  test-arduino-due				\
-  demos-arduino-due
+  test-arduino-due
+
+subdirs +=					\
+  stm32f4					\
+  test-stm32f4
 
 subdirs +=					\
   stm32f429i					\
   test-stm32f429i
-
-subdirs +=					\
-  stm32f429i-disco-rtos				\
-  stm32f429i-disco-bsp				\
-  demo-stm32f429i-disco-rtos			\
-  test-stm32f4
 
 TOP_LEVEL_FILES = INSTALL README
 

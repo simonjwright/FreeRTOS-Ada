@@ -96,6 +96,8 @@ RTS_DISTRIBUTION_FILES +=			\
   s-fremut.ads					\
   s-freque.adb					\
   s-freque.ads					\
+  s-fresem.adb					\
+  s-fresem.ads					\
   s-fretas.adb					\
   s-fretas.ads					\
   s-fretcb.adb					\
@@ -132,12 +134,12 @@ RTS_DISTRIBUTION_FILES +=			\
   s-valuns.ads					\
   s-valuti.adb					\
   s-valuti.ads					\
-  start_freertos_scheduler.ads			\
   system.ads
 
 RTS_DISTRIBUTION_FILES +=			\
   freertos_bindings.c				\
-  last_chance_handler.c
+  last_chance_handler.c				\
+  vApplicationStackOverflowHook.c
 
 dist:: $(RTS_DISTRIBUTION_FILES)
 	mkdir $(DIST)/$(THIS)

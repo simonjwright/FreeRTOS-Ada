@@ -16,8 +16,6 @@
 --  along with this program; see the file COPYING3.  If not, see
 --  <http://www.gnu.org/licenses/>.
 
-with "../arduino-due-bsp/arduino_due_bsp";
-
 project Testbed is
    for Main use ("testbed.adb");
    for Object_Dir use ".build";

@@ -27,7 +27,7 @@ all: ; $(error Only to be used to build distributions)
 
 dist::
 
-THIS := stm32f429i
+THIS := stm32f4
 
 RTS_DISTRIBUTION_FILES =			\
   README					\
@@ -48,7 +48,6 @@ RTS_DISTRIBUTION_FILES +=			\
   adainclude/a-intnam.ads			\
   adainclude/s-interr.adb			\
   adainclude/s-interr.ads			\
-  adainclude/start_freertos_scheduler.adb	\
   adainclude/startup-set_up_clock.adb		\
   adainclude/startup.adb			\
   adainclude/startup.ads
@@ -58,10 +57,10 @@ RTS_DISTRIBUTION_FILES +=			\
   adainclude/heap_4.c
 
 RTS_DISTRIBUTION_FILES +=                       \
-  stm32f429x/*.ads
+  stm32f40x/*.ads
 
 RTS_DISTRIBUTION_FILES +=                       \
-  adalib/stm32f429i-flash.ld
+  adalib/stm32f407-flash.ld
 
 dist:: $(RTS_DISTRIBUTION_FILES)
 	mkdir $(DIST)/$(THIS)
