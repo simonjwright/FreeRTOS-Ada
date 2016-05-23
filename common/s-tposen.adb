@@ -41,8 +41,19 @@ package body System.Tasking.Protected_Objects.Single_Entry is
    -- Local packages --
    --------------------
 
-   type Queue_Item is null record;
-   package Barrier_Queues is new FreeRTOS.Queues.Generic_Queues (Queue_Item);
+   package Barrier_Queues is
+
+      function Create return not null Queue_Handle;
+
+      procedure Send (To : not null Queue_Handle);
+      --  Ticks_To_Wait of 0 means "until there is room"
+
+      procedure Send_From_ISR (To : not null Queue_Handle);
+
+      procedure Read (From : not null Queue_Handle);
+      --  Ticks_To_Wait of 0 means "until there is something to read"
+
+   end Barrier_Queues;
 
    package Task_Operations is
       procedure Sleep (Object : Protection_Entry_Access);
@@ -66,7 +77,7 @@ package body System.Tasking.Protected_Objects.Single_Entry is
       Object.Call_In_Progress := null;
       Object.Entry_Body := Entry_Body;
       Object.Entry_Queue := null;
-      Object.Barrier_Queue := Barrier_Queues.Create (Length => 1);
+      Object.Barrier_Queue := Barrier_Queues.Create;
    end Initialize_Protection_Entry;
 
    procedure Lock_Entry (Object : Protection_Entry_Access) is
@@ -186,9 +197,9 @@ package body System.Tasking.Protected_Objects.Single_Entry is
             Unlock_Entry (Object);
          end if;
       else
-            --  Just unlock the entry
+         --  Just unlock the entry
 
-            Unlock_Entry (Object);
+         Unlock_Entry (Object);
       end if;
    end Service_Entry;
 
@@ -201,22 +212,110 @@ package body System.Tasking.Protected_Objects.Single_Entry is
    -- Local packages --
    --------------------
 
+   package body Barrier_Queues is
+      use System.FreeRTOS;
+
+      type Item is null record;
+
+      function Create return not null Queue_Handle is
+         function xQueueCreate
+           (Queue_Length : Unsigned_Base_Type;
+            Item_Size    : Unsigned_Base_Type) return Queue_Handle
+         with
+           Import,
+           Convention => C,
+           External_Name => "_gnat_xQueueCreate";
+         Result : constant Queue_Handle := xQueueCreate (Queue_Length => 1,
+                                                         Item_Size    => 0);
+      begin
+         if Result = null then
+            raise Program_Error with "couldn't create queue";
+         end if;
+         return Result;
+      end Create;
+
+      procedure Send (To : not null Queue_Handle) is
+         function xQueueSend
+           (Queue         :        Queue_Handle;
+            Item_To_Queue : access Item;
+            Ticks_To_Wait :        Tick_Type) return Status_Code
+         with
+           Import,
+           Convention => C,
+           External_Name => "_gnat_xQueueSend";
+         Item_To_Pass : aliased Item;
+         Status : Status_Code;
+      begin
+         Status :=
+           xQueueSend (Queue         => To,
+                       Item_To_Queue => Item_To_Pass'Access,
+                       Ticks_To_Wait => 0);
+         if Status /= Pass then
+            raise Program_Error with "error sending item";
+         end if;
+      end Send;
+
+      procedure Send_From_ISR (To : not null Queue_Handle) is
+         function xQueueSendFromISR
+           (Queue                      :        Queue_Handle;
+            Item_To_Queue              : access Item;
+            Higher_Priority_Task_Woken : out    Base_Type) return Status_Code
+         with
+           Import,
+           Convention => C,
+           External_Name => "_gnat_xQueueSendFromISR";
+         Item_To_Pass : aliased Item;
+         Task_Needs_Waking : Base_Type := 0;
+         Status : Status_Code;
+      begin
+         Status :=
+           xQueueSendFromISR
+             (Queue                      => To,
+              Item_To_Queue              => Item_To_Pass'Access,
+              Higher_Priority_Task_Woken => Task_Needs_Waking);
+         if Status /= Pass then
+            raise Program_Error with "error sending item from isr";
+         end if;
+         Tasks.Yield_From_ISR (Integer (Task_Needs_Waking));
+      end Send_From_ISR;
+
+      procedure Read (From : not null Queue_Handle) is
+         function XQueueReceive
+           (Queue         :     Queue_Handle;
+            Buffer        : out Item;
+            Ticks_To_Wait :     Tick_Type) return Status_Code
+         with
+           Import,
+           Convention => C,
+           External_Name => "_gnat_xQueueReceive";
+         Result : Item;
+         Status : Status_Code;
+      begin
+         Status :=
+           XQueueReceive
+             (Queue         => From,
+              Buffer        => Result,
+              Ticks_To_Wait => Max_Delay);
+         if Status /= Pass then
+            raise Program_Error with "error reading item";
+         end if;
+      end Read;
+
+   end Barrier_Queues;
+
    package body Task_Operations is
 
       procedure Sleep (Object : Protection_Entry_Access) is
-         Dummy : Queue_Item with Unreferenced;
       begin
-         Dummy := Barrier_Queues.Read (Object.Barrier_Queue);
+         Barrier_Queues.Read (Object.Barrier_Queue);
       end Sleep;
 
       procedure Wakeup (Object : Protection_Entry_Access) is
       begin
          if FreeRTOS.Tasks.In_ISR then
-            Barrier_Queues.Send_From_ISR (To => Object.Barrier_Queue,
-                                          The_Item => (null record));
+            Barrier_Queues.Send_From_ISR (To => Object.Barrier_Queue);
          else
-            Barrier_Queues.Send (To => Object.Barrier_Queue,
-                                 The_Item => (null record));
+            Barrier_Queues.Send (To => Object.Barrier_Queue);
          end if;
       end Wakeup;
 

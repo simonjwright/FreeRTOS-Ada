@@ -50,13 +50,14 @@ RTS_DISTRIBUTION_FILES +=			\
   include/stm32f4xx_hal_conf.h			\
   include/stm32f4xx_it.h
 
-RTS_DISTRIBUTION_FILES +=                       \
-  src/_init.c                                   \
-  src/bsp_configure_system_clock.c              \
-  src/startup_stm32f429xx.s                     \
-  src/stm32f4xx_it.c                            \
-  src/syscalls.c                                \
-  src/system_stm32f4xx.c
+RTS_DISTRIBUTION_FILES +=			\
+  src/_init.c					\
+  src/bsp_configure_system_clock.c		\
+  src/startup_stm32f429xx.s			\
+  src/stm32f4xx_it.c				\
+  src/syscalls.c				\
+  src/system_stm32f4xx.c			\
+  src/vApplicationStackOverflowHook.c
 
 RTS_DISTRIBUTION_FILES +=			\
   adainclude/a-interr.adb			\

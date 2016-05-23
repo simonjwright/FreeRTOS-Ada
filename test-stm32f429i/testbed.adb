@@ -19,39 +19,49 @@
 --  This program has no visible functionality; the idea is to use the
 --  debugger to check that the expected effect has happened.
 
+with Ada.Real_Time;
+
 with Containing;
+pragma Unreferenced (Containing);
 --  Ada.Containers
 
 with Dispatching;
+pragma Unreferenced (Dispatching);
 --  Tagged types
 
 with Floating_Point;
+pragma Unreferenced (Floating_Point);
 --  Floating point
-
-with Heartbeat;
---  Timing
-
-with Iteration;
-pragma Unreferenced (Iteration);
---  Generalized iteration
-
-with Last_Chance_Handler;
-pragma Unreferenced (Last_Chance_Handler);
---  Check we can supply our own version, replacing libgnat's weak one.
 
 with Interfaces.C.Strings;
 pragma Unreferenced (Interfaces.C.Strings);
 --  Check we can build with this package in the closure.
 
+with Interrupts;
+pragma Unreferenced (Interrupts);
+--  Check interrupt handling.
+
+with Iteration;
+pragma Unreferenced (Iteration);
+--  Generalized iteration
+
+with Heartbeat;
+pragma Unreferenced (Heartbeat);
+--  Timing
+
+with Last_Chance_Handler;
+pragma Unreferenced (Last_Chance_Handler);
+--  Check we can supply our own version, replacing libgnat's weak one.
+
 with SO;
+pragma Unreferenced (SO);
 --  Check suspension objects.
 
 with Streams;
 
 with Strings;
+pragma Unreferenced (Strings);
 --  Secondary stack
-
-with Start_FreeRTOS_Scheduler;
 
 procedure Testbed is
    function Use_Secondary_Stack (S : String) return String;
@@ -76,5 +86,12 @@ begin
       null;
    end;
    Streams.Check (42);
-   Start_FreeRTOS_Scheduler;
+
+   declare
+      use type Ada.Real_Time.Time;
+   begin
+      loop
+         delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds (10);
+      end loop;
+   end;
 end Testbed;

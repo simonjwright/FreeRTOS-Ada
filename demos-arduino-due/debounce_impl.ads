@@ -16,5 +16,5 @@
 --  along with this program; see the file COPYING3.  If not, see
 --  <http://www.gnu.org/licenses/>.
 
-package Debounce_Hardware with Elaborate_Body is
-end Debounce_Hardware;
+package Debounce_Impl with Elaborate_Body is
+end Debounce_Impl;

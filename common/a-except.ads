@@ -23,7 +23,10 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-package Ada.Exceptions with Preelaborate is
+pragma Restrictions (No_Elaboration_Code);
+
+package Ada.Exceptions is
+   pragma Preelaborate;
 
    type Exception_Id is private
    with

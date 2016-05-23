@@ -29,6 +29,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
+pragma Restrictions (No_Elaboration_Code);
 pragma Compiler_Unit_Warning;
 
 with System.Parameters;

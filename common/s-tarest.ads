@@ -46,10 +46,13 @@
 --  Modified for the Cortex GNAT RTS, by leaving out parts that aren't
 --  called.
 
+pragma Restrictions (No_Elaboration_Code);
+
 with System.Parameters;
 with System.Task_Info;
 
 package System.Tasking.Restricted.Stages is
+   pragma Preelaborate;
 
    procedure Create_Restricted_Task
      (Priority      : Integer;

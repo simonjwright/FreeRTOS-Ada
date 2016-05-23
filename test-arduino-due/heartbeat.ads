@@ -16,5 +16,5 @@
 --  along with this program; see the file COPYING3.  If not, see
 --  <http://www.gnu.org/licenses/>.
 
-package Debounce_Software with Elaborate_Body is
-end Debounce_Software;
+package Heartbeat with Elaborate_Body is
+end Heartbeat;

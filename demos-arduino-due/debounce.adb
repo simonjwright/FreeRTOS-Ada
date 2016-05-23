@@ -16,7 +16,13 @@
 --  along with this program; see the file COPYING3.  If not, see
 --  <http://www.gnu.org/licenses/>.
 
-with Debounce_Hardware;
+--  This is the main program of the debounce demo.
+--
+--  Depending on the GPR scenario variable IMPL (default software),
+--  debouncing will be done by software (see debounce_software.adb) or
+--  hardware (debounce_hardware.adb).
+
+with Debounce_Impl;
 with Start_FreeRTOS_Scheduler;
 procedure Debounce is
 begin

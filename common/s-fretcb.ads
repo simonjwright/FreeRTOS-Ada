@@ -18,7 +18,10 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-package System.FreeRTOS.TCB with Preelaborate is
+pragma Restrictions (No_Elaboration_Code);
+
+package System.FreeRTOS.TCB is
+   pragma Preelaborate;
 
    --  Requires configUSE_APPLICATION_TASK_TAG to be set in
    --  FreeRTOSConfig.h.

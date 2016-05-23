@@ -80,7 +80,8 @@ package body System.Tasking.Protected_Objects is
          Init_Priority  := System.Priority'Last;
       end if;
 
-      Object.L := FreeRTOS.Mutexes.Create_Mutex;
+      Object.L := FreeRTOS.Semaphores.Create_Semaphore;
+      FreeRTOS.Semaphores.Give (Object.L);
       Object.Ceiling := System.Any_Priority (Init_Priority);
       Object.Owner := Null_Task;
    end Initialize_Protection;
@@ -124,7 +125,7 @@ package body System.Tasking.Protected_Objects is
                raise Program_Error with "ceiling violation";
             end if;
 
-            FreeRTOS.Mutexes.Take (Object.L);
+            FreeRTOS.Semaphores.Take (Object.L);
 
             --  We are entering in a protected action, so that we
             --  increase the protected object nesting level and update
@@ -181,7 +182,7 @@ package body System.Tasking.Protected_Objects is
                raise Program_Error with "external call on same object";
             end if;
 
-            FreeRTOS.Mutexes.Take (Object.L);
+            FreeRTOS.Semaphores.Take (Object.L);
 
             if Self_Id.Common.Base_Priority > Object.Ceiling then
                raise Program_Error with "ceiling violation";
@@ -256,9 +257,7 @@ package body System.Tasking.Protected_Objects is
             FreeRTOS.Tasks.Set_Priority
               (Self_Id.Common.Thread, To => Self_Id.Common.Base_Priority);
 
-            --  ??? Now that we're managing ceiling priority outselves,
-            --  could just use semaphores
-            FreeRTOS.Mutexes.Give (Object.L);
+            FreeRTOS.Semaphores.Give (Object.L);
          end;
       end if;
    end Unlock;

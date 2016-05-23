@@ -50,6 +50,9 @@ C_SOURCES += heap_4.c
 # Now update the VPATH so we can find the source of the memory manager.
 VPATH += $(FREERTOS)/portable/MemMang
 
+# Add stack overflow checking hook (in src/, already on VPATH)
+C_SOURCES += vApplicationStackOverflowHook.c
+
 # Set up the C/ASM target object files, in the OBJ directory
 OBJ := .build-c
 BARE_OBJS := $(patsubst %.c,%.o,$(C_SOURCES)) $(patsubst %.s,%.o,$(S_SOURCES))
