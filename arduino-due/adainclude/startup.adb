@@ -39,6 +39,30 @@ package body Startup is
      External_Name => "program_initialization",
      No_Return;
 
+   --  The version implemented here turns the watchdog off.
+   procedure Initialize_Watchdog
+   with
+     Export,
+     Convention => Ada,
+     External_Name => "initialize_watchdog";
+   pragma Weak_External (Initialize_Watchdog);
+   procedure Initialize_Watchdog is
+      --  The Watchdog Timer Mode Register. See
+      --  Atmel-11057C-ATARM-SAM3X-SAM3A-Datasheet_23-Mar-15, section
+      --  15.5.4.
+      WDT_MR : Interfaces.Unsigned_32
+        with
+          Import,
+          Convention => Ada,
+          Volatile,
+          Address => System'To_Address (16#400E1A54#);
+      WDT_MR_WDDIS : constant Interfaces.Unsigned_32
+        := Interfaces.Shift_Left (1, 15);  -- bit 15
+   begin
+      --  Disable the watchdog.
+      WDT_MR := WDT_MR_WDDIS;
+   end Initialize_Watchdog;
+
    procedure Set_Up_Clock;
    --  Separate to reduce the complexity of this file.
    procedure Set_Up_Clock is separate;
@@ -104,18 +128,6 @@ package body Startup is
           Convention => Ada,
           Volatile,
           Address => System'To_Address (16#E000ED08#);
-
-      --  The Watchdog Timer Mode Register. See
-      --  Atmel-11057C-ATARM-SAM3X-SAM3A-Datasheet_23-Mar-15, section
-      --  15.5.4.
-      WDT_MR : Interfaces.Unsigned_32
-        with
-          Import,
-          Convention => Ada,
-          Volatile,
-          Address => System'To_Address (16#400E1A54#);
-      WDT_MR_WDDIS : constant Interfaces.Unsigned_32
-        := Interfaces.Shift_Left (1, 15);  -- bit 15
    begin
       --  Copy data to SRAM
       Data_In_Sram := Data_In_Flash;
@@ -140,8 +152,7 @@ package body Startup is
          Task_Image    => "",
          Created_Task  => Environment_TCB'Access);
 
-      --  Disable the watchdog.
-      WDT_MR := WDT_MR_WDDIS;
+      Initialize_Watchdog;
 
       --  Start the scheduler, which will run the environment task to
       --  perform elaboration and then execute the Ada main program.

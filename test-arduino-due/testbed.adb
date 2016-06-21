@@ -63,6 +63,9 @@ with Strings;
 pragma Unreferenced (Strings);
 --  Secondary stack
 
+--  with Watchdog_Check;
+--  pragma Unreferenced (Watchdog_Check);
+
 procedure Testbed is
    function Use_Secondary_Stack (S : String) return String;
    function Use_Secondary_Stack (S : String) return String is
