@@ -40,6 +40,8 @@ with System; use type System.Address;
 
 package body Ada.Containers.Bounded_Vectors is
 
+   pragma Warnings (Off, "others choice is redundant");
+
    -----------------------
    -- Local Subprograms --
    -----------------------
