@@ -36,6 +36,7 @@ package body Startup is
      Convention => Ada,
      External_Name => "program_initialization",
      No_Return;
+   pragma Machine_Attribute (Program_Initialization, "naked");
 
    procedure Set_Up_Clock;
    --  Separate to reduce the complexity of this file.
