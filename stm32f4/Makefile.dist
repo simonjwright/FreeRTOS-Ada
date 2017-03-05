@@ -1,0 +1,71 @@
+# -*- Makefile -*-
+#
+# Copyright (C) 2016 Free Software Foundation, Inc.
+#
+# This file is part of the Cortex GNAT RTS package.
+#
+# The Cortex GNAT RTS package is free software; you can redistribute
+# it and/or modify it under the terms of the GNU General Public
+# License as published by the Free Software Foundation; either version
+# 3 of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; see the file COPYING3. If not, see
+# <http://www.gnu.org/licenses/>.
+
+# To avoid disaster
+ifndef DIST
+  $(error Must define DIST)
+endif
+
+all: ; $(error Only to be used to build distributions)
+
+dist::
+
+THIS := stm32f4
+
+RTS_DISTRIBUTION_FILES =			\
+  README					\
+  COPYING.FreeRTOS				\
+  COPYING.MIT					\
+  COPYING.RUNTIME				\
+  COPYING3					\
+  Makefile
+
+RTS_DISTRIBUTION_FILES +=			\
+  ada_source_path				\
+  build_runtime.gpr				\
+  runtime.xml
+
+RTS_DISTRIBUTION_FILES +=			\
+  adainclude/a-interr.adb			\
+  adainclude/a-interr.ads			\
+  adainclude/a-intnam.ads			\
+  adainclude/s-interr.adb			\
+  adainclude/s-interr.ads			\
+  adainclude/startup-set_up_clock.adb		\
+  adainclude/startup.adb			\
+  adainclude/startup.ads
+
+RTS_DISTRIBUTION_FILES +=			\
+  adainclude/FreeRTOSConfig.h			\
+  adainclude/heap_4.c
+
+RTS_DISTRIBUTION_FILES +=                       \
+  stm32f40x/*.ads
+
+RTS_DISTRIBUTION_FILES +=                       \
+  adalib/stm32f407-flash.ld
+
+dist:: $(RTS_DISTRIBUTION_FILES)
+	mkdir $(DIST)/$(THIS)
+	tar cf - $(RTS_DISTRIBUTION_FILES) | \
+	  tar xvf - -C $(DIST)/$(THIS)
+	cd $(DIST)/$(THIS); make; rm -rf .build
+
+.PHONY: all dist

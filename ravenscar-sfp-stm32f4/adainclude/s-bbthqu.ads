@@ -335,9 +335,9 @@ package System.BB.Threads.Queues is
          --  The extracted thread must be the one with the smallest value of
          --  Alarm_Time.
 
-         and then Get_Next_Alarm_Time (CPRMU.Current_CPU)'Old <=
-           Get_Next_Alarm_Time (CPRMU.Current_CPU),
-
+         --  and then Get_Next_Alarm_Time (CPRMU.Current_CPU)'Old <=
+         --    Get_Next_Alarm_Time (CPRMU.Current_CPU),
+         ,
      Inline => True;
 
    function Get_Next_Alarm_Time

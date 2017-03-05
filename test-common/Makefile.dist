@@ -34,6 +34,10 @@ DISTRIBUTION_FILES =				\
   containing.ads				\
   dispatching.adb				\
   dispatching.ads				\
+  floating_point.adb				\
+  floating_point.ads				\
+  interrupts.adb				\
+  interrupts.ads				\
   iteration.adb					\
   iteration.ads					\
   last_chance_handler.adb			\

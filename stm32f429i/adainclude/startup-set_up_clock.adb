@@ -20,7 +20,7 @@
 
 with STM32F429x.FLASH; use STM32F429x.FLASH;
 with STM32F429x.PWR;   use STM32F429x.PWR;
---  with STM32F429x.RCC;   use STM32F429x.RCC;
+with STM32F429x.RCC;   use STM32F429x.RCC;
 
 separate (Startup)
 procedure Set_Up_Clock is

@@ -40,4 +40,10 @@ and the `weak` attribute means that you can write your own version to do somethi
       Convention => C,
       External_Name => "__gnat_last_chance_handler";
 
+(but it's much easier to read the exception message in the debugger if you use the C version)
+
 Note that at the moment the `Line` parameter is always `0` (this may be affected by the *binder* argument `-E`).
+
+# What about full exception handling?
+
+I've made several attempts to support exception handling; unfortunately, it's spread throughout the RTS and requires introducing and modifying many packages. I take some heart from the late Robert Dewar's remarks starting [here](https://www.youtube.com/watch?v=0yXwnk8Cr0c) at 16:20 - "exceptions are a huge pain in the neck to implement".

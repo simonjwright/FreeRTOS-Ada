@@ -18,27 +18,12 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
---  This is the Arduino Due version.
+pragma Restrictions (No_Elaboration_Code);
+package Environment_Task is
 
-with Interfaces;
-with System.FreeRTOS.Tasks;
+   --  Creates the environment task, which runs the gnatbind-generated
+   --  main (which runs adainit to do elaboration, then calls the Ada
+   --  main program).
+   procedure Create;
 
-procedure Start_FreeRTOS_Scheduler (Disable_Watchdog : Boolean := True) is
-   --  The Watchdog Timer Mode Register. See
-   --  Atmel-11057C-ATARM-SAM3X-SAM3A-Datasheet_23-Mar-15, section
-   --  15.5.4.
-   WDT_MR : Interfaces.Unsigned_32
-     with
-       Import,
-       Convention => Ada,
-       Volatile,
-       Address => System'To_Address (16#400E1A54#);
-   WDT_MR_WDDIS : constant Interfaces.Unsigned_32
-     := Interfaces.Shift_Left (1, 15);  -- bit 15
-begin
-   if Disable_Watchdog then
-      WDT_MR := WDT_MR_WDDIS;
-   end if;
-   System.FreeRTOS.Tasks.Start_Scheduler;
-   raise Program_Error with "Start_Scheduler returned";
-end Start_FreeRTOS_Scheduler;
+end Environment_Task;

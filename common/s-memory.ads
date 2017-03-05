@@ -42,9 +42,11 @@
 --  This unit may be used directly from an application program by providing
 --  an appropriate WITH, and the interface can be expected to remain stable.
 
+pragma Restrictions (No_Elaboration_Code);
 pragma Compiler_Unit_Warning;
 
 package System.Memory is
+   pragma Preelaborate;
    pragma Elaborate_Body;
 
    type size_t is mod 2 ** Standard'Address_Size;

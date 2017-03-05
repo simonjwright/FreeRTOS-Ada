@@ -1,0 +1,88 @@
+--  Copyright (C) 2016 Free Software Foundation, Inc.
+
+--  This file is part of the Cortex GNAT RTS package.
+--
+--  The Cortex GNAT RTS package is free software; you can redistribute
+--  it and/or modify it under the terms of the GNU General Public
+--  License as published by the Free Software Foundation; either
+--  version 3 of the License, or (at your option) any later version.
+--
+--  This program is distributed in the hope that it will be useful,
+--  but WITHOUT ANY WARRANTY; without even the implied warranty of
+--  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+--  General Public License for more details.
+--
+--  You should have received a copy of the GNU General Public License
+--  along with this program; see the file COPYING3.  If not, see
+--  <http://www.gnu.org/licenses/>.
+
+library project Build_Runtime is
+
+   FreeRTOS := external ("HOME") & "/FreeRTOSV8.2.2/";
+
+   for Languages use ("Ada", "C");
+
+   for Library_Auto_Init use "False";
+   for Library_Name use "gnat";
+   for Library_Kind use "static";
+
+   for Library_Dir use "adalib";
+   for Object_Dir use ".build";
+
+   FreeRTOS_Source := FreeRTOS & "FreeRTOS/Source/";
+   FreeRTOS_Include := FreeRTOS_Source & "include";
+   FreeRTOS_Portable := FreeRTOS_Source & "portable/GCC/ARM_CM4F";
+
+   for Source_Dirs use
+     (
+      "adainclude",
+      "stm32f40x",
+      "../common",
+      FreeRTOS_Source,
+      FreeRTOS_Portable
+     );
+
+   for Target use external ("TARGET", "arm-eabi");
+   for Runtime ("ada") use Build_Runtime'Project_Dir;
+
+   type Build_Type is ("Production", "Debug");
+   Build : Build_Type := external ("BUILD", "Debug");
+
+   package Compiler is
+      COMMON_FLAGS := ("-ffunction-sections", "-fdata-sections");
+      case Build is
+        when "Production" =>
+           COMMON_FLAGS := COMMON_FLAGS & ("-O2");
+        when "Debug" =>
+           COMMON_FLAGS := COMMON_FLAGS & ("-g", "-Og");
+      end case;
+      ALL_ADAFLAGS :=
+        ("-gnatpgn", "-gnatqQ", "-nostdinc")
+        & COMMON_FLAGS
+        & external_as_list ("EXTRA_ADAFLAGS", " ");
+      ALL_CFLAGS :=
+        external_as_list("INCLUDES", " ")
+        & external_as_list("DEFINES", " ")
+        & "-I" & FreeRTOS_Include
+        & ("-DIN_RTS", "-Dinhibit_libc")
+        & COMMON_FLAGS;
+
+      NO_SIBLING_ADAFLAGS := ("-fno-optimize-sibling-calls");
+      NO_REORDER_ADAFLAGS := ("-fno-toplevel-reorder");
+
+      for Switches ("C") use ALL_CFLAGS;
+      for Switches ("Ada") use ALL_ADAFLAGS;
+
+      for Switches ("startup.adb") use ALL_ADAFLAGS & ("-Wno-attributes");
+      for Switches ("s-traceb.adb") use ALL_ADAFLAGS & ("-g")
+        & NO_SIBLING_ADAFLAGS & ("-fno-inline-functions-called-once");
+      for Switches ("s-tasdeb.adb") use ALL_ADAFLAGS & ("-g", "-O0");
+      for Switches ("a-except.adb") use ALL_ADAFLAGS
+        & ("-g", "-O1", "-fno-inline") & NO_REORDER_ADAFLAGS;
+      for Switches ("s-excdeb.adb") use ALL_ADAFLAGS & ("-g", "-O0");
+      for Switches ("s-assert.adb") use ALL_ADAFLAGS & ("-g");
+      for Switches ("a-tags.adb") use ALL_ADAFLAGS & ("-g");
+      for Switches ("last_chance_handler.c") use ALL_CFLAGS & ("-g", "-O0");
+  end Compiler;
+
+end Build_Runtime;

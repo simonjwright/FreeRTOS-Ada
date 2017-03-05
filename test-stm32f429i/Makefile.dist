@@ -36,11 +36,9 @@ DISTRIBUTION_FILES +=				\
   testbed.gpr
 
 DISTRIBUTION_FILES +=				\
-  testbed.adb					\
-  floating_point.ads				\
-  floating_point.adb				\
   heartbeat.ads					\
-  heartbeat.adb
+  heartbeat.adb					\
+  testbed.adb
 
 dist:: $(DISTRIBUTION_FILES)
 	mkdir $(DIST)/$(THIS)

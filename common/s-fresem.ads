@@ -18,15 +18,23 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
---  This is the STM32F4 version.
+pragma Restrictions (No_Elaboration_Code);
 
-with System.FreeRTOS.Tasks;
+package System.FreeRTOS.Semaphores is
+   pragma Preelaborate;
 
-procedure Start_FreeRTOS_Scheduler (Disable_Watchdog : Boolean := True) is
-   --  On STM32F4, the watchdog isn't enabled by default (I think
-   --  there may be some NVRAM settings you can change to alter this).
-   pragma Unreferenced (Disable_Watchdog);
-begin
-   System.FreeRTOS.Tasks.Start_Scheduler;
-   raise Program_Error with "Start_Scheduler returned";
-end Start_FreeRTOS_Scheduler;
+   type Semaphore (<>) is limited private;
+   type Semaphore_Handle is access all Semaphore;
+
+   function Create_Semaphore return not null Semaphore_Handle;
+
+   procedure Give (The_Semaphore : not null Semaphore_Handle);
+
+   procedure Take (The_Semaphore : not null Semaphore_Handle);
+
+private
+
+   type Semaphore is null record;
+   --  Of course it isn't really, but it is opaque to us.
+
+end System.FreeRTOS.Semaphores;

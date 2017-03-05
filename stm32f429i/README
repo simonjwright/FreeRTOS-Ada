@@ -10,7 +10,7 @@ following additional restrictions:
    pragma Restrictions (No_Finalization);
    pragma Restrictions (No_Recursion);
 
-The RTS is supplied built with for debugging (-g) and with suitable
+The RTS is supplied built for debugging (-g) and with suitable
 optimisation (-Og), using GNAT GPL 2015[1] on Mac OS X (it should work
 out of the box with a Linux-hosted GNAT GPL 2015 cross-compiler, but
 will need recompiling for another compiler). Demo programs are
@@ -22,7 +22,7 @@ written for this work; see the files COPYING3 and COPYING.RUNTIME.
 
 The RTS is based on FreeRTOS[2]. See COPYING.FreeRTOS.
 
-Board support (spec files only) is generated using a forked svd2ada[3.
+Board support (spec files only) is generated using svd2ada[3].
 
 The following non-original files don't form part of a binary
 deliverable, so don't affect the status of the binary:
@@ -33,6 +33,6 @@ o build_runtime.gpr and runtime.xml originated in AdaCore's GNAT GPL
 o The linker script stm32f429i-flash.ld is under an MIT licence: see
   COPYING.MIT.
 
-[1] https://sourceforge.net/projects/gnuada/files/GNAT_GPL%20Mac%20OS%20X/2015-arm-eabi-darwin-bin-bis/
+[1] https://sourceforge.net/projects/gnuada/files/GNAT_GPL%20Mac%20OS%20X/2016-arm-eabi-darwin-bin/
 [2] http://www.freertos.org
-[3] https://github.com/simonjwright/svd2ada
+[3] https://github.com/AdaCore/svd2ada

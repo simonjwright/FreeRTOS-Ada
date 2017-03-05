@@ -19,5 +19,6 @@
 --  If not, see <http://www.gnu.org/licenses/>.
 
 pragma Restrictions (No_Elaboration_Code);
-package Startup with Elaborate_Body is
+package Startup is
+   pragma Elaborate_Body;
 end Startup;

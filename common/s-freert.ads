@@ -19,11 +19,9 @@
 --  If not, see <http://www.gnu.org/licenses/>.
 
 with Interfaces;
---  This could be 'private with', but that triggers GCC PR64866.
 
-package System.FreeRTOS with Pure is
-
-private
+package System.FreeRTOS is
+   pragma Pure;
 
    --  from portmacro.h,
    --  portBASE_TYPE is long

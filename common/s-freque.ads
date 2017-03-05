@@ -18,7 +18,10 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-package System.FreeRTOS.Queues with Preelaborate is
+pragma Restrictions (No_Elaboration_Code);
+
+package System.FreeRTOS.Queues is
+   pragma Preelaborate;
 
    type Queue (<>) is private;
    type Queue_Handle is access all Queue;

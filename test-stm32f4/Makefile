@@ -16,8 +16,6 @@
 #  along with this program; see the file COPYING3.  If not, see
 #  <http://www.gnu.org/licenses/>.
 
-include ../stm32f429i-disco-rtos/Makefile.inc
-
 all: testbed.bin
 
 testbed: force
@@ -28,5 +26,8 @@ clean::
 clean::
 	-rm *~ *.ali *.o *.bin
 	-rm -rf .build
+
+%.bin: %
+	arm-eabi-objcopy -O binary $^ $@
 
 .PHONY: all clean force

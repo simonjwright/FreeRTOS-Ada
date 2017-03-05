@@ -16,12 +16,14 @@
 // see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 // <http://www.gnu.org/licenses/>.
 //
-// This interface to FreeRTOS is part of the STM32F4 GNAT RTS port.
+// This interface to FreeRTOS is part of the Cortex GNAT RTS project.
 //
 // This file creates callable interfaces to some FreeRTOS macros.  The
 // alternative is to code in Ada what the macros translate to; this is
 // all very well until FreeRTOS changes the way the macro is
-// implemented.
+// implemented, and in any case the main reason for there being macros
+// in the first place is that the implementation is different for
+// different CPU architectures.
 
 #include <FreeRTOS.h>
 #include <queue.h>

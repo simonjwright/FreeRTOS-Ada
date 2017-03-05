@@ -1,0 +1,11 @@
+This RTS has the restriction `No_Finalization`, which means that package `Ada.Finalization` can't be included (or, of course, used).
+
+Originally, this was because it was later on the development path. However, when I attempted it (on branch `Finalization`) there were two compiler-related issues:
+
+* [PR66242](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66242), "Front-end error if exception propagation disabled" and finalization isn't. This has been corrected in GNAT GPL 2016 and FSF GCC 6.1.0.
+
+* [PR66205](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66205), "gnatbind generates invalid code when finalization is enabled in restricted runtime". This has not been fixed (though I did provide a patch, see the PR).
+
+For PR66205, I pursued the idea of front- (or, perhaps, back-)ending the GCC-provided *gnatbind* with something to fix up the generated code. This seems difficult with *gprbuild*.
+
+The main consequence of this is that the provided `Ada.Containers` code has had the dependence on finalization removed; this meant that the tampering checks also had to be removed.

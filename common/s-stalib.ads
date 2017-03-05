@@ -44,6 +44,7 @@
 --  package and the packages it references are included in all Ada programs,
 --  together with the included data.
 
+pragma Restrictions (No_Elaboration_Code);
 pragma Compiler_Unit_Warning;
 
 pragma Polling (Off);
@@ -52,7 +53,9 @@ pragma Polling (Off);
 
 with Ada.Unchecked_Conversion;
 
-package System.Standard_Library with Elaborate_Body, Preelaborate is
+package System.Standard_Library is
+   pragma Preelaborate;
+   pragma Elaborate_Body;
 
    subtype Big_String is String (1 .. Positive'Last);
    pragma Suppress_Initialization (Big_String);
@@ -223,8 +226,8 @@ package System.Standard_Library with Elaborate_Body, Preelaborate is
       --  a specific language rule, within the context of a task or not.
 
       Unhandled_Raise
-      --  Denotes the raise events corresponding to exceptions for which
-      --  there is no user defined handler.
+        --  Denotes the raise events corresponding to exceptions for which
+        --  there is no user defined handler.
      );
    --  Provide a way to denote different kinds of automatic traces related
    --  to exceptions that can be requested.
