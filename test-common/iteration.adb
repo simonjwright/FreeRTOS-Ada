@@ -22,7 +22,7 @@ with Ada.Real_Time;
 
 package body Iteration is
 
-   task Arrays;
+   task Arrays with Storage_Size => 1024;
    task body Arrays is
       subtype Index is Positive range 1 .. 10;
       A : array (Index) of Integer;
@@ -38,11 +38,11 @@ package body Iteration is
          if not (for all J of A => J = 42) then
             raise Constraint_Error with "universal quantifier failed";
          end if;
-         delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds (2);
+         delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds (3);
       end loop;
    end Arrays;
 
-   task Vectors;
+   task Vectors with Storage_Size => 2048;
    task body Vectors is
       subtype Index is Positive range 1 .. 10;
       package Integer_Vectors
@@ -51,6 +51,7 @@ package body Iteration is
       V : Integer_Vectors.Vector (Capacity => 10);
       use type Ada.Real_Time.Time;
    begin
+      delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds (1);
       loop
          V.Clear;
          V.Append (New_Item => 0, Count => 10);
@@ -62,11 +63,11 @@ package body Iteration is
          if not (for all J of V => J = 42) then
             raise Constraint_Error with "universal quantifier failed";
          end if;
-         delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds (2);
+         delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds (3);
       end loop;
    end Vectors;
 
-   task Maps;
+   task Maps with Storage_Size => 2048;
    task body Maps is
       subtype Key_Type is Positive range 1 .. 10;
       function Hash (Key : Key_Type) return Ada.Containers.Hash_Type
@@ -79,6 +80,7 @@ package body Iteration is
       M : Integer_Maps.Map (Capacity => 10, Modulus => 7);
       use type Ada.Real_Time.Time;
    begin
+      delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds (2);
       loop
          M.Clear;
          for J in Key_Type loop
@@ -94,7 +96,7 @@ package body Iteration is
          if not (for all J of M => J = 42) then
             raise Constraint_Error with "universal quantifier failed";
          end if;
-         delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds (2);
+         delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds (3);
       end loop;
    end Maps;
 
