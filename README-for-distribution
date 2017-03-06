@@ -50,8 +50,8 @@ In this release,
 
 * The support for on-chip peripherals is limited to the
   SVD2Ada-generated spec files. The AdaCore 'bareboard' software
-  (currently https://github.com/AdaCore/bareboard, but a name change
-  is under consideration) supports the STM32 line.
+  (currently https://github.com/AdaCore/Ada_Drivers_Library, but a
+  name change is under consideration) supports the STM32 line.
 
 * Tasking no longer requires an explicit start
   (https://sourceforge.net/p/cortex-gnat-rts/tickets/5/).

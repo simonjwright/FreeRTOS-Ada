@@ -9,7 +9,7 @@ Desktop GNAT manages the secondary stack in the heap, so that it can be of unbou
     function Secondary_Stack_Size (Stack_Size : Size_Type) return Size_Type
       is ((Stack_Size * 10) / 100);
 
-If you have a function returning a large indefinite type (a long `String`, say, or an indefinite array of large objects, you’ll need to allocate a larger stack for the using task:
+If you have a function returning a large indefinite type (a long `String`, say, or an indefinite array of large objects), you’ll need to allocate a larger stack for the using task:
 
     :::ada
     task type T

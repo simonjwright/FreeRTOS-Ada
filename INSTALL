@@ -1,4 +1,4 @@
-The runtimes are supplied pre-built with GNAT GPL 2015.
+The runtimes are supplied pre-built with GNAT GPL 2016.
 
 You should always use gprbuild and a GNAT Project (GPR) to do
 cross-builds. Gnatmake (arm-eabi-gnatmake) doesn't work nearly so
@@ -46,7 +46,7 @@ during all phases of the build):
         );
    end Builder;
 
-or, with GPRBUILD GPL 2015, via an attribute:
+or, with GPRBUILD GPL 2015 or later, via an attribute:
 
    for Runtime ("ada") use "stm32f429i";
 
