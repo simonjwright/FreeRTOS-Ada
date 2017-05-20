@@ -48,17 +48,18 @@ package body Environment_Task is
    procedure Create is
    begin
       System.Tasking.Restricted.Stages.Create_Restricted_Task
-        (Priority      => System.Tasking.Unspecified_Priority,
-         Stack_Address => System.Null_Address,
-         Size          => System.Parameters.Unspecified_Size,
-         Task_Info     => System.Task_Info.Unspecified_Task_Info,
-         CPU           => System.Tasking.Unspecified_CPU,
-         State         => Environment_Task'Access,
-         Discriminants => System.Null_Address,
-         Elaborated    => Environment_Task_Elaborated'Access,
-         Chain         => Activation_Chain_Dummy,
-         Task_Image    => "",
-         Created_Task  => Environment_TCB'Access);
+        (Priority             => System.Tasking.Unspecified_Priority,
+         Stack_Address        => System.Null_Address,
+         Size                 => System.Parameters.Unspecified_Size,
+         Secondary_Stack_Size => System.Parameters.Unspecified_Size,
+         Task_Info            => System.Task_Info.Unspecified_Task_Info,
+         CPU                  => System.Tasking.Unspecified_CPU,
+         State                => Environment_Task'Access,
+         Discriminants        => System.Null_Address,
+         Elaborated           => Environment_Task_Elaborated'Access,
+         Chain                => Activation_Chain_Dummy,
+         Task_Image           => "",
+         Created_Task         => Environment_TCB'Access);
    end Create;
 
 end Environment_Task;
