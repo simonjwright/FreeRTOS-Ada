@@ -16,9 +16,9 @@
 --  along with this program; see the file COPYING3.  If not, see
 --  <http://www.gnu.org/licenses/>.
 
-library project Build_Runtime is
+with "../FreeRTOS";
 
-   FreeRTOS := external ("HOME") & "/FreeRTOSV8.2.2/";
+library project Build_Runtime is
 
    for Languages use ("Ada", "C");
 
@@ -29,17 +29,13 @@ library project Build_Runtime is
    for Library_Dir use "adalib";
    for Object_Dir use ".build";
 
-   FreeRTOS_Source := FreeRTOS & "FreeRTOS/Source/";
-   FreeRTOS_Include := FreeRTOS_Source & "include";
-   FreeRTOS_Portable := FreeRTOS_Source & "portable/GCC/ARM_CM4F";
-
    for Source_Dirs use
      (
       "adainclude",
       "stm32f40x",
       "../common",
-      FreeRTOS_Source,
-      FreeRTOS_Portable
+      FreeRTOS.Source,
+      FreeRTOS.Portable_Base & "ARM_CM4F"
      );
 
    for Target use external ("TARGET", "arm-eabi");
@@ -63,7 +59,7 @@ library project Build_Runtime is
       ALL_CFLAGS :=
         external_as_list("INCLUDES", " ")
         & external_as_list("DEFINES", " ")
-        & "-I" & FreeRTOS_Include
+        & "-I" & FreeRTOS.Include
         & ("-DIN_RTS", "-Dinhibit_libc")
         & COMMON_FLAGS;
 

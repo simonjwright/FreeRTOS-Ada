@@ -42,30 +42,17 @@ package body System.FreeRTOS.Tasks is
       --  Priority: of task
       --  May raise Program_Error if the task couldn't be created.
 
-      --  From task.h: xTaskCreate() is a macro round
-      --  signed portBASE_TYPE xTaskGenericCreate(
-      --    pdTASK_CODE pxTaskCode,
-      --    const signed char * const pcName,
-      --    unsigned short usStackDepth,
-      --    void *pvParameters,
-      --    unsigned portBASE_TYPE uxPriority,
-      --    xTaskHandle *pxCreatedTask,
-      --    portSTACK_TYPE *puxStackBuffer,
-      --    const xMemoryRegion * const xRegions ) PRIVILEGED_FUNCTION;
-
-      function xTaskGenericCreate
+      function xTaskCreate
         (Code          :     Task_Code;
          Name          :     System.Address;         -- null-terminated
          Stack_Depth   :     Interfaces.Unsigned_16; -- in stack size units
          Parameters    :     System.Address;
          Priority      :     Unsigned_Base_Type;
-         Created_Task  : out Task_Handle;
-         Stack_Buffer  :     System.Address;
-         Memory_Region :     System.Address)
+         Created_Task  : out Task_Handle)
         return Status_Code with
           Import,
           Convention => C,
-          External_Name => "xTaskGenericCreate";
+          External_Name => "xTaskCreate";
 
       Task_Name : constant String := Name & ASCII.NUL;
       Status : Status_Code := Fail;
@@ -73,16 +60,14 @@ package body System.FreeRTOS.Tasks is
 
    begin
       Status :=
-        xTaskGenericCreate
+        xTaskCreate
           (Code          => Code,
            Name          => Task_Name (Task_Name'First)'Address,
            Stack_Depth   => Interfaces.Unsigned_16
              ((Stack_Depth + Stack_Unit_Size - 1) / Stack_Unit_Size),
            Parameters    => Parameters,
            Priority      => Unsigned_Base_Type (Priority),
-           Created_Task  => Result,
-           Stack_Buffer  => System.Null_Address,
-           Memory_Region => System.Null_Address);
+           Created_Task  => Result);
 
       if Status /= Pass then
          raise Program_Error with "couldn't create task";
