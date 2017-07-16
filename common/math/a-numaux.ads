@@ -30,14 +30,14 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  This version is for the x86 using the 80-bit x86 long double format
+--  This version is for ARM.
 
 package Ada.Numerics.Aux is
    pragma Pure;
 
    pragma Linker_Options ("-lm");
 
-   type Double is digits 18;
+   type Double is digits 15;
 
    --  We import these functions directly from C. Note that we label them
    --  all as pure functions, because indeed all of them are in fact pure.

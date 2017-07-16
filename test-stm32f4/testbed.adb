@@ -53,6 +53,8 @@ with Last_Chance_Handler;
 pragma Unreferenced (Last_Chance_Handler);
 --  Check we can supply our own version, replacing libgnat's weak one.
 
+with Ada.Numerics.Elementary_Functions;
+
 with SO;
 pragma Unreferenced (SO);
 --  Check suspension objects.
@@ -70,6 +72,8 @@ procedure Testbed is
       return S (S'First .. Positive'Min (10, S'Length) + S'First - 1);
    end Use_Secondary_Stack;
 begin
+
+   --  Check local handling of exceptions
    declare
       Err : exception;
    begin
@@ -79,12 +83,25 @@ begin
    exception
       when Err => null;
    end;
+
+   --  Check secondary stack use
    declare
       S : constant String := Use_Secondary_Stack ("hello world")
         with Unreferenced;
    begin
       null;
    end;
+
+   declare
+      Result : Float := 0.0 with Volatile;
+   begin
+      Result := Ada.Numerics.Elementary_Functions.Sqrt (2.0);
+      --  need a valid statement inside the block for 'next' to get to
+      --  in the debugger
+      delay until Ada.Real_Time.Clock;
+   end;
+
+   --  Check streams
    Streams.Check (42);
 
    declare

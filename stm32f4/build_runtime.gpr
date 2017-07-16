@@ -34,6 +34,7 @@ library project Build_Runtime is
       "adainclude",
       "stm32f40x",
       "../common",
+      "../common/math",
       FreeRTOS.Source,
       FreeRTOS.Portable_Base & "ARM_CM4F"
      );

@@ -22,7 +22,7 @@
       for Required_Switches use Linker'Required_Switches &amp;
         ("${RUNTIME_DIR(ada)}/adalib/libgnat.a") &amp;
         Compiler.Common_Required_Switches &amp;
-        ("-nostdlib", "-lgcc", "-lc");
+        ("-nostdlib", "-lm", "-lgcc", "-lc");
 
       for Required_Switches use Linker'Required_Switches &amp;
 	("-T", "${RUNTIME_DIR(ada)}/adalib/stm32f407-flash.ld");

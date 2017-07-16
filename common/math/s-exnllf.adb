@@ -65,27 +65,33 @@ package body System.Exn_LLF is
      (Left  : Float;
       Right : Integer) return Float
    is
-      Temp : Float;
+      function Inner (Left : Float; Right : Natural) return Float;
+      function Inner (Left : Float; Right : Natural) return Float
+      is
+         Temp : Float;
+      begin
+         case Right is
+            when 0 =>
+               return 1.0;
+            when 1 =>
+               return Left;
+            when 2 =>
+               return Float'Machine (Left * Left);
+            when 3 =>
+               return Float'Machine (Left * Left * Left);
+            when 4 =>
+               Temp := Float'Machine (Left * Left);
+               return Float'Machine (Temp * Temp);
+            when others =>
+               return
+                 Float'Machine
+                   (Float (Exp (Long_Long_Float (Left), Right)));
+         end case;
+      end Inner;
    begin
-      case Right is
-         when 0 =>
-            return 1.0;
-         when 1 =>
-            return Left;
-         when 2 =>
-            return Float'Machine (Left * Left);
-         when 3 =>
-            return Float'Machine (Left * Left * Left);
-         when 4 =>
-            Temp := Float'Machine (Left * Left);
-            return Float'Machine (Temp * Temp);
-         when Negative =>
-            return Float'Machine (1.0 / Exn_Float (Left, -Right));
-         when others =>
-            return
-              Float'Machine
-                (Float (Exp (Long_Long_Float (Left), Right)));
-      end case;
+      return (if Right in Negative
+              then Float'Machine (1.0 / Inner (Left, -Right))
+              else Inner (Left, Right));
    end Exn_Float;
 
    --------------------
@@ -96,27 +102,33 @@ package body System.Exn_LLF is
      (Left  : Long_Float;
       Right : Integer) return Long_Float
    is
-      Temp : Long_Float;
+      function Inner (Left : Long_Float; Right : Natural) return Long_Float;
+      function Inner (Left : Long_Float; Right : Natural) return Long_Float
+      is
+         Temp : Long_Float;
+      begin
+         case Right is
+            when 0 =>
+               return 1.0;
+            when 1 =>
+               return Left;
+            when 2 =>
+               return Long_Float'Machine (Left * Left);
+            when 3 =>
+               return Long_Float'Machine (Left * Left * Left);
+            when 4 =>
+               Temp := Long_Float'Machine (Left * Left);
+               return Long_Float'Machine (Temp * Temp);
+            when others =>
+               return
+                 Long_Float'Machine
+                   (Long_Float (Exp (Long_Long_Float (Left), Right)));
+         end case;
+      end Inner;
    begin
-      case Right is
-         when 0 =>
-            return 1.0;
-         when 1 =>
-            return Left;
-         when 2 =>
-            return Long_Float'Machine (Left * Left);
-         when 3 =>
-            return Long_Float'Machine (Left * Left * Left);
-         when 4 =>
-            Temp := Long_Float'Machine (Left * Left);
-            return Long_Float'Machine (Temp * Temp);
-         when Negative =>
-            return Long_Float'Machine (1.0 / Exn_Long_Float (Left, -Right));
-         when others =>
-            return
-              Long_Float'Machine
-                (Long_Float (Exp (Long_Long_Float (Left), Right)));
-      end case;
+      return (if Right in Negative
+              then Long_Float'Machine (1.0 / Inner (Left, -Right))
+              else Inner (Left, Right));
    end Exn_Long_Float;
 
    -------------------------
@@ -127,25 +139,35 @@ package body System.Exn_LLF is
      (Left  : Long_Long_Float;
       Right : Integer) return Long_Long_Float
    is
-      Temp : Long_Long_Float;
+      function Inner
+        (Left : Long_Long_Float;
+         Right : Natural) return Long_Long_Float;
+      function Inner
+        (Left : Long_Long_Float;
+         Right : Natural) return Long_Long_Float
+      is
+         Temp : Long_Long_Float;
+      begin
+         case Right is
+            when 0 =>
+               return 1.0;
+            when 1 =>
+               return Left;
+            when 2 =>
+               return Left * Left;
+            when 3 =>
+               return Left * Left * Left;
+            when 4 =>
+               Temp := Left * Left;
+               return Temp * Temp;
+            when others =>
+               return Exp (Left, Right);
+         end case;
+      end Inner;
    begin
-      case Right is
-         when 0 =>
-            return 1.0;
-         when 1 =>
-            return Left;
-         when 2 =>
-            return Left * Left;
-         when 3 =>
-            return Left * Left * Left;
-         when 4 =>
-            Temp := Left * Left;
-            return Temp * Temp;
-         when Negative =>
-            return 1.0 / Exn_Long_Long_Float (Left, -Right);
-         when others =>
-            return Exp (Left, Right);
-      end case;
+      return (if Right in Negative
+              then Long_Long_Float'Machine (1.0 / Inner (Left, -Right))
+              else Inner (Left, Right));
    end Exn_Long_Long_Float;
 
    ---------
