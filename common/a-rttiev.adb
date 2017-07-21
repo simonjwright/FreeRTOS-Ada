@@ -29,13 +29,10 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
-with System.Task_Primitives.Operations;
-with System.Tasking.Utilities;
-with System.Soft_Links;
-with System.Interrupt_Management.Operations;
+--  Adapted from the GCC 7.1.0 version for Cortex GNAT RTS.
 
-with Ada.Containers.Doubly_Linked_Lists;
-pragma Elaborate_All (Ada.Containers.Doubly_Linked_Lists);
+with Ada.Unchecked_Deallocation;
+with System.FreeRTOS.Tasks;
 
 ---------------------------------
 -- Ada.Real_Time.Timing_Events --
@@ -43,9 +40,179 @@ pragma Elaborate_All (Ada.Containers.Doubly_Linked_Lists);
 
 package body Ada.Real_Time.Timing_Events is
 
-   use System.Task_Primitives.Operations;
+   -----------
+   -- Lists --
+   -----------
 
-   package SSL renames System.Soft_Links;
+   generic
+      type T is private;
+      with function Less_For_Sort (L, R : T) return Boolean is <>;
+      with function Equal_For_Sort (L, R : T) return Boolean is <>;
+   package Lists
+   is
+
+      type List is tagged limited private;
+
+      type Cursor is private;
+      No_Element : constant Cursor;
+
+      function Is_Empty (L : List) return Boolean;
+
+      procedure Append (L : in out List; Item : T)
+        with Post'Class => not Is_Empty (L);
+
+      function First_Element (L : List) return T
+        with Pre'Class => not Is_Empty (L);
+
+      procedure Delete_First (L : in out List)
+        with Pre'Class => not Is_Empty (L);
+
+      function Find (L : List; Item : T) return Cursor;
+
+      procedure Delete (L : in out List; C : in out Cursor)
+        with
+          Pre'Class  => C /= No_Element and not Is_Empty (L),
+          Post'Class => C = No_Element;
+
+   private
+      type Cell;
+      type Cell_P is access Cell;
+      type Cell is record
+         Item : T;
+         Prev : Cell_P;
+         Next : Cell_P;
+      end record;
+
+      type List is tagged limited record
+         Head : Cell_P;
+         Tail : Cell_P;
+      end record;
+
+      type Cursor is new Cell_P;
+      No_Element : constant Cursor := null;
+   end Lists;
+
+   package body Lists
+   is
+
+      procedure Free is new Ada.Unchecked_Deallocation (Cell, Cell_P);
+
+      function Is_Empty (L : List) return Boolean
+      is (L.Head = null);
+
+      procedure Append (L : in out List; Item : T)
+      is
+         C : constant Cell_P := new Cell'(Item => Item, others => <>);
+      begin
+         if L.Head = null then
+            L.Head := C;
+            L.Tail := C;
+            pragma Assert (L.Head = C
+                           and then L.Tail = C
+                           and then L.Head.Next = null
+                           and then L.Head.Prev = null);
+         elsif Less_For_Sort (Item, L.Head.Item) then
+            --  Insert before the list head.
+            L.Head.Prev := C;
+            C.Next := L.Head;
+            L.Head := C;
+            pragma Assert (L.Head = C
+                           and then L.Head.Prev = null
+                           and then L.Head.Next.Prev = L.Head);
+         elsif Less_For_Sort (L.Tail.Item, Item)
+           or else Equal_For_Sort (L.Tail.Item, Item)
+         then
+            --  Insert after the list tail.
+            L.Tail.Next := C;
+            C.Prev := L.Tail;
+            L.Tail := C;
+            pragma Assert (L.Tail = C
+                           and then L.Tail.Next = null
+                           and then L.Tail.Prev.Next = L.Tail);
+         else
+            --  Need to insert after the last item in the list which is
+            --  less than or equal to this item.
+            --
+            --  We don't need to alter the list head or tail.
+            declare
+               P : Cell_P := L.Head;
+            begin
+               while Less_For_Sort (P.Next.Item, Item)
+                 or else Equal_For_Sort (P.Next.Item, Item) loop
+                  P := P.Next;
+               end loop;
+               P.Next.Prev := C;
+               C.Next := P.Next;
+               C.Prev := P;
+               P.Next := C;
+            end;
+            pragma Assert (C.Next.Prev = C
+                           and then C.Prev.Next = C);
+         end if;
+      end Append;
+
+      function First_Element (L : List) return T
+      is (L.Head.Item);
+
+      procedure Delete_First (L : in out List)
+      is
+         Head : Cell_P := L.Head;
+      begin
+         L.Head := L.Head.Next;
+         if L.Head = null then
+            L.Tail := null;
+         else
+            L.Head.Prev := null;
+         end if;
+         Free (Head);
+      end Delete_First;
+
+      function Find (L : List; Item : T) return Cursor
+      is
+         Result : Cell_P := L.Head;
+      begin
+         loop
+            if Result = null then
+               return No_Element;
+            elsif Result.Item = Item then
+               return Cursor (Result);
+            else
+               Result := Result.Next;
+            end if;
+         end loop;
+      end Find;
+
+      procedure Delete (L : in out List; C : in out Cursor)
+      is
+         This : Cell_P := Cell_P (C);
+      begin
+         if C.Prev = null then
+            L.Head := C.Next;
+         else
+            C.Prev.Next := C.Next;
+         end if;
+         if C.Next = null then
+            L.Tail := C.Prev;
+         else
+            C.Next.Prev := C.Prev;
+         end if;
+
+         Free (This);
+         C := No_Element;
+      end Delete;
+
+   end Lists;
+
+   -------------
+   -- Locking --
+   -------------
+
+   procedure Lock;
+   procedure Unlock;
+
+   ----------------------
+   -- Any_Timing_Event --
+   ----------------------
 
    type Any_Timing_Event is access all Timing_Event'Class;
    --  We must also handle user-defined types derived from Timing_Event
@@ -54,24 +221,20 @@ package body Ada.Real_Time.Timing_Events is
    -- Events --
    ------------
 
-   package Events is new Ada.Containers.Doubly_Linked_Lists (Any_Timing_Event);
+   --  Event comparisons are in terms of the events' timeouts.
+   function Sooner (Left, Right : Any_Timing_Event) return Boolean
+   is (Left.Timeout < Right.Timeout);
+   function Equal (Left, Right : Any_Timing_Event) return Boolean
+   is (Left.Timeout = Right.Timeout);
+
+   package Events is new Lists (Any_Timing_Event,
+                                Less_For_Sort  => Sooner,
+                                Equal_For_Sort => Equal);
    --  Provides the type for the container holding pointers to events
 
    All_Events : Events.List;
    --  The queue of pending events, ordered by increasing timeout value, that
    --  have been "set" by the user via Set_Handler.
-
-   Event_Queue_Lock : aliased System.Task_Primitives.RTS_Lock;
-   --  Used for mutually exclusive access to All_Events
-
-   --  We need to Initialize_Lock before Timer is activated. The purpose of the
-   --  Dummy package is to get around Ada's syntax rules.
-
-   package Dummy is end Dummy;
-   package body Dummy is
-   begin
-      Initialize_Lock (Event_Queue_Lock'Access, Level => PO_Level);
-   end Dummy;
 
    procedure Process_Queued_Events;
    --  Examine the queue of pending events for any that have timed out. For
@@ -104,15 +267,12 @@ package body Ada.Real_Time.Timing_Events is
       --  requirements. Obviously a shorter period would give better resolution
       --  at the cost of more overhead.
 
-      Ignore : constant Boolean := System.Tasking.Utilities.Make_Independent;
-      pragma Unreferenced (Ignore);
-
    begin
-      --  Since this package may be elaborated before System.Interrupt,
-      --  we need to call Setup_Interrupt_Mask explicitly to ensure that
-      --  this task has the proper signal mask.
+      --  --  Since this package may be elaborated before System.Interrupt,
+      --  --  we need to call Setup_Interrupt_Mask explicitly to ensure that
+      --  --  this task has the proper signal mask.
 
-      System.Interrupt_Management.Operations.Setup_Interrupt_Mask;
+      --  System.Interrupt_Management.Operations.Setup_Interrupt_Mask;
 
       loop
          Process_Queued_Events;
@@ -129,13 +289,10 @@ package body Ada.Real_Time.Timing_Events is
 
    begin
       loop
-         SSL.Abort_Defer.all;
-
-         Write_Lock (Event_Queue_Lock'Access);
+         Lock;
 
          if All_Events.Is_Empty then
-            Unlock (Event_Queue_Lock'Access);
-            SSL.Abort_Undefer.all;
+            Unlock;
             return;
          else
             Next_Event := All_Events.First_Element;
@@ -148,8 +305,7 @@ package body Ada.Real_Time.Timing_Events is
             --  processing (and indeed we must not continue since we always
             --  delete the first element).
 
-            Unlock (Event_Queue_Lock'Access);
-            SSL.Abort_Undefer.all;
+            Unlock;
             return;
          end if;
 
@@ -163,9 +319,7 @@ package body Ada.Real_Time.Timing_Events is
          --  queue of future events. Thus we cannot hold the lock on the queue
          --  while invoking the event's handler.
 
-         Unlock (Event_Queue_Lock'Access);
-
-         SSL.Abort_Undefer.all;
+         Unlock;
 
          --  There is no race condition with the user changing the handler
          --  pointer while we are processing because we are executing at the
@@ -189,6 +343,8 @@ package body Ada.Real_Time.Timing_Events is
 
          --  Ignore exceptions propagated by Handler.all, as required by
          --  RM D.15(21/2).
+         --
+         --  Of course, exceptions can't be propagated in this RTS!
 
          exception
             when others =>
@@ -202,28 +358,8 @@ package body Ada.Real_Time.Timing_Events is
    -----------------------
 
    procedure Insert_Into_Queue (This : Any_Timing_Event) is
-
-      function Sooner (Left, Right : Any_Timing_Event) return Boolean;
-      --  Compares events in terms of timeout values
-
-      package By_Timeout is new Events.Generic_Sorting (Sooner);
-      --  Used to keep the events in ascending order by timeout value
-
-      ------------
-      -- Sooner --
-      ------------
-
-      function Sooner (Left, Right : Any_Timing_Event) return Boolean is
-      begin
-         return Left.Timeout < Right.Timeout;
-      end Sooner;
-
-   --  Start of processing for Insert_Into_Queue
-
    begin
-      SSL.Abort_Defer.all;
-
-      Write_Lock (Event_Queue_Lock'Access);
+      Lock;
 
       All_Events.Append (This);
 
@@ -232,11 +368,7 @@ package body Ada.Real_Time.Timing_Events is
       --  event in the queue always has the "next" value for the Timer task
       --  to use in its delay statement.
 
-      By_Timeout.Sort (All_Events);
-
-      Unlock (Event_Queue_Lock'Access);
-
-      SSL.Abort_Undefer.all;
+      Unlock;
    end Insert_Into_Queue;
 
    -----------------------
@@ -248,9 +380,7 @@ package body Ada.Real_Time.Timing_Events is
       Location : Cursor;
 
    begin
-      SSL.Abort_Defer.all;
-
-      Write_Lock (Event_Queue_Lock'Access);
+      Lock;
 
       Location := All_Events.Find (This);
 
@@ -258,9 +388,7 @@ package body Ada.Real_Time.Timing_Events is
          All_Events.Delete (Location);
       end if;
 
-      Unlock (Event_Queue_Lock'Access);
-
-      SSL.Abort_Undefer.all;
+      Unlock;
    end Remove_From_Queue;
 
    -----------------
@@ -352,16 +480,26 @@ package body Ada.Real_Time.Timing_Events is
       return (if Event.Handler = null then Time_First else Event.Timeout);
    end Time_Of_Event;
 
-   --------------
-   -- Finalize --
-   --------------
+   ----------
+   -- Lock --
+   ----------
 
-   procedure Finalize (This : in out Timing_Event) is
+   procedure Lock is
    begin
-      --  D.15 (19/2) says finalization clears the event
+      if not System.FreeRTOS.Tasks.In_ISR then
+         System.FreeRTOS.Tasks.Disable_Interrupts;
+      end if;
+   end Lock;
 
-      This.Handler := null;
-      Remove_From_Queue (This'Unchecked_Access);
-   end Finalize;
+   ------------
+   -- Unlock --
+   ------------
+
+   procedure Unlock is
+   begin
+      if not System.FreeRTOS.Tasks.In_ISR then
+         System.FreeRTOS.Tasks.Enable_Interrupts;
+      end if;
+   end Unlock;
 
 end Ada.Real_Time.Timing_Events;

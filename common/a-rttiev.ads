@@ -33,7 +33,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
-with Ada.Finalization;
+--  Modified from the GCC 7.1.0 version for Cortex GNAT RTS.
 
 package Ada.Real_Time.Timing_Events is
 
@@ -63,7 +63,7 @@ package Ada.Real_Time.Timing_Events is
 
 private
 
-   type Timing_Event is new Ada.Finalization.Limited_Controlled with record
+   type Timing_Event is tagged limited record
       Timeout : Time := Time_First;
       --  The time at which the user's handler should be invoked when the
       --  event is "set" (i.e., when Handler is not null).
@@ -73,9 +73,5 @@ private
       --  at the Timeout time in the future.  When this value is null the event
       --  is said to be "cleared" and no timeout is processed.
    end record;
-
-   overriding procedure Finalize (This : in out Timing_Event);
-   --  Finalization procedure is required to satisfy (RM D.15 (19/2)), which
-   --  says that the object must be cleared on finalization.
 
 end Ada.Real_Time.Timing_Events;
