@@ -1,12 +1,12 @@
 ------------------------------------------------------------------------------
 --                                                                          --
---                         GNAT COMPILER COMPONENTS                         --
+--                         GNAT RUN-TIME COMPONENTS                         --
 --                                                                          --
---                    S Y S T E M . P A R A M E T E R S                     --
+--                       S Y S T E M . I M G _ I N T                        --
 --                                                                          --
 --                                 B o d y                                  --
 --                                                                          --
---          Copyright (C) 2016 Free Software Foundation, Inc.               --
+--          Copyright (C) 1992-2015, Free Software Foundation, Inc.         --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -29,24 +29,75 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  This is the version for Cortex GNAT RTS.
+package body System.Img_Int is
 
-package body System.Parameters is
+   procedure Set_Digits
+     (T : Integer;
+      S : in out String;
+      P : in out Natural);
+   --  Set digits of absolute value of T, which is zero or negative. We work
+   --  with the negative of the value so that the largest negative number is
+   --  not a special case.
 
-   function Adjust_Storage_Size (Size : Size_Type) return Size_Type is
-     (if Size = Unspecified_Size then
-        Default_Stack_Size
-      elsif Size < Minimum_Stack_Size then
-        Minimum_Stack_Size
+   -------------------
+   -- Image_Integer --
+   -------------------
+
+   procedure Image_Integer
+     (V : Integer;
+      S : in out String;
+      P : out Natural)
+   is
+      pragma Assert (S'First = 1);
+
+   begin
+      if V >= 0 then
+         S (1) := ' ';
+         P := 1;
       else
-        Size);
+         P := 0;
+      end if;
 
-   function Default_Stack_Size return Size_Type is (4096);  -- same as GPL
+      Set_Image_Integer (V, S, P);
+   end Image_Integer;
 
-   function Minimum_Stack_Size return Size_Type is (768);
+   ----------------
+   -- Set_Digits --
+   ----------------
 
-   function Secondary_Stack_Size (Stack_Size : Size_Type) return Size_Type
-     is ((Stack_Size * 10) / 100);
-   --  10%
+   procedure Set_Digits
+     (T : Integer;
+      S : in out String;
+      P : in out Natural)
+   is
+   begin
+      if T <= -10 then
+         Set_Digits (T / 10, S, P);
+         P := P + 1;
+         S (P) := Character'Val (48 - (T rem 10));
+      else
+         P := P + 1;
+         S (P) := Character'Val (48 - T);
+      end if;
+   end Set_Digits;
 
-end System.Parameters;
+   -----------------------
+   -- Set_Image_Integer --
+   -----------------------
+
+   procedure Set_Image_Integer
+     (V : Integer;
+      S : in out String;
+      P : in out Natural)
+   is
+   begin
+      if V >= 0 then
+         Set_Digits (-V, S, P);
+      else
+         P := P + 1;
+         S (P) := '-';
+         Set_Digits (V, S, P);
+      end if;
+   end Set_Image_Integer;
+
+end System.Img_Int;
