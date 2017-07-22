@@ -41,7 +41,7 @@ package body System.Parameters is
       else
         Size);
 
-   function Default_Stack_Size return Size_Type is (4096);  -- same as GPL
+   function Default_Stack_Size return Size_Type is (1024);
 
    function Minimum_Stack_Size return Size_Type is (768);
 

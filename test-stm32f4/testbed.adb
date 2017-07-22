@@ -33,10 +33,6 @@ with Floating_Point;
 pragma Unreferenced (Floating_Point);
 --  Floating point
 
-with Images;
-pragma Unreferenced (Images);
---  foo'Image(), 'Img
-
 with Interfaces.C.Strings;
 pragma Unreferenced (Interfaces.C.Strings);
 --  Check we can build with this package in the closure.
@@ -97,7 +93,7 @@ begin
    end;
 
    declare
-      Result : Float := 0.0 with Volatile, Unreferenced;
+      Result : Float := 0.0 with Volatile;
    begin
       Result := Ada.Numerics.Elementary_Functions.Sqrt (2.0);
       --  need a valid statement inside the block for 'next' to get to

@@ -40,20 +40,9 @@ EXTERN(_sbrk)
    weak version). */
 EXTERN(_init)
 
-/* This is used in Certyflie to cause the crazyflie executable to load
-   above the normal STM32F4 start address; the bootloader sits at the
-   beginning of flash memory and the board always boots ito it. It
-   either loads a new crazyflie executable over the radio or executes
-   an existing one.
-
-   See https://wiki.bitcraze.io/doc:crazyflie:bootloader:protocol */
-
-START_OFFSET = DEFINED (START_OFFSET) ? START_OFFSET : 0;
-
 MEMORY
 {
-    flash (RX)  : ORIGIN = 0x08000000 + START_OFFSET,
-                  LENGTH = 1024K - START_OFFSET
+    flash (RX)  : ORIGIN = 0x08000000, LENGTH = 1024K
     ccmram (rw) : ORIGIN = 0x10000000, LENGTH = 64K
     sram (RWX)  : ORIGIN = 0x20000000, LENGTH = 128K
 }
@@ -63,7 +52,6 @@ SECTIONS
     .isr_vector :
     {
         . = ALIGN(4);
-        _isr_vector = .;
         LONG(_estack)
         LONG(program_initialization + 1)
         KEEP(*(.isr_vector))

@@ -40,6 +40,7 @@
 
 pragma Profile (Ravenscar);
 
+pragma Restrictions (No_Enumeration_Maps);
 pragma Restrictions (No_Exception_Propagation);
 pragma Restrictions (No_Finalization);
 pragma Restrictions (No_Recursion);

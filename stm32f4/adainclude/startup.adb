@@ -54,8 +54,6 @@ package body Startup is
 
       use System.Storage_Elements;
 
-      ISR_Vector : Storage_Element
-        with Import, Convention => Asm, External_Name => "_isr_vector";
       Sdata : Storage_Element
         with Import, Convention => Asm, External_Name => "_sdata";
       Edata : Storage_Element
@@ -88,7 +86,7 @@ package body Startup is
         Component_Size => 2,
         Size => 32;
       type SCB_Registers is record
-         VTOR  : System.Address;
+         VTOR  : Interfaces.Unsigned_32;
          CPACR : CP_Accesses := (others => Denied);
       end record
       with
@@ -116,7 +114,7 @@ package body Startup is
       System.Machine_Code.Asm ("dsb", Volatile => True);
       System.Machine_Code.Asm ("isb", Volatile => True);
 
-      SCB.VTOR := ISR_Vector'Address;
+      SCB.VTOR := 16#0800_0000#;
 
       Set_Up_Clock;
 

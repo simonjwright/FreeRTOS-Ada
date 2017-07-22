@@ -45,17 +45,12 @@ package body Environment_Task is
    Environment_TCB : aliased System.Tasking.Ada_Task_Control_Block
      (System.Tasking.Null_Entry);
 
-   --  Will be overwritten by binder-generated code if the main
-   --  program has pragma Priority.
-   Main_Priority : Integer := System.Tasking.Unspecified_Priority;
-   pragma Export (C, Main_Priority, "__gl_main_priority");
-
    procedure Create is
    begin
       System.Tasking.Restricted.Stages.Create_Restricted_Task
-        (Priority             => Main_Priority,
+        (Priority             => System.Tasking.Unspecified_Priority,
          Stack_Address        => System.Null_Address,
-         Size                 => 4096,
+         Size                 => System.Parameters.Unspecified_Size,
          Secondary_Stack_Size => System.Parameters.Unspecified_Size,
          Task_Info            => System.Task_Info.Unspecified_Task_Info,
          CPU                  => System.Tasking.Unspecified_CPU,
