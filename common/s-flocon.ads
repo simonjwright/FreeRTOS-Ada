@@ -1,12 +1,12 @@
 ------------------------------------------------------------------------------
 --                                                                          --
---                         GNAT COMPILER COMPONENTS                         --
+--                         GNAT RUN-TIME COMPONENTS                         --
 --                                                                          --
---                    S Y S T E M . P A R A M E T E R S                     --
+--                 S Y S T E M . F L O A T _ C O N T R O L                  --
 --                                                                          --
---                                 B o d y                                  --
+--                                 S p e c                                  --
 --                                                                          --
---          Copyright (C) 2016 Free Software Foundation, Inc.               --
+--                     Copyright (C) 2000-2011, AdaCore                     --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -29,24 +29,31 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  This is the version for Cortex GNAT RTS.
+--  Control functions for floating-point unit
 
-package body System.Parameters is
+package System.Float_Control is
+   pragma Pure;
+   --  This is not fully correct, but this unit is with-ed by pure units
+   --  (eg s-imgrea).
 
-   function Adjust_Storage_Size (Size : Size_Type) return Size_Type is
-     (if Size = Unspecified_Size then
-        Default_Stack_Size
-      elsif Size < Minimum_Stack_Size then
-        Minimum_Stack_Size
-      else
-        Size);
-
-   function Default_Stack_Size return Size_Type is (4096);  -- same as GPL
-
-   function Minimum_Stack_Size return Size_Type is (768);
-
-   function Secondary_Stack_Size (Stack_Size : Size_Type) return Size_Type
-     is ((Stack_Size * 10) / 100);
-   --  10%
-
-end System.Parameters;
+   procedure Reset;
+   pragma Inline (Reset);
+   --  Reset the floating-point processor to the default state needed to get
+   --  correct Ada semantics for the target. Some third party tools change
+   --  the settings for the floating-point processor. Reset can be called
+   --  to reset the floating-point processor into the mode required by GNAT
+   --  for correct operation. Use this call after a call to foreign code if
+   --  you suspect incorrect floating-point operation after the call.
+   --
+   --  For example under Windows NT some system DLL calls change the default
+   --  FPU arithmetic to 64 bit precision mode. However, since in Ada 95 it
+   --  is required to provide full access to the floating-point types of the
+   --  architecture, GNAT requires full 80-bit precision mode, and Reset makes
+   --  sure this mode is established.
+   --
+   --  Similarly on the PPC processor, it is important that overflow and
+   --  underflow exceptions be disabled.
+   --
+   --  The call to Reset simply has no effect if the target environment
+   --  does not give rise to such concerns.
+end System.Float_Control;

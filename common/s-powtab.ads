@@ -2,11 +2,11 @@
 --                                                                          --
 --                         GNAT COMPILER COMPONENTS                         --
 --                                                                          --
---                    S Y S T E M . P A R A M E T E R S                     --
+--                  S Y S T E M . P O W T E N _ T A B L E                   --
 --                                                                          --
---                                 B o d y                                  --
+--                                 S p e c                                  --
 --                                                                          --
---          Copyright (C) 2016 Free Software Foundation, Inc.               --
+--          Copyright (C) 1992-2014, Free Software Foundation, Inc.         --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -29,24 +29,42 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  This is the version for Cortex GNAT RTS.
+--  This package provides a powers of ten table used for real conversions
 
-package body System.Parameters is
+package System.Powten_Table is
+   pragma Pure;
 
-   function Adjust_Storage_Size (Size : Size_Type) return Size_Type is
-     (if Size = Unspecified_Size then
-        Default_Stack_Size
-      elsif Size < Minimum_Stack_Size then
-        Minimum_Stack_Size
-      else
-        Size);
+   Maxpow : constant := 22;
+   --  The number of entries in this table is chosen to include powers of ten
+   --  that are exactly representable with long_long_float. Assuming that on
+   --  all targets we have 53 bits of mantissa for the type, the upper bound is
+   --  given by 53/(log 5). If the scaling factor for a string is greater than
+   --  Maxpow, it can be obtained by several multiplications, which is less
+   --  efficient than with a bigger table, but avoids anomalies at end points.
 
-   function Default_Stack_Size return Size_Type is (4096);  -- same as GPL
+   Powten : constant array (0 .. Maxpow) of Long_Long_Float :=
+      (00 => 1.0E+00,
+       01 => 1.0E+01,
+       02 => 1.0E+02,
+       03 => 1.0E+03,
+       04 => 1.0E+04,
+       05 => 1.0E+05,
+       06 => 1.0E+06,
+       07 => 1.0E+07,
+       08 => 1.0E+08,
+       09 => 1.0E+09,
+       10 => 1.0E+10,
+       11 => 1.0E+11,
+       12 => 1.0E+12,
+       13 => 1.0E+13,
+       14 => 1.0E+14,
+       15 => 1.0E+15,
+       16 => 1.0E+16,
+       17 => 1.0E+17,
+       18 => 1.0E+18,
+       19 => 1.0E+19,
+       20 => 1.0E+20,
+       21 => 1.0E+21,
+       22 => 1.0E+22);
 
-   function Minimum_Stack_Size return Size_Type is (768);
-
-   function Secondary_Stack_Size (Stack_Size : Size_Type) return Size_Type
-     is ((Stack_Size * 10) / 100);
-   --  10%
-
-end System.Parameters;
+end System.Powten_Table;

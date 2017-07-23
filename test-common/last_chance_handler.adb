@@ -17,12 +17,28 @@
 --  <http://www.gnu.org/licenses/>.
 
 procedure Last_Chance_Handler
-  (Message : System.Address; Line : Integer)
+  (Message : Interfaces.C.Strings.chars_ptr; Line : Integer)
 is
    pragma Unreferenced (Message, Line);
+   procedure Disable_Interrupts
+   with
+     Import,
+     Convention => C,
+     External_Name => "_gnat_disable_interrupts";
+   procedure Suspend_All_Tasks
+   with
+     Import,
+     Convention => C,
+     External_Name => "vTaskSuspendAll";
 begin
    --  TODO: Add in code to dump the info to serial/screen which
    --  is obviously board specific.
+   --
+   --  At the moment, use the debugger to examine the backtrace.
+   Disable_Interrupts;
+   --  Suspend_All_Tasks;
+   --  This crashes with STM32F4, FreeRTOS v9
+
    loop
       null;
    end loop;

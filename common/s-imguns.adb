@@ -1,12 +1,12 @@
 ------------------------------------------------------------------------------
 --                                                                          --
---                         GNAT COMPILER COMPONENTS                         --
+--                         GNAT RUN-TIME COMPONENTS                         --
 --                                                                          --
---                    S Y S T E M . P A R A M E T E R S                     --
+--                       S Y S T E M . I M G _ U N S                        --
 --                                                                          --
 --                                 B o d y                                  --
 --                                                                          --
---          Copyright (C) 2016 Free Software Foundation, Inc.               --
+--          Copyright (C) 1992-2017, Free Software Foundation, Inc.         --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -29,24 +29,52 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  This is the version for Cortex GNAT RTS.
+--  Modified from GCC 7.1.0 to remove recursion for Cortex GNAT RTS.
 
-package body System.Parameters is
+with System.Unsigned_Types; use System.Unsigned_Types;
 
-   function Adjust_Storage_Size (Size : Size_Type) return Size_Type is
-     (if Size = Unspecified_Size then
-        Default_Stack_Size
-      elsif Size < Minimum_Stack_Size then
-        Minimum_Stack_Size
-      else
-        Size);
+package body System.Img_Uns is
 
-   function Default_Stack_Size return Size_Type is (4096);  -- same as GPL
+   --------------------
+   -- Image_Unsigned --
+   --------------------
 
-   function Minimum_Stack_Size return Size_Type is (768);
+   procedure Image_Unsigned
+     (V : System.Unsigned_Types.Unsigned;
+      S : in out String;
+      P : out Natural)
+   is
+      pragma Assert (S'First = 1);
+   begin
+      S (1) := ' ';
+      P := 1;
+      Set_Image_Unsigned (V, S, P);
+   end Image_Unsigned;
 
-   function Secondary_Stack_Size (Stack_Size : Size_Type) return Size_Type
-     is ((Stack_Size * 10) / 100);
-   --  10%
+   ------------------------
+   -- Set_Image_Unsigned --
+   ------------------------
 
-end System.Parameters;
+   procedure Set_Image_Unsigned
+     (V : Unsigned;
+      S : in out String;
+      P : in out Natural)
+   is
+      Local_V : Unsigned := V;
+      Local_P : Natural := P;
+      Reversed : String (S'Range);
+   begin
+      while Local_V >= 10 loop
+         Local_P := Local_P + 1;
+         Reversed (Local_P) := Character'Val (48 + (Local_V rem 10));
+         Local_V := Local_V / 10;
+      end loop;
+      Local_P := Local_P + 1;
+      Reversed (Local_P) := Character'Val (48 + Local_V);
+      for J in 0 .. (Local_P - P) loop
+         S (P + 1 + J) := Reversed (Local_P - J);
+      end loop;
+      P := Local_P;
+   end Set_Image_Unsigned;
+
+end System.Img_Uns;

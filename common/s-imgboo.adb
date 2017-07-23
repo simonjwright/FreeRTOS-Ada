@@ -1,12 +1,12 @@
 ------------------------------------------------------------------------------
 --                                                                          --
---                         GNAT COMPILER COMPONENTS                         --
+--                         GNAT RUN-TIME COMPONENTS                         --
 --                                                                          --
---                    S Y S T E M . P A R A M E T E R S                     --
+--                      S Y S T E M . I M G _ B O O L                       --
 --                                                                          --
 --                                 B o d y                                  --
 --                                                                          --
---          Copyright (C) 2016 Free Software Foundation, Inc.               --
+--           Copyright (C) 1992-2009, Free Software Foundation, Inc.        --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -29,24 +29,26 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  This is the version for Cortex GNAT RTS.
+package body System.Img_Bool is
 
-package body System.Parameters is
+   -------------------
+   -- Image_Boolean --
+   -------------------
 
-   function Adjust_Storage_Size (Size : Size_Type) return Size_Type is
-     (if Size = Unspecified_Size then
-        Default_Stack_Size
-      elsif Size < Minimum_Stack_Size then
-        Minimum_Stack_Size
+   procedure Image_Boolean
+     (V : Boolean;
+      S : in out String;
+      P : out Natural)
+   is
+      pragma Assert (S'First = 1);
+   begin
+      if V then
+         S (1 .. 4) := "TRUE";
+         P := 4;
       else
-        Size);
+         S (1 .. 5) := "FALSE";
+         P := 5;
+      end if;
+   end Image_Boolean;
 
-   function Default_Stack_Size return Size_Type is (4096);  -- same as GPL
-
-   function Minimum_Stack_Size return Size_Type is (768);
-
-   function Secondary_Stack_Size (Stack_Size : Size_Type) return Size_Type
-     is ((Stack_Size * 10) / 100);
-   --  10%
-
-end System.Parameters;
+end System.Img_Bool;

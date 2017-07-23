@@ -37,6 +37,8 @@ project Testbed is
          "-gnatqQafoy",
          "-gnatwaL.X"
         );
+      for Switches ("last_chance_handler.adb") use
+        Compiler'Default_Switches ("ada") & "-O0";
    end Compiler;
    package Linker is
       for Map_File_Option use "-Wl,-Map," & Project'Project_Dir;

@@ -1,12 +1,12 @@
 ------------------------------------------------------------------------------
 --                                                                          --
---                         GNAT COMPILER COMPONENTS                         --
+--                         GNAT RUN-TIME COMPONENTS                         --
 --                                                                          --
---                    S Y S T E M . P A R A M E T E R S                     --
+--                 S Y S T E M . F L O A T _ C O N T R O L                  --
 --                                                                          --
 --                                 B o d y                                  --
 --                                                                          --
---          Copyright (C) 2016 Free Software Foundation, Inc.               --
+--                       Copyright (C) 2011, AdaCore                        --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -29,24 +29,18 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  This is the version for Cortex GNAT RTS.
+--  This implementation does nothing and can be used when the floating point
+--  unit is fully under control.
 
-package body System.Parameters is
+package body System.Float_Control is
 
-   function Adjust_Storage_Size (Size : Size_Type) return Size_Type is
-     (if Size = Unspecified_Size then
-        Default_Stack_Size
-      elsif Size < Minimum_Stack_Size then
-        Minimum_Stack_Size
-      else
-        Size);
+   -----------
+   -- Reset --
+   -----------
 
-   function Default_Stack_Size return Size_Type is (4096);  -- same as GPL
+   procedure Reset is
+   begin
+      null;
+   end Reset;
 
-   function Minimum_Stack_Size return Size_Type is (768);
-
-   function Secondary_Stack_Size (Stack_Size : Size_Type) return Size_Type
-     is ((Stack_Size * 10) / 100);
-   --  10%
-
-end System.Parameters;
+end System.Float_Control;
