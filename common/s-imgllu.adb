@@ -31,6 +31,8 @@
 
 with System.Unsigned_Types; use System.Unsigned_Types;
 
+--  Modified from GCC 7.1.0 to remove recursion for Cortex GNAT RTS.
+
 package body System.Img_LLU is
 
    ------------------------------
@@ -58,16 +60,21 @@ package body System.Img_LLU is
       S : in out String;
       P : in out Natural)
    is
+      Local_V : Long_Long_Unsigned := V;
+      Local_P : Natural := P;
+      Reversed : String (S'Range);
    begin
-      if V >= 10 then
-         Set_Image_Long_Long_Unsigned (V / 10, S, P);
-         P := P + 1;
-         S (P) := Character'Val (48 + (V rem 10));
-
-      else
-         P := P + 1;
-         S (P) := Character'Val (48 + V);
-      end if;
+      while Local_V >= 10 loop
+         Local_P := Local_P + 1;
+         Reversed (Local_P) := Character'Val (48 + (Local_V rem 10));
+         Local_V := Local_V / 10;
+      end loop;
+      Local_P := Local_P + 1;
+      Reversed (Local_P) := Character'Val (48 + Local_V);
+      for J in 0 .. (Local_P - P) loop
+         S (P + 1 + J) := Reversed (Local_P - J);
+      end loop;
+      P := Local_P;
    end Set_Image_Long_Long_Unsigned;
 
 end System.Img_LLU;

@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 B o d y                                  --
 --                                                                          --
---          Copyright (C) 1992-2015, Free Software Foundation, Inc.         --
+--          Copyright (C) 1992-2017, Free Software Foundation, Inc.         --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -28,6 +28,8 @@
 -- Extensive contributions were provided by Ada Core Technologies Inc.      --
 --                                                                          --
 ------------------------------------------------------------------------------
+
+--  Modified from GCC 7.1.0 to remove recursion for Cortex GNAT RTS.
 
 package body System.Img_Int is
 
@@ -70,15 +72,21 @@ package body System.Img_Int is
       S : in out String;
       P : in out Natural)
    is
+      Local_T : Integer := T;
+      Local_P : Natural := P;
+      Reversed : String (S'Range);
    begin
-      if T <= -10 then
-         Set_Digits (T / 10, S, P);
-         P := P + 1;
-         S (P) := Character'Val (48 - (T rem 10));
-      else
-         P := P + 1;
-         S (P) := Character'Val (48 - T);
-      end if;
+      while Local_T <= -10 loop
+         Local_P := Local_P + 1;
+         Reversed (Local_P) := Character'Val (48 - (Local_T rem 10));
+         Local_T := Local_T / 10;
+      end loop;
+      Local_P := Local_P + 1;
+      Reversed (Local_P) := Character'Val (48 - Local_T);
+      for J in 0 .. (Local_P - P) loop
+         S (P + 1 + J) := Reversed (Local_P - J);
+      end loop;
+      P := Local_P;
    end Set_Digits;
 
    -----------------------
