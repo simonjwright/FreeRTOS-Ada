@@ -1,5 +1,5 @@
---  Copyright (C) 2016 Free Software Foundation, Inc.
---
+--  Copyright (C) 2017 Free Software Foundation, Inc.
+
 --  This file is part of the Cortex GNAT RTS package.
 --
 --  The Cortex GNAT RTS package is free software; you can redistribute
@@ -16,12 +16,5 @@
 --  along with this program; see the file COPYING3.  If not, see
 --  <http://www.gnu.org/licenses/>.
 
-with Interfaces.C.Strings;
-
-procedure Last_Chance_Handler
-  (Message : Interfaces.C.Strings.chars_ptr; Line : Integer)
-with
-  Export,
-  Convention => C,
-  External_Name => "__gnat_last_chance_handler";
-pragma Preelaborate (Last_Chance_Handler);  -- PR ada/64556
+package Images with Elaborate_Body is
+end Images;

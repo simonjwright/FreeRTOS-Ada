@@ -54,9 +54,15 @@ library project Build_Runtime is
            COMMON_FLAGS := COMMON_FLAGS & ("-g", "-Og");
       end case;
       ALL_ADAFLAGS :=
-        ("-gnatpgn", "-gnatqQ", "-nostdinc")
+        ("-gnatwae", "-gnatpgn", "-gnatqQ", "-nostdinc")
         & COMMON_FLAGS
         & external_as_list ("EXTRA_ADAFLAGS", " ");
+      case Build is
+        when "Production" =>
+           null;
+        when "Debug" =>
+           ALL_ADAFLAGS := ALL_ADAFLAGS & "-gnata";
+      end case;
       ALL_CFLAGS :=
         external_as_list("INCLUDES", " ")
         & external_as_list("DEFINES", " ")
