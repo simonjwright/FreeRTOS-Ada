@@ -34,7 +34,9 @@
 with Interfaces;
 with System.FreeRTOS.Tasks;
 
-package body Ada.Real_Time is
+package body Ada.Real_Time
+with SPARK_Mode => Off
+is
 
    ---------
    -- "*" --
