@@ -36,6 +36,8 @@ DISTRIBUTION_FILES =				\
   dispatching.ads				\
   floating_point.adb				\
   floating_point.ads				\
+  images.adb					\
+  images.ads					\
   interrupts.adb				\
   interrupts.ads				\
   iteration.adb					\

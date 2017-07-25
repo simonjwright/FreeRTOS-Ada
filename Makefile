@@ -38,7 +38,7 @@ subdirs +=					\
   stm32f429i					\
   test-stm32f429i
 
-TOP_LEVEL_FILES = INSTALL README
+TOP_LEVEL_FILES = INSTALL README FreeRTOS.gpr
 
 dist::
 
@@ -53,13 +53,12 @@ $(NAME)-$(DATE).tar.gz: $(NAME)-$(DATE)
 	rm -f $@
 	tar zcvf $@ $</
 
-$(NAME)-$(DATE):
+$(NAME)-$(DATE): force
 	rm -rf $@
 	mkdir $@
-	cp INSTALL $@/
-	cp README-for-distribution $@/README
+	cp $(TOP_LEVEL_FILES) $@/
 	for sub in $(subdirs); do				\
 	  make -C $$sub -f Makefile.dist dist DIST=$(PWD)/$@;	\
 	done
 
-.PHONY: all dist
+.PHONY: all dist force
