@@ -73,6 +73,7 @@ RTS_DISTRIBUTION_FILES +=			\
   a-uncdea.ads					\
   ada.ads					\
   environment_task.adb				\
+  environment_task.adb-gcc6			\
   environment_task.ads				\
   g-souinf.ads					\
   gnat.ads					\
@@ -148,7 +149,9 @@ RTS_DISTRIBUTION_FILES +=			\
   s-taprob.adb					\
   s-taprob.ads					\
   s-tarest.adb					\
+  s-tarest.adb-gcc6				\
   s-tarest.ads					\
+  s-tarest.ads-gcc6				\
   s-tasinf.ads					\
   s-taskin.adb					\
   s-taskin.ads					\
@@ -203,6 +206,7 @@ RTS_DISTRIBUTION_FILES +=			\
   math/s-gearop.ads
 
 RTS_DISTRIBUTION_FILES +=			\
+  adaint.c					\
   freertos_bindings.c				\
   last_chance_handler.c				\
   vApplicationStackOverflowHook.c

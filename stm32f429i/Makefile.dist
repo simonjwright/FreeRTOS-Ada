@@ -66,6 +66,5 @@ dist:: $(RTS_DISTRIBUTION_FILES)
 	mkdir $(DIST)/$(THIS)
 	tar cf - $(RTS_DISTRIBUTION_FILES) | \
 	  tar xvf - -C $(DIST)/$(THIS)
-	cd $(DIST)/$(THIS); make; rm -rf .build
 
 .PHONY: all dist
