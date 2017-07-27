@@ -1,8 +1,10 @@
-The runtimes are supplied pre-built with GNAT GPL 2016.
+The runtimes are supplied unbuilt. In order to build them, run 'make
+all' at the top level (or, if you only want one runtime, run 'make' in
+that runtime's subdirectory).
 
 You should always use gprbuild and a GNAT Project (GPR) to do
 cross-builds. Gnatmake (arm-eabi-gnatmake) doesn't work nearly so
-well.
+well, if at all.
 
   * For GPS, in Build-Settings-Targets, in the File tab change
     gnatmake and builder to gprbuild.
@@ -85,7 +87,7 @@ In $prefix/arm-eabi/lib/gnat:
 -----------------------------
 
 The directory containing the RTS is just called {name},
-e.g. stm32f429i.
+e.g. stm32f429i. This is the best place.
 
 In the build location:
 ----------------------

@@ -16,12 +16,23 @@
 # along with this program; see the file COPYING3.  If not, see
 # <http://www.gnu.org/licenses/>.
 
-all: ; $(error This makefile is only for building distributions,	\
-	("make dist"))
+first:
+	@echo "\t'make all' to build the runtimes,"
+	@echo "\t'make dist' to build a distribution package."
+
+runtimes = arduino-due stm32f4 stm32f429i
+
+all:
+	for f in $(runtimes); do		\
+	  make -w -C $$f;				\
+	done
+
+# Distributions
 
 NAME ?= cortex-gnat-rts
 
-# The "common" sibdirs must come first.
+TOP_LEVEL_FILES = INSTALL README FreeRTOS.gpr
+
 subdirs =					\
   common					\
   test-common
@@ -37,10 +48,6 @@ subdirs +=					\
 subdirs +=					\
   stm32f429i					\
   test-stm32f429i
-
-TOP_LEVEL_FILES = INSTALL README FreeRTOS.gpr
-
-dist::
 
 # Used to construct release IDs (eg, $(NAME)-20100731). You can
 # set the whole thing from the command line -- for example, if
@@ -61,4 +68,4 @@ $(NAME)-$(DATE): force
 	  make -C $$sub -f Makefile.dist dist DIST=$(PWD)/$@;	\
 	done
 
-.PHONY: all dist force
+.PHONY: first all dist force
