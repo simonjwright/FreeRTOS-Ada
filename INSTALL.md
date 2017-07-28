@@ -1,6 +1,7 @@
 # Installing Cortex GNAT RTS #
 
 * [General](#general)
+* [Compiler compatibility](#compatibility)
 * [Target](#target)
 * [Run time system](#rts)
   * [In `$lib`:](#in-lib)
@@ -8,7 +9,7 @@
   * [In the build location:](#in-build)
 * [Link map file](#link-map)
 
-## General <a name="general"> ##
+## General <a name="general"/> ##
 
 The runtimes are supplied unbuilt. In order to build them, run `make
 all` at the top level (or, if you only want one runtime, run `make` in
@@ -25,7 +26,29 @@ well, if at all.
   Cmd_ to `gprbuild -p -P${gpr_file} -c -u -f ${full_current}` _Ada
   Build Make Cmd_ to `gprbuild -p -P${gpr_file}`
 
-## Target <a name="target"> ##
+## Compiler compatibility <a name="compatibility"/> ##
+
+During compiler development, the interface between the compiler and
+the run time system it's generating code for changes. As released,
+these RTSs match the FSF GCC 7 compiler.
+
+If you're using a release, alternate versions of the affected units,
+all in `common`, are provided; in the table below, 'copy over
+corresponding `.ad[bs]`' means that, for example, `s-tarest.ads-gcc6`
+should be copied over `s-tarest.ads`.
+
+| Compiler | copy over corresponding `.ad[bs]` |
+| ---------|----------------------------------- |
+| FSF GCC 6 | `environment_task.adb-gcc6`, `s-tarest.adb-gcc6`, `s-tarest.ads-gcc6` |
+| GNAT GPL 2016 | as FSF GCC 6 |
+| FSF GCC 8 | `a-tags.adb-gcc8`, `a-tags.ads-gcc8` |
+| GNAT GPL 2017 | as FSF GCC 8 |
+
+If, instead, you've cloned the repository, then FSF GCC 6 and GNAT GPL
+2016 are supported on branch `gcc6`, while FSF GCC 8 and GNAT GPL 2017
+are supported on branch `gcc8`.
+
+## Target <a name="target"/> ##
 
 You need to specify the target (`arm-eabi`). If you're only going to
 use the command line, you can specify `--target=arm-eabi` on the
@@ -35,7 +58,7 @@ command line or in the GPR project-level attribute `Target`:
 
 If you're going to use GPS or Emacs ada-mode, use the `Target` attribute.
 
-## Run time system <a name="rts"> ##
+## Run time system <a name="rts"/> ##
 
 The GNAT compiler running under `gprbuild` can find RTSs in various
 ways. An RTS usually contains an `adainclude/` directory with the
@@ -72,7 +95,7 @@ There are two places where RTSs can be installed:
 
 You can also work with an RTS in its build location.
 
-### In `$lib`: <a name="in-lib"> ###
+### In `$lib`: <a name="in-lib"/> ###
 
 The directory containing the RTS should be called `rts-{name}`, for
 example `rts-stm32f429i`.
@@ -94,12 +117,12 @@ Alternative RTSs are found here if they are in directories named
 `rts-{name}`, for example `rts-stm32f429i/` corresponds to
 `--RTS=stm32f429i`.
 
-### In `$prefix/arm-eabi/lib/gnat`: <a name="with-compiler"> ###
+### In `$prefix/arm-eabi/lib/gnat`: <a name="with-compiler"/> ###
 
 The directory containing the RTS is just called {name},
 e.g. `stm32f429i/`. This is the best place.
 
-### In the build location: <a name="in-build"> ###
+### In the build location: <a name="in-build"/> ###
 
 RTSs can also be located by giving the explicit path in the `Runtime
 ("ada")` attribute or the `--RTS=` option (this has to be an absolute
@@ -118,7 +141,7 @@ or
 
     for Runtime ("ada") use Project’Project_Dir & "../stm32f429i";
 
-## Link map file <a name="link-map"> ##
+## Link map file <a name="link-map"/> ##
 
 It can be very useful indeed to have a link map file. In case gprbuild
 doesn't support `--create-map-file` with a cross-compiler, a good way to
