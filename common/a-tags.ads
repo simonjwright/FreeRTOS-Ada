@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 S p e c                                  --
 --                                                                          --
---       Copyright (C) 1992-2011, 2016, Free Software Foundation, Inc.      --
+--    Copyright (C) 1992-2011, 2016, 2017 Free Software Foundation, Inc.    --
 --                                                                          --
 -- This specification is derived from the Ada Reference Manual for use with --
 -- GNAT. The copyright notice above, and the license provisions that follow --
@@ -36,7 +36,6 @@
 --  This file has been modified from the GCC 4.9.1 version for the
 --  Cortex GNAT RTS project.
 
-with System;
 with System.Storage_Elements;
 
 package Ada.Tags is
@@ -78,8 +77,8 @@ package Ada.Tags is
    function Interface_Ancestor_Tags (T : Tag) return Tag_Array;
    pragma Ada_05 (Interface_Ancestor_Tags);
 
-   function Type_Is_Abstract (T : Tag) return Boolean;
-   pragma Ada_2012 (Type_Is_Abstract);
+   function Is_Abstract (T : Tag) return Boolean;
+   pragma Ada_2012 (Is_Abstract);
 
    Tag_Error : exception;
 
@@ -111,7 +110,7 @@ private
    --                                    +-------------------+
    --                                    |   transportable   |
    --                                    +-------------------+
-   --                                    |  type_is_abstract |
+   --                                    |    is_abstract    |
    --                                    +-------------------+
    --                                    | needs finalization|
    --                                    +-------------------+
@@ -291,7 +290,7 @@ private
       --  for being used in remote calls as actuals for classwide formals or as
       --  return values for classwide functions.
 
-      Type_Is_Abstract : Boolean;
+      Is_Abstract : Boolean;
       --  True if the type is abstract (Ada 2012: AI05-0173)
 
       Needs_Finalization : Boolean;
