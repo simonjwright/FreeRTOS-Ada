@@ -2,7 +2,7 @@ This package includes GNAT Ada Run Time Systems (RTSs) based on
 [FreeRTOS](http://www.freertos.org) and targeted at boards with
 Cortex-M3, -M4, -M4F MCUs ([Arduino Due](http://www.arduino.org), the
 STM32F4-series evaluation boards from
-[STMicroelectronics](http://www.st.com).
+[STMicroelectronics](http://www.st.com)).
 
 The RTSs are all Ravenscar-based, with additional restrictions
 `No_Exception_Propagation`, `No_Finalization` and
@@ -21,25 +21,19 @@ some later releases too).
 
 The boards supported are
 
-(1) `arduino-due` for the Arduino Due. `See arduino-due/COPYING*` for
-licensing terms.
-
+* `arduino-due` for the Arduino Due.
+  * See `arduino-due/COPYING*` for licensing terms.
   * On-chip peripheral support in `atsam3x8e/`.
-
   * Tests in `test-arduino-due/`.
 
-(2) `stm32f4` for the STM32F4-DISC* board (and also the Crazyflie). See
-`stm32f4/COPYING*` for licensing terms.
-
+* `stm32f4` for the STM32F4-DISC* board (and also the Crazyflie).
+  * See `stm32f4/COPYING*` for licensing terms.
   * On-chip peripheral support in `stm32f40x/`.
-
   * Tests in `test-stm32f4/`.
 
-(3) `stm32f429i` for the STM32F429I-DISC* board. See
-`stm32f429i/COPYING*` for licensing terms.
-
+* `stm32f429i` for the STM32F429I-DISC* board.
+  * See `stm32f429i/COPYING*` for licensing terms.
   * On-chip peripheral support in `stm32f429x/`.
-
   * Tests in `test-stm32f429i/`.
 
 The standard packages included (there are more, implementation-specific,
@@ -73,99 +67,3 @@ ones) for all RTSs are:
 
 Additionally, `stm32f4` includes all of `Ada.Numerics` (excluding
 random number generation).
-
-Release Notes
-=============
-
-20170726
---------
-
-This release is motivated by a wish to support the
-[Crazyflie, a.k.a. Certyflie](https://github.com/AdaCore/Certyflie)
-code from AdaCore in the `stm32f4` RTS. However, most of the changes
-apply to the other RTSs as well.
-
-The RTSs build as-is with FSF GCC 7.1.0 (for macOS users, a compiler
-is available at
-[Sourceforge](https://sourceforge.net/projects/gnuada/files/GNAT_GCC%20Mac%20OS%20X/7.1.0/).
-
-At FSF GCC 7, the interface to create a task changed (`Create` takes an
-extra parameter, `Secondary_Stack_Size`). Alternate versions are
-provided for use with FSF GCC 6 (macOS compiler also at
-[Sourceforge](https://sourceforge.net/projects/gnuada/files/GNAT_GCC%20Mac%20OS%20X/6.1.0/)):
-
-    common/environment_task.adb-gcc6
-    common/s-tarest.ads-gcc6
-    common/s-tarest.adb-gcc6
-
-To use them, copy over the equivalent `.ad?` file.
-
-These patches are also needed to build the RTS with GNAT GPL 2016.
-
-GNAT GPL 2017 does not require these patches: however, attempting to
-build the RTS results in
-
-    [Ada]          a-stream.ads
-    a-stream.ads:67:09: expected type "Standard.Boolean"
-    a-stream.ads:67:09: found type "Ada.Tags.Size_Ptr"
-    a-stream.ads:67:09: expected type "Ada.Tags.Select_Specific_Data_Ptr"
-    a-stream.ads:67:09: found a composite type
-    a-stream.ads:67:09: no value supplied for component "Tags_Table"
-    gprbuild: *** compilation phase failed
-
-With GNAT GPL 2016, the cortex-gnat-rts test programs work
-properly. The
-[Certyflie branch](https://github.com/simonjwright/Certyflie/tree/sjw)
-also works, after removing the `Create_Missing_Dirs` attributes, new
-in GPRBuild GPL 2017, from all the GPRs.
-
-Common
-------
-
-The base is FreeRTOS 9.0.0.
-
-Added `Ada.Real_Time.Timing_Events` (with limitations: there's no
-finalization, so they should only be declared at library level).
-
-SPARK annotations in `Ada.Real_Time` are copied from those in GCC 7.1.0.
-
-Added `Interfaces.C.Extensions`.
-
-`type'Image()` and `object'Img` are supported.
-
-The default stack size is 4096 (the minimum size is still 768).
-
-`stm32f4`
----------
-
-Stack overflow checking is enabled in FreeRTOS.
-
-Added `Ada.Numerics.*` (excluding random number generation).
-
-In `Ada.Interrupts.Names`, interrupts are still named `*_IRQ`, but
-renamings to `*_Interrupt` are included.
-
-The main program can have `pragma` (or aspect) `Priority`.
-
-Executables can be built to load at an offset from the STM32F4's
-default (this is to support the Crazyflie's over-the-air bootloader).
-
-20160522
---------
-
-In this release,
-
-* There is no longer any dependence on the STMicroelectronics'
-  STM32Cube package.
-
-* The support for on-chip peripherals is limited to the
-  SVD2Ada-generated spec files. The
-  [AdaCore 'bareboard' software](https://github.com/AdaCore/Ada_Drivers_Library)
-  supports the STM32 line.
-
-* Tasking no longer requires an explicit start
-  (https://sourceforge.net/p/cortex-gnat-rts/tickets/5/).
-
-* Locking in interrupt-handling protected objects no longer inhibits
-  all interrupts, only those of equal or lower priority
-  (https://sourceforge.net/p/cortex-gnat-rts/tickets/18/).
