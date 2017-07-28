@@ -90,12 +90,10 @@ package body System.Tasking.Restricted.Stages is
 
    --  Null_Task_Name : constant String := (1 => ASCII.NUL);
 
-   --  The > GCC 6 version
    procedure Create_Restricted_Task
      (Priority             :        Integer;
       Stack_Address        :        System.Address;
       Size                 :        System.Parameters.Size_Type;
-      Secondary_Stack_Size :        System.Parameters.Size_Type;
       Task_Info            :        System.Task_Info.Task_Info_Type;
       CPU                  :        Integer;
       State                :        Task_Procedure_Access;
@@ -106,7 +104,6 @@ package body System.Tasking.Restricted.Stages is
       Created_Task         :        Task_Id) is
 
       pragma Unreferenced (Stack_Address);
-      pragma Unreferenced (Secondary_Stack_Size);
       pragma Unreferenced (Task_Info);
       pragma Unreferenced (CPU);
       pragma Unreferenced (Chain);

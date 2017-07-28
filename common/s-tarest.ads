@@ -54,12 +54,10 @@ with System.Task_Info;
 package System.Tasking.Restricted.Stages is
    pragma Preelaborate;
 
-   --  Secondary_Stack_Size is new in GCC 7
    procedure Create_Restricted_Task
      (Priority             :        Integer;
       Stack_Address        :        System.Address;
       Size                 :        System.Parameters.Size_Type;
-      Secondary_Stack_Size :        System.Parameters.Size_Type;
       Task_Info            :        System.Task_Info.Task_Info_Type;
       CPU                  :        Integer;
       State                :        Task_Procedure_Access;
@@ -81,8 +79,6 @@ package System.Tasking.Restricted.Stages is
    --  by the underlying operating system.
    --
    --  Size is the stack size of the task to create
-   --
-   --  Secondary_Stack_Size is the secondary stack size of the task to create
    --
    --  Task_Info is the task info associated with the created task, or
    --  Unspecified_Task_Info if none.

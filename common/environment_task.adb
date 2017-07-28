@@ -18,7 +18,6 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-with System.Parameters;
 with System.Tasking.Restricted.Stages;
 with System.Task_Info;
 
@@ -55,7 +54,6 @@ package body Environment_Task is
         (Priority             => Main_Priority,
          Stack_Address        => System.Null_Address,
          Size                 => 4096,
-         Secondary_Stack_Size => System.Parameters.Unspecified_Size,
          Task_Info            => System.Task_Info.Unspecified_Task_Info,
          CPU                  => System.Tasking.Unspecified_CPU,
          State                => Environment_Task'Access,
