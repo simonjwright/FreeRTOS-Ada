@@ -1,31 +1,52 @@
-General
-=======
+# Installing Cortex GNAT RTS #
 
-The runtimes are supplied unbuilt. In order to build them, run `make all` at the top level (or, if you only want one runtime, run `make` in that runtime's subdirectory).
+* [General](#general)
+* [Target](#target)
+* [Run time system](#rts)
+  * [In `$lib`:](#in-lib)
+  * [In `$prefix/arm-eabi/lib/gnat`:](#with-compiler)
+  * [In the build location:](#in-build)
+* [Link map file](#link-map)
+
+## General <a name="general"> ##
+
+The runtimes are supplied unbuilt. In order to build them, run `make
+all` at the top level (or, if you only want one runtime, run `make` in
+that runtime's subdirectory).
 
 You should always use gprbuild and a GNAT Project (GPR) to do
 cross-builds. Gnatmake (`arm-eabi-gnatmake`) doesn't work nearly so
 well, if at all.
 
-* For GPS, in _Build>Settings>Targets_, in the _File_ tab change `gnatmake` and `builder` to `gprbuild`.
+* For GPS, in _Build>Settings>Targets_, in the _File_ tab change
+  `gnatmake` and `builder` to `gprbuild`.
 
-* for Emacs ada-mode, in the Ada Build group, set _Ada Build Check Cmd_ to `gprbuild -p -P${gpr_file} -c -u -f ${full_current}` _Ada Build Make Cmd_ to `gprbuild -p -P${gpr_file}`
+* for Emacs ada-mode, in the Ada Build group, set _Ada Build Check
+  Cmd_ to `gprbuild -p -P${gpr_file} -c -u -f ${full_current}` _Ada
+  Build Make Cmd_ to `gprbuild -p -P${gpr_file}`
 
-Target
-======
+## Target <a name="target"> ##
 
-You need to specify the target (`arm-eabi`). If you're only going to use the command line, you can specify `--target=arm-eabi` on the command line or in the GPR project-level attribute `Target`:
+You need to specify the target (`arm-eabi`). If you're only going to
+use the command line, you can specify `--target=arm-eabi` on the
+command line or in the GPR project-level attribute `Target`:
 
     for Target use "arm-eabi";
 
 If you're going to use GPS or Emacs ada-mode, use the `Target` attribute.
 
-Run time system
-===============
+## Run time system <a name="rts"> ##
 
-The GNAT compiler running under `gprbuild` can find RTSs in various ways. An RTS usually contains an `adainclude/` directory with the source of the RTS and an `adalib/` directory with the corresponding library, linker script and `.ali` files (these defaults can be changed by listing the source directory, or colon-separated directories, in `ada_source_path`, and the object directory in `ada_object_path`).
+The GNAT compiler running under `gprbuild` can find RTSs in various
+ways. An RTS usually contains an `adainclude/` directory with the
+source of the RTS and an `adalib/` directory with the corresponding
+library, linker script and `.ali` files (these defaults can be changed
+by listing the source directory, or colon-separated directories, in
+`ada_source_path`, and the object directory in `ada_object_path`).
 
-If not the default, the RTS can be named on the command using a `--RTS=` option. In a GPR, you can do this in package `Builder` (so it's applied during all phases of the build):
+If not the default, the RTS can be named on the command using a
+`--RTS=` option. In a GPR, you can do this in package `Builder` (so
+it's applied during all phases of the build):
 
     package Builder is
        for Default_Switches ("ada") use
@@ -42,34 +63,47 @@ or, with GPRBUILD GPL 2015 or later, via an attribute:
 
 There are two places where RTSs can be installed:
 
-* in the location indicated by the directory part of `arm-eabi-gcc -print-libgcc-file-name`; for GNAT GPL 2015, that would be `$prefix/lib/gcc/arm-eabi/4.9.3/`, referred to from here on as `$lib`.
+* in the location indicated by the directory part of `arm-eabi-gcc
+  -print-libgcc-file-name`; for GNAT GPL 2015, that would be
+  `$prefix/lib/gcc/arm-eabi/4.9.3/`, referred to from here on as
+  `$lib`.
 
 * in `$prefix/arm-eabi/lib/gnat`.
 
 You can also work with an RTS in its build location.
 
-In `$lib`:
---------
+### In `$lib`: <a name="in-lib"> ###
 
-The directory containing the RTS should be called `rts-{name}`, for example `rts-stm32f429i`.
+The directory containing the RTS should be called `rts-{name}`, for
+example `rts-stm32f429i`.
 
-If the RTS is named `stm32f429i`, the compiler will treat it as the default RTS (and you need a default RTS) if
+If the RTS is named `stm32f429i`, the compiler will treat it as the
+default RTS (and you need a default RTS) if
 
-* `$lib/rts-stm32f429i` contains text files `ada_object_path`, `ada_source_path` containing the locations of the `adalib` and `adainclude` directories of the RTS respectively, and there are files `adainclude/system.ads` and there is at least one `.ali` file in `adalib/`; or
+* `$lib/rts-stm32f429i` contains text files `ada_object_path`,
+  `ada_source_path` containing the locations of the `adalib` and
+  `adainclude` directories of the RTS respectively, and there are
+  files `adainclude/system.ads` and there is at least one `.ali` file
+  in `adalib/`; or
 
-* `$lib/rts-stm32f429i` contains symbolic links named `adalib` and `adainclude` to the `adalib/` and `adainclude/` directories of the RTS respectively.
+* `$lib/rts-stm32f429i` contains symbolic links named `adalib` and
+  `adainclude` to the `adalib/` and `adainclude/` directories of the
+  RTS respectively.
 
-Alternative RTSs are found here if they are in directories named `rts-{name}`, for example `rts-stm32f429i/` corresponds to `--RTS=stm32f429i`.
+Alternative RTSs are found here if they are in directories named
+`rts-{name}`, for example `rts-stm32f429i/` corresponds to
+`--RTS=stm32f429i`.
 
-In `$prefix/arm-eabi/lib/gnat`:
------------------------------
+### In `$prefix/arm-eabi/lib/gnat`: <a name="with-compiler"> ###
 
-The directory containing the RTS is just called {name}, e.g. `stm32f429i/`. This is the best place.
+The directory containing the RTS is just called {name},
+e.g. `stm32f429i/`. This is the best place.
 
-In the build location:
-----------------------
+### In the build location: <a name="in-build"> ###
 
-RTSs can also be located by giving the explicit path in the `Runtime ("ada")` attribute or the `--RTS=` option (this has to be an absolute path with GPRBUILD GPL 2015):
+RTSs can also be located by giving the explicit path in the `Runtime
+("ada")` attribute or the `--RTS=` option (this has to be an absolute
+path with GPRBUILD GPL 2015):
 
     package Builder is
        for Default_Switches ("ada") use
@@ -84,8 +118,7 @@ or
 
     for Runtime ("ada") use Project’Project_Dir & "../stm32f429i";
 
-Link map file
-=============
+## Link map file <a name="link-map"> ##
 
 It can be very useful indeed to have a link map file. In case gprbuild
 doesn't support `--create-map-file` with a cross-compiler, a good way to
@@ -98,4 +131,6 @@ specify this is in package `Linker` in the GPR:
           );
     end Linker;
 
-Note the use of `Project'Project_Dir` and `Project'Name`; the first is especially useful because the linker `arm-eabi-ld` runs in the GPR's Object_Dir, which is often a subdirectory of the project directory.
+Note the use of `Project'Project_Dir` and `Project'Name`; the first is
+especially useful because the linker `arm-eabi-ld` runs in the GPR's
+Object_Dir, which is often a subdirectory of the project directory.
