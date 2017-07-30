@@ -52,6 +52,7 @@ SECTIONS
     .isr_vector :
     {
         . = ALIGN(4);
+        _isr_vector = .;
         LONG(_estack)
         LONG(program_initialization + 1)
         KEEP(*(.isr_vector))
