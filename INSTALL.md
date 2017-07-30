@@ -22,9 +22,10 @@ well, if at all.
 * For GPS, in _Build>Settings>Targets_, in the _File_ tab change
   `gnatmake` and `builder` to `gprbuild`.
 
-* for Emacs ada-mode, in the Ada Build group, set _Ada Build Check
-  Cmd_ to `gprbuild -p -P${gpr_file} -c -u -f ${full_current}` _Ada
-  Build Make Cmd_ to `gprbuild -p -P${gpr_file}`
+* for Emacs ada-mode, in the Ada Build group,
+  * set _Ada Build Check Cmd_ to `gprbuild -p -P${gpr_file} -c -u -f
+    ${full_current}`
+  * set _Ada Build Make Cmd_ to `gprbuild -p -P${gpr_file}`
 
 ## Compiler compatibility <a name="compatibility"/> ##
 
@@ -36,6 +37,8 @@ If you're using a release, alternate versions of the affected units,
 all in `common`, are provided; in the table below, 'copy over
 corresponding `.ad[bs]`' means that, for example, `s-tarest.ads-gcc6`
 should be copied over `s-tarest.ads`.
+
+<!-- This renders OK at Github, but not with Markdown.pl. -->
 
 | Compiler | copy over corresponding `.ad[bs]` |
 | ---------|----------------------------------- |

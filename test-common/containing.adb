@@ -1,4 +1,4 @@
---  Copyright (C) 2016 Free Software Foundation, Inc.
+--  Copyright (C) 2016, 2017 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -35,20 +35,23 @@ package body Containing is
 
    Vectored_Lines : Line_Vectors.Vector (20);
 
-   task Vectors;
+   task Vectors is
+      pragma Task_Name ("containing.vectors");
+   end Vectors;
    task body Vectors is
       use Ada.Real_Time;
    begin
-      for J in Index loop
-         Vectored_Lines.Append ((others => '*'));
-      end loop;
-
-      for J in Index loop
-         Vectored_Lines (J) :=
-           (others => Character'Val (Character'Pos ('a') + J));
-      end loop;
-
       loop
+         Vectored_Lines.Clear;
+         for J in Index loop
+            Vectored_Lines.Append ((others => '*'));
+         end loop;
+
+         for J in Index loop
+            Vectored_Lines (J) :=
+              (others => Character'Val (Character'Pos ('a') + J));
+         end loop;
+
          delay until Clock + Milliseconds (1_000);
       end loop;
    end Vectors;
@@ -65,27 +68,32 @@ package body Containing is
    Mapped_Lines : Line_Maps.Map (Capacity => 20,
                                  Modulus  => 20);
 
-   task Maps;
+   task Maps is
+      pragma Task_Name ("containing.maps");
+   end Maps;
    task body Maps is
       use Ada.Real_Time;
    begin
-      for J in Index loop
-         Mapped_Lines.Insert
-           (Key      => J,
-            New_Item => (others => Character'Val (Character'Pos ('a') + J)));
-      end loop;
-
-      for J in Index loop
-         declare
-            L : Line with Volatile, Unreferenced;
-         begin
-            L := Mapped_Lines (J);
-            Mapped_Lines (J) :=
-              (others => Character'Val (Character'Pos ('a') + 19 - J));
-         end;
-      end loop;
-
       loop
+         Mapped_Lines.Clear;
+
+         for J in Index loop
+            Mapped_Lines.Insert
+              (Key      => J,
+               New_Item =>
+                 (others => Character'Val (Character'Pos ('a') + J)));
+         end loop;
+
+         for J in Index loop
+            declare
+               L : Line with Volatile, Unreferenced;
+            begin
+               L := Mapped_Lines (J);
+               Mapped_Lines (J) :=
+                 (others => Character'Val (Character'Pos ('a') + 19 - J));
+            end;
+         end loop;
+
          delay until Clock + Milliseconds (1_000);
       end loop;
    end Maps;

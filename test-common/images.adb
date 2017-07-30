@@ -21,7 +21,7 @@ with Interfaces;
 
 package body Images is
 
-   task Long_Integers with Storage_Size => 768;
+   task Long_Integers with Storage_Size => 2048;
    task body Long_Integers is
       I : Long_Integer;
       use type Ada.Real_Time.Time;
@@ -48,7 +48,7 @@ package body Images is
       end loop;
    end Long_Integers;
 
-   task Long_Long_Integers with Storage_Size => 768;
+   task Long_Long_Integers with Storage_Size => 2048;
    task body Long_Long_Integers is
       I : Long_Long_Integer;
       use type Ada.Real_Time.Time;
@@ -75,7 +75,7 @@ package body Images is
       end loop;
    end Long_Long_Integers;
 
-   task Unsigned_32s with Storage_Size => 768;
+   task Unsigned_32s with Storage_Size => 2048;
    task body Unsigned_32s is
       use Interfaces;
       I : Unsigned_32;
@@ -96,7 +96,7 @@ package body Images is
       end loop;
    end Unsigned_32s;
 
-   task Unsigned_64s with Storage_Size => 768;
+   task Unsigned_64s with Storage_Size => 2048;
    task body Unsigned_64s is
       use Interfaces;
       I : Unsigned_64;
@@ -117,7 +117,7 @@ package body Images is
       end loop;
    end Unsigned_64s;
 
-   task Floats with Storage_Size => 768;
+   task Floats with Storage_Size => 2048;
    task body Floats is
       F : Float;
       use type Ada.Real_Time.Time;
@@ -136,7 +136,7 @@ package body Images is
       end loop;
    end Floats;
 
-   task Enumerations with Storage_Size => 768;
+   task Enumerations with Storage_Size => 2048;
    task body Enumerations is
       type Enum is (Alice, Bob, Carol, Dave);
       use type Ada.Real_Time.Time;

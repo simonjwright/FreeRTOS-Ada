@@ -27,7 +27,7 @@ project Testbed is
       for Default_Switches ("ada") use
         (
          "-g",
-         "-Og",
+         "-O0",
          "--create-map-file"
         );
    end Builder;

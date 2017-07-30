@@ -1,4 +1,4 @@
---  Copyright (C) 2016 Free Software Foundation, Inc.
+--  Copyright (C) 2016, 2017 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -22,10 +22,15 @@ with STM32F429x.RCC;  use STM32F429x.RCC;
 
 package body Heartbeat is
 
-   task Beat;
+   task Beat
+   with Storage_Size => 1024
+   is
+      pragma Task_Name ("heartbeat.beat");
+   end Beat;
+
    task body Beat is
       Green_Pin : constant := 13;
-      --  Red_Pin : constant := 14;  -- but I think mine is broken
+      Red_Pin   : constant := 14;
       use type Ada.Real_Time.Time;
    begin
       for J in 1 .. 5 loop
@@ -43,6 +48,13 @@ package body Heartbeat is
          GPIOG_Periph.BSRR.BR := (As_Array => True,
                                   Arr => (Green_Pin => 1, others => 0));
          delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (900);
+
+         GPIOG_Periph.BSRR.BS := (As_Array => True,
+                                  Arr => (Red_Pin => 1, others => 0));
+         delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (100);
+         GPIOG_Periph.BSRR.BR := (As_Array => True,
+                                  Arr => (Red_Pin => 1, others => 0));
+         delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (900);
       end loop;
    end Beat;
 
@@ -56,8 +68,8 @@ begin
       RCC_Periph.AHB1ENR := AHB1ENR;
    end;
 
-   --  PG13 is the green LED.
+   --  PG13 is the green LED, PG14 is the red LED.
    GPIOG_Periph.MODER := (As_Array => True,
-                          Arr      => (13     => 1,
-                                       others => 0));
+                          Arr      => (13 | 14    => 1,
+                                       others     => 0));
 end Heartbeat;

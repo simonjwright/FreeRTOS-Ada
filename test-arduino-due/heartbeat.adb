@@ -1,4 +1,4 @@
---  Copyright (C) 2016 Free Software Foundation, Inc.
+--  Copyright (C) 2016, 2017 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -25,7 +25,12 @@ package body Heartbeat is
 
    --  The onboard LED is PB27.
 
-   task Beat;
+   task Beat
+   with Storage_Size => 1024
+   is
+      pragma Task_Name ("heartbeat.beat");
+   end Beat;
+
    task body Beat is
       use type Ada.Real_Time.Time;
    begin
