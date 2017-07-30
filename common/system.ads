@@ -48,8 +48,6 @@ pragma Restrictions (No_Recursion);
 --  forbids trampolines, which are needed for 'Unrestricted_Access,
 --  especially for foreign-convention subprograms.
 
-pragma Discard_Names;
-
 package System is
    pragma Pure;
    --  Note that we take advantage of the implementation permission to make
