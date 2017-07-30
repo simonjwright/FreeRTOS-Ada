@@ -22,7 +22,9 @@ package body Strings is
 
    function Substring (S : String) return String;
 
-   task T;
+   task T is
+      pragma Task_Name ("strings.t");
+   end T;
 
    task body T is
    begin

@@ -23,7 +23,9 @@ package body SO is
 
    The_SO : Ada.Synchronous_Task_Control.Suspension_Object;
 
-   task T;
+   task T is
+      pragma Task_Name ("so.t");
+   end T;
    task body T is
    begin
       loop
@@ -31,7 +33,9 @@ package body SO is
       end loop;
    end T;
 
-   task Tick;
+   task Tick is
+      pragma Task_Name ("so.tick");
+   end Tick;
    task body Tick is
       use type Ada.Real_Time.Time;
    begin

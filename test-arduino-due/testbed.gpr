@@ -27,7 +27,7 @@ project Testbed is
       for Default_Switches ("ada") use
         (
          "-g",
-         "-Og",
+         "-O0",
          "-ffunction-sections",
          "-fdata-sections",
          "--create-map-file"

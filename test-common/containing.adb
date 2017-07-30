@@ -35,7 +35,9 @@ package body Containing is
 
    Vectored_Lines : Line_Vectors.Vector (20);
 
-   task Vectors;
+   task Vectors is
+      pragma Task_Name ("containing.vectors");
+   end Vectors;
    task body Vectors is
       use Ada.Real_Time;
    begin
@@ -65,7 +67,9 @@ package body Containing is
    Mapped_Lines : Line_Maps.Map (Capacity => 20,
                                  Modulus  => 20);
 
-   task Maps;
+   task Maps is
+      pragma Task_Name ("containing.maps");
+   end Maps;
    task body Maps is
       use Ada.Real_Time;
    begin

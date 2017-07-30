@@ -24,7 +24,9 @@ package body Floating_Point is
 
    function Square (F : Float) return Float;
 
-   task Floats;
+   task Floats is
+      pragma Task_Name ("floating_point.floats");
+   end Floats;
    task body Floats is
       Forty_Two : constant Float := 42.0;
       Result : Float with Volatile;
@@ -42,7 +44,9 @@ package body Floating_Point is
 
    function Square (F : Long_Float) return Long_Float;
 
-   task Long_Floats;
+   task Long_Floats is
+      pragma Task_Name ("floating_point.long_floats");
+   end Long_Floats;
    task body Long_Floats is
       Forty_Two : constant Long_Float := 42.0;
       Result : Long_Float with Volatile;

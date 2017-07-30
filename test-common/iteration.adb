@@ -22,7 +22,9 @@ with Ada.Real_Time;
 
 package body Iteration is
 
-   task Arrays with Storage_Size => 1024;
+   task Arrays with Storage_Size => 1024 is
+      pragma Task_Name ("iteration.arrays");
+   end Arrays;
    task body Arrays is
       subtype Index is Positive range 1 .. 10;
       A : array (Index) of Integer;
@@ -42,7 +44,9 @@ package body Iteration is
       end loop;
    end Arrays;
 
-   task Vectors with Storage_Size => 2048;
+   task Vectors with Storage_Size => 3072 is
+      pragma Task_Name ("iteration.vectors");
+   end Vectors;
    task body Vectors is
       subtype Index is Positive range 1 .. 10;
       package Integer_Vectors
@@ -67,7 +71,9 @@ package body Iteration is
       end loop;
    end Vectors;
 
-   task Maps with Storage_Size => 2048;
+   task Maps with Storage_Size => 3072 is
+      pragma Task_Name ("iteration.maps");
+   end Maps;
    task body Maps is
       subtype Key_Type is Positive range 1 .. 10;
       function Hash (Key : Key_Type) return Ada.Containers.Hash_Type
