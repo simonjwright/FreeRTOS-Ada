@@ -24,17 +24,9 @@ stm32f429xx_h.ads
 auto.cgpr
 gnatinspect.db
 
-demo_leds-stm32f4/demo
-demo_leds-stm32f429i-disco/demo
-
-demo-stm32f429i-disco-bsp/ada_delay
-demo-stm32f429i-disco-rtos/demo_cmsis
-demo-stm32f429i-disco-rtos/demo_tasking
-demo-stm32f429i-disco-rtos/lcd
-
 demos-arduino-due/debounce
 demos-arduino-due/first
 
-test-arduino-due/testbed
-
+test-arduino-due/
 test-stm32f4/
+test-stm32f429i/

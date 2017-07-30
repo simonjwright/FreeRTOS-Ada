@@ -48,6 +48,7 @@ ones) for all RTSs are:
     Ada.Interrupts
     Ada.Interrupts.Names
     Ada.Iterator_Interfaces
+    Ada.Numerics.* (except random numbers)
     Ada.Real_Time
     Ada.Real_Time.Timing_Events
     Ada.Streams
@@ -64,6 +65,3 @@ ones) for all RTSs are:
     System.Storage_Elements
     GNAT
     GNAT.Source_Info
-
-Additionally, `stm32f4` includes all of `Ada.Numerics` (excluding
-random number generation).
