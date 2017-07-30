@@ -1,4 +1,4 @@
---  Copyright (C) 2016 Free Software Foundation, Inc.
+--  Copyright (C) 2016, 2017 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -24,7 +24,9 @@ package body Dispatching is
 
    function Value (D : Derived) return Integer is (42);
 
-   task T;
+   task T is
+      pragma Task_Name ("dispatching.t");
+   end T;
 
    task body T is
       D : constant access Base'Class := new Derived;

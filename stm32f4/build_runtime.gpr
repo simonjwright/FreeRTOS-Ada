@@ -51,7 +51,7 @@ library project Build_Runtime is
         when "Production" =>
            COMMON_FLAGS := COMMON_FLAGS & ("-O2");
         when "Debug" =>
-           COMMON_FLAGS := COMMON_FLAGS & ("-g", "-Og");
+           COMMON_FLAGS := COMMON_FLAGS & ("-g", "-O0");
       end case;
       ALL_ADAFLAGS :=
         ("-gnatwae", "-gnatpgn", "-gnatqQ", "-nostdinc")

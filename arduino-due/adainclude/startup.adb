@@ -78,6 +78,8 @@ package body Startup is
 
       use System.Storage_Elements;
 
+      ISR_Vector : Storage_Element
+        with Import, Convention => Asm, External_Name => "_isr_vector";
       Sdata : Storage_Element
         with Import, Convention => Asm, External_Name => "_sdata";
       Edata : Storage_Element
@@ -101,18 +103,28 @@ package body Startup is
       Bss : Storage_Array (1 .. Bss_Size)
         with Import, Convention => Ada, External_Name => "_sbss";
 
-      VTOR : Interfaces.Unsigned_32
-        with Import,
+      type SCB_Registers is record
+         VTOR  : System.Address;
+      end record
+      with
+        Volatile;
+      for SCB_Registers use record
+         VTOR  at 16#08# range 0 .. 31;
+      end record;
+
+      SCB : SCB_Registers
+        with
+          Import,
           Convention => Ada,
-          Volatile,
-          Address => System'To_Address (16#E000ED08#);
+          Address => System'To_Address (16#E000_ED00#);
+
    begin
       --  Copy data to SRAM
       Data_In_Sram := Data_In_Flash;
       --  Initialize BSS in SRAM
       Bss := (others => 0);
 
-      VTOR := 16#00080000#;
+      SCB.VTOR := ISR_Vector'Address;
 
       Set_Up_Clock;
 

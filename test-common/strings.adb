@@ -1,4 +1,4 @@
---  Copyright (C) 2016 Free Software Foundation, Inc.
+--  Copyright (C) 2016, 2017 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -22,7 +22,9 @@ package body Strings is
 
    function Substring (S : String) return String;
 
-   task T;
+   task T is
+      pragma Task_Name ("strings.t");
+   end T;
 
    task body T is
    begin
