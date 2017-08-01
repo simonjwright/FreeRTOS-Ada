@@ -44,7 +44,7 @@ package body Iteration is
       end loop;
    end Arrays;
 
-   task Vectors with Storage_Size => 3072 is
+   task Vectors with Storage_Size => 4096 is
       pragma Task_Name ("iteration.vectors");
    end Vectors;
    task body Vectors is

@@ -36,7 +36,6 @@ package body Startup is
      Convention => Ada,
      External_Name => "program_initialization",
      No_Return;
-   pragma Machine_Attribute (Program_Initialization, "naked");
 
    --  The version implemented here turns the watchdog off.
    procedure Initialize_Watchdog
