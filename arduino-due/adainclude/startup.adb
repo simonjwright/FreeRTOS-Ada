@@ -61,6 +61,10 @@ package body Startup is
       WDT_MR := WDT_MR_WDDIS;
    end Initialize_Watchdog;
 
+   procedure Set_Up_Heap;
+   --  Separate to reduce the complexity of this file.
+   procedure Set_Up_Heap is separate;
+
    procedure Set_Up_Clock;
    --  Separate to reduce the complexity of this file.
    procedure Set_Up_Clock is separate;
@@ -125,6 +129,7 @@ package body Startup is
 
       SCB.VTOR := ISR_Vector'Address;
 
+      Set_Up_Heap;
       Set_Up_Clock;
 
       Environment_Task.Create;
