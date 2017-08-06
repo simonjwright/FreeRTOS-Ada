@@ -57,12 +57,24 @@ package System.FreeRTOS.Tasks is
      Convention => C,
      External_Name => "vTaskResume";
 
+   procedure Resume_All_Tasks
+   with
+     Import,
+     Convention => C,
+     External_Name => "xTaskResumeAll";
+
    procedure Suspend (T : Task_Handle)
    with
      Import,
      Convention => C,
      External_Name => "vTaskSuspend";
    --  null T means "current task".
+
+   procedure Suspend_All_Tasks
+   with
+     Import,
+     Convention => C,
+     External_Name => "vTaskSuspendAll";
 
    procedure Disable_Interrupts
    with
