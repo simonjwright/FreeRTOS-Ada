@@ -129,6 +129,11 @@ package body System.Interrupts is
       end loop;
    end Install_Restricted_Handlers;
 
+   procedure Install_Restricted_Handlers_Sequential is
+   begin
+      null;
+   end Install_Restricted_Handlers_Sequential;
+
    --  Startup contains a weak definition of this symbol; so when this
    --  package is called in, during the link of user code that
    --  actually uses interrupts, this definition will be used instead.
