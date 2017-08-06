@@ -63,4 +63,13 @@ package System.Interrupts is
    --  are only library-level protected handlers that will be installed
    --  at initialization and never be replaced.
 
+   procedure Install_Restricted_Handlers_Sequential;
+   pragma Export (C, Install_Restricted_Handlers_Sequential,
+                  "__gnat_attach_all_handlers");
+   --  When the partition elaboration policy is sequential, attachment of
+   --  interrupts handlers is deferred until the end of elaboration. The
+   --  binder will call this procedure at the end of elaboration, just before
+   --  activating the tasks (if any).
+   --
+   --  Null implementation in this RTS.
 end System.Interrupts;

@@ -45,6 +45,17 @@
 
 --  Modified for the Cortex GNAT RTS, by leaving out parts that aren't
 --  called.
+--
+--  If the user compiles with Partition_Elaboration_Policy set to
+--  Sequential, the compiled code calls
+--  Create_Restricted_Task_Sequential instead of
+--  Create_Restricted_Task, and at the end calls
+--  Activate_All_Tasks_Sequential. This RTS only actually supports
+--  Concurrent activation (that is, each task is activated as soon as
+--  it's created), and so Create_Restricted_Task_Sequential just calls
+--  Create_Restricted_Task (with a dummy Chain, which
+--  Create_Restricted_Task ignores anyway, since FreeRTOS doesn't
+--  provide a way to create a task without activating it).
 
 pragma Restrictions (No_Elaboration_Code);
 
@@ -54,7 +65,18 @@ with System.Task_Info;
 package System.Tasking.Restricted.Stages is
    pragma Preelaborate;
 
-   --  Secondary_Stack_Size is new in GCC 7
+   Partition_Elaboration_Policy : Character := 'C';
+   pragma Export (C, Partition_Elaboration_Policy,
+                  "__gnat_partition_elaboration_policy");
+   --  Partition elaboration policy. Value can be either 'C' for
+   --  concurrent, which is the default or 'S' for sequential. This
+   --  value can be modified by the binder generated code in
+   --  adainit(), before calling elaboration code, if task activation
+   --  is supposed to be Sequential. Unfortunately, that's too late
+   --  for this RTS. The variable is provided because the
+   --  binder-generated code expects it if the user has specified
+   --  sequential elaboration.
+
    procedure Create_Restricted_Task
      (Priority             :        Integer;
       Stack_Address        :        System.Address;
@@ -116,6 +138,26 @@ package System.Tasking.Restricted.Stages is
    --  This procedure can raise Storage_Error if the task creation
    --  fails
 
+   procedure Create_Restricted_Task_Sequential
+     (Priority             : Integer;
+      Stack_Address        : System.Address;
+      Size                 : System.Parameters.Size_Type;
+      Secondary_Stack_Size : System.Parameters.Size_Type;
+      Task_Info            : System.Task_Info.Task_Info_Type;
+      CPU                  : Integer;
+      State                : Task_Procedure_Access;
+      Discriminants        : System.Address;
+      Elaborated           : Access_Boolean;
+      Task_Image           : String;
+      Created_Task         : Task_Id);
+   --  Compiler interface only. Do not call from within the RTS.
+   --  This must be called to create a new task, when the sequential partition
+   --  elaboration policy is used.
+   --
+   --  The parameters are the same as Create_Restricted_Task except there is
+   --  no Chain parameter (for the activation chain), as there is only one
+   --  global activation chain, which is declared in the body of this package.
+
    procedure Activate_Restricted_Tasks
      (Chain_Access : Activation_Chain_Access);
    --  Compiler interface only. Do not call from within the RTS.  This
@@ -136,6 +178,13 @@ package System.Tasking.Restricted.Stages is
    --  When the partition elaboration policy is sequential, this
    --  procedure does nothing, tasks will be activated at end of
    --  elaboration.
+
+   procedure Activate_All_Tasks_Sequential;
+   pragma Export (C, Activate_All_Tasks_Sequential,
+                  "__gnat_activate_all_tasks");
+   --  Binder interface only. Do not call from within the RTS. This must be
+   --  called an the end of the elaboration to activate all tasks, in order
+   --  to implement the sequential elaboration policy.
 
    procedure Complete_Restricted_Activation;
    --  Compiler interface only. Do not call from within the RTS. This
