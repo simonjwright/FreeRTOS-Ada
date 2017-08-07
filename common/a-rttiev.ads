@@ -63,7 +63,13 @@ package Ada.Real_Time.Timing_Events is
 
 private
 
+   type Any_Timing_Event is access all Timing_Event'Class;
+   --  We must also handle user-defined types derived from Timing_Event
+
    type Timing_Event is tagged limited record
+      Next, Prev : Any_Timing_Event;
+      --  Manage the time-then-fifo-ordered list of pending events.
+
       Timeout : Time := Time_First;
       --  The time at which the user's handler should be invoked when the
       --  event is "set" (i.e., when Handler is not null).
