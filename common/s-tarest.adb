@@ -45,6 +45,8 @@ with System.Memory;
 
 package body System.Tasking.Restricted.Stages is
 
+   Sequential_Elaboration_Started : Boolean := False;
+
    procedure Wrapper (Arg1 : System.Address) with Convention => C;
    --  This is the procedure passed to
    --  FreeRTOS.Tasks.Create_Task. Arg1 is the address of its
@@ -147,12 +149,68 @@ package body System.Tasking.Restricted.Stages is
       Elaborated.all := Created_Task.Common.Thread /= null;
    end Create_Restricted_Task;
 
+   procedure Create_Restricted_Task_Sequential
+     (Priority             : Integer;
+      Stack_Address        : System.Address;
+      Size                 : System.Parameters.Size_Type;
+      Secondary_Stack_Size : System.Parameters.Size_Type;
+      Task_Info            : System.Task_Info.Task_Info_Type;
+      CPU                  : Integer;
+      State                : Task_Procedure_Access;
+      Discriminants        : System.Address;
+      Elaborated           : Access_Boolean;
+      Task_Image           : String;
+      Created_Task         : Task_Id)
+   is
+      --  Create_Restricted_Task requires a Chain parameter; however,
+      --  in this RTS it's ignored, because all tasks are activated as
+      --  they are elaborated (i.e., concurrently).
+      Dummy_Activation_Chain : Activation_Chain;
+   begin
+
+      --  If we're called at all, it's because sequential activation
+      --  has been requested. If this is the first call, suspend
+      --  tasking (awaiting a call to Activate_All_Tasks_Sequential).
+      pragma Assert (Partition_Elaboration_Policy = 'S',
+                     "Partition_Elaboration_Policy not sequential");
+      if not Sequential_Elaboration_Started then
+         Sequential_Elaboration_Started := True;
+         FreeRTOS.Tasks.Suspend_All_Tasks;
+      end if;
+
+      Create_Restricted_Task
+        (Priority             => Priority,
+         Stack_Address        => Stack_Address,
+         Size                 => Size,
+         Secondary_Stack_Size => Secondary_Stack_Size,
+         Task_Info            => Task_Info,
+         CPU                  => CPU,
+         State                => State,
+         Discriminants        => Discriminants,
+         Elaborated           => Elaborated,
+         Chain                => Dummy_Activation_Chain,  -- <<<
+         Task_Image           => Task_Image,
+         Created_Task         => Created_Task);
+   end Create_Restricted_Task_Sequential;
+
    procedure Activate_Restricted_Tasks
      (Chain_Access : Activation_Chain_Access) is
       pragma Unreferenced (Chain_Access);
    begin
+      --  This can get called even with sequential elaboration,
+      --  because if the RTS was compiled with concurrent activation
+      --  (almost certainly the case) any tasks in the RTS (e.g. for
+      --  Timing_Events) will call here at the end of package
+      --  elaboration.
       null;
    end Activate_Restricted_Tasks;
+
+   procedure Activate_All_Tasks_Sequential is
+   begin
+      pragma Assert (Partition_Elaboration_Policy = 'S',
+                     "Partition_Elaboration_Policy not sequential");
+      FreeRTOS.Tasks.Resume_All_Tasks;
+   end Activate_All_Tasks_Sequential;
 
    procedure Complete_Restricted_Activation is
    begin

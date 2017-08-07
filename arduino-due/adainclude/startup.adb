@@ -36,7 +36,6 @@ package body Startup is
      Convention => Ada,
      External_Name => "program_initialization",
      No_Return;
-   pragma Machine_Attribute (Program_Initialization, "naked");
 
    --  The version implemented here turns the watchdog off.
    procedure Initialize_Watchdog
@@ -61,6 +60,10 @@ package body Startup is
       --  Disable the watchdog.
       WDT_MR := WDT_MR_WDDIS;
    end Initialize_Watchdog;
+
+   procedure Set_Up_Heap;
+   --  Separate to reduce the complexity of this file.
+   procedure Set_Up_Heap is separate;
 
    procedure Set_Up_Clock;
    --  Separate to reduce the complexity of this file.
@@ -126,6 +129,7 @@ package body Startup is
 
       SCB.VTOR := ISR_Vector'Address;
 
+      Set_Up_Heap;
       Set_Up_Clock;
 
       Environment_Task.Create;
