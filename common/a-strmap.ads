@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 S p e c                                  --
 --                                                                          --
---          Copyright (C) 1992-2009, Free Software Foundation, Inc.         --
+--       Copyright (C) 1992-2009, 2017, Free Software Foundation, Inc.      --
 --                                                                          --
 -- This specification is derived from the Ada Reference Manual for use with --
 -- GNAT. The copyright notice above, and the license provisions that follow --
@@ -37,7 +37,6 @@ with Ada.Characters.Latin_1;
 
 package Ada.Strings.Maps is
    pragma Preelaborate;
-   pragma Pure_05;
    --  In accordance with Ada 2005 AI-362
 
    --------------------------------
