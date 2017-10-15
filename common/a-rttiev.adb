@@ -213,11 +213,11 @@ package body Ada.Real_Time.Timing_Events is
    --  The queue of pending events, ordered by increasing timeout value, that
    --  have been "set" by the user via Set_Handler.
 
-   procedure Process_Queued_Events;
+   procedure Process_Queued_Events (Next_Event_Time : out Time);
    --  Examine the queue of pending events for any that have timed out. For
    --  those that have timed out, remove them from the queue and invoke their
    --  handler (unless the user has cancelled the event by setting the handler
-   --  pointer to null). Mutually exclusive access is held via Event_Queue_Lock
+   --  pointer to null). Mutually exclusive access is held via Lock/Unlock
    --  during part of the processing.
 
    procedure Insert_Into_Queue (This : Any_Timing_Event);
@@ -238,22 +238,27 @@ package body Ada.Real_Time.Timing_Events is
    end Timer;
 
    task body Timer is
-      Period : constant Time_Span := Milliseconds (100);
-      --  This is a "chiming" clock timer that fires periodically. The period
-      --  selected is arbitrary and could be changed to suit the application
-      --  requirements. Obviously a shorter period would give better resolution
-      --  at the cost of more overhead.
+
+      Next : Time := Time_First;
+      Period : constant Time_Span := Milliseconds (10);
+
+      --  This is a simplistic implementation.
+      --
+      --  If there is no next event, Process_Queued_Events returns
+      --  Time_First, and this task delays for Period before looking
+      --  again.
+      --
+      --  If there is a next event, Process_Queued_Events returns the
+      --  time when that event is to fire, and this task delays until
+      --  then.
+      --
+      --  In either case, events which are scheduled during this
+      --  task's delay are not considered until the delay expires.
 
    begin
-      --  --  Since this package may be elaborated before System.Interrupt,
-      --  --  we need to call Setup_Interrupt_Mask explicitly to ensure that
-      --  --  this task has the proper signal mask.
-
-      --  System.Interrupt_Management.Operations.Setup_Interrupt_Mask;
-
       loop
-         Process_Queued_Events;
-         delay until Clock + Period;
+         Process_Queued_Events (Next_Event_Time => Next);
+         delay until (if Next = Time_First then Clock + Period else Next);
       end loop;
    end Timer;
 
@@ -261,7 +266,7 @@ package body Ada.Real_Time.Timing_Events is
    -- Process_Queued_Events --
    ---------------------------
 
-   procedure Process_Queued_Events is
+   procedure Process_Queued_Events (Next_Event_Time : out Time) is
       Next_Event : Any_Timing_Event;
 
    begin
@@ -270,7 +275,8 @@ package body Ada.Real_Time.Timing_Events is
 
          if All_Events.Is_Empty then
             Unlock;
-            return;
+            Next_Event_Time := Time_First;
+            exit;
          else
             Next_Event := All_Events.First_Element;
          end if;
@@ -282,8 +288,9 @@ package body Ada.Real_Time.Timing_Events is
             --  processing (and indeed we must not continue since we always
             --  delete the first element).
 
+            Next_Event_Time := Next_Event.Timeout;
             Unlock;
-            return;
+            exit;
          end if;
 
          --  We have an event that has timed out so we will process it. It must
