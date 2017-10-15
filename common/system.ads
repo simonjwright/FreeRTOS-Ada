@@ -42,7 +42,9 @@ pragma Profile (Ravenscar);
 
 pragma Restrictions (No_Exception_Propagation);
 pragma Restrictions (No_Finalization);
-pragma Restrictions (No_Recursion);
+
+--  If pragma Restrictions (No_Recursion) is required, make it a
+--  configuration pragma.
 
 --  pragma Restrictions (No_Implicit_Dynamic_Code) not applied; it
 --  forbids trampolines, which are needed for 'Unrestricted_Access,
