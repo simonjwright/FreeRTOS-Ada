@@ -5,10 +5,10 @@ STM32F4-series evaluation boards from
 [STMicroelectronics](http://www.st.com)).
 
 The RTSs are all Ravenscar-based, with additional restrictions
-`No_Exception_Propagation`, `No_Finalization` and
-`No_Recursion`. `No_Exception_Propagation` means that exceptions can't
-be caught except in their immediate scope; instead, a
-`Last_Chance_Handler` is called.
+`No_Exception_Propagation` and `No_Finalization`.
+`No_Exception_Propagation` means that exceptions can't be caught
+except in their immediate scope; instead, a `Last_Chance_Handler` is
+called.
 
 In each case, the board support for the RTS (configuration for size
 and location of Flash, RAM; clock initialization; interrupt naming) is
@@ -40,6 +40,8 @@ The standard packages included (there are more, implementation-specific,
 ones) for all RTSs are:
 
     Ada
+    Ada.Characters
+    Ada.Characters.Latin_1
     Ada.Containers
     Ada.Containers.Bounded_Hashed_Maps
     Ada.Containers.Bounded_Vectors
@@ -52,6 +54,9 @@ ones) for all RTSs are:
     Ada.Real_Time
     Ada.Real_Time.Timing_Events
     Ada.Streams
+    Ada.Strings
+    Ada.Strings.Bounded
+    Ada.Strings.Maps
     Ada.Synchronous_Task_Control
     Ada.Tags
     Ada.Task_Identification
@@ -64,4 +69,5 @@ ones) for all RTSs are:
     System.Address_To_Access_Conversions
     System.Storage_Elements
     GNAT
+    GNAT.CRC32
     GNAT.Source_Info
