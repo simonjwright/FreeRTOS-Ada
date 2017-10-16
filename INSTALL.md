@@ -33,10 +33,10 @@ During compiler development, the interface between the compiler and
 the run time system it's generating code for changes. As released,
 these RTSs match the FSF GCC 7 compiler.
 
-If you're using a release, alternate versions of the affected units,
-all in `common`, are provided; in the table below, 'copy over
-corresponding `.ad[bs]`' means that, for example, `s-tarest.ads-gcc6`
-should be copied over `s-tarest.ads`.
+If you're using a different compiler, alternate versions of the
+affected units, all in `common`, are provided; in the table below,
+'copy over corresponding `.ad[bs]`' means that, for example,
+`s-tarest.ads-gcc6` should be copied over `s-tarest.ads`.
 
 <!-- This renders OK at Github, but not with Markdown.pl. -->
 

@@ -22,34 +22,16 @@ with System;
 
 package body Interrupts is
 
-   pragma Warnings (Off, "bad casing of ""Handler""");
-   use type Ada.Interrupts.Interrupt_ID;
-
-   --  The Software Trigger Interrupt Register.
-   NVIC_STIR : Ada.Interrupts.Interrupt_ID
-   with
-     Import,
-     Volatile,
-     Address => System'To_Address (16#e000_ef00#);
-
-   --  The Interrupt Set Pending Register.
-   type IRQs is array (Ada.Interrupts.Interrupt_ID) of Boolean
-   with
-     Component_Size => 1;
-
-   NVIC_ISPR : IRQs
-   with
-     Import,
-     Volatile,
-     Address => System'To_Address (16#e000_e200#);
-
    --  Interrupt names are different on different MCUs.
+   use type Ada.Interrupts.Interrupt_ID;
    First_Interrupt_ID  : constant Ada.Interrupts.Interrupt_ID :=
-     Ada.Interrupts.Interrupt_ID'First;
+     Ada.Interrupts.Interrupt_ID'First + 10;
    Second_Interrupt_ID : constant Ada.Interrupts.Interrupt_ID :=
      First_Interrupt_ID + 10;
    Third_Interrupt_ID  : constant Ada.Interrupts.Interrupt_ID :=
      First_Interrupt_ID + 20;
+
+   procedure Trigger_Interrupt (IRQ : Ada.Interrupts.Interrupt_ID);
 
    protected First_Interrupt_Handler
    with
@@ -89,21 +71,21 @@ package body Interrupts is
       pragma Style_Checks (On);
    end Third_Interrupt_Handler;
 
-   task Receiver
+   task Receiver_Task
    with
      Priority => System.Default_Priority + 1,
      Storage_Size => 1024
    is
-      pragma Task_Name ("interrupts.receiver");
-   end Receiver;
+      pragma Task_Name ("interrupts.receiver_task");
+   end Receiver_Task;
 
-   task Sender
+   task Sender_Task
    with
      Priority => System.Default_Priority,
      Storage_Size => 1024
    is
-     pragma Task_Name ("interrupts.sender");
-   end Sender;
+     pragma Task_Name ("interrupts.sender_task");
+   end Sender_Task;
 
    --  The plan is that the second interrupt handler will trigger both
    --  the first interrupt (at lower priority) and the third (at
@@ -111,7 +93,8 @@ package body Interrupts is
    --  until after the second has finished, while the third interrupt
    --  handler should run immediately.
 
-   type Count_Data is array (1 .. 4) of Natural
+   type Count_Type is (First, Second, Third, Receiver);
+   type Count_Data is array (Count_Type) of Natural
    with Volatile_Components;
    Counters : Count_Data := (others => 0);
    Previous_Counters : Count_Data := (others => 0);
@@ -119,7 +102,7 @@ package body Interrupts is
    protected body First_Interrupt_Handler is
       procedure Handler is
       begin
-         Counters (1) := Counters (1) + 1;
+         Counters (First) := Counters (First) + 1;
       end Handler;
    end First_Interrupt_Handler;
 
@@ -131,16 +114,14 @@ package body Interrupts is
       procedure Handler is
       begin
          Triggered := True;
-         Counters (2) := Counters (2) + 1;
-         --  NVIC_STIR := First_Interrupt_ID;
-         NVIC_ISPR (First_Interrupt_ID) := True;
+         Counters (Second) := Counters (Second) + 1;
+         Trigger_Interrupt (First_Interrupt_ID);
          --  handler should NOT have been called
-         pragma Assert (Counters (1) = Previous_Counters (1),
+         pragma Assert (Counters (First) = Previous_Counters (First),
                         "first handler ran before second was finished");
-         --  NVIC_STIR := Third_Interrupt_ID;
-         NVIC_ISPR (Third_Interrupt_ID) := True;
+         Trigger_Interrupt (Third_Interrupt_ID);
          --  handler SHOULD have been called
-         pragma Assert (Counters (3) = Previous_Counters (3) + 1,
+         pragma Assert (Counters (Third) = Previous_Counters (Third) + 1,
                         "third handler didn't run");
       end Handler;
    end Second_Interrupt_Handler;
@@ -148,35 +129,61 @@ package body Interrupts is
    protected body Third_Interrupt_Handler is
       procedure Handler is
       begin
-         Counters (3) := Counters (3) + 1;
+         Counters (Third) := Counters (Third) + 1;
       end Handler;
    end Third_Interrupt_Handler;
 
-   task body Receiver is
+   task body Receiver_Task is
    begin
       loop
          Second_Interrupt_Handler.Wait;
-         Counters (4) := Counters (4) + 1;
+         Counters (Receiver) := Counters (Receiver) + 1;
       end loop;
-   end Receiver;
+   end Receiver_Task;
 
-   task body Sender is
+   task body Sender_Task is
       use type Ada.Real_Time.Time;
    begin
       loop
          delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds (2);
          Previous_Counters := Counters;
-         --  NVIC_STIR := Second_Interrupt_ID;
-         NVIC_ISPR (Second_Interrupt_ID) := True;
-         pragma Assert (Counters (1) = Previous_Counters (1) + 1,
+         Trigger_Interrupt (Second_Interrupt_ID);
+         pragma Assert (Counters (First) = Previous_Counters (First) + 1,
                           "first handler didn't run at all");
-         pragma Assert (Counters (2) = Previous_Counters (2) + 1,
+         pragma Assert (Counters (Second) = Previous_Counters (Second) + 1,
                           "second handler didn't run at all");
-         pragma Assert (Counters (3) = Previous_Counters (3) + 1,
+         pragma Assert (Counters (Third) = Previous_Counters (Third) + 1,
                           "second handler didn't run at all");
-         pragma Assert (Counters (4) = Previous_Counters (4) + 1,
+         pragma Assert (Counters (Receiver) = Previous_Counters (Receiver) + 1,
                           "receiver task didn't run");
       end loop;
-   end Sender;
+   end Sender_Task;
+
+   procedure Trigger_Interrupt (IRQ : Ada.Interrupts.Interrupt_ID) is
+      --  The Software Trigger Interrupt Register.
+      NVIC_STIR                     : Ada.Interrupts.Interrupt_ID
+      with
+        Import,
+        Volatile,
+        Size    => 32,
+        Address => System'To_Address (16#e000_ef00#);
+
+      --  --  The Interrupt Set Pending Registers.
+      --  type NVIC_ISPRn is array (0 .. 31) of Boolean
+      --  with
+      --    Component_Size => 1,
+      --    Volatile_Full_Access;
+
+      --  NVIC_ISPRs : array (0 .. 15) of NVIC_ISPRn
+      --  with
+      --    Import,
+      --    Address => System'To_Address (16#e000_e200#);
+
+      --  Bit : constant Integer := Integer (IRQ) mod 32;
+      --  Register : constant Integer := Integer (IRQ) / 32;
+   begin
+      NVIC_STIR := IRQ;
+      --  NVIC_ISPRs (Register)(Bit) := True;
+   end Trigger_Interrupt;
 
 end Interrupts;
