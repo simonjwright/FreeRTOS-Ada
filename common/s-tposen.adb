@@ -7,7 +7,7 @@
 --                                                                          --
 --                                  B o d y                                 --
 --                                                                          --
---       Copyright (C) 1992-2013, 2016, Free Software Foundation, Inc.      --
+--    Copyright (C) 1992-2013, 2016-2017, Free Software Foundation, Inc.    --
 --                                                                          --
 -- GNARL is free software; you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -215,7 +215,14 @@ package body System.Tasking.Protected_Objects.Single_Entry is
    package body Barrier_Queues is
       use System.FreeRTOS;
 
+      --  We use queues because we need to be able to release a task
+      --  queued on an entry from ISRs (i.e. from protected handlers),
+      --  and we can't do that with mutexes. However, there's no actual
+      --  data to be transmitted.
+
       type Item is null record;
+      --  We need a nullable pointer-to-something to indicate that
+      --  there's no data to be sent or received.
 
       function Create return not null Queue_Handle is
          function xQueueCreate
@@ -243,12 +250,11 @@ package body System.Tasking.Protected_Objects.Single_Entry is
            Import,
            Convention => C,
            External_Name => "_gnat_xQueueSend";
-         Item_To_Pass : aliased Item;
          Status : Status_Code;
       begin
          Status :=
            xQueueSend (Queue         => To,
-                       Item_To_Queue => Item_To_Pass'Access,
+                       Item_To_Queue => null,
                        Ticks_To_Wait => 0);
          if Status /= Pass then
             raise Program_Error with "error sending item";
@@ -264,14 +270,13 @@ package body System.Tasking.Protected_Objects.Single_Entry is
            Import,
            Convention => C,
            External_Name => "_gnat_xQueueSendFromISR";
-         Item_To_Pass : aliased Item;
          Task_Needs_Waking : Base_Type := 0;
          Status : Status_Code;
       begin
          Status :=
            xQueueSendFromISR
              (Queue                      => To,
-              Item_To_Queue              => Item_To_Pass'Access,
+              Item_To_Queue              => null,
               Higher_Priority_Task_Woken => Task_Needs_Waking);
          if Status /= Pass then
             raise Program_Error with "error sending item from isr";
@@ -281,20 +286,19 @@ package body System.Tasking.Protected_Objects.Single_Entry is
 
       procedure Read (From : not null Queue_Handle) is
          function XQueueReceive
-           (Queue         :     Queue_Handle;
-            Buffer        : out Item;
-            Ticks_To_Wait :     Tick_Type) return Status_Code
+           (Queue         :        Queue_Handle;
+            Buffer        : access Item;
+            Ticks_To_Wait :        Tick_Type) return Status_Code
          with
            Import,
            Convention => C,
            External_Name => "_gnat_xQueueReceive";
-         Result : Item;
          Status : Status_Code;
       begin
          Status :=
            XQueueReceive
              (Queue         => From,
-              Buffer        => Result,
+              Buffer        => null,
               Ticks_To_Wait => Max_Delay);
          if Status /= Pass then
             raise Program_Error with "error reading item";
