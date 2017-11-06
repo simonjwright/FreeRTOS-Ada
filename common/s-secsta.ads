@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 S p e c                                  --
 --                                                                          --
---       Copyright (C) 1992-2013, 2016, Free Software Foundation, Inc.      --
+--    Copyright (C) 1992-2013, 2016-2017, Free Software Foundation, Inc.    --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -45,8 +45,8 @@ package System.Secondary_Stack is
    --  The secondary stack is created as an object in the
    --  System.Tasking.Restricted.Stages Wrapper procedure.
 
-   type Stack (Size : System.Parameters.Size_Type) is private;
-   type Stack_Ptr is access all Stack with Storage_Size => 0;
+   type SS_Stack (Size : System.Parameters.Size_Type) is private;
+   type SS_Stack_Ptr is access all SS_Stack with Storage_Size => 0;
 
    --  procedure SS_Init
    --    (Stk : in out System.Address;
@@ -103,7 +103,7 @@ private
      Alignment => Standard'Maximum_Alignment;
 
    --  This stack grows up.
-   type Stack (Size : System.Parameters.Size_Type) is record
+   type SS_Stack (Size : System.Parameters.Size_Type) is record
       Top : System.Parameters.Size_Type := 1;
       Mem : Memory_Array (1 .. Size);
    end record;

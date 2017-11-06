@@ -6,7 +6,7 @@
 --                                                                          --
 --                                  B o d y                                 --
 --                                                                          --
---       Copyright (C) 2016, 2017 Free Software Foundation, Inc.            --
+--        Copyright (C) 2016-2017 Free Software Foundation, Inc.            --
 --                                                                          --
 -- GNARL is free software; you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -69,7 +69,7 @@ package body System.Tasking.Restricted.Stages is
         Parameters_Conversion.To_Pointer (Arg1);
 
       Secondary_Stack :
-        aliased System.Secondary_Stack.Stack (Size => P.SStack_Size);
+        aliased System.Secondary_Stack.SS_Stack (Size => P.SStack_Size);
       --  At this point, the stack is the task's stack
    begin
       --  Save the ATCB in the FreeRTOS TCB
@@ -91,11 +91,12 @@ package body System.Tasking.Restricted.Stages is
 
    --  Null_Task_Name : constant String := (1 => ASCII.NUL);
 
-   --  The > GCC 6 version
+   --  The > GCC 7 version
    procedure Create_Restricted_Task
      (Priority             :        Integer;
       Stack_Address        :        System.Address;
       Size                 :        System.Parameters.Size_Type;
+      Sec_Stack_Address    :        System.Secondary_Stack.SS_Stack_Ptr;
       Secondary_Stack_Size :        System.Parameters.Size_Type;
       Task_Info            :        System.Task_Info.Task_Info_Type;
       CPU                  :        Integer;
@@ -107,6 +108,7 @@ package body System.Tasking.Restricted.Stages is
       Created_Task         :        Task_Id) is
 
       pragma Unreferenced (Stack_Address);
+      pragma Unreferenced (Sec_Stack_Address);
       pragma Unreferenced (Secondary_Stack_Size);
       pragma Unreferenced (Task_Info);
       pragma Unreferenced (CPU);
@@ -152,6 +154,7 @@ package body System.Tasking.Restricted.Stages is
      (Priority             : Integer;
       Stack_Address        : System.Address;
       Size                 : System.Parameters.Size_Type;
+      Sec_Stack_Address    : System.Secondary_Stack.SS_Stack_Ptr;
       Secondary_Stack_Size : System.Parameters.Size_Type;
       Task_Info            : System.Task_Info.Task_Info_Type;
       CPU                  : Integer;
@@ -181,6 +184,7 @@ package body System.Tasking.Restricted.Stages is
         (Priority             => Priority,
          Stack_Address        => Stack_Address,
          Size                 => Size,
+         Sec_Stack_Address    => Sec_Stack_Address,
          Secondary_Stack_Size => Secondary_Stack_Size,
          Task_Info            => Task_Info,
          CPU                  => CPU,

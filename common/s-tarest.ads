@@ -6,7 +6,7 @@
 --                                                                          --
 --                                  S p e c                                 --
 --                                                                          --
---    Copyright (C) 1992-2012, 2016, 2017, Free Software Foundation, Inc.   --
+--    Copyright (C) 1992-2012, 2016-2017, Free Software Foundation, Inc.    --
 --                                                                          --
 -- GNARL is free software; you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -81,6 +81,7 @@ package System.Tasking.Restricted.Stages is
      (Priority             :        Integer;
       Stack_Address        :        System.Address;
       Size                 :        System.Parameters.Size_Type;
+      Sec_Stack_Address    :        System.Secondary_Stack.SS_Stack_Ptr;
       Secondary_Stack_Size :        System.Parameters.Size_Type;
       Task_Info            :        System.Task_Info.Task_Info_Type;
       CPU                  :        Integer;
@@ -103,6 +104,10 @@ package System.Tasking.Restricted.Stages is
    --  by the underlying operating system.
    --
    --  Size is the stack size of the task to create
+   --
+   --  Sec_Stack_Address is the pointer to the secondary stack created by the
+   --  compiler. If null, the secondary stack is either allocated by the binder
+   --  or the run-time.
    --
    --  Secondary_Stack_Size is the secondary stack size of the task to create
    --
@@ -142,6 +147,7 @@ package System.Tasking.Restricted.Stages is
      (Priority             : Integer;
       Stack_Address        : System.Address;
       Size                 : System.Parameters.Size_Type;
+      Sec_Stack_Address    : System.Secondary_Stack.SS_Stack_Ptr;
       Secondary_Stack_Size : System.Parameters.Size_Type;
       Task_Info            : System.Task_Info.Task_Info_Type;
       CPU                  : Integer;

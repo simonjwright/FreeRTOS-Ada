@@ -1,4 +1,4 @@
---  Copyright (C) 2016, 2017 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2017 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
@@ -55,6 +55,7 @@ package body Environment_Task is
         (Priority             => Main_Priority,
          Stack_Address        => System.Null_Address,
          Size                 => 4096,
+         Sec_Stack_Address    => null,
          Secondary_Stack_Size => System.Parameters.Unspecified_Size,
          Task_Info            => System.Task_Info.Unspecified_Task_Info,
          CPU                  => System.Tasking.Unspecified_CPU,

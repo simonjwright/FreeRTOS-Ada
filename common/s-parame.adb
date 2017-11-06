@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 B o d y                                  --
 --                                                                          --
---       Copyright (C) 2016, 2017 Free Software Foundation, Inc.            --
+--       Copyright  (C) 2016-2017 Free Software Foundation, Inc.            --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -45,8 +45,35 @@ package body System.Parameters is
 
    function Minimum_Stack_Size return Size_Type is (768);
 
+   --  Secondary stack
+
+   Default_Secondary_Stack_Size : Size_Type
+   with
+     Volatile,
+     Export,
+     Convention => Ada,
+     External_Name => "__gnat_default_ss_size";
+   --  Written by the GCC8 binder (unless otherwise specified, to
+   --  Runtime_Default_Sec_Stack_Size)
+
    function Secondary_Stack_Size (Stack_Size : Size_Type) return Size_Type
-     is ((Stack_Size * 10) / 100);
-   --  10%
+     is (if Default_Secondary_Stack_Size = 0
+         then (Stack_Size * 10) / 100  -- default is 10%
+         else Default_Secondary_Stack_Size);
+
+   --  Items referenced by the GCC8 binder, but not used; may need to
+   --  go to System.Secondary_Stack eventually.
+
+   Binder_Sec_Stacks_Count : Natural
+   with
+     Export,
+     Convention => Ada,
+     External_Name => "__gnat_binder_ss_count";
+
+   Default_Sized_SS_Pool : System.Address
+   with
+     Export,
+     Convention => Ada,
+     External_Name => "__gnat_default_ss_pool";
 
 end System.Parameters;

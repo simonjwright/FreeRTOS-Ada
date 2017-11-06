@@ -1,4 +1,4 @@
---  Copyright (C) 2016 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2017 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
@@ -22,7 +22,7 @@ with System.Tasking;
 
 package body System.Secondary_Stack is
 
-   function Get_Current_Stack return Stack_Ptr is
+   function Get_Current_Stack return SS_Stack_Ptr is
      (System.Tasking.Self.Secondary_Stack);
 
    --  procedure SS_Init
@@ -37,7 +37,7 @@ package body System.Secondary_Stack is
       Storage_Size : System.Storage_Elements.Storage_Count) is
       use type System.Parameters.Size_Type;
 
-      Current_Stack : constant Stack_Ptr := Get_Current_Stack;
+      Current_Stack : constant SS_Stack_Ptr := Get_Current_Stack;
 
       Aligned_Size : constant System.Parameters.Size_Type :=
         ((System.Parameters.Size_Type (Storage_Size)

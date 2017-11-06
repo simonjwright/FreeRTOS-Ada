@@ -6,7 +6,7 @@
 --                                                                          --
 --                                  S p e c                                 --
 --                                                                          --
---       Copyright (C) 1992-2013, 2016, Free Software Foundation, Inc.      --
+--    Copyright (C) 1992-2013, 2016-2017, Free Software Foundation, Inc.    --
 --                                                                          --
 -- GNARL is free software; you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -726,7 +726,7 @@ package System.Tasking is
       Common : Common_ATCB;
       --  The common part between various tasking implementations
 
-      Secondary_Stack : System.Secondary_Stack.Stack_Ptr;
+      Secondary_Stack : System.Secondary_Stack.SS_Stack_Ptr;
       --  Protection : only accessed at task creation.
 
       Entry_Call : aliased Entry_Call_Record;

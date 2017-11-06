@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 S p e c                                  --
 --                                                                          --
---       Copyright (C) 1992-2013, 2016, Free Software Foundation, Inc.      --
+--    Copyright (C) 1992-2013, 2016-2017, Free Software Foundation, Inc.    --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -47,7 +47,7 @@
 --  Modified from GCC 4.9.1 for Cortex GNAT RTS.
 
 package System.Parameters is
-   pragma Pure;
+   pragma Preelaborate;
 
    type Size_Type is new Integer;
 
@@ -72,5 +72,12 @@ package System.Parameters is
    function Secondary_Stack_Size (Stack_Size : Size_Type) return Size_Type;
    --  The secondary stack is allocated as part of the task's stack,
    --  whose size is passed in Stack_Size.
+
+   Runtime_Default_Sec_Stack_Size : constant Size_Type := 0;
+   --  The run-time chosen default size for secondary stacks that may
+   --  be overriden by the user with the use of binder -D switch.
+   --  The GCC8 binder generates references.
+   --
+   --  0 means to use 10% of the task's stack.
 
 end System.Parameters;
