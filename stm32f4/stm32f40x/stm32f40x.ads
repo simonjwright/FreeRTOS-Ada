@@ -4,7 +4,7 @@
 pragma Restrictions (No_Elaboration_Code);
 pragma Ada_2012;
 
-with Interfaces;  use Interfaces;
+with Interfaces;
 with System;
 
 --  STM32F40x

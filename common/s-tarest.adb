@@ -38,7 +38,6 @@
 --  This is is the version for the Cortex GNAT RTS project.
 
 with Ada.Unchecked_Conversion;
-with Interfaces;
 with System.Address_To_Access_Conversions;
 with System.FreeRTOS.TCB;
 with System.Memory;

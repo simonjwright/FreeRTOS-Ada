@@ -151,7 +151,6 @@ package body Startup is
    procedure Dummy_Handler is
       IPSR : Interfaces.Unsigned_32
         with Volatile; -- don't want it to be optimised away
-      use type Interfaces.Unsigned_32;
    begin
       System.Machine_Code.Asm
         ("mrs %0, ipsr",
@@ -211,7 +210,6 @@ package body Startup is
    procedure IRQ_Handler is
       IPSR : Interfaces.Unsigned_32
         with Volatile; -- don't want it to be optimised away
-      use type Interfaces.Unsigned_32;
    begin
       System.Machine_Code.Asm
         ("mrs %0, ipsr",

@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 B o d y                                  --
 --                                                                          --
---       Copyright (C) 1992-2013, 2016, Free Software Foundation, Inc.      --
+--       Copyright (C) 1992-2013, 2017, Free Software Foundation, Inc.      --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -32,13 +32,10 @@
 --  This file has been modified from the GCC 4.9.1 version for the
 --  Cortex GNAT RTS project.
 
-with Ada.Exceptions;
 with Ada.Unchecked_Conversion;
 
 with System.HTable;
 with System.Storage_Elements; use System.Storage_Elements;
---  with System.WCh_Con;          use System.WCh_Con;
---  with System.WCh_StW;          use System.WCh_StW;
 
 pragma Elaborate_All (System.HTable);
 

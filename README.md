@@ -71,3 +71,5 @@ ones) for all RTSs are:
     GNAT
     GNAT.CRC32
     GNAT.Source_Info
+
+For installation, see the [instructions](INSTALL.md).

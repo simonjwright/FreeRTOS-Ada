@@ -5,9 +5,9 @@
    <config>
 
    package Compiler is
-   Common_Required_Switches :=
-       ("-mlittle-endian", "-mhard-float",
-        "-mcpu=cortex-m4", "-mfpu=fpv4-sp-d16", "-mthumb");
+      Common_Required_Switches :=
+         ("-mlittle-endian", "-mhard-float",
+          "-mcpu=cortex-m4", "-mfpu=fpv4-sp-d16", "-mthumb");
 
       for Leading_Required_Switches ("Ada") use
          Compiler'Leading_Required_Switches ("Ada") &amp;
