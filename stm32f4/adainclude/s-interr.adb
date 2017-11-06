@@ -18,7 +18,6 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-with Ada.Interrupts.Names;
 with Ada.Unchecked_Conversion;
 with Interfaces;
 with System.Machine_Code;

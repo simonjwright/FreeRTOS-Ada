@@ -31,12 +31,7 @@
 
 --  Adapted from the GCC 7.1.0 version for Cortex GNAT RTS.
 
-with Ada.Unchecked_Deallocation;
 with System.FreeRTOS.Tasks;
-
----------------------------------
--- Ada.Real_Time.Timing_Events --
----------------------------------
 
 package body Ada.Real_Time.Timing_Events is
 

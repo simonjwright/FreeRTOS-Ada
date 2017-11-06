@@ -4,7 +4,7 @@
 pragma Restrictions (No_Elaboration_Code);
 pragma Ada_2012;
 
-with Interfaces;  use Interfaces;
+with Interfaces;
 with System;
 
 --  Atmel ATSAM3X8E device: Cortex-M3 Microcontroller with 2x256 KB Flash, HS

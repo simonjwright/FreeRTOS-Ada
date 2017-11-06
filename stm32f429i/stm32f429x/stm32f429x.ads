@@ -3,7 +3,7 @@
 
 pragma Restrictions (No_Elaboration_Code);
 
-with Interfaces;  use Interfaces;
+with Interfaces;
 with System;
 
 --  STM32F429x

@@ -142,7 +142,6 @@ package body Startup is
    procedure Dummy_Handler is
       IPSR : Interfaces.Unsigned_32
         with Volatile; -- don't want it to be optimised away
-      use type Interfaces.Unsigned_32;
    begin
       System.Machine_Code.Asm
         ("mrs %0, ipsr",
@@ -153,13 +152,9 @@ package body Startup is
       end loop;
    end Dummy_Handler;
 
-   procedure HardFault_Handler;
-   procedure HardFault_Handler is
-   begin
-      loop
-         null;
-      end loop;
-   end HardFault_Handler;
+   procedure HardFault_Handler
+   with Import, Convention => Ada, External_Name => "HardFault_Handler";
+   --  See hardfault_handler.c.
 
    --  The remaining handlers are all defined as Weak so that they can
    --  be replaced by real handlers at link time.
@@ -202,7 +197,6 @@ package body Startup is
    procedure IRQ_Handler is
       IPSR : Interfaces.Unsigned_32
         with Volatile; -- don't want it to be optimised away
-      use type Interfaces.Unsigned_32;
    begin
       System.Machine_Code.Asm
         ("mrs %0, ipsr",
