@@ -77,6 +77,8 @@ RTS_DISTRIBUTION_FILES +=			\
   environment_task.ads				\
   g-souinf.ads					\
   gnat.ads					\
+  hardfault_handling.ads			\
+  hardfault_handling.adb			\
   i-c.adb					\
   i-c.ads					\
   i-cexten.ads					\
