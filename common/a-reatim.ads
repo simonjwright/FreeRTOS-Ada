@@ -33,6 +33,8 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
+--  Modified from GCC 4.9.1, then GCC 7.1.0, for Cortex GNAT RTS.
+
 package Ada.Real_Time with
   SPARK_Mode,
   Abstract_State => (Clock_Time with Synchronous,
@@ -149,9 +151,13 @@ private
    --  Replaces Duration, which has a different representation on
    --  systems with 32-bit Duration.
 
-   type Time is new Time_Base;
+   FreeRTOS_Tick : constant := 0.001;
+   --  FreeRTOSConfig.h has set configTICK_RATE_HZ to 1000
 
-   Time_First : constant Time := 0.0;
+   type Time is new Time_Base range 0.0 .. (2 ** 32 - 1) * FreeRTOS_Tick;
+   --  and configUSE_16_BIT_TICKS to 0 (so we get 32-bit clock values).
+
+   Time_First : constant Time := Time'First;
 
    Time_Last  : constant Time := Time'Last;
 
