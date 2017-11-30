@@ -29,6 +29,10 @@ with Dispatching;
 pragma Unreferenced (Dispatching);
 --  Tagged types
 
+with Finalizing;
+pragma Unreferenced (Finalizing);
+--  Ada.Finalization
+
 with Floating_Point;
 pragma Unreferenced (Floating_Point);
 --  Floating point
@@ -64,13 +68,11 @@ pragma Unreferenced (SO);
 --  Check suspension objects.
 
 with Streams;
+pragma Unreferenced (Streams);
 
 with Strings;
 pragma Unreferenced (Strings);
 --  Secondary stack
-
---  with Watchdog_Check;
---  pragma Unreferenced (Watchdog_Check);
 
 procedure Testbed is
    function Use_Secondary_Stack (S : String) return String;

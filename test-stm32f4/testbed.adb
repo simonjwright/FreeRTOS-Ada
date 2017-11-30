@@ -29,9 +29,9 @@ with Dispatching;
 pragma Unreferenced (Dispatching);
 --  Tagged types
 
-with Floating_Point;
-pragma Unreferenced (Floating_Point);
---  Floating point
+with Finalizing;
+pragma Unreferenced (Finalizing);
+--  Ada.Finalization
 
 with Images;
 pragma Unreferenced (Images);
@@ -45,13 +45,13 @@ with Interrupts;
 pragma Unreferenced (Interrupts);
 --  Check interrupt handling.
 
-with Iteration;
-pragma Unreferenced (Iteration);
---  Generalized iteration
-
 with Heartbeat;
 pragma Unreferenced (Heartbeat);
 --  Timing
+
+with Iteration;
+pragma Unreferenced (Iteration);
+--  Generalized iteration
 
 with Last_Chance_Handler;
 pragma Unreferenced (Last_Chance_Handler);
@@ -64,6 +64,7 @@ pragma Unreferenced (SO);
 --  Check suspension objects.
 
 with Streams;
+pragma Unreferenced (Streams);
 
 with Strings;
 pragma Unreferenced (Strings);

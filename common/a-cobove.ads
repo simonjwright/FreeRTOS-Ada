@@ -31,17 +31,10 @@
 -- This unit was originally developed by Matthew J Heaney.                  --
 ------------------------------------------------------------------------------
 
---  Modified from the 4.9.1 release for the Cortex GNAT Runtime System
---  project.
---
---  The changes consist of suppressing finalization (not supported in
---  the RTS) and tampering checks (so that generalized iteration need
---  not rely on finalization).
-
 with Ada.Iterator_Interfaces;
 
 private with Ada.Streams;
---  private with Ada.Finalization;
+private with Ada.Finalization;
 
 generic
    type Index_Type is range <>;
@@ -372,7 +365,7 @@ private
    pragma Inline (Previous);
 
    use Ada.Streams;
-   --  use Ada.Finalization;
+   use Ada.Finalization;
 
    type Elements_Array is array (Count_Type range <>) of aliased Element_Type;
    function "=" (L, R : Elements_Array) return Boolean is abstract;
@@ -380,8 +373,8 @@ private
    type Vector (Capacity : Count_Type) is tagged record
       Elements : Elements_Array (1 .. Capacity) := (others => <>);
       Last     : Extended_Index := No_Index;
-      --  Busy     : Natural := 0;
-      --  Lock     : Natural := 0;
+      Busy     : Natural := 0;
+      Lock     : Natural := 0;
    end record;
 
    procedure Write
@@ -450,14 +443,14 @@ private
 
    No_Element : constant Cursor := Cursor'(null, Index_Type'First);
 
-   type Iterator is new  -- Limited_Controlled and
+   type Iterator is new Limited_Controlled and
      Vector_Iterator_Interfaces.Reversible_Iterator with
    record
       Container : Vector_Access;
       Index     : Index_Type'Base;
    end record;
 
-   --  overriding procedure Finalize (Object : in out Iterator);
+   overriding procedure Finalize (Object : in out Iterator);
 
    overriding function First (Object : Iterator) return Cursor;
    overriding function Last  (Object : Iterator) return Cursor;

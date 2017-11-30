@@ -53,67 +53,65 @@ package System.HTable is
    --  retrieval is function of the size of the Table parameterized by
    --  Header_Num and the hashing function Hash.
 
-   pragma Style_Checks (Off);
-   --  generic
-   --     type Header_Num is range <>;
-   --     --  An integer type indicating the number and range of hash headers
+   generic
+      type Header_Num is range <>;
+      --  An integer type indicating the number and range of hash headers
 
-   --     type Element is private;
-   --     --  The type of element to be stored
+      type Element is private;
+      --  The type of element to be stored
 
-   --     No_Element : Element;
-   --     --  The object that is returned by Get when no element has been set for
-   --     --  a given key
+      No_Element : Element;
+      --  The object that is returned by Get when no element has been set for
+      --  a given key
 
-   --     type Key is private;
-   --     with function Hash  (F : Key)      return Header_Num;
-   --     with function Equal (F1, F2 : Key) return Boolean;
+      type Key is private;
+      with function Hash  (F : Key)      return Header_Num;
+      with function Equal (F1, F2 : Key) return Boolean;
 
-   --  package Simple_HTable is
+   package Simple_HTable is
 
-   --     procedure Set (K : Key; E : Element);
-   --     --  Associates an element with a given key. Overrides any previously
-   --     --  associated element.
+      procedure Set (K : Key; E : Element);
+      --  Associates an element with a given key. Overrides any previously
+      --  associated element.
 
-   --     procedure Reset;
-   --     --  Removes and frees all elements in the table
+      procedure Reset;
+      --  Removes and frees all elements in the table
 
-   --     function Get (K : Key) return Element;
-   --     --  Returns the Element associated with a key or No_Element if the
-   --     --  given key has no associated element.
+      function Get (K : Key) return Element;
+      --  Returns the Element associated with a key or No_Element if the
+      --  given key has no associated element.
 
-   --     procedure Remove (K : Key);
-   --     --  Removes the latest inserted element pointer associated with the
-   --     --  given key if any, does nothing if none.
+      procedure Remove (K : Key);
+      --  Removes the latest inserted element pointer associated with the
+      --  given key if any, does nothing if none.
 
-   --     function Get_First return Element;
-   --     --  Returns No_Element if the HTable is empty, otherwise returns one
-   --     --  non specified element. There is no guarantee that two calls to this
-   --     --  function will return the same element.
+      function Get_First return Element;
+      --  Returns No_Element if the HTable is empty, otherwise returns one
+      --  non specified element. There is no guarantee that two calls to this
+      --  function will return the same element.
 
-   --     function Get_Next return Element;
-   --     --  Returns a non-specified element that has not been returned by the
-   --     --  same function since the last call to Get_First or No_Element if
-   --     --  there is no such element. If there is no call to Set in between
-   --     --  Get_Next calls, all the elements of the HTable will be traversed.
+      function Get_Next return Element;
+      --  Returns a non-specified element that has not been returned by the
+      --  same function since the last call to Get_First or No_Element if
+      --  there is no such element. If there is no call to Set in between
+      --  Get_Next calls, all the elements of the HTable will be traversed.
 
-   --     procedure Get_First (K : in out Key; E : out Element);
-   --     --  This version of the iterator returns a key/element pair. A non-
-   --     --  specified entry is returned, and there is no guarantee that two
-   --     --  calls to this procedure will return the same element. If the table
-   --     --  is empty, E is set to No_Element, and K is unchanged, otherwise
-   --     --  K and E are set to the first returned entry.
+      procedure Get_First (K : in out Key; E : out Element);
+      --  This version of the iterator returns a key/element pair. A non-
+      --  specified entry is returned, and there is no guarantee that two
+      --  calls to this procedure will return the same element. If the table
+      --  is empty, E is set to No_Element, and K is unchanged, otherwise
+      --  K and E are set to the first returned entry.
 
-   --     procedure Get_Next (K : in out Key; E : out Element);
-   --     --  This version of the iterator returns a key/element pair. It returns
-   --     --  a non-specified element that has not been returned since the last
-   --     --  call to Get_First. If there is no remaining element, then E is set
-   --     --  to No_Element, and the value in K is unchanged, otherwise K and E
-   --     --  are set to the next entry. If there is no call to Set in between
-   --     --  Get_Next calls, all the elements of the HTable will be traversed.
+      procedure Get_Next (K : in out Key; E : out Element);
+      --  This version of the iterator returns a key/element pair. It returns
+      --  a non-specified element that has not been returned since the last
+      --  call to Get_First. If there is no remaining element, then E is set
+      --  to No_Element, and the value in K is unchanged, otherwise K and E
+      --  are set to the next entry. If there is no call to Set in between
+      --  Get_Next calls, all the elements of the HTable will be traversed.
 
-   --  end Simple_HTable;
-   pragma Style_Checks (On);
+   end Simple_HTable;
 
    -------------------
    -- Static_HTable --

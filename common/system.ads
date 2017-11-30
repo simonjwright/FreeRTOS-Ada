@@ -41,7 +41,6 @@
 pragma Profile (Ravenscar);
 
 pragma Restrictions (No_Exception_Propagation);
-pragma Restrictions (No_Finalization);
 
 --  If pragma Restrictions (No_Recursion) is required, make it a
 --  configuration pragma.
