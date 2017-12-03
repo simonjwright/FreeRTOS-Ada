@@ -64,7 +64,6 @@ pragma Unreferenced (SO);
 --  Check suspension objects.
 
 with Streams;
-pragma Unreferenced (Streams);
 
 with Strings;
 pragma Unreferenced (Strings);

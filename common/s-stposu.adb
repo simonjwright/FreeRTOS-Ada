@@ -31,7 +31,7 @@
 
 --  Modified from GCC 4.9.1 for STM32F4 GNAT RTS.
 
-with Ada.Exceptions;           use Ada.Exceptions;
+--  with Ada.Exceptions;           use Ada.Exceptions;
 with Ada.Unchecked_Conversion;
 
 --  with System.Address_Image;
