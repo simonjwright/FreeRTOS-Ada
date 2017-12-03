@@ -6,7 +6,7 @@
 --                                                                          --
 --                                  B o d y                                 --
 --                                                                          --
---      Copyright (C) 1992-2010, 2016, Free Software Foundation, Inc.       --
+--    Copyright (C) 1992-2010, 2016-2017, Free Software Foundation, Inc.    --
 --                                                                          --
 -- GNARL is free software; you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -29,6 +29,8 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
+--  Modified from GCC 4.9.1 for Cortex GNAT RTS.
+
 with Interfaces;
 
 package body Ada.Real_Time.Delays is
@@ -40,12 +42,14 @@ package body Ada.Real_Time.Delays is
         Convention => C,
         External_Name => "vTaskDelay";
       Timespan_To_Delay : constant Time_Span := T - Clock;
-      --  ??? need to round, see ARM
-      Ticks_To_Delay : constant Integer := Timespan_To_Delay / Tick;
    begin
-      if Ticks_To_Delay > 0 then
+      if Timespan_To_Delay > 0.0 then
+         --  Need to avoid problems with ambiguity; and the version in
+         --  Real_Time returns Integer, whereas we actually want
+         --  Unsigned_32.
          vTaskDelay
-           (Ticks_To_Delay => Interfaces.Unsigned_32 (Ticks_To_Delay));
+           (Interfaces.Unsigned_32
+              (Standard."/" (Timespan_To_Delay, Tick)));
       end if;
    end Delay_Until;
 

@@ -113,11 +113,5 @@ begin
    --  Check streams
    Streams.Check (42);
 
-   declare
-      use type Ada.Real_Time.Time;
-   begin
-      loop
-         delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds (10);
-      end loop;
-   end;
+   delay until Ada.Real_Time.Time_Last;
 end Testbed;
