@@ -161,29 +161,15 @@ package body Interrupts is
 
    procedure Trigger_Interrupt (IRQ : Ada.Interrupts.Interrupt_ID) is
       --  The Software Trigger Interrupt Register.
-      NVIC_STIR                     : Ada.Interrupts.Interrupt_ID
+      NVIC_STIR : Integer
       with
         Import,
-        Volatile,
+        Atomic,
         Size    => 32,
         Address => System'To_Address (16#e000_ef00#);
 
-      --  --  The Interrupt Set Pending Registers.
-      --  type NVIC_ISPRn is array (0 .. 31) of Boolean
-      --  with
-      --    Component_Size => 1,
-      --    Volatile_Full_Access;
-
-      --  NVIC_ISPRs : array (0 .. 15) of NVIC_ISPRn
-      --  with
-      --    Import,
-      --    Address => System'To_Address (16#e000_e200#);
-
-      --  Bit : constant Integer := Integer (IRQ) mod 32;
-      --  Register : constant Integer := Integer (IRQ) / 32;
    begin
-      NVIC_STIR := IRQ;
-      --  NVIC_ISPRs (Register)(Bit) := True;
+      NVIC_STIR := Integer (IRQ);
    end Trigger_Interrupt;
 
 end Interrupts;
