@@ -1,1 +1,4 @@
-adainclude:atsam3x8e:../common:../common/math
+adainclude
+atsam3x8e
+../common
+../common/math
