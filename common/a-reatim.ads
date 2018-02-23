@@ -155,6 +155,7 @@ private
    --  FreeRTOSConfig.h has set configTICK_RATE_HZ to 1000
 
    type Time is new Time_Base range 0.0 .. (2 ** 32 - 1) * FreeRTOS_Tick;
+   for Time'Size use 64;
    --  and configUSE_16_BIT_TICKS to 0 (so we get 32-bit clock values).
 
    Time_First : constant Time := Time'First;
