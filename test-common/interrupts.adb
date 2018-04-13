@@ -1,4 +1,4 @@
---  Copyright (C) 2016, 2017 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2018 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -167,8 +167,9 @@ package body Interrupts is
         Atomic,
         Size    => 32,
         Address => System'To_Address (16#e000_ef00#);
-
    begin
+      --  ARM says Interrupt_ID is an implementation-defined discrete
+      --  type; ours are all *small* integers.
       NVIC_STIR := Integer (IRQ);
    end Trigger_Interrupt;
 
