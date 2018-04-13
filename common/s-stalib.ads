@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 S p e c                                  --
 --                                                                          --
---       Copyright (C) 1992-2013, 2016, Free Software Foundation, Inc.      --
+--    Copyright (C) 1992-2013, 2016, 2018, Free Software Foundation, Inc.   --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -245,8 +245,10 @@ package System.Standard_Library is
    --  --  A little procedure that just calls Abort_Undefer.all, for use in
    --  clean up procedures, which only permit a simple subprogram name.
 
-   --  procedure Adafinal;
+   procedure Adafinal;
    --  Performs the Ada Runtime finalization the first time it is invoked.
    --  All subsequent calls are ignored.
+   --
+   --  Null in this RTS.
 
 end System.Standard_Library;

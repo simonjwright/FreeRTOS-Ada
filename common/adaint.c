@@ -21,3 +21,41 @@
 // program has pragma Priority.
 
 int __gl_main_priority = -1;
+
+int __gl_time_slice_val;
+
+char __gl_wc_encoding;
+
+char __gl_locking_policy;
+
+char __gl_queuing_policy;
+
+char __gl_task_dispatching_policy;
+
+void *__gl_priority_specific_dispatching;
+
+int __gl_num_specific_dispatching;
+
+int __gl_main_cpu;
+
+void *__gl_interrupt_states;
+
+int __gl_num_interrupt_states;
+
+int __gl_unreserve_all_interrupts;
+
+int __gl_detect_blocking;
+
+int __gl_default_stack_size;
+
+int __gl_default_ss_size;
+
+int __gl_leap_seconds_support;
+
+void __gnat_runtime_initialize(int install_handler)
+{
+}
+
+void __gnat_runtime_finalize(void)
+{
+}
