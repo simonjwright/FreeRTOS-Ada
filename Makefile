@@ -1,6 +1,6 @@
 # This file is part of the Cortex GNAT RTS package.
 #
-# Copyright (C) 2016 Free Software Foundation, Inc.
+# Copyright (C) 2016, 2018 Free Software Foundation, Inc.
 #
 # The Cortex GNAT RTS package is free software; you can redistribute
 # it and/or modify it under the terms of the GNU General Public
@@ -18,6 +18,7 @@
 
 first:
 	@echo "\t'make all' to build the runtimes,"
+	@echo "\t'make install' to install the runtimes,"
 	@echo "\t'make dist' to build a distribution package."
 
 runtimes = arduino-due stm32f4 stm32f429i
@@ -25,6 +26,11 @@ runtimes = arduino-due stm32f4 stm32f429i
 all:
 	for f in $(runtimes); do		\
 	  make -w -C $$f;				\
+	done
+
+install:
+	for f in $(runtimes); do		\
+	  make -w -C $$f install;				\
 	done
 
 # Distributions
@@ -68,4 +74,4 @@ $(NAME)-$(DATE): force
 	  make -C $$sub -f Makefile.dist dist DIST=$(PWD)/$@;	\
 	done
 
-.PHONY: first all dist force
+.PHONY: first all install dist force
