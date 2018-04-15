@@ -4,8 +4,8 @@
 * [Compiler compatibility](#compatibility)
 * [Target](#target)
 * [Run time system](#rts)
-  * [In `$lib`:](#in-lib)
   * [In `$prefix/arm-eabi/lib/gnat`:](#with-compiler)
+  * [In `$lib`:](#in-lib)
   * [In the build location:](#in-build)
 * [Link map file](#link-map)
 
@@ -30,26 +30,19 @@ well, if at all.
 ## Compiler compatibility <a name="compatibility"/> ##
 
 During compiler development, the interface between the compiler and
-the run time system it's generating code for changes. As released,
-these RTSs match the FSF GCC 7 compiler.
+the run time system it's generating code for changes.
 
-If you're using a different compiler, alternate versions of the
-affected units, all in `common`, are provided; in the table below,
-'copy over corresponding `.ad[bs]`' means that, for example,
-`s-tarest.ads-gcc6` should be copied over `s-tarest.ads`.
+This is managed here using different branches.
 
 <!-- This renders OK at Github, but not with Markdown.pl. -->
 
-| Compiler | copy over corresponding `.ad[bs]` |
+| Compiler | Branch |
 | ---------|----------------------------------- |
-| FSF GCC 6 | `environment_task.adb-gcc6`, `s-tarest.adb-gcc6`, `s-tarest.ads-gcc6` |
-| GNAT GPL 2016 | as FSF GCC 6 |
-| FSF GCC 8 | `a-tags.adb-gcc8`, `a-tags.ads-gcc8` |
-| GNAT GPL 2017 | as FSF GCC 8 |
-
-If, instead, you've cloned the repository, then FSF GCC 6 and GNAT GPL
-2016 are supported on branch `gcc6`, while FSF GCC 8 and GNAT GPL 2017
-are supported on branch `gcc8`.
+| FSF GCC 6 | `gcc6` |
+| FSF GCC 7 | `gcc7` (or `gcc7-finalization`) |
+| FSF GCC 8 | `gcc8` (or `gcc8-finalization`) |
+| GNAT GPL 2016 | `gcc6` |
+| GNAT GPL 2017 | `gnat-gpl-2017` |
 
 ## Target <a name="target"/> ##
 
@@ -89,14 +82,20 @@ or, with GPRBUILD GPL 2015 or later, via an attribute:
 
 There are two places where RTSs can be installed:
 
+* in `$prefix/arm-eabi/lib/gnat`. This is the preferred location, and
+  is where the `install` make target will place the RTS.
+
 * in the location indicated by the directory part of `arm-eabi-gcc
   -print-libgcc-file-name`; for GNAT GPL 2015, that would be
   `$prefix/lib/gcc/arm-eabi/4.9.3/`, referred to from here on as
   `$lib`.
 
-* in `$prefix/arm-eabi/lib/gnat`.
-
 You can also work with an RTS in its build location.
+
+### In `$prefix/arm-eabi/lib/gnat`: <a name="with-compiler"/> ###
+
+The directory containing the RTS is just called {name},
+e.g. `stm32f429i/`.
 
 ### In `$lib`: <a name="in-lib"/> ###
 
@@ -119,11 +118,6 @@ default RTS (and you need a default RTS) if
 Alternative RTSs are found here if they are in directories named
 `rts-{name}`, for example `rts-stm32f429i/` corresponds to
 `--RTS=stm32f429i`.
-
-### In `$prefix/arm-eabi/lib/gnat`: <a name="with-compiler"/> ###
-
-The directory containing the RTS is just called {name},
-e.g. `stm32f429i/`. This is the best place.
 
 ### In the build location: <a name="in-build"/> ###
 
