@@ -67,6 +67,7 @@ ones) for all RTSs are:
     System
     System.Assertions
     System.Address_To_Access_Conversions
+    System.Machine_Code
     System.Storage_Elements
     GNAT
     GNAT.CRC32
