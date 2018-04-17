@@ -1,4 +1,4 @@
-# Copyright (C) 2016 Free Software Foundation, Inc.
+# Copyright (C) 2016, 2018 Free Software Foundation, Inc.
 #
 # This file is part of the Cortex GNAT RTS package.
 #
@@ -19,7 +19,10 @@
 all:
 	gprbuild -p -P build_runtime.gpr
 
+install: all
+	gprinstall -p -P build_runtime.gpr
+
 clean:
 	gprclean -P build_runtime.gpr
 
-.PHONY: all clean
+.PHONY: all install clean

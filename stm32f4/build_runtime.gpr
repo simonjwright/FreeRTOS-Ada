@@ -1,4 +1,4 @@
---  Copyright (C) 2016, 2017 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2018 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -86,6 +86,16 @@ library project Build_Runtime is
       for Switches ("s-assert.adb") use ALL_ADAFLAGS & ("-g");
       for Switches ("a-tags.adb") use ALL_ADAFLAGS & ("-g");
       for Switches ("last_chance_handler.c") use ALL_CFLAGS & ("-g", "-O0");
-  end Compiler;
+   end Compiler;
+
+   package Install is
+      for Prefix use "arm-eabi/lib/gnat/stm32f4";
+      for Sources_Subdir use "adainclude";
+      for Ali_Subdir use "adalib";
+      for Lib_Subdir use "adalib";
+      for Required_Artifacts (".") use ("runtime.xml");
+      for Required_Artifacts ("adalib") use ("adalib/stm32f407-flash.ld");
+      for Install_Project use "false";
+   end Install;
 
 end Build_Runtime;
