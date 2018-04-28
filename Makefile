@@ -18,8 +18,7 @@
 
 first:
 	@echo "\t'make all' to build the runtimes,"
-	@echo "\t'make install' to install the runtimes,"
-	@echo "\t'make dist' to build a distribution package."
+	@echo "\t'make install' to install the runtimes."
 
 runtimes = arduino-due stm32f4 stm32f429i
 
@@ -33,45 +32,4 @@ install:
 	  make -w -C $$f install;				\
 	done
 
-# Distributions
-
-NAME ?= cortex-gnat-rts
-
-TOP_LEVEL_FILES = INSTALL README FreeRTOS.gpr
-
-subdirs =					\
-  common					\
-  test-common
-
-subdirs +=					\
-  arduino-due					\
-  test-arduino-due
-
-subdirs +=					\
-  stm32f4					\
-  test-stm32f4
-
-subdirs +=					\
-  stm32f429i					\
-  test-stm32f429i
-
-# Used to construct release IDs (eg, $(NAME)-20100731). You can
-# set the whole thing from the command line -- for example, if
-# creating a patch release.
-DATE = $(shell date +%Y%m%d)
-
-dist:: $(NAME)-$(DATE).tar.gz
-
-$(NAME)-$(DATE).tar.gz: $(NAME)-$(DATE)
-	rm -f $@
-	tar zcvf $@ $</
-
-$(NAME)-$(DATE): force
-	rm -rf $@
-	mkdir $@
-	cp $(TOP_LEVEL_FILES) $@/
-	for sub in $(subdirs); do				\
-	  make -C $$sub -f Makefile.dist dist DIST=$(PWD)/$@;	\
-	done
-
-.PHONY: first all install dist force
+.PHONY: first all install
