@@ -16,6 +16,7 @@
 --  along with this program; see the file COPYING3.  If not, see
 --  <http://www.gnu.org/licenses/>.
 
+with "../common/common";
 with "../FreeRTOS";
 
 library project Build_Runtime is
@@ -29,12 +30,10 @@ library project Build_Runtime is
    for Library_Dir use "adalib";
    for Object_Dir use ".build";
 
-   for Source_Dirs use
+   for Source_Dirs use Common.Paths &
      (
       "adainclude",
       "atsam3x8e",
-      "../common",
-      "../common/math",
       FreeRTOS.Source,
       FreeRTOS.Portable_Base & "ARM_CM3"
      );
@@ -83,8 +82,17 @@ library project Build_Runtime is
       for Switches ("hardfault_handling.adb") use ALL_ADAFLAGS & ("-g", "-O0");
   end Compiler;
 
+   type Install_Locally is ("yes", "no");
+   Local : Install_Locally := external ("INSTALL_LOCALLY", "no");
+
    package Install is
-      for Prefix use "arm-eabi/lib/gnat/arduino-due";
+      case Local is
+         when "no" =>
+            for Prefix use "arm-eabi/lib/gnat/";
+         when "yes" =>
+            for Prefix use project'Project_Dir & "../local/";
+      end case;
+      for Prefix use Install'Prefix & "arduino-due";
       for Sources_Subdir use "adainclude";
       for Ali_Subdir use "adalib";
       for Lib_Subdir use "adalib";

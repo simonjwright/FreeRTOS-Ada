@@ -20,7 +20,7 @@ all:
 	gprbuild -p -P build_runtime.gpr
 
 install: all
-	gprinstall -p -P build_runtime.gpr
+	gprinstall -p -P build_runtime.gpr -f
 
 clean:
 	gprclean -P build_runtime.gpr

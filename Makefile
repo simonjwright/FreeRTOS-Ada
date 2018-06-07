@@ -22,14 +22,9 @@ first:
 
 runtimes = arduino-due stm32f4 stm32f429i
 
-all:
+all install clean:
 	for f in $(runtimes); do		\
-	  make -w -C $$f;				\
+	  make -w -C $$f $@;			\
 	done
 
-install:
-	for f in $(runtimes); do		\
-	  make -w -C $$f install;				\
-	done
-
-.PHONY: first all install
+.PHONY: first all clean install

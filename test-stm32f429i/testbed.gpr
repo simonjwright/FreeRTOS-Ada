@@ -1,4 +1,4 @@
---  Copyright (C) 2016 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2018 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -17,20 +17,25 @@
 --  <http://www.gnu.org/licenses/>.
 
 project Testbed is
+
    for Main use ("testbed.adb");
-   for Object_Dir use ".build";
    for Source_Dirs use (".", "../test-common");
+   for Object_Dir use ".build";
    for Exec_Dir use ".";
    for Target use "arm-eabi";
-   for Runtime ("ada") use Project'Project_Dir & "../stm32f429i";
+   for Runtime ("ada") use "../local/stm32f429i";
+
    package Builder is
-      for Default_Switches ("ada") use
+      for Global_Compilation_Switches ("ada") use
         (
          "-g",
          "-O0",
-         "--create-map-file"
+         "-ffunction-sections",
+         "-fdata-sections"
         );
+      for Switches ("ada") use ("--create-map-file");
    end Builder;
+
    package Compiler is
       for Default_Switches ("ada") use
         (
@@ -38,7 +43,16 @@ project Testbed is
          "-gnatwaL.X"
         );
    end Compiler;
+
    package Linker is
-      for Map_File_Option use "-Wl,-Map," & Project'Project_Dir;
+      for Default_Switches ("ada") use ("-Wl,-gc-sections");
+      for Map_File_Option use "-Wl,-Map," & project'Project_Dir;
    end Linker;
+
+   package IDE is
+      for Connection_Tool use "/usr/local/bin/st-util";
+      for Program_Host use "*:4242";
+      for Communication_Protocol use "remote";
+   end IDE;
+
 end Testbed;
