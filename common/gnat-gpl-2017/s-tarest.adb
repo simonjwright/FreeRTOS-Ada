@@ -6,7 +6,7 @@
 --                                                                          --
 --                                  B o d y                                 --
 --                                                                          --
---       Copyright (C) 2016, 2017 Free Software Foundation, Inc.            --
+--        Copyright (C) 2016-2018 Free Software Foundation, Inc.            --
 --                                                                          --
 -- GNARL is free software; you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -35,10 +35,9 @@
 --  This package represents the high level tasking interface used by the
 --  compiler to expand Ada 95 tasking constructs into simpler run time calls.
 
---  This is is the version for the Cortex GNAT RTS project.
+--  This is the version for the Cortex GNAT RTS project.
 
 with Ada.Unchecked_Conversion;
-with Interfaces;
 with System.Address_To_Access_Conversions;
 with System.FreeRTOS.TCB;
 with System.Memory;
@@ -108,7 +107,6 @@ package body System.Tasking.Restricted.Stages is
       Created_Task         :        Task_Id) is
 
       pragma Unreferenced (Stack_Address);
-      pragma Unreferenced (Secondary_Stack_Size);
       pragma Unreferenced (Task_Info);
       pragma Unreferenced (CPU);
       pragma Unreferenced (Chain);
@@ -122,6 +120,7 @@ package body System.Tasking.Restricted.Stages is
         constant Parameters_Conversion.Object_Pointer :=
         Parameters_Conversion.To_Pointer (Wrapper_Parameter_Address);
 
+      use type System.Parameters.Size_Type;
       use type FreeRTOS.Tasks.Task_Handle;
    begin
       if Wrapper_Parameter_Address = System.Null_Address then
@@ -132,7 +131,9 @@ package body System.Tasking.Restricted.Stages is
          Task_Proc     => State,
          Discriminants => Discriminants,
          SStack_Size   =>
-           System.Parameters.Secondary_Stack_Size (Actual_Stack_Size));
+           (if Secondary_Stack_Size = System.Parameters.Unspecified_Size
+            then System.Parameters.Secondary_Stack_Size (Actual_Stack_Size)
+            else Secondary_Stack_Size));
 
       Created_Task.Common.Base_Priority := (if Priority = Unspecified_Priority
                                             then System.Default_Priority

@@ -6,7 +6,7 @@
 --                                                                          --
 --                                  B o d y                                 --
 --                                                                          --
---        Copyright (C) 2016-2017 Free Software Foundation, Inc.            --
+--        Copyright (C) 2016-2018 Free Software Foundation, Inc.            --
 --                                                                          --
 -- GNARL is free software; you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -35,7 +35,7 @@
 --  This package represents the high level tasking interface used by the
 --  compiler to expand Ada 95 tasking constructs into simpler run time calls.
 
---  This is is the version for the Cortex GNAT RTS project.
+--  This is the version for the Cortex GNAT RTS project.
 
 with Ada.Unchecked_Conversion;
 with System.Address_To_Access_Conversions;
@@ -55,6 +55,7 @@ package body System.Tasking.Restricted.Stages is
       ATCB          : Task_Id;
       Task_Proc     : Task_Procedure_Access;
       Discriminants : System.Address;
+      SStack_Addr   : System.Secondary_Stack.SS_Stack_Ptr;
       SStack_Size   : System.Parameters.Size_Type;
    end record;
 
@@ -63,25 +64,48 @@ package body System.Tasking.Restricted.Stages is
 
    procedure Wrapper (Arg1 : System.Address) is
       function Convert_Task_Id
-        is new Ada.Unchecked_Conversion (Task_Id, System.Address);
+      is new Ada.Unchecked_Conversion (Task_Id, System.Address);
 
       P : constant Parameters_Conversion.Object_Pointer :=
         Parameters_Conversion.To_Pointer (Arg1);
 
-      Secondary_Stack :
-        aliased System.Secondary_Stack.SS_Stack (Size => P.SStack_Size);
-      --  At this point, the stack is the task's stack
+      use type System.Secondary_Stack.SS_Stack_Ptr;
    begin
       --  Save the ATCB in the FreeRTOS TCB
       FreeRTOS.TCB.Set_Application_Parameter (Convert_Task_Id (P.ATCB));
 
-      --  Register the secondary stack
-      P.ATCB.Secondary_Stack := Secondary_Stack'Unchecked_Access;
-      --  Unchecked_Access is OK because it can only be accessed from
-      --  the current task, within Task_Proc.
+      --  Secondary stack handling:
+      --
+      --  If P.SStack_Addr is Null_Address, then we are to allocate a
+      --  region from the bottom of the task's stack, size P.SStack_Size.
+      --
+      --  If P.SStack_Addr isn't Null_Address, it's a region of the
+      --  task's package's BSS allocated and initialized by the
+      --  compiler.
 
-      --  Call the task procedure
-      P.Task_Proc (P.Discriminants);
+      if P.SStack_Addr = null then
+         declare
+            --  At this point, the stack is the task's stack. Declare
+            --  a stack here.
+            Secondary_Stack :
+            aliased System.Secondary_Stack.SS_Stack (Size => P.SStack_Size);
+         begin
+            --  Register the secondary stack
+            P.ATCB.Secondary_Stack := Secondary_Stack'Unchecked_Access;
+            --  Unchecked_Access is OK because it can only be accessed from
+            --  the current task, within Task_Proc.
+
+            --  Call the task procedure. The secondary stack is still
+            --  on the stack.
+            P.Task_Proc (P.Discriminants);
+         end;
+      else
+         --  Register the compiler-allocated secondary stack
+         P.ATCB.Secondary_Stack := P.SStack_Addr;
+
+         --  Call the task procedure
+         P.Task_Proc (P.Discriminants);
+      end if;
 
       --  If we return here, the task procedure has exited (and not
       --  because of an exception, which would already have reached
@@ -108,8 +132,6 @@ package body System.Tasking.Restricted.Stages is
       Created_Task         :        Task_Id) is
 
       pragma Unreferenced (Stack_Address);
-      pragma Unreferenced (Sec_Stack_Address);
-      pragma Unreferenced (Secondary_Stack_Size);
       pragma Unreferenced (Task_Info);
       pragma Unreferenced (CPU);
       pragma Unreferenced (Chain);
@@ -123,6 +145,7 @@ package body System.Tasking.Restricted.Stages is
         constant Parameters_Conversion.Object_Pointer :=
         Parameters_Conversion.To_Pointer (Wrapper_Parameter_Address);
 
+      use type System.Parameters.Size_Type;
       use type FreeRTOS.Tasks.Task_Handle;
    begin
       if Wrapper_Parameter_Address = System.Null_Address then
@@ -132,8 +155,11 @@ package body System.Tasking.Restricted.Stages is
         (ATCB          => Created_Task,
          Task_Proc     => State,
          Discriminants => Discriminants,
+         SStack_Addr   => Sec_Stack_Address,
          SStack_Size   =>
-           System.Parameters.Secondary_Stack_Size (Actual_Stack_Size));
+           (if Secondary_Stack_Size = System.Parameters.Unspecified_Size
+            then System.Parameters.Secondary_Stack_Size (Actual_Stack_Size)
+            else Secondary_Stack_Size));  -- don't think this will happen?
 
       Created_Task.Common.Base_Priority := (if Priority = Unspecified_Priority
                                             then System.Default_Priority
