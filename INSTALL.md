@@ -17,6 +17,7 @@ Values for `RELEASE` are as below:
 | FSF GCC 8 | `gcc8` |
 | GNAT GPL 2016 | `gcc6` |
 | GNAT GPL 2017 | `gnat-gpl-2017` |
+| GNAT CE 2018 | `gcc8` |
 
 The runtimes must be installed. To install the runtime(s) with your compiler (you may need to use `sudo`),
 
