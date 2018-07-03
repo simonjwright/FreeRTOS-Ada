@@ -1,0 +1,4 @@
+adainclude
+nrf51
+../common
+../common/math
