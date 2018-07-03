@@ -1,4 +1,4 @@
---  Copyright (C) 2017 Free Software Foundation, Inc.
+--  Copyright (C) 2017-2018 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -18,7 +18,7 @@
 
 abstract project FreeRTOS is
 
-   Base := external ("HOME") & "/FreeRTOSV9.0.0/";
+   Base := external ("HOME") & "/FreeRTOSV10.0.1/";
 
    Source := Base & "FreeRTOS/Source/";
    Include := Source & "include";
