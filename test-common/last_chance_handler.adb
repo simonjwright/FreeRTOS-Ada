@@ -1,4 +1,4 @@
---  Copyright (C) 2016, 2017 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2018 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -25,11 +25,11 @@ is
      Import,
      Convention => C,
      External_Name => "_gnat_disable_interrupts";
-   procedure Suspend_All_Tasks
-   with
-     Import,
-     Convention => C,
-     External_Name => "vTaskSuspendAll";
+   --  procedure Suspend_All_Tasks
+   --  with
+   --    Import,
+   --    Convention => C,
+   --    External_Name => "vTaskSuspendAll";
 begin
    --  TODO: Add in code to dump the info to serial/screen which
    --  is obviously board specific.

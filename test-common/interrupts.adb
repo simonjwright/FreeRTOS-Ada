@@ -173,4 +173,7 @@ package body Interrupts is
       NVIC_STIR := Integer (IRQ);
    end Trigger_Interrupt;
 
+   pragma Unreferenced (First_Interrupt_Handler);
+   pragma Unreferenced (Third_Interrupt_Handler);
+
 end Interrupts;
