@@ -1,8 +1,10 @@
-This package includes GNAT Ada Run Time Systems (RTSs) based on
-[FreeRTOS](http://www.freertos.org) and targeted at boards with
-Cortex-M3, -M4, -M4F MCUs ([Arduino Due](http://www.arduino.org), the
-STM32F4-series evaluation boards from
-[STMicroelectronics](http://www.st.com)).
+This package includes GNAT Ada Run Time Systems (RTSs) based
+on [FreeRTOS](http://www.freertos.org) and targeted at boards with
+Cortex-M0, M3, -M4, -M4F MCUs
+(respectively
+[BBC micro:bit](http://microbit.org),
+[Arduino Due](https://www.arduino.cc), and the STM32F4-series evaluation
+boards from [STMicroelectronics](https://www.st.com)).
 
 The RTSs are all Ravenscar-based, with additional restrictions
 `No_Exception_Propagation` and `No_Finalization`.
@@ -20,6 +22,11 @@ The Ada source is either original or based on FSF GCC (mainly 4.9.1,
 some later releases too).
 
 The boards supported are
+
+* `microbit` for the BBC micro:bit.
+  * See `microbit/COPYING*` for licensing terms.
+  * On-chip peripheral support in `nrf51/`.
+  * Tests in `test-microbit/`.
 
 * `arduino-due` for the Arduino Due.
   * See `arduino-due/COPYING*` for licensing terms.
