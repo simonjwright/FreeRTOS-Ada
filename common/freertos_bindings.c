@@ -1,4 +1,4 @@
-// Copyright (C) 2016 Free Software Foundation, Inc.
+// Copyright (C) 2016-2018 Free Software Foundation, Inc.
 //
 // GNAT is free software;  you can  redistribute it  and/or modify it under
 // terms of the  GNU General Public License as published  by the Free Soft-
@@ -29,6 +29,8 @@
 #include <queue.h>
 #include <semphr.h>
 #include <task.h>
+
+int _gnat_freertos_tick_rate = configTICK_RATE_HZ;
 
 void _gnat_disable_interrupts(void) {
   taskDISABLE_INTERRUPTS();

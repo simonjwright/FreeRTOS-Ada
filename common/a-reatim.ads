@@ -151,8 +151,13 @@ private
    --  Replaces Duration, which has a different representation on
    --  systems with 32-bit Duration.
 
-   FreeRTOS_Tick : constant := 0.001;
-   --  FreeRTOSConfig.h has set configTICK_RATE_HZ to 1000
+   FreeRTOS_Tick_Rate : Natural
+   with
+     Import,
+     Convention => C,
+     External_Name => "_gnat_freertos_tick_rate";
+
+   FreeRTOS_Tick : constant Time_Base := 1.0 / FreeRTOS_Tick_Rate;
 
    type Time is new Time_Base range 0.0 .. (2 ** 32 - 1) * FreeRTOS_Tick;
    for Time'Size use 64;
@@ -172,7 +177,7 @@ private
 
    Time_Span_Unit  : constant Time_Span := 1.0e-9;
 
-   Tick : constant Time_Span := 0.001;
+   Tick : constant Time_Span := Time_Span (FreeRTOS_Tick);
 
    --  Time and Time_Span are represented in 64-bit signed value
    --  in nanoseconds. For example, 1 second and 1 nanosecond is
