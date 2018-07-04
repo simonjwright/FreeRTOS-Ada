@@ -18,7 +18,8 @@ COPYING.RUNTIME.
 
 The RTS is based on FreeRTOS[1]. See COPYING.FreeRTOS.
 
-Board support (spec files only) is generated using svd2ada[2].
+Board support (spec files only) is generated using svd2ada[2] from the
+Nordic SVD. See COPYING.Nordic.
 
 The following non-original files don't form part of a binary
 deliverable, so don't affect the status of the binary:
