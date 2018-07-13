@@ -45,16 +45,25 @@ package body nRF51_Clock is
       use type nrf51.CLOCK.STATE_Field;
    begin
 
-      --  Start the board low frequency clock, running off the crystal.
-      if nrf51.CLOCK.CLOCK_Periph.LFCLKSTAT.STATE /= nrf51.CLOCK.Running then
-         nrf51.CLOCK.CLOCK_Periph.LFCLKSRC.SRC := nrf51.CLOCK.Xtal;
-         nrf51.CLOCK.CLOCK_Periph.TASKS_LFCLKSTART := 1;
-
+      --  Start the board low frequency clock, running off the high
+      --  frequency clock (which runs automatically).
+      --
+      --  If the clock is already running, stop it.
+      if nrf51.CLOCK.CLOCK_Periph.LFCLKSTAT.STATE = nrf51.CLOCK.Running then
+         nrf51.CLOCK.CLOCK_Periph.TASKS_LFCLKSTOP := 1;
          loop
-            exit when nrf51.CLOCK.CLOCK_Periph.LFCLKSTAT.STATE =
+            exit when nrf51.CLOCK.CLOCK_Periph.LFCLKSTAT.STATE /=
               nrf51.CLOCK.Running;
          end loop;
       end if;
+
+      --  Set the correct source.
+      nrf51.CLOCK.CLOCK_Periph.LFCLKSRC.SRC := nrf51.CLOCK.Synth;
+      nrf51.CLOCK.CLOCK_Periph.TASKS_LFCLKSTART := 1;
+      loop
+         exit when nrf51.CLOCK.CLOCK_Periph.LFCLKSTAT.STATE =
+           nrf51.CLOCK.Running;
+      end loop;
 
       --  Can't alter the prescaler while the RTC is running.
       nrf51.RTC.RTC1_Periph.TASKS_STOP := 1;
@@ -160,16 +169,8 @@ package body nRF51_Clock is
         External_Name => "SysTick_Handler";
 
    begin
-      --  Stop the RTC tasks.
-      nrf51.RTC.RTC1_Periph.TASKS_STOP := 1;
-      --  Clear them
-      nrf51.RTC.RTC1_Periph.TASKS_CLEAR := 1;
-
       --  Clear the TICK event.
       nrf51.RTC.RTC1_Periph.EVENTS_TICK := 0;
-
-      --  Start the RTC tasks.
-      nrf51.RTC.RTC1_Periph.TASKS_START := 1;
 
       --  Call the FreeRTOS handler.
       SysTick_Handler;
