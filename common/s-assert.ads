@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 S p e c                                  --
 --                                                                          --
---          Copyright (C) 1992-2013, Free Software Foundation, Inc.         --
+--       Copyright (C) 1992-2013, 2018, Free Software Foundation, Inc.      --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -39,6 +39,7 @@
 pragma Compiler_Unit_Warning;
 
 package System.Assertions is
+   pragma No_Elaboration_Code_All;
 
    Assert_Failure : exception;
    --  Exception raised when assertion fails

@@ -18,6 +18,6 @@ generic
    type Target (<>) is limited private;
 
 function Ada.Unchecked_Conversion (S : Source) return Target;
-
 pragma Pure (Unchecked_Conversion);
+pragma No_Elaboration_Code_All (Unchecked_Conversion);
 pragma Import (Intrinsic, Unchecked_Conversion);

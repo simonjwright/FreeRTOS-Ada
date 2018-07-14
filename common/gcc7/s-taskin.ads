@@ -6,7 +6,7 @@
 --                                                                          --
 --                                  S p e c                                 --
 --                                                                          --
---       Copyright (C) 1992-2013, 2016, Free Software Foundation, Inc.      --
+--    Copyright (C) 1992-2013, 2016-2018, Free Software Foundation, Inc.    --
 --                                                                          --
 -- GNARL is free software; you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -37,13 +37,12 @@
 --  This file has been extensively modified from the GCC 4.9.1 version
 --  for the Cortex GNAT RTS project.
 
-pragma Restrictions (No_Elaboration_Code);
-
 with System.FreeRTOS.Tasks;
 with System.Secondary_Stack;
 
 package System.Tasking is
    pragma Preelaborate;
+   pragma No_Elaboration_Code_All;
 
    -------------------
    -- Locking Rules --

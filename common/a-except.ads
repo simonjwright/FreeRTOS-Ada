@@ -1,4 +1,4 @@
---  Copyright (C) 2016 Free Software Foundation, Inc.
+--  Copyright (C) 2016, 2018 Free Software Foundation, Inc.
 --
 --  This specification is derived from the Ada Reference Manual for
 --  use with GNAT. The copyright notice above, and the license
@@ -23,10 +23,9 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-pragma Restrictions (No_Elaboration_Code);
-
 package Ada.Exceptions is
    pragma Preelaborate;
+   pragma No_Elaboration_Code_All;
 
    type Exception_Id is private
    with

@@ -6,7 +6,7 @@
 --                                                                          --
 --                                  S p e c                                 --
 --                                                                          --
---           Copyright (C) 1998-2009, Free Software Foundation, Inc.        --
+--        Copyright (C) 1998-2009, 2018, Free Software Foundation, Inc.     --
 --                                                                          --
 -- GNARL is free software; you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -31,8 +31,7 @@
 
 --  This is the parent package of the GNAT restricted tasking run time
 
-pragma Restrictions (No_Elaboration_Code);
-
 package System.Tasking.Restricted is
    pragma Preelaborate;
+   pragma No_Elaboration_Code_All;
 end System.Tasking.Restricted;

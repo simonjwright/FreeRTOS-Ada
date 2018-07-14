@@ -1,4 +1,4 @@
---  Copyright (C) 2016 Free Software Foundation, Inc.
+--  Copyright (C) 2016, 2018 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
@@ -18,10 +18,9 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-pragma Restrictions (No_Elaboration_Code);
-
 package System.FreeRTOS.Tasks is
    pragma Preelaborate;
+   pragma No_Elaboration_Code_All;
 
    type TCB (<>) is private;
    type Task_Handle is access all TCB;

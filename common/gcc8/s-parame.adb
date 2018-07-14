@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 B o d y                                  --
 --                                                                          --
---       Copyright  (C) 2016-2017 Free Software Foundation, Inc.            --
+--       Copyright  (C) 2016-2018 Free Software Foundation, Inc.            --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -41,7 +41,19 @@ package body System.Parameters is
       else
         Size);
 
-   function Default_Stack_Size return Size_Type is (4096);  -- same as GPL
+   --  If the link includes a symbol _default_storage_size,
+   --  use this as the storage size: otherwise, use 1024.
+   Default_Storage_Size : constant Size_Type
+   with
+     Import,
+     Convention => Ada,
+     External_Name => "_default_storage_size";
+   pragma Weak_External (Default_Storage_Size);
+
+   function Default_Stack_Size return Size_Type is
+     (if Default_Storage_Size'Address = System.Null_Address
+      then 1024
+      else Default_Storage_Size);
 
    function Minimum_Stack_Size return Size_Type is (768);
 

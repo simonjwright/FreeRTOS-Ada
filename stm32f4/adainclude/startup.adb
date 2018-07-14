@@ -1,4 +1,4 @@
---  Copyright (C) 2016, 2017 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2018 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
@@ -21,6 +21,7 @@
 with Ada.Interrupts.Names;
 with Interfaces;
 with System.Machine_Code;
+with System.Parameters;
 with System.Storage_Elements;
 
 --  For environment task creation
@@ -36,6 +37,18 @@ package body Startup is
      Convention => Ada,
      External_Name => "program_initialization",
      No_Return;
+
+   --  If the link includes a symbol _default_initial_stack,
+   --  use this as the storage size: otherwise, use 1024.
+   --
+   --  Used in Set_Up_Heap, but declared here because the argument for
+   --  pragma "Weak_External" must be a library-level entity.
+   Default_Initial_Stack : constant System.Parameters.Size_Type
+   with
+     Import,
+     Convention => Ada,
+     External_Name => "_default_initial_stack";
+   pragma Weak_External (Default_Initial_Stack);
 
    procedure Set_Up_Heap;
    --  Separate to reduce the complexity of this file.

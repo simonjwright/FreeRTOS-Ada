@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 S p e c                                  --
 --                                                                          --
---          Copyright (C) 1992-2012, Free Software Foundation, Inc.         --
+--       Copyright (C) 1992-2012, 2018, Free Software Foundation, Inc.      --
 --                                                                          --
 -- This specification is derived from the Ada Reference Manual for use with --
 -- GNAT. The copyright notice above, and the license provisions that follow --
@@ -38,6 +38,7 @@ generic
 
 package System.Address_To_Access_Conversions is
    pragma Preelaborate;
+   pragma No_Elaboration_Code_All;
 
    pragma Compile_Time_Warning
      (Object'Unconstrained_Array,

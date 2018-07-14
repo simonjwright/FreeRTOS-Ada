@@ -1,4 +1,4 @@
---  Copyright (C) 2017 Free Software Foundation, Inc.
+--  Copyright (C) 2017-2018 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
@@ -22,6 +22,7 @@
 --  q.v.
 
 with Interfaces.C;
+with System.Parameters;
 
 separate (Startup)
 procedure Set_Up_Heap is
@@ -49,11 +50,17 @@ procedure Set_Up_Heap is
    End_Of_Stack : Storage_Element
      with Import, Convention => Asm, External_Name => "_estack";
 
+   use type System.Address;
+
    Heaps : constant Heap_Regions
      := ((Start_Address => End_Of_Bss'Address,
           Size_In_Bytes =>
             Interfaces.C.size_t
-              (End_Of_Stack'Address - End_Of_Bss'Address - 2048)),
+              (End_Of_Stack'Address
+                 - End_Of_Bss'Address
+                 - (if Default_Initial_Stack'Address = System.Null_Address
+                    then 1024
+                    else Storage_Offset (Default_Initial_Stack)))),
          (Start_Address => System.Null_Address,
           Size_In_Bytes => 0));
 

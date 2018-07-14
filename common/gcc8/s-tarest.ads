@@ -6,7 +6,7 @@
 --                                                                          --
 --                                  S p e c                                 --
 --                                                                          --
---    Copyright (C) 1992-2012, 2016-2017, Free Software Foundation, Inc.    --
+--    Copyright (C) 1992-2012, 2016-2018, Free Software Foundation, Inc.    --
 --                                                                          --
 -- GNARL is free software; you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -57,13 +57,12 @@
 --  Create_Restricted_Task ignores anyway, since FreeRTOS doesn't
 --  provide a way to create a task without activating it).
 
-pragma Restrictions (No_Elaboration_Code);
-
 with System.Parameters;
 with System.Task_Info;
 
 package System.Tasking.Restricted.Stages is
    pragma Preelaborate;
+   pragma No_Elaboration_Code_All;
 
    Partition_Elaboration_Policy : Character := 'C';
    pragma Export (C, Partition_Elaboration_Policy,

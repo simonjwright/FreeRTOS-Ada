@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 S p e c                                  --
 --                                                                          --
---         Copyright (C) 2007-2012, 2016, Free Software Foundation, Inc.    --
+--    Copyright (C) 2007-2012, 2016, 2018, Free Software Foundation, Inc.   --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -41,10 +41,9 @@
 
 --  This is the Cortex GNAT RTS version of this module.
 
-pragma Restrictions (No_Elaboration_Code);
-
 package System.Task_Info is
    pragma Preelaborate;
+   pragma No_Elaboration_Code_All;
 
    type Task_Info_Type is (Default);
 

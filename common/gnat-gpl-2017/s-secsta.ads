@@ -29,7 +29,6 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
-pragma Restrictions (No_Elaboration_Code);
 pragma Compiler_Unit_Warning;
 
 with System.Parameters;
@@ -37,6 +36,7 @@ with System.Storage_Elements;
 
 package System.Secondary_Stack is
    pragma Preelaborate;
+   pragma No_Elaboration_Code_All;
 
    --  The secondary stack for a task is an area in the task's stack
    --  reserved for managing objects of indefinite type

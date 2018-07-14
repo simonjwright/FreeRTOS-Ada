@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 S p e c                                  --
 --                                                                          --
---    Copyright (C) 1992-2013, 2016-2017, Free Software Foundation, Inc.    --
+--    Copyright (C) 1992-2013, 2016-2018, Free Software Foundation, Inc.    --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -29,7 +29,6 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
-pragma Restrictions (No_Elaboration_Code);
 pragma Compiler_Unit_Warning;
 
 with System.Parameters;
@@ -37,6 +36,7 @@ with System.Storage_Elements;
 
 package System.Secondary_Stack is
    pragma Preelaborate;
+   pragma No_Elaboration_Code_All;
 
    --  The secondary stack for a task is an area in the task's stack
    --  reserved for managing objects of indefinite type

@@ -1,4 +1,4 @@
---  Copyright (C) 2016, 2017 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2018 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
@@ -18,6 +18,7 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
+with System.Parameters;
 with System.Tasking.Restricted.Stages;
 with System.Task_Info;
 
@@ -44,16 +45,29 @@ package body Environment_Task is
    Environment_TCB : aliased System.Tasking.Ada_Task_Control_Block
      (System.Tasking.Null_Entry);
 
+   --  If the link includes a symbol _environment_task_storage_size,
+   --  use this as the storage size: otherwise, use 1536.
+   Environment_Task_Storage_Size : constant System.Parameters.Size_Type
+   with
+     Import,
+     Convention => Ada,
+     External_Name => "_environment_task_storage_size";
+   pragma Weak_External (Environment_Task_Storage_Size);
+
    procedure Create is
       --  Will be overwritten by binder-generated code if the main
       --  program has pragma Priority.
       Main_Priority : Integer;
       pragma Import (C, Main_Priority, "__gl_main_priority");
+      use type System.Address;
    begin
       System.Tasking.Restricted.Stages.Create_Restricted_Task
         (Priority             => Main_Priority,
          Stack_Address        => System.Null_Address,
-         Size                 => 4096,
+         Size                 =>
+           (if Environment_Task_Storage_Size'Address = System.Null_Address
+            then 1536
+            else Environment_Task_Storage_Size),
          Task_Info            => System.Task_Info.Unspecified_Task_Info,
          CPU                  => System.Tasking.Unspecified_CPU,
          State                => Environment_Task'Access,
