@@ -24,7 +24,7 @@ project Testbed is
    for Object_Dir use ".build";
    for Exec_Dir use ".";
    for Target use "arm-eabi";
-   for Runtime ("ada") use "../local/stm32f4";
+   for Runtime ("ada") use project'Project_Dir & "../local/stm32f4";
 
    package Builder is
       for Global_Configuration_Pragmas use "gnat.adc";

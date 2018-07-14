@@ -23,7 +23,7 @@ project Testbed is
    for Object_Dir use ".build";
    for Exec_Dir use ".";
    for Target use "arm-eabi";
-   for Runtime ("ada") use "../local/stm32f429i";
+   for Runtime ("ada") use project'Project_Dir & "../local/stm32f429i";
 
    package Builder is
       for Global_Compilation_Switches ("ada") use
