@@ -20,7 +20,7 @@ first:
 	@echo "\t'make all' to build the runtimes,"
 	@echo "\t'make install' to install the runtimes."
 
-runtimes = arduino-due stm32f4 stm32f429i
+runtimes = arduino-due microbit stm32f4 stm32f429i
 
 all install clean:
 	for f in $(runtimes); do		\
