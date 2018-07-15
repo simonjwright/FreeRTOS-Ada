@@ -82,6 +82,7 @@ package body Lights is
             when Buttons.Off => Ada.Real_Time.Milliseconds (150),
             when Buttons.On => Ada.Real_Time.Milliseconds (50));
 
+      use type Buttons.Toggle;
       use type Ada.Real_Time.Time;
       use type Ada.Real_Time.Time_Span;
    begin
@@ -89,12 +90,14 @@ package body Lights is
          case Buttons.Button_State (Buttons.B) is
             when Buttons.Off =>
                for S of Spiral_Clockwise loop
+                  exit when Buttons.Button_State (Buttons.B) = Buttons.On;
                   Clear_All_LEDs;
                   Set_One_LED (S.R, S.C);
                   delay until Ada.Real_Time.Clock + Interval * S.Scaling;
                end loop;
             when Buttons.On =>
                for S of reverse Spiral_Clockwise loop
+                  exit when Buttons.Button_State (Buttons.B) = Buttons.Off;
                   Clear_All_LEDs;
                   Set_One_LED (S.R, S.C);
                   delay until Ada.Real_Time.Clock + Interval * S.Scaling;
