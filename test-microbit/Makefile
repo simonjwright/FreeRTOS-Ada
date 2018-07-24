@@ -16,9 +16,9 @@
 #  along with this program; see the file COPYING3.  If not, see
 #  <http://www.gnu.org/licenses/>.
 
-all: testbed.hex
+all: seconds.hex testbed.hex
 
-testbed: force
+seconds testbed: force
 	gprbuild -p -P testbed
 clean::
 	gprclean -P testbed

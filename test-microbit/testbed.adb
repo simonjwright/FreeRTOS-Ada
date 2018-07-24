@@ -16,9 +16,6 @@
 --  along with this program; see the file COPYING3.  If not, see
 --  <http://www.gnu.org/licenses/>.
 
---  This program has no visible functionality; the idea is to use the
---  debugger to check that the expected effect has happened.
-
 with Hardfault_Handling;
 pragma Unreferenced (Hardfault_Handling);
 

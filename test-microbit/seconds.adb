@@ -16,16 +16,19 @@
 --  along with this program; see the file COPYING3.  If not, see
 --  <http://www.gnu.org/licenses/>.
 
-package Lights
-with Elaborate_Body
-is
+with LEDs;
 
-   --  Displays a spiral on the LEDs.
-   --
-   --  Button A controls the speed (it toggles between 100 and 50 ms
-   --  per LED).
-   --
-   --  Button B controls the direction (it toggles between spiralling
-   --  in and spiralling out).
+with Ada.Real_Time;
 
-end Lights;
+procedure Seconds is
+   Next : Ada.Real_Time.Time := Ada.Real_Time.Clock;
+   use type Ada.Real_Time.Time;
+begin
+   loop
+      LEDs.Set_One_LED (3, 3);
+      delay until Next + Ada.Real_Time.Milliseconds (100);
+      Next := Next + Ada.Real_Time.Seconds (1);
+      LEDs.Clear_All_LEDs;
+      delay until Next;
+   end loop;
+end Seconds;

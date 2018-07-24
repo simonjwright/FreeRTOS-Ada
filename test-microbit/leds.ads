@@ -16,16 +16,13 @@
 --  along with this program; see the file COPYING3.  If not, see
 --  <http://www.gnu.org/licenses/>.
 
-package Lights
+package LEDs
 with Elaborate_Body
 is
 
-   --  Displays a spiral on the LEDs.
-   --
-   --  Button A controls the speed (it toggles between 100 and 50 ms
-   --  per LED).
-   --
-   --  Button B controls the direction (it toggles between spiralling
-   --  in and spiralling out).
+   type Coord is range 1 .. 5;
 
-end Lights;
+   procedure Clear_All_LEDs;
+   procedure Set_One_LED (Row, Col : Coord);
+
+end LEDs;
