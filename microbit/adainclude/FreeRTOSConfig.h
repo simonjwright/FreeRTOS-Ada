@@ -31,7 +31,7 @@
 #define configUSE_IDLE_HOOK			0
 #define configUSE_TICK_HOOK			0
 #define configCPU_CLOCK_HZ			( 16000000 )
-#define configTICK_RATE_HZ			( ( portTickType ) 100 )
+#define configTICK_RATE_HZ			( ( portTickType ) 1024 )
 
 /* Extend the number of priority levels to cope with Ada ceiling
    priorities, which mean we need to raise a task waiting for an ISR
@@ -63,7 +63,7 @@
 #define configMAX_CO_ROUTINE_PRIORITIES        ( 2 )
 
 /* Software timer definitions. */
-#define configUSE_TIMERS			1
+#define configUSE_TIMERS			0
 #define configTIMER_TASK_PRIORITY		( 2 )
 #define configTIMER_QUEUE_LENGTH		10
 #define configTIMER_TASK_STACK_DEPTH	        ( configMINIMAL_STACK_SIZE * 2 )
@@ -73,7 +73,7 @@
 /* Updated for FreeRTOS 8, per http://www.freertos.org/a00110.html */
 #define INCLUDE_eTaskGetState                   0
 #define INCLUDE_pcTaskGetTaskName               0
-#define INCLUDE_uxTaskGetStackHighWaterMark     0
+#define INCLUDE_uxTaskGetStackHighWaterMark     1
 #define INCLUDE_uxTaskPriorityGet               1
 #define INCLUDE_vTaskCleanUpResources	        0
 #define INCLUDE_vTaskDelay                      1

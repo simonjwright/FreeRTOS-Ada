@@ -68,7 +68,7 @@ package body nRF51_Clock is
       --  Can't alter the prescaler while the RTC is running.
       nrf51.RTC.RTC1_Periph.TASKS_STOP := 1;
 
-      --  The RTC base rate is 32_768 Hz. We're going to use the TICK
+      --  The RTC base rate is 32,768 Hz. We're going to use the TICK
       --  functionality, which is essentially free-running.
       --
       --  A TICK event occurs when the COUNTER is incremented. An
@@ -77,10 +77,10 @@ package body nRF51_Clock is
       --  is incremented (causing the TICK event) and <<PRESC>> is
       --  reset to PRESCALER.
 
-      --  Normally we'd go for a 1000 Hz clock, but this ran at 2/3 of
-      --  the expected rate, so we're going for 100 Hz. Alter
+      --  Normally we'd go for a 1000 Hz clock, but the 32,768 clock
+      --  means that the nearest we can get is 1024 Hz. Alter
       --  configTICK_RATE_HZ in FreeRTOSConfig.h to match.
-      nrf51.RTC.RTC1_Periph.PRESCALER.PRESCALER := 328;
+      nrf51.RTC.RTC1_Periph.PRESCALER.PRESCALER := 32;
 
       --  Enable the TICK event.
       nrf51.RTC.RTC1_Periph.EVTEN.TICK := nrf51.RTC.Enabled;
