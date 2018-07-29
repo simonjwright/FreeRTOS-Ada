@@ -1,6 +1,3 @@
-# Maciej's book examples
-Ada_on_Cortex
-
 *.ali
 *.o
 *.a
@@ -24,9 +21,12 @@ stm32f429xx_h.ads
 auto.cgpr
 gnatinspect.db
 
+local/
+
 demos-arduino-due/debounce
 demos-arduino-due/first
 
 test-arduino-due/
+test-microbit/
 test-stm32f4/
 test-stm32f429i/
