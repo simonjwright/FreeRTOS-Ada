@@ -30,7 +30,7 @@
 #include <semphr.h>
 #include <task.h>
 
-int _gnat_freertos_tick_rate = configTICK_RATE_HZ;
+const int _gnat_freertos_tick_rate = configTICK_RATE_HZ;
 
 void _gnat_disable_interrupts(void) {
   taskDISABLE_INTERRUPTS();
