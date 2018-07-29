@@ -6,7 +6,7 @@
 --                                                                          --
 --                                  S p e c                                 --
 --                                                                          --
---    Copyright (C) 1992-2009, 2016, 2017, Free Software Foundation, Inc.   --
+--    Copyright (C) 1992-2009, 2016-2018, Free Software Foundation, Inc.    --
 --                                                                          --
 -- This specification is derived from the Ada Reference Manual for use with --
 -- GNAT. The copyright notice above, and the license provisions that follow --
@@ -133,6 +133,8 @@ is
    --  Duration. The delta of Duration is 10 ** (-9), so the maximum
    --  number of seconds is 2**63/10**9 = 8*10**9 which does not quite
    --  fit in 32 bits.
+   --
+   --  (For Cortex GNAT RTS: this comment isn't true.)
 
    procedure Split (T : Time; SC : out Seconds_Count; TS : out Time_Span)
    with
@@ -144,12 +146,22 @@ is
 private
    pragma SPARK_Mode (Off);
 
-   type Time_Base is
-     delta 0.000000001
-     range -((2 ** 63 - 1) * 0.000000001) .. +((2 ** 63 - 1) * 0.000000001);
-   for Time_Base'Small use 0.000000001;
-   --  Replaces Duration, which has a different representation on
-   --  systems with 32-bit Duration.
+   --  Time is a 64-bit unsigned value (64-bits because other parts of
+   --  the system assume a 64-bit value) with l.s.b. one FreeRTOS
+   --  clock tick (usually 1 ms).
+   type Time is mod 2 ** 64;
+   Time_First : constant Time := 0;
+   Time_Last  : constant Time := 2 ** 32 - 1;
+
+   --  Time_Span is represented in 64-bit signed value in
+   --  nanoseconds. For example, 1 second and 1 nanosecond is
+   --  represented as the stored integer 1_000_000_001.
+
+   type Time_Span is new Duration;
+   Time_Span_First : constant Time_Span := Time_Span'First;
+   Time_Span_Last  : constant Time_Span := Time_Span'Last;
+   Time_Span_Zero  : constant Time_Span := 0.0;
+   Time_Span_Unit  : constant Time_Span := 1.0e-9;
 
    FreeRTOS_Tick_Rate : Natural
    with
@@ -157,31 +169,9 @@ private
      Convention => C,
      External_Name => "_gnat_freertos_tick_rate";
 
-   FreeRTOS_Tick : constant Time_Base := 1.0 / FreeRTOS_Tick_Rate;
+   FreeRTOS_Tick : constant Time_Span := 1.0 / FreeRTOS_Tick_Rate;
 
-   type Time is new Time_Base range 0.0 .. (2 ** 32 - 1) * FreeRTOS_Tick;
-   for Time'Size use 64;
-   --  and configUSE_16_BIT_TICKS to 0 (so we get 32-bit clock values).
-
-   Time_First : constant Time := Time'First;
-
-   Time_Last  : constant Time := Time'Last;
-
-   type Time_Span is new Time_Base;
-
-   Time_Span_First : constant Time_Span := Time_Span'First;
-
-   Time_Span_Last  : constant Time_Span := Time_Span'Last;
-
-   Time_Span_Zero  : constant Time_Span := 0.0;
-
-   Time_Span_Unit  : constant Time_Span := 1.0e-9;
-
-   Tick : constant Time_Span := Time_Span (FreeRTOS_Tick);
-
-   --  Time and Time_Span are represented in 64-bit signed value
-   --  in nanoseconds. For example, 1 second and 1 nanosecond is
-   --  represented as the stored integer 1_000_000_001.
+   Tick : constant Time_Span := FreeRTOS_Tick;
 
    pragma Import (Intrinsic, "<");
    pragma Import (Intrinsic, "<=");
@@ -194,5 +184,15 @@ private
    pragma Inline (Nanoseconds);
    pragma Inline (Seconds);
    pragma Inline (Minutes);
+
+   --  Utilities
+
+   function To_Time_Span (T : Time) return Time_Span is
+     (Time_Span (T) * Tick)
+   with Inline;
+
+   function To_Time (T : Time_Span) return Time is
+     (Time (Standard."/" (T, Tick)))
+   with Inline;
 
 end Ada.Real_Time;

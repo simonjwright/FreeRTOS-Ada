@@ -6,7 +6,7 @@
 --                                                                          --
 --                                  B o d y                                 --
 --                                                                          --
---    Copyright (C) 1992-2010, 2016-2017, Free Software Foundation, Inc.    --
+--    Copyright (C) 1992-2010, 2016-2018, Free Software Foundation, Inc.    --
 --                                                                          --
 -- GNARL is free software; you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -41,16 +41,10 @@ package body Ada.Real_Time.Delays is
         Import,
         Convention => C,
         External_Name => "vTaskDelay";
-      Timespan_To_Delay : constant Time_Span := T - Clock;
+      Now : constant Time := Clock;
+      Ticks_To_Delay : constant Time := (if T > Now then T - Now else 0);
    begin
-      if Timespan_To_Delay > 0.0 then
-         --  Need to avoid problems with ambiguity; and the version in
-         --  Real_Time returns Integer, whereas we actually want
-         --  Unsigned_32.
-         vTaskDelay
-           (Interfaces.Unsigned_32
-              (Standard."/" (Timespan_To_Delay, Tick)));
-      end if;
+      vTaskDelay (Interfaces.Unsigned_32 (Ticks_To_Delay));
    end Delay_Until;
 
    -----------------
@@ -58,8 +52,10 @@ package body Ada.Real_Time.Delays is
    -----------------
 
    function To_Duration (T : Time) return Duration is
+      pragma Unreferenced (T);
    begin
-      return To_Duration (Time_Span (T));
+      return raise Program_Error
+        with "shouldn't be trying to convert Time to Duration";
    end To_Duration;
 
 end Ada.Real_Time.Delays;

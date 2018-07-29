@@ -47,13 +47,13 @@ is
    function "*" (Left : Time_Span; Right : Integer) return Time_Span is
       pragma Unsuppress (Overflow_Check);
    begin
-      return Time_Span (Time_Base (Left) * Right);
+      return Time_Span (Duration (Left) * Right);
    end "*";
 
    function "*" (Left : Integer; Right : Time_Span) return Time_Span is
       pragma Unsuppress (Overflow_Check);
    begin
-      return Time_Span (Left * Time_Base (Right));
+      return Time_Span (Left * Duration (Right));
    end "*";
 
    ---------
@@ -65,19 +65,19 @@ is
    function "+" (Left : Time; Right : Time_Span) return Time is
       pragma Unsuppress (Overflow_Check);
    begin
-      return Time (Time_Base (Left) + Time_Base (Right));
+      return Left + To_Time (Right);
    end "+";
 
    function "+" (Left : Time_Span; Right : Time) return Time is
       pragma Unsuppress (Overflow_Check);
    begin
-      return Time (Time_Base (Left) + Time_Base (Right));
+      return To_Time (Left) + Right;
    end "+";
 
    function "+" (Left, Right : Time_Span) return Time_Span is
       pragma Unsuppress (Overflow_Check);
    begin
-      return Time_Span (Time_Base (Left) + Time_Base (Right));
+      return Time_Span (Duration (Left) + Duration (Right));
    end "+";
 
    ---------
@@ -89,19 +89,19 @@ is
    function "-" (Left : Time; Right : Time_Span) return Time is
       pragma Unsuppress (Overflow_Check);
    begin
-      return Time (Time_Base (Left) - Time_Base (Right));
+      return Left - To_Time (Right);
    end "-";
 
    function "-" (Left, Right : Time) return Time_Span is
       pragma Unsuppress (Overflow_Check);
    begin
-      return Time_Span (Time_Base (Left) - Time_Base (Right));
+      return To_Time_Span (Left - Right);
    end "-";
 
    function "-" (Left, Right : Time_Span) return Time_Span is
       pragma Unsuppress (Overflow_Check);
    begin
-      return Time_Span (Time_Base (Left) - Time_Base (Right));
+      return Time_Span (Duration (Left) - Duration (Right));
    end "-";
 
    function "-" (Right : Time_Span) return Time_Span is
@@ -119,13 +119,13 @@ is
    function "/" (Left, Right : Time_Span) return Integer is
       pragma Unsuppress (Overflow_Check);
    begin
-      return Integer (Time_Base (Left) / Time_Base (Right));
+      return Integer (Standard."/" (Left, Right));
    end "/";
 
    function "/" (Left : Time_Span; Right : Integer) return Time_Span is
       pragma Unsuppress (Overflow_Check);
    begin
-      return Time_Span (Time_Base (Left) / Right);
+      return Time_Span (Duration (Left) / Right);
    end "/";
 
    -----------
@@ -134,11 +134,11 @@ is
 
    function Clock return Time is
       --  This is a simple-minded version, which is only valid up to
-      --  2**32 / 1000 seconds from system startup. This is
-      --  approximately 50 days.
+      --  2**32 / (FreeRTOS_Tick_Rate, typically 1000) seconds from
+      --  system startup. This is approximately 50 days.
 
       --  FreeRTOSConfig.h has set configUSE_16_BIT_TICKS to 0 (so we
-      --  get 32-bit ticks) and configTICK_RATE_HZ to 1000.
+      --  get 32-bit ticks) and configTICK_RATE_HZ to (typically) 1000.
       function xTaskGetTickCount return Interfaces.Unsigned_32
       with
         Import,
@@ -150,9 +150,9 @@ is
         Convention => C,
         External_Name => "xTaskGetTickCountFromISR";
    begin
-      return Tick * Time_Base ((if System.FreeRTOS.Tasks.In_ISR
-                                then xTaskGetTickCountFromISR
-                                else xTaskGetTickCount));
+      return Time (if System.FreeRTOS.Tasks.In_ISR
+                   then xTaskGetTickCountFromISR
+                   else xTaskGetTickCount);
    end Clock;
 
    ------------------
@@ -205,31 +205,13 @@ is
    -----------
 
    procedure Split (T : Time; SC : out Seconds_Count; TS : out Time_Span) is
-      T_Val : Time;
-
+      T_Val : constant Time_Span := To_Time_Span (T);
    begin
-      --  Special-case for Time_First, whose absolute value is anomalous,
-      --  courtesy of two's complement.
-
-      T_Val := (if T = Time_First then abs (Time_Last) else abs (T));
-
       --  Extract the integer part of T, truncating towards zero
 
-      SC :=
-        (if T_Val < 0.5 then 0 else Seconds_Count (Time_Span'(T_Val - 0.5)));
+      SC := (if T_Val < 0.5 then 0 else Seconds_Count (T_Val - 0.5));
 
-      if T < 0.0 then
-         SC := -SC;
-      end if;
-
-      --  If original time is negative, need to truncate towards negative
-      --  infinity, to make TS non-negative, as per ARM.
-
-      if Time (SC) > T then
-         SC := SC - 1;
-      end if;
-
-      TS := Time_Span (Time_Base (T) - Time_Base (SC));
+      TS := T_Val - Time_Span (SC);
    end Split;
 
    -------------
