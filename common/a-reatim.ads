@@ -169,9 +169,11 @@ private
      Convention => C,
      External_Name => "_gnat_freertos_tick_rate";
 
-   FreeRTOS_Tick : constant Time_Span := 1.0 / FreeRTOS_Tick_Rate;
+   FreeRTOS_Tick : constant Duration := 1.0 / FreeRTOS_Tick_Rate;
+   --  Can't declare as Time_Span, because we haven't seen the body of
+   --  that "/" yet.
 
-   Tick : constant Time_Span := FreeRTOS_Tick;
+   Tick : constant Time_Span := Time_Span (FreeRTOS_Tick);
 
    pragma Import (Intrinsic, "<");
    pragma Import (Intrinsic, "<=");
