@@ -6,7 +6,7 @@
 --                                                                          --
 --                                  B o d y                                 --
 --                                                                          --
---       Copyright (C) 2016, 2017 Free Software Foundation, Inc.            --
+--        Copyright (C) 2016-2018 Free Software Foundation, Inc.            --
 --                                                                          --
 -- GNARL is free software; you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -35,7 +35,7 @@
 --  This package represents the high level tasking interface used by the
 --  compiler to expand Ada 95 tasking constructs into simpler run time calls.
 
---  This is is the version for the Cortex GNAT RTS project.
+--  This is the version for the Cortex GNAT RTS project.
 
 with Ada.Unchecked_Conversion;
 with Interfaces;
@@ -144,6 +144,12 @@ package body System.Tasking.Restricted.Stages is
       --  The Entry_Call belongs to the task, so Self can be set up now.
       Created_Task.Entry_Call.Self := Created_Task;
       Elaborated.all := Created_Task.Common.Thread /= null;
+
+      --  Place at front of the chain of created tasks, so they can be
+      --  accessed via GDB (this is a Ravenscar RTS, so tasks can only
+      --  be created during elaboration and can't be deleted).
+      Created_Task.Common.All_Tasks_Link := Task_Chain;
+      Task_Chain := Created_Task;
    end Create_Restricted_Task;
 
    procedure Create_Restricted_Task_Sequential

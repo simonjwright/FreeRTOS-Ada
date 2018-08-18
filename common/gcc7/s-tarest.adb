@@ -148,6 +148,12 @@ package body System.Tasking.Restricted.Stages is
       --  The Entry_Call belongs to the task, so Self can be set up now.
       Created_Task.Entry_Call.Self := Created_Task;
       Elaborated.all := Created_Task.Common.Thread /= null;
+
+      --  Place at front of the chain of created tasks, so they can be
+      --  accessed via GDB (this is a Ravenscar RTS, so tasks can only
+      --  be created during elaboration and can't be deleted).
+      Created_Task.Common.All_Tasks_Link := Task_Chain;
+      Task_Chain := Created_Task;
    end Create_Restricted_Task;
 
    procedure Create_Restricted_Task_Sequential

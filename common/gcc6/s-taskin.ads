@@ -604,10 +604,15 @@ package System.Tasking is
       --
       --  Protection: Only accessed by Self
 
-      --  All_Tasks_Link : Task_Id;
-      --  Used to link this task to the list of all tasks in the system
+      All_Tasks_Link : Task_Id;
+      --  Used to link this task to the list of all tasks in the system.
       --
-      --  Protection: RTS_Lock
+      --  Protection: (Cortex GNAT RTS) Set at task creation,
+      --  thereafter ony referenced from the debugger.
+      --
+      --  FreeRTOS doesn't provide a straightforward way of accessing
+      --  tasks queued on protected objects (via semaphores or
+      --  queues).
 
       --  Activation_Link : Task_Id;
       --  Used to link this task to a list of tasks to be activated
@@ -1218,5 +1223,11 @@ private
    --    (Self_Id : Task_Id;
    --     Names   : Task_Entry_Names_Access);
    --  Associate an array of strings denotinge entry [family] names with a task
+
+   Task_Chain : Task_Id;
+   --  Used in Cortex GNAT RTS as head of a chain through all the
+   --  tasks, to allow finding them in GDB. FreeRTOS doesn't provide a
+   --  straightforward way of accessing tasks queued on protected
+   --  objects (via semaphores or queues).
 
 end System.Tasking;
