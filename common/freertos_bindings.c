@@ -87,36 +87,13 @@ xSemaphoreHandle _gnat_xSemaphoreCreateBinary() {
   return xSemaphoreCreateBinary();
 }
 
-xSemaphoreHandle _gnat_xSemaphoreCreateCounting
-  (unsigned portBASE_TYPE uxMaxCount,
-   unsigned portBASE_TYPE uxInitialCount) {
-  return xSemaphoreCreateCounting(uxMaxCount, uxInitialCount);
-}
-
-xSemaphoreHandle _gnat_xSemaphoreCreateMutex(void) {
-  return xSemaphoreCreateMutex();
-}
-
-xSemaphoreHandle _gnat_xSemaphoreCreateRecursiveMutex(void) {
-  return xSemaphoreCreateRecursiveMutex();
-}
-
 portBASE_TYPE _gnat_xSemaphoreGive(xSemaphoreHandle xSemaphore) {
   return xSemaphoreGive(xSemaphore);
-}
-
-portBASE_TYPE _gnat_xSemaphoreGiveRecursive(xSemaphoreHandle xSemaphore) {
-  return xSemaphoreGiveRecursive(xSemaphore);
 }
 
 portBASE_TYPE _gnat_xSemaphoreTake(xSemaphoreHandle xSemaphore,
                                    portTickType xBlockTime) {
   return xSemaphoreTake(xSemaphore, xBlockTime);
-}
-
-portBASE_TYPE _gnat_xSemaphoreTakeRecursive(xSemaphoreHandle xSemaphore,
-                                            portTickType xBlockTime) {
-  return xSemaphoreTakeRecursive(xSemaphore, xBlockTime);
 }
 
 portBASE_TYPE _gnat_xSemaphoreGiveFromISR
