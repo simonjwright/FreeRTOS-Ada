@@ -235,7 +235,7 @@ package body Ada.Real_Time.Timing_Events is
    task body Timer is
 
       Next : Time := Time_First;
-      Period : constant Time_Span := Milliseconds (10);
+      Period : constant Time_Span := Milliseconds (5);
 
       --  This is a simplistic implementation.
       --
