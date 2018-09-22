@@ -4,7 +4,7 @@
 --                                                                          --
 --                       A D A . I N T E R R U P T S                        --
 --                                                                          --
---                                 S p e c                                  --
+--                                 B o d y                                  --
 --                                                                          --
 --       Copyright (C) 1992-2009, 2016, Free Software Foundation, Inc.      --
 --                                                                          --

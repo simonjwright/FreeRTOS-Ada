@@ -34,7 +34,7 @@
 ------------------------------------------------------------------------------
 
 --  Modified from the GCC 4.9.1 version for the Cortex GNAT RTS
---  project, for STM32F4.
+--  project, for STM32F429I.
 
 with System;
 

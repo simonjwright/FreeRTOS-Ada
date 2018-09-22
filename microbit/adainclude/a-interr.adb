@@ -1,12 +1,16 @@
 ------------------------------------------------------------------------------
 --                                                                          --
---                         GNAT COMPILER COMPONENTS                         --
+--                        GNAT RUN-TIME COMPONENTS                          --
 --                                                                          --
---                     S Y S T E M . T A S K _ I N F O                      --
+--                       A D A . I N T E R R U P T S                        --
 --                                                                          --
---                                 S p e c                                  --
+--                                 B o d y                                  --
 --                                                                          --
---         Copyright (C) 2007-2012, 2016, Free Software Foundation, Inc.    --
+--    Copyright (C) 1992-2009, 2016-2018, Free Software Foundation, Inc.    --
+--                                                                          --
+-- This specification is derived from the Ada Reference Manual for use with --
+-- GNAT. The copyright notice above, and the license provisions that follow --
+-- apply solely to the  contents of the part following the private keyword. --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -29,18 +33,8 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  This package contains the definitions and routines associated with the
---  implementation and use of the Task_Info pragma. It is specialized
---  appropriately for targets that make use of this pragma.
-
---  Note: the compiler generates direct calls to this interface, via Rtsfind.
---  Any changes to this interface may require corresponding compiler changes.
-
---  This unit may be used directly from an application program by providing
---  an appropriate WITH, and the interface can be expected to remain stable.
-
 --  Modified from the GCC 4.9.1 version for the Cortex GNAT RTS
---  project, for STM32F4.
+--  project, for nRF51.
 
 package body Ada.Interrupts is
 
