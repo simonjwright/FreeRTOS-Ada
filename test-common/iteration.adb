@@ -71,7 +71,7 @@ package body Iteration is
       end loop;
    end Vectors;
 
-   task Maps with Storage_Size => 3072 is
+   task Maps with Storage_Size => 4096 is
       pragma Task_Name ("iteration.maps");
    end Maps;
    task body Maps is
