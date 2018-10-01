@@ -31,18 +31,11 @@
 -- This unit was originally developed by Matthew J Heaney.                  --
 ------------------------------------------------------------------------------
 
---  Modified from the 4.9.1 release for the Cortex GNAT Runtime System
---  project.
---
---  The changes consist of suppressing finalization (not supported in
---  the RTS) and tampering checks (so that generalized iteration need
---  not rely on finalization).
-
 with Ada.Iterator_Interfaces;
 
 private with Ada.Containers.Hash_Tables;
 private with Ada.Streams;
---  private with Ada.Finalization;
+private with Ada.Finalization;
 
 generic
    type Key_Type is private;
@@ -347,7 +340,7 @@ private
 
    use HT_Types;
    use Ada.Streams;
-   --  use Ada.Finalization;
+   use Ada.Finalization;
 
    procedure Write
      (Stream    : not null access Root_Stream_Type'Class;
@@ -421,13 +414,14 @@ private
      (Hash_Table_Type with Capacity => 0, Modulus => 0);
 
    No_Element : constant Cursor := (Container => null, Node => 0);
-   type Iterator is new -- Limited_Controlled and
+
+   type Iterator is new Limited_Controlled and
      Map_Iterator_Interfaces.Forward_Iterator with
    record
       Container : Map_Access;
    end record;
 
-   --  overriding procedure Finalize (Object : in out Iterator);
+   overriding procedure Finalize (Object : in out Iterator);
 
    overriding function First (Object : Iterator) return Cursor;
 

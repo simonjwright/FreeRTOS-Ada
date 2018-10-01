@@ -41,7 +41,6 @@
 pragma Profile (Ravenscar);
 
 pragma Restrictions (No_Exception_Propagation);
-pragma Restrictions (No_Finalization);
 
 --  If pragma Restrictions (No_Recursion) is required, make it a
 --  configuration pragma.
@@ -175,7 +174,7 @@ private
    Support_Composite_Compare : constant Boolean := True;
    Support_Long_Shifts       : constant Boolean := True;
    Always_Compatible_Rep     : constant Boolean := True;
-   Suppress_Standard_Library : constant Boolean := True;
+   Suppress_Standard_Library : constant Boolean := False;
    Use_Ada_Main_Program_Name : constant Boolean := False;
    ZCX_By_Default            : constant Boolean := False;
 

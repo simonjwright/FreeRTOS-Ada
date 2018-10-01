@@ -27,20 +27,11 @@
 -- This unit was originally developed by Matthew J Heaney.                  --
 ------------------------------------------------------------------------------
 
---  Modified from the 4.9.1 release for the Cortex GNAT Runtime System
---  project.
---
---  The changes consist of suppressing finalization (not supported in
---  the RTS) and tampering checks (so that generalized iteration need
---  not rely on finalization).
-
 with Ada.Containers.Generic_Array_Sort;
 
 with System; use type System.Address;
 
 package body Ada.Containers.Bounded_Vectors is
-
-   pragma Warnings (Off, "others choice is redundant");
 
    -----------------------
    -- Local Subprograms --
@@ -270,11 +261,11 @@ package body Ada.Containers.Bounded_Vectors is
    ---------
 
    overriding function "=" (Left, Right : Vector) return Boolean is
-      --  BL : Natural renames Left'Unrestricted_Access.Busy;
-      --  LL : Natural renames Left'Unrestricted_Access.Lock;
+      BL : Natural renames Left'Unrestricted_Access.Busy;
+      LL : Natural renames Left'Unrestricted_Access.Lock;
 
-      --  BR : Natural renames Right'Unrestricted_Access.Busy;
-      --  LR : Natural renames Right'Unrestricted_Access.Lock;
+      BR : Natural renames Right'Unrestricted_Access.Busy;
+      LR : Natural renames Right'Unrestricted_Access.Lock;
 
       Result : Boolean;
 
@@ -290,11 +281,11 @@ package body Ada.Containers.Bounded_Vectors is
       --  Per AI05-0022, the container implementation is required to detect
       --  element tampering by a generic actual subprogram.
 
-      --  BL := BL + 1;
-      --  LL := LL + 1;
+      BL := BL + 1;
+      LL := LL + 1;
 
-      --  BR := BR + 1;
-      --  LR := LR + 1;
+      BR := BR + 1;
+      LR := LR + 1;
 
       Result := True;
       for J in Count_Type range 1 .. Left.Length loop
@@ -304,11 +295,11 @@ package body Ada.Containers.Bounded_Vectors is
          end if;
       end loop;
 
-      --  BL := BL - 1;
-      --  LL := LL - 1;
+      BL := BL - 1;
+      LL := LL - 1;
 
-      --  BR := BR - 1;
-      --  LR := LR - 1;
+      BR := BR - 1;
+      LR := LR - 1;
 
       return Result;
 
@@ -395,10 +386,10 @@ package body Ada.Containers.Bounded_Vectors is
 
    procedure Clear (Container : in out Vector) is
    begin
-      --  if Container.Busy > 0 then
-      --     raise Program_Error with
-      --       "attempt to tamper with cursors (vector is busy)";
-      --  end if;
+      if Container.Busy > 0 then
+         raise Program_Error with
+           "attempt to tamper with cursors (vector is busy)";
+      end if;
 
       Container.Last := No_Index;
    end Clear;
@@ -556,10 +547,10 @@ package body Ada.Containers.Bounded_Vectors is
       --  the count on exit. Delete checks the count to determine whether it is
       --  being called while the associated callback procedure is executing.
 
-      --  if Container.Busy > 0 then
-      --     raise Program_Error with
-      --       "attempt to tamper with cursors (vector is busy)";
-      --  end if;
+      if Container.Busy > 0 then
+         raise Program_Error with
+           "attempt to tamper with cursors (vector is busy)";
+      end if;
 
       --  We first calculate what's available for deletion starting at
       --  Index. Here and elsewhere we use the wider of Index_Type'Base and
@@ -678,10 +669,10 @@ package body Ada.Containers.Bounded_Vectors is
       --  it is being called while the associated callback procedure is
       --  executing.
 
-      --  if Container.Busy > 0 then
-      --     raise Program_Error with
-      --       "attempt to tamper with cursors (vector is busy)";
-      --  end if;
+      if Container.Busy > 0 then
+         raise Program_Error with
+           "attempt to tamper with cursors (vector is busy)";
+      end if;
 
       --  There is no restriction on how large Count can be when deleting
       --  items. If it is equal or greater than the current length, then this
@@ -734,11 +725,11 @@ package body Ada.Containers.Bounded_Vectors is
    -- Finalize --
    --------------
 
-   --  procedure Finalize (Object : in out Iterator) is
-   --     B : Natural renames Object.Container.Busy;
-   --  begin
-   --     B := B - 1;
-   --  end Finalize;
+   procedure Finalize (Object : in out Iterator) is
+      B : Natural renames Object.Container.Busy;
+   begin
+      B := B - 1;
+   end Finalize;
 
    ----------
    -- Find --
@@ -764,14 +755,14 @@ package body Ada.Containers.Bounded_Vectors is
       --  element tampering by a generic actual subprogram.
 
       declare
-         --  B : Natural renames Container'Unrestricted_Access.Busy;
-         --  L : Natural renames Container'Unrestricted_Access.Lock;
+         B : Natural renames Container'Unrestricted_Access.Busy;
+         L : Natural renames Container'Unrestricted_Access.Lock;
 
          Result : Index_Type'Base;
 
       begin
-         --  B := B + 1;
-         --  L := L + 1;
+         B := B + 1;
+         L := L + 1;
 
          Result := No_Index;
          for J in Position.Index .. Container.Last loop
@@ -781,8 +772,8 @@ package body Ada.Containers.Bounded_Vectors is
             end if;
          end loop;
 
-         --  B := B - 1;
-         --  L := L - 1;
+         B := B - 1;
+         L := L - 1;
 
          if Result = No_Index then
             return No_Element;
@@ -808,8 +799,8 @@ package body Ada.Containers.Bounded_Vectors is
       Item      : Element_Type;
       Index     : Index_Type := Index_Type'First) return Extended_Index
    is
-      --  B : Natural renames Container'Unrestricted_Access.Busy;
-      --  L : Natural renames Container'Unrestricted_Access.Lock;
+      B : Natural renames Container'Unrestricted_Access.Busy;
+      L : Natural renames Container'Unrestricted_Access.Lock;
 
       Result : Index_Type'Base;
 
@@ -817,8 +808,8 @@ package body Ada.Containers.Bounded_Vectors is
       --  Per AI05-0022, the container implementation is required to detect
       --  element tampering by a generic actual subprogram.
 
-      --  B := B + 1;
-      --  L := L + 1;
+      B := B + 1;
+      L := L + 1;
 
       Result := No_Index;
       for Indx in Index .. Container.Last loop
@@ -828,8 +819,8 @@ package body Ada.Containers.Bounded_Vectors is
          end if;
       end loop;
 
-      --  B := B - 1;
-      --  L := L - 1;
+      B := B - 1;
+      L := L - 1;
 
       return Result;
 
@@ -922,14 +913,14 @@ package body Ada.Containers.Bounded_Vectors is
          declare
             EA : Elements_Array renames Container.Elements;
 
-            --  B : Natural renames Container'Unrestricted_Access.Busy;
-            --  L : Natural renames Container'Unrestricted_Access.Lock;
+            B : Natural renames Container'Unrestricted_Access.Busy;
+            L : Natural renames Container'Unrestricted_Access.Lock;
 
             Result : Boolean;
 
          begin
-            --  B := B + 1;
-            --  L := L + 1;
+            B := B + 1;
+            L := L + 1;
 
             Result := True;
             for J in 1 .. Container.Length - 1 loop
@@ -939,8 +930,8 @@ package body Ada.Containers.Bounded_Vectors is
                end if;
             end loop;
 
-            --  B := B - 1;
-            --  L := L - 1;
+            B := B - 1;
+            L := L - 1;
 
             return Result;
 
@@ -983,10 +974,10 @@ package body Ada.Containers.Bounded_Vectors is
             return;
          end if;
 
-         --  if Source.Busy > 0 then
-         --     raise Program_Error with
-         --       "attempt to tamper with cursors (vector is busy)";
-         --  end if;
+         if Source.Busy > 0 then
+            raise Program_Error with
+              "attempt to tamper with cursors (vector is busy)";
+         end if;
 
          I := Target.Length;
          Target.Set_Length (I + Source.Length);
@@ -998,18 +989,18 @@ package body Ada.Containers.Bounded_Vectors is
             TA : Elements_Array renames Target.Elements;
             SA : Elements_Array renames Source.Elements;
 
-            --  TB : Natural renames Target.Busy;
-            --  TL : Natural renames Target.Lock;
+            TB : Natural renames Target.Busy;
+            TL : Natural renames Target.Lock;
 
-            --  SB : Natural renames Source.Busy;
-            --  SL : Natural renames Source.Lock;
+            SB : Natural renames Source.Busy;
+            SL : Natural renames Source.Lock;
 
          begin
-            --  TB := TB + 1;
-            --  TL := TL + 1;
+            TB := TB + 1;
+            TL := TL + 1;
 
-            --  SB := SB + 1;
-            --  SL := SL + 1;
+            SB := SB + 1;
+            SL := SL + 1;
 
             J := Target.Length;
             while not Source.Is_Empty loop
@@ -1037,11 +1028,11 @@ package body Ada.Containers.Bounded_Vectors is
                J := J - 1;
             end loop;
 
-            --  TB := TB - 1;
-            --  TL := TL - 1;
+            TB := TB - 1;
+            TL := TL - 1;
 
-            --  SB := SB - 1;
-            --  SL := SL - 1;
+            SB := SB - 1;
+            SL := SL - 1;
 
          --  exception
          --     when others =>
@@ -1083,26 +1074,26 @@ package body Ada.Containers.Bounded_Vectors is
          --  an artifact of our array-based implementation. Logically Sort
          --  requires a check for cursor tampering.
 
-         --  if Container.Busy > 0 then
-         --     raise Program_Error with
-         --       "attempt to tamper with cursors (vector is busy)";
-         --  end if;
+         if Container.Busy > 0 then
+            raise Program_Error with
+              "attempt to tamper with cursors (vector is busy)";
+         end if;
 
          --  Per AI05-0022, the container implementation is required to detect
          --  element tampering by a generic actual subprogram.
 
          declare
-            --  B : Natural renames Container.Busy;
-            --  L : Natural renames Container.Lock;
+            B : Natural renames Container.Busy;
+            L : Natural renames Container.Lock;
 
          begin
-            --  B := B + 1;
-            --  L := L + 1;
+            B := B + 1;
+            L := L + 1;
 
             Sort (Container.Elements (1 .. Container.Length));
 
-            --  B := B - 1;
-            --  L := L - 1;
+            B := B - 1;
+            L := L - 1;
 
          --  exception
          --     when others =>
@@ -1309,10 +1300,10 @@ package body Ada.Containers.Bounded_Vectors is
       --  exit. Insert checks the count to determine whether it is being called
       --  while the associated callback procedure is executing.
 
-      --  if Container.Busy > 0 then
-      --     raise Program_Error with
-      --       "attempt to tamper with cursors (vector is busy)";
-      --  end if;
+      if Container.Busy > 0 then
+         raise Program_Error with
+           "attempt to tamper with cursors (vector is busy)";
+      end if;
 
       if New_Length > Container.Capacity then
          raise Capacity_Error with "New length is larger than capacity";
@@ -1782,10 +1773,10 @@ package body Ada.Containers.Bounded_Vectors is
       --  exit. Insert checks the count to determine whether it is being called
       --  while the associated callback procedure is executing.
 
-      --  if Container.Busy > 0 then
-      --     raise Program_Error with
-      --       "attempt to tamper with cursors (vector is busy)";
-      --  end if;
+      if Container.Busy > 0 then
+         raise Program_Error with
+           "attempt to tamper with cursors (vector is busy)";
+      end if;
 
       --  An internal array has already been allocated, so we need to check
       --  whether there is enough unused storage for the new items.
@@ -1883,10 +1874,10 @@ package body Ada.Containers.Bounded_Vectors is
      (Container : Vector;
       Process   : not null access procedure (Position : Cursor))
    is
-      --  B : Natural renames Container'Unrestricted_Access.all.Busy;
+      B : Natural renames Container'Unrestricted_Access.all.Busy;
 
    begin
-      --  B := B + 1;
+      B := B + 1;
 
       begin
          for Indx in Index_Type'First .. Container.Last loop
@@ -1898,7 +1889,7 @@ package body Ada.Containers.Bounded_Vectors is
       --        raise;
       end;
 
-      --  B := B - 1;
+      B := B - 1;
    end Iterate;
 
    function Iterate
@@ -1906,7 +1897,7 @@ package body Ada.Containers.Bounded_Vectors is
       return Vector_Iterator_Interfaces.Reversible_Iterator'Class
    is
       V : constant Vector_Access := Container'Unrestricted_Access;
-      --  B : Natural renames V.Busy;
+      B : Natural renames V.Busy;
 
    begin
       --  The value of its Index component influences the behavior of the First
@@ -1920,12 +1911,11 @@ package body Ada.Containers.Bounded_Vectors is
       --  for a reverse iterator, Container.Last is the beginning.
 
       return It : constant Iterator :=
-        ( -- Limited_Controlled with
+        (Limited_Controlled with
            Container => V,
            Index     => No_Index)
       do
-         null;
-         --  B := B + 1;
+         B := B + 1;
       end return;
    end Iterate;
 
@@ -1935,7 +1925,7 @@ package body Ada.Containers.Bounded_Vectors is
       return Vector_Iterator_Interfaces.Reversible_Iterator'Class
    is
       V : constant Vector_Access := Container'Unrestricted_Access;
-      --  B : Natural renames V.Busy;
+      B : Natural renames V.Busy;
 
    begin
       --  It was formerly the case that when Start = No_Element, the partial
@@ -1974,12 +1964,11 @@ package body Ada.Containers.Bounded_Vectors is
       --  a forward or reverse iteration.
 
       return It : constant Iterator :=
-        ( -- Limited_Controlled with
+        (Limited_Controlled with
            Container => V,
            Index     => Start.Index)
       do
-         null;
-         --  B := B + 1;
+         B := B + 1;
       end return;
    end Iterate;
 
@@ -2092,15 +2081,15 @@ package body Ada.Containers.Bounded_Vectors is
            with "Target capacity is less than Source length";
       end if;
 
-      --  if Target.Busy > 0 then
-      --     raise Program_Error with
-      --       "attempt to tamper with cursors (Target is busy)";
-      --  end if;
+      if Target.Busy > 0 then
+         raise Program_Error with
+           "attempt to tamper with cursors (Target is busy)";
+      end if;
 
-      --  if Source.Busy > 0 then
-      --     raise Program_Error with
-      --       "attempt to tamper with cursors (Source is busy)";
-      --  end if;
+      if Source.Busy > 0 then
+         raise Program_Error with
+           "attempt to tamper with cursors (Source is busy)";
+      end if;
 
       --  Clear Target now, in case element assignment fails
 
@@ -2220,16 +2209,16 @@ package body Ada.Containers.Bounded_Vectors is
       Process   : not null access procedure (Element : Element_Type))
    is
       V : Vector renames Container'Unrestricted_Access.all;
-      --  B : Natural renames V.Busy;
-      --  L : Natural renames V.Lock;
+      B : Natural renames V.Busy;
+      L : Natural renames V.Lock;
 
    begin
       if Index > Container.Last then
          raise Constraint_Error with "Index is out of range";
       end if;
 
-      --  B := B + 1;
-      --  L := L + 1;
+      B := B + 1;
+      L := L + 1;
 
       begin
          Process (V.Elements (To_Array_Index (Index)));
@@ -2240,8 +2229,8 @@ package body Ada.Containers.Bounded_Vectors is
       --        raise;
       end;
 
-      --  L := L - 1;
-      --  B := B - 1;
+      L := L - 1;
+      B := B - 1;
    end Query_Element;
 
    procedure Query_Element
@@ -2363,9 +2352,9 @@ package body Ada.Containers.Bounded_Vectors is
    begin
       if Index > Container.Last then
          raise Constraint_Error with "Index is out of range";
-      --  elsif Container.Lock > 0 then
-      --     raise Program_Error with
-      --       "attempt to tamper with elements (vector is locked)";
+      elsif Container.Lock > 0 then
+         raise Program_Error with
+           "attempt to tamper with elements (vector is locked)";
       else
          Container.Elements (To_Array_Index (Index)) := New_Item;
       end if;
@@ -2386,9 +2375,9 @@ package body Ada.Containers.Bounded_Vectors is
       elsif Position.Index > Container.Last then
          raise Constraint_Error with "Position cursor is out of range";
 
-      --  elsif Container.Lock > 0 then
-      --     raise Program_Error with
-      --       "attempt to tamper with elements (vector is locked)";
+      elsif Container.Lock > 0 then
+         raise Program_Error with
+           "attempt to tamper with elements (vector is locked)";
 
       else
          Container.Elements (To_Array_Index (Position.Index)) := New_Item;
@@ -2434,10 +2423,10 @@ package body Ada.Containers.Bounded_Vectors is
       --  implementation. Logically Reverse_Elements requires a check for
       --  cursor tampering.
 
-      --  if Container.Busy > 0 then
-      --     raise Program_Error with
-      --       "attempt to tamper with cursors (vector is busy)";
-      --  end if;
+      if Container.Busy > 0 then
+         raise Program_Error with
+           "attempt to tamper with cursors (vector is busy)";
+      end if;
 
       Idx := 1;
       Jdx := Container.Length;
@@ -2482,14 +2471,14 @@ package body Ada.Containers.Bounded_Vectors is
       --  element tampering by a generic actual subprogram.
 
       declare
-         --  B : Natural renames Container'Unrestricted_Access.Busy;
-         --  L : Natural renames Container'Unrestricted_Access.Lock;
+         B : Natural renames Container'Unrestricted_Access.Busy;
+         L : Natural renames Container'Unrestricted_Access.Lock;
 
          Result : Index_Type'Base;
 
       begin
-         --  B := B + 1;
-         --  L := L + 1;
+         B := B + 1;
+         L := L + 1;
 
          Result := No_Index;
          for Indx in reverse Index_Type'First .. Last loop
@@ -2499,8 +2488,8 @@ package body Ada.Containers.Bounded_Vectors is
             end if;
          end loop;
 
-         --  B := B - 1;
-         --  L := L - 1;
+         B := B - 1;
+         L := L - 1;
 
          if Result = No_Index then
             return No_Element;
@@ -2526,8 +2515,8 @@ package body Ada.Containers.Bounded_Vectors is
       Item      : Element_Type;
       Index     : Index_Type := Index_Type'Last) return Extended_Index
    is
-      --  B : Natural renames Container'Unrestricted_Access.Busy;
-      --  L : Natural renames Container'Unrestricted_Access.Lock;
+      B : Natural renames Container'Unrestricted_Access.Busy;
+      L : Natural renames Container'Unrestricted_Access.Lock;
 
       Last : constant Index_Type'Base :=
         Index_Type'Min (Container.Last, Index);
@@ -2538,8 +2527,8 @@ package body Ada.Containers.Bounded_Vectors is
       --  Per AI05-0022, the container implementation is required to detect
       --  element tampering by a generic actual subprogram.
 
-      --  B := B + 1;
-      --  L := L + 1;
+      B := B + 1;
+      L := L + 1;
 
       Result := No_Index;
       for Indx in reverse Index_Type'First .. Last loop
@@ -2549,8 +2538,8 @@ package body Ada.Containers.Bounded_Vectors is
          end if;
       end loop;
 
-      --  B := B - 1;
-      --  L := L - 1;
+      B := B - 1;
+      L := L - 1;
 
       return Result;
 
@@ -2570,11 +2559,11 @@ package body Ada.Containers.Bounded_Vectors is
      (Container : Vector;
       Process   : not null access procedure (Position : Cursor))
    is
-      --  V : Vector renames Container'Unrestricted_Access.all;
-      --  B : Natural renames V.Busy;
+      V : Vector renames Container'Unrestricted_Access.all;
+      B : Natural renames V.Busy;
 
    begin
-      --  B := B + 1;
+      B := B + 1;
 
       begin
          for Indx in reverse Index_Type'First .. Container.Last loop
@@ -2586,7 +2575,7 @@ package body Ada.Containers.Bounded_Vectors is
       --        raise;
       end;
 
-      --  B := B - 1;
+      B := B - 1;
    end Reverse_Iterate;
 
    ----------------
@@ -2633,10 +2622,10 @@ package body Ada.Containers.Bounded_Vectors is
          return;
       end if;
 
-      --  if Container.Lock > 0 then
-      --     raise Program_Error with
-      --       "attempt to tamper with elements (vector is locked)";
-      --  end if;
+      if Container.Lock > 0 then
+         raise Program_Error with
+           "attempt to tamper with elements (vector is locked)";
+      end if;
 
       declare
          EI_Copy : constant Element_Type := E (To_Array_Index (I));
@@ -2921,16 +2910,16 @@ package body Ada.Containers.Bounded_Vectors is
       Index     : Index_Type;
       Process   : not null access procedure (Element : in out Element_Type))
    is
-      --  B : Natural renames Container.Busy;
-      --  L : Natural renames Container.Lock;
+      B : Natural renames Container.Busy;
+      L : Natural renames Container.Lock;
 
    begin
       if Index > Container.Last then
          raise Constraint_Error with "Index is out of range";
       end if;
 
-      --  B := B + 1;
-      --  L := L + 1;
+      B := B + 1;
+      L := L + 1;
 
       begin
          Process (Container.Elements (To_Array_Index (Index)));
@@ -2941,8 +2930,8 @@ package body Ada.Containers.Bounded_Vectors is
       --        raise;
       end;
 
-      --  L := L - 1;
-      --  B := B - 1;
+      L := L - 1;
+      B := B - 1;
    end Update_Element;
 
    procedure Update_Element

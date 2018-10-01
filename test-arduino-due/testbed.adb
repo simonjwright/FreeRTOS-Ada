@@ -1,4 +1,4 @@
---  Copyright (C) 2016, 2017 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2018 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -29,9 +29,17 @@ with Dispatching;
 pragma Unreferenced (Dispatching);
 --  Tagged types
 
+with Finalizing;
+pragma Unreferenced (Finalizing);
+--  Ada.Finalization
+
 with Floating_Point;
 pragma Unreferenced (Floating_Point);
 --  Floating point
+
+with Heartbeat;
+pragma Unreferenced (Heartbeat);
+--  Timing
 
 with Images;
 pragma Unreferenced (Images);
@@ -49,10 +57,6 @@ with Iteration;
 pragma Unreferenced (Iteration);
 --  Generalized iteration
 
-with Heartbeat;
-pragma Unreferenced (Heartbeat);
---  Timing
-
 with Last_Chance_Handler;
 pragma Unreferenced (Last_Chance_Handler);
 --  Check we can supply our own version, replacing libgnat's weak one.
@@ -64,6 +68,7 @@ pragma Unreferenced (SO);
 --  Check suspension objects.
 
 with Streams;
+pragma Unreferenced (Streams);
 
 with Strings;
 pragma Unreferenced (Strings);

@@ -31,8 +31,8 @@
 --  project.
 --
 --  The changes consist of suppressing finalization (not supported in
---  the RTS) and tampering checks (so that generalized iteration need
---  not rely on finalization).
+--  the RTS), generalized iteration (which relies on finalization),
+--  and exception handling (not supported in the RTS).
 
 with Ada.Containers.Hash_Tables.Generic_Bounded_Operations;
 pragma Elaborate_All (Ada.Containers.Hash_Tables.Generic_Bounded_Operations);
@@ -442,16 +442,16 @@ package body Ada.Containers.Bounded_Hashed_Maps is
    -- Finalize --
    --------------
 
-   --  procedure Finalize (Object : in out Iterator) is
-   --  begin
-   --     if Object.Container /= null then
-   --        declare
-   --           B : Natural renames Object.Container.all.Busy;
-   --        begin
-   --           B := B - 1;
-   --        end;
-   --     end if;
-   --  end Finalize;
+   procedure Finalize (Object : in out Iterator) is
+   begin
+      if Object.Container /= null then
+         declare
+            B : Natural renames Object.Container.all.Busy;
+         begin
+            B := B - 1;
+         end;
+      end if;
+   end Finalize;
 
    ----------
    -- Find --
@@ -735,15 +735,14 @@ package body Ada.Containers.Bounded_Hashed_Maps is
    function Iterate
      (Container : Map) return Map_Iterator_Interfaces.Forward_Iterator'Class
    is
-      --  B  : Natural renames Container'Unrestricted_Access.all.Busy;
+      B  : Natural renames Container'Unrestricted_Access.all.Busy;
 
    begin
       return It : constant Iterator :=
-        ( -- Limited_Controlled with
+        (Limited_Controlled with
            Container => Container'Unrestricted_Access)
       do
-         null;
-         --  B := B + 1;
+         B := B + 1;
       end return;
    end Iterate;
 

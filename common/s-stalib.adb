@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 B o d y                                  --
 --                                                                          --
---       Copyright (C) 1995-2013, 2016, Free Software Foundation, Inc.      --
+--    Copyright (C) 1995-2013, 2016, 2018, Free Software Foundation, Inc.   --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -78,13 +78,10 @@ package body System.Standard_Library is
    -- Adafinal --
    --------------
 
-   --  procedure Adafinal is
-   --  begin
-   --     if not Runtime_Finalized then
-   --        Runtime_Finalized := True;
-   --        System.Soft_Links.Adafinal.all;
-   --     end if;
-   --  end Adafinal;
+   procedure Adafinal is
+   begin
+      null;
+   end Adafinal;
 
    -----------------
    -- Break_Start --

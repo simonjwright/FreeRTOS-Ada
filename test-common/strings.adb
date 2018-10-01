@@ -30,14 +30,14 @@ package body Strings is
    begin
       for J in 1 .. 20 loop
          declare
-            S : constant String
-              := Substring ("foo") with Unreferenced;
+            S : constant String := Substring ("foo")
+              with Unreferenced;
          begin
             null;
          end;
          declare
-            S : constant String
-              := Substring ("hello me hearties") with Unreferenced;
+            S : constant String := Substring ("hello me hearties")
+              with Unreferenced;
          begin
             null;
          end;

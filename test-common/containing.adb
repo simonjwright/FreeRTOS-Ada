@@ -52,6 +52,14 @@ package body Containing is
               (others => Character'Val (Character'Pos ('a') + J));
          end loop;
 
+         pragma Assert
+           ((for some L of Vectored_Lines => L = Line'(others => 's')),
+              "line 's' missing");
+
+         pragma Assert
+           ((for all L of Vectored_Lines => L /= Line'(others => 'u')),
+              "line 'u' present");
+
          delay until Clock + Milliseconds (1_000);
       end loop;
    end Vectors;

@@ -1,4 +1,4 @@
---  Copyright (C) 2016, 2017 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2018 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -33,6 +33,14 @@ with Floating_Point;
 pragma Unreferenced (Floating_Point);
 --  Floating point
 
+with Finalizing;
+pragma Unreferenced (Finalizing);
+--  Ada.Finalization
+
+with Heartbeat;
+pragma Unreferenced (Heartbeat);
+--  Timing
+
 with Images;
 pragma Unreferenced (Images);
 --  'Image(), 'Img
@@ -48,10 +56,6 @@ pragma Unreferenced (Interrupts);
 with Iteration;
 pragma Unreferenced (Iteration);
 --  Generalized iteration
-
-with Heartbeat;
-pragma Unreferenced (Heartbeat);
---  Timing
 
 with Last_Chance_Handler;
 pragma Unreferenced (Last_Chance_Handler);
