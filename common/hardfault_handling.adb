@@ -1,4 +1,4 @@
---  Copyright (C) 2017 Free Software Foundation, Inc.
+--  Copyright (C) 2017-2018 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
@@ -21,9 +21,6 @@
 --  Handler is translated from https://community.nxp.com/thread/389002.
 
 --  See the ARMv7M reference manual.
-
---  NOTE, needs to be compiled with -O0 for the register definitions
---  to be accessible by the debugger (GCC 7).
 
 with Interfaces;
 with System.Machine_Code;
@@ -114,8 +111,6 @@ package body Hardfault_Handling is
       BFSR  at 0 range 8 .. 15;
       USFR  at 0 range 16 .. 31;
    end record;
-   CFSR : CFSR_Register
-   with Address => System'To_Address (16#E000ED28#);
 
    --  Hard Fault Status Register
 
@@ -129,8 +124,6 @@ package body Hardfault_Handling is
       FORCED   at 0 range 30 .. 30;
       DEBUGEVT at 0 range 31 .. 31;
    end record;
-   HFSR : HFSR_Register
-   with Address => System'To_Address (16#E000ED2C#);
 
    --  Debug Fault Status Register
 
@@ -148,20 +141,6 @@ package body Hardfault_Handling is
       VCATCH   at 0 range 3 .. 3;
       EXTERNAL at 0 range 4 .. 4;
    end record;
-   DFSR : DFSR_Register
-   with Address => System'To_Address (16#E000ED30#);
-
-   --  Auxiliary Fault Status Register
-   AFSR : Interfaces.Unsigned_32
-   with Address => System'To_Address (16#E000ED3C#);
-
-   --  MemManage Fault Address Register
-   MMAR : Interfaces.Unsigned_32
-   with Address => System'To_Address (16#E000ED34#);
-
-   --  Bus Fault Address Register
-   BFAR : Interfaces.Unsigned_32
-   with Address => System'To_Address (16#E000ED38#);
 
    type Machine_State is record
       R0  : Interfaces.Unsigned_32;
@@ -183,6 +162,24 @@ package body Hardfault_Handling is
 
    procedure Breakpoint (State : Machine_State) is
       pragma Unreferenced (State);
+      --  Configurable Fault Status Register
+      CFSR : CFSR_Register
+      with Address => System'To_Address (16#E000ED28#);
+      --  Hard Fault Status Register
+      HFSR : HFSR_Register
+      with Address => System'To_Address (16#E000ED2C#);
+      --  Debug Fault Status Register
+      DFSR : DFSR_Register
+      with Address => System'To_Address (16#E000ED30#);
+      --  Auxiliary Fault Status Register
+      AFSR : Interfaces.Unsigned_32
+      with Address => System'To_Address (16#E000ED3C#);
+      --  MemManage Fault Address Register
+      MMAR : Interfaces.Unsigned_32
+      with Address => System'To_Address (16#E000ED34#);
+      --  Bus Fault Address Register
+      BFAR : Interfaces.Unsigned_32
+      with Address => System'To_Address (16#E000ED38#);
    begin
       System.Machine_Code.Asm ("bkpt #0" & ASCII.LF, Volatile => True);
    end Breakpoint;
