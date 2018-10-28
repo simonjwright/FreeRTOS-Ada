@@ -2,11 +2,24 @@
 
 ## Installing ##
 
-The runtimes are supplied unbuilt.
+The runtimes are supplied unbuilt. In order to build them, some scenario variables need to be set.
 
-In order to build them, run <tt>make&nbsp;RELEASE=<i>release</i>&nbsp;all</tt> at the top level (or, if you only want one runtime, run <tt>make&nbsp;RELEASE=<i>release</i></tt> in that runtime's subdirectory).
+### FreeRTOS ###
 
-The point of the <tt>RELEASE=<i>release</i></tt> above is that, during compiler development, the interface between the compiler and the run time system it's generating code for changes.
+The compiler has to find the FreeRTOS sources.
+
+| Variable | Use | Default |
+| ---------|-----|-------- |
+| `FREERTOS_PARENT` | where FreeRTOS is installed | `HOME` |
+| `FREERTOS_RELEASE` | version | `FreeRTOSv10.0.1` |
+
+### Compiler release ###
+
+During compiler development, the interface between the compiler and the run time system it's generating code for changes.
+
+| Variable | Default |
+| ---------|-------- |
+| `RELEASE` | none |
 
 Values for `RELEASE` are as below:
 
@@ -19,6 +32,11 @@ Values for `RELEASE` are as below:
 | GNAT GPL 2017 | `gnat-gpl-2017` |
 | GNAT CE 2018 | `gcc8` |
 
+Build by running
+<tt>make&nbsp;RELEASE=<i>release</i>&nbsp;all</tt> at the top level (or, if you only want one runtime, by <tt>make&nbsp;RELEASE=<i>release</i></tt> in that runtime's subdirectory).
+
+## Installation ##
+
 The runtimes must be installed. To install the runtime(s) with your compiler (you may need to use `sudo`),
 
 <pre>
@@ -27,7 +45,13 @@ make RELEASE=<i>release</i> install
 
 either at top level for all runtimes, or in the individual runtime's subdirectory.
 
-It used to be possible to use a runtime from its build directory (for example, `--RTS=$HOME/cortex-gnat-rts/stm32f4`), but this isn't possible with the new multi-release structure. Instead, the runtimes must be installed locally:
+### Local installation ###
+
+It used to be possible to use a runtime from its build directory (for example, `--RTS=$HOME/cortex-gnat-rts/stm32f4`), but this isn't possible with the new multi-release structure. Instead, the runtimes must be installed locally.
+
+| Variable | Default |
+| ---------|-------- |
+| `INSTALL_LOCALLY` | `no` |
 
 <pre>
 make RELEASE=<i>release</i> INSTALL_LOCALLY=yes install
