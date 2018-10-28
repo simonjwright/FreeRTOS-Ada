@@ -57,6 +57,7 @@ class Stacks(gdb.Command):
         super(Stacks, self).__init__("stacks", gdb.COMMAND_USER)
 
     def invoke(self, arg, from_tty):
+        gdb.execute("set language c")
         # Have to use the symbol corresponding to the variable
         # System.Tasking.Task_Chain, because the GDB language is
         # 'auto' at this point, and we'll be as like as not in the
@@ -80,5 +81,6 @@ class Stacks(gdb.Command):
             # Fetch the next ATCB in the chain, if any, from
             # <ATCB>.Common.All_Tasks_Link.
             atcb = atcb["common"]["all_tasks_link"]
+        gdb.execute("set language auto")
 
 Stacks()
