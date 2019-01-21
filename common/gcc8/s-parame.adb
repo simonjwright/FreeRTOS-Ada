@@ -50,12 +50,24 @@ package body System.Parameters is
      External_Name => "_default_storage_size";
    pragma Weak_External (Default_Storage_Size);
 
+   --  If the link includes a symbol _minimum_storage_size,
+   --  use this as the minimum storage size: otherwise, use 768.
+   Minimum_Storage_Size : constant Size_Type
+   with
+     Import,
+     Convention => Ada,
+     External_Name => "_minimum_storage_size";
+   pragma Weak_External (Minimum_Storage_Size);
+
    function Default_Stack_Size return Size_Type is
      (if Default_Storage_Size'Address = System.Null_Address
       then 1024
       else Default_Storage_Size);
 
-   function Minimum_Stack_Size return Size_Type is (768);
+   function Minimum_Stack_Size return Size_Type is
+      (if Minimum_Storage_Size'Address = System.Null_Address
+      then 768
+      else Minimum_Storage_Size);
 
    --  Secondary stack
 
