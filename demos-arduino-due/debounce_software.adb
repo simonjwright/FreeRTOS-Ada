@@ -1,4 +1,4 @@
---  Copyright (C) 2016 Free Software Foundation, Inc.
+--  Copyright (C) 2016, 2019 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -21,16 +21,14 @@
 
 with Ada.Interrupts.Names;
 with Ada.Real_Time;
-with Interfaces;
 with System;
 
-with Registers.ATSAM3X8.PIO;
-with Registers.ATSAM3X8.PMC;
-with Registers.ATSAM3X8.Peripheral_Identifiers;
+with ATSAM3X8E.PIO;
+with ATSAM3X8E.PMC;
 
-use Registers.ATSAM3X8.PIO;
-use Registers.ATSAM3X8.PMC;
-use Registers.ATSAM3X8.Peripheral_Identifiers;
+use ATSAM3X8E;
+use ATSAM3X8E.PIO;
+use ATSAM3X8E.PMC;
 
 package body Debounce_Impl is
 
@@ -62,10 +60,9 @@ package body Debounce_Impl is
       end Wait;
 
       procedure Handler is
-         Status : constant Registers.Bits_32x1 := PIOB.ISR;
-         use type Registers.Bits_1;
+         Status : constant ISR_Register := PIOB_Periph.ISR;
       begin
-         if Status (Input_Pin) /= 0 then
+         if Status.Arr (Input_Pin) /= 0 then
             Triggered := True;
          end if;
       end Handler;
@@ -73,10 +70,9 @@ package body Debounce_Impl is
 
    task body T is
       use type Ada.Real_Time.Time;
-      use type Registers.Bits_1;
    begin
       --  Clear the output pin
-      PIOB.CODR := (Output_Pin => 1, others => 0);
+      PIOB_Periph.CODR.Arr := (Output_Pin => 1, others => 0);
 
       loop
          Button.Wait;
@@ -85,29 +81,29 @@ package body Debounce_Impl is
            Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (5);
 
          --  Pull-up is enabled, so the pin is 0 if the button is pressed
-         if PIOB.PDSR (Input_Pin) /= 0 then
-            PIOB.CODR := (Output_Pin => 1, others => 0);
+         if PIOB_Periph.PDSR.Arr (Input_Pin) /= 0 then
+            PIOB_Periph.CODR.Arr := (Output_Pin => 1, others => 0);
          else
-            PIOB.SODR := (Output_Pin => 1, others => 0);
+            PIOB_Periph.SODR.Arr := (Output_Pin => 1, others => 0);
          end if;
       end loop;
    end T;
 
-   use type Interfaces.Unsigned_32;
 begin
    --  Enable PIOB
-   PMC.PCER0 := (PIOB_IRQ => 1, others => 0);
+   PMC_Periph.PMC_PCER0.PID.Arr := (Ada.Interrupts.Names.PIOB_IRQ => 1,
+                                    others => 0);
 
    --  Enable PB14 ..
-   PIOB.PER := (Input_Pin => 1, others => 0);
+   PIOB_Periph.PER.Arr := (Input_Pin => 1, others => 0);
 
    --  .. enable interrupts.
-   PIOB.IER := (Input_Pin => 1, others => 0);
+   PIOB_Periph.IER.Arr := (Input_Pin => 1, others => 0);
 
    --  Enable PB27 ..
-   PIOB.PER := (Output_Pin => 1, others => 0);
+   PIOB_Periph.PER.Arr := (Output_Pin => 1, others => 0);
 
    --  .. as output.
-   PIOB.OER := (Output_Pin => 1, others => 0);
+   PIOB_Periph.OER.Arr := (Output_Pin => 1, others => 0);
 
 end Debounce_Impl;

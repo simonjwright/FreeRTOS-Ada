@@ -1,4 +1,4 @@
---  Copyright (C) 2016 Free Software Foundation, Inc.
+--  Copyright (C) 2016, 2019 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -17,17 +17,14 @@
 --  <http://www.gnu.org/licenses/>.
 
 with Ada.Interrupts.Names;
-with Ada.Real_Time;
-with Interfaces;
 with System;
 
-with Registers.ATSAM3X8.PIO;
-with Registers.ATSAM3X8.PMC;
-with Registers.ATSAM3X8.Peripheral_Identifiers;
+with ATSAM3X8E.PIO;
+with ATSAM3X8E.PMC;
 
-use Registers.ATSAM3X8.PIO;
-use Registers.ATSAM3X8.PMC;
-use Registers.ATSAM3X8.Peripheral_Identifiers;
+use ATSAM3X8E;
+use ATSAM3X8E.PIO;
+use ATSAM3X8E.PMC;
 
 package body First_Task is
 
@@ -59,69 +56,66 @@ package body First_Task is
       end Wait;
 
       procedure Handler is
-         Status : constant Registers.Bits_32x1 := PIOB.ISR;
-         use type Registers.Bits_1;
+         Status : constant PIO.ISR_Register := PIOB_Periph.ISR;
       begin
-         Triggered := Status (Input_Pin) /= 0;
+         Triggered := Status.Arr (Input_Pin) /= 0;
       end Handler;
    end Button;
 
    task body T is
-      use type Ada.Real_Time.Time;
-      use type Registers.Bits_1;
    begin
       --  Clear the output pin
-      PIOB.CODR := (Output_Pin => 1, others => 0);
+      PIOB_Periph.CODR.Arr := (Output_Pin => 1, others => 0);
 
       loop
          Button.Wait;
 
-         if PIOB.PDSR (Input_Pin) /= 0 then  -- pulled-up
+         if PIOB_Periph.PDSR.Arr (Input_Pin) /= 0 then  -- pulled-up
             --  Clear the output pin
-            PIOB.CODR := (Output_Pin => 1, others => 0);
+            PIOB_Periph.CODR.Arr := (Output_Pin => 1, others => 0);
          else
             --  Set the output pin
-            PIOB.SODR := (Output_Pin => 1, others => 0);
+            PIOB_Periph.SODR.Arr := (Output_Pin => 1, others => 0);
          end if;
       end loop;
    end T;
 
-   use type Interfaces.Unsigned_32;
 begin
    --  Enable PIOB
-   PMC.PCER0 := (PIOB_IRQ => 1, others => 0);
+   PMC_Periph.PMC_PCER0.PID.Arr := (Ada.Interrupts.Names.PIOB_IRQ => 1,
+                                    others => 0);
 
    --  Enable PB21 ..
-   PIOB.PER := (Input_Pin => 1, others => 0);
+   PIOB_Periph.PER.Arr := (Input_Pin => 1, others => 0);
 
    --  .. disable output ..
-   PIOB.ODR := (Input_Pin => 1, others => 0);
+   PIOB_Periph.ODR.Arr := (Input_Pin => 1, others => 0);
 
    --  .. enable pull-up ..
-   PIOB.PUER := (Input_Pin => 1, others => 0);
+   PIOB_Periph.PUER.Arr := (Input_Pin => 1, others => 0);
 
    --  .. disable pullup on the other pins (? default) ..
-   PIOB.PUDR := (Input_Pin => 0, others => 1);
+   PIOB_Periph.PUDR.Arr := (Input_Pin => 0, others => 1);
 
    --  .. enable interrupts on edge (? default) ..
-   --  PIOB.ESR := (Input_Pin => 1, others => 0);
+   --  PIOB_Periph.ESR := (Input_Pin => 1, others => 0);
 
    --  .. enable interrupts from Input_Pin on rising edge (button-up) ..
-   PIOB.REHLSR := (Input_Pin => 1, others => 0);
+   PIOB_Periph.REHLSR.Arr := (Input_Pin => 1, others => 0);
 
    --  .. debounce slow clock multiplier (32 kHz, => 5 ms, 200 Hz)
-   PIOB.SCDR := 32678 / 200;
+   PIOB_Periph.SCDR.DIV := UInt14 (32678 / 200);
 
    --  .. debounce ..
-   PIOB.DIFSR := (Input_Pin => 1, others => 0);
+   PIOB_Periph.DIFSR.Arr := (Input_Pin => 1, others => 0);
 
    --  .. enable interrupts.
-   PIOB.IER := (Input_Pin => 1, others => 0);
+   PIOB_Periph.IER.Arr := (Input_Pin => 1, others => 0);
 
    --  Enable PB27 ..
-   PIOB.PER := (Output_Pin => 1, others => 0);
+   PIOB_Periph.PER.Arr := (Output_Pin => 1, others => 0);
 
    --  .. as output.
-   PIOB.OER := (Output_Pin => 1, others => 0);
+   PIOB_Periph.OER.Arr := (Output_Pin => 1, others => 0);
 
 end First_Task;
