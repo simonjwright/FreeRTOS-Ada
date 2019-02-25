@@ -76,7 +76,7 @@ package body Debounce_Impl is
       use type Ada.Real_Time.Time;
    begin
       --  Clear the output pin
-      PIOB_Periph.CODR.Arr := (2 | Output_Pin => 1, others => 0);
+      PIOB_Periph.CODR.Arr := (Output_Pin => 1, others => 0);
 
       loop
          declare
