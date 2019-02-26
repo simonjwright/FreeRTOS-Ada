@@ -24,7 +24,7 @@ project First is
    for Exec_Dir use ".";
    for Create_Missing_Dirs use "true";
    package Builder is
-      for Default_Switches ("ada") use
+      for Switches (others) use
         (
          "-g",
          "-Og",

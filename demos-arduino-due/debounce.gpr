@@ -34,7 +34,7 @@ project Debounce is
 
    package Builder is
       for Executable ("debounce.adb") use "debounce_" & Implementation;
-      for Default_Switches ("ada") use
+      for Switches (others) use
         (
          "-g",
          "-Og"
