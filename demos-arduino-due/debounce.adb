@@ -1,4 +1,4 @@
---  Copyright (C) 2016 Free Software Foundation, Inc.
+--  Copyright (C) 2016, 2019 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -23,8 +23,8 @@
 --  hardware (debounce_hardware.adb).
 
 with Debounce_Impl;
-with Start_FreeRTOS_Scheduler;
+with Ada.Real_Time;
 procedure Debounce is
 begin
-   Start_FreeRTOS_Scheduler;
+   delay until Ada.Real_Time.Time_Last;
 end Debounce;
