@@ -19,7 +19,7 @@ During compiler development, the interface between the compiler and the run time
 
 | Variable | Default |
 | ---------|-------- |
-| `RELEASE` | none |
+| `RELEASE` | gcc8 |
 
 Values for `RELEASE` are as below:
 
@@ -28,9 +28,11 @@ Values for `RELEASE` are as below:
 | FSF GCC 6 | `gcc6` |
 | FSF GCC 7 | `gcc7` |
 | FSF GCC 8 | `gcc8` |
+| FSF GCC 9 | `gcc8` |
 | GNAT GPL 2016 | `gcc6` |
 | GNAT GPL 2017 | `gnat-gpl-2017` |
 | GNAT CE 2018 | `gcc8` |
+| GNAT CE 2019 | `gcc8` |
 
 Build by running
 <tt>make&nbsp;RELEASE=<i>release</i>&nbsp;all</tt> at the top level (or, if you only want one runtime, by <tt>make&nbsp;RELEASE=<i>release</i></tt> in that runtime's subdirectory).
@@ -51,7 +53,7 @@ It used to be possible to use a runtime from its build directory (for example, `
 
 | Variable | Default |
 | ---------|-------- |
-| `INSTALL_LOCALLY` | `no` |
+| `INSTALL_LOCALLY` | `yes` |
 
 <pre>
 make RELEASE=<i>release</i> INSTALL_LOCALLY=yes install

@@ -1,3 +1,0 @@
-gpr_file=testbed.gpr
-target=arm-eabi-
-runtime=../arduino-due

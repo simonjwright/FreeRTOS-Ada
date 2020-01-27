@@ -1,4 +1,4 @@
---  Copyright (C) 2016-2018 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2018, 2020 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -88,11 +88,8 @@ library project Build_Runtime is
       for Switches ("hardfault_handling.adb") use ALL_ADAFLAGS & ("-g", "-O0");
    end Compiler;
 
-   type Install_Locally is ("yes", "no");
-   Local : Install_Locally := external ("INSTALL_LOCALLY", "no");
-
    package Install is
-      case Local is
+      case Common.Local is
          when "no" =>
             for Prefix use "arm-eabi/lib/gnat/";
          when "yes" =>
