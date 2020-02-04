@@ -6,7 +6,7 @@
 --                                                                          --
 --                                  B o d y                                 --
 --                                                                          --
---        Copyright (C) 2016-2018 Free Software Foundation, Inc.            --
+--      Copyright (C) 2016-2018, 2020 Free Software Foundation, Inc.        --
 --                                                                          --
 -- GNARL is free software; you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -198,10 +198,10 @@ package body System.Tasking.Restricted.Stages is
    is
       --  Create_Restricted_Task requires a Chain parameter; however,
       --  in this RTS it's ignored, because all tasks are activated as
-      --  they are elaborated (i.e., concurrently).
+      --  they are elaborated (i.e., concurrently) BUT FreeRTOS
+      --  tasking is suspended.
       Dummy_Activation_Chain : Activation_Chain;
    begin
-
       --  If we're called at all, it's because sequential activation
       --  has been requested. If this is the first call, suspend
       --  tasking (awaiting a call to Activate_All_Tasks_Sequential).
@@ -244,7 +244,17 @@ package body System.Tasking.Restricted.Stages is
    begin
       pragma Assert (Partition_Elaboration_Policy = 'S',
                      "Partition_Elaboration_Policy not sequential");
-      FreeRTOS.Tasks.Resume_All_Tasks;
+      --  If the elaboration policy is Sequential, Suspend_All_Tasks
+      --  would have been called (in Create_Restricted_Task_Sequential)
+      --  when the first user task was created during elaboration.
+      --  However, if there are no user tasks but there are tasks in
+      --  the RTS (e.g. Ada.Real_Time.Timing_Events) they will have
+      --  been compiled with concurrent elaboration via
+      --  Create_Restricted_Task, and Suspend_All_Tasks won't have
+      --  been called. Unusual, but!!
+      if Sequential_Elaboration_Started then
+         FreeRTOS.Tasks.Resume_All_Tasks;
+      end if;
    end Activate_All_Tasks_Sequential;
 
    procedure Complete_Restricted_Activation is
