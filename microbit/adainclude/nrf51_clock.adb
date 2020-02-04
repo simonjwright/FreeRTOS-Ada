@@ -1,4 +1,4 @@
---  Copyright (C) 2018 Free Software Foundation, Inc.
+--  Copyright (C) 2018, 2020 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
@@ -88,8 +88,9 @@ package body nRF51_Clock is
       --  Enable interrupts on the TICK event,
       nrf51.RTC.RTC1_Periph.INTENSET.TICK := nrf51.RTC.Set;
 
-      --  Enable interrupt 17 at priority one above
-      --  Interrupt_Priority'Last. Copied from System.Interrupts
+      --  Enable interrupt 17 at priority one above Priority'Last
+      --  (i.e. Interrupt_Priority'First). Copied from
+      --  System.Interrupts
       declare
          type Bits_1 is mod 2   with Size => 1;
          type Bits_8 is mod 256 with Size => 8;
