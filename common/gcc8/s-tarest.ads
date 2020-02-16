@@ -6,7 +6,8 @@
 --                                                                          --
 --                                  S p e c                                 --
 --                                                                          --
---    Copyright (C) 1992-2012, 2016-2018, Free Software Foundation, Inc.    --
+--                Copyright (C) 1992-2012, 2016-2018, 2020                  --
+--                      Free Software Foundation, Inc.                      --
 --                                                                          --
 -- GNARL is free software; you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -50,12 +51,24 @@
 --  Sequential, the compiled code calls
 --  Create_Restricted_Task_Sequential instead of
 --  Create_Restricted_Task, and at the end calls
---  Activate_All_Tasks_Sequential. This RTS only actually supports
---  Concurrent activation (that is, each task is activated as soon as
---  it's created), and so Create_Restricted_Task_Sequential just calls
---  Create_Restricted_Task (with a dummy Chain, which
---  Create_Restricted_Task ignores anyway, since FreeRTOS doesn't
---  provide a way to create a task without activating it).
+--  Activate_All_Tasks_Sequential.
+--
+--  In Cortex GNAT RTS, the environment task is created and then the
+--  FreeRTOS scheduler is started to run it. It executes the
+--  binder-generated adainit() to perform elaboration and then
+--  executes the Ada main program.
+--
+--  All the program's tasks are created as they are encountered during
+--  elaboration. If the elaboration policy is Concurrent,
+--  Create_Restricted_Task is called, and the tasks become active
+--  immediately.
+
+--  If however the elaboration policy is Sequential, the alternative
+--  Create_Restricted_Task_Sequential is called and the FreeRTOS
+--  scheduler is suspended on the first call, so that no tasks other
+--  than the environment task actually start running.
+--  Activate_All_Tasks_Sequential is called by adainit() at the end of
+--  elaboration.
 
 with System.Parameters;
 with System.Task_Info;
@@ -68,13 +81,10 @@ package System.Tasking.Restricted.Stages is
    pragma Export (C, Partition_Elaboration_Policy,
                   "__gnat_partition_elaboration_policy");
    --  Partition elaboration policy. Value can be either 'C' for
-   --  concurrent, which is the default or 'S' for sequential. This
-   --  value can be modified by the binder generated code in
-   --  adainit(), before calling elaboration code, if task activation
-   --  is supposed to be Sequential. Unfortunately, that's too late
-   --  for this RTS. The variable is provided because the
-   --  binder-generated code expects it if the user has specified
-   --  sequential elaboration.
+   --  concurrent, which is the default, or 'S' for sequential. This
+   --  value is modified by the binder generated code in adainit(),
+   --  before calling elaboration code, if task activation is to be
+   --  Sequential.
 
    procedure Create_Restricted_Task
      (Priority             :        Integer;
@@ -131,7 +141,7 @@ package System.Tasking.Restricted.Stages is
    --  Chain is a linked list of task that needs to be created. On
    --  exit, Created_Task.Activation_Link will be Chain.T_ID, and
    --  Chain.T_ID will be Created_Task (the created task will be
-   --  linked at the front of Chain).
+   --  linked at the front of Chain). Not used in Cortex GNAT RTS.
    --
    --  Task_Image is a string created by the compiler that the run
    --  time can store to ease the debugging and the
@@ -188,7 +198,7 @@ package System.Tasking.Restricted.Stages is
    pragma Export (C, Activate_All_Tasks_Sequential,
                   "__gnat_activate_all_tasks");
    --  Binder interface only. Do not call from within the RTS. This must be
-   --  called an the end of the elaboration to activate all tasks, in order
+   --  called at the end of the elaboration to activate all tasks, in order
    --  to implement the sequential elaboration policy.
 
    procedure Complete_Restricted_Activation;
