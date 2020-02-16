@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 B o d y                                  --
 --                                                                          --
---        Copyright (C) 2005-2014, 2017, Free Software Foundation, Inc.     --
+--   Copyright (C) 2005-2014, 2017, 2020 Free Software Foundation, Inc.     --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -109,8 +109,14 @@ package body Ada.Real_Time.Timing_Events is
    -- Timer --
    -----------
 
-   task Timer is
-      pragma Priority (System.Priority'Last);
+   task Timer
+   with
+     Priority             => System.Priority'Last,
+     Storage_Size         => 1024,
+     --  Will be overrun on micro:bit with -O0; -Og is OK.
+     Secondary_Stack_Size => 0
+   is
+      pragma Task_Name ("events_timer");
    end Timer;
 
    task body Timer is
