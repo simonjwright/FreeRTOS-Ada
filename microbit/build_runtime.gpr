@@ -1,4 +1,4 @@
---  Copyright (C) 2016-2019, 2020 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2020 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -34,7 +34,6 @@ library project Build_Runtime is
      (
       "adainclude",
       "nrf51",
-      FreeRTOS.Include,
       FreeRTOS.Source,
       FreeRTOS.Portable_Base & "ARM_CM0"
      );
@@ -45,13 +44,23 @@ library project Build_Runtime is
    type Build_Type is ("Production", "Debug");
    Build : Build_Type := external ("BUILD", "Debug");
 
+   type Callgraph_Type is ("yes", "no");
+   Callgraph : Callgraph_Type := external ("CALLGRAPH", "no");
+
    package Compiler is
       COMMON_FLAGS := ("-ffunction-sections", "-fdata-sections");
       case Build is
         when "Production" =>
            COMMON_FLAGS := COMMON_FLAGS & ("-g", "-O2");
         when "Debug" =>
-           COMMON_FLAGS := COMMON_FLAGS & ("-g", "-O0");
+           COMMON_FLAGS := COMMON_FLAGS & ("-g", "-Og");
+           -- -O0 is costly, e.g. in the Timer_Events task.
+      end case;
+      case Callgraph is
+         when "yes" =>
+            COMMON_FLAGS := COMMON_FLAGS & ("-fcallgraph-info=su,da");
+         when "no" =>
+            null;
       end case;
       ALL_ADAFLAGS :=
         ("-gnatwae", "-gnatpgn", "-gnatqQ", "-nostdinc")
@@ -66,10 +75,8 @@ library project Build_Runtime is
       ALL_CFLAGS :=
         external_as_list("INCLUDES", " ")
         & external_as_list("DEFINES", " ")
-        & (
-           "-DIN_RTS",
-           "-Dinhibit_libc"
-          )
+        & "-I" & FreeRTOS.Include
+        & ("-DIN_RTS", "-Dinhibit_libc")
         & COMMON_FLAGS;
 
       NO_SIBLING_ADAFLAGS := ("-fno-optimize-sibling-calls");

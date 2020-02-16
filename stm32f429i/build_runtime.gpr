@@ -44,18 +44,34 @@ library project Build_Runtime is
    type Build_Type is ("Production", "Debug");
    Build : Build_Type := external ("BUILD", "Debug");
 
+   type Callgraph_Type is ("yes", "no");
+   Callgraph : Callgraph_Type := external ("CALLGRAPH", "no");
+
    package Compiler is
       COMMON_FLAGS := ("-ffunction-sections", "-fdata-sections");
       case Build is
         when "Production" =>
-           COMMON_FLAGS := COMMON_FLAGS & ("-O2");
+           COMMON_FLAGS := COMMON_FLAGS & ("-g", "-O2");
         when "Debug" =>
-           COMMON_FLAGS := COMMON_FLAGS & ("-g", "-O0");
+           COMMON_FLAGS := COMMON_FLAGS & ("-g", "-Og");
+           -- -O0 is costly, e.g. in the Timer_Events task.
+      end case;
+      case Callgraph is
+         when "yes" =>
+            COMMON_FLAGS := COMMON_FLAGS & ("-fcallgraph-info=su,da");
+         when "no" =>
+            null;
       end case;
       ALL_ADAFLAGS :=
-        ("-gnatpgn", "-gnatqQ", "-nostdinc")
+        ("-gnatwae", "-gnatpgn", "-gnatqQ", "-nostdinc")
         & COMMON_FLAGS
         & external_as_list ("EXTRA_ADAFLAGS", " ");
+      case Build is
+        when "Production" =>
+           null;
+        when "Debug" =>
+           ALL_ADAFLAGS := ALL_ADAFLAGS & "-gnata";
+      end case;
       ALL_CFLAGS :=
         external_as_list("INCLUDES", " ")
         & external_as_list("DEFINES", " ")
