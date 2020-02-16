@@ -8,7 +8,8 @@
 --                          (ARM Cortex M Version)                          --
 --                 (Derived from GNU-Linux/ARMEL Version)                   --
 --                                                                          --
---    Copyright (C) 1992-2010, 2016-2018, Free Software Foundation, Inc.   --
+--                Copyright (C) 1992-2010, 2016-2018, 2020                  --
+--                      Free Software Foundation, Inc.                      --
 --                                                                          --
 -- This specification is derived from the Ada Reference Manual for use with --
 -- GNAT. The copyright notice above, and the license provisions that follow --
@@ -74,7 +75,7 @@ package System is
    Max_Mantissa          : constant := 63;
    Fine_Delta            : constant := 2.0 ** (-Max_Mantissa);
 
-   Tick                  : constant := 0.01;
+   Tick                  : constant := 1.0 / 1024;
 
    --  Storage-related Declarations
 
@@ -110,12 +111,12 @@ package System is
 
    --  These declarations correspond to FreeRTOS as originally
    --  configured in STM Cube (thread priorities 0 .. 7), with
-   --  priorities 8 to 9 mapped to Cortex interrupt priorities 3
-   --  (lowest) to 2 (highest that can be used by ISRs that call
+   --  priorities 8 to 10 mapped to Cortex interrupt priorities 3
+   --  (lowest) to 1 (highest that can be used by ISRs that call
    --  interrupt-safe FreeRTOS API functions).
 
    Max_Priority           : constant Positive := 7;
-   Max_Interrupt_Priority : constant Positive := 9;
+   Max_Interrupt_Priority : constant Positive := 10;
 
    subtype Any_Priority       is Integer range 0 .. Max_Interrupt_Priority;
    subtype Priority           is Any_Priority

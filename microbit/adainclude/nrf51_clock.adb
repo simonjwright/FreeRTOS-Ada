@@ -31,9 +31,10 @@
 --  below:
 --
 --  priority 0 (highest): FreeRTOS use only
---  priority 1: RTC1_IRQHandler
---  priority 2 .. 3: applications, arranged in this RTS as (interrupt)
---    priorities 9, 8 respectively.
+--  priority 1 .. 3: applications, arranged in this RTS as (interrupt)
+--    priorities 10, 9, 8 respectively.
+
+--  RTC1_IRQHandler runs at ARM priority 3, Interrupt_Priority'First.
 
 with nrf51.CLOCK;
 with nrf51.RTC;
@@ -128,7 +129,7 @@ package body nRF51_Clock is
            Address => System'To_Address (16#E000E100#);
 
          Interrupt : constant := 17;
-         Prio : constant := System.Priority'Last + 1;
+         Prio : constant := System.Interrupt_Priority'First;
       begin
          declare
             Index    : constant Natural := Interrupt / 4;
