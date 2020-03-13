@@ -1,8 +1,9 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
 --  This spec has been automatically generated from STM32F40x.svd
---  see https://github.com/simonjwright/svd2ada
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -12,10 +13,6 @@ package STM32F40x.RTC is
    ---------------
    -- Registers --
    ---------------
-
-   -----------------
-   -- TR_Register --
-   -----------------
 
    subtype TR_SU_Field is STM32F40x.UInt4;
    subtype TR_ST_Field is STM32F40x.UInt3;
@@ -48,8 +45,7 @@ package STM32F40x.RTC is
       --  unspecified
       Reserved_23_31 : STM32F40x.UInt9 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for TR_Register use record
       SU             at 0 range 0 .. 3;
@@ -63,10 +59,6 @@ package STM32F40x.RTC is
       PM             at 0 range 22 .. 22;
       Reserved_23_31 at 0 range 23 .. 31;
    end record;
-
-   -----------------
-   -- DR_Register --
-   -----------------
 
    subtype DR_DU_Field is STM32F40x.UInt4;
    subtype DR_DT_Field is STM32F40x.UInt2;
@@ -97,8 +89,7 @@ package STM32F40x.RTC is
       --  unspecified
       Reserved_24_31 : STM32F40x.Byte := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for DR_Register use record
       DU             at 0 range 0 .. 3;
@@ -111,10 +102,6 @@ package STM32F40x.RTC is
       YT             at 0 range 20 .. 23;
       Reserved_24_31 at 0 range 24 .. 31;
    end record;
-
-   -----------------
-   -- CR_Register --
-   -----------------
 
    subtype CR_WCKSEL_Field is STM32F40x.UInt3;
    subtype CR_TSEDGE_Field is STM32F40x.Bit;
@@ -183,8 +170,7 @@ package STM32F40x.RTC is
       --  unspecified
       Reserved_24_31 : STM32F40x.Byte := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CR_Register use record
       WCKSEL         at 0 range 0 .. 2;
@@ -210,10 +196,6 @@ package STM32F40x.RTC is
       COE            at 0 range 23 .. 23;
       Reserved_24_31 at 0 range 24 .. 31;
    end record;
-
-   ------------------
-   -- ISR_Register --
-   ------------------
 
    subtype ISR_ALRAWF_Field is STM32F40x.Bit;
    subtype ISR_ALRBWF_Field is STM32F40x.Bit;
@@ -271,8 +253,7 @@ package STM32F40x.RTC is
       --  unspecified
       Reserved_17_31 : STM32F40x.UInt15 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ISR_Register use record
       ALRAWF         at 0 range 0 .. 0;
@@ -295,10 +276,6 @@ package STM32F40x.RTC is
       Reserved_17_31 at 0 range 17 .. 31;
    end record;
 
-   -------------------
-   -- PRER_Register --
-   -------------------
-
    subtype PRER_PREDIV_S_Field is STM32F40x.UInt15;
    subtype PRER_PREDIV_A_Field is STM32F40x.UInt7;
 
@@ -313,8 +290,7 @@ package STM32F40x.RTC is
       --  unspecified
       Reserved_23_31 : STM32F40x.UInt9 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for PRER_Register use record
       PREDIV_S       at 0 range 0 .. 14;
@@ -323,30 +299,21 @@ package STM32F40x.RTC is
       Reserved_23_31 at 0 range 23 .. 31;
    end record;
 
-   -------------------
-   -- WUTR_Register --
-   -------------------
-
-   subtype WUTR_WUT_Field is STM32F40x.Short;
+   subtype WUTR_WUT_Field is STM32F40x.UInt16;
 
    --  wakeup timer register
    type WUTR_Register is record
       --  Wakeup auto-reload value bits
       WUT            : WUTR_WUT_Field := 16#FFFF#;
       --  unspecified
-      Reserved_16_31 : STM32F40x.Short := 16#0#;
+      Reserved_16_31 : STM32F40x.UInt16 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for WUTR_Register use record
       WUT            at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   ---------------------
-   -- CALIBR_Register --
-   ---------------------
 
    subtype CALIBR_DC_Field is STM32F40x.UInt5;
    subtype CALIBR_DCS_Field is STM32F40x.Bit;
@@ -362,8 +329,7 @@ package STM32F40x.RTC is
       --  unspecified
       Reserved_8_31 : STM32F40x.UInt24 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CALIBR_Register use record
       DC            at 0 range 0 .. 4;
@@ -371,10 +337,6 @@ package STM32F40x.RTC is
       DCS           at 0 range 7 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   ---------------------
-   -- ALRMAR_Register --
-   ---------------------
 
    subtype ALRMAR_SU_Field is STM32F40x.UInt4;
    subtype ALRMAR_ST_Field is STM32F40x.UInt3;
@@ -422,8 +384,7 @@ package STM32F40x.RTC is
       --  Alarm A date mask
       MSK4  : ALRMAR_MSK4_Field := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ALRMAR_Register use record
       SU    at 0 range 0 .. 3;
@@ -441,10 +402,6 @@ package STM32F40x.RTC is
       WDSEL at 0 range 30 .. 30;
       MSK4  at 0 range 31 .. 31;
    end record;
-
-   ---------------------
-   -- ALRMBR_Register --
-   ---------------------
 
    subtype ALRMBR_SU_Field is STM32F40x.UInt4;
    subtype ALRMBR_ST_Field is STM32F40x.UInt3;
@@ -492,8 +449,7 @@ package STM32F40x.RTC is
       --  Alarm B date mask
       MSK4  : ALRMBR_MSK4_Field := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ALRMBR_Register use record
       SU    at 0 range 0 .. 3;
@@ -512,10 +468,6 @@ package STM32F40x.RTC is
       MSK4  at 0 range 31 .. 31;
    end record;
 
-   ------------------
-   -- WPR_Register --
-   ------------------
-
    subtype WPR_KEY_Field is STM32F40x.Byte;
 
    --  write protection register
@@ -525,38 +477,28 @@ package STM32F40x.RTC is
       --  unspecified
       Reserved_8_31 : STM32F40x.UInt24 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for WPR_Register use record
       KEY           at 0 range 0 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
 
-   ------------------
-   -- SSR_Register --
-   ------------------
-
-   subtype SSR_SS_Field is STM32F40x.Short;
+   subtype SSR_SS_Field is STM32F40x.UInt16;
 
    --  sub second register
    type SSR_Register is record
       --  Read-only. Sub second value
-      SS             : SSR_SS_Field := 16#0#;
+      SS             : SSR_SS_Field;
       --  unspecified
-      Reserved_16_31 : STM32F40x.Short;
+      Reserved_16_31 : STM32F40x.UInt16;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for SSR_Register use record
       SS             at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   ---------------------
-   -- SHIFTR_Register --
-   ---------------------
 
    subtype SHIFTR_SUBFS_Field is STM32F40x.UInt15;
    subtype SHIFTR_ADD1S_Field is STM32F40x.Bit;
@@ -566,22 +508,17 @@ package STM32F40x.RTC is
       --  Write-only. Subtract a fraction of a second
       SUBFS          : SHIFTR_SUBFS_Field := 16#0#;
       --  unspecified
-      Reserved_15_30 : STM32F40x.Short := 16#0#;
+      Reserved_15_30 : STM32F40x.UInt16 := 16#0#;
       --  Write-only. Add one second
       ADD1S          : SHIFTR_ADD1S_Field := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for SHIFTR_Register use record
       SUBFS          at 0 range 0 .. 14;
       Reserved_15_30 at 0 range 15 .. 30;
       ADD1S          at 0 range 31 .. 31;
    end record;
-
-   -------------------
-   -- TSTR_Register --
-   -------------------
 
    subtype TSTR_TAMP1E_Field is STM32F40x.Bit;
    subtype TSTR_TAMP1TRG_Field is STM32F40x.Bit;
@@ -593,24 +530,23 @@ package STM32F40x.RTC is
    --  time stamp time register
    type TSTR_Register is record
       --  Read-only. Tamper 1 detection enable
-      TAMP1E         : TSTR_TAMP1E_Field := 16#0#;
+      TAMP1E         : TSTR_TAMP1E_Field;
       --  Read-only. Active level for tamper 1
-      TAMP1TRG       : TSTR_TAMP1TRG_Field := 16#0#;
+      TAMP1TRG       : TSTR_TAMP1TRG_Field;
       --  Read-only. Tamper interrupt enable
-      TAMPIE         : TSTR_TAMPIE_Field := 16#0#;
+      TAMPIE         : TSTR_TAMPIE_Field;
       --  unspecified
       Reserved_3_15  : STM32F40x.UInt13;
       --  Read-only. TAMPER1 mapping
-      TAMP1INSEL     : TSTR_TAMP1INSEL_Field := 16#0#;
+      TAMP1INSEL     : TSTR_TAMP1INSEL_Field;
       --  Read-only. TIMESTAMP mapping
-      TSINSEL        : TSTR_TSINSEL_Field := 16#0#;
+      TSINSEL        : TSTR_TSINSEL_Field;
       --  Read-only. AFO_ALARM output type
-      ALARMOUTTYPE   : TSTR_ALARMOUTTYPE_Field := 16#0#;
+      ALARMOUTTYPE   : TSTR_ALARMOUTTYPE_Field;
       --  unspecified
       Reserved_19_31 : STM32F40x.UInt13;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for TSTR_Register use record
       TAMP1E         at 0 range 0 .. 0;
@@ -623,10 +559,6 @@ package STM32F40x.RTC is
       Reserved_19_31 at 0 range 19 .. 31;
    end record;
 
-   -------------------
-   -- TSDR_Register --
-   -------------------
-
    subtype TSDR_DU_Field is STM32F40x.UInt4;
    subtype TSDR_DT_Field is STM32F40x.UInt2;
    subtype TSDR_MU_Field is STM32F40x.UInt4;
@@ -636,22 +568,21 @@ package STM32F40x.RTC is
    --  time stamp date register
    type TSDR_Register is record
       --  Read-only. Date units in BCD format
-      DU             : TSDR_DU_Field := 16#0#;
+      DU             : TSDR_DU_Field;
       --  Read-only. Date tens in BCD format
-      DT             : TSDR_DT_Field := 16#0#;
+      DT             : TSDR_DT_Field;
       --  unspecified
       Reserved_6_7   : STM32F40x.UInt2;
       --  Read-only. Month units in BCD format
-      MU             : TSDR_MU_Field := 16#0#;
+      MU             : TSDR_MU_Field;
       --  Read-only. Month tens in BCD format
-      MT             : TSDR_MT_Field := 16#0#;
+      MT             : TSDR_MT_Field;
       --  Read-only. Week day units
-      WDU            : TSDR_WDU_Field := 16#0#;
+      WDU            : TSDR_WDU_Field;
       --  unspecified
-      Reserved_16_31 : STM32F40x.Short;
+      Reserved_16_31 : STM32F40x.UInt16;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for TSDR_Register use record
       DU             at 0 range 0 .. 3;
@@ -663,64 +594,25 @@ package STM32F40x.RTC is
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   --------------------
-   -- TSSSR_Register --
-   --------------------
-
-   subtype TSSSR_SS_Field is STM32F40x.Short;
+   subtype TSSSR_SS_Field is STM32F40x.UInt16;
 
    --  timestamp sub second register
    type TSSSR_Register is record
       --  Read-only. Sub second value
-      SS             : TSSSR_SS_Field := 16#0#;
+      SS             : TSSSR_SS_Field;
       --  unspecified
-      Reserved_16_31 : STM32F40x.Short;
+      Reserved_16_31 : STM32F40x.UInt16;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for TSSSR_Register use record
       SS             at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   -------------------
-   -- CALR_Register --
-   -------------------
-
    subtype CALR_CALM_Field is STM32F40x.UInt9;
-
-   ---------------
-   -- CALR.CALW --
-   ---------------
-
-   --  CALR_CALW array element
-   subtype CALR_CALW_Element is STM32F40x.Bit;
-
-   --  CALR_CALW array
-   type CALR_CALW_Field_Array is array (8 .. 9) of CALR_CALW_Element
-     with Component_Size => 1, Size => 2;
-
-   --  Type definition for CALR_CALW
-   type CALR_CALW_Field
-     (As_Array : Boolean := False)
-   is record
-      case As_Array is
-         when False =>
-            --  CALW as a value
-            Val : STM32F40x.UInt2;
-         when True =>
-            --  CALW as an array
-            Arr : CALR_CALW_Field_Array;
-      end case;
-   end record
-     with Unchecked_Union, Size => 2;
-
-   for CALR_CALW_Field use record
-      Val at 0 range 0 .. 1;
-      Arr at 0 range 0 .. 1;
-   end record;
-
+   subtype CALR_CALW16_Field is STM32F40x.Bit;
+   subtype CALR_CALW8_Field is STM32F40x.Bit;
    subtype CALR_CALP_Field is STM32F40x.Bit;
 
    --  calibration register
@@ -730,26 +622,24 @@ package STM32F40x.RTC is
       --  unspecified
       Reserved_9_12  : STM32F40x.UInt4 := 16#0#;
       --  Use a 16-second calibration cycle period
-      CALW           : CALR_CALW_Field := (As_Array => False, Val => 16#0#);
+      CALW16         : CALR_CALW16_Field := 16#0#;
+      --  Use an 8-second calibration cycle period
+      CALW8          : CALR_CALW8_Field := 16#0#;
       --  Increase frequency of RTC by 488.5 ppm
       CALP           : CALR_CALP_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F40x.Short := 16#0#;
+      Reserved_16_31 : STM32F40x.UInt16 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CALR_Register use record
       CALM           at 0 range 0 .. 8;
       Reserved_9_12  at 0 range 9 .. 12;
-      CALW           at 0 range 13 .. 14;
+      CALW16         at 0 range 13 .. 13;
+      CALW8          at 0 range 14 .. 14;
       CALP           at 0 range 15 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   --------------------
-   -- TAFCR_Register --
-   --------------------
 
    subtype TAFCR_TAMP1E_Field is STM32F40x.Bit;
    subtype TAFCR_TAMP1TRG_Field is STM32F40x.Bit;
@@ -798,8 +688,7 @@ package STM32F40x.RTC is
       --  unspecified
       Reserved_19_31 : STM32F40x.UInt13 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for TAFCR_Register use record
       TAMP1E         at 0 range 0 .. 0;
@@ -819,10 +708,6 @@ package STM32F40x.RTC is
       Reserved_19_31 at 0 range 19 .. 31;
    end record;
 
-   -----------------------
-   -- ALRMASSR_Register --
-   -----------------------
-
    subtype ALRMASSR_SS_Field is STM32F40x.UInt15;
    subtype ALRMASSR_MASKSS_Field is STM32F40x.UInt4;
 
@@ -837,8 +722,7 @@ package STM32F40x.RTC is
       --  unspecified
       Reserved_28_31 : STM32F40x.UInt4 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ALRMASSR_Register use record
       SS             at 0 range 0 .. 14;
@@ -846,10 +730,6 @@ package STM32F40x.RTC is
       MASKSS         at 0 range 24 .. 27;
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
-
-   -----------------------
-   -- ALRMBSSR_Register --
-   -----------------------
 
    subtype ALRMBSSR_SS_Field is STM32F40x.UInt15;
    subtype ALRMBSSR_MASKSS_Field is STM32F40x.UInt4;
@@ -865,8 +745,7 @@ package STM32F40x.RTC is
       --  unspecified
       Reserved_28_31 : STM32F40x.UInt4 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ALRMBSSR_Register use record
       SS             at 0 range 0 .. 14;
@@ -882,126 +761,145 @@ package STM32F40x.RTC is
    --  Real-time clock
    type RTC_Peripheral is record
       --  time register
-      TR       : TR_Register;
+      TR       : aliased TR_Register;
+      pragma Volatile_Full_Access (TR);
       --  date register
-      DR       : DR_Register;
+      DR       : aliased DR_Register;
+      pragma Volatile_Full_Access (DR);
       --  control register
-      CR       : CR_Register;
+      CR       : aliased CR_Register;
+      pragma Volatile_Full_Access (CR);
       --  initialization and status register
-      ISR      : ISR_Register;
+      ISR      : aliased ISR_Register;
+      pragma Volatile_Full_Access (ISR);
       --  prescaler register
-      PRER     : PRER_Register;
+      PRER     : aliased PRER_Register;
+      pragma Volatile_Full_Access (PRER);
       --  wakeup timer register
-      WUTR     : WUTR_Register;
+      WUTR     : aliased WUTR_Register;
+      pragma Volatile_Full_Access (WUTR);
       --  calibration register
-      CALIBR   : CALIBR_Register;
+      CALIBR   : aliased CALIBR_Register;
+      pragma Volatile_Full_Access (CALIBR);
       --  alarm A register
-      ALRMAR   : ALRMAR_Register;
+      ALRMAR   : aliased ALRMAR_Register;
+      pragma Volatile_Full_Access (ALRMAR);
       --  alarm B register
-      ALRMBR   : ALRMBR_Register;
+      ALRMBR   : aliased ALRMBR_Register;
+      pragma Volatile_Full_Access (ALRMBR);
       --  write protection register
-      WPR      : WPR_Register;
+      WPR      : aliased WPR_Register;
+      pragma Volatile_Full_Access (WPR);
       --  sub second register
-      SSR      : SSR_Register;
+      SSR      : aliased SSR_Register;
+      pragma Volatile_Full_Access (SSR);
       --  shift control register
-      SHIFTR   : SHIFTR_Register;
+      SHIFTR   : aliased SHIFTR_Register;
+      pragma Volatile_Full_Access (SHIFTR);
       --  time stamp time register
-      TSTR     : TSTR_Register;
+      TSTR     : aliased TSTR_Register;
+      pragma Volatile_Full_Access (TSTR);
       --  time stamp date register
-      TSDR     : TSDR_Register;
+      TSDR     : aliased TSDR_Register;
+      pragma Volatile_Full_Access (TSDR);
       --  timestamp sub second register
-      TSSSR    : TSSSR_Register;
+      TSSSR    : aliased TSSSR_Register;
+      pragma Volatile_Full_Access (TSSSR);
       --  calibration register
-      CALR     : CALR_Register;
+      CALR     : aliased CALR_Register;
+      pragma Volatile_Full_Access (CALR);
       --  tamper and alternate function configuration register
-      TAFCR    : TAFCR_Register;
+      TAFCR    : aliased TAFCR_Register;
+      pragma Volatile_Full_Access (TAFCR);
       --  alarm A sub second register
-      ALRMASSR : ALRMASSR_Register;
+      ALRMASSR : aliased ALRMASSR_Register;
+      pragma Volatile_Full_Access (ALRMASSR);
       --  alarm B sub second register
-      ALRMBSSR : ALRMBSSR_Register;
+      ALRMBSSR : aliased ALRMBSSR_Register;
+      pragma Volatile_Full_Access (ALRMBSSR);
       --  backup register
-      BKP0R    : STM32F40x.Word;
+      BKP0R    : aliased STM32F40x.UInt32;
       --  backup register
-      BKP1R    : STM32F40x.Word;
+      BKP1R    : aliased STM32F40x.UInt32;
       --  backup register
-      BKP2R    : STM32F40x.Word;
+      BKP2R    : aliased STM32F40x.UInt32;
       --  backup register
-      BKP3R    : STM32F40x.Word;
+      BKP3R    : aliased STM32F40x.UInt32;
       --  backup register
-      BKP4R    : STM32F40x.Word;
+      BKP4R    : aliased STM32F40x.UInt32;
       --  backup register
-      BKP5R    : STM32F40x.Word;
+      BKP5R    : aliased STM32F40x.UInt32;
       --  backup register
-      BKP6R    : STM32F40x.Word;
+      BKP6R    : aliased STM32F40x.UInt32;
       --  backup register
-      BKP7R    : STM32F40x.Word;
+      BKP7R    : aliased STM32F40x.UInt32;
       --  backup register
-      BKP8R    : STM32F40x.Word;
+      BKP8R    : aliased STM32F40x.UInt32;
       --  backup register
-      BKP9R    : STM32F40x.Word;
+      BKP9R    : aliased STM32F40x.UInt32;
       --  backup register
-      BKP10R   : STM32F40x.Word;
+      BKP10R   : aliased STM32F40x.UInt32;
       --  backup register
-      BKP11R   : STM32F40x.Word;
+      BKP11R   : aliased STM32F40x.UInt32;
       --  backup register
-      BKP12R   : STM32F40x.Word;
+      BKP12R   : aliased STM32F40x.UInt32;
       --  backup register
-      BKP13R   : STM32F40x.Word;
+      BKP13R   : aliased STM32F40x.UInt32;
       --  backup register
-      BKP14R   : STM32F40x.Word;
+      BKP14R   : aliased STM32F40x.UInt32;
       --  backup register
-      BKP15R   : STM32F40x.Word;
+      BKP15R   : aliased STM32F40x.UInt32;
       --  backup register
-      BKP16R   : STM32F40x.Word;
+      BKP16R   : aliased STM32F40x.UInt32;
       --  backup register
-      BKP17R   : STM32F40x.Word;
+      BKP17R   : aliased STM32F40x.UInt32;
       --  backup register
-      BKP18R   : STM32F40x.Word;
+      BKP18R   : aliased STM32F40x.UInt32;
       --  backup register
-      BKP19R   : STM32F40x.Word;
+      BKP19R   : aliased STM32F40x.UInt32;
    end record
      with Volatile;
 
    for RTC_Peripheral use record
-      TR       at 0 range 0 .. 31;
-      DR       at 4 range 0 .. 31;
-      CR       at 8 range 0 .. 31;
-      ISR      at 12 range 0 .. 31;
-      PRER     at 16 range 0 .. 31;
-      WUTR     at 20 range 0 .. 31;
-      CALIBR   at 24 range 0 .. 31;
-      ALRMAR   at 28 range 0 .. 31;
-      ALRMBR   at 32 range 0 .. 31;
-      WPR      at 36 range 0 .. 31;
-      SSR      at 40 range 0 .. 31;
-      SHIFTR   at 44 range 0 .. 31;
-      TSTR     at 48 range 0 .. 31;
-      TSDR     at 52 range 0 .. 31;
-      TSSSR    at 56 range 0 .. 31;
-      CALR     at 60 range 0 .. 31;
-      TAFCR    at 64 range 0 .. 31;
-      ALRMASSR at 68 range 0 .. 31;
-      ALRMBSSR at 72 range 0 .. 31;
-      BKP0R    at 80 range 0 .. 31;
-      BKP1R    at 84 range 0 .. 31;
-      BKP2R    at 88 range 0 .. 31;
-      BKP3R    at 92 range 0 .. 31;
-      BKP4R    at 96 range 0 .. 31;
-      BKP5R    at 100 range 0 .. 31;
-      BKP6R    at 104 range 0 .. 31;
-      BKP7R    at 108 range 0 .. 31;
-      BKP8R    at 112 range 0 .. 31;
-      BKP9R    at 116 range 0 .. 31;
-      BKP10R   at 120 range 0 .. 31;
-      BKP11R   at 124 range 0 .. 31;
-      BKP12R   at 128 range 0 .. 31;
-      BKP13R   at 132 range 0 .. 31;
-      BKP14R   at 136 range 0 .. 31;
-      BKP15R   at 140 range 0 .. 31;
-      BKP16R   at 144 range 0 .. 31;
-      BKP17R   at 148 range 0 .. 31;
-      BKP18R   at 152 range 0 .. 31;
-      BKP19R   at 156 range 0 .. 31;
+      TR       at 16#0# range 0 .. 31;
+      DR       at 16#4# range 0 .. 31;
+      CR       at 16#8# range 0 .. 31;
+      ISR      at 16#C# range 0 .. 31;
+      PRER     at 16#10# range 0 .. 31;
+      WUTR     at 16#14# range 0 .. 31;
+      CALIBR   at 16#18# range 0 .. 31;
+      ALRMAR   at 16#1C# range 0 .. 31;
+      ALRMBR   at 16#20# range 0 .. 31;
+      WPR      at 16#24# range 0 .. 31;
+      SSR      at 16#28# range 0 .. 31;
+      SHIFTR   at 16#2C# range 0 .. 31;
+      TSTR     at 16#30# range 0 .. 31;
+      TSDR     at 16#34# range 0 .. 31;
+      TSSSR    at 16#38# range 0 .. 31;
+      CALR     at 16#3C# range 0 .. 31;
+      TAFCR    at 16#40# range 0 .. 31;
+      ALRMASSR at 16#44# range 0 .. 31;
+      ALRMBSSR at 16#48# range 0 .. 31;
+      BKP0R    at 16#50# range 0 .. 31;
+      BKP1R    at 16#54# range 0 .. 31;
+      BKP2R    at 16#58# range 0 .. 31;
+      BKP3R    at 16#5C# range 0 .. 31;
+      BKP4R    at 16#60# range 0 .. 31;
+      BKP5R    at 16#64# range 0 .. 31;
+      BKP6R    at 16#68# range 0 .. 31;
+      BKP7R    at 16#6C# range 0 .. 31;
+      BKP8R    at 16#70# range 0 .. 31;
+      BKP9R    at 16#74# range 0 .. 31;
+      BKP10R   at 16#78# range 0 .. 31;
+      BKP11R   at 16#7C# range 0 .. 31;
+      BKP12R   at 16#80# range 0 .. 31;
+      BKP13R   at 16#84# range 0 .. 31;
+      BKP14R   at 16#88# range 0 .. 31;
+      BKP15R   at 16#8C# range 0 .. 31;
+      BKP16R   at 16#90# range 0 .. 31;
+      BKP17R   at 16#94# range 0 .. 31;
+      BKP18R   at 16#98# range 0 .. 31;
+      BKP19R   at 16#9C# range 0 .. 31;
    end record;
 
    --  Real-time clock

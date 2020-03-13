@@ -1,5 +1,7 @@
---  Automatically generated from STM32F429x.svd by SVD2Ada
---  see https://github.com/simonjwright/svd2ada
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
+--  This spec has been automatically generated from STM32F429x.svd
 
 pragma Restrictions (No_Elaboration_Code);
 
@@ -12,35 +14,27 @@ package STM32F429x.NVIC is
    -- Registers --
    ---------------
 
-   -------------------
-   -- ICTR_Register --
-   -------------------
-
    subtype ICTR_INTLINESNUM_Field is STM32F429x.UInt4;
 
    --  Interrupt Controller Type Register
    type ICTR_Register is record
-      --  Total number of interrupt lines in groups
+      --  Read-only. Total number of interrupt lines in groups
       INTLINESNUM   : ICTR_INTLINESNUM_Field;
       --  unspecified
       Reserved_4_31 : STM32F429x.UInt28;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ICTR_Register use record
       INTLINESNUM   at 0 range 0 .. 3;
       Reserved_4_31 at 0 range 4 .. 31;
    end record;
 
-   ------------------
-   -- IPR_Register --
-   ------------------
+   --  IPR_IPR_N array element
+   subtype IPR_IPR_N_Element is STM32F429x.Byte;
 
-   --  IPR0_IPR_N array element
-   subtype IPR0_IPR_N_Element is STM32F429x.Byte;
-
-   --  IPR0_IPR_N array
-   type IPR0_IPR_N_Field_Array is array (0 .. 3) of IPR0_IPR_N_Element
+   --  IPR_IPR_N array
+   type IPR_IPR_N_Field_Array is array (0 .. 3) of IPR_IPR_N_Element
      with Component_Size => 8, Size => 32;
 
    --  Interrupt Priority Register
@@ -50,13 +44,13 @@ package STM32F429x.NVIC is
       case As_Array is
          when False =>
             --  IPR_N as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  IPR_N as an array
-            Arr : IPR0_IPR_N_Field_Array;
+            Arr : IPR_IPR_N_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for IPR_Register use record
@@ -64,20 +58,16 @@ package STM32F429x.NVIC is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- STIR_Register --
-   -------------------
-
    subtype STIR_INTID_Field is STM32F429x.UInt9;
 
    --  Software Triggered Interrupt Register
    type STIR_Register is record
-      --  interrupt to be triggered
+      --  Write-only. interrupt to be triggered
       INTID         : STIR_INTID_Field := 16#0#;
       --  unspecified
       Reserved_9_31 : STM32F429x.UInt23 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for STIR_Register use record
       INTID         at 0 range 0 .. 8;
@@ -91,127 +81,150 @@ package STM32F429x.NVIC is
    --  Nested Vectored Interrupt Controller
    type NVIC_Peripheral is record
       --  Interrupt Controller Type Register
-      ICTR  : ICTR_Register;
+      ICTR  : aliased ICTR_Register;
+      pragma Volatile_Full_Access (ICTR);
       --  Interrupt Set-Enable Register
-      ISER0 : STM32F429x.Word;
+      ISER0 : aliased STM32F429x.UInt32;
       --  Interrupt Set-Enable Register
-      ISER1 : STM32F429x.Word;
+      ISER1 : aliased STM32F429x.UInt32;
       --  Interrupt Set-Enable Register
-      ISER2 : STM32F429x.Word;
+      ISER2 : aliased STM32F429x.UInt32;
       --  Interrupt Clear-Enable Register
-      ICER0 : STM32F429x.Word;
+      ICER0 : aliased STM32F429x.UInt32;
       --  Interrupt Clear-Enable Register
-      ICER1 : STM32F429x.Word;
+      ICER1 : aliased STM32F429x.UInt32;
       --  Interrupt Clear-Enable Register
-      ICER2 : STM32F429x.Word;
+      ICER2 : aliased STM32F429x.UInt32;
       --  Interrupt Set-Pending Register
-      ISPR0 : STM32F429x.Word;
+      ISPR0 : aliased STM32F429x.UInt32;
       --  Interrupt Set-Pending Register
-      ISPR1 : STM32F429x.Word;
+      ISPR1 : aliased STM32F429x.UInt32;
       --  Interrupt Set-Pending Register
-      ISPR2 : STM32F429x.Word;
+      ISPR2 : aliased STM32F429x.UInt32;
       --  Interrupt Clear-Pending Register
-      ICPR0 : STM32F429x.Word;
+      ICPR0 : aliased STM32F429x.UInt32;
       --  Interrupt Clear-Pending Register
-      ICPR1 : STM32F429x.Word;
+      ICPR1 : aliased STM32F429x.UInt32;
       --  Interrupt Clear-Pending Register
-      ICPR2 : STM32F429x.Word;
+      ICPR2 : aliased STM32F429x.UInt32;
       --  Interrupt Active Bit Register
-      IABR0 : STM32F429x.Word;
+      IABR0 : aliased STM32F429x.UInt32;
       --  Interrupt Active Bit Register
-      IABR1 : STM32F429x.Word;
+      IABR1 : aliased STM32F429x.UInt32;
       --  Interrupt Active Bit Register
-      IABR2 : STM32F429x.Word;
+      IABR2 : aliased STM32F429x.UInt32;
       --  Interrupt Priority Register
-      IPR0  : IPR_Register;
+      IPR0  : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR0);
       --  Interrupt Priority Register
-      IPR1  : IPR_Register;
+      IPR1  : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR1);
       --  Interrupt Priority Register
-      IPR2  : IPR_Register;
+      IPR2  : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR2);
       --  Interrupt Priority Register
-      IPR3  : IPR_Register;
+      IPR3  : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR3);
       --  Interrupt Priority Register
-      IPR4  : IPR_Register;
+      IPR4  : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR4);
       --  Interrupt Priority Register
-      IPR5  : IPR_Register;
+      IPR5  : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR5);
       --  Interrupt Priority Register
-      IPR6  : IPR_Register;
+      IPR6  : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR6);
       --  Interrupt Priority Register
-      IPR7  : IPR_Register;
+      IPR7  : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR7);
       --  Interrupt Priority Register
-      IPR8  : IPR_Register;
+      IPR8  : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR8);
       --  Interrupt Priority Register
-      IPR9  : IPR_Register;
+      IPR9  : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR9);
       --  Interrupt Priority Register
-      IPR10 : IPR_Register;
+      IPR10 : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR10);
       --  Interrupt Priority Register
-      IPR11 : IPR_Register;
+      IPR11 : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR11);
       --  Interrupt Priority Register
-      IPR12 : IPR_Register;
+      IPR12 : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR12);
       --  Interrupt Priority Register
-      IPR13 : IPR_Register;
+      IPR13 : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR13);
       --  Interrupt Priority Register
-      IPR14 : IPR_Register;
+      IPR14 : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR14);
       --  Interrupt Priority Register
-      IPR15 : IPR_Register;
+      IPR15 : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR15);
       --  Interrupt Priority Register
-      IPR16 : IPR_Register;
+      IPR16 : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR16);
       --  Interrupt Priority Register
-      IPR17 : IPR_Register;
+      IPR17 : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR17);
       --  Interrupt Priority Register
-      IPR18 : IPR_Register;
+      IPR18 : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR18);
       --  Interrupt Priority Register
-      IPR19 : IPR_Register;
+      IPR19 : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR19);
       --  Interrupt Priority Register
-      IPR20 : IPR_Register;
+      IPR20 : aliased IPR_Register;
+      pragma Volatile_Full_Access (IPR20);
       --  Software Triggered Interrupt Register
-      STIR  : STIR_Register;
+      STIR  : aliased STIR_Register;
+      pragma Volatile_Full_Access (STIR);
    end record
      with Volatile;
 
    for NVIC_Peripheral use record
-      ICTR  at 4 range 0 .. 31;
-      ISER0 at 256 range 0 .. 31;
-      ISER1 at 260 range 0 .. 31;
-      ISER2 at 264 range 0 .. 31;
-      ICER0 at 384 range 0 .. 31;
-      ICER1 at 388 range 0 .. 31;
-      ICER2 at 392 range 0 .. 31;
-      ISPR0 at 512 range 0 .. 31;
-      ISPR1 at 516 range 0 .. 31;
-      ISPR2 at 520 range 0 .. 31;
-      ICPR0 at 640 range 0 .. 31;
-      ICPR1 at 644 range 0 .. 31;
-      ICPR2 at 648 range 0 .. 31;
-      IABR0 at 768 range 0 .. 31;
-      IABR1 at 772 range 0 .. 31;
-      IABR2 at 776 range 0 .. 31;
-      IPR0  at 1024 range 0 .. 31;
-      IPR1  at 1028 range 0 .. 31;
-      IPR2  at 1032 range 0 .. 31;
-      IPR3  at 1036 range 0 .. 31;
-      IPR4  at 1040 range 0 .. 31;
-      IPR5  at 1044 range 0 .. 31;
-      IPR6  at 1048 range 0 .. 31;
-      IPR7  at 1052 range 0 .. 31;
-      IPR8  at 1056 range 0 .. 31;
-      IPR9  at 1060 range 0 .. 31;
-      IPR10 at 1064 range 0 .. 31;
-      IPR11 at 1068 range 0 .. 31;
-      IPR12 at 1072 range 0 .. 31;
-      IPR13 at 1076 range 0 .. 31;
-      IPR14 at 1080 range 0 .. 31;
-      IPR15 at 1084 range 0 .. 31;
-      IPR16 at 1088 range 0 .. 31;
-      IPR17 at 1092 range 0 .. 31;
-      IPR18 at 1096 range 0 .. 31;
-      IPR19 at 1100 range 0 .. 31;
-      IPR20 at 1104 range 0 .. 31;
-      STIR  at 3840 range 0 .. 31;
+      ICTR  at 16#4# range 0 .. 31;
+      ISER0 at 16#100# range 0 .. 31;
+      ISER1 at 16#104# range 0 .. 31;
+      ISER2 at 16#108# range 0 .. 31;
+      ICER0 at 16#180# range 0 .. 31;
+      ICER1 at 16#184# range 0 .. 31;
+      ICER2 at 16#188# range 0 .. 31;
+      ISPR0 at 16#200# range 0 .. 31;
+      ISPR1 at 16#204# range 0 .. 31;
+      ISPR2 at 16#208# range 0 .. 31;
+      ICPR0 at 16#280# range 0 .. 31;
+      ICPR1 at 16#284# range 0 .. 31;
+      ICPR2 at 16#288# range 0 .. 31;
+      IABR0 at 16#300# range 0 .. 31;
+      IABR1 at 16#304# range 0 .. 31;
+      IABR2 at 16#308# range 0 .. 31;
+      IPR0  at 16#400# range 0 .. 31;
+      IPR1  at 16#404# range 0 .. 31;
+      IPR2  at 16#408# range 0 .. 31;
+      IPR3  at 16#40C# range 0 .. 31;
+      IPR4  at 16#410# range 0 .. 31;
+      IPR5  at 16#414# range 0 .. 31;
+      IPR6  at 16#418# range 0 .. 31;
+      IPR7  at 16#41C# range 0 .. 31;
+      IPR8  at 16#420# range 0 .. 31;
+      IPR9  at 16#424# range 0 .. 31;
+      IPR10 at 16#428# range 0 .. 31;
+      IPR11 at 16#42C# range 0 .. 31;
+      IPR12 at 16#430# range 0 .. 31;
+      IPR13 at 16#434# range 0 .. 31;
+      IPR14 at 16#438# range 0 .. 31;
+      IPR15 at 16#43C# range 0 .. 31;
+      IPR16 at 16#440# range 0 .. 31;
+      IPR17 at 16#444# range 0 .. 31;
+      IPR18 at 16#448# range 0 .. 31;
+      IPR19 at 16#44C# range 0 .. 31;
+      IPR20 at 16#450# range 0 .. 31;
+      STIR  at 16#F00# range 0 .. 31;
    end record;
 
    --  Nested Vectored Interrupt Controller
    NVIC_Periph : aliased NVIC_Peripheral
-     with Import, Address => System'To_Address (16#E000E000#);
+     with Import, Address => NVIC_Base;
 
 end STM32F429x.NVIC;

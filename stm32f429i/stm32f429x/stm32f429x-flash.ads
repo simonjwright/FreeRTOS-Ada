@@ -1,5 +1,7 @@
---  Automatically generated from STM32F429x.svd by SVD2Ada
---  see https://github.com/simonjwright/svd2ada
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
+--  This spec has been automatically generated from STM32F429x.svd
 
 pragma Restrictions (No_Elaboration_Code);
 
@@ -11,10 +13,6 @@ package STM32F429x.FLASH is
    ---------------
    -- Registers --
    ---------------
-
-   ------------------
-   -- ACR_Register --
-   ------------------
 
    subtype ACR_LATENCY_Field is STM32F429x.UInt3;
    subtype ACR_PRFTEN_Field is STM32F429x.Bit;
@@ -35,14 +33,14 @@ package STM32F429x.FLASH is
       ICEN           : ACR_ICEN_Field := 16#0#;
       --  Data cache enable
       DCEN           : ACR_DCEN_Field := 16#0#;
-      --  Instruction cache reset
+      --  Write-only. Instruction cache reset
       ICRST          : ACR_ICRST_Field := 16#0#;
       --  Data cache reset
       DCRST          : ACR_DCRST_Field := 16#0#;
       --  unspecified
       Reserved_13_31 : STM32F429x.UInt19 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ACR_Register use record
       LATENCY        at 0 range 0 .. 2;
@@ -54,10 +52,6 @@ package STM32F429x.FLASH is
       DCRST          at 0 range 12 .. 12;
       Reserved_13_31 at 0 range 13 .. 31;
    end record;
-
-   -----------------
-   -- SR_Register --
-   -----------------
 
    subtype SR_EOP_Field is STM32F429x.Bit;
    subtype SR_OPERR_Field is STM32F429x.Bit;
@@ -85,12 +79,12 @@ package STM32F429x.FLASH is
       PGSERR         : SR_PGSERR_Field := 16#0#;
       --  unspecified
       Reserved_8_15  : STM32F429x.Byte := 16#0#;
-      --  Busy
+      --  Read-only. Busy
       BSY            : SR_BSY_Field := 16#0#;
       --  unspecified
       Reserved_17_31 : STM32F429x.UInt15 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for SR_Register use record
       EOP            at 0 range 0 .. 0;
@@ -104,10 +98,6 @@ package STM32F429x.FLASH is
       BSY            at 0 range 16 .. 16;
       Reserved_17_31 at 0 range 17 .. 31;
    end record;
-
-   -----------------
-   -- CR_Register --
-   -----------------
 
    subtype CR_PG_Field is STM32F429x.Bit;
    subtype CR_SER_Field is STM32F429x.Bit;
@@ -149,7 +139,7 @@ package STM32F429x.FLASH is
       --  Lock
       LOCK           : CR_LOCK_Field := 16#1#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CR_Register use record
       PG             at 0 range 0 .. 0;
@@ -166,10 +156,6 @@ package STM32F429x.FLASH is
       Reserved_26_30 at 0 range 26 .. 30;
       LOCK           at 0 range 31 .. 31;
    end record;
-
-   --------------------
-   -- OPTCR_Register --
-   --------------------
 
    subtype OPTCR_OPTLOCK_Field is STM32F429x.Bit;
    subtype OPTCR_OPTSTRT_Field is STM32F429x.Bit;
@@ -203,7 +189,7 @@ package STM32F429x.FLASH is
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for OPTCR_Register use record
       OPTLOCK        at 0 range 0 .. 0;
@@ -218,22 +204,18 @@ package STM32F429x.FLASH is
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
 
-   ---------------------
-   -- OPTCR1_Register --
-   ---------------------
-
    subtype OPTCR1_nWRP_Field is STM32F429x.UInt12;
 
    --  Flash option control register 1
    type OPTCR1_Register is record
       --  unspecified
-      Reserved_0_15  : STM32F429x.Short := 16#0#;
+      Reserved_0_15  : STM32F429x.UInt16 := 16#0#;
       --  Not write protect
       nWRP           : OPTCR1_nWRP_Field := 16#FFF#;
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for OPTCR1_Register use record
       Reserved_0_15  at 0 range 0 .. 15;
@@ -248,34 +230,39 @@ package STM32F429x.FLASH is
    --  FLASH
    type FLASH_Peripheral is record
       --  Flash access control register
-      ACR     : ACR_Register;
+      ACR     : aliased ACR_Register;
+      pragma Volatile_Full_Access (ACR);
       --  Flash key register
-      KEYR    : STM32F429x.Word;
+      KEYR    : aliased STM32F429x.UInt32;
       --  Flash option key register
-      OPTKEYR : STM32F429x.Word;
+      OPTKEYR : aliased STM32F429x.UInt32;
       --  Status register
-      SR      : SR_Register;
+      SR      : aliased SR_Register;
+      pragma Volatile_Full_Access (SR);
       --  Control register
-      CR      : CR_Register;
+      CR      : aliased CR_Register;
+      pragma Volatile_Full_Access (CR);
       --  Flash option control register
-      OPTCR   : OPTCR_Register;
+      OPTCR   : aliased OPTCR_Register;
+      pragma Volatile_Full_Access (OPTCR);
       --  Flash option control register 1
-      OPTCR1  : OPTCR1_Register;
+      OPTCR1  : aliased OPTCR1_Register;
+      pragma Volatile_Full_Access (OPTCR1);
    end record
      with Volatile;
 
    for FLASH_Peripheral use record
-      ACR     at 0 range 0 .. 31;
-      KEYR    at 4 range 0 .. 31;
-      OPTKEYR at 8 range 0 .. 31;
-      SR      at 12 range 0 .. 31;
-      CR      at 16 range 0 .. 31;
-      OPTCR   at 20 range 0 .. 31;
-      OPTCR1  at 24 range 0 .. 31;
+      ACR     at 16#0# range 0 .. 31;
+      KEYR    at 16#4# range 0 .. 31;
+      OPTKEYR at 16#8# range 0 .. 31;
+      SR      at 16#C# range 0 .. 31;
+      CR      at 16#10# range 0 .. 31;
+      OPTCR   at 16#14# range 0 .. 31;
+      OPTCR1  at 16#18# range 0 .. 31;
    end record;
 
    --  FLASH
    FLASH_Periph : aliased FLASH_Peripheral
-     with Import, Address => System'To_Address (16#40023C00#);
+     with Import, Address => FLASH_Base;
 
 end STM32F429x.FLASH;

@@ -1,7 +1,38 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
+--  Copyright (c) 2013, Nordic Semiconductor ASA
+--  All rights reserved.
+--
+--  Redistribution and use in source and binary forms, with or without
+--  modification, are permitted provided that the following conditions are met:
+--
+--  * Redistributions of source code must retain the above copyright notice, this
+--  list of conditions and the following disclaimer.
+--
+--  * Redistributions in binary form must reproduce the above copyright notice,
+--  this list of conditions and the following disclaimer in the documentation
+--  and/or other materials provided with the distribution.
+--
+--  * Neither the name of Nordic Semiconductor ASA nor the names of its
+--  contributors may be used to endorse or promote products derived from
+--  this software without specific prior written permission.
+--
+--  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+--  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+--  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+--  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+--  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+--  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+--  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+--  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+--  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+--  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+--
+
 --  This spec has been automatically generated from nrf51.svd
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -12,86 +43,77 @@ package nrf51.LPCOMP is
    -- Registers --
    ---------------
 
-   ---------------------
-   -- SHORTS_Register --
-   ---------------------
-
    --  Shortcut between READY event and SAMPLE task.
-   type READY_SAMPLE_Field is
-     (
-      --  Shortcut disabled.
+   type SHORTS_READY_SAMPLE_Field is
+     (--  Shortcut disabled.
       Disabled,
       --  Shortcut enabled.
       Enabled)
      with Size => 1;
-   for READY_SAMPLE_Field use
+   for SHORTS_READY_SAMPLE_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Shortcut between RADY event and STOP task.
-   type READY_STOP_Field is
-     (
-      --  Shortcut disabled.
+   type SHORTS_READY_STOP_Field is
+     (--  Shortcut disabled.
       Disabled,
       --  Shortcut enabled.
       Enabled)
      with Size => 1;
-   for READY_STOP_Field use
+   for SHORTS_READY_STOP_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Shortcut between DOWN event and STOP task.
-   type DOWN_STOP_Field is
-     (
-      --  Shortcut disabled.
+   type SHORTS_DOWN_STOP_Field is
+     (--  Shortcut disabled.
       Disabled,
       --  Shortcut enabled.
       Enabled)
      with Size => 1;
-   for DOWN_STOP_Field use
+   for SHORTS_DOWN_STOP_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Shortcut between UP event and STOP task.
-   type UP_STOP_Field is
-     (
-      --  Shortcut disabled.
+   type SHORTS_UP_STOP_Field is
+     (--  Shortcut disabled.
       Disabled,
       --  Shortcut enabled.
       Enabled)
      with Size => 1;
-   for UP_STOP_Field use
+   for SHORTS_UP_STOP_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Shortcut between CROSS event and STOP task.
-   type CROSS_STOP_Field is
-     (
-      --  Shortcut disabled.
+   type SHORTS_CROSS_STOP_Field is
+     (--  Shortcut disabled.
       Disabled,
       --  Shortcut enabled.
       Enabled)
      with Size => 1;
-   for CROSS_STOP_Field use
+   for SHORTS_CROSS_STOP_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Shortcuts for the LPCOMP.
    type SHORTS_Register is record
       --  Shortcut between READY event and SAMPLE task.
-      READY_SAMPLE  : READY_SAMPLE_Field := Disabled;
+      READY_SAMPLE  : SHORTS_READY_SAMPLE_Field := nrf51.LPCOMP.Disabled;
       --  Shortcut between RADY event and STOP task.
-      READY_STOP    : READY_STOP_Field := Disabled;
+      READY_STOP    : SHORTS_READY_STOP_Field := nrf51.LPCOMP.Disabled;
       --  Shortcut between DOWN event and STOP task.
-      DOWN_STOP     : DOWN_STOP_Field := Disabled;
+      DOWN_STOP     : SHORTS_DOWN_STOP_Field := nrf51.LPCOMP.Disabled;
       --  Shortcut between UP event and STOP task.
-      UP_STOP       : UP_STOP_Field := Disabled;
+      UP_STOP       : SHORTS_UP_STOP_Field := nrf51.LPCOMP.Disabled;
       --  Shortcut between CROSS event and STOP task.
-      CROSS_STOP    : CROSS_STOP_Field := Disabled;
+      CROSS_STOP    : SHORTS_CROSS_STOP_Field := nrf51.LPCOMP.Disabled;
       --  unspecified
       Reserved_5_31 : nrf51.UInt27 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for SHORTS_Register use record
@@ -103,120 +125,108 @@ package nrf51.LPCOMP is
       Reserved_5_31 at 0 range 5 .. 31;
    end record;
 
-   -----------------------
-   -- INTENSET_Register --
-   -----------------------
-
    --  Enable interrupt on READY event.
-   type READY_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_READY_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for READY_Field use
+   for INTENSET_READY_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on READY event.
-   type READY_Field_1 is
-     (
-      --  Reset value for the field
-      Ready_Field_Reset,
+   type INTENSET_READY_Field_1 is
+     (--  Reset value for the field
+      Intenset_Ready_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for READY_Field_1 use
-     (Ready_Field_Reset => 0,
+   for INTENSET_READY_Field_1 use
+     (Intenset_Ready_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on DOWN event.
-   type DOWN_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_DOWN_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for DOWN_Field use
+   for INTENSET_DOWN_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on DOWN event.
-   type DOWN_Field_1 is
-     (
-      --  Reset value for the field
-      Down_Field_Reset,
+   type INTENSET_DOWN_Field_1 is
+     (--  Reset value for the field
+      Intenset_Down_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for DOWN_Field_1 use
-     (Down_Field_Reset => 0,
+   for INTENSET_DOWN_Field_1 use
+     (Intenset_Down_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on UP event.
-   type UP_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_UP_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for UP_Field use
+   for INTENSET_UP_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on UP event.
-   type UP_Field_1 is
-     (
-      --  Reset value for the field
-      Up_Field_Reset,
+   type INTENSET_UP_Field_1 is
+     (--  Reset value for the field
+      Intenset_Up_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for UP_Field_1 use
-     (Up_Field_Reset => 0,
+   for INTENSET_UP_Field_1 use
+     (Intenset_Up_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on CROSS event.
-   type CROSS_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_CROSS_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for CROSS_Field use
+   for INTENSET_CROSS_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on CROSS event.
-   type CROSS_Field_1 is
-     (
-      --  Reset value for the field
-      Cross_Field_Reset,
+   type INTENSET_CROSS_Field_1 is
+     (--  Reset value for the field
+      Intenset_Cross_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for CROSS_Field_1 use
-     (Cross_Field_Reset => 0,
+   for INTENSET_CROSS_Field_1 use
+     (Intenset_Cross_Field_Reset => 0,
       Set => 1);
 
    --  Interrupt enable set register.
    type INTENSET_Register is record
       --  Enable interrupt on READY event.
-      READY         : READY_Field_1 := Ready_Field_Reset;
+      READY         : INTENSET_READY_Field_1 := Intenset_Ready_Field_Reset;
       --  Enable interrupt on DOWN event.
-      DOWN          : DOWN_Field_1 := Down_Field_Reset;
+      DOWN          : INTENSET_DOWN_Field_1 := Intenset_Down_Field_Reset;
       --  Enable interrupt on UP event.
-      UP            : UP_Field_1 := Up_Field_Reset;
+      UP            : INTENSET_UP_Field_1 := Intenset_Up_Field_Reset;
       --  Enable interrupt on CROSS event.
-      CROSS         : CROSS_Field_1 := Cross_Field_Reset;
+      CROSS         : INTENSET_CROSS_Field_1 := Intenset_Cross_Field_Reset;
       --  unspecified
       Reserved_4_31 : nrf51.UInt28 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for INTENSET_Register use record
@@ -227,72 +237,108 @@ package nrf51.LPCOMP is
       Reserved_4_31 at 0 range 4 .. 31;
    end record;
 
-   -----------------------
-   -- INTENCLR_Register --
-   -----------------------
+   --  Disable interrupt on READY event.
+   type INTENCLR_READY_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_READY_Field use
+     (Disabled => 0,
+      Enabled => 1);
 
    --  Disable interrupt on READY event.
-   type READY_Field_2 is
-     (
-      --  Reset value for the field
-      Ready_Field_Reset,
+   type INTENCLR_READY_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Ready_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for READY_Field_2 use
-     (Ready_Field_Reset => 0,
+   for INTENCLR_READY_Field_1 use
+     (Intenclr_Ready_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on DOWN event.
-   type DOWN_Field_2 is
-     (
-      --  Reset value for the field
-      Down_Field_Reset,
+   type INTENCLR_DOWN_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_DOWN_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on DOWN event.
+   type INTENCLR_DOWN_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Down_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for DOWN_Field_2 use
-     (Down_Field_Reset => 0,
+   for INTENCLR_DOWN_Field_1 use
+     (Intenclr_Down_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on UP event.
-   type UP_Field_2 is
-     (
-      --  Reset value for the field
-      Up_Field_Reset,
+   type INTENCLR_UP_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_UP_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on UP event.
+   type INTENCLR_UP_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Up_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for UP_Field_2 use
-     (Up_Field_Reset => 0,
+   for INTENCLR_UP_Field_1 use
+     (Intenclr_Up_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on CROSS event.
-   type CROSS_Field_2 is
-     (
-      --  Reset value for the field
-      Cross_Field_Reset,
+   type INTENCLR_CROSS_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_CROSS_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on CROSS event.
+   type INTENCLR_CROSS_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Cross_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for CROSS_Field_2 use
-     (Cross_Field_Reset => 0,
+   for INTENCLR_CROSS_Field_1 use
+     (Intenclr_Cross_Field_Reset => 0,
       Clear => 1);
 
    --  Interrupt enable clear register.
    type INTENCLR_Register is record
       --  Disable interrupt on READY event.
-      READY         : READY_Field_2 := Ready_Field_Reset;
+      READY         : INTENCLR_READY_Field_1 := Intenclr_Ready_Field_Reset;
       --  Disable interrupt on DOWN event.
-      DOWN          : DOWN_Field_2 := Down_Field_Reset;
+      DOWN          : INTENCLR_DOWN_Field_1 := Intenclr_Down_Field_Reset;
       --  Disable interrupt on UP event.
-      UP            : UP_Field_2 := Up_Field_Reset;
+      UP            : INTENCLR_UP_Field_1 := Intenclr_Up_Field_Reset;
       --  Disable interrupt on CROSS event.
-      CROSS         : CROSS_Field_2 := Cross_Field_Reset;
+      CROSS         : INTENCLR_CROSS_Field_1 := Intenclr_Cross_Field_Reset;
       --  unspecified
       Reserved_4_31 : nrf51.UInt28 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for INTENCLR_Register use record
@@ -303,30 +349,25 @@ package nrf51.LPCOMP is
       Reserved_4_31 at 0 range 4 .. 31;
    end record;
 
-   ---------------------
-   -- RESULT_Register --
-   ---------------------
-
    --  Result of last compare. Decision point SAMPLE task.
-   type RESULT_Field is
-     (
-      --  Input voltage is bellow the reference threshold.
+   type RESULT_RESULT_Field is
+     (--  Input voltage is bellow the reference threshold.
       Bellow,
       --  Input voltage is above the reference threshold.
       Above)
      with Size => 1;
-   for RESULT_Field use
+   for RESULT_RESULT_Field use
      (Bellow => 0,
       Above => 1);
 
    --  Result of last compare.
    type RESULT_Register is record
       --  Read-only. Result of last compare. Decision point SAMPLE task.
-      RESULT        : RESULT_Field;
+      RESULT        : RESULT_RESULT_Field;
       --  unspecified
       Reserved_1_31 : nrf51.UInt31;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for RESULT_Register use record
@@ -334,30 +375,25 @@ package nrf51.LPCOMP is
       Reserved_1_31 at 0 range 1 .. 31;
    end record;
 
-   ---------------------
-   -- ENABLE_Register --
-   ---------------------
-
    --  Enable or disable LPCOMP.
-   type ENABLE_Field is
-     (
-      --  Disabled LPCOMP.
+   type ENABLE_ENABLE_Field is
+     (--  Disabled LPCOMP.
       Disabled,
       --  Enable LPCOMP.
       Enabled)
      with Size => 2;
-   for ENABLE_Field use
+   for ENABLE_ENABLE_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable the LPCOMP.
    type ENABLE_Register is record
       --  Enable or disable LPCOMP.
-      ENABLE        : ENABLE_Field := Disabled;
+      ENABLE        : ENABLE_ENABLE_Field := nrf51.LPCOMP.Disabled;
       --  unspecified
       Reserved_2_31 : nrf51.UInt30 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for ENABLE_Register use record
@@ -365,14 +401,9 @@ package nrf51.LPCOMP is
       Reserved_2_31 at 0 range 2 .. 31;
    end record;
 
-   -------------------
-   -- PSEL_Register --
-   -------------------
-
    --  Analog input pin select.
-   type PSEL_Field is
-     (
-      --  Use analog input 0 as analog input.
+   type PSEL_PSEL_Field is
+     (--  Use analog input 0 as analog input.
       Analoginput0,
       --  Use analog input 1 as analog input.
       Analoginput1,
@@ -389,7 +420,7 @@ package nrf51.LPCOMP is
       --  Use analog input 7 as analog input.
       Analoginput7)
      with Size => 3;
-   for PSEL_Field use
+   for PSEL_PSEL_Field use
      (Analoginput0 => 0,
       Analoginput1 => 1,
       Analoginput2 => 2,
@@ -402,11 +433,11 @@ package nrf51.LPCOMP is
    --  Input pin select.
    type PSEL_Register is record
       --  Analog input pin select.
-      PSEL          : PSEL_Field := Analoginput0;
+      PSEL          : PSEL_PSEL_Field := nrf51.LPCOMP.Analoginput0;
       --  unspecified
       Reserved_3_31 : nrf51.UInt29 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for PSEL_Register use record
@@ -414,14 +445,9 @@ package nrf51.LPCOMP is
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
 
-   ---------------------
-   -- REFSEL_Register --
-   ---------------------
-
    --  Reference select.
-   type REFSEL_Field is
-     (
-      --  Use supply with a 1/8 prescaler as reference.
+   type REFSEL_REFSEL_Field is
+     (--  Use supply with a 1/8 prescaler as reference.
       Supplyoneeighthprescaling,
       --  Use supply with a 2/8 prescaler as reference.
       Supplytwoeighthsprescaling,
@@ -438,7 +464,7 @@ package nrf51.LPCOMP is
       --  Use external analog reference as reference.
       Aref)
      with Size => 3;
-   for REFSEL_Field use
+   for REFSEL_REFSEL_Field use
      (Supplyoneeighthprescaling => 0,
       Supplytwoeighthsprescaling => 1,
       Supplythreeeighthsprescaling => 2,
@@ -451,11 +477,12 @@ package nrf51.LPCOMP is
    --  Reference select.
    type REFSEL_Register is record
       --  Reference select.
-      REFSEL        : REFSEL_Field := Supplyoneeighthprescaling;
+      REFSEL        : REFSEL_REFSEL_Field :=
+                       nrf51.LPCOMP.Supplyoneeighthprescaling;
       --  unspecified
       Reserved_3_31 : nrf51.UInt29 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for REFSEL_Register use record
@@ -463,30 +490,26 @@ package nrf51.LPCOMP is
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
 
-   ------------------------
-   -- EXTREFSEL_Register --
-   ------------------------
-
    --  External analog reference pin selection.
-   type EXTREFSEL_Field is
-     (
-      --  Use analog reference 0 as reference.
+   type EXTREFSEL_EXTREFSEL_Field is
+     (--  Use analog reference 0 as reference.
       Analogreference0,
       --  Use analog reference 1 as reference.
       Analogreference1)
      with Size => 1;
-   for EXTREFSEL_Field use
+   for EXTREFSEL_EXTREFSEL_Field use
      (Analogreference0 => 0,
       Analogreference1 => 1);
 
    --  External reference select.
    type EXTREFSEL_Register is record
       --  External analog reference pin selection.
-      EXTREFSEL     : EXTREFSEL_Field := Analogreference0;
+      EXTREFSEL     : EXTREFSEL_EXTREFSEL_Field :=
+                       nrf51.LPCOMP.Analogreference0;
       --  unspecified
       Reserved_1_31 : nrf51.UInt31 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for EXTREFSEL_Register use record
@@ -494,21 +517,16 @@ package nrf51.LPCOMP is
       Reserved_1_31 at 0 range 1 .. 31;
    end record;
 
-   ------------------------
-   -- ANADETECT_Register --
-   ------------------------
-
    --  Analog detect configuration.
-   type ANADETECT_Field is
-     (
-      --  Generate ANADETEC on crossing, both upwards and downwards crossing.
+   type ANADETECT_ANADETECT_Field is
+     (--  Generate ANADETEC on crossing, both upwards and downwards crossing.
       Cross,
       --  Generate ANADETEC on upwards crossing only.
       Up,
       --  Generate ANADETEC on downwards crossing only.
       Down)
      with Size => 2;
-   for ANADETECT_Field use
+   for ANADETECT_ANADETECT_Field use
      (Cross => 0,
       Up => 1,
       Down => 2);
@@ -516,11 +534,11 @@ package nrf51.LPCOMP is
    --  Analog detect configuration.
    type ANADETECT_Register is record
       --  Analog detect configuration.
-      ANADETECT     : ANADETECT_Field := Cross;
+      ANADETECT     : ANADETECT_ANADETECT_Field := nrf51.LPCOMP.Cross;
       --  unspecified
       Reserved_2_31 : nrf51.UInt30 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for ANADETECT_Register use record
@@ -528,30 +546,25 @@ package nrf51.LPCOMP is
       Reserved_2_31 at 0 range 2 .. 31;
    end record;
 
-   --------------------
-   -- POWER_Register --
-   --------------------
-
    --  Peripheral power control.
-   type POWER_Field is
-     (
-      --  Module power disabled.
+   type POWER_POWER_Field is
+     (--  Module power disabled.
       Disabled,
       --  Module power enabled.
       Enabled)
      with Size => 1;
-   for POWER_Field use
+   for POWER_POWER_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Peripheral power control.
    type POWER_Register is record
       --  Peripheral power control.
-      POWER         : POWER_Field := Disabled;
+      POWER         : POWER_POWER_Field := nrf51.LPCOMP.Disabled;
       --  unspecified
       Reserved_1_31 : nrf51.UInt31 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for POWER_Register use record
@@ -566,60 +579,60 @@ package nrf51.LPCOMP is
    --  Low power comparator.
    type LPCOMP_Peripheral is record
       --  Start the comparator.
-      TASKS_START  : nrf51.Word;
+      TASKS_START  : aliased nrf51.UInt32;
       --  Stop the comparator.
-      TASKS_STOP   : nrf51.Word;
+      TASKS_STOP   : aliased nrf51.UInt32;
       --  Sample comparator value.
-      TASKS_SAMPLE : nrf51.Word;
+      TASKS_SAMPLE : aliased nrf51.UInt32;
       --  LPCOMP is ready and output is valid.
-      EVENTS_READY : nrf51.Word;
+      EVENTS_READY : aliased nrf51.UInt32;
       --  Input voltage crossed the threshold going down.
-      EVENTS_DOWN  : nrf51.Word;
+      EVENTS_DOWN  : aliased nrf51.UInt32;
       --  Input voltage crossed the threshold going up.
-      EVENTS_UP    : nrf51.Word;
+      EVENTS_UP    : aliased nrf51.UInt32;
       --  Input voltage crossed the threshold in any direction.
-      EVENTS_CROSS : nrf51.Word;
+      EVENTS_CROSS : aliased nrf51.UInt32;
       --  Shortcuts for the LPCOMP.
-      SHORTS       : SHORTS_Register;
+      SHORTS       : aliased SHORTS_Register;
       --  Interrupt enable set register.
-      INTENSET     : INTENSET_Register;
+      INTENSET     : aliased INTENSET_Register;
       --  Interrupt enable clear register.
-      INTENCLR     : INTENCLR_Register;
+      INTENCLR     : aliased INTENCLR_Register;
       --  Result of last compare.
-      RESULT       : RESULT_Register;
+      RESULT       : aliased RESULT_Register;
       --  Enable the LPCOMP.
-      ENABLE       : ENABLE_Register;
+      ENABLE       : aliased ENABLE_Register;
       --  Input pin select.
-      PSEL         : PSEL_Register;
+      PSEL         : aliased PSEL_Register;
       --  Reference select.
-      REFSEL       : REFSEL_Register;
+      REFSEL       : aliased REFSEL_Register;
       --  External reference select.
-      EXTREFSEL    : EXTREFSEL_Register;
+      EXTREFSEL    : aliased EXTREFSEL_Register;
       --  Analog detect configuration.
-      ANADETECT    : ANADETECT_Register;
+      ANADETECT    : aliased ANADETECT_Register;
       --  Peripheral power control.
-      POWER        : POWER_Register;
+      POWER        : aliased POWER_Register;
    end record
      with Volatile;
 
    for LPCOMP_Peripheral use record
-      TASKS_START  at 0 range 0 .. 31;
-      TASKS_STOP   at 4 range 0 .. 31;
-      TASKS_SAMPLE at 8 range 0 .. 31;
-      EVENTS_READY at 256 range 0 .. 31;
-      EVENTS_DOWN  at 260 range 0 .. 31;
-      EVENTS_UP    at 264 range 0 .. 31;
-      EVENTS_CROSS at 268 range 0 .. 31;
-      SHORTS       at 512 range 0 .. 31;
-      INTENSET     at 772 range 0 .. 31;
-      INTENCLR     at 776 range 0 .. 31;
-      RESULT       at 1024 range 0 .. 31;
-      ENABLE       at 1280 range 0 .. 31;
-      PSEL         at 1284 range 0 .. 31;
-      REFSEL       at 1288 range 0 .. 31;
-      EXTREFSEL    at 1292 range 0 .. 31;
-      ANADETECT    at 1312 range 0 .. 31;
-      POWER        at 4092 range 0 .. 31;
+      TASKS_START  at 16#0# range 0 .. 31;
+      TASKS_STOP   at 16#4# range 0 .. 31;
+      TASKS_SAMPLE at 16#8# range 0 .. 31;
+      EVENTS_READY at 16#100# range 0 .. 31;
+      EVENTS_DOWN  at 16#104# range 0 .. 31;
+      EVENTS_UP    at 16#108# range 0 .. 31;
+      EVENTS_CROSS at 16#10C# range 0 .. 31;
+      SHORTS       at 16#200# range 0 .. 31;
+      INTENSET     at 16#304# range 0 .. 31;
+      INTENCLR     at 16#308# range 0 .. 31;
+      RESULT       at 16#400# range 0 .. 31;
+      ENABLE       at 16#500# range 0 .. 31;
+      PSEL         at 16#504# range 0 .. 31;
+      REFSEL       at 16#508# range 0 .. 31;
+      EXTREFSEL    at 16#50C# range 0 .. 31;
+      ANADETECT    at 16#520# range 0 .. 31;
+      POWER        at 16#FFC# range 0 .. 31;
    end record;
 
    --  Low power comparator.

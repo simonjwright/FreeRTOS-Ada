@@ -43,7 +43,7 @@ with System;
 package body nRF51_Clock is
 
    procedure Start is
-      use type nrf51.CLOCK.STATE_Field;
+      use type nrf51.CLOCK.LFCLKSTAT_STATE_Field;
    begin
 
       --  Start the board low frequency clock, running off the high

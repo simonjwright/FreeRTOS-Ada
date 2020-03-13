@@ -1,8 +1,9 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
 --  This spec has been automatically generated from STM32F40x.svd
---  see https://github.com/simonjwright/svd2ada
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -13,34 +14,25 @@ package STM32F40x.DBG is
    -- Registers --
    ---------------
 
-   ----------------------------
-   -- DBGMCU_IDCODE_Register --
-   ----------------------------
-
    subtype DBGMCU_IDCODE_DEV_ID_Field is STM32F40x.UInt12;
-   subtype DBGMCU_IDCODE_REV_ID_Field is STM32F40x.Short;
+   subtype DBGMCU_IDCODE_REV_ID_Field is STM32F40x.UInt16;
 
    --  IDCODE
    type DBGMCU_IDCODE_Register is record
       --  Read-only. DEV_ID
-      DEV_ID         : DBGMCU_IDCODE_DEV_ID_Field := 16#411#;
+      DEV_ID         : DBGMCU_IDCODE_DEV_ID_Field;
       --  unspecified
       Reserved_12_15 : STM32F40x.UInt4;
       --  Read-only. REV_ID
-      REV_ID         : DBGMCU_IDCODE_REV_ID_Field := 16#1000#;
+      REV_ID         : DBGMCU_IDCODE_REV_ID_Field;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for DBGMCU_IDCODE_Register use record
       DEV_ID         at 0 range 0 .. 11;
       Reserved_12_15 at 0 range 12 .. 15;
       REV_ID         at 0 range 16 .. 31;
    end record;
-
-   ------------------------
-   -- DBGMCU_CR_Register --
-   ------------------------
 
    subtype DBGMCU_CR_DBG_SLEEP_Field is STM32F40x.Bit;
    subtype DBGMCU_CR_DBG_STOP_Field is STM32F40x.Bit;
@@ -83,8 +75,7 @@ package STM32F40x.DBG is
       --  unspecified
       Reserved_21_31         : STM32F40x.UInt11 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for DBGMCU_CR_Register use record
       DBG_SLEEP              at 0 range 0 .. 0;
@@ -101,10 +92,6 @@ package STM32F40x.DBG is
       DBG_TIM7_STOP          at 0 range 20 .. 20;
       Reserved_21_31         at 0 range 21 .. 31;
    end record;
-
-   -----------------------------
-   -- DBGMCU_APB1_FZ_Register --
-   -----------------------------
 
    subtype DBGMCU_APB1_FZ_DBG_TIM2_STOP_Field is STM32F40x.Bit;
    subtype DBGMCU_APB1_FZ_DBG_TIM3_STOP_Field is STM32F40x.Bit;
@@ -169,8 +156,7 @@ package STM32F40x.DBG is
       --  unspecified
       Reserved_27_31         : STM32F40x.UInt5 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for DBGMCU_APB1_FZ_Register use record
       DBG_TIM2_STOP          at 0 range 0 .. 0;
@@ -195,10 +181,6 @@ package STM32F40x.DBG is
       Reserved_27_31         at 0 range 27 .. 31;
    end record;
 
-   -----------------------------
-   -- DBGMCU_APB2_FZ_Register --
-   -----------------------------
-
    subtype DBGMCU_APB2_FZ_DBG_TIM1_STOP_Field is STM32F40x.Bit;
    subtype DBGMCU_APB2_FZ_DBG_TIM8_STOP_Field is STM32F40x.Bit;
    subtype DBGMCU_APB2_FZ_DBG_TIM9_STOP_Field is STM32F40x.Bit;
@@ -222,8 +204,7 @@ package STM32F40x.DBG is
       --  unspecified
       Reserved_19_31 : STM32F40x.UInt13 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for DBGMCU_APB2_FZ_Register use record
       DBG_TIM1_STOP  at 0 range 0 .. 0;
@@ -242,21 +223,25 @@ package STM32F40x.DBG is
    --  Debug support
    type DBG_Peripheral is record
       --  IDCODE
-      DBGMCU_IDCODE  : DBGMCU_IDCODE_Register;
+      DBGMCU_IDCODE  : aliased DBGMCU_IDCODE_Register;
+      pragma Volatile_Full_Access (DBGMCU_IDCODE);
       --  Control Register
-      DBGMCU_CR      : DBGMCU_CR_Register;
+      DBGMCU_CR      : aliased DBGMCU_CR_Register;
+      pragma Volatile_Full_Access (DBGMCU_CR);
       --  Debug MCU APB1 Freeze registe
-      DBGMCU_APB1_FZ : DBGMCU_APB1_FZ_Register;
+      DBGMCU_APB1_FZ : aliased DBGMCU_APB1_FZ_Register;
+      pragma Volatile_Full_Access (DBGMCU_APB1_FZ);
       --  Debug MCU APB2 Freeze registe
-      DBGMCU_APB2_FZ : DBGMCU_APB2_FZ_Register;
+      DBGMCU_APB2_FZ : aliased DBGMCU_APB2_FZ_Register;
+      pragma Volatile_Full_Access (DBGMCU_APB2_FZ);
    end record
      with Volatile;
 
    for DBG_Peripheral use record
-      DBGMCU_IDCODE  at 0 range 0 .. 31;
-      DBGMCU_CR      at 4 range 0 .. 31;
-      DBGMCU_APB1_FZ at 8 range 0 .. 31;
-      DBGMCU_APB2_FZ at 12 range 0 .. 31;
+      DBGMCU_IDCODE  at 16#0# range 0 .. 31;
+      DBGMCU_CR      at 16#4# range 0 .. 31;
+      DBGMCU_APB1_FZ at 16#8# range 0 .. 31;
+      DBGMCU_APB2_FZ at 16#C# range 0 .. 31;
    end record;
 
    --  Debug support

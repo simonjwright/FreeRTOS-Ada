@@ -1,5 +1,7 @@
---  Automatically generated from STM32F429x.svd by SVD2Ada
---  see https://github.com/simonjwright/svd2ada
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
+--  This spec has been automatically generated from STM32F429x.svd
 
 pragma Restrictions (No_Elaboration_Code);
 
@@ -11,10 +13,6 @@ package STM32F429x.CAN is
    ---------------
    -- Registers --
    ---------------
-
-   ------------------
-   -- MCR_Register --
-   ------------------
 
    subtype MCR_INRQ_Field is STM32F429x.Bit;
    subtype MCR_SLEEP_Field is STM32F429x.Bit;
@@ -54,7 +52,7 @@ package STM32F429x.CAN is
       --  unspecified
       Reserved_17_31 : STM32F429x.UInt15 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for MCR_Register use record
       INRQ           at 0 range 0 .. 0;
@@ -71,10 +69,6 @@ package STM32F429x.CAN is
       Reserved_17_31 at 0 range 17 .. 31;
    end record;
 
-   ------------------
-   -- MSR_Register --
-   ------------------
-
    subtype MSR_INAK_Field is STM32F429x.Bit;
    subtype MSR_SLAK_Field is STM32F429x.Bit;
    subtype MSR_ERRI_Field is STM32F429x.Bit;
@@ -87,9 +81,9 @@ package STM32F429x.CAN is
 
    --  master status register
    type MSR_Register is record
-      --  INAK
+      --  Read-only. INAK
       INAK           : MSR_INAK_Field := 16#0#;
-      --  SLAK
+      --  Read-only. SLAK
       SLAK           : MSR_SLAK_Field := 16#1#;
       --  ERRI
       ERRI           : MSR_ERRI_Field := 16#0#;
@@ -99,18 +93,18 @@ package STM32F429x.CAN is
       SLAKI          : MSR_SLAKI_Field := 16#0#;
       --  unspecified
       Reserved_5_7   : STM32F429x.UInt3 := 16#0#;
-      --  TXM
+      --  Read-only. TXM
       TXM            : MSR_TXM_Field := 16#0#;
-      --  RXM
+      --  Read-only. RXM
       RXM            : MSR_RXM_Field := 16#0#;
-      --  SAMP
+      --  Read-only. SAMP
       SAMP           : MSR_SAMP_Field := 16#1#;
-      --  RX
+      --  Read-only. RX
       RX             : MSR_RX_Field := 16#1#;
       --  unspecified
       Reserved_12_31 : STM32F429x.UInt20 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for MSR_Register use record
       INAK           at 0 range 0 .. 0;
@@ -125,10 +119,6 @@ package STM32F429x.CAN is
       RX             at 0 range 11 .. 11;
       Reserved_12_31 at 0 range 12 .. 31;
    end record;
-
-   ------------------
-   -- TSR_Register --
-   ------------------
 
    subtype TSR_RQCP0_Field is STM32F429x.Bit;
    subtype TSR_TXOK0_Field is STM32F429x.Bit;
@@ -146,11 +136,6 @@ package STM32F429x.CAN is
    subtype TSR_TERR2_Field is STM32F429x.Bit;
    subtype TSR_ABRQ2_Field is STM32F429x.Bit;
    subtype TSR_CODE_Field is STM32F429x.UInt2;
-
-   -------------
-   -- TSR.TME --
-   -------------
-
    --  TSR_TME array element
    subtype TSR_TME_Element is STM32F429x.Bit;
 
@@ -177,10 +162,6 @@ package STM32F429x.CAN is
       Val at 0 range 0 .. 2;
       Arr at 0 range 0 .. 2;
    end record;
-
-   -------------
-   -- TSR.LOW --
-   -------------
 
    --  TSR_LOW array element
    subtype TSR_LOW_Element is STM32F429x.Bit;
@@ -247,14 +228,14 @@ package STM32F429x.CAN is
       Reserved_20_22 : STM32F429x.UInt3 := 16#0#;
       --  ABRQ2
       ABRQ2          : TSR_ABRQ2_Field := 16#0#;
-      --  CODE
+      --  Read-only. CODE
       CODE           : TSR_CODE_Field := 16#0#;
-      --  Lowest priority flag for mailbox 0
+      --  Read-only. Lowest priority flag for mailbox 0
       TME            : TSR_TME_Field := (As_Array => False, Val => 16#1#);
-      --  Lowest priority flag for mailbox 0
+      --  Read-only. Lowest priority flag for mailbox 0
       LOW            : TSR_LOW_Field := (As_Array => False, Val => 16#0#);
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for TSR_Register use record
       RQCP0          at 0 range 0 .. 0;
@@ -280,10 +261,6 @@ package STM32F429x.CAN is
       LOW            at 0 range 29 .. 31;
    end record;
 
-   -------------------
-   -- RF0R_Register --
-   -------------------
-
    subtype RF0R_FMP0_Field is STM32F429x.UInt2;
    subtype RF0R_FULL0_Field is STM32F429x.Bit;
    subtype RF0R_FOVR0_Field is STM32F429x.Bit;
@@ -291,7 +268,7 @@ package STM32F429x.CAN is
 
    --  receive FIFO 0 register
    type RF0R_Register is record
-      --  FMP0
+      --  Read-only. FMP0
       FMP0          : RF0R_FMP0_Field := 16#0#;
       --  unspecified
       Reserved_2_2  : STM32F429x.Bit := 16#0#;
@@ -304,7 +281,7 @@ package STM32F429x.CAN is
       --  unspecified
       Reserved_6_31 : STM32F429x.UInt26 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for RF0R_Register use record
       FMP0          at 0 range 0 .. 1;
@@ -315,10 +292,6 @@ package STM32F429x.CAN is
       Reserved_6_31 at 0 range 6 .. 31;
    end record;
 
-   -------------------
-   -- RF1R_Register --
-   -------------------
-
    subtype RF1R_FMP1_Field is STM32F429x.UInt2;
    subtype RF1R_FULL1_Field is STM32F429x.Bit;
    subtype RF1R_FOVR1_Field is STM32F429x.Bit;
@@ -326,7 +299,7 @@ package STM32F429x.CAN is
 
    --  receive FIFO 1 register
    type RF1R_Register is record
-      --  FMP1
+      --  Read-only. FMP1
       FMP1          : RF1R_FMP1_Field := 16#0#;
       --  unspecified
       Reserved_2_2  : STM32F429x.Bit := 16#0#;
@@ -339,7 +312,7 @@ package STM32F429x.CAN is
       --  unspecified
       Reserved_6_31 : STM32F429x.UInt26 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for RF1R_Register use record
       FMP1          at 0 range 0 .. 1;
@@ -349,10 +322,6 @@ package STM32F429x.CAN is
       RFOM1         at 0 range 5 .. 5;
       Reserved_6_31 at 0 range 6 .. 31;
    end record;
-
-   ------------------
-   -- IER_Register --
-   ------------------
 
    subtype IER_TMEIE_Field is STM32F429x.Bit;
    subtype IER_FMPIE0_Field is STM32F429x.Bit;
@@ -406,7 +375,7 @@ package STM32F429x.CAN is
       --  unspecified
       Reserved_18_31 : STM32F429x.UInt14 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for IER_Register use record
       TMEIE          at 0 range 0 .. 0;
@@ -428,10 +397,6 @@ package STM32F429x.CAN is
       Reserved_18_31 at 0 range 18 .. 31;
    end record;
 
-   ------------------
-   -- ESR_Register --
-   ------------------
-
    subtype ESR_EWGF_Field is STM32F429x.Bit;
    subtype ESR_EPVF_Field is STM32F429x.Bit;
    subtype ESR_BOFF_Field is STM32F429x.Bit;
@@ -441,11 +406,11 @@ package STM32F429x.CAN is
 
    --  interrupt enable register
    type ESR_Register is record
-      --  EWGF
+      --  Read-only. EWGF
       EWGF          : ESR_EWGF_Field := 16#0#;
-      --  EPVF
+      --  Read-only. EPVF
       EPVF          : ESR_EPVF_Field := 16#0#;
-      --  BOFF
+      --  Read-only. BOFF
       BOFF          : ESR_BOFF_Field := 16#0#;
       --  unspecified
       Reserved_3_3  : STM32F429x.Bit := 16#0#;
@@ -453,12 +418,12 @@ package STM32F429x.CAN is
       LEC           : ESR_LEC_Field := 16#0#;
       --  unspecified
       Reserved_7_15 : STM32F429x.UInt9 := 16#0#;
-      --  TEC
+      --  Read-only. TEC
       TEC           : ESR_TEC_Field := 16#0#;
-      --  REC
+      --  Read-only. REC
       REC           : ESR_REC_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ESR_Register use record
       EWGF          at 0 range 0 .. 0;
@@ -470,10 +435,6 @@ package STM32F429x.CAN is
       TEC           at 0 range 16 .. 23;
       REC           at 0 range 24 .. 31;
    end record;
-
-   ------------------
-   -- BTR_Register --
-   ------------------
 
    subtype BTR_BRP_Field is STM32F429x.UInt10;
    subtype BTR_TS1_Field is STM32F429x.UInt4;
@@ -503,7 +464,7 @@ package STM32F429x.CAN is
       --  SILM
       SILM           : BTR_SILM_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BTR_Register use record
       BRP            at 0 range 0 .. 9;
@@ -516,10 +477,6 @@ package STM32F429x.CAN is
       LBKM           at 0 range 30 .. 30;
       SILM           at 0 range 31 .. 31;
    end record;
-
-   -------------------
-   -- TI0R_Register --
-   -------------------
 
    subtype TI0R_TXRQ_Field is STM32F429x.Bit;
    subtype TI0R_RTR_Field is STM32F429x.Bit;
@@ -540,7 +497,7 @@ package STM32F429x.CAN is
       --  STID
       STID : TI0R_STID_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for TI0R_Register use record
       TXRQ at 0 range 0 .. 0;
@@ -550,13 +507,9 @@ package STM32F429x.CAN is
       STID at 0 range 21 .. 31;
    end record;
 
-   --------------------
-   -- TDT0R_Register --
-   --------------------
-
    subtype TDT0R_DLC_Field is STM32F429x.UInt4;
    subtype TDT0R_TGT_Field is STM32F429x.Bit;
-   subtype TDT0R_TIME_Field is STM32F429x.Short;
+   subtype TDT0R_TIME_Field is STM32F429x.UInt16;
 
    --  mailbox data length control and time stamp register
    type TDT0R_Register is record
@@ -571,7 +524,7 @@ package STM32F429x.CAN is
       --  TIME
       TIME          : TDT0R_TIME_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for TDT0R_Register use record
       DLC           at 0 range 0 .. 3;
@@ -580,10 +533,6 @@ package STM32F429x.CAN is
       Reserved_9_15 at 0 range 9 .. 15;
       TIME          at 0 range 16 .. 31;
    end record;
-
-   --------------------
-   -- TDL0R_Register --
-   --------------------
 
    --  TDL0R_DATA array element
    subtype TDL0R_DATA_Element is STM32F429x.Byte;
@@ -599,13 +548,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  DATA as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  DATA as an array
             Arr : TDL0R_DATA_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for TDL0R_Register use record
@@ -613,15 +562,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   --------------------
-   -- TDH0R_Register --
-   --------------------
-
    --  TDH0R_DATA array element
    subtype TDH0R_DATA_Element is STM32F429x.Byte;
 
    --  TDH0R_DATA array
-   type TDH0R_DATA_Field_Array is array (0 .. 3) of TDH0R_DATA_Element
+   type TDH0R_DATA_Field_Array is array (4 .. 7) of TDH0R_DATA_Element
      with Component_Size => 8, Size => 32;
 
    --  mailbox data high register
@@ -631,23 +576,19 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  DATA as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  DATA as an array
             Arr : TDH0R_DATA_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for TDH0R_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
-
-   -------------------
-   -- TI1R_Register --
-   -------------------
 
    subtype TI1R_TXRQ_Field is STM32F429x.Bit;
    subtype TI1R_RTR_Field is STM32F429x.Bit;
@@ -668,7 +609,7 @@ package STM32F429x.CAN is
       --  STID
       STID : TI1R_STID_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for TI1R_Register use record
       TXRQ at 0 range 0 .. 0;
@@ -678,13 +619,9 @@ package STM32F429x.CAN is
       STID at 0 range 21 .. 31;
    end record;
 
-   --------------------
-   -- TDT1R_Register --
-   --------------------
-
    subtype TDT1R_DLC_Field is STM32F429x.UInt4;
    subtype TDT1R_TGT_Field is STM32F429x.Bit;
-   subtype TDT1R_TIME_Field is STM32F429x.Short;
+   subtype TDT1R_TIME_Field is STM32F429x.UInt16;
 
    --  mailbox data length control and time stamp register
    type TDT1R_Register is record
@@ -699,7 +636,7 @@ package STM32F429x.CAN is
       --  TIME
       TIME          : TDT1R_TIME_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for TDT1R_Register use record
       DLC           at 0 range 0 .. 3;
@@ -708,10 +645,6 @@ package STM32F429x.CAN is
       Reserved_9_15 at 0 range 9 .. 15;
       TIME          at 0 range 16 .. 31;
    end record;
-
-   --------------------
-   -- TDL1R_Register --
-   --------------------
 
    --  TDL1R_DATA array element
    subtype TDL1R_DATA_Element is STM32F429x.Byte;
@@ -727,13 +660,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  DATA as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  DATA as an array
             Arr : TDL1R_DATA_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for TDL1R_Register use record
@@ -741,15 +674,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   --------------------
-   -- TDH1R_Register --
-   --------------------
-
    --  TDH1R_DATA array element
    subtype TDH1R_DATA_Element is STM32F429x.Byte;
 
    --  TDH1R_DATA array
-   type TDH1R_DATA_Field_Array is array (0 .. 3) of TDH1R_DATA_Element
+   type TDH1R_DATA_Field_Array is array (4 .. 7) of TDH1R_DATA_Element
      with Component_Size => 8, Size => 32;
 
    --  mailbox data high register
@@ -759,23 +688,19 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  DATA as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  DATA as an array
             Arr : TDH1R_DATA_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for TDH1R_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
-
-   -------------------
-   -- TI2R_Register --
-   -------------------
 
    subtype TI2R_TXRQ_Field is STM32F429x.Bit;
    subtype TI2R_RTR_Field is STM32F429x.Bit;
@@ -796,7 +721,7 @@ package STM32F429x.CAN is
       --  STID
       STID : TI2R_STID_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for TI2R_Register use record
       TXRQ at 0 range 0 .. 0;
@@ -806,13 +731,9 @@ package STM32F429x.CAN is
       STID at 0 range 21 .. 31;
    end record;
 
-   --------------------
-   -- TDT2R_Register --
-   --------------------
-
    subtype TDT2R_DLC_Field is STM32F429x.UInt4;
    subtype TDT2R_TGT_Field is STM32F429x.Bit;
-   subtype TDT2R_TIME_Field is STM32F429x.Short;
+   subtype TDT2R_TIME_Field is STM32F429x.UInt16;
 
    --  mailbox data length control and time stamp register
    type TDT2R_Register is record
@@ -827,7 +748,7 @@ package STM32F429x.CAN is
       --  TIME
       TIME          : TDT2R_TIME_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for TDT2R_Register use record
       DLC           at 0 range 0 .. 3;
@@ -836,10 +757,6 @@ package STM32F429x.CAN is
       Reserved_9_15 at 0 range 9 .. 15;
       TIME          at 0 range 16 .. 31;
    end record;
-
-   --------------------
-   -- TDL2R_Register --
-   --------------------
 
    --  TDL2R_DATA array element
    subtype TDL2R_DATA_Element is STM32F429x.Byte;
@@ -855,13 +772,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  DATA as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  DATA as an array
             Arr : TDL2R_DATA_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for TDL2R_Register use record
@@ -869,15 +786,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   --------------------
-   -- TDH2R_Register --
-   --------------------
-
    --  TDH2R_DATA array element
    subtype TDH2R_DATA_Element is STM32F429x.Byte;
 
    --  TDH2R_DATA array
-   type TDH2R_DATA_Field_Array is array (0 .. 3) of TDH2R_DATA_Element
+   type TDH2R_DATA_Field_Array is array (4 .. 7) of TDH2R_DATA_Element
      with Component_Size => 8, Size => 32;
 
    --  mailbox data high register
@@ -887,23 +800,19 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  DATA as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  DATA as an array
             Arr : TDH2R_DATA_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for TDH2R_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
-
-   -------------------
-   -- RI0R_Register --
-   -------------------
 
    subtype RI0R_RTR_Field is STM32F429x.Bit;
    subtype RI0R_IDE_Field is STM32F429x.Bit;
@@ -914,16 +823,16 @@ package STM32F429x.CAN is
    type RI0R_Register is record
       --  unspecified
       Reserved_0_0 : STM32F429x.Bit;
-      --  RTR
+      --  Read-only. RTR
       RTR          : RI0R_RTR_Field;
-      --  IDE
+      --  Read-only. IDE
       IDE          : RI0R_IDE_Field;
-      --  EXID
+      --  Read-only. EXID
       EXID         : RI0R_EXID_Field;
-      --  STID
+      --  Read-only. STID
       STID         : RI0R_STID_Field;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for RI0R_Register use record
       Reserved_0_0 at 0 range 0 .. 0;
@@ -933,26 +842,22 @@ package STM32F429x.CAN is
       STID         at 0 range 21 .. 31;
    end record;
 
-   --------------------
-   -- RDT0R_Register --
-   --------------------
-
    subtype RDT0R_DLC_Field is STM32F429x.UInt4;
    subtype RDT0R_FMI_Field is STM32F429x.Byte;
-   subtype RDT0R_TIME_Field is STM32F429x.Short;
+   subtype RDT0R_TIME_Field is STM32F429x.UInt16;
 
    --  mailbox data high register
    type RDT0R_Register is record
-      --  DLC
+      --  Read-only. DLC
       DLC          : RDT0R_DLC_Field;
       --  unspecified
       Reserved_4_7 : STM32F429x.UInt4;
-      --  FMI
+      --  Read-only. FMI
       FMI          : RDT0R_FMI_Field;
-      --  TIME
+      --  Read-only. TIME
       TIME         : RDT0R_TIME_Field;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for RDT0R_Register use record
       DLC          at 0 range 0 .. 3;
@@ -960,10 +865,6 @@ package STM32F429x.CAN is
       FMI          at 0 range 8 .. 15;
       TIME         at 0 range 16 .. 31;
    end record;
-
-   --------------------
-   -- RDL0R_Register --
-   --------------------
 
    --  RDL0R_DATA array element
    subtype RDL0R_DATA_Element is STM32F429x.Byte;
@@ -979,13 +880,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  DATA as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  DATA as an array
             Arr : RDL0R_DATA_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for RDL0R_Register use record
@@ -993,15 +894,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   --------------------
-   -- RDH0R_Register --
-   --------------------
-
    --  RDH0R_DATA array element
    subtype RDH0R_DATA_Element is STM32F429x.Byte;
 
    --  RDH0R_DATA array
-   type RDH0R_DATA_Field_Array is array (0 .. 3) of RDH0R_DATA_Element
+   type RDH0R_DATA_Field_Array is array (4 .. 7) of RDH0R_DATA_Element
      with Component_Size => 8, Size => 32;
 
    --  receive FIFO mailbox data high register
@@ -1011,23 +908,19 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  DATA as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  DATA as an array
             Arr : RDH0R_DATA_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for RDH0R_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
-
-   -------------------
-   -- RI1R_Register --
-   -------------------
 
    subtype RI1R_RTR_Field is STM32F429x.Bit;
    subtype RI1R_IDE_Field is STM32F429x.Bit;
@@ -1038,16 +931,16 @@ package STM32F429x.CAN is
    type RI1R_Register is record
       --  unspecified
       Reserved_0_0 : STM32F429x.Bit;
-      --  RTR
+      --  Read-only. RTR
       RTR          : RI1R_RTR_Field;
-      --  IDE
+      --  Read-only. IDE
       IDE          : RI1R_IDE_Field;
-      --  EXID
+      --  Read-only. EXID
       EXID         : RI1R_EXID_Field;
-      --  STID
+      --  Read-only. STID
       STID         : RI1R_STID_Field;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for RI1R_Register use record
       Reserved_0_0 at 0 range 0 .. 0;
@@ -1057,26 +950,22 @@ package STM32F429x.CAN is
       STID         at 0 range 21 .. 31;
    end record;
 
-   --------------------
-   -- RDT1R_Register --
-   --------------------
-
    subtype RDT1R_DLC_Field is STM32F429x.UInt4;
    subtype RDT1R_FMI_Field is STM32F429x.Byte;
-   subtype RDT1R_TIME_Field is STM32F429x.Short;
+   subtype RDT1R_TIME_Field is STM32F429x.UInt16;
 
    --  mailbox data high register
    type RDT1R_Register is record
-      --  DLC
+      --  Read-only. DLC
       DLC          : RDT1R_DLC_Field;
       --  unspecified
       Reserved_4_7 : STM32F429x.UInt4;
-      --  FMI
+      --  Read-only. FMI
       FMI          : RDT1R_FMI_Field;
-      --  TIME
+      --  Read-only. TIME
       TIME         : RDT1R_TIME_Field;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for RDT1R_Register use record
       DLC          at 0 range 0 .. 3;
@@ -1084,10 +973,6 @@ package STM32F429x.CAN is
       FMI          at 0 range 8 .. 15;
       TIME         at 0 range 16 .. 31;
    end record;
-
-   --------------------
-   -- RDL1R_Register --
-   --------------------
 
    --  RDL1R_DATA array element
    subtype RDL1R_DATA_Element is STM32F429x.Byte;
@@ -1103,13 +988,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  DATA as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  DATA as an array
             Arr : RDL1R_DATA_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for RDL1R_Register use record
@@ -1117,15 +1002,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   --------------------
-   -- RDH1R_Register --
-   --------------------
-
    --  RDH1R_DATA array element
    subtype RDH1R_DATA_Element is STM32F429x.Byte;
 
    --  RDH1R_DATA array
-   type RDH1R_DATA_Field_Array is array (0 .. 3) of RDH1R_DATA_Element
+   type RDH1R_DATA_Field_Array is array (4 .. 7) of RDH1R_DATA_Element
      with Component_Size => 8, Size => 32;
 
    --  mailbox data high register
@@ -1135,23 +1016,19 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  DATA as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  DATA as an array
             Arr : RDH1R_DATA_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for RDH1R_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
-
-   ------------------
-   -- FMR_Register --
-   ------------------
 
    subtype FMR_FINIT_Field is STM32F429x.Bit;
    subtype FMR_CAN2SB_Field is STM32F429x.UInt6;
@@ -1167,7 +1044,7 @@ package STM32F429x.CAN is
       --  unspecified
       Reserved_14_31 : STM32F429x.UInt18 := 16#A870#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for FMR_Register use record
       FINIT          at 0 range 0 .. 0;
@@ -1175,14 +1052,6 @@ package STM32F429x.CAN is
       CAN2SB         at 0 range 8 .. 13;
       Reserved_14_31 at 0 range 14 .. 31;
    end record;
-
-   -------------------
-   -- FM1R_Register --
-   -------------------
-
-   --------------
-   -- FM1R.FBM --
-   --------------
 
    --  FM1R_FBM array element
    subtype FM1R_FBM_Element is STM32F429x.Bit;
@@ -1218,20 +1087,12 @@ package STM32F429x.CAN is
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for FM1R_Register use record
       FBM            at 0 range 0 .. 27;
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
-
-   -------------------
-   -- FS1R_Register --
-   -------------------
-
-   --------------
-   -- FS1R.FSC --
-   --------------
 
    --  FS1R_FSC array element
    subtype FS1R_FSC_Element is STM32F429x.Bit;
@@ -1267,20 +1128,12 @@ package STM32F429x.CAN is
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for FS1R_Register use record
       FSC            at 0 range 0 .. 27;
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
-
-   --------------------
-   -- FFA1R_Register --
-   --------------------
-
-   ---------------
-   -- FFA1R.FFA --
-   ---------------
 
    --  FFA1R_FFA array element
    subtype FFA1R_FFA_Element is STM32F429x.Bit;
@@ -1316,20 +1169,12 @@ package STM32F429x.CAN is
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for FFA1R_Register use record
       FFA            at 0 range 0 .. 27;
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
-
-   -------------------
-   -- FA1R_Register --
-   -------------------
-
-   ---------------
-   -- FA1R.FACT --
-   ---------------
 
    --  FA1R_FACT array element
    subtype FA1R_FACT_Element is STM32F429x.Bit;
@@ -1365,22 +1210,18 @@ package STM32F429x.CAN is
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for FA1R_Register use record
       FACT           at 0 range 0 .. 27;
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
 
-   ------------------
-   -- F0R_Register --
-   ------------------
+   --  F0R_FB array element
+   subtype F0R_FB_Element is STM32F429x.Bit;
 
-   --  F0R1_FB array element
-   subtype F0R1_FB_Element is STM32F429x.Bit;
-
-   --  F0R1_FB array
-   type F0R1_FB_Field_Array is array (0 .. 31) of F0R1_FB_Element
+   --  F0R_FB array
+   type F0R_FB_Field_Array is array (0 .. 31) of F0R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 0 register 1
@@ -1390,13 +1231,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F0R1_FB_Field_Array;
+            Arr : F0R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F0R_Register use record
@@ -1404,15 +1245,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- F1R_Register --
-   ------------------
+   --  F1R_FB array element
+   subtype F1R_FB_Element is STM32F429x.Bit;
 
-   --  F1R1_FB array element
-   subtype F1R1_FB_Element is STM32F429x.Bit;
-
-   --  F1R1_FB array
-   type F1R1_FB_Field_Array is array (0 .. 31) of F1R1_FB_Element
+   --  F1R_FB array
+   type F1R_FB_Field_Array is array (0 .. 31) of F1R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 1 register 1
@@ -1422,13 +1259,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F1R1_FB_Field_Array;
+            Arr : F1R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F1R_Register use record
@@ -1436,15 +1273,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- F2R_Register --
-   ------------------
+   --  F2R_FB array element
+   subtype F2R_FB_Element is STM32F429x.Bit;
 
-   --  F2R1_FB array element
-   subtype F2R1_FB_Element is STM32F429x.Bit;
-
-   --  F2R1_FB array
-   type F2R1_FB_Field_Array is array (0 .. 31) of F2R1_FB_Element
+   --  F2R_FB array
+   type F2R_FB_Field_Array is array (0 .. 31) of F2R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 2 register 1
@@ -1454,13 +1287,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F2R1_FB_Field_Array;
+            Arr : F2R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F2R_Register use record
@@ -1468,15 +1301,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- F3R_Register --
-   ------------------
+   --  F3R_FB array element
+   subtype F3R_FB_Element is STM32F429x.Bit;
 
-   --  F3R1_FB array element
-   subtype F3R1_FB_Element is STM32F429x.Bit;
-
-   --  F3R1_FB array
-   type F3R1_FB_Field_Array is array (0 .. 31) of F3R1_FB_Element
+   --  F3R_FB array
+   type F3R_FB_Field_Array is array (0 .. 31) of F3R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 3 register 1
@@ -1486,13 +1315,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F3R1_FB_Field_Array;
+            Arr : F3R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F3R_Register use record
@@ -1500,15 +1329,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- F4R_Register --
-   ------------------
+   --  F4R_FB array element
+   subtype F4R_FB_Element is STM32F429x.Bit;
 
-   --  F4R1_FB array element
-   subtype F4R1_FB_Element is STM32F429x.Bit;
-
-   --  F4R1_FB array
-   type F4R1_FB_Field_Array is array (0 .. 31) of F4R1_FB_Element
+   --  F4R_FB array
+   type F4R_FB_Field_Array is array (0 .. 31) of F4R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 4 register 1
@@ -1518,13 +1343,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F4R1_FB_Field_Array;
+            Arr : F4R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F4R_Register use record
@@ -1532,15 +1357,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- F5R_Register --
-   ------------------
+   --  F5R_FB array element
+   subtype F5R_FB_Element is STM32F429x.Bit;
 
-   --  F5R1_FB array element
-   subtype F5R1_FB_Element is STM32F429x.Bit;
-
-   --  F5R1_FB array
-   type F5R1_FB_Field_Array is array (0 .. 31) of F5R1_FB_Element
+   --  F5R_FB array
+   type F5R_FB_Field_Array is array (0 .. 31) of F5R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 5 register 1
@@ -1550,13 +1371,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F5R1_FB_Field_Array;
+            Arr : F5R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F5R_Register use record
@@ -1564,15 +1385,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- F6R_Register --
-   ------------------
+   --  F6R_FB array element
+   subtype F6R_FB_Element is STM32F429x.Bit;
 
-   --  F6R1_FB array element
-   subtype F6R1_FB_Element is STM32F429x.Bit;
-
-   --  F6R1_FB array
-   type F6R1_FB_Field_Array is array (0 .. 31) of F6R1_FB_Element
+   --  F6R_FB array
+   type F6R_FB_Field_Array is array (0 .. 31) of F6R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 6 register 1
@@ -1582,13 +1399,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F6R1_FB_Field_Array;
+            Arr : F6R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F6R_Register use record
@@ -1596,15 +1413,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- F7R_Register --
-   ------------------
+   --  F7R_FB array element
+   subtype F7R_FB_Element is STM32F429x.Bit;
 
-   --  F7R1_FB array element
-   subtype F7R1_FB_Element is STM32F429x.Bit;
-
-   --  F7R1_FB array
-   type F7R1_FB_Field_Array is array (0 .. 31) of F7R1_FB_Element
+   --  F7R_FB array
+   type F7R_FB_Field_Array is array (0 .. 31) of F7R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 7 register 1
@@ -1614,13 +1427,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F7R1_FB_Field_Array;
+            Arr : F7R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F7R_Register use record
@@ -1628,15 +1441,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- F8R_Register --
-   ------------------
+   --  F8R_FB array element
+   subtype F8R_FB_Element is STM32F429x.Bit;
 
-   --  F8R1_FB array element
-   subtype F8R1_FB_Element is STM32F429x.Bit;
-
-   --  F8R1_FB array
-   type F8R1_FB_Field_Array is array (0 .. 31) of F8R1_FB_Element
+   --  F8R_FB array
+   type F8R_FB_Field_Array is array (0 .. 31) of F8R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 8 register 1
@@ -1646,13 +1455,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F8R1_FB_Field_Array;
+            Arr : F8R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F8R_Register use record
@@ -1660,15 +1469,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- F9R_Register --
-   ------------------
+   --  F9R_FB array element
+   subtype F9R_FB_Element is STM32F429x.Bit;
 
-   --  F9R1_FB array element
-   subtype F9R1_FB_Element is STM32F429x.Bit;
-
-   --  F9R1_FB array
-   type F9R1_FB_Field_Array is array (0 .. 31) of F9R1_FB_Element
+   --  F9R_FB array
+   type F9R_FB_Field_Array is array (0 .. 31) of F9R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 9 register 1
@@ -1678,13 +1483,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F9R1_FB_Field_Array;
+            Arr : F9R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F9R_Register use record
@@ -1692,15 +1497,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- F10R_Register --
-   -------------------
+   --  F10R_FB array element
+   subtype F10R_FB_Element is STM32F429x.Bit;
 
-   --  F10R1_FB array element
-   subtype F10R1_FB_Element is STM32F429x.Bit;
-
-   --  F10R1_FB array
-   type F10R1_FB_Field_Array is array (0 .. 31) of F10R1_FB_Element
+   --  F10R_FB array
+   type F10R_FB_Field_Array is array (0 .. 31) of F10R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 10 register 1
@@ -1710,13 +1511,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F10R1_FB_Field_Array;
+            Arr : F10R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F10R_Register use record
@@ -1724,15 +1525,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- F11R_Register --
-   -------------------
+   --  F11R_FB array element
+   subtype F11R_FB_Element is STM32F429x.Bit;
 
-   --  F11R1_FB array element
-   subtype F11R1_FB_Element is STM32F429x.Bit;
-
-   --  F11R1_FB array
-   type F11R1_FB_Field_Array is array (0 .. 31) of F11R1_FB_Element
+   --  F11R_FB array
+   type F11R_FB_Field_Array is array (0 .. 31) of F11R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 11 register 1
@@ -1742,13 +1539,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F11R1_FB_Field_Array;
+            Arr : F11R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F11R_Register use record
@@ -1756,15 +1553,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- F12R_Register --
-   -------------------
+   --  F12R_FB array element
+   subtype F12R_FB_Element is STM32F429x.Bit;
 
-   --  F12R1_FB array element
-   subtype F12R1_FB_Element is STM32F429x.Bit;
-
-   --  F12R1_FB array
-   type F12R1_FB_Field_Array is array (0 .. 31) of F12R1_FB_Element
+   --  F12R_FB array
+   type F12R_FB_Field_Array is array (0 .. 31) of F12R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 4 register 1
@@ -1774,13 +1567,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F12R1_FB_Field_Array;
+            Arr : F12R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F12R_Register use record
@@ -1788,15 +1581,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- F13R_Register --
-   -------------------
+   --  F13R_FB array element
+   subtype F13R_FB_Element is STM32F429x.Bit;
 
-   --  F13R1_FB array element
-   subtype F13R1_FB_Element is STM32F429x.Bit;
-
-   --  F13R1_FB array
-   type F13R1_FB_Field_Array is array (0 .. 31) of F13R1_FB_Element
+   --  F13R_FB array
+   type F13R_FB_Field_Array is array (0 .. 31) of F13R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 13 register 1
@@ -1806,13 +1595,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F13R1_FB_Field_Array;
+            Arr : F13R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F13R_Register use record
@@ -1820,15 +1609,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- F14R_Register --
-   -------------------
+   --  F14R_FB array element
+   subtype F14R_FB_Element is STM32F429x.Bit;
 
-   --  F14R1_FB array element
-   subtype F14R1_FB_Element is STM32F429x.Bit;
-
-   --  F14R1_FB array
-   type F14R1_FB_Field_Array is array (0 .. 31) of F14R1_FB_Element
+   --  F14R_FB array
+   type F14R_FB_Field_Array is array (0 .. 31) of F14R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 14 register 1
@@ -1838,13 +1623,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F14R1_FB_Field_Array;
+            Arr : F14R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F14R_Register use record
@@ -1852,15 +1637,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- F15R_Register --
-   -------------------
+   --  F15R_FB array element
+   subtype F15R_FB_Element is STM32F429x.Bit;
 
-   --  F15R1_FB array element
-   subtype F15R1_FB_Element is STM32F429x.Bit;
-
-   --  F15R1_FB array
-   type F15R1_FB_Field_Array is array (0 .. 31) of F15R1_FB_Element
+   --  F15R_FB array
+   type F15R_FB_Field_Array is array (0 .. 31) of F15R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 15 register 1
@@ -1870,13 +1651,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F15R1_FB_Field_Array;
+            Arr : F15R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F15R_Register use record
@@ -1884,15 +1665,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- F16R_Register --
-   -------------------
+   --  F16R_FB array element
+   subtype F16R_FB_Element is STM32F429x.Bit;
 
-   --  F16R1_FB array element
-   subtype F16R1_FB_Element is STM32F429x.Bit;
-
-   --  F16R1_FB array
-   type F16R1_FB_Field_Array is array (0 .. 31) of F16R1_FB_Element
+   --  F16R_FB array
+   type F16R_FB_Field_Array is array (0 .. 31) of F16R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 16 register 1
@@ -1902,13 +1679,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F16R1_FB_Field_Array;
+            Arr : F16R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F16R_Register use record
@@ -1916,15 +1693,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- F17R_Register --
-   -------------------
+   --  F17R_FB array element
+   subtype F17R_FB_Element is STM32F429x.Bit;
 
-   --  F17R1_FB array element
-   subtype F17R1_FB_Element is STM32F429x.Bit;
-
-   --  F17R1_FB array
-   type F17R1_FB_Field_Array is array (0 .. 31) of F17R1_FB_Element
+   --  F17R_FB array
+   type F17R_FB_Field_Array is array (0 .. 31) of F17R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 17 register 1
@@ -1934,13 +1707,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F17R1_FB_Field_Array;
+            Arr : F17R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F17R_Register use record
@@ -1948,15 +1721,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- F18R_Register --
-   -------------------
+   --  F18R_FB array element
+   subtype F18R_FB_Element is STM32F429x.Bit;
 
-   --  F18R1_FB array element
-   subtype F18R1_FB_Element is STM32F429x.Bit;
-
-   --  F18R1_FB array
-   type F18R1_FB_Field_Array is array (0 .. 31) of F18R1_FB_Element
+   --  F18R_FB array
+   type F18R_FB_Field_Array is array (0 .. 31) of F18R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 18 register 1
@@ -1966,13 +1735,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F18R1_FB_Field_Array;
+            Arr : F18R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F18R_Register use record
@@ -1980,15 +1749,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- F19R_Register --
-   -------------------
+   --  F19R_FB array element
+   subtype F19R_FB_Element is STM32F429x.Bit;
 
-   --  F19R1_FB array element
-   subtype F19R1_FB_Element is STM32F429x.Bit;
-
-   --  F19R1_FB array
-   type F19R1_FB_Field_Array is array (0 .. 31) of F19R1_FB_Element
+   --  F19R_FB array
+   type F19R_FB_Field_Array is array (0 .. 31) of F19R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 19 register 1
@@ -1998,13 +1763,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F19R1_FB_Field_Array;
+            Arr : F19R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F19R_Register use record
@@ -2012,15 +1777,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- F20R_Register --
-   -------------------
+   --  F20R_FB array element
+   subtype F20R_FB_Element is STM32F429x.Bit;
 
-   --  F20R1_FB array element
-   subtype F20R1_FB_Element is STM32F429x.Bit;
-
-   --  F20R1_FB array
-   type F20R1_FB_Field_Array is array (0 .. 31) of F20R1_FB_Element
+   --  F20R_FB array
+   type F20R_FB_Field_Array is array (0 .. 31) of F20R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 20 register 1
@@ -2030,13 +1791,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F20R1_FB_Field_Array;
+            Arr : F20R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F20R_Register use record
@@ -2044,15 +1805,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- F21R_Register --
-   -------------------
+   --  F21R_FB array element
+   subtype F21R_FB_Element is STM32F429x.Bit;
 
-   --  F21R1_FB array element
-   subtype F21R1_FB_Element is STM32F429x.Bit;
-
-   --  F21R1_FB array
-   type F21R1_FB_Field_Array is array (0 .. 31) of F21R1_FB_Element
+   --  F21R_FB array
+   type F21R_FB_Field_Array is array (0 .. 31) of F21R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 21 register 1
@@ -2062,13 +1819,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F21R1_FB_Field_Array;
+            Arr : F21R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F21R_Register use record
@@ -2076,15 +1833,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- F22R_Register --
-   -------------------
+   --  F22R_FB array element
+   subtype F22R_FB_Element is STM32F429x.Bit;
 
-   --  F22R1_FB array element
-   subtype F22R1_FB_Element is STM32F429x.Bit;
-
-   --  F22R1_FB array
-   type F22R1_FB_Field_Array is array (0 .. 31) of F22R1_FB_Element
+   --  F22R_FB array
+   type F22R_FB_Field_Array is array (0 .. 31) of F22R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 22 register 1
@@ -2094,13 +1847,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F22R1_FB_Field_Array;
+            Arr : F22R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F22R_Register use record
@@ -2108,15 +1861,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- F23R_Register --
-   -------------------
+   --  F23R_FB array element
+   subtype F23R_FB_Element is STM32F429x.Bit;
 
-   --  F23R1_FB array element
-   subtype F23R1_FB_Element is STM32F429x.Bit;
-
-   --  F23R1_FB array
-   type F23R1_FB_Field_Array is array (0 .. 31) of F23R1_FB_Element
+   --  F23R_FB array
+   type F23R_FB_Field_Array is array (0 .. 31) of F23R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 23 register 1
@@ -2126,13 +1875,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F23R1_FB_Field_Array;
+            Arr : F23R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F23R_Register use record
@@ -2140,15 +1889,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- F24R_Register --
-   -------------------
+   --  F24R_FB array element
+   subtype F24R_FB_Element is STM32F429x.Bit;
 
-   --  F24R1_FB array element
-   subtype F24R1_FB_Element is STM32F429x.Bit;
-
-   --  F24R1_FB array
-   type F24R1_FB_Field_Array is array (0 .. 31) of F24R1_FB_Element
+   --  F24R_FB array
+   type F24R_FB_Field_Array is array (0 .. 31) of F24R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 24 register 1
@@ -2158,13 +1903,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F24R1_FB_Field_Array;
+            Arr : F24R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F24R_Register use record
@@ -2172,15 +1917,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- F25R_Register --
-   -------------------
+   --  F25R_FB array element
+   subtype F25R_FB_Element is STM32F429x.Bit;
 
-   --  F25R1_FB array element
-   subtype F25R1_FB_Element is STM32F429x.Bit;
-
-   --  F25R1_FB array
-   type F25R1_FB_Field_Array is array (0 .. 31) of F25R1_FB_Element
+   --  F25R_FB array
+   type F25R_FB_Field_Array is array (0 .. 31) of F25R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 25 register 1
@@ -2190,13 +1931,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F25R1_FB_Field_Array;
+            Arr : F25R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F25R_Register use record
@@ -2204,15 +1945,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- F26R_Register --
-   -------------------
+   --  F26R_FB array element
+   subtype F26R_FB_Element is STM32F429x.Bit;
 
-   --  F26R1_FB array element
-   subtype F26R1_FB_Element is STM32F429x.Bit;
-
-   --  F26R1_FB array
-   type F26R1_FB_Field_Array is array (0 .. 31) of F26R1_FB_Element
+   --  F26R_FB array
+   type F26R_FB_Field_Array is array (0 .. 31) of F26R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 26 register 1
@@ -2222,13 +1959,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F26R1_FB_Field_Array;
+            Arr : F26R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F26R_Register use record
@@ -2236,15 +1973,11 @@ package STM32F429x.CAN is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- F27R_Register --
-   -------------------
+   --  F27R_FB array element
+   subtype F27R_FB_Element is STM32F429x.Bit;
 
-   --  F27R1_FB array element
-   subtype F27R1_FB_Element is STM32F429x.Bit;
-
-   --  F27R1_FB array
-   type F27R1_FB_Field_Array is array (0 .. 31) of F27R1_FB_Element
+   --  F27R_FB array
+   type F27R_FB_Field_Array is array (0 .. 31) of F27R_FB_Element
      with Component_Size => 1, Size => 32;
 
    --  Filter bank 27 register 1
@@ -2254,13 +1987,13 @@ package STM32F429x.CAN is
       case As_Array is
          when False =>
             --  FB as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  FB as an array
-            Arr : F27R1_FB_Field_Array;
+            Arr : F27R_FB_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for F27R_Register use record
@@ -2275,284 +2008,373 @@ package STM32F429x.CAN is
    --  Controller area network
    type CAN_Peripheral is record
       --  master control register
-      MCR   : MCR_Register;
+      MCR   : aliased MCR_Register;
+      pragma Volatile_Full_Access (MCR);
       --  master status register
-      MSR   : MSR_Register;
+      MSR   : aliased MSR_Register;
+      pragma Volatile_Full_Access (MSR);
       --  transmit status register
-      TSR   : TSR_Register;
+      TSR   : aliased TSR_Register;
+      pragma Volatile_Full_Access (TSR);
       --  receive FIFO 0 register
-      RF0R  : RF0R_Register;
+      RF0R  : aliased RF0R_Register;
+      pragma Volatile_Full_Access (RF0R);
       --  receive FIFO 1 register
-      RF1R  : RF1R_Register;
+      RF1R  : aliased RF1R_Register;
+      pragma Volatile_Full_Access (RF1R);
       --  interrupt enable register
-      IER   : IER_Register;
+      IER   : aliased IER_Register;
+      pragma Volatile_Full_Access (IER);
       --  interrupt enable register
-      ESR   : ESR_Register;
+      ESR   : aliased ESR_Register;
+      pragma Volatile_Full_Access (ESR);
       --  bit timing register
-      BTR   : BTR_Register;
+      BTR   : aliased BTR_Register;
+      pragma Volatile_Full_Access (BTR);
       --  TX mailbox identifier register
-      TI0R  : TI0R_Register;
+      TI0R  : aliased TI0R_Register;
+      pragma Volatile_Full_Access (TI0R);
       --  mailbox data length control and time stamp register
-      TDT0R : TDT0R_Register;
+      TDT0R : aliased TDT0R_Register;
+      pragma Volatile_Full_Access (TDT0R);
       --  mailbox data low register
-      TDL0R : TDL0R_Register;
+      TDL0R : aliased TDL0R_Register;
+      pragma Volatile_Full_Access (TDL0R);
       --  mailbox data high register
-      TDH0R : TDH0R_Register;
+      TDH0R : aliased TDH0R_Register;
+      pragma Volatile_Full_Access (TDH0R);
       --  mailbox identifier register
-      TI1R  : TI1R_Register;
+      TI1R  : aliased TI1R_Register;
+      pragma Volatile_Full_Access (TI1R);
       --  mailbox data length control and time stamp register
-      TDT1R : TDT1R_Register;
+      TDT1R : aliased TDT1R_Register;
+      pragma Volatile_Full_Access (TDT1R);
       --  mailbox data low register
-      TDL1R : TDL1R_Register;
+      TDL1R : aliased TDL1R_Register;
+      pragma Volatile_Full_Access (TDL1R);
       --  mailbox data high register
-      TDH1R : TDH1R_Register;
+      TDH1R : aliased TDH1R_Register;
+      pragma Volatile_Full_Access (TDH1R);
       --  mailbox identifier register
-      TI2R  : TI2R_Register;
+      TI2R  : aliased TI2R_Register;
+      pragma Volatile_Full_Access (TI2R);
       --  mailbox data length control and time stamp register
-      TDT2R : TDT2R_Register;
+      TDT2R : aliased TDT2R_Register;
+      pragma Volatile_Full_Access (TDT2R);
       --  mailbox data low register
-      TDL2R : TDL2R_Register;
+      TDL2R : aliased TDL2R_Register;
+      pragma Volatile_Full_Access (TDL2R);
       --  mailbox data high register
-      TDH2R : TDH2R_Register;
+      TDH2R : aliased TDH2R_Register;
+      pragma Volatile_Full_Access (TDH2R);
       --  receive FIFO mailbox identifier register
-      RI0R  : RI0R_Register;
+      RI0R  : aliased RI0R_Register;
+      pragma Volatile_Full_Access (RI0R);
       --  mailbox data high register
-      RDT0R : RDT0R_Register;
+      RDT0R : aliased RDT0R_Register;
+      pragma Volatile_Full_Access (RDT0R);
       --  mailbox data high register
-      RDL0R : RDL0R_Register;
+      RDL0R : aliased RDL0R_Register;
+      pragma Volatile_Full_Access (RDL0R);
       --  receive FIFO mailbox data high register
-      RDH0R : RDH0R_Register;
+      RDH0R : aliased RDH0R_Register;
+      pragma Volatile_Full_Access (RDH0R);
       --  mailbox data high register
-      RI1R  : RI1R_Register;
+      RI1R  : aliased RI1R_Register;
+      pragma Volatile_Full_Access (RI1R);
       --  mailbox data high register
-      RDT1R : RDT1R_Register;
+      RDT1R : aliased RDT1R_Register;
+      pragma Volatile_Full_Access (RDT1R);
       --  mailbox data high register
-      RDL1R : RDL1R_Register;
+      RDL1R : aliased RDL1R_Register;
+      pragma Volatile_Full_Access (RDL1R);
       --  mailbox data high register
-      RDH1R : RDH1R_Register;
+      RDH1R : aliased RDH1R_Register;
+      pragma Volatile_Full_Access (RDH1R);
       --  filter master register
-      FMR   : FMR_Register;
+      FMR   : aliased FMR_Register;
+      pragma Volatile_Full_Access (FMR);
       --  filter mode register
-      FM1R  : FM1R_Register;
+      FM1R  : aliased FM1R_Register;
+      pragma Volatile_Full_Access (FM1R);
       --  filter scale register
-      FS1R  : FS1R_Register;
+      FS1R  : aliased FS1R_Register;
+      pragma Volatile_Full_Access (FS1R);
       --  filter FIFO assignment register
-      FFA1R : FFA1R_Register;
+      FFA1R : aliased FFA1R_Register;
+      pragma Volatile_Full_Access (FFA1R);
       --  filter activation register
-      FA1R  : FA1R_Register;
+      FA1R  : aliased FA1R_Register;
+      pragma Volatile_Full_Access (FA1R);
       --  Filter bank 0 register 1
-      F0R1  : F0R_Register;
+      F0R1  : aliased F0R_Register;
+      pragma Volatile_Full_Access (F0R1);
       --  Filter bank 0 register 2
-      F0R2  : F0R_Register;
+      F0R2  : aliased F0R_Register;
+      pragma Volatile_Full_Access (F0R2);
       --  Filter bank 1 register 1
-      F1R1  : F1R_Register;
+      F1R1  : aliased F1R_Register;
+      pragma Volatile_Full_Access (F1R1);
       --  Filter bank 1 register 2
-      F1R2  : F1R_Register;
+      F1R2  : aliased F1R_Register;
+      pragma Volatile_Full_Access (F1R2);
       --  Filter bank 2 register 1
-      F2R1  : F2R_Register;
+      F2R1  : aliased F2R_Register;
+      pragma Volatile_Full_Access (F2R1);
       --  Filter bank 2 register 2
-      F2R2  : F2R_Register;
+      F2R2  : aliased F2R_Register;
+      pragma Volatile_Full_Access (F2R2);
       --  Filter bank 3 register 1
-      F3R1  : F3R_Register;
+      F3R1  : aliased F3R_Register;
+      pragma Volatile_Full_Access (F3R1);
       --  Filter bank 3 register 2
-      F3R2  : F3R_Register;
+      F3R2  : aliased F3R_Register;
+      pragma Volatile_Full_Access (F3R2);
       --  Filter bank 4 register 1
-      F4R1  : F4R_Register;
+      F4R1  : aliased F4R_Register;
+      pragma Volatile_Full_Access (F4R1);
       --  Filter bank 4 register 2
-      F4R2  : F4R_Register;
+      F4R2  : aliased F4R_Register;
+      pragma Volatile_Full_Access (F4R2);
       --  Filter bank 5 register 1
-      F5R1  : F5R_Register;
+      F5R1  : aliased F5R_Register;
+      pragma Volatile_Full_Access (F5R1);
       --  Filter bank 5 register 2
-      F5R2  : F5R_Register;
+      F5R2  : aliased F5R_Register;
+      pragma Volatile_Full_Access (F5R2);
       --  Filter bank 6 register 1
-      F6R1  : F6R_Register;
+      F6R1  : aliased F6R_Register;
+      pragma Volatile_Full_Access (F6R1);
       --  Filter bank 6 register 2
-      F6R2  : F6R_Register;
+      F6R2  : aliased F6R_Register;
+      pragma Volatile_Full_Access (F6R2);
       --  Filter bank 7 register 1
-      F7R1  : F7R_Register;
+      F7R1  : aliased F7R_Register;
+      pragma Volatile_Full_Access (F7R1);
       --  Filter bank 7 register 2
-      F7R2  : F7R_Register;
+      F7R2  : aliased F7R_Register;
+      pragma Volatile_Full_Access (F7R2);
       --  Filter bank 8 register 1
-      F8R1  : F8R_Register;
+      F8R1  : aliased F8R_Register;
+      pragma Volatile_Full_Access (F8R1);
       --  Filter bank 8 register 2
-      F8R2  : F8R_Register;
+      F8R2  : aliased F8R_Register;
+      pragma Volatile_Full_Access (F8R2);
       --  Filter bank 9 register 1
-      F9R1  : F9R_Register;
+      F9R1  : aliased F9R_Register;
+      pragma Volatile_Full_Access (F9R1);
       --  Filter bank 9 register 2
-      F9R2  : F9R_Register;
+      F9R2  : aliased F9R_Register;
+      pragma Volatile_Full_Access (F9R2);
       --  Filter bank 10 register 1
-      F10R1 : F10R_Register;
+      F10R1 : aliased F10R_Register;
+      pragma Volatile_Full_Access (F10R1);
       --  Filter bank 10 register 2
-      F10R2 : F10R_Register;
+      F10R2 : aliased F10R_Register;
+      pragma Volatile_Full_Access (F10R2);
       --  Filter bank 11 register 1
-      F11R1 : F11R_Register;
+      F11R1 : aliased F11R_Register;
+      pragma Volatile_Full_Access (F11R1);
       --  Filter bank 11 register 2
-      F11R2 : F11R_Register;
+      F11R2 : aliased F11R_Register;
+      pragma Volatile_Full_Access (F11R2);
       --  Filter bank 4 register 1
-      F12R1 : F12R_Register;
+      F12R1 : aliased F12R_Register;
+      pragma Volatile_Full_Access (F12R1);
       --  Filter bank 12 register 2
-      F12R2 : F12R_Register;
+      F12R2 : aliased F12R_Register;
+      pragma Volatile_Full_Access (F12R2);
       --  Filter bank 13 register 1
-      F13R1 : F13R_Register;
+      F13R1 : aliased F13R_Register;
+      pragma Volatile_Full_Access (F13R1);
       --  Filter bank 13 register 2
-      F13R2 : F13R_Register;
+      F13R2 : aliased F13R_Register;
+      pragma Volatile_Full_Access (F13R2);
       --  Filter bank 14 register 1
-      F14R1 : F14R_Register;
+      F14R1 : aliased F14R_Register;
+      pragma Volatile_Full_Access (F14R1);
       --  Filter bank 14 register 2
-      F14R2 : F14R_Register;
+      F14R2 : aliased F14R_Register;
+      pragma Volatile_Full_Access (F14R2);
       --  Filter bank 15 register 1
-      F15R1 : F15R_Register;
+      F15R1 : aliased F15R_Register;
+      pragma Volatile_Full_Access (F15R1);
       --  Filter bank 15 register 2
-      F15R2 : F15R_Register;
+      F15R2 : aliased F15R_Register;
+      pragma Volatile_Full_Access (F15R2);
       --  Filter bank 16 register 1
-      F16R1 : F16R_Register;
+      F16R1 : aliased F16R_Register;
+      pragma Volatile_Full_Access (F16R1);
       --  Filter bank 16 register 2
-      F16R2 : F16R_Register;
+      F16R2 : aliased F16R_Register;
+      pragma Volatile_Full_Access (F16R2);
       --  Filter bank 17 register 1
-      F17R1 : F17R_Register;
+      F17R1 : aliased F17R_Register;
+      pragma Volatile_Full_Access (F17R1);
       --  Filter bank 17 register 2
-      F17R2 : F17R_Register;
+      F17R2 : aliased F17R_Register;
+      pragma Volatile_Full_Access (F17R2);
       --  Filter bank 18 register 1
-      F18R1 : F18R_Register;
+      F18R1 : aliased F18R_Register;
+      pragma Volatile_Full_Access (F18R1);
       --  Filter bank 18 register 2
-      F18R2 : F18R_Register;
+      F18R2 : aliased F18R_Register;
+      pragma Volatile_Full_Access (F18R2);
       --  Filter bank 19 register 1
-      F19R1 : F19R_Register;
+      F19R1 : aliased F19R_Register;
+      pragma Volatile_Full_Access (F19R1);
       --  Filter bank 19 register 2
-      F19R2 : F19R_Register;
+      F19R2 : aliased F19R_Register;
+      pragma Volatile_Full_Access (F19R2);
       --  Filter bank 20 register 1
-      F20R1 : F20R_Register;
+      F20R1 : aliased F20R_Register;
+      pragma Volatile_Full_Access (F20R1);
       --  Filter bank 20 register 2
-      F20R2 : F20R_Register;
+      F20R2 : aliased F20R_Register;
+      pragma Volatile_Full_Access (F20R2);
       --  Filter bank 21 register 1
-      F21R1 : F21R_Register;
+      F21R1 : aliased F21R_Register;
+      pragma Volatile_Full_Access (F21R1);
       --  Filter bank 21 register 2
-      F21R2 : F21R_Register;
+      F21R2 : aliased F21R_Register;
+      pragma Volatile_Full_Access (F21R2);
       --  Filter bank 22 register 1
-      F22R1 : F22R_Register;
+      F22R1 : aliased F22R_Register;
+      pragma Volatile_Full_Access (F22R1);
       --  Filter bank 22 register 2
-      F22R2 : F22R_Register;
+      F22R2 : aliased F22R_Register;
+      pragma Volatile_Full_Access (F22R2);
       --  Filter bank 23 register 1
-      F23R1 : F23R_Register;
+      F23R1 : aliased F23R_Register;
+      pragma Volatile_Full_Access (F23R1);
       --  Filter bank 23 register 2
-      F23R2 : F23R_Register;
+      F23R2 : aliased F23R_Register;
+      pragma Volatile_Full_Access (F23R2);
       --  Filter bank 24 register 1
-      F24R1 : F24R_Register;
+      F24R1 : aliased F24R_Register;
+      pragma Volatile_Full_Access (F24R1);
       --  Filter bank 24 register 2
-      F24R2 : F24R_Register;
+      F24R2 : aliased F24R_Register;
+      pragma Volatile_Full_Access (F24R2);
       --  Filter bank 25 register 1
-      F25R1 : F25R_Register;
+      F25R1 : aliased F25R_Register;
+      pragma Volatile_Full_Access (F25R1);
       --  Filter bank 25 register 2
-      F25R2 : F25R_Register;
+      F25R2 : aliased F25R_Register;
+      pragma Volatile_Full_Access (F25R2);
       --  Filter bank 26 register 1
-      F26R1 : F26R_Register;
+      F26R1 : aliased F26R_Register;
+      pragma Volatile_Full_Access (F26R1);
       --  Filter bank 26 register 2
-      F26R2 : F26R_Register;
+      F26R2 : aliased F26R_Register;
+      pragma Volatile_Full_Access (F26R2);
       --  Filter bank 27 register 1
-      F27R1 : F27R_Register;
+      F27R1 : aliased F27R_Register;
+      pragma Volatile_Full_Access (F27R1);
       --  Filter bank 27 register 2
-      F27R2 : F27R_Register;
+      F27R2 : aliased F27R_Register;
+      pragma Volatile_Full_Access (F27R2);
    end record
      with Volatile;
 
    for CAN_Peripheral use record
-      MCR   at 0 range 0 .. 31;
-      MSR   at 4 range 0 .. 31;
-      TSR   at 8 range 0 .. 31;
-      RF0R  at 12 range 0 .. 31;
-      RF1R  at 16 range 0 .. 31;
-      IER   at 20 range 0 .. 31;
-      ESR   at 24 range 0 .. 31;
-      BTR   at 28 range 0 .. 31;
-      TI0R  at 384 range 0 .. 31;
-      TDT0R at 388 range 0 .. 31;
-      TDL0R at 392 range 0 .. 31;
-      TDH0R at 396 range 0 .. 31;
-      TI1R  at 400 range 0 .. 31;
-      TDT1R at 404 range 0 .. 31;
-      TDL1R at 408 range 0 .. 31;
-      TDH1R at 412 range 0 .. 31;
-      TI2R  at 416 range 0 .. 31;
-      TDT2R at 420 range 0 .. 31;
-      TDL2R at 424 range 0 .. 31;
-      TDH2R at 428 range 0 .. 31;
-      RI0R  at 432 range 0 .. 31;
-      RDT0R at 436 range 0 .. 31;
-      RDL0R at 440 range 0 .. 31;
-      RDH0R at 444 range 0 .. 31;
-      RI1R  at 448 range 0 .. 31;
-      RDT1R at 452 range 0 .. 31;
-      RDL1R at 456 range 0 .. 31;
-      RDH1R at 460 range 0 .. 31;
-      FMR   at 512 range 0 .. 31;
-      FM1R  at 516 range 0 .. 31;
-      FS1R  at 524 range 0 .. 31;
-      FFA1R at 532 range 0 .. 31;
-      FA1R  at 540 range 0 .. 31;
-      F0R1  at 576 range 0 .. 31;
-      F0R2  at 580 range 0 .. 31;
-      F1R1  at 584 range 0 .. 31;
-      F1R2  at 588 range 0 .. 31;
-      F2R1  at 592 range 0 .. 31;
-      F2R2  at 596 range 0 .. 31;
-      F3R1  at 600 range 0 .. 31;
-      F3R2  at 604 range 0 .. 31;
-      F4R1  at 608 range 0 .. 31;
-      F4R2  at 612 range 0 .. 31;
-      F5R1  at 616 range 0 .. 31;
-      F5R2  at 620 range 0 .. 31;
-      F6R1  at 624 range 0 .. 31;
-      F6R2  at 628 range 0 .. 31;
-      F7R1  at 632 range 0 .. 31;
-      F7R2  at 636 range 0 .. 31;
-      F8R1  at 640 range 0 .. 31;
-      F8R2  at 644 range 0 .. 31;
-      F9R1  at 648 range 0 .. 31;
-      F9R2  at 652 range 0 .. 31;
-      F10R1 at 656 range 0 .. 31;
-      F10R2 at 660 range 0 .. 31;
-      F11R1 at 664 range 0 .. 31;
-      F11R2 at 668 range 0 .. 31;
-      F12R1 at 672 range 0 .. 31;
-      F12R2 at 676 range 0 .. 31;
-      F13R1 at 680 range 0 .. 31;
-      F13R2 at 684 range 0 .. 31;
-      F14R1 at 688 range 0 .. 31;
-      F14R2 at 692 range 0 .. 31;
-      F15R1 at 696 range 0 .. 31;
-      F15R2 at 700 range 0 .. 31;
-      F16R1 at 704 range 0 .. 31;
-      F16R2 at 708 range 0 .. 31;
-      F17R1 at 712 range 0 .. 31;
-      F17R2 at 716 range 0 .. 31;
-      F18R1 at 720 range 0 .. 31;
-      F18R2 at 724 range 0 .. 31;
-      F19R1 at 728 range 0 .. 31;
-      F19R2 at 732 range 0 .. 31;
-      F20R1 at 736 range 0 .. 31;
-      F20R2 at 740 range 0 .. 31;
-      F21R1 at 744 range 0 .. 31;
-      F21R2 at 748 range 0 .. 31;
-      F22R1 at 752 range 0 .. 31;
-      F22R2 at 756 range 0 .. 31;
-      F23R1 at 760 range 0 .. 31;
-      F23R2 at 764 range 0 .. 31;
-      F24R1 at 768 range 0 .. 31;
-      F24R2 at 772 range 0 .. 31;
-      F25R1 at 776 range 0 .. 31;
-      F25R2 at 780 range 0 .. 31;
-      F26R1 at 784 range 0 .. 31;
-      F26R2 at 788 range 0 .. 31;
-      F27R1 at 792 range 0 .. 31;
-      F27R2 at 796 range 0 .. 31;
+      MCR   at 16#0# range 0 .. 31;
+      MSR   at 16#4# range 0 .. 31;
+      TSR   at 16#8# range 0 .. 31;
+      RF0R  at 16#C# range 0 .. 31;
+      RF1R  at 16#10# range 0 .. 31;
+      IER   at 16#14# range 0 .. 31;
+      ESR   at 16#18# range 0 .. 31;
+      BTR   at 16#1C# range 0 .. 31;
+      TI0R  at 16#180# range 0 .. 31;
+      TDT0R at 16#184# range 0 .. 31;
+      TDL0R at 16#188# range 0 .. 31;
+      TDH0R at 16#18C# range 0 .. 31;
+      TI1R  at 16#190# range 0 .. 31;
+      TDT1R at 16#194# range 0 .. 31;
+      TDL1R at 16#198# range 0 .. 31;
+      TDH1R at 16#19C# range 0 .. 31;
+      TI2R  at 16#1A0# range 0 .. 31;
+      TDT2R at 16#1A4# range 0 .. 31;
+      TDL2R at 16#1A8# range 0 .. 31;
+      TDH2R at 16#1AC# range 0 .. 31;
+      RI0R  at 16#1B0# range 0 .. 31;
+      RDT0R at 16#1B4# range 0 .. 31;
+      RDL0R at 16#1B8# range 0 .. 31;
+      RDH0R at 16#1BC# range 0 .. 31;
+      RI1R  at 16#1C0# range 0 .. 31;
+      RDT1R at 16#1C4# range 0 .. 31;
+      RDL1R at 16#1C8# range 0 .. 31;
+      RDH1R at 16#1CC# range 0 .. 31;
+      FMR   at 16#200# range 0 .. 31;
+      FM1R  at 16#204# range 0 .. 31;
+      FS1R  at 16#20C# range 0 .. 31;
+      FFA1R at 16#214# range 0 .. 31;
+      FA1R  at 16#21C# range 0 .. 31;
+      F0R1  at 16#240# range 0 .. 31;
+      F0R2  at 16#244# range 0 .. 31;
+      F1R1  at 16#248# range 0 .. 31;
+      F1R2  at 16#24C# range 0 .. 31;
+      F2R1  at 16#250# range 0 .. 31;
+      F2R2  at 16#254# range 0 .. 31;
+      F3R1  at 16#258# range 0 .. 31;
+      F3R2  at 16#25C# range 0 .. 31;
+      F4R1  at 16#260# range 0 .. 31;
+      F4R2  at 16#264# range 0 .. 31;
+      F5R1  at 16#268# range 0 .. 31;
+      F5R2  at 16#26C# range 0 .. 31;
+      F6R1  at 16#270# range 0 .. 31;
+      F6R2  at 16#274# range 0 .. 31;
+      F7R1  at 16#278# range 0 .. 31;
+      F7R2  at 16#27C# range 0 .. 31;
+      F8R1  at 16#280# range 0 .. 31;
+      F8R2  at 16#284# range 0 .. 31;
+      F9R1  at 16#288# range 0 .. 31;
+      F9R2  at 16#28C# range 0 .. 31;
+      F10R1 at 16#290# range 0 .. 31;
+      F10R2 at 16#294# range 0 .. 31;
+      F11R1 at 16#298# range 0 .. 31;
+      F11R2 at 16#29C# range 0 .. 31;
+      F12R1 at 16#2A0# range 0 .. 31;
+      F12R2 at 16#2A4# range 0 .. 31;
+      F13R1 at 16#2A8# range 0 .. 31;
+      F13R2 at 16#2AC# range 0 .. 31;
+      F14R1 at 16#2B0# range 0 .. 31;
+      F14R2 at 16#2B4# range 0 .. 31;
+      F15R1 at 16#2B8# range 0 .. 31;
+      F15R2 at 16#2BC# range 0 .. 31;
+      F16R1 at 16#2C0# range 0 .. 31;
+      F16R2 at 16#2C4# range 0 .. 31;
+      F17R1 at 16#2C8# range 0 .. 31;
+      F17R2 at 16#2CC# range 0 .. 31;
+      F18R1 at 16#2D0# range 0 .. 31;
+      F18R2 at 16#2D4# range 0 .. 31;
+      F19R1 at 16#2D8# range 0 .. 31;
+      F19R2 at 16#2DC# range 0 .. 31;
+      F20R1 at 16#2E0# range 0 .. 31;
+      F20R2 at 16#2E4# range 0 .. 31;
+      F21R1 at 16#2E8# range 0 .. 31;
+      F21R2 at 16#2EC# range 0 .. 31;
+      F22R1 at 16#2F0# range 0 .. 31;
+      F22R2 at 16#2F4# range 0 .. 31;
+      F23R1 at 16#2F8# range 0 .. 31;
+      F23R2 at 16#2FC# range 0 .. 31;
+      F24R1 at 16#300# range 0 .. 31;
+      F24R2 at 16#304# range 0 .. 31;
+      F25R1 at 16#308# range 0 .. 31;
+      F25R2 at 16#30C# range 0 .. 31;
+      F26R1 at 16#310# range 0 .. 31;
+      F26R2 at 16#314# range 0 .. 31;
+      F27R1 at 16#318# range 0 .. 31;
+      F27R2 at 16#31C# range 0 .. 31;
    end record;
 
    --  Controller area network
    CAN1_Periph : aliased CAN_Peripheral
-     with Import, Address => System'To_Address (16#40006400#);
+     with Import, Address => CAN1_Base;
 
    --  Controller area network
    CAN2_Periph : aliased CAN_Peripheral
-     with Import, Address => System'To_Address (16#40006800#);
+     with Import, Address => CAN2_Base;
 
 end STM32F429x.CAN;

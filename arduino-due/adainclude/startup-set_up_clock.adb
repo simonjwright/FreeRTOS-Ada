@@ -1,4 +1,4 @@
---  Copyright (C) 2016 Free Software Foundation, Inc.
+--  Copyright (C) 2016, 2020 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
@@ -34,7 +34,7 @@ procedure Set_Up_Clock is
 begin
    --  Set Flash wait states (FWS) to 4 in both banks
    declare
-      FMR : FMR_Register;
+      FMR : EFC0_FMR_Register;
    begin
       FMR             := EFC0_Periph.FMR;
       FMR.FWS         := 4;

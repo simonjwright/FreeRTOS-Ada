@@ -1,8 +1,9 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
 --  This spec has been automatically generated from STM32F40x.svd
---  see https://github.com/simonjwright/svd2ada
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -12,10 +13,6 @@ package STM32F40x.FSMC is
    ---------------
    -- Registers --
    ---------------
-
-   -------------------
-   -- BCR1_Register --
-   -------------------
 
    subtype BCR1_MBKEN_Field is STM32F40x.Bit;
    subtype BCR1_MUXEN_Field is STM32F40x.Bit;
@@ -68,8 +65,7 @@ package STM32F40x.FSMC is
       --  unspecified
       Reserved_20_31 : STM32F40x.UInt12 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BCR1_Register use record
       MBKEN          at 0 range 0 .. 0;
@@ -91,39 +87,34 @@ package STM32F40x.FSMC is
       Reserved_20_31 at 0 range 20 .. 31;
    end record;
 
-   ------------------
-   -- BTR_Register --
-   ------------------
-
-   subtype BTR1_ADDSET_Field is STM32F40x.UInt4;
-   subtype BTR1_ADDHLD_Field is STM32F40x.UInt4;
-   subtype BTR1_DATAST_Field is STM32F40x.Byte;
-   subtype BTR1_BUSTURN_Field is STM32F40x.UInt4;
-   subtype BTR1_CLKDIV_Field is STM32F40x.UInt4;
-   subtype BTR1_DATLAT_Field is STM32F40x.UInt4;
-   subtype BTR1_ACCMOD_Field is STM32F40x.UInt2;
+   subtype BTR_ADDSET_Field is STM32F40x.UInt4;
+   subtype BTR_ADDHLD_Field is STM32F40x.UInt4;
+   subtype BTR_DATAST_Field is STM32F40x.Byte;
+   subtype BTR_BUSTURN_Field is STM32F40x.UInt4;
+   subtype BTR_CLKDIV_Field is STM32F40x.UInt4;
+   subtype BTR_DATLAT_Field is STM32F40x.UInt4;
+   subtype BTR_ACCMOD_Field is STM32F40x.UInt2;
 
    --  SRAM/NOR-Flash chip-select timing register 1
    type BTR_Register is record
       --  ADDSET
-      ADDSET         : BTR1_ADDSET_Field := 16#F#;
+      ADDSET         : BTR_ADDSET_Field := 16#F#;
       --  ADDHLD
-      ADDHLD         : BTR1_ADDHLD_Field := 16#F#;
+      ADDHLD         : BTR_ADDHLD_Field := 16#F#;
       --  DATAST
-      DATAST         : BTR1_DATAST_Field := 16#FF#;
+      DATAST         : BTR_DATAST_Field := 16#FF#;
       --  BUSTURN
-      BUSTURN        : BTR1_BUSTURN_Field := 16#F#;
+      BUSTURN        : BTR_BUSTURN_Field := 16#F#;
       --  CLKDIV
-      CLKDIV         : BTR1_CLKDIV_Field := 16#F#;
+      CLKDIV         : BTR_CLKDIV_Field := 16#F#;
       --  DATLAT
-      DATLAT         : BTR1_DATLAT_Field := 16#F#;
+      DATLAT         : BTR_DATLAT_Field := 16#F#;
       --  ACCMOD
-      ACCMOD         : BTR1_ACCMOD_Field := 16#3#;
+      ACCMOD         : BTR_ACCMOD_Field := 16#3#;
       --  unspecified
       Reserved_30_31 : STM32F40x.UInt2 := 16#3#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BTR_Register use record
       ADDSET         at 0 range 0 .. 3;
@@ -136,64 +127,59 @@ package STM32F40x.FSMC is
       Reserved_30_31 at 0 range 30 .. 31;
    end record;
 
-   ------------------
-   -- BCR_Register --
-   ------------------
-
-   subtype BCR2_MBKEN_Field is STM32F40x.Bit;
-   subtype BCR2_MUXEN_Field is STM32F40x.Bit;
-   subtype BCR2_MTYP_Field is STM32F40x.UInt2;
-   subtype BCR2_MWID_Field is STM32F40x.UInt2;
-   subtype BCR2_FACCEN_Field is STM32F40x.Bit;
-   subtype BCR2_BURSTEN_Field is STM32F40x.Bit;
-   subtype BCR2_WAITPOL_Field is STM32F40x.Bit;
-   subtype BCR2_WRAPMOD_Field is STM32F40x.Bit;
-   subtype BCR2_WAITCFG_Field is STM32F40x.Bit;
-   subtype BCR2_WREN_Field is STM32F40x.Bit;
-   subtype BCR2_WAITEN_Field is STM32F40x.Bit;
-   subtype BCR2_EXTMOD_Field is STM32F40x.Bit;
-   subtype BCR2_ASYNCWAIT_Field is STM32F40x.Bit;
-   subtype BCR2_CBURSTRW_Field is STM32F40x.Bit;
+   subtype BCR_MBKEN_Field is STM32F40x.Bit;
+   subtype BCR_MUXEN_Field is STM32F40x.Bit;
+   subtype BCR_MTYP_Field is STM32F40x.UInt2;
+   subtype BCR_MWID_Field is STM32F40x.UInt2;
+   subtype BCR_FACCEN_Field is STM32F40x.Bit;
+   subtype BCR_BURSTEN_Field is STM32F40x.Bit;
+   subtype BCR_WAITPOL_Field is STM32F40x.Bit;
+   subtype BCR_WRAPMOD_Field is STM32F40x.Bit;
+   subtype BCR_WAITCFG_Field is STM32F40x.Bit;
+   subtype BCR_WREN_Field is STM32F40x.Bit;
+   subtype BCR_WAITEN_Field is STM32F40x.Bit;
+   subtype BCR_EXTMOD_Field is STM32F40x.Bit;
+   subtype BCR_ASYNCWAIT_Field is STM32F40x.Bit;
+   subtype BCR_CBURSTRW_Field is STM32F40x.Bit;
 
    --  SRAM/NOR-Flash chip-select control register 2
    type BCR_Register is record
       --  MBKEN
-      MBKEN          : BCR2_MBKEN_Field := 16#0#;
+      MBKEN          : BCR_MBKEN_Field := 16#0#;
       --  MUXEN
-      MUXEN          : BCR2_MUXEN_Field := 16#0#;
+      MUXEN          : BCR_MUXEN_Field := 16#0#;
       --  MTYP
-      MTYP           : BCR2_MTYP_Field := 16#0#;
+      MTYP           : BCR_MTYP_Field := 16#0#;
       --  MWID
-      MWID           : BCR2_MWID_Field := 16#1#;
+      MWID           : BCR_MWID_Field := 16#1#;
       --  FACCEN
-      FACCEN         : BCR2_FACCEN_Field := 16#1#;
+      FACCEN         : BCR_FACCEN_Field := 16#1#;
       --  unspecified
       Reserved_7_7   : STM32F40x.Bit := 16#1#;
       --  BURSTEN
-      BURSTEN        : BCR2_BURSTEN_Field := 16#0#;
+      BURSTEN        : BCR_BURSTEN_Field := 16#0#;
       --  WAITPOL
-      WAITPOL        : BCR2_WAITPOL_Field := 16#0#;
+      WAITPOL        : BCR_WAITPOL_Field := 16#0#;
       --  WRAPMOD
-      WRAPMOD        : BCR2_WRAPMOD_Field := 16#0#;
+      WRAPMOD        : BCR_WRAPMOD_Field := 16#0#;
       --  WAITCFG
-      WAITCFG        : BCR2_WAITCFG_Field := 16#0#;
+      WAITCFG        : BCR_WAITCFG_Field := 16#0#;
       --  WREN
-      WREN           : BCR2_WREN_Field := 16#1#;
+      WREN           : BCR_WREN_Field := 16#1#;
       --  WAITEN
-      WAITEN         : BCR2_WAITEN_Field := 16#1#;
+      WAITEN         : BCR_WAITEN_Field := 16#1#;
       --  EXTMOD
-      EXTMOD         : BCR2_EXTMOD_Field := 16#0#;
+      EXTMOD         : BCR_EXTMOD_Field := 16#0#;
       --  ASYNCWAIT
-      ASYNCWAIT      : BCR2_ASYNCWAIT_Field := 16#0#;
+      ASYNCWAIT      : BCR_ASYNCWAIT_Field := 16#0#;
       --  unspecified
       Reserved_16_18 : STM32F40x.UInt3 := 16#0#;
       --  CBURSTRW
-      CBURSTRW       : BCR2_CBURSTRW_Field := 16#0#;
+      CBURSTRW       : BCR_CBURSTRW_Field := 16#0#;
       --  unspecified
       Reserved_20_31 : STM32F40x.UInt12 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BCR_Register use record
       MBKEN          at 0 range 0 .. 0;
@@ -215,46 +201,41 @@ package STM32F40x.FSMC is
       Reserved_20_31 at 0 range 20 .. 31;
    end record;
 
-   ------------------
-   -- PCR_Register --
-   ------------------
-
-   subtype PCR2_PWAITEN_Field is STM32F40x.Bit;
-   subtype PCR2_PBKEN_Field is STM32F40x.Bit;
-   subtype PCR2_PTYP_Field is STM32F40x.Bit;
-   subtype PCR2_PWID_Field is STM32F40x.UInt2;
-   subtype PCR2_ECCEN_Field is STM32F40x.Bit;
-   subtype PCR2_TCLR_Field is STM32F40x.UInt4;
-   subtype PCR2_TAR_Field is STM32F40x.UInt4;
-   subtype PCR2_ECCPS_Field is STM32F40x.UInt3;
+   subtype PCR_PWAITEN_Field is STM32F40x.Bit;
+   subtype PCR_PBKEN_Field is STM32F40x.Bit;
+   subtype PCR_PTYP_Field is STM32F40x.Bit;
+   subtype PCR_PWID_Field is STM32F40x.UInt2;
+   subtype PCR_ECCEN_Field is STM32F40x.Bit;
+   subtype PCR_TCLR_Field is STM32F40x.UInt4;
+   subtype PCR_TAR_Field is STM32F40x.UInt4;
+   subtype PCR_ECCPS_Field is STM32F40x.UInt3;
 
    --  PC Card/NAND Flash control register 2
    type PCR_Register is record
       --  unspecified
       Reserved_0_0   : STM32F40x.Bit := 16#0#;
       --  PWAITEN
-      PWAITEN        : PCR2_PWAITEN_Field := 16#0#;
+      PWAITEN        : PCR_PWAITEN_Field := 16#0#;
       --  PBKEN
-      PBKEN          : PCR2_PBKEN_Field := 16#0#;
+      PBKEN          : PCR_PBKEN_Field := 16#0#;
       --  PTYP
-      PTYP           : PCR2_PTYP_Field := 16#1#;
+      PTYP           : PCR_PTYP_Field := 16#1#;
       --  PWID
-      PWID           : PCR2_PWID_Field := 16#1#;
+      PWID           : PCR_PWID_Field := 16#1#;
       --  ECCEN
-      ECCEN          : PCR2_ECCEN_Field := 16#0#;
+      ECCEN          : PCR_ECCEN_Field := 16#0#;
       --  unspecified
       Reserved_7_8   : STM32F40x.UInt2 := 16#0#;
       --  TCLR
-      TCLR           : PCR2_TCLR_Field := 16#0#;
+      TCLR           : PCR_TCLR_Field := 16#0#;
       --  TAR
-      TAR            : PCR2_TAR_Field := 16#0#;
+      TAR            : PCR_TAR_Field := 16#0#;
       --  ECCPS
-      ECCPS          : PCR2_ECCPS_Field := 16#0#;
+      ECCPS          : PCR_ECCPS_Field := 16#0#;
       --  unspecified
       Reserved_20_31 : STM32F40x.UInt12 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for PCR_Register use record
       Reserved_0_0   at 0 range 0 .. 0;
@@ -270,39 +251,34 @@ package STM32F40x.FSMC is
       Reserved_20_31 at 0 range 20 .. 31;
    end record;
 
-   -----------------
-   -- SR_Register --
-   -----------------
-
-   subtype SR2_IRS_Field is STM32F40x.Bit;
-   subtype SR2_ILS_Field is STM32F40x.Bit;
-   subtype SR2_IFS_Field is STM32F40x.Bit;
-   subtype SR2_IREN_Field is STM32F40x.Bit;
-   subtype SR2_ILEN_Field is STM32F40x.Bit;
-   subtype SR2_IFEN_Field is STM32F40x.Bit;
-   subtype SR2_FEMPT_Field is STM32F40x.Bit;
+   subtype SR_IRS_Field is STM32F40x.Bit;
+   subtype SR_ILS_Field is STM32F40x.Bit;
+   subtype SR_IFS_Field is STM32F40x.Bit;
+   subtype SR_IREN_Field is STM32F40x.Bit;
+   subtype SR_ILEN_Field is STM32F40x.Bit;
+   subtype SR_IFEN_Field is STM32F40x.Bit;
+   subtype SR_FEMPT_Field is STM32F40x.Bit;
 
    --  FIFO status and interrupt register 2
    type SR_Register is record
       --  IRS
-      IRS           : SR2_IRS_Field := 16#0#;
+      IRS           : SR_IRS_Field := 16#0#;
       --  ILS
-      ILS           : SR2_ILS_Field := 16#0#;
+      ILS           : SR_ILS_Field := 16#0#;
       --  IFS
-      IFS           : SR2_IFS_Field := 16#0#;
+      IFS           : SR_IFS_Field := 16#0#;
       --  IREN
-      IREN          : SR2_IREN_Field := 16#0#;
+      IREN          : SR_IREN_Field := 16#0#;
       --  ILEN
-      ILEN          : SR2_ILEN_Field := 16#0#;
+      ILEN          : SR_ILEN_Field := 16#0#;
       --  IFEN
-      IFEN          : SR2_IFEN_Field := 16#0#;
+      IFEN          : SR_IFEN_Field := 16#0#;
       --  Read-only. FEMPT
-      FEMPT         : SR2_FEMPT_Field := 16#1#;
+      FEMPT         : SR_FEMPT_Field := 16#1#;
       --  unspecified
       Reserved_7_31 : STM32F40x.UInt25 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for SR_Register use record
       IRS           at 0 range 0 .. 0;
@@ -315,28 +291,23 @@ package STM32F40x.FSMC is
       Reserved_7_31 at 0 range 7 .. 31;
    end record;
 
-   -------------------
-   -- PMEM_Register --
-   -------------------
-
-   subtype PMEM2_MEMSETx_Field is STM32F40x.Byte;
-   subtype PMEM2_MEMWAITx_Field is STM32F40x.Byte;
-   subtype PMEM2_MEMHOLDx_Field is STM32F40x.Byte;
-   subtype PMEM2_MEMHIZx_Field is STM32F40x.Byte;
+   subtype PMEM_MEMSETx_Field is STM32F40x.Byte;
+   subtype PMEM_MEMWAITx_Field is STM32F40x.Byte;
+   subtype PMEM_MEMHOLDx_Field is STM32F40x.Byte;
+   subtype PMEM_MEMHIZx_Field is STM32F40x.Byte;
 
    --  Common memory space timing register 2
    type PMEM_Register is record
       --  MEMSETx
-      MEMSETx  : PMEM2_MEMSETx_Field := 16#FC#;
+      MEMSETx  : PMEM_MEMSETx_Field := 16#FC#;
       --  MEMWAITx
-      MEMWAITx : PMEM2_MEMWAITx_Field := 16#FC#;
+      MEMWAITx : PMEM_MEMWAITx_Field := 16#FC#;
       --  MEMHOLDx
-      MEMHOLDx : PMEM2_MEMHOLDx_Field := 16#FC#;
+      MEMHOLDx : PMEM_MEMHOLDx_Field := 16#FC#;
       --  MEMHIZx
-      MEMHIZx  : PMEM2_MEMHIZx_Field := 16#FC#;
+      MEMHIZx  : PMEM_MEMHIZx_Field := 16#FC#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for PMEM_Register use record
       MEMSETx  at 0 range 0 .. 7;
@@ -345,28 +316,23 @@ package STM32F40x.FSMC is
       MEMHIZx  at 0 range 24 .. 31;
    end record;
 
-   -------------------
-   -- PATT_Register --
-   -------------------
-
-   subtype PATT2_ATTSETx_Field is STM32F40x.Byte;
-   subtype PATT2_ATTWAITx_Field is STM32F40x.Byte;
-   subtype PATT2_ATTHOLDx_Field is STM32F40x.Byte;
-   subtype PATT2_ATTHIZx_Field is STM32F40x.Byte;
+   subtype PATT_ATTSETx_Field is STM32F40x.Byte;
+   subtype PATT_ATTWAITx_Field is STM32F40x.Byte;
+   subtype PATT_ATTHOLDx_Field is STM32F40x.Byte;
+   subtype PATT_ATTHIZx_Field is STM32F40x.Byte;
 
    --  Attribute memory space timing register 2
    type PATT_Register is record
       --  ATTSETx
-      ATTSETx  : PATT2_ATTSETx_Field := 16#FC#;
+      ATTSETx  : PATT_ATTSETx_Field := 16#FC#;
       --  ATTWAITx
-      ATTWAITx : PATT2_ATTWAITx_Field := 16#FC#;
+      ATTWAITx : PATT_ATTWAITx_Field := 16#FC#;
       --  ATTHOLDx
-      ATTHOLDx : PATT2_ATTHOLDx_Field := 16#FC#;
+      ATTHOLDx : PATT_ATTHOLDx_Field := 16#FC#;
       --  ATTHIZx
-      ATTHIZx  : PATT2_ATTHIZx_Field := 16#FC#;
+      ATTHIZx  : PATT_ATTHIZx_Field := 16#FC#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for PATT_Register use record
       ATTSETx  at 0 range 0 .. 7;
@@ -374,10 +340,6 @@ package STM32F40x.FSMC is
       ATTHOLDx at 0 range 16 .. 23;
       ATTHIZx  at 0 range 24 .. 31;
    end record;
-
-   -------------------
-   -- PIO4_Register --
-   -------------------
 
    subtype PIO4_IOSETx_Field is STM32F40x.Byte;
    subtype PIO4_IOWAITx_Field is STM32F40x.Byte;
@@ -395,8 +357,7 @@ package STM32F40x.FSMC is
       --  IOHIZx
       IOHIZx  : PIO4_IOHIZx_Field := 16#FC#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for PIO4_Register use record
       IOSETx  at 0 range 0 .. 7;
@@ -405,38 +366,33 @@ package STM32F40x.FSMC is
       IOHIZx  at 0 range 24 .. 31;
    end record;
 
-   -------------------
-   -- BWTR_Register --
-   -------------------
-
-   subtype BWTR1_ADDSET_Field is STM32F40x.UInt4;
-   subtype BWTR1_ADDHLD_Field is STM32F40x.UInt4;
-   subtype BWTR1_DATAST_Field is STM32F40x.Byte;
-   subtype BWTR1_CLKDIV_Field is STM32F40x.UInt4;
-   subtype BWTR1_DATLAT_Field is STM32F40x.UInt4;
-   subtype BWTR1_ACCMOD_Field is STM32F40x.UInt2;
+   subtype BWTR_ADDSET_Field is STM32F40x.UInt4;
+   subtype BWTR_ADDHLD_Field is STM32F40x.UInt4;
+   subtype BWTR_DATAST_Field is STM32F40x.Byte;
+   subtype BWTR_CLKDIV_Field is STM32F40x.UInt4;
+   subtype BWTR_DATLAT_Field is STM32F40x.UInt4;
+   subtype BWTR_ACCMOD_Field is STM32F40x.UInt2;
 
    --  SRAM/NOR-Flash write timing registers 1
    type BWTR_Register is record
       --  ADDSET
-      ADDSET         : BWTR1_ADDSET_Field := 16#F#;
+      ADDSET         : BWTR_ADDSET_Field := 16#F#;
       --  ADDHLD
-      ADDHLD         : BWTR1_ADDHLD_Field := 16#F#;
+      ADDHLD         : BWTR_ADDHLD_Field := 16#F#;
       --  DATAST
-      DATAST         : BWTR1_DATAST_Field := 16#FF#;
+      DATAST         : BWTR_DATAST_Field := 16#FF#;
       --  unspecified
       Reserved_16_19 : STM32F40x.UInt4 := 16#F#;
       --  CLKDIV
-      CLKDIV         : BWTR1_CLKDIV_Field := 16#F#;
+      CLKDIV         : BWTR_CLKDIV_Field := 16#F#;
       --  DATLAT
-      DATLAT         : BWTR1_DATLAT_Field := 16#F#;
+      DATLAT         : BWTR_DATLAT_Field := 16#F#;
       --  ACCMOD
-      ACCMOD         : BWTR1_ACCMOD_Field := 16#0#;
+      ACCMOD         : BWTR_ACCMOD_Field := 16#0#;
       --  unspecified
       Reserved_30_31 : STM32F40x.UInt2 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BWTR_Register use record
       ADDSET         at 0 range 0 .. 3;
@@ -456,90 +412,115 @@ package STM32F40x.FSMC is
    --  Flexible static memory controller
    type FSMC_Peripheral is record
       --  SRAM/NOR-Flash chip-select control register 1
-      BCR1  : BCR1_Register;
+      BCR1  : aliased BCR1_Register;
+      pragma Volatile_Full_Access (BCR1);
       --  SRAM/NOR-Flash chip-select timing register 1
-      BTR1  : BTR_Register;
+      BTR1  : aliased BTR_Register;
+      pragma Volatile_Full_Access (BTR1);
       --  SRAM/NOR-Flash chip-select control register 2
-      BCR2  : BCR_Register;
+      BCR2  : aliased BCR_Register;
+      pragma Volatile_Full_Access (BCR2);
       --  SRAM/NOR-Flash chip-select timing register 2
-      BTR2  : BTR_Register;
+      BTR2  : aliased BTR_Register;
+      pragma Volatile_Full_Access (BTR2);
       --  SRAM/NOR-Flash chip-select control register 3
-      BCR3  : BCR_Register;
+      BCR3  : aliased BCR_Register;
+      pragma Volatile_Full_Access (BCR3);
       --  SRAM/NOR-Flash chip-select timing register 3
-      BTR3  : BTR_Register;
+      BTR3  : aliased BTR_Register;
+      pragma Volatile_Full_Access (BTR3);
       --  SRAM/NOR-Flash chip-select control register 4
-      BCR4  : BCR_Register;
+      BCR4  : aliased BCR_Register;
+      pragma Volatile_Full_Access (BCR4);
       --  SRAM/NOR-Flash chip-select timing register 4
-      BTR4  : BTR_Register;
+      BTR4  : aliased BTR_Register;
+      pragma Volatile_Full_Access (BTR4);
       --  PC Card/NAND Flash control register 2
-      PCR2  : PCR_Register;
+      PCR2  : aliased PCR_Register;
+      pragma Volatile_Full_Access (PCR2);
       --  FIFO status and interrupt register 2
-      SR2   : SR_Register;
+      SR2   : aliased SR_Register;
+      pragma Volatile_Full_Access (SR2);
       --  Common memory space timing register 2
-      PMEM2 : PMEM_Register;
+      PMEM2 : aliased PMEM_Register;
+      pragma Volatile_Full_Access (PMEM2);
       --  Attribute memory space timing register 2
-      PATT2 : PATT_Register;
+      PATT2 : aliased PATT_Register;
+      pragma Volatile_Full_Access (PATT2);
       --  ECC result register 2
-      ECCR2 : STM32F40x.Word;
+      ECCR2 : aliased STM32F40x.UInt32;
       --  PC Card/NAND Flash control register 3
-      PCR3  : PCR_Register;
+      PCR3  : aliased PCR_Register;
+      pragma Volatile_Full_Access (PCR3);
       --  FIFO status and interrupt register 3
-      SR3   : SR_Register;
+      SR3   : aliased SR_Register;
+      pragma Volatile_Full_Access (SR3);
       --  Common memory space timing register 3
-      PMEM3 : PMEM_Register;
+      PMEM3 : aliased PMEM_Register;
+      pragma Volatile_Full_Access (PMEM3);
       --  Attribute memory space timing register 3
-      PATT3 : PATT_Register;
+      PATT3 : aliased PATT_Register;
+      pragma Volatile_Full_Access (PATT3);
       --  ECC result register 3
-      ECCR3 : STM32F40x.Word;
+      ECCR3 : aliased STM32F40x.UInt32;
       --  PC Card/NAND Flash control register 4
-      PCR4  : PCR_Register;
+      PCR4  : aliased PCR_Register;
+      pragma Volatile_Full_Access (PCR4);
       --  FIFO status and interrupt register 4
-      SR4   : SR_Register;
+      SR4   : aliased SR_Register;
+      pragma Volatile_Full_Access (SR4);
       --  Common memory space timing register 4
-      PMEM4 : PMEM_Register;
+      PMEM4 : aliased PMEM_Register;
+      pragma Volatile_Full_Access (PMEM4);
       --  Attribute memory space timing register 4
-      PATT4 : PATT_Register;
+      PATT4 : aliased PATT_Register;
+      pragma Volatile_Full_Access (PATT4);
       --  I/O space timing register 4
-      PIO4  : PIO4_Register;
+      PIO4  : aliased PIO4_Register;
+      pragma Volatile_Full_Access (PIO4);
       --  SRAM/NOR-Flash write timing registers 1
-      BWTR1 : BWTR_Register;
+      BWTR1 : aliased BWTR_Register;
+      pragma Volatile_Full_Access (BWTR1);
       --  SRAM/NOR-Flash write timing registers 2
-      BWTR2 : BWTR_Register;
+      BWTR2 : aliased BWTR_Register;
+      pragma Volatile_Full_Access (BWTR2);
       --  SRAM/NOR-Flash write timing registers 3
-      BWTR3 : BWTR_Register;
+      BWTR3 : aliased BWTR_Register;
+      pragma Volatile_Full_Access (BWTR3);
       --  SRAM/NOR-Flash write timing registers 4
-      BWTR4 : BWTR_Register;
+      BWTR4 : aliased BWTR_Register;
+      pragma Volatile_Full_Access (BWTR4);
    end record
      with Volatile;
 
    for FSMC_Peripheral use record
-      BCR1  at 0 range 0 .. 31;
-      BTR1  at 4 range 0 .. 31;
-      BCR2  at 8 range 0 .. 31;
-      BTR2  at 12 range 0 .. 31;
-      BCR3  at 16 range 0 .. 31;
-      BTR3  at 20 range 0 .. 31;
-      BCR4  at 24 range 0 .. 31;
-      BTR4  at 28 range 0 .. 31;
-      PCR2  at 96 range 0 .. 31;
-      SR2   at 100 range 0 .. 31;
-      PMEM2 at 104 range 0 .. 31;
-      PATT2 at 108 range 0 .. 31;
-      ECCR2 at 116 range 0 .. 31;
-      PCR3  at 128 range 0 .. 31;
-      SR3   at 132 range 0 .. 31;
-      PMEM3 at 136 range 0 .. 31;
-      PATT3 at 140 range 0 .. 31;
-      ECCR3 at 148 range 0 .. 31;
-      PCR4  at 160 range 0 .. 31;
-      SR4   at 164 range 0 .. 31;
-      PMEM4 at 168 range 0 .. 31;
-      PATT4 at 172 range 0 .. 31;
-      PIO4  at 176 range 0 .. 31;
-      BWTR1 at 260 range 0 .. 31;
-      BWTR2 at 268 range 0 .. 31;
-      BWTR3 at 276 range 0 .. 31;
-      BWTR4 at 284 range 0 .. 31;
+      BCR1  at 16#0# range 0 .. 31;
+      BTR1  at 16#4# range 0 .. 31;
+      BCR2  at 16#8# range 0 .. 31;
+      BTR2  at 16#C# range 0 .. 31;
+      BCR3  at 16#10# range 0 .. 31;
+      BTR3  at 16#14# range 0 .. 31;
+      BCR4  at 16#18# range 0 .. 31;
+      BTR4  at 16#1C# range 0 .. 31;
+      PCR2  at 16#60# range 0 .. 31;
+      SR2   at 16#64# range 0 .. 31;
+      PMEM2 at 16#68# range 0 .. 31;
+      PATT2 at 16#6C# range 0 .. 31;
+      ECCR2 at 16#74# range 0 .. 31;
+      PCR3  at 16#80# range 0 .. 31;
+      SR3   at 16#84# range 0 .. 31;
+      PMEM3 at 16#88# range 0 .. 31;
+      PATT3 at 16#8C# range 0 .. 31;
+      ECCR3 at 16#94# range 0 .. 31;
+      PCR4  at 16#A0# range 0 .. 31;
+      SR4   at 16#A4# range 0 .. 31;
+      PMEM4 at 16#A8# range 0 .. 31;
+      PATT4 at 16#AC# range 0 .. 31;
+      PIO4  at 16#B0# range 0 .. 31;
+      BWTR1 at 16#104# range 0 .. 31;
+      BWTR2 at 16#10C# range 0 .. 31;
+      BWTR3 at 16#114# range 0 .. 31;
+      BWTR4 at 16#11C# range 0 .. 31;
    end record;
 
    --  Flexible static memory controller

@@ -1,5 +1,7 @@
---  Automatically generated from STM32F429x.svd by SVD2Ada
---  see https://github.com/simonjwright/svd2ada
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
+--  This spec has been automatically generated from STM32F429x.svd
 
 pragma Restrictions (No_Elaboration_Code);
 
@@ -11,10 +13,6 @@ package STM32F429x.GPIO is
    ---------------
    -- Registers --
    ---------------
-
-   --------------------
-   -- MODER_Register --
-   --------------------
 
    --  MODER array element
    subtype MODER_Element is STM32F429x.UInt2;
@@ -30,27 +28,19 @@ package STM32F429x.GPIO is
       case As_Array is
          when False =>
             --  MODER as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  MODER as an array
             Arr : MODER_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for MODER_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
-
-   ---------------------
-   -- OTYPER_Register --
-   ---------------------
-
-   ---------------
-   -- OTYPER.OT --
-   ---------------
 
    --  OTYPER_OT array element
    subtype OTYPER_OT_Element is STM32F429x.Bit;
@@ -66,7 +56,7 @@ package STM32F429x.GPIO is
       case As_Array is
          when False =>
             --  OT as a value
-            Val : STM32F429x.Short;
+            Val : STM32F429x.UInt16;
          when True =>
             --  OT as an array
             Arr : OTYPER_OT_Field_Array;
@@ -84,18 +74,14 @@ package STM32F429x.GPIO is
       --  Port x configuration bits (y = 0..15)
       OT             : OTYPER_OT_Field := (As_Array => False, Val => 16#0#);
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short := 16#0#;
+      Reserved_16_31 : STM32F429x.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for OTYPER_Register use record
       OT             at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   ----------------------
-   -- OSPEEDR_Register --
-   ----------------------
 
    --  OSPEEDR array element
    subtype OSPEEDR_Element is STM32F429x.UInt2;
@@ -111,23 +97,19 @@ package STM32F429x.GPIO is
       case As_Array is
          when False =>
             --  OSPEEDR as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  OSPEEDR as an array
             Arr : OSPEEDR_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for OSPEEDR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
-
-   --------------------
-   -- PUPDR_Register --
-   --------------------
 
    --  PUPDR array element
    subtype PUPDR_Element is STM32F429x.UInt2;
@@ -143,27 +125,19 @@ package STM32F429x.GPIO is
       case As_Array is
          when False =>
             --  PUPDR as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  PUPDR as an array
             Arr : PUPDR_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for PUPDR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
-
-   ------------------
-   -- IDR_Register --
-   ------------------
-
-   -------------
-   -- IDR.IDR --
-   -------------
 
    --  IDR array element
    subtype IDR_Element is STM32F429x.Bit;
@@ -179,7 +153,7 @@ package STM32F429x.GPIO is
       case As_Array is
          when False =>
             --  IDR as a value
-            Val : STM32F429x.Short;
+            Val : STM32F429x.UInt16;
          when True =>
             --  IDR as an array
             Arr : IDR_Field_Array;
@@ -194,25 +168,17 @@ package STM32F429x.GPIO is
 
    --  GPIO port input data register
    type IDR_Register is record
-      --  Port input data (y = 0..15)
+      --  Read-only. Port input data (y = 0..15)
       IDR            : IDR_Field;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short;
+      Reserved_16_31 : STM32F429x.UInt16;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for IDR_Register use record
       IDR            at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   ------------------
-   -- ODR_Register --
-   ------------------
-
-   -------------
-   -- ODR.ODR --
-   -------------
 
    --  ODR array element
    subtype ODR_Element is STM32F429x.Bit;
@@ -228,7 +194,7 @@ package STM32F429x.GPIO is
       case As_Array is
          when False =>
             --  ODR as a value
-            Val : STM32F429x.Short;
+            Val : STM32F429x.UInt16;
          when True =>
             --  ODR as an array
             Arr : ODR_Field_Array;
@@ -246,22 +212,14 @@ package STM32F429x.GPIO is
       --  Port output data (y = 0..15)
       ODR            : ODR_Field := (As_Array => False, Val => 16#0#);
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short := 16#0#;
+      Reserved_16_31 : STM32F429x.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ODR_Register use record
       ODR            at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   -------------------
-   -- BSRR_Register --
-   -------------------
-
-   -------------
-   -- BSRR.BS --
-   -------------
 
    --  BSRR_BS array element
    subtype BSRR_BS_Element is STM32F429x.Bit;
@@ -277,7 +235,7 @@ package STM32F429x.GPIO is
       case As_Array is
          when False =>
             --  BS as a value
-            Val : STM32F429x.Short;
+            Val : STM32F429x.UInt16;
          when True =>
             --  BS as an array
             Arr : BSRR_BS_Field_Array;
@@ -289,10 +247,6 @@ package STM32F429x.GPIO is
       Val at 0 range 0 .. 15;
       Arr at 0 range 0 .. 15;
    end record;
-
-   -------------
-   -- BSRR.BR --
-   -------------
 
    --  BSRR_BR array element
    subtype BSRR_BR_Element is STM32F429x.Bit;
@@ -308,7 +262,7 @@ package STM32F429x.GPIO is
       case As_Array is
          when False =>
             --  BR as a value
-            Val : STM32F429x.Short;
+            Val : STM32F429x.UInt16;
          when True =>
             --  BR as an array
             Arr : BSRR_BR_Field_Array;
@@ -323,25 +277,17 @@ package STM32F429x.GPIO is
 
    --  GPIO port bit set/reset register
    type BSRR_Register is record
-      --  Port x set bit y (y= 0..15)
+      --  Write-only. Port x set bit y (y= 0..15)
       BS : BSRR_BS_Field := (As_Array => False, Val => 16#0#);
-      --  Port x set bit y (y= 0..15)
+      --  Write-only. Port x set bit y (y= 0..15)
       BR : BSRR_BR_Field := (As_Array => False, Val => 16#0#);
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BSRR_Register use record
       BS at 0 range 0 .. 15;
       BR at 0 range 16 .. 31;
    end record;
-
-   -------------------
-   -- LCKR_Register --
-   -------------------
-
-   --------------
-   -- LCKR.LCK --
-   --------------
 
    --  LCKR_LCK array element
    subtype LCKR_LCK_Element is STM32F429x.Bit;
@@ -357,7 +303,7 @@ package STM32F429x.GPIO is
       case As_Array is
          when False =>
             --  LCK as a value
-            Val : STM32F429x.Short;
+            Val : STM32F429x.UInt16;
          when True =>
             --  LCK as an array
             Arr : LCKR_LCK_Field_Array;
@@ -381,17 +327,13 @@ package STM32F429x.GPIO is
       --  unspecified
       Reserved_17_31 : STM32F429x.UInt15 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for LCKR_Register use record
       LCK            at 0 range 0 .. 15;
       LCKK           at 0 range 16 .. 16;
       Reserved_17_31 at 0 range 17 .. 31;
    end record;
-
-   -------------------
-   -- AFRL_Register --
-   -------------------
 
    --  AFRL array element
    subtype AFRL_Element is STM32F429x.UInt4;
@@ -407,13 +349,13 @@ package STM32F429x.GPIO is
       case As_Array is
          when False =>
             --  AFRL as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  AFRL as an array
             Arr : AFRL_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for AFRL_Register use record
@@ -421,15 +363,11 @@ package STM32F429x.GPIO is
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- AFRH_Register --
-   -------------------
-
    --  AFRH array element
    subtype AFRH_Element is STM32F429x.UInt4;
 
    --  AFRH array
-   type AFRH_Field_Array is array (0 .. 7) of AFRH_Element
+   type AFRH_Field_Array is array (8 .. 15) of AFRH_Element
      with Component_Size => 4, Size => 32;
 
    --  GPIO alternate function high register
@@ -439,13 +377,13 @@ package STM32F429x.GPIO is
       case As_Array is
          when False =>
             --  AFRH as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  AFRH as an array
             Arr : AFRH_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for AFRH_Register use record
@@ -460,83 +398,93 @@ package STM32F429x.GPIO is
    --  General-purpose I/Os
    type GPIO_Peripheral is record
       --  GPIO port mode register
-      MODER   : MODER_Register;
+      MODER   : aliased MODER_Register;
+      pragma Volatile_Full_Access (MODER);
       --  GPIO port output type register
-      OTYPER  : OTYPER_Register;
+      OTYPER  : aliased OTYPER_Register;
+      pragma Volatile_Full_Access (OTYPER);
       --  GPIO port output speed register
-      OSPEEDR : OSPEEDR_Register;
+      OSPEEDR : aliased OSPEEDR_Register;
+      pragma Volatile_Full_Access (OSPEEDR);
       --  GPIO port pull-up/pull-down register
-      PUPDR   : PUPDR_Register;
+      PUPDR   : aliased PUPDR_Register;
+      pragma Volatile_Full_Access (PUPDR);
       --  GPIO port input data register
-      IDR     : IDR_Register;
+      IDR     : aliased IDR_Register;
+      pragma Volatile_Full_Access (IDR);
       --  GPIO port output data register
-      ODR     : ODR_Register;
+      ODR     : aliased ODR_Register;
+      pragma Volatile_Full_Access (ODR);
       --  GPIO port bit set/reset register
-      BSRR    : BSRR_Register;
+      BSRR    : aliased BSRR_Register;
+      pragma Volatile_Full_Access (BSRR);
       --  GPIO port configuration lock register
-      LCKR    : LCKR_Register;
+      LCKR    : aliased LCKR_Register;
+      pragma Volatile_Full_Access (LCKR);
       --  GPIO alternate function low register
-      AFRL    : AFRL_Register;
+      AFRL    : aliased AFRL_Register;
+      pragma Volatile_Full_Access (AFRL);
       --  GPIO alternate function high register
-      AFRH    : AFRH_Register;
+      AFRH    : aliased AFRH_Register;
+      pragma Volatile_Full_Access (AFRH);
    end record
      with Volatile;
 
    for GPIO_Peripheral use record
-      MODER   at 0 range 0 .. 31;
-      OTYPER  at 4 range 0 .. 31;
-      OSPEEDR at 8 range 0 .. 31;
-      PUPDR   at 12 range 0 .. 31;
-      IDR     at 16 range 0 .. 31;
-      ODR     at 20 range 0 .. 31;
-      BSRR    at 24 range 0 .. 31;
-      LCKR    at 28 range 0 .. 31;
-      AFRL    at 32 range 0 .. 31;
-      AFRH    at 36 range 0 .. 31;
+      MODER   at 16#0# range 0 .. 31;
+      OTYPER  at 16#4# range 0 .. 31;
+      OSPEEDR at 16#8# range 0 .. 31;
+      PUPDR   at 16#C# range 0 .. 31;
+      IDR     at 16#10# range 0 .. 31;
+      ODR     at 16#14# range 0 .. 31;
+      BSRR    at 16#18# range 0 .. 31;
+      LCKR    at 16#1C# range 0 .. 31;
+      AFRL    at 16#20# range 0 .. 31;
+      AFRH    at 16#24# range 0 .. 31;
    end record;
 
    --  General-purpose I/Os
    GPIOA_Periph : aliased GPIO_Peripheral
-     with Import, Address => System'To_Address (16#40020000#);
+     with Import, Address => GPIOA_Base;
 
    --  General-purpose I/Os
    GPIOB_Periph : aliased GPIO_Peripheral
-     with Import, Address => System'To_Address (16#40020400#);
+     with Import, Address => GPIOB_Base;
 
    --  General-purpose I/Os
    GPIOC_Periph : aliased GPIO_Peripheral
-     with Import, Address => System'To_Address (16#40020800#);
+     with Import, Address => GPIOC_Base;
 
    --  General-purpose I/Os
    GPIOD_Periph : aliased GPIO_Peripheral
-     with Import, Address => System'To_Address (16#40020C00#);
+     with Import, Address => GPIOD_Base;
 
    --  General-purpose I/Os
    GPIOE_Periph : aliased GPIO_Peripheral
-     with Import, Address => System'To_Address (16#40021000#);
+     with Import, Address => GPIOE_Base;
 
    --  General-purpose I/Os
    GPIOF_Periph : aliased GPIO_Peripheral
-     with Import, Address => System'To_Address (16#40021400#);
+     with Import, Address => GPIOF_Base;
 
    --  General-purpose I/Os
    GPIOG_Periph : aliased GPIO_Peripheral
-     with Import, Address => System'To_Address (16#40021800#);
+     with Import, Address => GPIOG_Base;
 
    --  General-purpose I/Os
    GPIOH_Periph : aliased GPIO_Peripheral
-     with Import, Address => System'To_Address (16#40021C00#);
+     with Import, Address => GPIOH_Base;
 
    --  General-purpose I/Os
    GPIOI_Periph : aliased GPIO_Peripheral
-     with Import, Address => System'To_Address (16#40022000#);
+     with Import, Address => GPIOI_Base;
 
    --  General-purpose I/Os
    GPIOJ_Periph : aliased GPIO_Peripheral
-     with Import, Address => System'To_Address (16#40022400#);
+     with Import, Address => GPIOJ_Base;
 
    --  General-purpose I/Os
    GPIOK_Periph : aliased GPIO_Peripheral
-     with Import, Address => System'To_Address (16#40022800#);
+     with Import, Address => GPIOK_Base;
 
 end STM32F429x.GPIO;

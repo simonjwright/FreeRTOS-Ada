@@ -1,5 +1,7 @@
---  Automatically generated from STM32F429x.svd by SVD2Ada
---  see https://github.com/simonjwright/svd2ada
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
+--  This spec has been automatically generated from STM32F429x.svd
 
 pragma Restrictions (No_Elaboration_Code);
 
@@ -12,10 +14,6 @@ package STM32F429x.PWR is
    -- Registers --
    ---------------
 
-   -----------------
-   -- CR_Register --
-   -----------------
-
    subtype CR_LPDS_Field is STM32F429x.Bit;
    subtype CR_PDDS_Field is STM32F429x.Bit;
    subtype CR_CWUF_Field is STM32F429x.Bit;
@@ -24,8 +22,13 @@ package STM32F429x.PWR is
    subtype CR_PLS_Field is STM32F429x.UInt3;
    subtype CR_DBP_Field is STM32F429x.Bit;
    subtype CR_FPDS_Field is STM32F429x.Bit;
+   subtype CR_LPLVDS_Field is STM32F429x.Bit;
+   subtype CR_MRLVDS_Field is STM32F429x.Bit;
    subtype CR_ADCDC1_Field is STM32F429x.Bit;
    subtype CR_VOS_Field is STM32F429x.UInt2;
+   subtype CR_ODEN_Field is STM32F429x.Bit;
+   subtype CR_ODSWEN_Field is STM32F429x.Bit;
+   subtype CR_UDEN_Field is STM32F429x.UInt2;
 
    --  power control register
    type CR_Register is record
@@ -45,16 +48,26 @@ package STM32F429x.PWR is
       DBP            : CR_DBP_Field := 16#0#;
       --  Flash power down in Stop mode
       FPDS           : CR_FPDS_Field := 16#0#;
+      --  Low-Power Regulator Low Voltage in deepsleep
+      LPLVDS         : CR_LPLVDS_Field := 16#0#;
+      --  Main regulator low voltage in deepsleep mode
+      MRLVDS         : CR_MRLVDS_Field := 16#0#;
       --  unspecified
-      Reserved_10_12 : STM32F429x.UInt3 := 16#0#;
+      Reserved_12_12 : STM32F429x.Bit := 16#0#;
       --  ADCDC1
       ADCDC1         : CR_ADCDC1_Field := 16#0#;
       --  Regulator voltage scaling output selection
       VOS            : CR_VOS_Field := 16#3#;
+      --  Over-drive enable
+      ODEN           : CR_ODEN_Field := 16#0#;
+      --  Over-drive switching enabled
+      ODSWEN         : CR_ODSWEN_Field := 16#0#;
+      --  Under-drive enable in stop mode
+      UDEN           : CR_UDEN_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short := 16#0#;
+      Reserved_20_31 : STM32F429x.UInt12 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CR_Register use record
       LPDS           at 0 range 0 .. 0;
@@ -65,15 +78,16 @@ package STM32F429x.PWR is
       PLS            at 0 range 5 .. 7;
       DBP            at 0 range 8 .. 8;
       FPDS           at 0 range 9 .. 9;
-      Reserved_10_12 at 0 range 10 .. 12;
+      LPLVDS         at 0 range 10 .. 10;
+      MRLVDS         at 0 range 11 .. 11;
+      Reserved_12_12 at 0 range 12 .. 12;
       ADCDC1         at 0 range 13 .. 13;
       VOS            at 0 range 14 .. 15;
-      Reserved_16_31 at 0 range 16 .. 31;
+      ODEN           at 0 range 16 .. 16;
+      ODSWEN         at 0 range 17 .. 17;
+      UDEN           at 0 range 18 .. 19;
+      Reserved_20_31 at 0 range 20 .. 31;
    end record;
-
-   ------------------
-   -- CSR_Register --
-   ------------------
 
    subtype CSR_WUF_Field is STM32F429x.Bit;
    subtype CSR_SBF_Field is STM32F429x.Bit;
@@ -82,16 +96,19 @@ package STM32F429x.PWR is
    subtype CSR_EWUP_Field is STM32F429x.Bit;
    subtype CSR_BRE_Field is STM32F429x.Bit;
    subtype CSR_VOSRDY_Field is STM32F429x.Bit;
+   subtype CSR_ODRDY_Field is STM32F429x.Bit;
+   subtype CSR_ODSWRDY_Field is STM32F429x.Bit;
+   subtype CSR_UDRDY_Field is STM32F429x.UInt2;
 
    --  power control/status register
    type CSR_Register is record
-      --  Wakeup flag
+      --  Read-only. Wakeup flag
       WUF            : CSR_WUF_Field := 16#0#;
-      --  Standby flag
+      --  Read-only. Standby flag
       SBF            : CSR_SBF_Field := 16#0#;
-      --  PVD output
+      --  Read-only. PVD output
       PVDO           : CSR_PVDO_Field := 16#0#;
-      --  Backup regulator ready
+      --  Read-only. Backup regulator ready
       BRR            : CSR_BRR_Field := 16#0#;
       --  unspecified
       Reserved_4_7   : STM32F429x.UInt4 := 16#0#;
@@ -104,9 +121,17 @@ package STM32F429x.PWR is
       --  Regulator voltage scaling output selection ready bit
       VOSRDY         : CSR_VOSRDY_Field := 16#0#;
       --  unspecified
-      Reserved_15_31 : STM32F429x.UInt17 := 16#0#;
+      Reserved_15_15 : STM32F429x.Bit := 16#0#;
+      --  Read-only. Over-drive mode ready
+      ODRDY          : CSR_ODRDY_Field := 16#0#;
+      --  Read-only. Over-drive mode switching ready
+      ODSWRDY        : CSR_ODSWRDY_Field := 16#0#;
+      --  Under-drive ready flag
+      UDRDY          : CSR_UDRDY_Field := 16#0#;
+      --  unspecified
+      Reserved_20_31 : STM32F429x.UInt12 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CSR_Register use record
       WUF            at 0 range 0 .. 0;
@@ -118,7 +143,11 @@ package STM32F429x.PWR is
       BRE            at 0 range 9 .. 9;
       Reserved_10_13 at 0 range 10 .. 13;
       VOSRDY         at 0 range 14 .. 14;
-      Reserved_15_31 at 0 range 15 .. 31;
+      Reserved_15_15 at 0 range 15 .. 15;
+      ODRDY          at 0 range 16 .. 16;
+      ODSWRDY        at 0 range 17 .. 17;
+      UDRDY          at 0 range 18 .. 19;
+      Reserved_20_31 at 0 range 20 .. 31;
    end record;
 
    -----------------
@@ -128,19 +157,21 @@ package STM32F429x.PWR is
    --  Power control
    type PWR_Peripheral is record
       --  power control register
-      CR  : CR_Register;
+      CR  : aliased CR_Register;
+      pragma Volatile_Full_Access (CR);
       --  power control/status register
-      CSR : CSR_Register;
+      CSR : aliased CSR_Register;
+      pragma Volatile_Full_Access (CSR);
    end record
      with Volatile;
 
    for PWR_Peripheral use record
-      CR  at 0 range 0 .. 31;
-      CSR at 4 range 0 .. 31;
+      CR  at 16#0# range 0 .. 31;
+      CSR at 16#4# range 0 .. 31;
    end record;
 
    --  Power control
    PWR_Periph : aliased PWR_Peripheral
-     with Import, Address => System'To_Address (16#40007000#);
+     with Import, Address => PWR_Base;
 
 end STM32F429x.PWR;

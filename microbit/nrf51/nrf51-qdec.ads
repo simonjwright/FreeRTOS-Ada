@@ -1,7 +1,38 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
+--  Copyright (c) 2013, Nordic Semiconductor ASA
+--  All rights reserved.
+--
+--  Redistribution and use in source and binary forms, with or without
+--  modification, are permitted provided that the following conditions are met:
+--
+--  * Redistributions of source code must retain the above copyright notice, this
+--  list of conditions and the following disclaimer.
+--
+--  * Redistributions in binary form must reproduce the above copyright notice,
+--  this list of conditions and the following disclaimer in the documentation
+--  and/or other materials provided with the distribution.
+--
+--  * Neither the name of Nordic Semiconductor ASA nor the names of its
+--  contributors may be used to endorse or promote products derived from
+--  this software without specific prior written permission.
+--
+--  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+--  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+--  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+--  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+--  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+--  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+--  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+--  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+--  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+--  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+--
+
 --  This spec has been automatically generated from nrf51.svd
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -12,44 +43,40 @@ package nrf51.QDEC is
    -- Registers --
    ---------------
 
-   ---------------------
-   -- SHORTS_Register --
-   ---------------------
-
    --  Shortcut between REPORTRDY event and READCLRACC task.
-   type REPORTRDY_READCLRACC_Field is
-     (
-      --  Shortcut disabled.
+   type SHORTS_REPORTRDY_READCLRACC_Field is
+     (--  Shortcut disabled.
       Disabled,
       --  Shortcut enabled.
       Enabled)
      with Size => 1;
-   for REPORTRDY_READCLRACC_Field use
+   for SHORTS_REPORTRDY_READCLRACC_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Shortcut between SAMPLERDY event and STOP task.
-   type SAMPLERDY_STOP_Field is
-     (
-      --  Shortcut disabled.
+   type SHORTS_SAMPLERDY_STOP_Field is
+     (--  Shortcut disabled.
       Disabled,
       --  Shortcut enabled.
       Enabled)
      with Size => 1;
-   for SAMPLERDY_STOP_Field use
+   for SHORTS_SAMPLERDY_STOP_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Shortcuts for the QDEC.
    type SHORTS_Register is record
       --  Shortcut between REPORTRDY event and READCLRACC task.
-      REPORTRDY_READCLRACC : REPORTRDY_READCLRACC_Field := Disabled;
+      REPORTRDY_READCLRACC : SHORTS_REPORTRDY_READCLRACC_Field :=
+                              nrf51.QDEC.Disabled;
       --  Shortcut between SAMPLERDY event and STOP task.
-      SAMPLERDY_STOP       : SAMPLERDY_STOP_Field := Disabled;
+      SAMPLERDY_STOP       : SHORTS_SAMPLERDY_STOP_Field :=
+                              nrf51.QDEC.Disabled;
       --  unspecified
       Reserved_2_31        : nrf51.UInt30 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for SHORTS_Register use record
@@ -58,94 +85,86 @@ package nrf51.QDEC is
       Reserved_2_31        at 0 range 2 .. 31;
    end record;
 
-   -----------------------
-   -- INTENSET_Register --
-   -----------------------
-
    --  Enable interrupt on SAMPLERDY event.
-   type SAMPLERDY_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_SAMPLERDY_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for SAMPLERDY_Field use
+   for INTENSET_SAMPLERDY_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on SAMPLERDY event.
-   type SAMPLERDY_Field_1 is
-     (
-      --  Reset value for the field
-      Samplerdy_Field_Reset,
+   type INTENSET_SAMPLERDY_Field_1 is
+     (--  Reset value for the field
+      Intenset_Samplerdy_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for SAMPLERDY_Field_1 use
-     (Samplerdy_Field_Reset => 0,
+   for INTENSET_SAMPLERDY_Field_1 use
+     (Intenset_Samplerdy_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on REPORTRDY event.
-   type REPORTRDY_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_REPORTRDY_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for REPORTRDY_Field use
+   for INTENSET_REPORTRDY_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on REPORTRDY event.
-   type REPORTRDY_Field_1 is
-     (
-      --  Reset value for the field
-      Reportrdy_Field_Reset,
+   type INTENSET_REPORTRDY_Field_1 is
+     (--  Reset value for the field
+      Intenset_Reportrdy_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for REPORTRDY_Field_1 use
-     (Reportrdy_Field_Reset => 0,
+   for INTENSET_REPORTRDY_Field_1 use
+     (Intenset_Reportrdy_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on ACCOF event.
-   type ACCOF_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_ACCOF_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for ACCOF_Field use
+   for INTENSET_ACCOF_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on ACCOF event.
-   type ACCOF_Field_1 is
-     (
-      --  Reset value for the field
-      Accof_Field_Reset,
+   type INTENSET_ACCOF_Field_1 is
+     (--  Reset value for the field
+      Intenset_Accof_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for ACCOF_Field_1 use
-     (Accof_Field_Reset => 0,
+   for INTENSET_ACCOF_Field_1 use
+     (Intenset_Accof_Field_Reset => 0,
       Set => 1);
 
    --  Interrupt enable set register.
    type INTENSET_Register is record
       --  Enable interrupt on SAMPLERDY event.
-      SAMPLERDY     : SAMPLERDY_Field_1 := Samplerdy_Field_Reset;
+      SAMPLERDY     : INTENSET_SAMPLERDY_Field_1 :=
+                       Intenset_Samplerdy_Field_Reset;
       --  Enable interrupt on REPORTRDY event.
-      REPORTRDY     : REPORTRDY_Field_1 := Reportrdy_Field_Reset;
+      REPORTRDY     : INTENSET_REPORTRDY_Field_1 :=
+                       Intenset_Reportrdy_Field_Reset;
       --  Enable interrupt on ACCOF event.
-      ACCOF         : ACCOF_Field_1 := Accof_Field_Reset;
+      ACCOF         : INTENSET_ACCOF_Field_1 := Intenset_Accof_Field_Reset;
       --  unspecified
       Reserved_3_31 : nrf51.UInt29 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for INTENSET_Register use record
@@ -155,58 +174,86 @@ package nrf51.QDEC is
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
 
-   -----------------------
-   -- INTENCLR_Register --
-   -----------------------
+   --  Disable interrupt on SAMPLERDY event.
+   type INTENCLR_SAMPLERDY_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_SAMPLERDY_Field use
+     (Disabled => 0,
+      Enabled => 1);
 
    --  Disable interrupt on SAMPLERDY event.
-   type SAMPLERDY_Field_2 is
-     (
-      --  Reset value for the field
-      Samplerdy_Field_Reset,
+   type INTENCLR_SAMPLERDY_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Samplerdy_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for SAMPLERDY_Field_2 use
-     (Samplerdy_Field_Reset => 0,
+   for INTENCLR_SAMPLERDY_Field_1 use
+     (Intenclr_Samplerdy_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on REPORTRDY event.
-   type REPORTRDY_Field_2 is
-     (
-      --  Reset value for the field
-      Reportrdy_Field_Reset,
+   type INTENCLR_REPORTRDY_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_REPORTRDY_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on REPORTRDY event.
+   type INTENCLR_REPORTRDY_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Reportrdy_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for REPORTRDY_Field_2 use
-     (Reportrdy_Field_Reset => 0,
+   for INTENCLR_REPORTRDY_Field_1 use
+     (Intenclr_Reportrdy_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on ACCOF event.
-   type ACCOF_Field_2 is
-     (
-      --  Reset value for the field
-      Accof_Field_Reset,
+   type INTENCLR_ACCOF_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_ACCOF_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on ACCOF event.
+   type INTENCLR_ACCOF_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Accof_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for ACCOF_Field_2 use
-     (Accof_Field_Reset => 0,
+   for INTENCLR_ACCOF_Field_1 use
+     (Intenclr_Accof_Field_Reset => 0,
       Clear => 1);
 
    --  Interrupt enable clear register.
    type INTENCLR_Register is record
       --  Disable interrupt on SAMPLERDY event.
-      SAMPLERDY     : SAMPLERDY_Field_2 := Samplerdy_Field_Reset;
+      SAMPLERDY     : INTENCLR_SAMPLERDY_Field_1 :=
+                       Intenclr_Samplerdy_Field_Reset;
       --  Disable interrupt on REPORTRDY event.
-      REPORTRDY     : REPORTRDY_Field_2 := Reportrdy_Field_Reset;
+      REPORTRDY     : INTENCLR_REPORTRDY_Field_1 :=
+                       Intenclr_Reportrdy_Field_Reset;
       --  Disable interrupt on ACCOF event.
-      ACCOF         : ACCOF_Field_2 := Accof_Field_Reset;
+      ACCOF         : INTENCLR_ACCOF_Field_1 := Intenclr_Accof_Field_Reset;
       --  unspecified
       Reserved_3_31 : nrf51.UInt29 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for INTENCLR_Register use record
@@ -216,30 +263,25 @@ package nrf51.QDEC is
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
 
-   ---------------------
-   -- ENABLE_Register --
-   ---------------------
-
    --  Enable or disable QDEC.
-   type ENABLE_Field is
-     (
-      --  Disabled QDEC.
+   type ENABLE_ENABLE_Field is
+     (--  Disabled QDEC.
       Disabled,
       --  Enable QDEC.
       Enabled)
      with Size => 1;
-   for ENABLE_Field use
+   for ENABLE_ENABLE_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable the QDEC.
    type ENABLE_Register is record
       --  Enable or disable QDEC.
-      ENABLE        : ENABLE_Field := Disabled;
+      ENABLE        : ENABLE_ENABLE_Field := nrf51.QDEC.Disabled;
       --  unspecified
       Reserved_1_31 : nrf51.UInt31 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for ENABLE_Register use record
@@ -247,30 +289,25 @@ package nrf51.QDEC is
       Reserved_1_31 at 0 range 1 .. 31;
    end record;
 
-   ---------------------
-   -- LEDPOL_Register --
-   ---------------------
-
    --  LED output pin polarity.
-   type LEDPOL_Field is
-     (
-      --  LED output is active low.
+   type LEDPOL_LEDPOL_Field is
+     (--  LED output is active low.
       Activelow,
       --  LED output is active high.
       Activehigh)
      with Size => 1;
-   for LEDPOL_Field use
+   for LEDPOL_LEDPOL_Field use
      (Activelow => 0,
       Activehigh => 1);
 
    --  LED output pin polarity.
    type LEDPOL_Register is record
       --  LED output pin polarity.
-      LEDPOL        : LEDPOL_Field := Activelow;
+      LEDPOL        : LEDPOL_LEDPOL_Field := nrf51.QDEC.Activelow;
       --  unspecified
       Reserved_1_31 : nrf51.UInt31 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for LEDPOL_Register use record
@@ -278,48 +315,43 @@ package nrf51.QDEC is
       Reserved_1_31 at 0 range 1 .. 31;
    end record;
 
-   ------------------------
-   -- SAMPLEPER_Register --
-   ------------------------
-
    --  Sample period.
-   type SAMPLEPER_Field is
-     (
-      --  128us sample period.
-      SAMPLEPER_Field_128US,
+   type SAMPLEPER_SAMPLEPER_Field is
+     (--  128us sample period.
+      Val_128US,
       --  256us sample period.
-      SAMPLEPER_Field_256US,
+      Val_256US,
       --  512us sample period.
-      SAMPLEPER_Field_512US,
+      Val_512US,
       --  1024us sample period.
-      SAMPLEPER_Field_1024US,
+      Val_1024US,
       --  2048us sample period.
-      SAMPLEPER_Field_2048US,
+      Val_2048US,
       --  4096us sample period.
-      SAMPLEPER_Field_4096US,
+      Val_4096US,
       --  8192us sample period.
-      SAMPLEPER_Field_8192US,
+      Val_8192US,
       --  16384us sample period.
-      SAMPLEPER_Field_16384US)
+      Val_16384US)
      with Size => 3;
-   for SAMPLEPER_Field use
-     (SAMPLEPER_Field_128US => 0,
-      SAMPLEPER_Field_256US => 1,
-      SAMPLEPER_Field_512US => 2,
-      SAMPLEPER_Field_1024US => 3,
-      SAMPLEPER_Field_2048US => 4,
-      SAMPLEPER_Field_4096US => 5,
-      SAMPLEPER_Field_8192US => 6,
-      SAMPLEPER_Field_16384US => 7);
+   for SAMPLEPER_SAMPLEPER_Field use
+     (Val_128US => 0,
+      Val_256US => 1,
+      Val_512US => 2,
+      Val_1024US => 3,
+      Val_2048US => 4,
+      Val_4096US => 5,
+      Val_8192US => 6,
+      Val_16384US => 7);
 
    --  Sample period.
    type SAMPLEPER_Register is record
       --  Sample period.
-      SAMPLEPER     : SAMPLEPER_Field := SAMPLEPER_Field_128US;
+      SAMPLEPER     : SAMPLEPER_SAMPLEPER_Field := nrf51.QDEC.Val_128US;
       --  unspecified
       Reserved_3_31 : nrf51.UInt29 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for SAMPLEPER_Register use record
@@ -327,48 +359,43 @@ package nrf51.QDEC is
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
 
-   ------------------------
-   -- REPORTPER_Register --
-   ------------------------
-
    --  Number of samples to generate an EVENT_REPORTRDY.
-   type REPORTPER_Field is
-     (
-      --  10 samples per report.
-      REPORTPER_Field_10Smpl,
+   type REPORTPER_REPORTPER_Field is
+     (--  10 samples per report.
+      Val_10Smpl,
       --  40 samples per report.
-      REPORTPER_Field_40Smpl,
+      Val_40Smpl,
       --  80 samples per report.
-      REPORTPER_Field_80Smpl,
+      Val_80Smpl,
       --  120 samples per report.
-      REPORTPER_Field_120Smpl,
+      Val_120Smpl,
       --  160 samples per report.
-      REPORTPER_Field_160Smpl,
+      Val_160Smpl,
       --  200 samples per report.
-      REPORTPER_Field_200Smpl,
+      Val_200Smpl,
       --  240 samples per report.
-      REPORTPER_Field_240Smpl,
+      Val_240Smpl,
       --  280 samples per report.
-      REPORTPER_Field_280Smpl)
+      Val_280Smpl)
      with Size => 3;
-   for REPORTPER_Field use
-     (REPORTPER_Field_10Smpl => 0,
-      REPORTPER_Field_40Smpl => 1,
-      REPORTPER_Field_80Smpl => 2,
-      REPORTPER_Field_120Smpl => 3,
-      REPORTPER_Field_160Smpl => 4,
-      REPORTPER_Field_200Smpl => 5,
-      REPORTPER_Field_240Smpl => 6,
-      REPORTPER_Field_280Smpl => 7);
+   for REPORTPER_REPORTPER_Field use
+     (Val_10Smpl => 0,
+      Val_40Smpl => 1,
+      Val_80Smpl => 2,
+      Val_120Smpl => 3,
+      Val_160Smpl => 4,
+      Val_200Smpl => 5,
+      Val_240Smpl => 6,
+      Val_280Smpl => 7);
 
    --  Number of samples to generate an EVENT_REPORTRDY.
    type REPORTPER_Register is record
       --  Number of samples to generate an EVENT_REPORTRDY.
-      REPORTPER     : REPORTPER_Field := REPORTPER_Field_10Smpl;
+      REPORTPER     : REPORTPER_REPORTPER_Field := nrf51.QDEC.Val_10Smpl;
       --  unspecified
       Reserved_3_31 : nrf51.UInt29 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for REPORTPER_Register use record
@@ -376,40 +403,31 @@ package nrf51.QDEC is
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
 
-   --------------------
-   -- DBFEN_Register --
-   --------------------
-
    --  Enable debounce input filters.
-   type DBFEN_Field is
-     (
-      --  Debounce input filters disabled.
+   type DBFEN_DBFEN_Field is
+     (--  Debounce input filters disabled.
       Disabled,
       --  Debounce input filters enabled.
       Enabled)
      with Size => 1;
-   for DBFEN_Field use
+   for DBFEN_DBFEN_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable debouncer input filters.
    type DBFEN_Register is record
       --  Enable debounce input filters.
-      DBFEN         : DBFEN_Field := Disabled;
+      DBFEN         : DBFEN_DBFEN_Field := nrf51.QDEC.Disabled;
       --  unspecified
       Reserved_1_31 : nrf51.UInt31 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for DBFEN_Register use record
       DBFEN         at 0 range 0 .. 0;
       Reserved_1_31 at 0 range 1 .. 31;
    end record;
-
-   ---------------------
-   -- LEDPRE_Register --
-   ---------------------
 
    subtype LEDPRE_LEDPRE_Field is nrf51.UInt9;
 
@@ -420,17 +438,13 @@ package nrf51.QDEC is
       --  unspecified
       Reserved_9_31 : nrf51.UInt23 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for LEDPRE_Register use record
       LEDPRE        at 0 range 0 .. 8;
       Reserved_9_31 at 0 range 9 .. 31;
    end record;
-
-   ---------------------
-   -- ACCDBL_Register --
-   ---------------------
 
    subtype ACCDBL_ACCDBL_Field is nrf51.UInt4;
 
@@ -441,17 +455,13 @@ package nrf51.QDEC is
       --  unspecified
       Reserved_4_31 : nrf51.UInt28;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for ACCDBL_Register use record
       ACCDBL        at 0 range 0 .. 3;
       Reserved_4_31 at 0 range 4 .. 31;
    end record;
-
-   -------------------------
-   -- ACCDBLREAD_Register --
-   -------------------------
 
    subtype ACCDBLREAD_ACCDBLREAD_Field is nrf51.UInt4;
 
@@ -463,7 +473,7 @@ package nrf51.QDEC is
       --  unspecified
       Reserved_4_31 : nrf51.UInt28;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for ACCDBLREAD_Register use record
@@ -471,30 +481,25 @@ package nrf51.QDEC is
       Reserved_4_31 at 0 range 4 .. 31;
    end record;
 
-   --------------------
-   -- POWER_Register --
-   --------------------
-
    --  Peripheral power control.
-   type POWER_Field is
-     (
-      --  Module power disabled.
+   type POWER_POWER_Field is
+     (--  Module power disabled.
       Disabled,
       --  Module power enabled.
       Enabled)
      with Size => 1;
-   for POWER_Field use
+   for POWER_POWER_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Peripheral power control.
    type POWER_Register is record
       --  Peripheral power control.
-      POWER         : POWER_Field := Disabled;
+      POWER         : POWER_POWER_Field := nrf51.QDEC.Disabled;
       --  unspecified
       Reserved_1_31 : nrf51.UInt31 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for POWER_Register use record
@@ -509,85 +514,85 @@ package nrf51.QDEC is
    --  Rotary decoder.
    type QDEC_Peripheral is record
       --  Start the quadrature decoder.
-      TASKS_START      : nrf51.Word;
+      TASKS_START      : aliased nrf51.UInt32;
       --  Stop the quadrature decoder.
-      TASKS_STOP       : nrf51.Word;
+      TASKS_STOP       : aliased nrf51.UInt32;
       --  Transfers the content from ACC registers to ACCREAD registers, and
       --  clears the ACC registers.
-      TASKS_READCLRACC : nrf51.Word;
+      TASKS_READCLRACC : aliased nrf51.UInt32;
       --  A new sample is written to the sample register.
-      EVENTS_SAMPLERDY : nrf51.Word;
+      EVENTS_SAMPLERDY : aliased nrf51.UInt32;
       --  REPORTPER number of samples accumulated in ACC register, and ACC
       --  register different than zero.
-      EVENTS_REPORTRDY : nrf51.Word;
+      EVENTS_REPORTRDY : aliased nrf51.UInt32;
       --  ACC or ACCDBL register overflow.
-      EVENTS_ACCOF     : nrf51.Word;
+      EVENTS_ACCOF     : aliased nrf51.UInt32;
       --  Shortcuts for the QDEC.
-      SHORTS           : SHORTS_Register;
+      SHORTS           : aliased SHORTS_Register;
       --  Interrupt enable set register.
-      INTENSET         : INTENSET_Register;
+      INTENSET         : aliased INTENSET_Register;
       --  Interrupt enable clear register.
-      INTENCLR         : INTENCLR_Register;
+      INTENCLR         : aliased INTENCLR_Register;
       --  Enable the QDEC.
-      ENABLE           : ENABLE_Register;
+      ENABLE           : aliased ENABLE_Register;
       --  LED output pin polarity.
-      LEDPOL           : LEDPOL_Register;
+      LEDPOL           : aliased LEDPOL_Register;
       --  Sample period.
-      SAMPLEPER        : SAMPLEPER_Register;
+      SAMPLEPER        : aliased SAMPLEPER_Register;
       --  Motion sample value.
-      SAMPLE           : nrf51.Word;
+      SAMPLE           : aliased nrf51.UInt32;
       --  Number of samples to generate an EVENT_REPORTRDY.
-      REPORTPER        : REPORTPER_Register;
+      REPORTPER        : aliased REPORTPER_Register;
       --  Accumulated valid transitions register.
-      ACC              : nrf51.Word;
+      ACC              : aliased nrf51.UInt32;
       --  Snapshot of ACC register. Value generated by the TASKS_READCLEACC
       --  task.
-      ACCREAD          : nrf51.Word;
+      ACCREAD          : aliased nrf51.UInt32;
       --  Pin select for LED output.
-      PSELLED          : nrf51.Word;
+      PSELLED          : aliased nrf51.UInt32;
       --  Pin select for phase A input.
-      PSELA            : nrf51.Word;
+      PSELA            : aliased nrf51.UInt32;
       --  Pin select for phase B input.
-      PSELB            : nrf51.Word;
+      PSELB            : aliased nrf51.UInt32;
       --  Enable debouncer input filters.
-      DBFEN            : DBFEN_Register;
+      DBFEN            : aliased DBFEN_Register;
       --  Time LED is switched ON before the sample.
-      LEDPRE           : LEDPRE_Register;
+      LEDPRE           : aliased LEDPRE_Register;
       --  Accumulated double (error) transitions register.
-      ACCDBL           : ACCDBL_Register;
+      ACCDBL           : aliased ACCDBL_Register;
       --  Snapshot of ACCDBL register. Value generated by the TASKS_READCLEACC
       --  task.
-      ACCDBLREAD       : ACCDBLREAD_Register;
+      ACCDBLREAD       : aliased ACCDBLREAD_Register;
       --  Peripheral power control.
-      POWER            : POWER_Register;
+      POWER            : aliased POWER_Register;
    end record
      with Volatile;
 
    for QDEC_Peripheral use record
-      TASKS_START      at 0 range 0 .. 31;
-      TASKS_STOP       at 4 range 0 .. 31;
-      TASKS_READCLRACC at 8 range 0 .. 31;
-      EVENTS_SAMPLERDY at 256 range 0 .. 31;
-      EVENTS_REPORTRDY at 260 range 0 .. 31;
-      EVENTS_ACCOF     at 264 range 0 .. 31;
-      SHORTS           at 512 range 0 .. 31;
-      INTENSET         at 772 range 0 .. 31;
-      INTENCLR         at 776 range 0 .. 31;
-      ENABLE           at 1280 range 0 .. 31;
-      LEDPOL           at 1284 range 0 .. 31;
-      SAMPLEPER        at 1288 range 0 .. 31;
-      SAMPLE           at 1292 range 0 .. 31;
-      REPORTPER        at 1296 range 0 .. 31;
-      ACC              at 1300 range 0 .. 31;
-      ACCREAD          at 1304 range 0 .. 31;
-      PSELLED          at 1308 range 0 .. 31;
-      PSELA            at 1312 range 0 .. 31;
-      PSELB            at 1316 range 0 .. 31;
-      DBFEN            at 1320 range 0 .. 31;
-      LEDPRE           at 1344 range 0 .. 31;
-      ACCDBL           at 1348 range 0 .. 31;
-      ACCDBLREAD       at 1352 range 0 .. 31;
-      POWER            at 4092 range 0 .. 31;
+      TASKS_START      at 16#0# range 0 .. 31;
+      TASKS_STOP       at 16#4# range 0 .. 31;
+      TASKS_READCLRACC at 16#8# range 0 .. 31;
+      EVENTS_SAMPLERDY at 16#100# range 0 .. 31;
+      EVENTS_REPORTRDY at 16#104# range 0 .. 31;
+      EVENTS_ACCOF     at 16#108# range 0 .. 31;
+      SHORTS           at 16#200# range 0 .. 31;
+      INTENSET         at 16#304# range 0 .. 31;
+      INTENCLR         at 16#308# range 0 .. 31;
+      ENABLE           at 16#500# range 0 .. 31;
+      LEDPOL           at 16#504# range 0 .. 31;
+      SAMPLEPER        at 16#508# range 0 .. 31;
+      SAMPLE           at 16#50C# range 0 .. 31;
+      REPORTPER        at 16#510# range 0 .. 31;
+      ACC              at 16#514# range 0 .. 31;
+      ACCREAD          at 16#518# range 0 .. 31;
+      PSELLED          at 16#51C# range 0 .. 31;
+      PSELA            at 16#520# range 0 .. 31;
+      PSELB            at 16#524# range 0 .. 31;
+      DBFEN            at 16#528# range 0 .. 31;
+      LEDPRE           at 16#540# range 0 .. 31;
+      ACCDBL           at 16#544# range 0 .. 31;
+      ACCDBLREAD       at 16#548# range 0 .. 31;
+      POWER            at 16#FFC# range 0 .. 31;
    end record;
 
    --  Rotary decoder.

@@ -1,5 +1,7 @@
---  Automatically generated from STM32F429x.svd by SVD2Ada
---  see https://github.com/simonjwright/svd2ada
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
+--  This spec has been automatically generated from STM32F429x.svd
 
 pragma Restrictions (No_Elaboration_Code);
 
@@ -11,10 +13,6 @@ package STM32F429x.RNG is
    ---------------
    -- Registers --
    ---------------
-
-   -----------------
-   -- CR_Register --
-   -----------------
 
    subtype CR_RNGEN_Field is STM32F429x.Bit;
    subtype CR_IE_Field is STM32F429x.Bit;
@@ -30,7 +28,7 @@ package STM32F429x.RNG is
       --  unspecified
       Reserved_4_31 : STM32F429x.UInt28 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CR_Register use record
       Reserved_0_1  at 0 range 0 .. 1;
@@ -38,10 +36,6 @@ package STM32F429x.RNG is
       IE            at 0 range 3 .. 3;
       Reserved_4_31 at 0 range 4 .. 31;
    end record;
-
-   -----------------
-   -- SR_Register --
-   -----------------
 
    subtype SR_DRDY_Field is STM32F429x.Bit;
    subtype SR_CECS_Field is STM32F429x.Bit;
@@ -51,11 +45,11 @@ package STM32F429x.RNG is
 
    --  status register
    type SR_Register is record
-      --  Data ready
+      --  Read-only. Data ready
       DRDY          : SR_DRDY_Field := 16#0#;
-      --  Clock error current status
+      --  Read-only. Clock error current status
       CECS          : SR_CECS_Field := 16#0#;
-      --  Seed error current status
+      --  Read-only. Seed error current status
       SECS          : SR_SECS_Field := 16#0#;
       --  unspecified
       Reserved_3_4  : STM32F429x.UInt2 := 16#0#;
@@ -66,7 +60,7 @@ package STM32F429x.RNG is
       --  unspecified
       Reserved_7_31 : STM32F429x.UInt25 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for SR_Register use record
       DRDY          at 0 range 0 .. 0;
@@ -85,22 +79,24 @@ package STM32F429x.RNG is
    --  Random number generator
    type RNG_Peripheral is record
       --  control register
-      CR : CR_Register;
+      CR : aliased CR_Register;
+      pragma Volatile_Full_Access (CR);
       --  status register
-      SR : SR_Register;
+      SR : aliased SR_Register;
+      pragma Volatile_Full_Access (SR);
       --  data register
-      DR : STM32F429x.Word;
+      DR : aliased STM32F429x.UInt32;
    end record
      with Volatile;
 
    for RNG_Peripheral use record
-      CR at 0 range 0 .. 31;
-      SR at 4 range 0 .. 31;
-      DR at 8 range 0 .. 31;
+      CR at 16#0# range 0 .. 31;
+      SR at 16#4# range 0 .. 31;
+      DR at 16#8# range 0 .. 31;
    end record;
 
    --  Random number generator
    RNG_Periph : aliased RNG_Peripheral
-     with Import, Address => System'To_Address (16#50060800#);
+     with Import, Address => RNG_Base;
 
 end STM32F429x.RNG;

@@ -1,5 +1,7 @@
---  Automatically generated from STM32F429x.svd by SVD2Ada
---  see https://github.com/simonjwright/svd2ada
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
+--  This spec has been automatically generated from STM32F429x.svd
 
 pragma Restrictions (No_Elaboration_Code);
 
@@ -11,10 +13,6 @@ package STM32F429x.SAI is
    ---------------
    -- Registers --
    ---------------
-
-   -------------------
-   -- ACR1_Register --
-   -------------------
 
    subtype ACR1_MODE_Field is STM32F429x.UInt2;
    subtype ACR1_PRTCFG_Field is STM32F429x.UInt2;
@@ -64,7 +62,7 @@ package STM32F429x.SAI is
       --  unspecified
       Reserved_24_31 : STM32F429x.Byte := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ACR1_Register use record
       MODE           at 0 range 0 .. 1;
@@ -84,10 +82,6 @@ package STM32F429x.SAI is
       MCJDIV         at 0 range 20 .. 23;
       Reserved_24_31 at 0 range 24 .. 31;
    end record;
-
-   -------------------
-   -- ACR2_Register --
-   -------------------
 
    subtype ACR2_FTH_Field is STM32F429x.UInt3;
    subtype ACR2_FFLUS_Field is STM32F429x.Bit;
@@ -117,9 +111,9 @@ package STM32F429x.SAI is
       --  Companding mode
       COMP           : ACR2_COMP_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short := 16#0#;
+      Reserved_16_31 : STM32F429x.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ACR2_Register use record
       FTH            at 0 range 0 .. 2;
@@ -132,10 +126,6 @@ package STM32F429x.SAI is
       COMP           at 0 range 14 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   --------------------
-   -- AFRCR_Register --
-   --------------------
 
    subtype AFRCR_FRL_Field is STM32F429x.Byte;
    subtype AFRCR_FSALL_Field is STM32F429x.UInt7;
@@ -160,7 +150,7 @@ package STM32F429x.SAI is
       --  unspecified
       Reserved_19_31 : STM32F429x.UInt13 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for AFRCR_Register use record
       FRL            at 0 range 0 .. 7;
@@ -172,14 +162,10 @@ package STM32F429x.SAI is
       Reserved_19_31 at 0 range 19 .. 31;
    end record;
 
-   ---------------------
-   -- ASLOTR_Register --
-   ---------------------
-
    subtype ASLOTR_FBOFF_Field is STM32F429x.UInt5;
    subtype ASLOTR_SLOTSZ_Field is STM32F429x.UInt2;
    subtype ASLOTR_NBSLOT_Field is STM32F429x.UInt4;
-   subtype ASLOTR_SLOTEN_Field is STM32F429x.Short;
+   subtype ASLOTR_SLOTEN_Field is STM32F429x.UInt16;
 
    --  ASlot register
    type ASLOTR_Register is record
@@ -196,7 +182,7 @@ package STM32F429x.SAI is
       --  Slot enable
       SLOTEN         : ASLOTR_SLOTEN_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ASLOTR_Register use record
       FBOFF          at 0 range 0 .. 4;
@@ -206,10 +192,6 @@ package STM32F429x.SAI is
       Reserved_12_15 at 0 range 12 .. 15;
       SLOTEN         at 0 range 16 .. 31;
    end record;
-
-   ------------------
-   -- AIM_Register --
-   ------------------
 
    subtype AIM_OVRUDRIE_Field is STM32F429x.Bit;
    subtype AIM_MUTEDET_Field is STM32F429x.Bit;
@@ -238,7 +220,7 @@ package STM32F429x.SAI is
       --  unspecified
       Reserved_7_31 : STM32F429x.UInt25 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for AIM_Register use record
       OVRUDRIE      at 0 range 0 .. 0;
@@ -250,10 +232,6 @@ package STM32F429x.SAI is
       LFSDET        at 0 range 6 .. 6;
       Reserved_7_31 at 0 range 7 .. 31;
    end record;
-
-   ------------------
-   -- ASR_Register --
-   ------------------
 
    subtype ASR_OVRUDR_Field is STM32F429x.Bit;
    subtype ASR_MUTEDET_Field is STM32F429x.Bit;
@@ -287,7 +265,7 @@ package STM32F429x.SAI is
       --  unspecified
       Reserved_19_31 : STM32F429x.UInt13 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ASR_Register use record
       OVRUDR         at 0 range 0 .. 0;
@@ -301,10 +279,6 @@ package STM32F429x.SAI is
       FLVL           at 0 range 16 .. 18;
       Reserved_19_31 at 0 range 19 .. 31;
    end record;
-
-   ---------------------
-   -- ACLRFR_Register --
-   ---------------------
 
    subtype ACLRFR_OVRUDR_Field is STM32F429x.Bit;
    subtype ACLRFR_MUTEDET_Field is STM32F429x.Bit;
@@ -332,7 +306,7 @@ package STM32F429x.SAI is
       --  unspecified
       Reserved_7_31 : STM32F429x.UInt25 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ACLRFR_Register use record
       OVRUDR        at 0 range 0 .. 0;
@@ -344,10 +318,6 @@ package STM32F429x.SAI is
       LFSDET        at 0 range 6 .. 6;
       Reserved_7_31 at 0 range 7 .. 31;
    end record;
-
-   -------------------
-   -- BCR1_Register --
-   -------------------
 
    subtype BCR1_MODE_Field is STM32F429x.UInt2;
    subtype BCR1_PRTCFG_Field is STM32F429x.UInt2;
@@ -397,7 +367,7 @@ package STM32F429x.SAI is
       --  unspecified
       Reserved_24_31 : STM32F429x.Byte := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BCR1_Register use record
       MODE           at 0 range 0 .. 1;
@@ -417,10 +387,6 @@ package STM32F429x.SAI is
       MCJDIV         at 0 range 20 .. 23;
       Reserved_24_31 at 0 range 24 .. 31;
    end record;
-
-   -------------------
-   -- BCR2_Register --
-   -------------------
 
    subtype BCR2_FTH_Field is STM32F429x.UInt3;
    subtype BCR2_FFLUS_Field is STM32F429x.Bit;
@@ -450,9 +416,9 @@ package STM32F429x.SAI is
       --  Companding mode
       COMP           : BCR2_COMP_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short := 16#0#;
+      Reserved_16_31 : STM32F429x.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BCR2_Register use record
       FTH            at 0 range 0 .. 2;
@@ -465,10 +431,6 @@ package STM32F429x.SAI is
       COMP           at 0 range 14 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   --------------------
-   -- BFRCR_Register --
-   --------------------
 
    subtype BFRCR_FRL_Field is STM32F429x.Byte;
    subtype BFRCR_FSALL_Field is STM32F429x.UInt7;
@@ -493,7 +455,7 @@ package STM32F429x.SAI is
       --  unspecified
       Reserved_19_31 : STM32F429x.UInt13 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BFRCR_Register use record
       FRL            at 0 range 0 .. 7;
@@ -505,14 +467,10 @@ package STM32F429x.SAI is
       Reserved_19_31 at 0 range 19 .. 31;
    end record;
 
-   ---------------------
-   -- BSLOTR_Register --
-   ---------------------
-
    subtype BSLOTR_FBOFF_Field is STM32F429x.UInt5;
    subtype BSLOTR_SLOTSZ_Field is STM32F429x.UInt2;
    subtype BSLOTR_NBSLOT_Field is STM32F429x.UInt4;
-   subtype BSLOTR_SLOTEN_Field is STM32F429x.Short;
+   subtype BSLOTR_SLOTEN_Field is STM32F429x.UInt16;
 
    --  BSlot register
    type BSLOTR_Register is record
@@ -529,7 +487,7 @@ package STM32F429x.SAI is
       --  Slot enable
       SLOTEN         : BSLOTR_SLOTEN_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BSLOTR_Register use record
       FBOFF          at 0 range 0 .. 4;
@@ -539,10 +497,6 @@ package STM32F429x.SAI is
       Reserved_12_15 at 0 range 12 .. 15;
       SLOTEN         at 0 range 16 .. 31;
    end record;
-
-   ------------------
-   -- BIM_Register --
-   ------------------
 
    subtype BIM_OVRUDRIE_Field is STM32F429x.Bit;
    subtype BIM_MUTEDET_Field is STM32F429x.Bit;
@@ -571,7 +525,7 @@ package STM32F429x.SAI is
       --  unspecified
       Reserved_7_31 : STM32F429x.UInt25 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BIM_Register use record
       OVRUDRIE      at 0 range 0 .. 0;
@@ -584,10 +538,6 @@ package STM32F429x.SAI is
       Reserved_7_31 at 0 range 7 .. 31;
    end record;
 
-   ------------------
-   -- BSR_Register --
-   ------------------
-
    subtype BSR_OVRUDR_Field is STM32F429x.Bit;
    subtype BSR_MUTEDET_Field is STM32F429x.Bit;
    subtype BSR_WCKCFG_Field is STM32F429x.Bit;
@@ -599,28 +549,28 @@ package STM32F429x.SAI is
 
    --  BStatus register
    type BSR_Register is record
-      --  Overrun / underrun
+      --  Read-only. Overrun / underrun
       OVRUDR         : BSR_OVRUDR_Field;
-      --  Mute detection
+      --  Read-only. Mute detection
       MUTEDET        : BSR_MUTEDET_Field;
-      --  Wrong clock configuration flag
+      --  Read-only. Wrong clock configuration flag
       WCKCFG         : BSR_WCKCFG_Field;
-      --  FIFO request
+      --  Read-only. FIFO request
       FREQ           : BSR_FREQ_Field;
-      --  Codec not ready
+      --  Read-only. Codec not ready
       CNRDY          : BSR_CNRDY_Field;
-      --  Anticipated frame synchronization detection
+      --  Read-only. Anticipated frame synchronization detection
       AFSDET         : BSR_AFSDET_Field;
-      --  Late frame synchronization detection
+      --  Read-only. Late frame synchronization detection
       LFSDET         : BSR_LFSDET_Field;
       --  unspecified
       Reserved_7_15  : STM32F429x.UInt9;
-      --  FIFO level threshold
+      --  Read-only. FIFO level threshold
       FLVL           : BSR_FLVL_Field;
       --  unspecified
       Reserved_19_31 : STM32F429x.UInt13;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BSR_Register use record
       OVRUDR         at 0 range 0 .. 0;
@@ -635,10 +585,6 @@ package STM32F429x.SAI is
       Reserved_19_31 at 0 range 19 .. 31;
    end record;
 
-   ---------------------
-   -- BCLRFR_Register --
-   ---------------------
-
    subtype BCLRFR_OVRUDR_Field is STM32F429x.Bit;
    subtype BCLRFR_MUTEDET_Field is STM32F429x.Bit;
    subtype BCLRFR_WCKCFG_Field is STM32F429x.Bit;
@@ -648,24 +594,24 @@ package STM32F429x.SAI is
 
    --  BClear flag register
    type BCLRFR_Register is record
-      --  Clear overrun / underrun
+      --  Write-only. Clear overrun / underrun
       OVRUDR        : BCLRFR_OVRUDR_Field := 16#0#;
-      --  Mute detection flag
+      --  Write-only. Mute detection flag
       MUTEDET       : BCLRFR_MUTEDET_Field := 16#0#;
-      --  Clear wrong clock configuration flag
+      --  Write-only. Clear wrong clock configuration flag
       WCKCFG        : BCLRFR_WCKCFG_Field := 16#0#;
       --  unspecified
       Reserved_3_3  : STM32F429x.Bit := 16#0#;
-      --  Clear codec not ready flag
+      --  Write-only. Clear codec not ready flag
       CNRDY         : BCLRFR_CNRDY_Field := 16#0#;
-      --  Clear anticipated frame synchronization detection flag
+      --  Write-only. Clear anticipated frame synchronization detection flag
       CAFSDET       : BCLRFR_CAFSDET_Field := 16#0#;
-      --  Clear late frame synchronization detection flag
+      --  Write-only. Clear late frame synchronization detection flag
       LFSDET        : BCLRFR_LFSDET_Field := 16#0#;
       --  unspecified
       Reserved_7_31 : STM32F429x.UInt25 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BCLRFR_Register use record
       OVRUDR        at 0 range 0 .. 0;
@@ -685,61 +631,75 @@ package STM32F429x.SAI is
    --  Serial audio interface
    type SAI_Peripheral is record
       --  AConfiguration register 1
-      ACR1   : ACR1_Register;
+      ACR1   : aliased ACR1_Register;
+      pragma Volatile_Full_Access (ACR1);
       --  AConfiguration register 2
-      ACR2   : ACR2_Register;
+      ACR2   : aliased ACR2_Register;
+      pragma Volatile_Full_Access (ACR2);
       --  AFRCR
-      AFRCR  : AFRCR_Register;
+      AFRCR  : aliased AFRCR_Register;
+      pragma Volatile_Full_Access (AFRCR);
       --  ASlot register
-      ASLOTR : ASLOTR_Register;
+      ASLOTR : aliased ASLOTR_Register;
+      pragma Volatile_Full_Access (ASLOTR);
       --  AInterrupt mask register2
-      AIM    : AIM_Register;
+      AIM    : aliased AIM_Register;
+      pragma Volatile_Full_Access (AIM);
       --  AStatus register
-      ASR    : ASR_Register;
+      ASR    : aliased ASR_Register;
+      pragma Volatile_Full_Access (ASR);
       --  AClear flag register
-      ACLRFR : ACLRFR_Register;
+      ACLRFR : aliased ACLRFR_Register;
+      pragma Volatile_Full_Access (ACLRFR);
       --  AData register
-      ADR    : STM32F429x.Word;
+      ADR    : aliased STM32F429x.UInt32;
       --  BConfiguration register 1
-      BCR1   : BCR1_Register;
+      BCR1   : aliased BCR1_Register;
+      pragma Volatile_Full_Access (BCR1);
       --  BConfiguration register 2
-      BCR2   : BCR2_Register;
+      BCR2   : aliased BCR2_Register;
+      pragma Volatile_Full_Access (BCR2);
       --  BFRCR
-      BFRCR  : BFRCR_Register;
+      BFRCR  : aliased BFRCR_Register;
+      pragma Volatile_Full_Access (BFRCR);
       --  BSlot register
-      BSLOTR : BSLOTR_Register;
+      BSLOTR : aliased BSLOTR_Register;
+      pragma Volatile_Full_Access (BSLOTR);
       --  BInterrupt mask register2
-      BIM    : BIM_Register;
+      BIM    : aliased BIM_Register;
+      pragma Volatile_Full_Access (BIM);
       --  BStatus register
-      BSR    : BSR_Register;
+      BSR    : aliased BSR_Register;
+      pragma Volatile_Full_Access (BSR);
       --  BClear flag register
-      BCLRFR : BCLRFR_Register;
+      BCLRFR : aliased BCLRFR_Register;
+      pragma Volatile_Full_Access (BCLRFR);
       --  BData register
-      BDR    : STM32F429x.Word;
+      BDR    : aliased STM32F429x.UInt32;
    end record
      with Volatile;
 
    for SAI_Peripheral use record
-      ACR1   at 4 range 0 .. 31;
-      ACR2   at 8 range 0 .. 31;
-      AFRCR  at 12 range 0 .. 31;
-      ASLOTR at 16 range 0 .. 31;
-      AIM    at 20 range 0 .. 31;
-      ASR    at 24 range 0 .. 31;
-      ACLRFR at 28 range 0 .. 31;
-      ADR    at 32 range 0 .. 31;
-      BCR1   at 36 range 0 .. 31;
-      BCR2   at 40 range 0 .. 31;
-      BFRCR  at 44 range 0 .. 31;
-      BSLOTR at 48 range 0 .. 31;
-      BIM    at 52 range 0 .. 31;
-      BSR    at 56 range 0 .. 31;
-      BCLRFR at 60 range 0 .. 31;
-      BDR    at 64 range 0 .. 31;
+      ACR1   at 16#4# range 0 .. 31;
+      ACR2   at 16#8# range 0 .. 31;
+      AFRCR  at 16#C# range 0 .. 31;
+      ASLOTR at 16#10# range 0 .. 31;
+      AIM    at 16#14# range 0 .. 31;
+      ASR    at 16#18# range 0 .. 31;
+      ACLRFR at 16#1C# range 0 .. 31;
+      ADR    at 16#20# range 0 .. 31;
+      BCR1   at 16#24# range 0 .. 31;
+      BCR2   at 16#28# range 0 .. 31;
+      BFRCR  at 16#2C# range 0 .. 31;
+      BSLOTR at 16#30# range 0 .. 31;
+      BIM    at 16#34# range 0 .. 31;
+      BSR    at 16#38# range 0 .. 31;
+      BCLRFR at 16#3C# range 0 .. 31;
+      BDR    at 16#40# range 0 .. 31;
    end record;
 
    --  Serial audio interface
    SAI_Periph : aliased SAI_Peripheral
-     with Import, Address => System'To_Address (16#40015800#);
+     with Import, Address => SAI_Base;
 
 end STM32F429x.SAI;

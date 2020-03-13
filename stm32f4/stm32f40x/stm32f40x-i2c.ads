@@ -1,8 +1,9 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
 --  This spec has been automatically generated from STM32F40x.svd
---  see https://github.com/simonjwright/svd2ada
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -12,10 +13,6 @@ package STM32F40x.I2C is
    ---------------
    -- Registers --
    ---------------
-
-   ------------------
-   -- CR1_Register --
-   ------------------
 
    subtype CR1_PE_Field is STM32F40x.Bit;
    subtype CR1_SMBUS_Field is STM32F40x.Bit;
@@ -67,10 +64,9 @@ package STM32F40x.I2C is
       --  Software reset
       SWRST          : CR1_SWRST_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F40x.Short := 16#0#;
+      Reserved_16_31 : STM32F40x.UInt16 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CR1_Register use record
       PE             at 0 range 0 .. 0;
@@ -91,10 +87,6 @@ package STM32F40x.I2C is
       SWRST          at 0 range 15 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   ------------------
-   -- CR2_Register --
-   ------------------
 
    subtype CR2_FREQ_Field is STM32F40x.UInt6;
    subtype CR2_ITERREN_Field is STM32F40x.Bit;
@@ -122,8 +114,7 @@ package STM32F40x.I2C is
       --  unspecified
       Reserved_13_31 : STM32F40x.UInt19 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CR2_Register use record
       FREQ           at 0 range 0 .. 5;
@@ -135,10 +126,6 @@ package STM32F40x.I2C is
       LAST           at 0 range 12 .. 12;
       Reserved_13_31 at 0 range 13 .. 31;
    end record;
-
-   -------------------
-   -- OAR1_Register --
-   -------------------
 
    subtype OAR1_ADD0_Field is STM32F40x.Bit;
    subtype OAR1_ADD7_Field is STM32F40x.UInt7;
@@ -158,10 +145,9 @@ package STM32F40x.I2C is
       --  Addressing mode (slave mode)
       ADDMODE        : OAR1_ADDMODE_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F40x.Short := 16#0#;
+      Reserved_16_31 : STM32F40x.UInt16 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for OAR1_Register use record
       ADD0           at 0 range 0 .. 0;
@@ -171,10 +157,6 @@ package STM32F40x.I2C is
       ADDMODE        at 0 range 15 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   -------------------
-   -- OAR2_Register --
-   -------------------
 
    subtype OAR2_ENDUAL_Field is STM32F40x.Bit;
    subtype OAR2_ADD2_Field is STM32F40x.UInt7;
@@ -188,18 +170,13 @@ package STM32F40x.I2C is
       --  unspecified
       Reserved_8_31 : STM32F40x.UInt24 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for OAR2_Register use record
       ENDUAL        at 0 range 0 .. 0;
       ADD2          at 0 range 1 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   -----------------
-   -- DR_Register --
-   -----------------
 
    subtype DR_DR_Field is STM32F40x.Byte;
 
@@ -210,17 +187,12 @@ package STM32F40x.I2C is
       --  unspecified
       Reserved_8_31 : STM32F40x.UInt24 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for DR_Register use record
       DR            at 0 range 0 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   ------------------
-   -- SR1_Register --
-   ------------------
 
    subtype SR1_SB_Field is STM32F40x.Bit;
    subtype SR1_ADDR_Field is STM32F40x.Bit;
@@ -272,10 +244,9 @@ package STM32F40x.I2C is
       --  SMBus alert
       SMBALERT       : SR1_SMBALERT_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F40x.Short := 16#0#;
+      Reserved_16_31 : STM32F40x.UInt16 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for SR1_Register use record
       SB             at 0 range 0 .. 0;
@@ -297,10 +268,6 @@ package STM32F40x.I2C is
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   ------------------
-   -- SR2_Register --
-   ------------------
-
    subtype SR2_MSL_Field is STM32F40x.Bit;
    subtype SR2_BUSY_Field is STM32F40x.Bit;
    subtype SR2_TRA_Field is STM32F40x.Bit;
@@ -313,28 +280,27 @@ package STM32F40x.I2C is
    --  Status register 2
    type SR2_Register is record
       --  Read-only. Master/slave
-      MSL            : SR2_MSL_Field := 16#0#;
+      MSL            : SR2_MSL_Field;
       --  Read-only. Bus busy
-      BUSY           : SR2_BUSY_Field := 16#0#;
+      BUSY           : SR2_BUSY_Field;
       --  Read-only. Transmitter/receiver
-      TRA            : SR2_TRA_Field := 16#0#;
+      TRA            : SR2_TRA_Field;
       --  unspecified
       Reserved_3_3   : STM32F40x.Bit;
       --  Read-only. General call address (Slave mode)
-      GENCALL        : SR2_GENCALL_Field := 16#0#;
+      GENCALL        : SR2_GENCALL_Field;
       --  Read-only. SMBus device default address (Slave mode)
-      SMBDEFAULT     : SR2_SMBDEFAULT_Field := 16#0#;
+      SMBDEFAULT     : SR2_SMBDEFAULT_Field;
       --  Read-only. SMBus host header (Slave mode)
-      SMBHOST        : SR2_SMBHOST_Field := 16#0#;
+      SMBHOST        : SR2_SMBHOST_Field;
       --  Read-only. Dual flag (Slave mode)
-      DUALF          : SR2_DUALF_Field := 16#0#;
+      DUALF          : SR2_DUALF_Field;
       --  Read-only. acket error checking register
-      PEC            : SR2_PEC_Field := 16#0#;
+      PEC            : SR2_PEC_Field;
       --  unspecified
-      Reserved_16_31 : STM32F40x.Short;
+      Reserved_16_31 : STM32F40x.UInt16;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for SR2_Register use record
       MSL            at 0 range 0 .. 0;
@@ -348,10 +314,6 @@ package STM32F40x.I2C is
       PEC            at 0 range 8 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   ------------------
-   -- CCR_Register --
-   ------------------
 
    subtype CCR_CCR_Field is STM32F40x.UInt12;
    subtype CCR_DUTY_Field is STM32F40x.Bit;
@@ -368,10 +330,9 @@ package STM32F40x.I2C is
       --  I2C master mode selection
       F_S            : CCR_F_S_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F40x.Short := 16#0#;
+      Reserved_16_31 : STM32F40x.UInt16 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CCR_Register use record
       CCR            at 0 range 0 .. 11;
@@ -380,10 +341,6 @@ package STM32F40x.I2C is
       F_S            at 0 range 15 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   --------------------
-   -- TRISE_Register --
-   --------------------
 
    subtype TRISE_TRISE_Field is STM32F40x.UInt6;
 
@@ -394,8 +351,7 @@ package STM32F40x.I2C is
       --  unspecified
       Reserved_6_31 : STM32F40x.UInt26 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for TRISE_Register use record
       TRISE         at 0 range 0 .. 5;
@@ -409,36 +365,45 @@ package STM32F40x.I2C is
    --  Inter-integrated circuit
    type I2C_Peripheral is record
       --  Control register 1
-      CR1   : CR1_Register;
+      CR1   : aliased CR1_Register;
+      pragma Volatile_Full_Access (CR1);
       --  Control register 2
-      CR2   : CR2_Register;
+      CR2   : aliased CR2_Register;
+      pragma Volatile_Full_Access (CR2);
       --  Own address register 1
-      OAR1  : OAR1_Register;
+      OAR1  : aliased OAR1_Register;
+      pragma Volatile_Full_Access (OAR1);
       --  Own address register 2
-      OAR2  : OAR2_Register;
+      OAR2  : aliased OAR2_Register;
+      pragma Volatile_Full_Access (OAR2);
       --  Data register
-      DR    : DR_Register;
+      DR    : aliased DR_Register;
+      pragma Volatile_Full_Access (DR);
       --  Status register 1
-      SR1   : SR1_Register;
+      SR1   : aliased SR1_Register;
+      pragma Volatile_Full_Access (SR1);
       --  Status register 2
-      SR2   : SR2_Register;
+      SR2   : aliased SR2_Register;
+      pragma Volatile_Full_Access (SR2);
       --  Clock control register
-      CCR   : CCR_Register;
+      CCR   : aliased CCR_Register;
+      pragma Volatile_Full_Access (CCR);
       --  TRISE register
-      TRISE : TRISE_Register;
+      TRISE : aliased TRISE_Register;
+      pragma Volatile_Full_Access (TRISE);
    end record
      with Volatile;
 
    for I2C_Peripheral use record
-      CR1   at 0 range 0 .. 31;
-      CR2   at 4 range 0 .. 31;
-      OAR1  at 8 range 0 .. 31;
-      OAR2  at 12 range 0 .. 31;
-      DR    at 16 range 0 .. 31;
-      SR1   at 20 range 0 .. 31;
-      SR2   at 24 range 0 .. 31;
-      CCR   at 28 range 0 .. 31;
-      TRISE at 32 range 0 .. 31;
+      CR1   at 16#0# range 0 .. 31;
+      CR2   at 16#4# range 0 .. 31;
+      OAR1  at 16#8# range 0 .. 31;
+      OAR2  at 16#C# range 0 .. 31;
+      DR    at 16#10# range 0 .. 31;
+      SR1   at 16#14# range 0 .. 31;
+      SR2   at 16#18# range 0 .. 31;
+      CCR   at 16#1C# range 0 .. 31;
+      TRISE at 16#20# range 0 .. 31;
    end record;
 
    --  Inter-integrated circuit

@@ -1,8 +1,9 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
 --  This spec has been automatically generated from ATSAM3X8E.svd
---  see https://github.com/simonjwright/svd2ada
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -14,18 +15,11 @@ package ATSAM3X8E.CHIPID is
    -- Registers --
    ---------------
 
-   -------------------
-   -- CIDR_Register --
-   -------------------
-
-   subtype CIDR_VERSION_Field is ATSAM3X8E.UInt5;
+   subtype CHIPID_CIDR_VERSION_Field is ATSAM3X8E.UInt5;
 
    --  Embedded Processor
-   type EPROC_Field is
-     (
-      --  Reset value for the field
-      Eproc_Field_Reset,
-      --  ARM946ES
+   type CIDR_EPROC_Field is
+     (--  ARM946ES
       Arm946Es,
       --  ARM7TDMI
       Arm7Tdmi,
@@ -40,9 +34,8 @@ package ATSAM3X8E.CHIPID is
       --  Cortex-M4
       Cm4)
      with Size => 3;
-   for EPROC_Field use
-     (Eproc_Field_Reset => 0,
-      Arm946Es => 1,
+   for CIDR_EPROC_Field use
+     (Arm946Es => 1,
       Arm7Tdmi => 2,
       Cm3 => 3,
       Arm920T => 4,
@@ -51,51 +44,46 @@ package ATSAM3X8E.CHIPID is
       Cm4 => 7);
 
    --  Nonvolatile Program Memory Size
-   type NVPSIZ_Field is
-     (
-      --  None
+   type CIDR_NVPSIZ_Field is
+     (--  None
       None,
       --  8K bytes
-      NVPSIZ_Field_8K,
+      Val_8K,
       --  16K bytes
-      NVPSIZ_Field_16K,
+      Val_16K,
       --  32K bytes
-      NVPSIZ_Field_32K,
+      Val_32K,
       --  64K bytes
-      NVPSIZ_Field_64K,
+      Val_64K,
       --  128K bytes
-      NVPSIZ_Field_128K,
+      Val_128K,
       --  256K bytes
-      NVPSIZ_Field_256K,
+      Val_256K,
       --  512K bytes
-      NVPSIZ_Field_512K,
+      Val_512K,
       --  1024K bytes
-      NVPSIZ_Field_1024K,
+      Val_1024K,
       --  2048K bytes
-      NVPSIZ_Field_2048K)
+      Val_2048K)
      with Size => 4;
-   for NVPSIZ_Field use
+   for CIDR_NVPSIZ_Field use
      (None => 0,
-      NVPSIZ_Field_8K => 1,
-      NVPSIZ_Field_16K => 2,
-      NVPSIZ_Field_32K => 3,
-      NVPSIZ_Field_64K => 5,
-      NVPSIZ_Field_128K => 7,
-      NVPSIZ_Field_256K => 9,
-      NVPSIZ_Field_512K => 10,
-      NVPSIZ_Field_1024K => 12,
-      NVPSIZ_Field_2048K => 14);
+      Val_8K => 1,
+      Val_16K => 2,
+      Val_32K => 3,
+      Val_64K => 5,
+      Val_128K => 7,
+      Val_256K => 9,
+      Val_512K => 10,
+      Val_1024K => 12,
+      Val_2048K => 14);
 
-   -----------------
-   -- CIDR.NVPSIZ --
-   -----------------
-
-   --  CIDR_NVPSIZ array
-   type CIDR_NVPSIZ_Field_Array is array (0 .. 1) of NVPSIZ_Field
+   --  CHIPID_CIDR_NVPSIZ array
+   type CHIPID_CIDR_NVPSIZ_Field_Array is array (1 .. 2) of CIDR_NVPSIZ_Field
      with Component_Size => 4, Size => 8;
 
-   --  Type definition for CIDR_NVPSIZ
-   type CIDR_NVPSIZ_Field
+   --  Type definition for CHIPID_CIDR_NVPSIZ
+   type CHIPID_CIDR_NVPSIZ_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -104,76 +92,72 @@ package ATSAM3X8E.CHIPID is
             Val : ATSAM3X8E.Byte;
          when True =>
             --  NVPSIZ as an array
-            Arr : CIDR_NVPSIZ_Field_Array;
+            Arr : CHIPID_CIDR_NVPSIZ_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 8;
 
-   for CIDR_NVPSIZ_Field use record
+   for CHIPID_CIDR_NVPSIZ_Field use record
       Val at 0 range 0 .. 7;
       Arr at 0 range 0 .. 7;
    end record;
 
    --  Internal SRAM Size
-   type SRAMSIZ_Field is
-     (
-      --  48K bytes
-      SRAMSIZ_Field_48K,
+   type CIDR_SRAMSIZ_Field is
+     (--  48K bytes
+      Val_48K,
       --  1K bytes
-      SRAMSIZ_Field_1K,
+      Val_1K,
       --  2K bytes
-      SRAMSIZ_Field_2K,
+      Val_2K,
       --  6K bytes
-      SRAMSIZ_Field_6K,
+      Val_6K,
       --  24K bytes
-      SRAMSIZ_Field_24K,
+      Val_24K,
       --  4K bytes
-      SRAMSIZ_Field_4K,
+      Val_4K,
       --  80K bytes
-      SRAMSIZ_Field_80K,
+      Val_80K,
       --  160K bytes
-      SRAMSIZ_Field_160K,
+      Val_160K,
       --  8K bytes
-      SRAMSIZ_Field_8K,
+      Val_8K,
       --  16K bytes
-      SRAMSIZ_Field_16K,
+      Val_16K,
       --  32K bytes
-      SRAMSIZ_Field_32K,
+      Val_32K,
       --  64K bytes
-      SRAMSIZ_Field_64K,
+      Val_64K,
       --  128K bytes
-      SRAMSIZ_Field_128K,
+      Val_128K,
       --  256K bytes
-      SRAMSIZ_Field_256K,
+      Val_256K,
       --  96K bytes
-      SRAMSIZ_Field_96K,
+      Val_96K,
       --  512K bytes
-      SRAMSIZ_Field_512K)
+      Val_512K)
      with Size => 4;
-   for SRAMSIZ_Field use
-     (SRAMSIZ_Field_48K => 0,
-      SRAMSIZ_Field_1K => 1,
-      SRAMSIZ_Field_2K => 2,
-      SRAMSIZ_Field_6K => 3,
-      SRAMSIZ_Field_24K => 4,
-      SRAMSIZ_Field_4K => 5,
-      SRAMSIZ_Field_80K => 6,
-      SRAMSIZ_Field_160K => 7,
-      SRAMSIZ_Field_8K => 8,
-      SRAMSIZ_Field_16K => 9,
-      SRAMSIZ_Field_32K => 10,
-      SRAMSIZ_Field_64K => 11,
-      SRAMSIZ_Field_128K => 12,
-      SRAMSIZ_Field_256K => 13,
-      SRAMSIZ_Field_96K => 14,
-      SRAMSIZ_Field_512K => 15);
+   for CIDR_SRAMSIZ_Field use
+     (Val_48K => 0,
+      Val_1K => 1,
+      Val_2K => 2,
+      Val_6K => 3,
+      Val_24K => 4,
+      Val_4K => 5,
+      Val_80K => 6,
+      Val_160K => 7,
+      Val_8K => 8,
+      Val_16K => 9,
+      Val_32K => 10,
+      Val_64K => 11,
+      Val_128K => 12,
+      Val_256K => 13,
+      Val_96K => 14,
+      Val_512K => 15);
 
    --  Architecture Identifier
-   type ARCH_Field is
-     (
-      --  Reset value for the field
-      Arch_Field_Reset,
-      --  AT91SAM9xx Series
+   type CIDR_ARCH_Field is
+     (--  AT91SAM9xx Series
       At91Sam9XX,
       --  AT91SAM9XExx Series
       At91Sam9Xexx,
@@ -244,9 +228,8 @@ package ATSAM3X8E.CHIPID is
       --  AT75Cxx Series
       At75Cxx)
      with Size => 8;
-   for ARCH_Field use
-     (Arch_Field_Reset => 0,
-      At91Sam9XX => 25,
+   for CIDR_ARCH_Field use
+     (At91Sam9XX => 25,
       At91Sam9Xexx => 41,
       At91X34 => 52,
       Cap7 => 55,
@@ -283,9 +266,8 @@ package ATSAM3X8E.CHIPID is
       At75Cxx => 240);
 
    --  Nonvolatile Program Memory Type
-   type NVPTYP_Field is
-     (
-      --  ROM
+   type CIDR_NVPTYP_Field is
+     (--  ROM
       Rom,
       --  ROMless or on-chip Flash
       Romless,
@@ -296,35 +278,35 @@ package ATSAM3X8E.CHIPID is
       --  SRAM emulating ROM
       Sram)
      with Size => 3;
-   for NVPTYP_Field use
+   for CIDR_NVPTYP_Field use
      (Rom => 0,
       Romless => 1,
       Flash => 2,
       Rom_Flash => 3,
       Sram => 4);
 
-   subtype CIDR_EXT_Field is ATSAM3X8E.Bit;
+   subtype CHIPID_CIDR_EXT_Field is ATSAM3X8E.Bit;
 
    --  Chip ID Register
-   type CIDR_Register is record
+   type CHIPID_CIDR_Register is record
       --  Read-only. Version of the Device
-      VERSION : CIDR_VERSION_Field := 16#0#;
+      VERSION : CHIPID_CIDR_VERSION_Field;
       --  Read-only. Embedded Processor
-      EPROC   : EPROC_Field := Eproc_Field_Reset;
+      EPROC   : CIDR_EPROC_Field;
       --  Read-only. Nonvolatile Program Memory Size
-      NVPSIZ  : CIDR_NVPSIZ_Field := (As_Array => False, Val => 16#0#);
+      NVPSIZ  : CHIPID_CIDR_NVPSIZ_Field;
       --  Read-only. Internal SRAM Size
-      SRAMSIZ : SRAMSIZ_Field := SRAMSIZ_Field_48K;
+      SRAMSIZ : CIDR_SRAMSIZ_Field;
       --  Read-only. Architecture Identifier
-      ARCH    : ARCH_Field := Arch_Field_Reset;
+      ARCH    : CIDR_ARCH_Field;
       --  Read-only. Nonvolatile Program Memory Type
-      NVPTYP  : NVPTYP_Field := Rom;
+      NVPTYP  : CIDR_NVPTYP_Field;
       --  Read-only. Extension Flag
-      EXT     : CIDR_EXT_Field := 16#0#;
+      EXT     : CHIPID_CIDR_EXT_Field;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for CIDR_Register use record
+   for CHIPID_CIDR_Register use record
       VERSION at 0 range 0 .. 4;
       EPROC   at 0 range 5 .. 7;
       NVPSIZ  at 0 range 8 .. 15;
@@ -341,15 +323,16 @@ package ATSAM3X8E.CHIPID is
    --  Chip Identifier
    type CHIPID_Peripheral is record
       --  Chip ID Register
-      CIDR : CIDR_Register;
+      CIDR : aliased CHIPID_CIDR_Register;
+      pragma Volatile_Full_Access (CIDR);
       --  Chip ID Extension Register
-      EXID : ATSAM3X8E.Word;
+      EXID : aliased ATSAM3X8E.UInt32;
    end record
      with Volatile;
 
    for CHIPID_Peripheral use record
-      CIDR at 0 range 0 .. 31;
-      EXID at 4 range 0 .. 31;
+      CIDR at 16#0# range 0 .. 31;
+      EXID at 16#4# range 0 .. 31;
    end record;
 
    --  Chip Identifier

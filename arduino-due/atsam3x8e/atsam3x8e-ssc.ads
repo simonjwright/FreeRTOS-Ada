@@ -1,8 +1,9 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
 --  This spec has been automatically generated from ATSAM3X8E.svd
---  see https://github.com/simonjwright/svd2ada
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -14,38 +15,34 @@ package ATSAM3X8E.SSC is
    -- Registers --
    ---------------
 
-   -----------------
-   -- CR_Register --
-   -----------------
-
-   subtype CR_RXEN_Field is ATSAM3X8E.Bit;
-   subtype CR_RXDIS_Field is ATSAM3X8E.Bit;
-   subtype CR_TXEN_Field is ATSAM3X8E.Bit;
-   subtype CR_TXDIS_Field is ATSAM3X8E.Bit;
-   subtype CR_SWRST_Field is ATSAM3X8E.Bit;
+   subtype SSC_CR_RXEN_Field is ATSAM3X8E.Bit;
+   subtype SSC_CR_RXDIS_Field is ATSAM3X8E.Bit;
+   subtype SSC_CR_TXEN_Field is ATSAM3X8E.Bit;
+   subtype SSC_CR_TXDIS_Field is ATSAM3X8E.Bit;
+   subtype SSC_CR_SWRST_Field is ATSAM3X8E.Bit;
 
    --  Control Register
-   type CR_Register is record
+   type SSC_CR_Register is record
       --  Write-only. Receive Enable
-      RXEN           : CR_RXEN_Field := 16#0#;
+      RXEN           : SSC_CR_RXEN_Field := 16#0#;
       --  Write-only. Receive Disable
-      RXDIS          : CR_RXDIS_Field := 16#0#;
+      RXDIS          : SSC_CR_RXDIS_Field := 16#0#;
       --  unspecified
       Reserved_2_7   : ATSAM3X8E.UInt6 := 16#0#;
       --  Write-only. Transmit Enable
-      TXEN           : CR_TXEN_Field := 16#0#;
+      TXEN           : SSC_CR_TXEN_Field := 16#0#;
       --  Write-only. Transmit Disable
-      TXDIS          : CR_TXDIS_Field := 16#0#;
+      TXDIS          : SSC_CR_TXDIS_Field := 16#0#;
       --  unspecified
       Reserved_10_14 : ATSAM3X8E.UInt5 := 16#0#;
       --  Write-only. Software Reset
-      SWRST          : CR_SWRST_Field := 16#0#;
+      SWRST          : SSC_CR_SWRST_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : ATSAM3X8E.Short := 16#0#;
+      Reserved_16_31 : ATSAM3X8E.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for CR_Register use record
+   for SSC_CR_Register use record
       RXEN           at 0 range 0 .. 0;
       RXDIS          at 0 range 1 .. 1;
       Reserved_2_7   at 0 range 2 .. 7;
@@ -56,82 +53,70 @@ package ATSAM3X8E.SSC is
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   ------------------
-   -- CMR_Register --
-   ------------------
-
-   subtype CMR_DIV_Field is ATSAM3X8E.UInt12;
+   subtype SSC_CMR_DIV_Field is ATSAM3X8E.UInt12;
 
    --  Clock Mode Register
-   type CMR_Register is record
+   type SSC_CMR_Register is record
       --  Clock Divider
-      DIV            : CMR_DIV_Field := 16#0#;
+      DIV            : SSC_CMR_DIV_Field := 16#0#;
       --  unspecified
       Reserved_12_31 : ATSAM3X8E.UInt20 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for CMR_Register use record
+   for SSC_CMR_Register use record
       DIV            at 0 range 0 .. 11;
       Reserved_12_31 at 0 range 12 .. 31;
    end record;
 
-   -------------------
-   -- RCMR_Register --
-   -------------------
-
    --  Receive Clock Selection
-   type CKS_Field is
-     (
-      --  Divided Clock
+   type RCMR_CKS_Field is
+     (--  Divided Clock
       Mck,
       --  TK Clock signal
       Tk,
       --  RK pin
       Rk)
      with Size => 2;
-   for CKS_Field use
+   for RCMR_CKS_Field use
      (Mck => 0,
       Tk => 1,
       Rk => 2);
 
    --  Receive Clock Output Mode Selection
-   type CKO_Field is
-     (
-      --  None
+   type RCMR_CKO_Field is
+     (--  None
       None,
       --  Continuous Receive Clock
       Continuous,
       --  Receive Clock only during data transfers
       Transfer)
      with Size => 3;
-   for CKO_Field use
+   for RCMR_CKO_Field use
      (None => 0,
       Continuous => 1,
       Transfer => 2);
 
-   subtype RCMR_CKI_Field is ATSAM3X8E.Bit;
+   subtype SSC_RCMR_CKI_Field is ATSAM3X8E.Bit;
 
    --  Receive Clock Gating Selection
-   type CKG_Field is
-     (
-      --  None
+   type RCMR_CKG_Field is
+     (--  None
       None,
       --  Continuous Receive Clock
       Continuous,
       --  Receive Clock only during data transfers
       Transfer)
      with Size => 2;
-   for CKG_Field use
+   for RCMR_CKG_Field use
      (None => 0,
       Continuous => 1,
       Transfer => 2);
 
    --  Receive Start Selection
-   type START_Field is
-     (
-      --  Continuous, as soon as the receiver is enabled, and immediately after
-      --  the end of transfer of the previous data.
+   type RCMR_START_Field is
+     (--  Continuous, as soon as the receiver is enabled, and immediately after the
+--  end of transfer of the previous data.
       Continuous,
       --  Transmit start
       Transmit,
@@ -150,7 +135,7 @@ package ATSAM3X8E.SSC is
       --  Compare 0
       Cmp_0)
      with Size => 4;
-   for START_Field use
+   for RCMR_START_Field use
      (Continuous => 0,
       Transmit => 1,
       Rf_Low => 2,
@@ -161,34 +146,34 @@ package ATSAM3X8E.SSC is
       Rf_Edge => 7,
       Cmp_0 => 8);
 
-   subtype RCMR_STOP_Field is ATSAM3X8E.Bit;
-   subtype RCMR_STTDLY_Field is ATSAM3X8E.Byte;
-   subtype RCMR_PERIOD_Field is ATSAM3X8E.Byte;
+   subtype SSC_RCMR_STOP_Field is ATSAM3X8E.Bit;
+   subtype SSC_RCMR_STTDLY_Field is ATSAM3X8E.Byte;
+   subtype SSC_RCMR_PERIOD_Field is ATSAM3X8E.Byte;
 
    --  Receive Clock Mode Register
-   type RCMR_Register is record
+   type SSC_RCMR_Register is record
       --  Receive Clock Selection
-      CKS            : CKS_Field := Mck;
+      CKS            : RCMR_CKS_Field := ATSAM3X8E.SSC.Mck;
       --  Receive Clock Output Mode Selection
-      CKO            : CKO_Field := None;
+      CKO            : RCMR_CKO_Field := ATSAM3X8E.SSC.None;
       --  Receive Clock Inversion
-      CKI            : RCMR_CKI_Field := 16#0#;
+      CKI            : SSC_RCMR_CKI_Field := 16#0#;
       --  Receive Clock Gating Selection
-      CKG            : CKG_Field := None;
+      CKG            : RCMR_CKG_Field := ATSAM3X8E.SSC.None;
       --  Receive Start Selection
-      START          : START_Field := Continuous;
+      START          : RCMR_START_Field := ATSAM3X8E.SSC.Continuous;
       --  Receive Stop Selection
-      STOP           : RCMR_STOP_Field := 16#0#;
+      STOP           : SSC_RCMR_STOP_Field := 16#0#;
       --  unspecified
       Reserved_13_15 : ATSAM3X8E.UInt3 := 16#0#;
       --  Receive Start Delay
-      STTDLY         : RCMR_STTDLY_Field := 16#0#;
+      STTDLY         : SSC_RCMR_STTDLY_Field := 16#0#;
       --  Receive Period Divider Selection
-      PERIOD         : RCMR_PERIOD_Field := 16#0#;
+      PERIOD         : SSC_RCMR_PERIOD_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for RCMR_Register use record
+   for SSC_RCMR_Register use record
       CKS            at 0 range 0 .. 1;
       CKO            at 0 range 2 .. 4;
       CKI            at 0 range 5 .. 5;
@@ -200,20 +185,15 @@ package ATSAM3X8E.SSC is
       PERIOD         at 0 range 24 .. 31;
    end record;
 
-   -------------------
-   -- RFMR_Register --
-   -------------------
-
-   subtype RFMR_DATLEN_Field is ATSAM3X8E.UInt5;
-   subtype RFMR_LOOP_Field is ATSAM3X8E.Bit;
-   subtype RFMR_MSBF_Field is ATSAM3X8E.Bit;
-   subtype RFMR_DATNB_Field is ATSAM3X8E.UInt4;
-   subtype RFMR_FSLEN_Field is ATSAM3X8E.UInt4;
+   subtype SSC_RFMR_DATLEN_Field is ATSAM3X8E.UInt5;
+   subtype SSC_RFMR_LOOP_Field is ATSAM3X8E.Bit;
+   subtype SSC_RFMR_MSBF_Field is ATSAM3X8E.Bit;
+   subtype SSC_RFMR_DATNB_Field is ATSAM3X8E.UInt4;
+   subtype SSC_RFMR_FSLEN_Field is ATSAM3X8E.UInt4;
 
    --  Receive Frame Sync Output Selection
-   type FSOS_Field is
-     (
-      --  None
+   type RFMR_FSOS_Field is
+     (--  None
       None,
       --  Negative Pulse
       Negative,
@@ -226,7 +206,7 @@ package ATSAM3X8E.SSC is
       --  Toggling at each start of data transfer
       Toggling)
      with Size => 3;
-   for FSOS_Field use
+   for RFMR_FSOS_Field use
      (None => 0,
       Negative => 1,
       Positive => 2,
@@ -235,49 +215,48 @@ package ATSAM3X8E.SSC is
       Toggling => 5);
 
    --  Frame Sync Edge Detection
-   type FSEDGE_Field is
-     (
-      --  Positive Edge Detection
+   type RFMR_FSEDGE_Field is
+     (--  Positive Edge Detection
       Positive,
       --  Negative Edge Detection
       Negative)
      with Size => 1;
-   for FSEDGE_Field use
+   for RFMR_FSEDGE_Field use
      (Positive => 0,
       Negative => 1);
 
-   subtype RFMR_FSLEN_EXT_Field is ATSAM3X8E.UInt4;
+   subtype SSC_RFMR_FSLEN_EXT_Field is ATSAM3X8E.UInt4;
 
    --  Receive Frame Mode Register
-   type RFMR_Register is record
+   type SSC_RFMR_Register is record
       --  Data Length
-      DATLEN         : RFMR_DATLEN_Field := 16#0#;
+      DATLEN         : SSC_RFMR_DATLEN_Field := 16#0#;
       --  Loop Mode
-      LOOP_k         : RFMR_LOOP_Field := 16#0#;
+      LOOP_k         : SSC_RFMR_LOOP_Field := 16#0#;
       --  unspecified
       Reserved_6_6   : ATSAM3X8E.Bit := 16#0#;
       --  Most Significant Bit First
-      MSBF           : RFMR_MSBF_Field := 16#0#;
+      MSBF           : SSC_RFMR_MSBF_Field := 16#0#;
       --  Data Number per Frame
-      DATNB          : RFMR_DATNB_Field := 16#0#;
+      DATNB          : SSC_RFMR_DATNB_Field := 16#0#;
       --  unspecified
       Reserved_12_15 : ATSAM3X8E.UInt4 := 16#0#;
       --  Receive Frame Sync Length
-      FSLEN          : RFMR_FSLEN_Field := 16#0#;
+      FSLEN          : SSC_RFMR_FSLEN_Field := 16#0#;
       --  Receive Frame Sync Output Selection
-      FSOS           : FSOS_Field := None;
+      FSOS           : RFMR_FSOS_Field := ATSAM3X8E.SSC.None;
       --  unspecified
       Reserved_23_23 : ATSAM3X8E.Bit := 16#0#;
       --  Frame Sync Edge Detection
-      FSEDGE         : FSEDGE_Field := Positive;
+      FSEDGE         : RFMR_FSEDGE_Field := ATSAM3X8E.SSC.Positive;
       --  unspecified
       Reserved_25_27 : ATSAM3X8E.UInt3 := 16#0#;
       --  FSLEN Field Extension
-      FSLEN_EXT      : RFMR_FSLEN_EXT_Field := 16#0#;
+      FSLEN_EXT      : SSC_RFMR_FSLEN_EXT_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for RFMR_Register use record
+   for SSC_RFMR_Register use record
       DATLEN         at 0 range 0 .. 4;
       LOOP_k         at 0 range 5 .. 5;
       Reserved_6_6   at 0 range 6 .. 6;
@@ -292,18 +271,55 @@ package ATSAM3X8E.SSC is
       FSLEN_EXT      at 0 range 28 .. 31;
    end record;
 
-   -------------------
-   -- TCMR_Register --
-   -------------------
+   --  Transmit Clock Selection
+   type TCMR_CKS_Field is
+     (--  Divided Clock
+      Mck,
+      --  TK Clock signal
+      Tk,
+      --  RK pin
+      Rk)
+     with Size => 2;
+   for TCMR_CKS_Field use
+     (Mck => 0,
+      Tk => 1,
+      Rk => 2);
 
-   subtype TCMR_CKI_Field is ATSAM3X8E.Bit;
+   --  Transmit Clock Output Mode Selection
+   type TCMR_CKO_Field is
+     (--  None
+      None,
+      --  Continuous Receive Clock
+      Continuous,
+      --  Transmit Clock only during data transfers
+      Transfer)
+     with Size => 3;
+   for TCMR_CKO_Field use
+     (None => 0,
+      Continuous => 1,
+      Transfer => 2);
+
+   subtype SSC_TCMR_CKI_Field is ATSAM3X8E.Bit;
+
+   --  Transmit Clock Gating Selection
+   type TCMR_CKG_Field is
+     (--  None
+      None,
+      --  Transmit Clock enabled only if TF Low
+      Continuous,
+      --  Transmit Clock enabled only if TF High
+      Transfer)
+     with Size => 2;
+   for TCMR_CKG_Field use
+     (None => 0,
+      Continuous => 1,
+      Transfer => 2);
 
    --  Transmit Start Selection
-   type START_Field_1 is
-     (
-      --  Continuous, as soon as a word is written in the SSC_THR Register (if
-      --  Transmit is enabled), and immediately after the end of transfer of
-      --  the previous data.
+   type TCMR_START_Field is
+     (--  Continuous, as soon as a word is written in the SSC_THR Register (if
+--  Transmit is enabled), and immediately after the end of transfer of the
+--  previous data.
       Continuous,
       --  Receive start
       Receive,
@@ -322,7 +338,7 @@ package ATSAM3X8E.SSC is
       --  Compare 0
       Cmp_0)
      with Size => 4;
-   for START_Field_1 use
+   for TCMR_START_Field use
      (Continuous => 0,
       Receive => 1,
       Rf_Low => 2,
@@ -333,31 +349,31 @@ package ATSAM3X8E.SSC is
       Rf_Edge => 7,
       Cmp_0 => 8);
 
-   subtype TCMR_STTDLY_Field is ATSAM3X8E.Byte;
-   subtype TCMR_PERIOD_Field is ATSAM3X8E.Byte;
+   subtype SSC_TCMR_STTDLY_Field is ATSAM3X8E.Byte;
+   subtype SSC_TCMR_PERIOD_Field is ATSAM3X8E.Byte;
 
    --  Transmit Clock Mode Register
-   type TCMR_Register is record
+   type SSC_TCMR_Register is record
       --  Transmit Clock Selection
-      CKS            : CKS_Field := Mck;
+      CKS            : TCMR_CKS_Field := ATSAM3X8E.SSC.Mck;
       --  Transmit Clock Output Mode Selection
-      CKO            : CKO_Field := None;
+      CKO            : TCMR_CKO_Field := ATSAM3X8E.SSC.None;
       --  Transmit Clock Inversion
-      CKI            : TCMR_CKI_Field := 16#0#;
+      CKI            : SSC_TCMR_CKI_Field := 16#0#;
       --  Transmit Clock Gating Selection
-      CKG            : CKG_Field := None;
+      CKG            : TCMR_CKG_Field := ATSAM3X8E.SSC.None;
       --  Transmit Start Selection
-      START          : START_Field_1 := Continuous;
+      START          : TCMR_START_Field := ATSAM3X8E.SSC.Continuous;
       --  unspecified
       Reserved_12_15 : ATSAM3X8E.UInt4 := 16#0#;
       --  Transmit Start Delay
-      STTDLY         : TCMR_STTDLY_Field := 16#0#;
+      STTDLY         : SSC_TCMR_STTDLY_Field := 16#0#;
       --  Transmit Period Divider Selection
-      PERIOD         : TCMR_PERIOD_Field := 16#0#;
+      PERIOD         : SSC_TCMR_PERIOD_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for TCMR_Register use record
+   for SSC_TCMR_Register use record
       CKS            at 0 range 0 .. 1;
       CKO            at 0 range 2 .. 4;
       CKI            at 0 range 5 .. 5;
@@ -368,48 +384,80 @@ package ATSAM3X8E.SSC is
       PERIOD         at 0 range 24 .. 31;
    end record;
 
-   -------------------
-   -- TFMR_Register --
-   -------------------
+   subtype SSC_TFMR_DATLEN_Field is ATSAM3X8E.UInt5;
+   subtype SSC_TFMR_DATDEF_Field is ATSAM3X8E.Bit;
+   subtype SSC_TFMR_MSBF_Field is ATSAM3X8E.Bit;
+   subtype SSC_TFMR_DATNB_Field is ATSAM3X8E.UInt4;
+   subtype SSC_TFMR_FSLEN_Field is ATSAM3X8E.UInt4;
 
-   subtype TFMR_DATLEN_Field is ATSAM3X8E.UInt5;
-   subtype TFMR_DATDEF_Field is ATSAM3X8E.Bit;
-   subtype TFMR_MSBF_Field is ATSAM3X8E.Bit;
-   subtype TFMR_DATNB_Field is ATSAM3X8E.UInt4;
-   subtype TFMR_FSLEN_Field is ATSAM3X8E.UInt4;
-   subtype TFMR_FSDEN_Field is ATSAM3X8E.Bit;
-   subtype TFMR_FSLEN_EXT_Field is ATSAM3X8E.UInt4;
+   --  Transmit Frame Sync Output Selection
+   type TFMR_FSOS_Field is
+     (--  None
+      None,
+      --  Negative Pulse
+      Negative,
+      --  Positive Pulse
+      Positive,
+      --  Driven Low during data transfer
+      Low,
+      --  Driven High during data transfer
+      High,
+      --  Toggling at each start of data transfer
+      Toggling)
+     with Size => 3;
+   for TFMR_FSOS_Field use
+     (None => 0,
+      Negative => 1,
+      Positive => 2,
+      Low => 3,
+      High => 4,
+      Toggling => 5);
+
+   subtype SSC_TFMR_FSDEN_Field is ATSAM3X8E.Bit;
+
+   --  Frame Sync Edge Detection
+   type TFMR_FSEDGE_Field is
+     (--  Positive Edge Detection
+      Positive,
+      --  Negative Edge Detection
+      Negative)
+     with Size => 1;
+   for TFMR_FSEDGE_Field use
+     (Positive => 0,
+      Negative => 1);
+
+   subtype SSC_TFMR_FSLEN_EXT_Field is ATSAM3X8E.UInt4;
 
    --  Transmit Frame Mode Register
-   type TFMR_Register is record
+   type SSC_TFMR_Register is record
       --  Data Length
-      DATLEN         : TFMR_DATLEN_Field := 16#0#;
+      DATLEN         : SSC_TFMR_DATLEN_Field := 16#0#;
       --  Data Default Value
-      DATDEF         : TFMR_DATDEF_Field := 16#0#;
+      DATDEF         : SSC_TFMR_DATDEF_Field := 16#0#;
       --  unspecified
       Reserved_6_6   : ATSAM3X8E.Bit := 16#0#;
       --  Most Significant Bit First
-      MSBF           : TFMR_MSBF_Field := 16#0#;
+      MSBF           : SSC_TFMR_MSBF_Field := 16#0#;
       --  Data Number per frame
-      DATNB          : TFMR_DATNB_Field := 16#0#;
+      DATNB          : SSC_TFMR_DATNB_Field := 16#0#;
       --  unspecified
       Reserved_12_15 : ATSAM3X8E.UInt4 := 16#0#;
       --  Transmit Frame Sync Length
-      FSLEN          : TFMR_FSLEN_Field := 16#0#;
+      FSLEN          : SSC_TFMR_FSLEN_Field := 16#0#;
       --  Transmit Frame Sync Output Selection
-      FSOS           : FSOS_Field := None;
+      FSOS           : TFMR_FSOS_Field := ATSAM3X8E.SSC.None;
       --  Frame Sync Data Enable
-      FSDEN          : TFMR_FSDEN_Field := 16#0#;
+      FSDEN          : SSC_TFMR_FSDEN_Field := 16#0#;
       --  Frame Sync Edge Detection
-      FSEDGE         : FSEDGE_Field := Positive;
+      FSEDGE         : TFMR_FSEDGE_Field := ATSAM3X8E.SSC.Positive;
       --  unspecified
       Reserved_25_27 : ATSAM3X8E.UInt3 := 16#0#;
       --  FSLEN Field Extension
-      FSLEN_EXT      : TFMR_FSLEN_EXT_Field := 16#0#;
+      FSLEN_EXT      : SSC_TFMR_FSLEN_EXT_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for TFMR_Register use record
+   for SSC_TFMR_Register use record
       DATLEN         at 0 range 0 .. 4;
       DATDEF         at 0 range 5 .. 5;
       Reserved_6_6   at 0 range 6 .. 6;
@@ -424,108 +472,83 @@ package ATSAM3X8E.SSC is
       FSLEN_EXT      at 0 range 28 .. 31;
    end record;
 
-   -------------------
-   -- RSHR_Register --
-   -------------------
-
-   subtype RSHR_RSDAT_Field is ATSAM3X8E.Short;
+   subtype SSC_RSHR_RSDAT_Field is ATSAM3X8E.UInt16;
 
    --  Receive Sync. Holding Register
-   type RSHR_Register is record
+   type SSC_RSHR_Register is record
       --  Read-only. Receive Synchronization Data
-      RSDAT          : RSHR_RSDAT_Field := 16#0#;
+      RSDAT          : SSC_RSHR_RSDAT_Field;
       --  unspecified
-      Reserved_16_31 : ATSAM3X8E.Short;
+      Reserved_16_31 : ATSAM3X8E.UInt16;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for RSHR_Register use record
+   for SSC_RSHR_Register use record
       RSDAT          at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   -------------------
-   -- TSHR_Register --
-   -------------------
-
-   subtype TSHR_TSDAT_Field is ATSAM3X8E.Short;
+   subtype SSC_TSHR_TSDAT_Field is ATSAM3X8E.UInt16;
 
    --  Transmit Sync. Holding Register
-   type TSHR_Register is record
+   type SSC_TSHR_Register is record
       --  Transmit Synchronization Data
-      TSDAT          : TSHR_TSDAT_Field := 16#0#;
+      TSDAT          : SSC_TSHR_TSDAT_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : ATSAM3X8E.Short := 16#0#;
+      Reserved_16_31 : ATSAM3X8E.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for TSHR_Register use record
+   for SSC_TSHR_Register use record
       TSDAT          at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   -------------------
-   -- RC0R_Register --
-   -------------------
-
-   subtype RC0R_CP0_Field is ATSAM3X8E.Short;
+   subtype SSC_RC0R_CP0_Field is ATSAM3X8E.UInt16;
 
    --  Receive Compare 0 Register
-   type RC0R_Register is record
+   type SSC_RC0R_Register is record
       --  Receive Compare Data 0
-      CP0            : RC0R_CP0_Field := 16#0#;
+      CP0            : SSC_RC0R_CP0_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : ATSAM3X8E.Short := 16#0#;
+      Reserved_16_31 : ATSAM3X8E.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for RC0R_Register use record
+   for SSC_RC0R_Register use record
       CP0            at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   -------------------
-   -- RC1R_Register --
-   -------------------
-
-   subtype RC1R_CP1_Field is ATSAM3X8E.Short;
+   subtype SSC_RC1R_CP1_Field is ATSAM3X8E.UInt16;
 
    --  Receive Compare 1 Register
-   type RC1R_Register is record
+   type SSC_RC1R_Register is record
       --  Receive Compare Data 1
-      CP1            : RC1R_CP1_Field := 16#0#;
+      CP1            : SSC_RC1R_CP1_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : ATSAM3X8E.Short := 16#0#;
+      Reserved_16_31 : ATSAM3X8E.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for RC1R_Register use record
+   for SSC_RC1R_Register use record
       CP1            at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   -----------------
-   -- SR_Register --
-   -----------------
+   subtype SSC_SR_TXRDY_Field is ATSAM3X8E.Bit;
+   subtype SSC_SR_TXEMPTY_Field is ATSAM3X8E.Bit;
+   subtype SSC_SR_RXRDY_Field is ATSAM3X8E.Bit;
+   subtype SSC_SR_OVRUN_Field is ATSAM3X8E.Bit;
+   --  SSC_SR_CP array element
+   subtype SSC_SR_CP_Element is ATSAM3X8E.Bit;
 
-   subtype SR_TXRDY_Field is ATSAM3X8E.Bit;
-   subtype SR_TXEMPTY_Field is ATSAM3X8E.Bit;
-   subtype SR_RXRDY_Field is ATSAM3X8E.Bit;
-   subtype SR_OVRUN_Field is ATSAM3X8E.Bit;
-
-   -----------
-   -- SR.CP --
-   -----------
-
-   --  SR_CP array element
-   subtype SR_CP_Element is ATSAM3X8E.Bit;
-
-   --  SR_CP array
-   type SR_CP_Field_Array is array (0 .. 1) of SR_CP_Element
+   --  SSC_SR_CP array
+   type SSC_SR_CP_Field_Array is array (0 .. 1) of SSC_SR_CP_Element
      with Component_Size => 1, Size => 2;
 
-   --  Type definition for SR_CP
-   type SR_CP_Field
+   --  Type definition for SSC_SR_CP
+   type SSC_SR_CP_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -534,53 +557,53 @@ package ATSAM3X8E.SSC is
             Val : ATSAM3X8E.UInt2;
          when True =>
             --  CP as an array
-            Arr : SR_CP_Field_Array;
+            Arr : SSC_SR_CP_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 2;
 
-   for SR_CP_Field use record
+   for SSC_SR_CP_Field use record
       Val at 0 range 0 .. 1;
       Arr at 0 range 0 .. 1;
    end record;
 
-   subtype SR_TXSYN_Field is ATSAM3X8E.Bit;
-   subtype SR_RXSYN_Field is ATSAM3X8E.Bit;
-   subtype SR_TXEN_Field is ATSAM3X8E.Bit;
-   subtype SR_RXEN_Field is ATSAM3X8E.Bit;
+   subtype SSC_SR_TXSYN_Field is ATSAM3X8E.Bit;
+   subtype SSC_SR_RXSYN_Field is ATSAM3X8E.Bit;
+   subtype SSC_SR_TXEN_Field is ATSAM3X8E.Bit;
+   subtype SSC_SR_RXEN_Field is ATSAM3X8E.Bit;
 
    --  Status Register
-   type SR_Register is record
+   type SSC_SR_Register is record
       --  Read-only. Transmit Ready
-      TXRDY          : SR_TXRDY_Field := 16#0#;
+      TXRDY          : SSC_SR_TXRDY_Field;
       --  Read-only. Transmit Empty
-      TXEMPTY        : SR_TXEMPTY_Field := 16#0#;
+      TXEMPTY        : SSC_SR_TXEMPTY_Field;
       --  unspecified
       Reserved_2_3   : ATSAM3X8E.UInt2;
       --  Read-only. Receive Ready
-      RXRDY          : SR_RXRDY_Field := 16#0#;
+      RXRDY          : SSC_SR_RXRDY_Field;
       --  Read-only. Receive Overrun
-      OVRUN          : SR_OVRUN_Field := 16#0#;
+      OVRUN          : SSC_SR_OVRUN_Field;
       --  unspecified
       Reserved_6_7   : ATSAM3X8E.UInt2;
       --  Read-only. Compare 0
-      CP             : SR_CP_Field := (As_Array => False, Val => 16#0#);
+      CP             : SSC_SR_CP_Field;
       --  Read-only. Transmit Sync
-      TXSYN          : SR_TXSYN_Field := 16#0#;
+      TXSYN          : SSC_SR_TXSYN_Field;
       --  Read-only. Receive Sync
-      RXSYN          : SR_RXSYN_Field := 16#0#;
+      RXSYN          : SSC_SR_RXSYN_Field;
       --  unspecified
       Reserved_12_15 : ATSAM3X8E.UInt4;
       --  Read-only. Transmit Enable
-      TXEN           : SR_TXEN_Field := 16#0#;
+      TXEN           : SSC_SR_TXEN_Field;
       --  Read-only. Receive Enable
-      RXEN           : SR_RXEN_Field := 16#0#;
+      RXEN           : SSC_SR_RXEN_Field;
       --  unspecified
       Reserved_18_31 : ATSAM3X8E.UInt14;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for SR_Register use record
+   for SSC_SR_Register use record
       TXRDY          at 0 range 0 .. 0;
       TXEMPTY        at 0 range 1 .. 1;
       Reserved_2_3   at 0 range 2 .. 3;
@@ -596,28 +619,19 @@ package ATSAM3X8E.SSC is
       Reserved_18_31 at 0 range 18 .. 31;
    end record;
 
-   ------------------
-   -- IER_Register --
-   ------------------
+   subtype SSC_IER_TXRDY_Field is ATSAM3X8E.Bit;
+   subtype SSC_IER_TXEMPTY_Field is ATSAM3X8E.Bit;
+   subtype SSC_IER_RXRDY_Field is ATSAM3X8E.Bit;
+   subtype SSC_IER_OVRUN_Field is ATSAM3X8E.Bit;
+   --  SSC_IER_CP array element
+   subtype SSC_IER_CP_Element is ATSAM3X8E.Bit;
 
-   subtype IER_TXRDY_Field is ATSAM3X8E.Bit;
-   subtype IER_TXEMPTY_Field is ATSAM3X8E.Bit;
-   subtype IER_RXRDY_Field is ATSAM3X8E.Bit;
-   subtype IER_OVRUN_Field is ATSAM3X8E.Bit;
-
-   ------------
-   -- IER.CP --
-   ------------
-
-   --  IER_CP array element
-   subtype IER_CP_Element is ATSAM3X8E.Bit;
-
-   --  IER_CP array
-   type IER_CP_Field_Array is array (0 .. 1) of IER_CP_Element
+   --  SSC_IER_CP array
+   type SSC_IER_CP_Field_Array is array (0 .. 1) of SSC_IER_CP_Element
      with Component_Size => 1, Size => 2;
 
-   --  Type definition for IER_CP
-   type IER_CP_Field
+   --  Type definition for SSC_IER_CP
+   type SSC_IER_CP_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -626,45 +640,45 @@ package ATSAM3X8E.SSC is
             Val : ATSAM3X8E.UInt2;
          when True =>
             --  CP as an array
-            Arr : IER_CP_Field_Array;
+            Arr : SSC_IER_CP_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 2;
 
-   for IER_CP_Field use record
+   for SSC_IER_CP_Field use record
       Val at 0 range 0 .. 1;
       Arr at 0 range 0 .. 1;
    end record;
 
-   subtype IER_TXSYN_Field is ATSAM3X8E.Bit;
-   subtype IER_RXSYN_Field is ATSAM3X8E.Bit;
+   subtype SSC_IER_TXSYN_Field is ATSAM3X8E.Bit;
+   subtype SSC_IER_RXSYN_Field is ATSAM3X8E.Bit;
 
    --  Interrupt Enable Register
-   type IER_Register is record
+   type SSC_IER_Register is record
       --  Write-only. Transmit Ready Interrupt Enable
-      TXRDY          : IER_TXRDY_Field := 16#0#;
+      TXRDY          : SSC_IER_TXRDY_Field := 16#0#;
       --  Write-only. Transmit Empty Interrupt Enable
-      TXEMPTY        : IER_TXEMPTY_Field := 16#0#;
+      TXEMPTY        : SSC_IER_TXEMPTY_Field := 16#0#;
       --  unspecified
       Reserved_2_3   : ATSAM3X8E.UInt2 := 16#0#;
       --  Write-only. Receive Ready Interrupt Enable
-      RXRDY          : IER_RXRDY_Field := 16#0#;
+      RXRDY          : SSC_IER_RXRDY_Field := 16#0#;
       --  Write-only. Receive Overrun Interrupt Enable
-      OVRUN          : IER_OVRUN_Field := 16#0#;
+      OVRUN          : SSC_IER_OVRUN_Field := 16#0#;
       --  unspecified
       Reserved_6_7   : ATSAM3X8E.UInt2 := 16#0#;
       --  Write-only. Compare 0 Interrupt Enable
-      CP             : IER_CP_Field := (As_Array => False, Val => 16#0#);
+      CP             : SSC_IER_CP_Field := (As_Array => False, Val => 16#0#);
       --  Write-only. Tx Sync Interrupt Enable
-      TXSYN          : IER_TXSYN_Field := 16#0#;
+      TXSYN          : SSC_IER_TXSYN_Field := 16#0#;
       --  Write-only. Rx Sync Interrupt Enable
-      RXSYN          : IER_RXSYN_Field := 16#0#;
+      RXSYN          : SSC_IER_RXSYN_Field := 16#0#;
       --  unspecified
       Reserved_12_31 : ATSAM3X8E.UInt20 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for IER_Register use record
+   for SSC_IER_Register use record
       TXRDY          at 0 range 0 .. 0;
       TXEMPTY        at 0 range 1 .. 1;
       Reserved_2_3   at 0 range 2 .. 3;
@@ -677,28 +691,19 @@ package ATSAM3X8E.SSC is
       Reserved_12_31 at 0 range 12 .. 31;
    end record;
 
-   ------------------
-   -- IDR_Register --
-   ------------------
+   subtype SSC_IDR_TXRDY_Field is ATSAM3X8E.Bit;
+   subtype SSC_IDR_TXEMPTY_Field is ATSAM3X8E.Bit;
+   subtype SSC_IDR_RXRDY_Field is ATSAM3X8E.Bit;
+   subtype SSC_IDR_OVRUN_Field is ATSAM3X8E.Bit;
+   --  SSC_IDR_CP array element
+   subtype SSC_IDR_CP_Element is ATSAM3X8E.Bit;
 
-   subtype IDR_TXRDY_Field is ATSAM3X8E.Bit;
-   subtype IDR_TXEMPTY_Field is ATSAM3X8E.Bit;
-   subtype IDR_RXRDY_Field is ATSAM3X8E.Bit;
-   subtype IDR_OVRUN_Field is ATSAM3X8E.Bit;
-
-   ------------
-   -- IDR.CP --
-   ------------
-
-   --  IDR_CP array element
-   subtype IDR_CP_Element is ATSAM3X8E.Bit;
-
-   --  IDR_CP array
-   type IDR_CP_Field_Array is array (0 .. 1) of IDR_CP_Element
+   --  SSC_IDR_CP array
+   type SSC_IDR_CP_Field_Array is array (0 .. 1) of SSC_IDR_CP_Element
      with Component_Size => 1, Size => 2;
 
-   --  Type definition for IDR_CP
-   type IDR_CP_Field
+   --  Type definition for SSC_IDR_CP
+   type SSC_IDR_CP_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -707,45 +712,45 @@ package ATSAM3X8E.SSC is
             Val : ATSAM3X8E.UInt2;
          when True =>
             --  CP as an array
-            Arr : IDR_CP_Field_Array;
+            Arr : SSC_IDR_CP_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 2;
 
-   for IDR_CP_Field use record
+   for SSC_IDR_CP_Field use record
       Val at 0 range 0 .. 1;
       Arr at 0 range 0 .. 1;
    end record;
 
-   subtype IDR_TXSYN_Field is ATSAM3X8E.Bit;
-   subtype IDR_RXSYN_Field is ATSAM3X8E.Bit;
+   subtype SSC_IDR_TXSYN_Field is ATSAM3X8E.Bit;
+   subtype SSC_IDR_RXSYN_Field is ATSAM3X8E.Bit;
 
    --  Interrupt Disable Register
-   type IDR_Register is record
+   type SSC_IDR_Register is record
       --  Write-only. Transmit Ready Interrupt Disable
-      TXRDY          : IDR_TXRDY_Field := 16#0#;
+      TXRDY          : SSC_IDR_TXRDY_Field := 16#0#;
       --  Write-only. Transmit Empty Interrupt Disable
-      TXEMPTY        : IDR_TXEMPTY_Field := 16#0#;
+      TXEMPTY        : SSC_IDR_TXEMPTY_Field := 16#0#;
       --  unspecified
       Reserved_2_3   : ATSAM3X8E.UInt2 := 16#0#;
       --  Write-only. Receive Ready Interrupt Disable
-      RXRDY          : IDR_RXRDY_Field := 16#0#;
+      RXRDY          : SSC_IDR_RXRDY_Field := 16#0#;
       --  Write-only. Receive Overrun Interrupt Disable
-      OVRUN          : IDR_OVRUN_Field := 16#0#;
+      OVRUN          : SSC_IDR_OVRUN_Field := 16#0#;
       --  unspecified
       Reserved_6_7   : ATSAM3X8E.UInt2 := 16#0#;
       --  Write-only. Compare 0 Interrupt Disable
-      CP             : IDR_CP_Field := (As_Array => False, Val => 16#0#);
+      CP             : SSC_IDR_CP_Field := (As_Array => False, Val => 16#0#);
       --  Write-only. Tx Sync Interrupt Enable
-      TXSYN          : IDR_TXSYN_Field := 16#0#;
+      TXSYN          : SSC_IDR_TXSYN_Field := 16#0#;
       --  Write-only. Rx Sync Interrupt Enable
-      RXSYN          : IDR_RXSYN_Field := 16#0#;
+      RXSYN          : SSC_IDR_RXSYN_Field := 16#0#;
       --  unspecified
       Reserved_12_31 : ATSAM3X8E.UInt20 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for IDR_Register use record
+   for SSC_IDR_Register use record
       TXRDY          at 0 range 0 .. 0;
       TXEMPTY        at 0 range 1 .. 1;
       Reserved_2_3   at 0 range 2 .. 3;
@@ -758,28 +763,19 @@ package ATSAM3X8E.SSC is
       Reserved_12_31 at 0 range 12 .. 31;
    end record;
 
-   ------------------
-   -- IMR_Register --
-   ------------------
+   subtype SSC_IMR_TXRDY_Field is ATSAM3X8E.Bit;
+   subtype SSC_IMR_TXEMPTY_Field is ATSAM3X8E.Bit;
+   subtype SSC_IMR_RXRDY_Field is ATSAM3X8E.Bit;
+   subtype SSC_IMR_OVRUN_Field is ATSAM3X8E.Bit;
+   --  SSC_IMR_CP array element
+   subtype SSC_IMR_CP_Element is ATSAM3X8E.Bit;
 
-   subtype IMR_TXRDY_Field is ATSAM3X8E.Bit;
-   subtype IMR_TXEMPTY_Field is ATSAM3X8E.Bit;
-   subtype IMR_RXRDY_Field is ATSAM3X8E.Bit;
-   subtype IMR_OVRUN_Field is ATSAM3X8E.Bit;
-
-   ------------
-   -- IMR.CP --
-   ------------
-
-   --  IMR_CP array element
-   subtype IMR_CP_Element is ATSAM3X8E.Bit;
-
-   --  IMR_CP array
-   type IMR_CP_Field_Array is array (0 .. 1) of IMR_CP_Element
+   --  SSC_IMR_CP array
+   type SSC_IMR_CP_Field_Array is array (0 .. 1) of SSC_IMR_CP_Element
      with Component_Size => 1, Size => 2;
 
-   --  Type definition for IMR_CP
-   type IMR_CP_Field
+   --  Type definition for SSC_IMR_CP
+   type SSC_IMR_CP_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -788,45 +784,45 @@ package ATSAM3X8E.SSC is
             Val : ATSAM3X8E.UInt2;
          when True =>
             --  CP as an array
-            Arr : IMR_CP_Field_Array;
+            Arr : SSC_IMR_CP_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 2;
 
-   for IMR_CP_Field use record
+   for SSC_IMR_CP_Field use record
       Val at 0 range 0 .. 1;
       Arr at 0 range 0 .. 1;
    end record;
 
-   subtype IMR_TXSYN_Field is ATSAM3X8E.Bit;
-   subtype IMR_RXSYN_Field is ATSAM3X8E.Bit;
+   subtype SSC_IMR_TXSYN_Field is ATSAM3X8E.Bit;
+   subtype SSC_IMR_RXSYN_Field is ATSAM3X8E.Bit;
 
    --  Interrupt Mask Register
-   type IMR_Register is record
+   type SSC_IMR_Register is record
       --  Read-only. Transmit Ready Interrupt Mask
-      TXRDY          : IMR_TXRDY_Field := 16#0#;
+      TXRDY          : SSC_IMR_TXRDY_Field;
       --  Read-only. Transmit Empty Interrupt Mask
-      TXEMPTY        : IMR_TXEMPTY_Field := 16#0#;
+      TXEMPTY        : SSC_IMR_TXEMPTY_Field;
       --  unspecified
       Reserved_2_3   : ATSAM3X8E.UInt2;
       --  Read-only. Receive Ready Interrupt Mask
-      RXRDY          : IMR_RXRDY_Field := 16#0#;
+      RXRDY          : SSC_IMR_RXRDY_Field;
       --  Read-only. Receive Overrun Interrupt Mask
-      OVRUN          : IMR_OVRUN_Field := 16#0#;
+      OVRUN          : SSC_IMR_OVRUN_Field;
       --  unspecified
       Reserved_6_7   : ATSAM3X8E.UInt2;
       --  Read-only. Compare 0 Interrupt Mask
-      CP             : IMR_CP_Field := (As_Array => False, Val => 16#0#);
+      CP             : SSC_IMR_CP_Field;
       --  Read-only. Tx Sync Interrupt Mask
-      TXSYN          : IMR_TXSYN_Field := 16#0#;
+      TXSYN          : SSC_IMR_TXSYN_Field;
       --  Read-only. Rx Sync Interrupt Mask
-      RXSYN          : IMR_RXSYN_Field := 16#0#;
+      RXSYN          : SSC_IMR_RXSYN_Field;
       --  unspecified
       Reserved_12_31 : ATSAM3X8E.UInt20;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for IMR_Register use record
+   for SSC_IMR_Register use record
       TXRDY          at 0 range 0 .. 0;
       TXEMPTY        at 0 range 1 .. 1;
       Reserved_2_3   at 0 range 2 .. 3;
@@ -839,51 +835,43 @@ package ATSAM3X8E.SSC is
       Reserved_12_31 at 0 range 12 .. 31;
    end record;
 
-   -------------------
-   -- WPMR_Register --
-   -------------------
-
-   subtype WPMR_WPEN_Field is ATSAM3X8E.Bit;
-   subtype WPMR_WPKEY_Field is ATSAM3X8E.UInt24;
+   subtype SSC_WPMR_WPEN_Field is ATSAM3X8E.Bit;
+   subtype SSC_WPMR_WPKEY_Field is ATSAM3X8E.UInt24;
 
    --  Write Protect Mode Register
-   type WPMR_Register is record
+   type SSC_WPMR_Register is record
       --  Write Protect Enable
-      WPEN         : WPMR_WPEN_Field := 16#0#;
+      WPEN         : SSC_WPMR_WPEN_Field := 16#0#;
       --  unspecified
       Reserved_1_7 : ATSAM3X8E.UInt7 := 16#0#;
       --  Write Protect KEY
-      WPKEY        : WPMR_WPKEY_Field := 16#0#;
+      WPKEY        : SSC_WPMR_WPKEY_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for WPMR_Register use record
+   for SSC_WPMR_Register use record
       WPEN         at 0 range 0 .. 0;
       Reserved_1_7 at 0 range 1 .. 7;
       WPKEY        at 0 range 8 .. 31;
    end record;
 
-   -------------------
-   -- WPSR_Register --
-   -------------------
-
-   subtype WPSR_WPVS_Field is ATSAM3X8E.Bit;
-   subtype WPSR_WPVSRC_Field is ATSAM3X8E.Short;
+   subtype SSC_WPSR_WPVS_Field is ATSAM3X8E.Bit;
+   subtype SSC_WPSR_WPVSRC_Field is ATSAM3X8E.UInt16;
 
    --  Write Protect Status Register
-   type WPSR_Register is record
+   type SSC_WPSR_Register is record
       --  Read-only. Write Protect Violation Status
-      WPVS           : WPSR_WPVS_Field := 16#0#;
+      WPVS           : SSC_WPSR_WPVS_Field;
       --  unspecified
       Reserved_1_7   : ATSAM3X8E.UInt7;
       --  Read-only. Write Protect Violation Source
-      WPVSRC         : WPSR_WPVSRC_Field := 16#0#;
+      WPVSRC         : SSC_WPSR_WPVSRC_Field;
       --  unspecified
       Reserved_24_31 : ATSAM3X8E.Byte;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for WPSR_Register use record
+   for SSC_WPSR_Register use record
       WPVS           at 0 range 0 .. 0;
       Reserved_1_7   at 0 range 1 .. 7;
       WPVSRC         at 0 range 8 .. 23;
@@ -897,63 +885,79 @@ package ATSAM3X8E.SSC is
    --  Synchronous Serial Controller
    type SSC_Peripheral is record
       --  Control Register
-      CR   : CR_Register;
+      CR   : aliased SSC_CR_Register;
+      pragma Volatile_Full_Access (CR);
       --  Clock Mode Register
-      CMR  : CMR_Register;
+      CMR  : aliased SSC_CMR_Register;
+      pragma Volatile_Full_Access (CMR);
       --  Receive Clock Mode Register
-      RCMR : RCMR_Register;
+      RCMR : aliased SSC_RCMR_Register;
+      pragma Volatile_Full_Access (RCMR);
       --  Receive Frame Mode Register
-      RFMR : RFMR_Register;
+      RFMR : aliased SSC_RFMR_Register;
+      pragma Volatile_Full_Access (RFMR);
       --  Transmit Clock Mode Register
-      TCMR : TCMR_Register;
+      TCMR : aliased SSC_TCMR_Register;
+      pragma Volatile_Full_Access (TCMR);
       --  Transmit Frame Mode Register
-      TFMR : TFMR_Register;
+      TFMR : aliased SSC_TFMR_Register;
+      pragma Volatile_Full_Access (TFMR);
       --  Receive Holding Register
-      RHR  : ATSAM3X8E.Word;
+      RHR  : aliased ATSAM3X8E.UInt32;
       --  Transmit Holding Register
-      THR  : ATSAM3X8E.Word;
+      THR  : aliased ATSAM3X8E.UInt32;
       --  Receive Sync. Holding Register
-      RSHR : RSHR_Register;
+      RSHR : aliased SSC_RSHR_Register;
+      pragma Volatile_Full_Access (RSHR);
       --  Transmit Sync. Holding Register
-      TSHR : TSHR_Register;
+      TSHR : aliased SSC_TSHR_Register;
+      pragma Volatile_Full_Access (TSHR);
       --  Receive Compare 0 Register
-      RC0R : RC0R_Register;
+      RC0R : aliased SSC_RC0R_Register;
+      pragma Volatile_Full_Access (RC0R);
       --  Receive Compare 1 Register
-      RC1R : RC1R_Register;
+      RC1R : aliased SSC_RC1R_Register;
+      pragma Volatile_Full_Access (RC1R);
       --  Status Register
-      SR   : SR_Register;
+      SR   : aliased SSC_SR_Register;
+      pragma Volatile_Full_Access (SR);
       --  Interrupt Enable Register
-      IER  : IER_Register;
+      IER  : aliased SSC_IER_Register;
+      pragma Volatile_Full_Access (IER);
       --  Interrupt Disable Register
-      IDR  : IDR_Register;
+      IDR  : aliased SSC_IDR_Register;
+      pragma Volatile_Full_Access (IDR);
       --  Interrupt Mask Register
-      IMR  : IMR_Register;
+      IMR  : aliased SSC_IMR_Register;
+      pragma Volatile_Full_Access (IMR);
       --  Write Protect Mode Register
-      WPMR : WPMR_Register;
+      WPMR : aliased SSC_WPMR_Register;
+      pragma Volatile_Full_Access (WPMR);
       --  Write Protect Status Register
-      WPSR : WPSR_Register;
+      WPSR : aliased SSC_WPSR_Register;
+      pragma Volatile_Full_Access (WPSR);
    end record
      with Volatile;
 
    for SSC_Peripheral use record
-      CR   at 0 range 0 .. 31;
-      CMR  at 4 range 0 .. 31;
-      RCMR at 16 range 0 .. 31;
-      RFMR at 20 range 0 .. 31;
-      TCMR at 24 range 0 .. 31;
-      TFMR at 28 range 0 .. 31;
-      RHR  at 32 range 0 .. 31;
-      THR  at 36 range 0 .. 31;
-      RSHR at 48 range 0 .. 31;
-      TSHR at 52 range 0 .. 31;
-      RC0R at 56 range 0 .. 31;
-      RC1R at 60 range 0 .. 31;
-      SR   at 64 range 0 .. 31;
-      IER  at 68 range 0 .. 31;
-      IDR  at 72 range 0 .. 31;
-      IMR  at 76 range 0 .. 31;
-      WPMR at 228 range 0 .. 31;
-      WPSR at 232 range 0 .. 31;
+      CR   at 16#0# range 0 .. 31;
+      CMR  at 16#4# range 0 .. 31;
+      RCMR at 16#10# range 0 .. 31;
+      RFMR at 16#14# range 0 .. 31;
+      TCMR at 16#18# range 0 .. 31;
+      TFMR at 16#1C# range 0 .. 31;
+      RHR  at 16#20# range 0 .. 31;
+      THR  at 16#24# range 0 .. 31;
+      RSHR at 16#30# range 0 .. 31;
+      TSHR at 16#34# range 0 .. 31;
+      RC0R at 16#38# range 0 .. 31;
+      RC1R at 16#3C# range 0 .. 31;
+      SR   at 16#40# range 0 .. 31;
+      IER  at 16#44# range 0 .. 31;
+      IDR  at 16#48# range 0 .. 31;
+      IMR  at 16#4C# range 0 .. 31;
+      WPMR at 16#E4# range 0 .. 31;
+      WPSR at 16#E8# range 0 .. 31;
    end record;
 
    --  Synchronous Serial Controller

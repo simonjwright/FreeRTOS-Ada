@@ -1,8 +1,9 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
 --  This spec has been automatically generated from STM32F40x.svd
---  see https://github.com/simonjwright/svd2ada
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -12,10 +13,6 @@ package STM32F40x.WWDG is
    ---------------
    -- Registers --
    ---------------
-
-   -----------------
-   -- CR_Register --
-   -----------------
 
    subtype CR_T_Field is STM32F40x.UInt7;
    subtype CR_WDGA_Field is STM32F40x.Bit;
@@ -29,8 +26,7 @@ package STM32F40x.WWDG is
       --  unspecified
       Reserved_8_31 : STM32F40x.UInt24 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CR_Register use record
       T             at 0 range 0 .. 6;
@@ -38,16 +34,7 @@ package STM32F40x.WWDG is
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
 
-   ------------------
-   -- CFR_Register --
-   ------------------
-
    subtype CFR_W_Field is STM32F40x.UInt7;
-
-   ---------------
-   -- CFR.WDGTB --
-   ---------------
-
    --  CFR_WDGTB array element
    subtype CFR_WDGTB_Element is STM32F40x.Bit;
 
@@ -88,8 +75,7 @@ package STM32F40x.WWDG is
       --  unspecified
       Reserved_10_31 : STM32F40x.UInt22 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CFR_Register use record
       W              at 0 range 0 .. 6;
@@ -97,10 +83,6 @@ package STM32F40x.WWDG is
       EWI            at 0 range 9 .. 9;
       Reserved_10_31 at 0 range 10 .. 31;
    end record;
-
-   -----------------
-   -- SR_Register --
-   -----------------
 
    subtype SR_EWIF_Field is STM32F40x.Bit;
 
@@ -111,8 +93,7 @@ package STM32F40x.WWDG is
       --  unspecified
       Reserved_1_31 : STM32F40x.UInt31 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for SR_Register use record
       EWIF          at 0 range 0 .. 0;
@@ -126,18 +107,21 @@ package STM32F40x.WWDG is
    --  Window watchdog
    type WWDG_Peripheral is record
       --  Control register
-      CR  : CR_Register;
+      CR  : aliased CR_Register;
+      pragma Volatile_Full_Access (CR);
       --  Configuration register
-      CFR : CFR_Register;
+      CFR : aliased CFR_Register;
+      pragma Volatile_Full_Access (CFR);
       --  Status register
-      SR  : SR_Register;
+      SR  : aliased SR_Register;
+      pragma Volatile_Full_Access (SR);
    end record
      with Volatile;
 
    for WWDG_Peripheral use record
-      CR  at 0 range 0 .. 31;
-      CFR at 4 range 0 .. 31;
-      SR  at 8 range 0 .. 31;
+      CR  at 16#0# range 0 .. 31;
+      CFR at 16#4# range 0 .. 31;
+      SR  at 16#8# range 0 .. 31;
    end record;
 
    --  Window watchdog

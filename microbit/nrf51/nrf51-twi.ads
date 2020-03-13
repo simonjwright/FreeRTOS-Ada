@@ -1,7 +1,38 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
+--  Copyright (c) 2013, Nordic Semiconductor ASA
+--  All rights reserved.
+--
+--  Redistribution and use in source and binary forms, with or without
+--  modification, are permitted provided that the following conditions are met:
+--
+--  * Redistributions of source code must retain the above copyright notice, this
+--  list of conditions and the following disclaimer.
+--
+--  * Redistributions in binary form must reproduce the above copyright notice,
+--  this list of conditions and the following disclaimer in the documentation
+--  and/or other materials provided with the distribution.
+--
+--  * Neither the name of Nordic Semiconductor ASA nor the names of its
+--  contributors may be used to endorse or promote products derived from
+--  this software without specific prior written permission.
+--
+--  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+--  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+--  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+--  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+--  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+--  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+--  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+--  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+--  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+--  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+--
+
 --  This spec has been automatically generated from nrf51.svd
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -12,44 +43,38 @@ package nrf51.TWI is
    -- Registers --
    ---------------
 
-   ---------------------
-   -- SHORTS_Register --
-   ---------------------
-
    --  Shortcut between BB event and the SUSPEND task.
-   type BB_SUSPEND_Field is
-     (
-      --  Shortcut disabled.
+   type SHORTS_BB_SUSPEND_Field is
+     (--  Shortcut disabled.
       Disabled,
       --  Shortcut enabled.
       Enabled)
      with Size => 1;
-   for BB_SUSPEND_Field use
+   for SHORTS_BB_SUSPEND_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Shortcut between BB event and the STOP task.
-   type BB_STOP_Field is
-     (
-      --  Shortcut disabled.
+   type SHORTS_BB_STOP_Field is
+     (--  Shortcut disabled.
       Disabled,
       --  Shortcut enabled.
       Enabled)
      with Size => 1;
-   for BB_STOP_Field use
+   for SHORTS_BB_STOP_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Shortcuts for TWI.
    type SHORTS_Register is record
       --  Shortcut between BB event and the SUSPEND task.
-      BB_SUSPEND    : BB_SUSPEND_Field := Disabled;
+      BB_SUSPEND    : SHORTS_BB_SUSPEND_Field := nrf51.TWI.Disabled;
       --  Shortcut between BB event and the STOP task.
-      BB_STOP       : BB_STOP_Field := Disabled;
+      BB_STOP       : SHORTS_BB_STOP_Field := nrf51.TWI.Disabled;
       --  unspecified
       Reserved_2_31 : nrf51.UInt30 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for SHORTS_Register use record
@@ -58,152 +83,136 @@ package nrf51.TWI is
       Reserved_2_31 at 0 range 2 .. 31;
    end record;
 
-   -----------------------
-   -- INTENSET_Register --
-   -----------------------
-
    --  Enable interrupt on STOPPED event.
-   type STOPPED_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_STOPPED_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for STOPPED_Field use
+   for INTENSET_STOPPED_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on STOPPED event.
-   type STOPPED_Field_1 is
-     (
-      --  Reset value for the field
-      Stopped_Field_Reset,
+   type INTENSET_STOPPED_Field_1 is
+     (--  Reset value for the field
+      Intenset_Stopped_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for STOPPED_Field_1 use
-     (Stopped_Field_Reset => 0,
+   for INTENSET_STOPPED_Field_1 use
+     (Intenset_Stopped_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on READY event.
-   type RXDREADY_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_RXDREADY_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for RXDREADY_Field use
+   for INTENSET_RXDREADY_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on READY event.
-   type RXDREADY_Field_1 is
-     (
-      --  Reset value for the field
-      Rxdready_Field_Reset,
+   type INTENSET_RXDREADY_Field_1 is
+     (--  Reset value for the field
+      Intenset_Rxdready_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for RXDREADY_Field_1 use
-     (Rxdready_Field_Reset => 0,
+   for INTENSET_RXDREADY_Field_1 use
+     (Intenset_Rxdready_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on TXDSENT event.
-   type TXDSENT_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_TXDSENT_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for TXDSENT_Field use
+   for INTENSET_TXDSENT_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on TXDSENT event.
-   type TXDSENT_Field_1 is
-     (
-      --  Reset value for the field
-      Txdsent_Field_Reset,
+   type INTENSET_TXDSENT_Field_1 is
+     (--  Reset value for the field
+      Intenset_Txdsent_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for TXDSENT_Field_1 use
-     (Txdsent_Field_Reset => 0,
+   for INTENSET_TXDSENT_Field_1 use
+     (Intenset_Txdsent_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on ERROR event.
-   type ERROR_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_ERROR_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for ERROR_Field use
+   for INTENSET_ERROR_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on ERROR event.
-   type ERROR_Field_1 is
-     (
-      --  Reset value for the field
-      Error_Field_Reset,
+   type INTENSET_ERROR_Field_1 is
+     (--  Reset value for the field
+      Intenset_Error_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for ERROR_Field_1 use
-     (Error_Field_Reset => 0,
+   for INTENSET_ERROR_Field_1 use
+     (Intenset_Error_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on BB event.
-   type BB_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_BB_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for BB_Field use
+   for INTENSET_BB_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on BB event.
-   type BB_Field_1 is
-     (
-      --  Reset value for the field
-      Bb_Field_Reset,
+   type INTENSET_BB_Field_1 is
+     (--  Reset value for the field
+      Intenset_Bb_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for BB_Field_1 use
-     (Bb_Field_Reset => 0,
+   for INTENSET_BB_Field_1 use
+     (Intenset_Bb_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on SUSPENDED event.
-   type SUSPENDED_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_SUSPENDED_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for SUSPENDED_Field use
+   for INTENSET_SUSPENDED_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on SUSPENDED event.
-   type SUSPENDED_Field_1 is
-     (
-      --  Reset value for the field
-      Suspended_Field_Reset,
+   type INTENSET_SUSPENDED_Field_1 is
+     (--  Reset value for the field
+      Intenset_Suspended_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for SUSPENDED_Field_1 use
-     (Suspended_Field_Reset => 0,
+   for INTENSET_SUSPENDED_Field_1 use
+     (Intenset_Suspended_Field_Reset => 0,
       Set => 1);
 
    --  Interrupt enable set register.
@@ -211,29 +220,33 @@ package nrf51.TWI is
       --  unspecified
       Reserved_0_0   : nrf51.Bit := 16#0#;
       --  Enable interrupt on STOPPED event.
-      STOPPED        : STOPPED_Field_1 := Stopped_Field_Reset;
+      STOPPED        : INTENSET_STOPPED_Field_1 :=
+                        Intenset_Stopped_Field_Reset;
       --  Enable interrupt on READY event.
-      RXDREADY       : RXDREADY_Field_1 := Rxdready_Field_Reset;
+      RXDREADY       : INTENSET_RXDREADY_Field_1 :=
+                        Intenset_Rxdready_Field_Reset;
       --  unspecified
       Reserved_3_6   : nrf51.UInt4 := 16#0#;
       --  Enable interrupt on TXDSENT event.
-      TXDSENT        : TXDSENT_Field_1 := Txdsent_Field_Reset;
+      TXDSENT        : INTENSET_TXDSENT_Field_1 :=
+                        Intenset_Txdsent_Field_Reset;
       --  unspecified
       Reserved_8_8   : nrf51.Bit := 16#0#;
       --  Enable interrupt on ERROR event.
-      ERROR          : ERROR_Field_1 := Error_Field_Reset;
+      ERROR          : INTENSET_ERROR_Field_1 := Intenset_Error_Field_Reset;
       --  unspecified
       Reserved_10_13 : nrf51.UInt4 := 16#0#;
       --  Enable interrupt on BB event.
-      BB             : BB_Field_1 := Bb_Field_Reset;
+      BB             : INTENSET_BB_Field_1 := Intenset_Bb_Field_Reset;
       --  unspecified
       Reserved_15_17 : nrf51.UInt3 := 16#0#;
       --  Enable interrupt on SUSPENDED event.
-      SUSPENDED      : SUSPENDED_Field_1 := Suspended_Field_Reset;
+      SUSPENDED      : INTENSET_SUSPENDED_Field_1 :=
+                        Intenset_Suspended_Field_Reset;
       --  unspecified
       Reserved_19_31 : nrf51.UInt13 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for INTENSET_Register use record
@@ -251,80 +264,136 @@ package nrf51.TWI is
       Reserved_19_31 at 0 range 19 .. 31;
    end record;
 
-   -----------------------
-   -- INTENCLR_Register --
-   -----------------------
+   --  Disable interrupt on STOPPED event.
+   type INTENCLR_STOPPED_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_STOPPED_Field use
+     (Disabled => 0,
+      Enabled => 1);
 
    --  Disable interrupt on STOPPED event.
-   type STOPPED_Field_2 is
-     (
-      --  Reset value for the field
-      Stopped_Field_Reset,
+   type INTENCLR_STOPPED_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Stopped_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for STOPPED_Field_2 use
-     (Stopped_Field_Reset => 0,
+   for INTENCLR_STOPPED_Field_1 use
+     (Intenclr_Stopped_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on RXDREADY event.
-   type RXDREADY_Field_2 is
-     (
-      --  Reset value for the field
-      Rxdready_Field_Reset,
+   type INTENCLR_RXDREADY_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_RXDREADY_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on RXDREADY event.
+   type INTENCLR_RXDREADY_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Rxdready_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for RXDREADY_Field_2 use
-     (Rxdready_Field_Reset => 0,
+   for INTENCLR_RXDREADY_Field_1 use
+     (Intenclr_Rxdready_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on TXDSENT event.
-   type TXDSENT_Field_2 is
-     (
-      --  Reset value for the field
-      Txdsent_Field_Reset,
+   type INTENCLR_TXDSENT_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_TXDSENT_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on TXDSENT event.
+   type INTENCLR_TXDSENT_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Txdsent_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for TXDSENT_Field_2 use
-     (Txdsent_Field_Reset => 0,
+   for INTENCLR_TXDSENT_Field_1 use
+     (Intenclr_Txdsent_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on ERROR event.
-   type ERROR_Field_2 is
-     (
-      --  Reset value for the field
-      Error_Field_Reset,
+   type INTENCLR_ERROR_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_ERROR_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on ERROR event.
+   type INTENCLR_ERROR_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Error_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for ERROR_Field_2 use
-     (Error_Field_Reset => 0,
+   for INTENCLR_ERROR_Field_1 use
+     (Intenclr_Error_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on BB event.
-   type BB_Field_2 is
-     (
-      --  Reset value for the field
-      Bb_Field_Reset,
+   type INTENCLR_BB_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_BB_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on BB event.
+   type INTENCLR_BB_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Bb_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for BB_Field_2 use
-     (Bb_Field_Reset => 0,
+   for INTENCLR_BB_Field_1 use
+     (Intenclr_Bb_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on SUSPENDED event.
-   type SUSPENDED_Field_2 is
-     (
-      --  Reset value for the field
-      Suspended_Field_Reset,
+   type INTENCLR_SUSPENDED_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_SUSPENDED_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on SUSPENDED event.
+   type INTENCLR_SUSPENDED_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Suspended_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for SUSPENDED_Field_2 use
-     (Suspended_Field_Reset => 0,
+   for INTENCLR_SUSPENDED_Field_1 use
+     (Intenclr_Suspended_Field_Reset => 0,
       Clear => 1);
 
    --  Interrupt enable clear register.
@@ -332,29 +401,33 @@ package nrf51.TWI is
       --  unspecified
       Reserved_0_0   : nrf51.Bit := 16#0#;
       --  Disable interrupt on STOPPED event.
-      STOPPED        : STOPPED_Field_2 := Stopped_Field_Reset;
+      STOPPED        : INTENCLR_STOPPED_Field_1 :=
+                        Intenclr_Stopped_Field_Reset;
       --  Disable interrupt on RXDREADY event.
-      RXDREADY       : RXDREADY_Field_2 := Rxdready_Field_Reset;
+      RXDREADY       : INTENCLR_RXDREADY_Field_1 :=
+                        Intenclr_Rxdready_Field_Reset;
       --  unspecified
       Reserved_3_6   : nrf51.UInt4 := 16#0#;
       --  Disable interrupt on TXDSENT event.
-      TXDSENT        : TXDSENT_Field_2 := Txdsent_Field_Reset;
+      TXDSENT        : INTENCLR_TXDSENT_Field_1 :=
+                        Intenclr_Txdsent_Field_Reset;
       --  unspecified
       Reserved_8_8   : nrf51.Bit := 16#0#;
       --  Disable interrupt on ERROR event.
-      ERROR          : ERROR_Field_2 := Error_Field_Reset;
+      ERROR          : INTENCLR_ERROR_Field_1 := Intenclr_Error_Field_Reset;
       --  unspecified
       Reserved_10_13 : nrf51.UInt4 := 16#0#;
       --  Disable interrupt on BB event.
-      BB             : BB_Field_2 := Bb_Field_Reset;
+      BB             : INTENCLR_BB_Field_1 := Intenclr_Bb_Field_Reset;
       --  unspecified
       Reserved_15_17 : nrf51.UInt3 := 16#0#;
       --  Disable interrupt on SUSPENDED event.
-      SUSPENDED      : SUSPENDED_Field_2 := Suspended_Field_Reset;
+      SUSPENDED      : INTENCLR_SUSPENDED_Field_1 :=
+                        Intenclr_Suspended_Field_Reset;
       --  unspecified
       Reserved_19_31 : nrf51.UInt13 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for INTENCLR_Register use record
@@ -372,97 +445,88 @@ package nrf51.TWI is
       Reserved_19_31 at 0 range 19 .. 31;
    end record;
 
-   -----------------------
-   -- ERRORSRC_Register --
-   -----------------------
-
    --  Byte received in RXD register before read of the last received byte
    --  (data loss).
-   type OVERRUN_Field is
-     (
-      --  Error not present.
+   type ERRORSRC_OVERRUN_Field is
+     (--  Error not present.
       Notpresent,
       --  Error present.
       Present)
      with Size => 1;
-   for OVERRUN_Field use
+   for ERRORSRC_OVERRUN_Field use
      (Notpresent => 0,
       Present => 1);
 
    --  Byte received in RXD register before read of the last received byte
    --  (data loss).
-   type OVERRUN_Field_1 is
-     (
-      --  Reset value for the field
-      Overrun_Field_Reset,
+   type ERRORSRC_OVERRUN_Field_1 is
+     (--  Reset value for the field
+      Errorsrc_Overrun_Field_Reset,
       --  Clear error on write.
       Clear)
      with Size => 1;
-   for OVERRUN_Field_1 use
-     (Overrun_Field_Reset => 0,
+   for ERRORSRC_OVERRUN_Field_1 use
+     (Errorsrc_Overrun_Field_Reset => 0,
       Clear => 1);
 
    --  NACK received after sending the address.
-   type ANACK_Field is
-     (
-      --  Error not present.
+   type ERRORSRC_ANACK_Field is
+     (--  Error not present.
       Notpresent,
       --  Error present.
       Present)
      with Size => 1;
-   for ANACK_Field use
+   for ERRORSRC_ANACK_Field use
      (Notpresent => 0,
       Present => 1);
 
    --  NACK received after sending the address.
-   type ANACK_Field_1 is
-     (
-      --  Reset value for the field
-      Anack_Field_Reset,
+   type ERRORSRC_ANACK_Field_1 is
+     (--  Reset value for the field
+      Errorsrc_Anack_Field_Reset,
       --  Clear error on write.
       Clear)
      with Size => 1;
-   for ANACK_Field_1 use
-     (Anack_Field_Reset => 0,
+   for ERRORSRC_ANACK_Field_1 use
+     (Errorsrc_Anack_Field_Reset => 0,
       Clear => 1);
 
    --  NACK received after sending a data byte.
-   type DNACK_Field is
-     (
-      --  Error not present.
+   type ERRORSRC_DNACK_Field is
+     (--  Error not present.
       Notpresent,
       --  Error present.
       Present)
      with Size => 1;
-   for DNACK_Field use
+   for ERRORSRC_DNACK_Field use
      (Notpresent => 0,
       Present => 1);
 
    --  NACK received after sending a data byte.
-   type DNACK_Field_1 is
-     (
-      --  Reset value for the field
-      Dnack_Field_Reset,
+   type ERRORSRC_DNACK_Field_1 is
+     (--  Reset value for the field
+      Errorsrc_Dnack_Field_Reset,
       --  Clear error on write.
       Clear)
      with Size => 1;
-   for DNACK_Field_1 use
-     (Dnack_Field_Reset => 0,
+   for ERRORSRC_DNACK_Field_1 use
+     (Errorsrc_Dnack_Field_Reset => 0,
       Clear => 1);
 
    --  Two-wire error source. Write error field to 1 to clear error.
    type ERRORSRC_Register is record
       --  Byte received in RXD register before read of the last received byte
       --  (data loss).
-      OVERRUN       : OVERRUN_Field_1 := Overrun_Field_Reset;
+      OVERRUN       : ERRORSRC_OVERRUN_Field_1 :=
+                       Errorsrc_Overrun_Field_Reset;
       --  NACK received after sending the address.
-      ANACK         : ANACK_Field_1 := Anack_Field_Reset;
+      ANACK         : ERRORSRC_ANACK_Field_1 := Errorsrc_Anack_Field_Reset;
       --  NACK received after sending a data byte.
-      DNACK         : DNACK_Field_1 := Dnack_Field_Reset;
+      DNACK         : ERRORSRC_DNACK_Field_1 := Errorsrc_Dnack_Field_Reset;
       --  unspecified
       Reserved_3_31 : nrf51.UInt29 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for ERRORSRC_Register use record
@@ -472,40 +536,31 @@ package nrf51.TWI is
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
 
-   ---------------------
-   -- ENABLE_Register --
-   ---------------------
-
    --  Enable or disable W2M
-   type ENABLE_Field is
-     (
-      --  Disabled.
+   type ENABLE_ENABLE_Field is
+     (--  Disabled.
       Disabled,
       --  Enabled.
       Enabled)
      with Size => 3;
-   for ENABLE_Field use
+   for ENABLE_ENABLE_Field use
      (Disabled => 0,
       Enabled => 5);
 
    --  Enable two-wire master.
    type ENABLE_Register is record
       --  Enable or disable W2M
-      ENABLE        : ENABLE_Field := Disabled;
+      ENABLE        : ENABLE_ENABLE_Field := nrf51.TWI.Disabled;
       --  unspecified
       Reserved_3_31 : nrf51.UInt29 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for ENABLE_Register use record
       ENABLE        at 0 range 0 .. 2;
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
-
-   ------------------
-   -- RXD_Register --
-   ------------------
 
    subtype RXD_RXD_Field is nrf51.Byte;
 
@@ -517,17 +572,13 @@ package nrf51.TWI is
       --  unspecified
       Reserved_8_31 : nrf51.UInt24;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for RXD_Register use record
       RXD           at 0 range 0 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   ------------------
-   -- TXD_Register --
-   ------------------
 
    subtype TXD_TXD_Field is nrf51.Byte;
 
@@ -538,17 +589,13 @@ package nrf51.TWI is
       --  unspecified
       Reserved_8_31 : nrf51.UInt24 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for TXD_Register use record
       TXD           at 0 range 0 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   ----------------------
-   -- ADDRESS_Register --
-   ----------------------
 
    subtype ADDRESS_ADDRESS_Field is nrf51.UInt7;
 
@@ -559,7 +606,7 @@ package nrf51.TWI is
       --  unspecified
       Reserved_7_31 : nrf51.UInt25 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for ADDRESS_Register use record
@@ -567,30 +614,25 @@ package nrf51.TWI is
       Reserved_7_31 at 0 range 7 .. 31;
    end record;
 
-   --------------------
-   -- POWER_Register --
-   --------------------
-
    --  Peripheral power control.
-   type POWER_Field is
-     (
-      --  Module power disabled.
+   type POWER_POWER_Field is
+     (--  Module power disabled.
       Disabled,
       --  Module power enabled.
       Enabled)
      with Size => 1;
-   for POWER_Field use
+   for POWER_POWER_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Peripheral power control.
    type POWER_Register is record
       --  Peripheral power control.
-      POWER         : POWER_Field := Disabled;
+      POWER         : POWER_POWER_Field := nrf51.TWI.Disabled;
       --  unspecified
       Reserved_1_31 : nrf51.UInt31 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for POWER_Register use record
@@ -605,78 +647,78 @@ package nrf51.TWI is
    --  Two-wire interface master 0.
    type TWI_Peripheral is record
       --  Start 2-Wire master receive sequence.
-      TASKS_STARTRX    : nrf51.Word;
+      TASKS_STARTRX    : aliased nrf51.UInt32;
       --  Start 2-Wire master transmit sequence.
-      TASKS_STARTTX    : nrf51.Word;
+      TASKS_STARTTX    : aliased nrf51.UInt32;
       --  Stop 2-Wire transaction.
-      TASKS_STOP       : nrf51.Word;
+      TASKS_STOP       : aliased nrf51.UInt32;
       --  Suspend 2-Wire transaction.
-      TASKS_SUSPEND    : nrf51.Word;
+      TASKS_SUSPEND    : aliased nrf51.UInt32;
       --  Resume 2-Wire transaction.
-      TASKS_RESUME     : nrf51.Word;
+      TASKS_RESUME     : aliased nrf51.UInt32;
       --  Two-wire stopped.
-      EVENTS_STOPPED   : nrf51.Word;
+      EVENTS_STOPPED   : aliased nrf51.UInt32;
       --  Two-wire ready to deliver new RXD byte received.
-      EVENTS_RXDREADY  : nrf51.Word;
+      EVENTS_RXDREADY  : aliased nrf51.UInt32;
       --  Two-wire finished sending last TXD byte.
-      EVENTS_TXDSENT   : nrf51.Word;
+      EVENTS_TXDSENT   : aliased nrf51.UInt32;
       --  Two-wire error detected.
-      EVENTS_ERROR     : nrf51.Word;
+      EVENTS_ERROR     : aliased nrf51.UInt32;
       --  Two-wire byte boundary.
-      EVENTS_BB        : nrf51.Word;
+      EVENTS_BB        : aliased nrf51.UInt32;
       --  Two-wire suspended.
-      EVENTS_SUSPENDED : nrf51.Word;
+      EVENTS_SUSPENDED : aliased nrf51.UInt32;
       --  Shortcuts for TWI.
-      SHORTS           : SHORTS_Register;
+      SHORTS           : aliased SHORTS_Register;
       --  Interrupt enable set register.
-      INTENSET         : INTENSET_Register;
+      INTENSET         : aliased INTENSET_Register;
       --  Interrupt enable clear register.
-      INTENCLR         : INTENCLR_Register;
+      INTENCLR         : aliased INTENCLR_Register;
       --  Two-wire error source. Write error field to 1 to clear error.
-      ERRORSRC         : ERRORSRC_Register;
+      ERRORSRC         : aliased ERRORSRC_Register;
       --  Enable two-wire master.
-      ENABLE           : ENABLE_Register;
+      ENABLE           : aliased ENABLE_Register;
       --  Pin select for SCL.
-      PSELSCL          : nrf51.Word;
+      PSELSCL          : aliased nrf51.UInt32;
       --  Pin select for SDA.
-      PSELSDA          : nrf51.Word;
+      PSELSDA          : aliased nrf51.UInt32;
       --  RX data register.
-      RXD              : RXD_Register;
+      RXD              : aliased RXD_Register;
       --  TX data register.
-      TXD              : TXD_Register;
+      TXD              : aliased TXD_Register;
       --  Two-wire frequency.
-      FREQUENCY        : nrf51.Word;
+      FREQUENCY        : aliased nrf51.UInt32;
       --  Address used in the two-wire transfer.
-      ADDRESS          : ADDRESS_Register;
+      ADDRESS          : aliased ADDRESS_Register;
       --  Peripheral power control.
-      POWER            : POWER_Register;
+      POWER            : aliased POWER_Register;
    end record
      with Volatile;
 
    for TWI_Peripheral use record
-      TASKS_STARTRX    at 0 range 0 .. 31;
-      TASKS_STARTTX    at 8 range 0 .. 31;
-      TASKS_STOP       at 20 range 0 .. 31;
-      TASKS_SUSPEND    at 28 range 0 .. 31;
-      TASKS_RESUME     at 32 range 0 .. 31;
-      EVENTS_STOPPED   at 260 range 0 .. 31;
-      EVENTS_RXDREADY  at 264 range 0 .. 31;
-      EVENTS_TXDSENT   at 284 range 0 .. 31;
-      EVENTS_ERROR     at 292 range 0 .. 31;
-      EVENTS_BB        at 312 range 0 .. 31;
-      EVENTS_SUSPENDED at 328 range 0 .. 31;
-      SHORTS           at 512 range 0 .. 31;
-      INTENSET         at 772 range 0 .. 31;
-      INTENCLR         at 776 range 0 .. 31;
-      ERRORSRC         at 1220 range 0 .. 31;
-      ENABLE           at 1280 range 0 .. 31;
-      PSELSCL          at 1288 range 0 .. 31;
-      PSELSDA          at 1292 range 0 .. 31;
-      RXD              at 1304 range 0 .. 31;
-      TXD              at 1308 range 0 .. 31;
-      FREQUENCY        at 1316 range 0 .. 31;
-      ADDRESS          at 1416 range 0 .. 31;
-      POWER            at 4092 range 0 .. 31;
+      TASKS_STARTRX    at 16#0# range 0 .. 31;
+      TASKS_STARTTX    at 16#8# range 0 .. 31;
+      TASKS_STOP       at 16#14# range 0 .. 31;
+      TASKS_SUSPEND    at 16#1C# range 0 .. 31;
+      TASKS_RESUME     at 16#20# range 0 .. 31;
+      EVENTS_STOPPED   at 16#104# range 0 .. 31;
+      EVENTS_RXDREADY  at 16#108# range 0 .. 31;
+      EVENTS_TXDSENT   at 16#11C# range 0 .. 31;
+      EVENTS_ERROR     at 16#124# range 0 .. 31;
+      EVENTS_BB        at 16#138# range 0 .. 31;
+      EVENTS_SUSPENDED at 16#148# range 0 .. 31;
+      SHORTS           at 16#200# range 0 .. 31;
+      INTENSET         at 16#304# range 0 .. 31;
+      INTENCLR         at 16#308# range 0 .. 31;
+      ERRORSRC         at 16#4C4# range 0 .. 31;
+      ENABLE           at 16#500# range 0 .. 31;
+      PSELSCL          at 16#508# range 0 .. 31;
+      PSELSDA          at 16#50C# range 0 .. 31;
+      RXD              at 16#518# range 0 .. 31;
+      TXD              at 16#51C# range 0 .. 31;
+      FREQUENCY        at 16#524# range 0 .. 31;
+      ADDRESS          at 16#588# range 0 .. 31;
+      POWER            at 16#FFC# range 0 .. 31;
    end record;
 
    --  Two-wire interface master 0.

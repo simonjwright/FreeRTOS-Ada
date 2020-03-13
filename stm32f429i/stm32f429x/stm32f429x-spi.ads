@@ -1,5 +1,7 @@
---  Automatically generated from STM32F429x.svd by SVD2Ada
---  see https://github.com/simonjwright/svd2ada
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
+--  This spec has been automatically generated from STM32F429x.svd
 
 pragma Restrictions (No_Elaboration_Code);
 
@@ -11,10 +13,6 @@ package STM32F429x.SPI is
    ---------------
    -- Registers --
    ---------------
-
-   ------------------
-   -- CR1_Register --
-   ------------------
 
    subtype CR1_CPHA_Field is STM32F429x.Bit;
    subtype CR1_CPOL_Field is STM32F429x.Bit;
@@ -62,9 +60,9 @@ package STM32F429x.SPI is
       --  Bidirectional data mode enable
       BIDIMODE       : CR1_BIDIMODE_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short := 16#0#;
+      Reserved_16_31 : STM32F429x.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CR1_Register use record
       CPHA           at 0 range 0 .. 0;
@@ -83,10 +81,6 @@ package STM32F429x.SPI is
       BIDIMODE       at 0 range 15 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   ------------------
-   -- CR2_Register --
-   ------------------
 
    subtype CR2_RXDMAEN_Field is STM32F429x.Bit;
    subtype CR2_TXDMAEN_Field is STM32F429x.Bit;
@@ -117,7 +111,7 @@ package STM32F429x.SPI is
       --  unspecified
       Reserved_8_31 : STM32F429x.UInt24 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CR2_Register use record
       RXDMAEN       at 0 range 0 .. 0;
@@ -131,10 +125,6 @@ package STM32F429x.SPI is
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
 
-   -----------------
-   -- SR_Register --
-   -----------------
-
    subtype SR_RXNE_Field is STM32F429x.Bit;
    subtype SR_TXE_Field is STM32F429x.Bit;
    subtype SR_CHSIDE_Field is STM32F429x.Bit;
@@ -147,28 +137,28 @@ package STM32F429x.SPI is
 
    --  status register
    type SR_Register is record
-      --  Receive buffer not empty
+      --  Read-only. Receive buffer not empty
       RXNE          : SR_RXNE_Field := 16#0#;
-      --  Transmit buffer empty
+      --  Read-only. Transmit buffer empty
       TXE           : SR_TXE_Field := 16#1#;
-      --  Channel side
+      --  Read-only. Channel side
       CHSIDE        : SR_CHSIDE_Field := 16#0#;
-      --  Underrun flag
+      --  Read-only. Underrun flag
       UDR           : SR_UDR_Field := 16#0#;
       --  CRC error flag
       CRCERR        : SR_CRCERR_Field := 16#0#;
-      --  Mode fault
+      --  Read-only. Mode fault
       MODF          : SR_MODF_Field := 16#0#;
-      --  Overrun flag
+      --  Read-only. Overrun flag
       OVR           : SR_OVR_Field := 16#0#;
-      --  Busy flag
+      --  Read-only. Busy flag
       BSY           : SR_BSY_Field := 16#0#;
-      --  TI frame format error
+      --  Read-only. TI frame format error
       TIFRFE        : SR_TIFRFE_Field := 16#0#;
       --  unspecified
       Reserved_9_31 : STM32F429x.UInt23 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for SR_Register use record
       RXNE          at 0 range 0 .. 0;
@@ -183,89 +173,69 @@ package STM32F429x.SPI is
       Reserved_9_31 at 0 range 9 .. 31;
    end record;
 
-   -----------------
-   -- DR_Register --
-   -----------------
-
-   subtype DR_DR_Field is STM32F429x.Short;
+   subtype DR_DR_Field is STM32F429x.UInt16;
 
    --  data register
    type DR_Register is record
       --  Data register
       DR             : DR_DR_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short := 16#0#;
+      Reserved_16_31 : STM32F429x.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for DR_Register use record
       DR             at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   --------------------
-   -- CRCPR_Register --
-   --------------------
-
-   subtype CRCPR_CRCPOLY_Field is STM32F429x.Short;
+   subtype CRCPR_CRCPOLY_Field is STM32F429x.UInt16;
 
    --  CRC polynomial register
    type CRCPR_Register is record
       --  CRC polynomial register
       CRCPOLY        : CRCPR_CRCPOLY_Field := 16#7#;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short := 16#0#;
+      Reserved_16_31 : STM32F429x.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CRCPR_Register use record
       CRCPOLY        at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   ---------------------
-   -- RXCRCR_Register --
-   ---------------------
-
-   subtype RXCRCR_RxCRC_Field is STM32F429x.Short;
+   subtype RXCRCR_RxCRC_Field is STM32F429x.UInt16;
 
    --  RX CRC register
    type RXCRCR_Register is record
-      --  Rx CRC register
+      --  Read-only. Rx CRC register
       RxCRC          : RXCRCR_RxCRC_Field;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short;
+      Reserved_16_31 : STM32F429x.UInt16;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for RXCRCR_Register use record
       RxCRC          at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   ---------------------
-   -- TXCRCR_Register --
-   ---------------------
-
-   subtype TXCRCR_TxCRC_Field is STM32F429x.Short;
+   subtype TXCRCR_TxCRC_Field is STM32F429x.UInt16;
 
    --  TX CRC register
    type TXCRCR_Register is record
-      --  Tx CRC register
+      --  Read-only. Tx CRC register
       TxCRC          : TXCRCR_TxCRC_Field;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short;
+      Reserved_16_31 : STM32F429x.UInt16;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for TXCRCR_Register use record
       TxCRC          at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   ----------------------
-   -- I2SCFGR_Register --
-   ----------------------
 
    subtype I2SCFGR_CHLEN_Field is STM32F429x.Bit;
    subtype I2SCFGR_DATLEN_Field is STM32F429x.UInt2;
@@ -299,7 +269,7 @@ package STM32F429x.SPI is
       --  unspecified
       Reserved_12_31 : STM32F429x.UInt20 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for I2SCFGR_Register use record
       CHLEN          at 0 range 0 .. 0;
@@ -313,10 +283,6 @@ package STM32F429x.SPI is
       I2SMOD         at 0 range 11 .. 11;
       Reserved_12_31 at 0 range 12 .. 31;
    end record;
-
-   --------------------
-   -- I2SPR_Register --
-   --------------------
 
    subtype I2SPR_I2SDIV_Field is STM32F429x.Byte;
    subtype I2SPR_ODD_Field is STM32F429x.Bit;
@@ -333,7 +299,7 @@ package STM32F429x.SPI is
       --  unspecified
       Reserved_10_31 : STM32F429x.UInt22 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for I2SPR_Register use record
       I2SDIV         at 0 range 0 .. 7;
@@ -349,68 +315,77 @@ package STM32F429x.SPI is
    --  Serial peripheral interface
    type SPI_Peripheral is record
       --  control register 1
-      CR1     : CR1_Register;
+      CR1     : aliased CR1_Register;
+      pragma Volatile_Full_Access (CR1);
       --  control register 2
-      CR2     : CR2_Register;
+      CR2     : aliased CR2_Register;
+      pragma Volatile_Full_Access (CR2);
       --  status register
-      SR      : SR_Register;
+      SR      : aliased SR_Register;
+      pragma Volatile_Full_Access (SR);
       --  data register
-      DR      : DR_Register;
+      DR      : aliased DR_Register;
+      pragma Volatile_Full_Access (DR);
       --  CRC polynomial register
-      CRCPR   : CRCPR_Register;
+      CRCPR   : aliased CRCPR_Register;
+      pragma Volatile_Full_Access (CRCPR);
       --  RX CRC register
-      RXCRCR  : RXCRCR_Register;
+      RXCRCR  : aliased RXCRCR_Register;
+      pragma Volatile_Full_Access (RXCRCR);
       --  TX CRC register
-      TXCRCR  : TXCRCR_Register;
+      TXCRCR  : aliased TXCRCR_Register;
+      pragma Volatile_Full_Access (TXCRCR);
       --  I2S configuration register
-      I2SCFGR : I2SCFGR_Register;
+      I2SCFGR : aliased I2SCFGR_Register;
+      pragma Volatile_Full_Access (I2SCFGR);
       --  I2S prescaler register
-      I2SPR   : I2SPR_Register;
+      I2SPR   : aliased I2SPR_Register;
+      pragma Volatile_Full_Access (I2SPR);
    end record
      with Volatile;
 
    for SPI_Peripheral use record
-      CR1     at 0 range 0 .. 31;
-      CR2     at 4 range 0 .. 31;
-      SR      at 8 range 0 .. 31;
-      DR      at 12 range 0 .. 31;
-      CRCPR   at 16 range 0 .. 31;
-      RXCRCR  at 20 range 0 .. 31;
-      TXCRCR  at 24 range 0 .. 31;
-      I2SCFGR at 28 range 0 .. 31;
-      I2SPR   at 32 range 0 .. 31;
+      CR1     at 16#0# range 0 .. 31;
+      CR2     at 16#4# range 0 .. 31;
+      SR      at 16#8# range 0 .. 31;
+      DR      at 16#C# range 0 .. 31;
+      CRCPR   at 16#10# range 0 .. 31;
+      RXCRCR  at 16#14# range 0 .. 31;
+      TXCRCR  at 16#18# range 0 .. 31;
+      I2SCFGR at 16#1C# range 0 .. 31;
+      I2SPR   at 16#20# range 0 .. 31;
    end record;
 
    --  Serial peripheral interface
    I2S2ext_Periph : aliased SPI_Peripheral
-     with Import, Address => System'To_Address (16#40003400#);
-
-   --  Serial peripheral interface
-   SPI2_Periph : aliased SPI_Peripheral
-     with Import, Address => System'To_Address (16#40003800#);
-
-   --  Serial peripheral interface
-   SPI3_Periph : aliased SPI_Peripheral
-     with Import, Address => System'To_Address (16#40003C00#);
+     with Import, Address => I2S2ext_Base;
 
    --  Serial peripheral interface
    I2S3ext_Periph : aliased SPI_Peripheral
-     with Import, Address => System'To_Address (16#40004000#);
+     with Import, Address => I2S3ext_Base;
 
    --  Serial peripheral interface
    SPI1_Periph : aliased SPI_Peripheral
-     with Import, Address => System'To_Address (16#40013000#);
+     with Import, Address => SPI1_Base;
+
+   --  Serial peripheral interface
+   SPI2_Periph : aliased SPI_Peripheral
+     with Import, Address => SPI2_Base;
+
+   --  Serial peripheral interface
+   SPI3_Periph : aliased SPI_Peripheral
+     with Import, Address => SPI3_Base;
 
    --  Serial peripheral interface
    SPI4_Periph : aliased SPI_Peripheral
-     with Import, Address => System'To_Address (16#40013400#);
+     with Import, Address => SPI4_Base;
 
    --  Serial peripheral interface
    SPI5_Periph : aliased SPI_Peripheral
-     with Import, Address => System'To_Address (16#40015000#);
+     with Import, Address => SPI5_Base;
 
    --  Serial peripheral interface
    SPI6_Periph : aliased SPI_Peripheral
-     with Import, Address => System'To_Address (16#40015400#);
+     with Import, Address => SPI6_Base;
 
 end STM32F429x.SPI;

@@ -1,5 +1,7 @@
---  Automatically generated from STM32F429x.svd by SVD2Ada
---  see https://github.com/simonjwright/svd2ada
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
+--  This spec has been automatically generated from STM32F429x.svd
 
 pragma Restrictions (No_Elaboration_Code);
 
@@ -11,10 +13,6 @@ package STM32F429x.DMA2D is
    ---------------
    -- Registers --
    ---------------
-
-   -----------------
-   -- CR_Register --
-   -----------------
 
    subtype CR_START_Field is STM32F429x.Bit;
    subtype CR_SUSP_Field is STM32F429x.Bit;
@@ -56,7 +54,7 @@ package STM32F429x.DMA2D is
       --  unspecified
       Reserved_18_31 : STM32F429x.UInt14 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CR_Register use record
       START          at 0 range 0 .. 0;
@@ -74,10 +72,6 @@ package STM32F429x.DMA2D is
       Reserved_18_31 at 0 range 18 .. 31;
    end record;
 
-   ------------------
-   -- ISR_Register --
-   ------------------
-
    subtype ISR_TEIF_Field is STM32F429x.Bit;
    subtype ISR_TCIF_Field is STM32F429x.Bit;
    subtype ISR_TWIF_Field is STM32F429x.Bit;
@@ -87,22 +81,22 @@ package STM32F429x.DMA2D is
 
    --  Interrupt Status Register
    type ISR_Register is record
-      --  Transfer error interrupt flag
+      --  Read-only. Transfer error interrupt flag
       TEIF          : ISR_TEIF_Field;
-      --  Transfer complete interrupt flag
+      --  Read-only. Transfer complete interrupt flag
       TCIF          : ISR_TCIF_Field;
-      --  Transfer watermark interrupt flag
+      --  Read-only. Transfer watermark interrupt flag
       TWIF          : ISR_TWIF_Field;
-      --  CLUT access error interrupt flag
+      --  Read-only. CLUT access error interrupt flag
       CAEIF         : ISR_CAEIF_Field;
-      --  CLUT transfer complete interrupt flag
+      --  Read-only. CLUT transfer complete interrupt flag
       CTCIF         : ISR_CTCIF_Field;
-      --  Configuration error interrupt flag
+      --  Read-only. Configuration error interrupt flag
       CEIF          : ISR_CEIF_Field;
       --  unspecified
       Reserved_6_31 : STM32F429x.UInt26;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ISR_Register use record
       TEIF          at 0 range 0 .. 0;
@@ -113,10 +107,6 @@ package STM32F429x.DMA2D is
       CEIF          at 0 range 5 .. 5;
       Reserved_6_31 at 0 range 6 .. 31;
    end record;
-
-   -------------------
-   -- IFCR_Register --
-   -------------------
 
    subtype IFCR_CTEIF_Field is STM32F429x.Bit;
    subtype IFCR_CTCIF_Field is STM32F429x.Bit;
@@ -142,7 +132,7 @@ package STM32F429x.DMA2D is
       --  unspecified
       Reserved_6_31 : STM32F429x.UInt26 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for IFCR_Register use record
       CTEIF         at 0 range 0 .. 0;
@@ -154,10 +144,6 @@ package STM32F429x.DMA2D is
       Reserved_6_31 at 0 range 6 .. 31;
    end record;
 
-   -------------------
-   -- FGOR_Register --
-   -------------------
-
    subtype FGOR_LO_Field is STM32F429x.UInt14;
 
    --  foreground offset register
@@ -167,16 +153,12 @@ package STM32F429x.DMA2D is
       --  unspecified
       Reserved_14_31 : STM32F429x.UInt18 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for FGOR_Register use record
       LO             at 0 range 0 .. 13;
       Reserved_14_31 at 0 range 14 .. 31;
    end record;
-
-   -------------------
-   -- BGOR_Register --
-   -------------------
 
    subtype BGOR_LO_Field is STM32F429x.UInt14;
 
@@ -187,16 +169,12 @@ package STM32F429x.DMA2D is
       --  unspecified
       Reserved_14_31 : STM32F429x.UInt18 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BGOR_Register use record
       LO             at 0 range 0 .. 13;
       Reserved_14_31 at 0 range 14 .. 31;
    end record;
-
-   ----------------------
-   -- FGPFCCR_Register --
-   ----------------------
 
    subtype FGPFCCR_CM_Field is STM32F429x.UInt4;
    subtype FGPFCCR_CCM_Field is STM32F429x.Bit;
@@ -224,7 +202,7 @@ package STM32F429x.DMA2D is
       --  Alpha value
       ALPHA          : FGPFCCR_ALPHA_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for FGPFCCR_Register use record
       CM             at 0 range 0 .. 3;
@@ -236,10 +214,6 @@ package STM32F429x.DMA2D is
       Reserved_18_23 at 0 range 18 .. 23;
       ALPHA          at 0 range 24 .. 31;
    end record;
-
-   ---------------------
-   -- FGCOLR_Register --
-   ---------------------
 
    subtype FGCOLR_BLUE_Field is STM32F429x.Byte;
    subtype FGCOLR_GREEN_Field is STM32F429x.Byte;
@@ -256,7 +230,7 @@ package STM32F429x.DMA2D is
       --  unspecified
       Reserved_24_31 : STM32F429x.Byte := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for FGCOLR_Register use record
       BLUE           at 0 range 0 .. 7;
@@ -264,10 +238,6 @@ package STM32F429x.DMA2D is
       RED            at 0 range 16 .. 23;
       Reserved_24_31 at 0 range 24 .. 31;
    end record;
-
-   ----------------------
-   -- BGPFCCR_Register --
-   ----------------------
 
    subtype BGPFCCR_CM_Field is STM32F429x.UInt4;
    subtype BGPFCCR_CCM_Field is STM32F429x.Bit;
@@ -295,7 +265,7 @@ package STM32F429x.DMA2D is
       --  Alpha value
       ALPHA          : BGPFCCR_ALPHA_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BGPFCCR_Register use record
       CM             at 0 range 0 .. 3;
@@ -307,10 +277,6 @@ package STM32F429x.DMA2D is
       Reserved_18_23 at 0 range 18 .. 23;
       ALPHA          at 0 range 24 .. 31;
    end record;
-
-   ---------------------
-   -- BGCOLR_Register --
-   ---------------------
 
    subtype BGCOLR_BLUE_Field is STM32F429x.Byte;
    subtype BGCOLR_GREEN_Field is STM32F429x.Byte;
@@ -327,7 +293,7 @@ package STM32F429x.DMA2D is
       --  unspecified
       Reserved_24_31 : STM32F429x.Byte := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BGCOLR_Register use record
       BLUE           at 0 range 0 .. 7;
@@ -335,10 +301,6 @@ package STM32F429x.DMA2D is
       RED            at 0 range 16 .. 23;
       Reserved_24_31 at 0 range 24 .. 31;
    end record;
-
-   ---------------------
-   -- OPFCCR_Register --
-   ---------------------
 
    subtype OPFCCR_CM_Field is STM32F429x.UInt3;
 
@@ -349,16 +311,12 @@ package STM32F429x.DMA2D is
       --  unspecified
       Reserved_3_31 : STM32F429x.UInt29 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for OPFCCR_Register use record
       CM            at 0 range 0 .. 2;
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
-
-   --------------------
-   -- OCOLR_Register --
-   --------------------
 
    subtype OCOLR_BLUE_Field is STM32F429x.Byte;
    subtype OCOLR_GREEN_Field is STM32F429x.Byte;
@@ -376,7 +334,7 @@ package STM32F429x.DMA2D is
       --  Alpha Channel Value
       APLHA : OCOLR_APLHA_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for OCOLR_Register use record
       BLUE  at 0 range 0 .. 7;
@@ -384,10 +342,6 @@ package STM32F429x.DMA2D is
       RED   at 0 range 16 .. 23;
       APLHA at 0 range 24 .. 31;
    end record;
-
-   ------------------
-   -- OOR_Register --
-   ------------------
 
    subtype OOR_LO_Field is STM32F429x.UInt14;
 
@@ -398,18 +352,14 @@ package STM32F429x.DMA2D is
       --  unspecified
       Reserved_14_31 : STM32F429x.UInt18 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for OOR_Register use record
       LO             at 0 range 0 .. 13;
       Reserved_14_31 at 0 range 14 .. 31;
    end record;
 
-   ------------------
-   -- NLR_Register --
-   ------------------
-
-   subtype NLR_NL_Field is STM32F429x.Short;
+   subtype NLR_NL_Field is STM32F429x.UInt16;
    subtype NLR_PL_Field is STM32F429x.UInt14;
 
    --  number of line register
@@ -421,7 +371,7 @@ package STM32F429x.DMA2D is
       --  unspecified
       Reserved_30_31 : STM32F429x.UInt2 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for NLR_Register use record
       NL             at 0 range 0 .. 15;
@@ -429,29 +379,21 @@ package STM32F429x.DMA2D is
       Reserved_30_31 at 0 range 30 .. 31;
    end record;
 
-   ------------------
-   -- LWR_Register --
-   ------------------
-
-   subtype LWR_LW_Field is STM32F429x.Short;
+   subtype LWR_LW_Field is STM32F429x.UInt16;
 
    --  line watermark register
    type LWR_Register is record
       --  Line watermark
       LW             : LWR_LW_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short := 16#0#;
+      Reserved_16_31 : STM32F429x.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for LWR_Register use record
       LW             at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   --------------------
-   -- AMTCR_Register --
-   --------------------
 
    subtype AMTCR_EN_Field is STM32F429x.Bit;
    subtype AMTCR_DT_Field is STM32F429x.Byte;
@@ -465,9 +407,9 @@ package STM32F429x.DMA2D is
       --  Dead Time
       DT             : AMTCR_DT_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short := 16#0#;
+      Reserved_16_31 : STM32F429x.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for AMTCR_Register use record
       EN             at 0 range 0 .. 0;
@@ -475,10 +417,6 @@ package STM32F429x.DMA2D is
       DT             at 0 range 8 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   ---------------------
-   -- FGCLUT_Register --
-   ---------------------
 
    subtype FGCLUT_BLUE_Field is STM32F429x.Byte;
    subtype FGCLUT_GREEN_Field is STM32F429x.Byte;
@@ -496,7 +434,7 @@ package STM32F429x.DMA2D is
       --  APLHA
       APLHA : FGCLUT_APLHA_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for FGCLUT_Register use record
       BLUE  at 0 range 0 .. 7;
@@ -504,10 +442,6 @@ package STM32F429x.DMA2D is
       RED   at 0 range 16 .. 23;
       APLHA at 0 range 24 .. 31;
    end record;
-
-   ---------------------
-   -- BGCLUT_Register --
-   ---------------------
 
    subtype BGCLUT_BLUE_Field is STM32F429x.Byte;
    subtype BGCLUT_GREEN_Field is STM32F429x.Byte;
@@ -525,7 +459,7 @@ package STM32F429x.DMA2D is
       --  APLHA
       APLHA : BGCLUT_APLHA_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BGCLUT_Register use record
       BLUE  at 0 range 0 .. 7;
@@ -541,79 +475,96 @@ package STM32F429x.DMA2D is
    --  DMA2D controller
    type DMA2D_Peripheral is record
       --  control register
-      CR      : CR_Register;
+      CR      : aliased CR_Register;
+      pragma Volatile_Full_Access (CR);
       --  Interrupt Status Register
-      ISR     : ISR_Register;
+      ISR     : aliased ISR_Register;
+      pragma Volatile_Full_Access (ISR);
       --  interrupt flag clear register
-      IFCR    : IFCR_Register;
+      IFCR    : aliased IFCR_Register;
+      pragma Volatile_Full_Access (IFCR);
       --  foreground memory address register
-      FGMAR   : STM32F429x.Word;
+      FGMAR   : aliased STM32F429x.UInt32;
       --  foreground offset register
-      FGOR    : FGOR_Register;
+      FGOR    : aliased FGOR_Register;
+      pragma Volatile_Full_Access (FGOR);
       --  background memory address register
-      BGMAR   : STM32F429x.Word;
+      BGMAR   : aliased STM32F429x.UInt32;
       --  background offset register
-      BGOR    : BGOR_Register;
+      BGOR    : aliased BGOR_Register;
+      pragma Volatile_Full_Access (BGOR);
       --  foreground PFC control register
-      FGPFCCR : FGPFCCR_Register;
+      FGPFCCR : aliased FGPFCCR_Register;
+      pragma Volatile_Full_Access (FGPFCCR);
       --  foreground color register
-      FGCOLR  : FGCOLR_Register;
+      FGCOLR  : aliased FGCOLR_Register;
+      pragma Volatile_Full_Access (FGCOLR);
       --  background PFC control register
-      BGPFCCR : BGPFCCR_Register;
+      BGPFCCR : aliased BGPFCCR_Register;
+      pragma Volatile_Full_Access (BGPFCCR);
       --  background color register
-      BGCOLR  : BGCOLR_Register;
+      BGCOLR  : aliased BGCOLR_Register;
+      pragma Volatile_Full_Access (BGCOLR);
       --  foreground CLUT memory address register
-      FGCMAR  : STM32F429x.Word;
+      FGCMAR  : aliased STM32F429x.UInt32;
       --  background CLUT memory address register
-      BGCMAR  : STM32F429x.Word;
+      BGCMAR  : aliased STM32F429x.UInt32;
       --  output PFC control register
-      OPFCCR  : OPFCCR_Register;
+      OPFCCR  : aliased OPFCCR_Register;
+      pragma Volatile_Full_Access (OPFCCR);
       --  output color register
-      OCOLR   : OCOLR_Register;
+      OCOLR   : aliased OCOLR_Register;
+      pragma Volatile_Full_Access (OCOLR);
       --  output memory address register
-      OMAR    : STM32F429x.Word;
+      OMAR    : aliased STM32F429x.UInt32;
       --  output offset register
-      OOR     : OOR_Register;
+      OOR     : aliased OOR_Register;
+      pragma Volatile_Full_Access (OOR);
       --  number of line register
-      NLR     : NLR_Register;
+      NLR     : aliased NLR_Register;
+      pragma Volatile_Full_Access (NLR);
       --  line watermark register
-      LWR     : LWR_Register;
+      LWR     : aliased LWR_Register;
+      pragma Volatile_Full_Access (LWR);
       --  AHB master timer configuration register
-      AMTCR   : AMTCR_Register;
+      AMTCR   : aliased AMTCR_Register;
+      pragma Volatile_Full_Access (AMTCR);
       --  FGCLUT
-      FGCLUT  : FGCLUT_Register;
+      FGCLUT  : aliased FGCLUT_Register;
+      pragma Volatile_Full_Access (FGCLUT);
       --  BGCLUT
-      BGCLUT  : BGCLUT_Register;
+      BGCLUT  : aliased BGCLUT_Register;
+      pragma Volatile_Full_Access (BGCLUT);
    end record
      with Volatile;
 
    for DMA2D_Peripheral use record
-      CR      at 0 range 0 .. 31;
-      ISR     at 4 range 0 .. 31;
-      IFCR    at 8 range 0 .. 31;
-      FGMAR   at 12 range 0 .. 31;
-      FGOR    at 16 range 0 .. 31;
-      BGMAR   at 20 range 0 .. 31;
-      BGOR    at 24 range 0 .. 31;
-      FGPFCCR at 28 range 0 .. 31;
-      FGCOLR  at 32 range 0 .. 31;
-      BGPFCCR at 36 range 0 .. 31;
-      BGCOLR  at 40 range 0 .. 31;
-      FGCMAR  at 44 range 0 .. 31;
-      BGCMAR  at 48 range 0 .. 31;
-      OPFCCR  at 52 range 0 .. 31;
-      OCOLR   at 56 range 0 .. 31;
-      OMAR    at 60 range 0 .. 31;
-      OOR     at 64 range 0 .. 31;
-      NLR     at 68 range 0 .. 31;
-      LWR     at 72 range 0 .. 31;
-      AMTCR   at 76 range 0 .. 31;
-      FGCLUT  at 1024 range 0 .. 31;
-      BGCLUT  at 2048 range 0 .. 31;
+      CR      at 16#0# range 0 .. 31;
+      ISR     at 16#4# range 0 .. 31;
+      IFCR    at 16#8# range 0 .. 31;
+      FGMAR   at 16#C# range 0 .. 31;
+      FGOR    at 16#10# range 0 .. 31;
+      BGMAR   at 16#14# range 0 .. 31;
+      BGOR    at 16#18# range 0 .. 31;
+      FGPFCCR at 16#1C# range 0 .. 31;
+      FGCOLR  at 16#20# range 0 .. 31;
+      BGPFCCR at 16#24# range 0 .. 31;
+      BGCOLR  at 16#28# range 0 .. 31;
+      FGCMAR  at 16#2C# range 0 .. 31;
+      BGCMAR  at 16#30# range 0 .. 31;
+      OPFCCR  at 16#34# range 0 .. 31;
+      OCOLR   at 16#38# range 0 .. 31;
+      OMAR    at 16#3C# range 0 .. 31;
+      OOR     at 16#40# range 0 .. 31;
+      NLR     at 16#44# range 0 .. 31;
+      LWR     at 16#48# range 0 .. 31;
+      AMTCR   at 16#4C# range 0 .. 31;
+      FGCLUT  at 16#400# range 0 .. 31;
+      BGCLUT  at 16#800# range 0 .. 31;
    end record;
 
    --  DMA2D controller
    DMA2D_Periph : aliased DMA2D_Peripheral
-     with Import, Address => System'To_Address (16#4002B000#);
+     with Import, Address => DMA2D_Base;
 
 end STM32F429x.DMA2D;

@@ -1,5 +1,7 @@
---  Automatically generated from STM32F429x.svd by SVD2Ada
---  see https://github.com/simonjwright/svd2ada
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
+--  This spec has been automatically generated from STM32F429x.svd
 
 pragma Restrictions (No_Elaboration_Code);
 
@@ -11,10 +13,6 @@ package STM32F429x.RCC is
    ---------------
    -- Registers --
    ---------------
-
-   -----------------
-   -- CR_Register --
-   -----------------
 
    subtype CR_HSION_Field is STM32F429x.Bit;
    subtype CR_HSIRDY_Field is STM32F429x.Bit;
@@ -33,17 +31,17 @@ package STM32F429x.RCC is
    type CR_Register is record
       --  Internal high-speed clock enable
       HSION          : CR_HSION_Field := 16#1#;
-      --  Internal high-speed clock ready flag
+      --  Read-only. Internal high-speed clock ready flag
       HSIRDY         : CR_HSIRDY_Field := 16#1#;
       --  unspecified
       Reserved_2_2   : STM32F429x.Bit := 16#0#;
       --  Internal high-speed clock trimming
       HSITRIM        : CR_HSITRIM_Field := 16#10#;
-      --  Internal high-speed clock calibration
+      --  Read-only. Internal high-speed clock calibration
       HSICAL         : CR_HSICAL_Field := 16#0#;
       --  HSE clock enable
       HSEON          : CR_HSEON_Field := 16#0#;
-      --  HSE clock ready flag
+      --  Read-only. HSE clock ready flag
       HSERDY         : CR_HSERDY_Field := 16#0#;
       --  HSE clock bypass
       HSEBYP         : CR_HSEBYP_Field := 16#0#;
@@ -53,16 +51,16 @@ package STM32F429x.RCC is
       Reserved_20_23 : STM32F429x.UInt4 := 16#0#;
       --  Main PLL (PLL) enable
       PLLON          : CR_PLLON_Field := 16#0#;
-      --  Main PLL (PLL) clock ready flag
+      --  Read-only. Main PLL (PLL) clock ready flag
       PLLRDY         : CR_PLLRDY_Field := 16#0#;
       --  PLLI2S enable
       PLLI2SON       : CR_PLLI2SON_Field := 16#0#;
-      --  PLLI2S clock ready flag
+      --  Read-only. PLLI2S clock ready flag
       PLLI2SRDY      : CR_PLLI2SRDY_Field := 16#0#;
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CR_Register use record
       HSION          at 0 range 0 .. 0;
@@ -81,10 +79,6 @@ package STM32F429x.RCC is
       PLLI2SRDY      at 0 range 27 .. 27;
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
-
-   ----------------------
-   -- PLLCFGR_Register --
-   ----------------------
 
    subtype PLLCFGR_PLLM_Field is STM32F429x.UInt6;
    subtype PLLCFGR_PLLN_Field is STM32F429x.UInt9;
@@ -115,7 +109,7 @@ package STM32F429x.RCC is
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4 := 16#2#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for PLLCFGR_Register use record
       PLLM           at 0 range 0 .. 5;
@@ -129,23 +123,14 @@ package STM32F429x.RCC is
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
 
-   -------------------
-   -- CFGR_Register --
-   -------------------
-
    subtype CFGR_SW_Field is STM32F429x.UInt2;
    subtype CFGR_SWS_Field is STM32F429x.UInt2;
    subtype CFGR_HPRE_Field is STM32F429x.UInt4;
-
-   ---------------
-   -- CFGR.PPRE --
-   ---------------
-
    --  CFGR_PPRE array element
    subtype CFGR_PPRE_Element is STM32F429x.UInt3;
 
    --  CFGR_PPRE array
-   type CFGR_PPRE_Field_Array is array (0 .. 1) of CFGR_PPRE_Element
+   type CFGR_PPRE_Field_Array is array (1 .. 2) of CFGR_PPRE_Element
      with Component_Size => 3, Size => 6;
 
    --  Type definition for CFGR_PPRE
@@ -179,7 +164,7 @@ package STM32F429x.RCC is
    type CFGR_Register is record
       --  System clock switch
       SW           : CFGR_SW_Field := 16#0#;
-      --  System clock switch status
+      --  Read-only. System clock switch status
       SWS          : CFGR_SWS_Field := 16#0#;
       --  AHB prescaler
       HPRE         : CFGR_HPRE_Field := 16#0#;
@@ -200,7 +185,7 @@ package STM32F429x.RCC is
       --  Microcontroller clock output 2
       MCO2         : CFGR_MCO2_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CFGR_Register use record
       SW           at 0 range 0 .. 1;
@@ -215,10 +200,6 @@ package STM32F429x.RCC is
       MCO2PRE      at 0 range 27 .. 29;
       MCO2         at 0 range 30 .. 31;
    end record;
-
-   ------------------
-   -- CIR_Register --
-   ------------------
 
    subtype CIR_LSIRDYF_Field is STM32F429x.Bit;
    subtype CIR_LSERDYF_Field is STM32F429x.Bit;
@@ -246,21 +227,21 @@ package STM32F429x.RCC is
 
    --  clock interrupt register
    type CIR_Register is record
-      --  LSI ready interrupt flag
+      --  Read-only. LSI ready interrupt flag
       LSIRDYF        : CIR_LSIRDYF_Field := 16#0#;
-      --  LSE ready interrupt flag
+      --  Read-only. LSE ready interrupt flag
       LSERDYF        : CIR_LSERDYF_Field := 16#0#;
-      --  HSI ready interrupt flag
+      --  Read-only. HSI ready interrupt flag
       HSIRDYF        : CIR_HSIRDYF_Field := 16#0#;
-      --  HSE ready interrupt flag
+      --  Read-only. HSE ready interrupt flag
       HSERDYF        : CIR_HSERDYF_Field := 16#0#;
-      --  Main PLL (PLL) ready interrupt flag
+      --  Read-only. Main PLL (PLL) ready interrupt flag
       PLLRDYF        : CIR_PLLRDYF_Field := 16#0#;
-      --  PLLI2S ready interrupt flag
+      --  Read-only. PLLI2S ready interrupt flag
       PLLI2SRDYF     : CIR_PLLI2SRDYF_Field := 16#0#;
-      --  PLLSAI ready interrupt flag
+      --  Read-only. PLLSAI ready interrupt flag
       PLLSAIRDYF     : CIR_PLLSAIRDYF_Field := 16#0#;
-      --  Clock security system interrupt flag
+      --  Read-only. Clock security system interrupt flag
       CSSF           : CIR_CSSF_Field := 16#0#;
       --  LSI ready interrupt enable
       LSIRDYIE       : CIR_LSIRDYIE_Field := 16#0#;
@@ -278,26 +259,26 @@ package STM32F429x.RCC is
       PLLSAIRDYIE    : CIR_PLLSAIRDYIE_Field := 16#0#;
       --  unspecified
       Reserved_15_15 : STM32F429x.Bit := 16#0#;
-      --  LSI ready interrupt clear
+      --  Write-only. LSI ready interrupt clear
       LSIRDYC        : CIR_LSIRDYC_Field := 16#0#;
-      --  LSE ready interrupt clear
+      --  Write-only. LSE ready interrupt clear
       LSERDYC        : CIR_LSERDYC_Field := 16#0#;
-      --  HSI ready interrupt clear
+      --  Write-only. HSI ready interrupt clear
       HSIRDYC        : CIR_HSIRDYC_Field := 16#0#;
-      --  HSE ready interrupt clear
+      --  Write-only. HSE ready interrupt clear
       HSERDYC        : CIR_HSERDYC_Field := 16#0#;
-      --  Main PLL(PLL) ready interrupt clear
+      --  Write-only. Main PLL(PLL) ready interrupt clear
       PLLRDYC        : CIR_PLLRDYC_Field := 16#0#;
-      --  PLLI2S ready interrupt clear
+      --  Write-only. PLLI2S ready interrupt clear
       PLLI2SRDYC     : CIR_PLLI2SRDYC_Field := 16#0#;
-      --  PLLSAI Ready Interrupt Clear
+      --  Write-only. PLLSAI Ready Interrupt Clear
       PLLSAIRDYC     : CIR_PLLSAIRDYC_Field := 16#0#;
-      --  Clock security system interrupt clear
+      --  Write-only. Clock security system interrupt clear
       CSSC           : CIR_CSSC_Field := 16#0#;
       --  unspecified
       Reserved_24_31 : STM32F429x.Byte := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CIR_Register use record
       LSIRDYF        at 0 range 0 .. 0;
@@ -326,10 +307,6 @@ package STM32F429x.RCC is
       CSSC           at 0 range 23 .. 23;
       Reserved_24_31 at 0 range 24 .. 31;
    end record;
-
-   -----------------------
-   -- AHB1RSTR_Register --
-   -----------------------
 
    subtype AHB1RSTR_GPIOARST_Field is STM32F429x.Bit;
    subtype AHB1RSTR_GPIOBRST_Field is STM32F429x.Bit;
@@ -396,7 +373,7 @@ package STM32F429x.RCC is
       --  unspecified
       Reserved_30_31 : STM32F429x.UInt2 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for AHB1RSTR_Register use record
       GPIOARST       at 0 range 0 .. 0;
@@ -423,10 +400,6 @@ package STM32F429x.RCC is
       Reserved_30_31 at 0 range 30 .. 31;
    end record;
 
-   -----------------------
-   -- AHB2RSTR_Register --
-   -----------------------
-
    subtype AHB2RSTR_DCMIRST_Field is STM32F429x.Bit;
    subtype AHB2RSTR_RNGRST_Field is STM32F429x.Bit;
    subtype AHB2RSTR_OTGFSRST_Field is STM32F429x.Bit;
@@ -444,7 +417,7 @@ package STM32F429x.RCC is
       --  unspecified
       Reserved_8_31 : STM32F429x.UInt24 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for AHB2RSTR_Register use record
       DCMIRST       at 0 range 0 .. 0;
@@ -453,10 +426,6 @@ package STM32F429x.RCC is
       OTGFSRST      at 0 range 7 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   -----------------------
-   -- AHB3RSTR_Register --
-   -----------------------
 
    subtype AHB3RSTR_FMCRST_Field is STM32F429x.Bit;
 
@@ -467,16 +436,12 @@ package STM32F429x.RCC is
       --  unspecified
       Reserved_1_31 : STM32F429x.UInt31 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for AHB3RSTR_Register use record
       FMCRST        at 0 range 0 .. 0;
       Reserved_1_31 at 0 range 1 .. 31;
    end record;
-
-   -----------------------
-   -- APB1RSTR_Register --
-   -----------------------
 
    subtype APB1RSTR_TIM2RST_Field is STM32F429x.Bit;
    subtype APB1RSTR_TIM3RST_Field is STM32F429x.Bit;
@@ -567,7 +532,7 @@ package STM32F429x.RCC is
       --  UART8 reset
       UART8RST       : APB1RSTR_UART8RST_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for APB1RSTR_Register use record
       TIM2RST        at 0 range 0 .. 0;
@@ -601,10 +566,6 @@ package STM32F429x.RCC is
       UART7RST       at 0 range 30 .. 30;
       UART8RST       at 0 range 31 .. 31;
    end record;
-
-   -----------------------
-   -- APB2RSTR_Register --
-   -----------------------
 
    subtype APB2RSTR_TIM1RST_Field is STM32F429x.Bit;
    subtype APB2RSTR_TIM8RST_Field is STM32F429x.Bit;
@@ -672,7 +633,7 @@ package STM32F429x.RCC is
       --  unspecified
       Reserved_27_31 : STM32F429x.UInt5 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for APB2RSTR_Register use record
       TIM1RST        at 0 range 0 .. 0;
@@ -699,10 +660,6 @@ package STM32F429x.RCC is
       LTDCRST        at 0 range 26 .. 26;
       Reserved_27_31 at 0 range 27 .. 31;
    end record;
-
-   ----------------------
-   -- AHB1ENR_Register --
-   ----------------------
 
    subtype AHB1ENR_GPIOAEN_Field is STM32F429x.Bit;
    subtype AHB1ENR_GPIOBEN_Field is STM32F429x.Bit;
@@ -787,7 +744,7 @@ package STM32F429x.RCC is
       --  unspecified
       Reserved_31_31 : STM32F429x.Bit := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for AHB1ENR_Register use record
       GPIOAEN        at 0 range 0 .. 0;
@@ -820,10 +777,6 @@ package STM32F429x.RCC is
       Reserved_31_31 at 0 range 31 .. 31;
    end record;
 
-   ----------------------
-   -- AHB2ENR_Register --
-   ----------------------
-
    subtype AHB2ENR_DCMIEN_Field is STM32F429x.Bit;
    subtype AHB2ENR_RNGEN_Field is STM32F429x.Bit;
    subtype AHB2ENR_OTGFSEN_Field is STM32F429x.Bit;
@@ -841,7 +794,7 @@ package STM32F429x.RCC is
       --  unspecified
       Reserved_8_31 : STM32F429x.UInt24 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for AHB2ENR_Register use record
       DCMIEN        at 0 range 0 .. 0;
@@ -850,10 +803,6 @@ package STM32F429x.RCC is
       OTGFSEN       at 0 range 7 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   ----------------------
-   -- AHB3ENR_Register --
-   ----------------------
 
    subtype AHB3ENR_FMCEN_Field is STM32F429x.Bit;
 
@@ -864,16 +813,12 @@ package STM32F429x.RCC is
       --  unspecified
       Reserved_1_31 : STM32F429x.UInt31 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for AHB3ENR_Register use record
       FMCEN         at 0 range 0 .. 0;
       Reserved_1_31 at 0 range 1 .. 31;
    end record;
-
-   ----------------------
-   -- APB1ENR_Register --
-   ----------------------
 
    subtype APB1ENR_TIM2EN_Field is STM32F429x.Bit;
    subtype APB1ENR_TIM3EN_Field is STM32F429x.Bit;
@@ -964,7 +909,7 @@ package STM32F429x.RCC is
       --  UART8 clock enable
       UART8ENR       : APB1ENR_UART8ENR_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for APB1ENR_Register use record
       TIM2EN         at 0 range 0 .. 0;
@@ -998,10 +943,6 @@ package STM32F429x.RCC is
       UART7ENR       at 0 range 30 .. 30;
       UART8ENR       at 0 range 31 .. 31;
    end record;
-
-   ----------------------
-   -- APB2ENR_Register --
-   ----------------------
 
    subtype APB2ENR_TIM1EN_Field is STM32F429x.Bit;
    subtype APB2ENR_TIM8EN_Field is STM32F429x.Bit;
@@ -1073,7 +1014,7 @@ package STM32F429x.RCC is
       --  unspecified
       Reserved_27_31 : STM32F429x.UInt5 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for APB2ENR_Register use record
       TIM1EN         at 0 range 0 .. 0;
@@ -1101,10 +1042,6 @@ package STM32F429x.RCC is
       LTDCEN         at 0 range 26 .. 26;
       Reserved_27_31 at 0 range 27 .. 31;
    end record;
-
-   ------------------------
-   -- AHB1LPENR_Register --
-   ------------------------
 
    subtype AHB1LPENR_GPIOALPEN_Field is STM32F429x.Bit;
    subtype AHB1LPENR_GPIOBLPEN_Field is STM32F429x.Bit;
@@ -1198,7 +1135,7 @@ package STM32F429x.RCC is
       --  unspecified
       Reserved_31_31 : STM32F429x.Bit := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for AHB1LPENR_Register use record
       GPIOALPEN      at 0 range 0 .. 0;
@@ -1234,10 +1171,6 @@ package STM32F429x.RCC is
       Reserved_31_31 at 0 range 31 .. 31;
    end record;
 
-   ------------------------
-   -- AHB2LPENR_Register --
-   ------------------------
-
    subtype AHB2LPENR_DCMILPEN_Field is STM32F429x.Bit;
    subtype AHB2LPENR_RNGLPEN_Field is STM32F429x.Bit;
    subtype AHB2LPENR_OTGFSLPEN_Field is STM32F429x.Bit;
@@ -1255,7 +1188,7 @@ package STM32F429x.RCC is
       --  unspecified
       Reserved_8_31 : STM32F429x.UInt24 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for AHB2LPENR_Register use record
       DCMILPEN      at 0 range 0 .. 0;
@@ -1264,10 +1197,6 @@ package STM32F429x.RCC is
       OTGFSLPEN     at 0 range 7 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   ------------------------
-   -- AHB3LPENR_Register --
-   ------------------------
 
    subtype AHB3LPENR_FMCLPEN_Field is STM32F429x.Bit;
 
@@ -1278,16 +1207,12 @@ package STM32F429x.RCC is
       --  unspecified
       Reserved_1_31 : STM32F429x.UInt31 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for AHB3LPENR_Register use record
       FMCLPEN       at 0 range 0 .. 0;
       Reserved_1_31 at 0 range 1 .. 31;
    end record;
-
-   ------------------------
-   -- APB1LPENR_Register --
-   ------------------------
 
    subtype APB1LPENR_TIM2LPEN_Field is STM32F429x.Bit;
    subtype APB1LPENR_TIM3LPEN_Field is STM32F429x.Bit;
@@ -1378,7 +1303,7 @@ package STM32F429x.RCC is
       --  UART8 clock enable during Sleep mode
       UART8LPEN      : APB1LPENR_UART8LPEN_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for APB1LPENR_Register use record
       TIM2LPEN       at 0 range 0 .. 0;
@@ -1412,10 +1337,6 @@ package STM32F429x.RCC is
       UART7LPEN      at 0 range 30 .. 30;
       UART8LPEN      at 0 range 31 .. 31;
    end record;
-
-   ------------------------
-   -- APB2LPENR_Register --
-   ------------------------
 
    subtype APB2LPENR_TIM1LPEN_Field is STM32F429x.Bit;
    subtype APB2LPENR_TIM8LPEN_Field is STM32F429x.Bit;
@@ -1487,7 +1408,7 @@ package STM32F429x.RCC is
       --  unspecified
       Reserved_27_31 : STM32F429x.UInt5 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for APB2LPENR_Register use record
       TIM1LPEN       at 0 range 0 .. 0;
@@ -1516,18 +1437,9 @@ package STM32F429x.RCC is
       Reserved_27_31 at 0 range 27 .. 31;
    end record;
 
-   -------------------
-   -- BDCR_Register --
-   -------------------
-
    subtype BDCR_LSEON_Field is STM32F429x.Bit;
    subtype BDCR_LSERDY_Field is STM32F429x.Bit;
    subtype BDCR_LSEBYP_Field is STM32F429x.Bit;
-
-   -----------------
-   -- BDCR.RTCSEL --
-   -----------------
-
    --  BDCR_RTCSEL array element
    subtype BDCR_RTCSEL_Element is STM32F429x.Bit;
 
@@ -1562,7 +1474,7 @@ package STM32F429x.RCC is
    type BDCR_Register is record
       --  External low-speed oscillator enable
       LSEON          : BDCR_LSEON_Field := 16#0#;
-      --  External low-speed oscillator ready
+      --  Read-only. External low-speed oscillator ready
       LSERDY         : BDCR_LSERDY_Field := 16#0#;
       --  External low-speed oscillator bypass
       LSEBYP         : BDCR_LSEBYP_Field := 16#0#;
@@ -1579,7 +1491,7 @@ package STM32F429x.RCC is
       --  unspecified
       Reserved_17_31 : STM32F429x.UInt15 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BDCR_Register use record
       LSEON          at 0 range 0 .. 0;
@@ -1592,10 +1504,6 @@ package STM32F429x.RCC is
       BDRST          at 0 range 16 .. 16;
       Reserved_17_31 at 0 range 17 .. 31;
    end record;
-
-   ------------------
-   -- CSR_Register --
-   ------------------
 
    subtype CSR_LSION_Field is STM32F429x.Bit;
    subtype CSR_LSIRDY_Field is STM32F429x.Bit;
@@ -1612,7 +1520,7 @@ package STM32F429x.RCC is
    type CSR_Register is record
       --  Internal low-speed oscillator enable
       LSION         : CSR_LSION_Field := 16#0#;
-      --  Internal low-speed oscillator ready
+      --  Read-only. Internal low-speed oscillator ready
       LSIRDY        : CSR_LSIRDY_Field := 16#0#;
       --  unspecified
       Reserved_2_23 : STM32F429x.UInt22 := 16#0#;
@@ -1633,7 +1541,7 @@ package STM32F429x.RCC is
       --  Low-power reset flag
       LPWRRSTF      : CSR_LPWRRSTF_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CSR_Register use record
       LSION         at 0 range 0 .. 0;
@@ -1648,10 +1556,6 @@ package STM32F429x.RCC is
       WWDGRSTF      at 0 range 30 .. 30;
       LPWRRSTF      at 0 range 31 .. 31;
    end record;
-
-   --------------------
-   -- SSCGR_Register --
-   --------------------
 
    subtype SSCGR_MODPER_Field is STM32F429x.UInt13;
    subtype SSCGR_INCSTEP_Field is STM32F429x.UInt15;
@@ -1671,7 +1575,7 @@ package STM32F429x.RCC is
       --  Spread spectrum modulation enable
       SSCGEN         : SSCGR_SSCGEN_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for SSCGR_Register use record
       MODPER         at 0 range 0 .. 12;
@@ -1680,10 +1584,6 @@ package STM32F429x.RCC is
       SPREADSEL      at 0 range 30 .. 30;
       SSCGEN         at 0 range 31 .. 31;
    end record;
-
-   -------------------------
-   -- PLLI2SCFGR_Register --
-   -------------------------
 
    subtype PLLI2SCFGR_PLLI2SN_Field is STM32F429x.UInt9;
    subtype PLLI2SCFGR_PLLI2SQ_Field is STM32F429x.UInt4;
@@ -1704,7 +1604,7 @@ package STM32F429x.RCC is
       --  unspecified
       Reserved_31_31 : STM32F429x.Bit := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for PLLI2SCFGR_Register use record
       Reserved_0_5   at 0 range 0 .. 5;
@@ -1714,10 +1614,6 @@ package STM32F429x.RCC is
       PLLI2SR        at 0 range 28 .. 30;
       Reserved_31_31 at 0 range 31 .. 31;
    end record;
-
-   -------------------------
-   -- PLLSAICFGR_Register --
-   -------------------------
 
    subtype PLLSAICFGR_PLLSAIN_Field is STM32F429x.UInt9;
    subtype PLLSAICFGR_PLLSAIQ_Field is STM32F429x.UInt4;
@@ -1738,7 +1634,7 @@ package STM32F429x.RCC is
       --  unspecified
       Reserved_31_31 : STM32F429x.Bit := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for PLLSAICFGR_Register use record
       Reserved_0_5   at 0 range 0 .. 5;
@@ -1748,10 +1644,6 @@ package STM32F429x.RCC is
       PLLSAIR        at 0 range 28 .. 30;
       Reserved_31_31 at 0 range 31 .. 31;
    end record;
-
-   ----------------------
-   -- DCKCFGR_Register --
-   ----------------------
 
    subtype DCKCFGR_PLLI2SDIVQ_Field is STM32F429x.UInt5;
    subtype DCKCFGR_PLLSAIDIVQ_Field is STM32F429x.UInt5;
@@ -1783,7 +1675,7 @@ package STM32F429x.RCC is
       --  unspecified
       Reserved_25_31 : STM32F429x.UInt7 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for DCKCFGR_Register use record
       PLLI2SDIVQ     at 0 range 0 .. 4;
@@ -1805,88 +1697,113 @@ package STM32F429x.RCC is
    --  Reset and clock control
    type RCC_Peripheral is record
       --  clock control register
-      CR         : CR_Register;
+      CR         : aliased CR_Register;
+      pragma Volatile_Full_Access (CR);
       --  PLL configuration register
-      PLLCFGR    : PLLCFGR_Register;
+      PLLCFGR    : aliased PLLCFGR_Register;
+      pragma Volatile_Full_Access (PLLCFGR);
       --  clock configuration register
-      CFGR       : CFGR_Register;
+      CFGR       : aliased CFGR_Register;
+      pragma Volatile_Full_Access (CFGR);
       --  clock interrupt register
-      CIR        : CIR_Register;
+      CIR        : aliased CIR_Register;
+      pragma Volatile_Full_Access (CIR);
       --  AHB1 peripheral reset register
-      AHB1RSTR   : AHB1RSTR_Register;
+      AHB1RSTR   : aliased AHB1RSTR_Register;
+      pragma Volatile_Full_Access (AHB1RSTR);
       --  AHB2 peripheral reset register
-      AHB2RSTR   : AHB2RSTR_Register;
+      AHB2RSTR   : aliased AHB2RSTR_Register;
+      pragma Volatile_Full_Access (AHB2RSTR);
       --  AHB3 peripheral reset register
-      AHB3RSTR   : AHB3RSTR_Register;
+      AHB3RSTR   : aliased AHB3RSTR_Register;
+      pragma Volatile_Full_Access (AHB3RSTR);
       --  APB1 peripheral reset register
-      APB1RSTR   : APB1RSTR_Register;
+      APB1RSTR   : aliased APB1RSTR_Register;
+      pragma Volatile_Full_Access (APB1RSTR);
       --  APB2 peripheral reset register
-      APB2RSTR   : APB2RSTR_Register;
+      APB2RSTR   : aliased APB2RSTR_Register;
+      pragma Volatile_Full_Access (APB2RSTR);
       --  AHB1 peripheral clock register
-      AHB1ENR    : AHB1ENR_Register;
+      AHB1ENR    : aliased AHB1ENR_Register;
+      pragma Volatile_Full_Access (AHB1ENR);
       --  AHB2 peripheral clock enable register
-      AHB2ENR    : AHB2ENR_Register;
+      AHB2ENR    : aliased AHB2ENR_Register;
+      pragma Volatile_Full_Access (AHB2ENR);
       --  AHB3 peripheral clock enable register
-      AHB3ENR    : AHB3ENR_Register;
+      AHB3ENR    : aliased AHB3ENR_Register;
+      pragma Volatile_Full_Access (AHB3ENR);
       --  APB1 peripheral clock enable register
-      APB1ENR    : APB1ENR_Register;
+      APB1ENR    : aliased APB1ENR_Register;
+      pragma Volatile_Full_Access (APB1ENR);
       --  APB2 peripheral clock enable register
-      APB2ENR    : APB2ENR_Register;
+      APB2ENR    : aliased APB2ENR_Register;
+      pragma Volatile_Full_Access (APB2ENR);
       --  AHB1 peripheral clock enable in low power mode register
-      AHB1LPENR  : AHB1LPENR_Register;
+      AHB1LPENR  : aliased AHB1LPENR_Register;
+      pragma Volatile_Full_Access (AHB1LPENR);
       --  AHB2 peripheral clock enable in low power mode register
-      AHB2LPENR  : AHB2LPENR_Register;
+      AHB2LPENR  : aliased AHB2LPENR_Register;
+      pragma Volatile_Full_Access (AHB2LPENR);
       --  AHB3 peripheral clock enable in low power mode register
-      AHB3LPENR  : AHB3LPENR_Register;
+      AHB3LPENR  : aliased AHB3LPENR_Register;
+      pragma Volatile_Full_Access (AHB3LPENR);
       --  APB1 peripheral clock enable in low power mode register
-      APB1LPENR  : APB1LPENR_Register;
+      APB1LPENR  : aliased APB1LPENR_Register;
+      pragma Volatile_Full_Access (APB1LPENR);
       --  APB2 peripheral clock enabled in low power mode register
-      APB2LPENR  : APB2LPENR_Register;
+      APB2LPENR  : aliased APB2LPENR_Register;
+      pragma Volatile_Full_Access (APB2LPENR);
       --  Backup domain control register
-      BDCR       : BDCR_Register;
+      BDCR       : aliased BDCR_Register;
+      pragma Volatile_Full_Access (BDCR);
       --  clock control & status register
-      CSR        : CSR_Register;
+      CSR        : aliased CSR_Register;
+      pragma Volatile_Full_Access (CSR);
       --  spread spectrum clock generation register
-      SSCGR      : SSCGR_Register;
+      SSCGR      : aliased SSCGR_Register;
+      pragma Volatile_Full_Access (SSCGR);
       --  PLLI2S configuration register
-      PLLI2SCFGR : PLLI2SCFGR_Register;
+      PLLI2SCFGR : aliased PLLI2SCFGR_Register;
+      pragma Volatile_Full_Access (PLLI2SCFGR);
       --  PLLSAICFGR
-      PLLSAICFGR : PLLSAICFGR_Register;
+      PLLSAICFGR : aliased PLLSAICFGR_Register;
+      pragma Volatile_Full_Access (PLLSAICFGR);
       --  DCKCFGR
-      DCKCFGR    : DCKCFGR_Register;
+      DCKCFGR    : aliased DCKCFGR_Register;
+      pragma Volatile_Full_Access (DCKCFGR);
    end record
      with Volatile;
 
    for RCC_Peripheral use record
-      CR         at 0 range 0 .. 31;
-      PLLCFGR    at 4 range 0 .. 31;
-      CFGR       at 8 range 0 .. 31;
-      CIR        at 12 range 0 .. 31;
-      AHB1RSTR   at 16 range 0 .. 31;
-      AHB2RSTR   at 20 range 0 .. 31;
-      AHB3RSTR   at 24 range 0 .. 31;
-      APB1RSTR   at 32 range 0 .. 31;
-      APB2RSTR   at 36 range 0 .. 31;
-      AHB1ENR    at 48 range 0 .. 31;
-      AHB2ENR    at 52 range 0 .. 31;
-      AHB3ENR    at 56 range 0 .. 31;
-      APB1ENR    at 64 range 0 .. 31;
-      APB2ENR    at 68 range 0 .. 31;
-      AHB1LPENR  at 80 range 0 .. 31;
-      AHB2LPENR  at 84 range 0 .. 31;
-      AHB3LPENR  at 88 range 0 .. 31;
-      APB1LPENR  at 96 range 0 .. 31;
-      APB2LPENR  at 100 range 0 .. 31;
-      BDCR       at 112 range 0 .. 31;
-      CSR        at 116 range 0 .. 31;
-      SSCGR      at 128 range 0 .. 31;
-      PLLI2SCFGR at 132 range 0 .. 31;
-      PLLSAICFGR at 136 range 0 .. 31;
-      DCKCFGR    at 140 range 0 .. 31;
+      CR         at 16#0# range 0 .. 31;
+      PLLCFGR    at 16#4# range 0 .. 31;
+      CFGR       at 16#8# range 0 .. 31;
+      CIR        at 16#C# range 0 .. 31;
+      AHB1RSTR   at 16#10# range 0 .. 31;
+      AHB2RSTR   at 16#14# range 0 .. 31;
+      AHB3RSTR   at 16#18# range 0 .. 31;
+      APB1RSTR   at 16#20# range 0 .. 31;
+      APB2RSTR   at 16#24# range 0 .. 31;
+      AHB1ENR    at 16#30# range 0 .. 31;
+      AHB2ENR    at 16#34# range 0 .. 31;
+      AHB3ENR    at 16#38# range 0 .. 31;
+      APB1ENR    at 16#40# range 0 .. 31;
+      APB2ENR    at 16#44# range 0 .. 31;
+      AHB1LPENR  at 16#50# range 0 .. 31;
+      AHB2LPENR  at 16#54# range 0 .. 31;
+      AHB3LPENR  at 16#58# range 0 .. 31;
+      APB1LPENR  at 16#60# range 0 .. 31;
+      APB2LPENR  at 16#64# range 0 .. 31;
+      BDCR       at 16#70# range 0 .. 31;
+      CSR        at 16#74# range 0 .. 31;
+      SSCGR      at 16#80# range 0 .. 31;
+      PLLI2SCFGR at 16#84# range 0 .. 31;
+      PLLSAICFGR at 16#88# range 0 .. 31;
+      DCKCFGR    at 16#8C# range 0 .. 31;
    end record;
 
    --  Reset and clock control
    RCC_Periph : aliased RCC_Peripheral
-     with Import, Address => System'To_Address (16#40023800#);
+     with Import, Address => RCC_Base;
 
 end STM32F429x.RCC;

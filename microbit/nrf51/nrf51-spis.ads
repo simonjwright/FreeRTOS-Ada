@@ -1,7 +1,38 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
+--  Copyright (c) 2013, Nordic Semiconductor ASA
+--  All rights reserved.
+--
+--  Redistribution and use in source and binary forms, with or without
+--  modification, are permitted provided that the following conditions are met:
+--
+--  * Redistributions of source code must retain the above copyright notice, this
+--  list of conditions and the following disclaimer.
+--
+--  * Redistributions in binary form must reproduce the above copyright notice,
+--  this list of conditions and the following disclaimer in the documentation
+--  and/or other materials provided with the distribution.
+--
+--  * Neither the name of Nordic Semiconductor ASA nor the names of its
+--  contributors may be used to endorse or promote products derived from
+--  this software without specific prior written permission.
+--
+--  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+--  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+--  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+--  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+--  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+--  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+--  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+--  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+--  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+--  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+--
+
 --  This spec has been automatically generated from nrf51.svd
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -12,19 +43,14 @@ package nrf51.SPIS is
    -- Registers --
    ---------------
 
-   ---------------------
-   -- SHORTS_Register --
-   ---------------------
-
    --  Shortcut between END event and the ACQUIRE task.
-   type END_ACQUIRE_Field is
-     (
-      --  Shortcut disabled.
+   type SHORTS_END_ACQUIRE_Field is
+     (--  Shortcut disabled.
       Disabled,
       --  Shortcut enabled.
       Enabled)
      with Size => 1;
-   for END_ACQUIRE_Field use
+   for SHORTS_END_ACQUIRE_Field use
      (Disabled => 0,
       Enabled => 1);
 
@@ -33,11 +59,11 @@ package nrf51.SPIS is
       --  unspecified
       Reserved_0_1  : nrf51.UInt2 := 16#0#;
       --  Shortcut between END event and the ACQUIRE task.
-      END_ACQUIRE   : END_ACQUIRE_Field := Disabled;
+      END_ACQUIRE   : SHORTS_END_ACQUIRE_Field := nrf51.SPIS.Disabled;
       --  unspecified
       Reserved_3_31 : nrf51.UInt29 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for SHORTS_Register use record
@@ -46,80 +72,48 @@ package nrf51.SPIS is
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
 
-   -----------------------
-   -- INTENSET_Register --
-   -----------------------
-
    --  Enable interrupt on END event.
-   type END_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_END_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for END_Field use
+   for INTENSET_END_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on END event.
-   type END_Field_1 is
-     (
-      --  Reset value for the field
-      End_Field_Reset,
+   type INTENSET_END_Field_1 is
+     (--  Reset value for the field
+      Intenset_End_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for END_Field_1 use
-     (End_Field_Reset => 0,
+   for INTENSET_END_Field_1 use
+     (Intenset_End_Field_Reset => 0,
       Set => 1);
 
-   --  enable interrupt on ENDRX event.
-   type ENDRX_Field is
-     (
-      --  Interrupt disabled.
+   --  Enable interrupt on ACQUIRED event.
+   type INTENSET_ACQUIRED_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for ENDRX_Field use
-     (Disabled => 0,
-      Enabled => 1);
-
-   --  enable interrupt on ENDRX event.
-   type ENDRX_Field_1 is
-     (
-      --  Reset value for the field
-      Endrx_Field_Reset,
-      --  Enable interrupt on write.
-      Set)
-     with Size => 1;
-   for ENDRX_Field_1 use
-     (Endrx_Field_Reset => 0,
-      Set => 1);
-
-   --  Enable interrupt on ACQUIRED event.
-   type ACQUIRED_Field is
-     (
-      --  Interrupt disabled.
-      Disabled,
-      --  Interrupt enabled.
-      Enabled)
-     with Size => 1;
-   for ACQUIRED_Field use
+   for INTENSET_ACQUIRED_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on ACQUIRED event.
-   type ACQUIRED_Field_1 is
-     (
-      --  Reset value for the field
-      Acquired_Field_Reset,
+   type INTENSET_ACQUIRED_Field_1 is
+     (--  Reset value for the field
+      Intenset_Acquired_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for ACQUIRED_Field_1 use
-     (Acquired_Field_Reset => 0,
+   for INTENSET_ACQUIRED_Field_1 use
+     (Intenset_Acquired_Field_Reset => 0,
       Set => 1);
 
    --  Interrupt enable set register.
@@ -127,69 +121,68 @@ package nrf51.SPIS is
       --  unspecified
       Reserved_0_0   : nrf51.Bit := 16#0#;
       --  Enable interrupt on END event.
-      END_k          : END_Field_1 := End_Field_Reset;
+      END_k          : INTENSET_END_Field_1 := Intenset_End_Field_Reset;
       --  unspecified
-      Reserved_2_3   : nrf51.UInt2 := 16#0#;
-      --  enable interrupt on ENDRX event.
-      ENDRX          : ENDRX_Field_1 := Endrx_Field_Reset;
-      --  unspecified
-      Reserved_5_9   : nrf51.UInt5 := 16#0#;
+      Reserved_2_9   : nrf51.Byte := 16#0#;
       --  Enable interrupt on ACQUIRED event.
-      ACQUIRED       : ACQUIRED_Field_1 := Acquired_Field_Reset;
+      ACQUIRED       : INTENSET_ACQUIRED_Field_1 :=
+                        Intenset_Acquired_Field_Reset;
       --  unspecified
       Reserved_11_31 : nrf51.UInt21 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for INTENSET_Register use record
       Reserved_0_0   at 0 range 0 .. 0;
       END_k          at 0 range 1 .. 1;
-      Reserved_2_3   at 0 range 2 .. 3;
-      ENDRX          at 0 range 4 .. 4;
-      Reserved_5_9   at 0 range 5 .. 9;
+      Reserved_2_9   at 0 range 2 .. 9;
       ACQUIRED       at 0 range 10 .. 10;
       Reserved_11_31 at 0 range 11 .. 31;
    end record;
 
-   -----------------------
-   -- INTENCLR_Register --
-   -----------------------
+   --  Disable interrupt on END event.
+   type INTENCLR_END_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_END_Field use
+     (Disabled => 0,
+      Enabled => 1);
 
    --  Disable interrupt on END event.
-   type END_Field_2 is
-     (
-      --  Reset value for the field
-      End_Field_Reset,
+   type INTENCLR_END_Field_1 is
+     (--  Reset value for the field
+      Intenclr_End_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for END_Field_2 use
-     (End_Field_Reset => 0,
-      Clear => 1);
-
-   --  Disable interrupt on ENDRX event.
-   type ENDRX_Field_2 is
-     (
-      --  Reset value for the field
-      Endrx_Field_Reset,
-      --  Disable interrupt on write.
-      Clear)
-     with Size => 1;
-   for ENDRX_Field_2 use
-     (Endrx_Field_Reset => 0,
+   for INTENCLR_END_Field_1 use
+     (Intenclr_End_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on ACQUIRED event.
-   type ACQUIRED_Field_2 is
-     (
-      --  Reset value for the field
-      Acquired_Field_Reset,
+   type INTENCLR_ACQUIRED_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_ACQUIRED_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on ACQUIRED event.
+   type INTENCLR_ACQUIRED_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Acquired_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for ACQUIRED_Field_2 use
-     (Acquired_Field_Reset => 0,
+   for INTENCLR_ACQUIRED_Field_1 use
+     (Intenclr_Acquired_Field_Reset => 0,
       Clear => 1);
 
    --  Interrupt enable clear register.
@@ -197,49 +190,38 @@ package nrf51.SPIS is
       --  unspecified
       Reserved_0_0   : nrf51.Bit := 16#0#;
       --  Disable interrupt on END event.
-      END_k          : END_Field_2 := End_Field_Reset;
+      END_k          : INTENCLR_END_Field_1 := Intenclr_End_Field_Reset;
       --  unspecified
-      Reserved_2_3   : nrf51.UInt2 := 16#0#;
-      --  Disable interrupt on ENDRX event.
-      ENDRX          : ENDRX_Field_2 := Endrx_Field_Reset;
-      --  unspecified
-      Reserved_5_9   : nrf51.UInt5 := 16#0#;
+      Reserved_2_9   : nrf51.Byte := 16#0#;
       --  Disable interrupt on ACQUIRED event.
-      ACQUIRED       : ACQUIRED_Field_2 := Acquired_Field_Reset;
+      ACQUIRED       : INTENCLR_ACQUIRED_Field_1 :=
+                        Intenclr_Acquired_Field_Reset;
       --  unspecified
       Reserved_11_31 : nrf51.UInt21 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for INTENCLR_Register use record
       Reserved_0_0   at 0 range 0 .. 0;
       END_k          at 0 range 1 .. 1;
-      Reserved_2_3   at 0 range 2 .. 3;
-      ENDRX          at 0 range 4 .. 4;
-      Reserved_5_9   at 0 range 5 .. 9;
+      Reserved_2_9   at 0 range 2 .. 9;
       ACQUIRED       at 0 range 10 .. 10;
       Reserved_11_31 at 0 range 11 .. 31;
    end record;
 
-   ----------------------
-   -- SEMSTAT_Register --
-   ----------------------
-
    --  Semaphore status.
-   type SEMSTAT_Field is
-     (
-      --  Semaphore is free.
+   type SEMSTAT_SEMSTAT_Field is
+     (--  Semaphore is free.
       Free,
       --  Semaphore is assigned to the CPU.
       Cpu,
       --  Semaphore is assigned to the SPIS.
       Spis,
-      --  Semaphore is assigned to the SPIS, but a handover to the CPU is
-      --  pending.
+      --  Semaphore is assigned to the SPIS, but a handover to the CPU is pending.
       Cpupending)
      with Size => 2;
-   for SEMSTAT_Field use
+   for SEMSTAT_SEMSTAT_Field use
      (Free => 0,
       Cpu => 1,
       Spis => 2,
@@ -248,11 +230,11 @@ package nrf51.SPIS is
    --  Semaphore status.
    type SEMSTAT_Register is record
       --  Read-only. Semaphore status.
-      SEMSTAT       : SEMSTAT_Field;
+      SEMSTAT       : SEMSTAT_SEMSTAT_Field;
       --  unspecified
       Reserved_2_31 : nrf51.UInt30;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for SEMSTAT_Register use record
@@ -260,68 +242,60 @@ package nrf51.SPIS is
       Reserved_2_31 at 0 range 2 .. 31;
    end record;
 
-   ---------------------
-   -- STATUS_Register --
-   ---------------------
-
    --  TX buffer overread detected, and prevented.
-   type OVERREAD_Field is
-     (
-      --  Error not present.
+   type STATUS_OVERREAD_Field is
+     (--  Error not present.
       Notpresent,
       --  Error present.
       Present)
      with Size => 1;
-   for OVERREAD_Field use
+   for STATUS_OVERREAD_Field use
      (Notpresent => 0,
       Present => 1);
 
    --  TX buffer overread detected, and prevented.
-   type OVERREAD_Field_1 is
-     (
-      --  Reset value for the field
-      Overread_Field_Reset,
+   type STATUS_OVERREAD_Field_1 is
+     (--  Reset value for the field
+      Status_Overread_Field_Reset,
       --  Clear on write.
       Clear)
      with Size => 1;
-   for OVERREAD_Field_1 use
-     (Overread_Field_Reset => 0,
+   for STATUS_OVERREAD_Field_1 use
+     (Status_Overread_Field_Reset => 0,
       Clear => 1);
 
    --  RX buffer overflow detected, and prevented.
-   type OVERFLOW_Field is
-     (
-      --  Error not present.
+   type STATUS_OVERFLOW_Field is
+     (--  Error not present.
       Notpresent,
       --  Error present.
       Present)
      with Size => 1;
-   for OVERFLOW_Field use
+   for STATUS_OVERFLOW_Field use
      (Notpresent => 0,
       Present => 1);
 
    --  RX buffer overflow detected, and prevented.
-   type OVERFLOW_Field_1 is
-     (
-      --  Reset value for the field
-      Overflow_Field_Reset,
+   type STATUS_OVERFLOW_Field_1 is
+     (--  Reset value for the field
+      Status_Overflow_Field_Reset,
       --  Clear on write.
       Clear)
      with Size => 1;
-   for OVERFLOW_Field_1 use
-     (Overflow_Field_Reset => 0,
+   for STATUS_OVERFLOW_Field_1 use
+     (Status_Overflow_Field_Reset => 0,
       Clear => 1);
 
    --  Status from last transaction.
    type STATUS_Register is record
       --  TX buffer overread detected, and prevented.
-      OVERREAD      : OVERREAD_Field_1 := Overread_Field_Reset;
+      OVERREAD      : STATUS_OVERREAD_Field_1 := Status_Overread_Field_Reset;
       --  RX buffer overflow detected, and prevented.
-      OVERFLOW      : OVERFLOW_Field_1 := Overflow_Field_Reset;
+      OVERFLOW      : STATUS_OVERFLOW_Field_1 := Status_Overflow_Field_Reset;
       --  unspecified
       Reserved_2_31 : nrf51.UInt30 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for STATUS_Register use record
@@ -330,40 +304,31 @@ package nrf51.SPIS is
       Reserved_2_31 at 0 range 2 .. 31;
    end record;
 
-   ---------------------
-   -- ENABLE_Register --
-   ---------------------
-
    --  Enable or disable SPIS.
-   type ENABLE_Field is
-     (
-      --  Disabled SPIS.
+   type ENABLE_ENABLE_Field is
+     (--  Disabled SPIS.
       Disabled,
       --  Enable SPIS.
       Enabled)
      with Size => 3;
-   for ENABLE_Field use
+   for ENABLE_ENABLE_Field use
      (Disabled => 0,
       Enabled => 2);
 
    --  Enable SPIS.
    type ENABLE_Register is record
       --  Enable or disable SPIS.
-      ENABLE        : ENABLE_Field := Disabled;
+      ENABLE        : ENABLE_ENABLE_Field := nrf51.SPIS.Disabled;
       --  unspecified
       Reserved_3_31 : nrf51.UInt29 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for ENABLE_Register use record
       ENABLE        at 0 range 0 .. 2;
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
-
-   --------------------
-   -- MAXRX_Register --
-   --------------------
 
    subtype MAXRX_MAXRX_Field is nrf51.Byte;
 
@@ -374,17 +339,13 @@ package nrf51.SPIS is
       --  unspecified
       Reserved_8_31 : nrf51.UInt24 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for MAXRX_Register use record
       MAXRX         at 0 range 0 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   -----------------------
-   -- AMOUNTRX_Register --
-   -----------------------
 
    subtype AMOUNTRX_AMOUNTRX_Field is nrf51.Byte;
 
@@ -395,17 +356,13 @@ package nrf51.SPIS is
       --  unspecified
       Reserved_8_31 : nrf51.UInt24;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for AMOUNTRX_Register use record
       AMOUNTRX      at 0 range 0 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   --------------------
-   -- MAXTX_Register --
-   --------------------
 
    subtype MAXTX_MAXTX_Field is nrf51.Byte;
 
@@ -416,17 +373,13 @@ package nrf51.SPIS is
       --  unspecified
       Reserved_8_31 : nrf51.UInt24 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for MAXTX_Register use record
       MAXTX         at 0 range 0 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   -----------------------
-   -- AMOUNTTX_Register --
-   -----------------------
 
    subtype AMOUNTTX_AMOUNTTX_Field is nrf51.Byte;
 
@@ -437,7 +390,7 @@ package nrf51.SPIS is
       --  unspecified
       Reserved_8_31 : nrf51.UInt24;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for AMOUNTTX_Register use record
@@ -445,60 +398,51 @@ package nrf51.SPIS is
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
 
-   ---------------------
-   -- CONFIG_Register --
-   ---------------------
-
    --  Bit order.
-   type ORDER_Field is
-     (
-      --  Most significant bit transmitted out first.
+   type CONFIG_ORDER_Field is
+     (--  Most significant bit transmitted out first.
       Msbfirst,
       --  Least significant bit transmitted out first.
       Lsbfirst)
      with Size => 1;
-   for ORDER_Field use
+   for CONFIG_ORDER_Field use
      (Msbfirst => 0,
       Lsbfirst => 1);
 
    --  Serial clock (SCK) phase.
-   type CPHA_Field is
-     (
-      --  Sample on leading edge of the clock. Shift serial data on trailing
-      --  edge.
+   type CONFIG_CPHA_Field is
+     (--  Sample on leading edge of the clock. Shift serial data on trailing edge.
       Leading,
-      --  Sample on trailing edge of the clock. Shift serial data on leading
-      --  edge.
+      --  Sample on trailing edge of the clock. Shift serial data on leading edge.
       Trailing)
      with Size => 1;
-   for CPHA_Field use
+   for CONFIG_CPHA_Field use
      (Leading => 0,
       Trailing => 1);
 
    --  Serial clock (SCK) polarity.
-   type CPOL_Field is
-     (
-      --  Active high.
+   type CONFIG_CPOL_Field is
+     (--  Active high.
       Activehigh,
       --  Active low.
       Activelow)
      with Size => 1;
-   for CPOL_Field use
+   for CONFIG_CPOL_Field use
      (Activehigh => 0,
       Activelow => 1);
 
    --  Configuration register.
    type CONFIG_Register is record
       --  Bit order.
-      ORDER         : ORDER_Field := Msbfirst;
+      ORDER         : CONFIG_ORDER_Field := nrf51.SPIS.Msbfirst;
       --  Serial clock (SCK) phase.
-      CPHA          : CPHA_Field := Leading;
+      CPHA          : CONFIG_CPHA_Field := nrf51.SPIS.Leading;
       --  Serial clock (SCK) polarity.
-      CPOL          : CPOL_Field := Activehigh;
+      CPOL          : CONFIG_CPOL_Field := nrf51.SPIS.Activehigh;
       --  unspecified
       Reserved_3_31 : nrf51.UInt29 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for CONFIG_Register use record
@@ -507,10 +451,6 @@ package nrf51.SPIS is
       CPOL          at 0 range 2 .. 2;
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
-
-   ------------------
-   -- DEF_Register --
-   ------------------
 
    subtype DEF_DEF_Field is nrf51.Byte;
 
@@ -521,17 +461,13 @@ package nrf51.SPIS is
       --  unspecified
       Reserved_8_31 : nrf51.UInt24 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for DEF_Register use record
       DEF           at 0 range 0 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   ------------------
-   -- ORC_Register --
-   ------------------
 
    subtype ORC_ORC_Field is nrf51.Byte;
 
@@ -542,7 +478,7 @@ package nrf51.SPIS is
       --  unspecified
       Reserved_8_31 : nrf51.UInt24 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for ORC_Register use record
@@ -550,30 +486,25 @@ package nrf51.SPIS is
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
 
-   --------------------
-   -- POWER_Register --
-   --------------------
-
    --  Peripheral power control.
-   type POWER_Field is
-     (
-      --  Module power disabled.
+   type POWER_POWER_Field is
+     (--  Module power disabled.
       Disabled,
       --  Module power enabled.
       Enabled)
      with Size => 1;
-   for POWER_Field use
+   for POWER_POWER_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Peripheral power control.
    type POWER_Register is record
       --  Peripheral power control.
-      POWER         : POWER_Field := Disabled;
+      POWER         : POWER_POWER_Field := nrf51.SPIS.Disabled;
       --  unspecified
       Reserved_1_31 : nrf51.UInt31 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for POWER_Register use record
@@ -586,90 +517,87 @@ package nrf51.SPIS is
    -----------------
 
    --  SPI slave 1.
-   type SPIS1_Peripheral is record
+   type SPIS_Peripheral is record
       --  Acquire SPI semaphore.
-      TASKS_ACQUIRE   : nrf51.Word;
+      TASKS_ACQUIRE   : aliased nrf51.UInt32;
       --  Release SPI semaphore.
-      TASKS_RELEASE   : nrf51.Word;
+      TASKS_RELEASE   : aliased nrf51.UInt32;
       --  Granted transaction completed.
-      EVENTS_END      : nrf51.Word;
-      --  End of RXD buffer reached
-      EVENTS_ENDRX    : nrf51.Word;
+      EVENTS_END      : aliased nrf51.UInt32;
       --  Semaphore acquired.
-      EVENTS_ACQUIRED : nrf51.Word;
+      EVENTS_ACQUIRED : aliased nrf51.UInt32;
       --  Shortcuts for SPIS.
-      SHORTS          : SHORTS_Register;
+      SHORTS          : aliased SHORTS_Register;
       --  Interrupt enable set register.
-      INTENSET        : INTENSET_Register;
+      INTENSET        : aliased INTENSET_Register;
       --  Interrupt enable clear register.
-      INTENCLR        : INTENCLR_Register;
+      INTENCLR        : aliased INTENCLR_Register;
       --  Semaphore status.
-      SEMSTAT         : SEMSTAT_Register;
+      SEMSTAT         : aliased SEMSTAT_Register;
       --  Status from last transaction.
-      STATUS          : STATUS_Register;
+      STATUS          : aliased STATUS_Register;
       --  Enable SPIS.
-      ENABLE          : ENABLE_Register;
+      ENABLE          : aliased ENABLE_Register;
       --  Pin select for SCK.
-      PSELSCK         : nrf51.Word;
+      PSELSCK         : aliased nrf51.UInt32;
       --  Pin select for MISO.
-      PSELMISO        : nrf51.Word;
+      PSELMISO        : aliased nrf51.UInt32;
       --  Pin select for MOSI.
-      PSELMOSI        : nrf51.Word;
+      PSELMOSI        : aliased nrf51.UInt32;
       --  Pin select for CSN.
-      PSELCSN         : nrf51.Word;
+      PSELCSN         : aliased nrf51.UInt32;
       --  RX data pointer.
-      RXDPTR          : nrf51.Word;
+      RXDPTR          : aliased nrf51.UInt32;
       --  Maximum number of bytes in the receive buffer.
-      MAXRX           : MAXRX_Register;
+      MAXRX           : aliased MAXRX_Register;
       --  Number of bytes received in last granted transaction.
-      AMOUNTRX        : AMOUNTRX_Register;
+      AMOUNTRX        : aliased AMOUNTRX_Register;
       --  TX data pointer.
-      TXDPTR          : nrf51.Word;
+      TXDPTR          : aliased nrf51.UInt32;
       --  Maximum number of bytes in the transmit buffer.
-      MAXTX           : MAXTX_Register;
+      MAXTX           : aliased MAXTX_Register;
       --  Number of bytes transmitted in last granted transaction.
-      AMOUNTTX        : AMOUNTTX_Register;
+      AMOUNTTX        : aliased AMOUNTTX_Register;
       --  Configuration register.
-      CONFIG          : CONFIG_Register;
+      CONFIG          : aliased CONFIG_Register;
       --  Default character.
-      DEF             : DEF_Register;
+      DEF             : aliased DEF_Register;
       --  Over-read character.
-      ORC             : ORC_Register;
+      ORC             : aliased ORC_Register;
       --  Peripheral power control.
-      POWER           : POWER_Register;
+      POWER           : aliased POWER_Register;
    end record
      with Volatile;
 
-   for SPIS1_Peripheral use record
-      TASKS_ACQUIRE   at 36 range 0 .. 31;
-      TASKS_RELEASE   at 40 range 0 .. 31;
-      EVENTS_END      at 260 range 0 .. 31;
-      EVENTS_ENDRX    at 272 range 0 .. 31;
-      EVENTS_ACQUIRED at 296 range 0 .. 31;
-      SHORTS          at 512 range 0 .. 31;
-      INTENSET        at 772 range 0 .. 31;
-      INTENCLR        at 776 range 0 .. 31;
-      SEMSTAT         at 1024 range 0 .. 31;
-      STATUS          at 1088 range 0 .. 31;
-      ENABLE          at 1280 range 0 .. 31;
-      PSELSCK         at 1288 range 0 .. 31;
-      PSELMISO        at 1292 range 0 .. 31;
-      PSELMOSI        at 1296 range 0 .. 31;
-      PSELCSN         at 1300 range 0 .. 31;
-      RXDPTR          at 1332 range 0 .. 31;
-      MAXRX           at 1336 range 0 .. 31;
-      AMOUNTRX        at 1340 range 0 .. 31;
-      TXDPTR          at 1348 range 0 .. 31;
-      MAXTX           at 1352 range 0 .. 31;
-      AMOUNTTX        at 1356 range 0 .. 31;
-      CONFIG          at 1364 range 0 .. 31;
-      DEF             at 1372 range 0 .. 31;
-      ORC             at 1472 range 0 .. 31;
-      POWER           at 4092 range 0 .. 31;
+   for SPIS_Peripheral use record
+      TASKS_ACQUIRE   at 16#24# range 0 .. 31;
+      TASKS_RELEASE   at 16#28# range 0 .. 31;
+      EVENTS_END      at 16#104# range 0 .. 31;
+      EVENTS_ACQUIRED at 16#128# range 0 .. 31;
+      SHORTS          at 16#200# range 0 .. 31;
+      INTENSET        at 16#304# range 0 .. 31;
+      INTENCLR        at 16#308# range 0 .. 31;
+      SEMSTAT         at 16#400# range 0 .. 31;
+      STATUS          at 16#440# range 0 .. 31;
+      ENABLE          at 16#500# range 0 .. 31;
+      PSELSCK         at 16#508# range 0 .. 31;
+      PSELMISO        at 16#50C# range 0 .. 31;
+      PSELMOSI        at 16#510# range 0 .. 31;
+      PSELCSN         at 16#514# range 0 .. 31;
+      RXDPTR          at 16#534# range 0 .. 31;
+      MAXRX           at 16#538# range 0 .. 31;
+      AMOUNTRX        at 16#53C# range 0 .. 31;
+      TXDPTR          at 16#544# range 0 .. 31;
+      MAXTX           at 16#548# range 0 .. 31;
+      AMOUNTTX        at 16#54C# range 0 .. 31;
+      CONFIG          at 16#554# range 0 .. 31;
+      DEF             at 16#55C# range 0 .. 31;
+      ORC             at 16#5C0# range 0 .. 31;
+      POWER           at 16#FFC# range 0 .. 31;
    end record;
 
    --  SPI slave 1.
-   SPIS1_Periph : aliased SPIS1_Peripheral
+   SPIS1_Periph : aliased SPIS_Peripheral
      with Import, Address => SPIS1_Base;
 
 end nrf51.SPIS;

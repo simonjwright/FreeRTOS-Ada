@@ -1,5 +1,7 @@
---  Automatically generated from STM32F429x.svd by SVD2Ada
---  see https://github.com/simonjwright/svd2ada
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
+--  This spec has been automatically generated from STM32F429x.svd
 
 pragma Restrictions (No_Elaboration_Code);
 
@@ -11,10 +13,6 @@ package STM32F429x.DMA is
    ---------------
    -- Registers --
    ---------------
-
-   -------------------
-   -- LISR_Register --
-   -------------------
 
    subtype LISR_FEIF0_Field is STM32F429x.Bit;
    subtype LISR_DMEIF0_Field is STM32F429x.Bit;
@@ -39,60 +37,60 @@ package STM32F429x.DMA is
 
    --  low interrupt status register
    type LISR_Register is record
-      --  Stream x FIFO error interrupt flag (x=3..0)
+      --  Read-only. Stream x FIFO error interrupt flag (x=3..0)
       FEIF0          : LISR_FEIF0_Field;
       --  unspecified
       Reserved_1_1   : STM32F429x.Bit;
-      --  Stream x direct mode error interrupt flag (x=3..0)
+      --  Read-only. Stream x direct mode error interrupt flag (x=3..0)
       DMEIF0         : LISR_DMEIF0_Field;
-      --  Stream x transfer error interrupt flag (x=3..0)
+      --  Read-only. Stream x transfer error interrupt flag (x=3..0)
       TEIF0          : LISR_TEIF0_Field;
-      --  Stream x half transfer interrupt flag (x=3..0)
+      --  Read-only. Stream x half transfer interrupt flag (x=3..0)
       HTIF0          : LISR_HTIF0_Field;
-      --  Stream x transfer complete interrupt flag (x = 3..0)
+      --  Read-only. Stream x transfer complete interrupt flag (x = 3..0)
       TCIF0          : LISR_TCIF0_Field;
-      --  Stream x FIFO error interrupt flag (x=3..0)
+      --  Read-only. Stream x FIFO error interrupt flag (x=3..0)
       FEIF1          : LISR_FEIF1_Field;
       --  unspecified
       Reserved_7_7   : STM32F429x.Bit;
-      --  Stream x direct mode error interrupt flag (x=3..0)
+      --  Read-only. Stream x direct mode error interrupt flag (x=3..0)
       DMEIF1         : LISR_DMEIF1_Field;
-      --  Stream x transfer error interrupt flag (x=3..0)
+      --  Read-only. Stream x transfer error interrupt flag (x=3..0)
       TEIF1          : LISR_TEIF1_Field;
-      --  Stream x half transfer interrupt flag (x=3..0)
+      --  Read-only. Stream x half transfer interrupt flag (x=3..0)
       HTIF1          : LISR_HTIF1_Field;
-      --  Stream x transfer complete interrupt flag (x = 3..0)
+      --  Read-only. Stream x transfer complete interrupt flag (x = 3..0)
       TCIF1          : LISR_TCIF1_Field;
       --  unspecified
       Reserved_12_15 : STM32F429x.UInt4;
-      --  Stream x FIFO error interrupt flag (x=3..0)
+      --  Read-only. Stream x FIFO error interrupt flag (x=3..0)
       FEIF2          : LISR_FEIF2_Field;
       --  unspecified
       Reserved_17_17 : STM32F429x.Bit;
-      --  Stream x direct mode error interrupt flag (x=3..0)
+      --  Read-only. Stream x direct mode error interrupt flag (x=3..0)
       DMEIF2         : LISR_DMEIF2_Field;
-      --  Stream x transfer error interrupt flag (x=3..0)
+      --  Read-only. Stream x transfer error interrupt flag (x=3..0)
       TEIF2          : LISR_TEIF2_Field;
-      --  Stream x half transfer interrupt flag (x=3..0)
+      --  Read-only. Stream x half transfer interrupt flag (x=3..0)
       HTIF2          : LISR_HTIF2_Field;
-      --  Stream x transfer complete interrupt flag (x = 3..0)
+      --  Read-only. Stream x transfer complete interrupt flag (x = 3..0)
       TCIF2          : LISR_TCIF2_Field;
-      --  Stream x FIFO error interrupt flag (x=3..0)
+      --  Read-only. Stream x FIFO error interrupt flag (x=3..0)
       FEIF3          : LISR_FEIF3_Field;
       --  unspecified
       Reserved_23_23 : STM32F429x.Bit;
-      --  Stream x direct mode error interrupt flag (x=3..0)
+      --  Read-only. Stream x direct mode error interrupt flag (x=3..0)
       DMEIF3         : LISR_DMEIF3_Field;
-      --  Stream x transfer error interrupt flag (x=3..0)
+      --  Read-only. Stream x transfer error interrupt flag (x=3..0)
       TEIF3          : LISR_TEIF3_Field;
-      --  Stream x half transfer interrupt flag (x=3..0)
+      --  Read-only. Stream x half transfer interrupt flag (x=3..0)
       HTIF3          : LISR_HTIF3_Field;
-      --  Stream x transfer complete interrupt flag (x = 3..0)
+      --  Read-only. Stream x transfer complete interrupt flag (x = 3..0)
       TCIF3          : LISR_TCIF3_Field;
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for LISR_Register use record
       FEIF0          at 0 range 0 .. 0;
@@ -123,10 +121,6 @@ package STM32F429x.DMA is
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
 
-   -------------------
-   -- HISR_Register --
-   -------------------
-
    subtype HISR_FEIF4_Field is STM32F429x.Bit;
    subtype HISR_DMEIF4_Field is STM32F429x.Bit;
    subtype HISR_TEIF4_Field is STM32F429x.Bit;
@@ -150,60 +144,60 @@ package STM32F429x.DMA is
 
    --  high interrupt status register
    type HISR_Register is record
-      --  Stream x FIFO error interrupt flag (x=7..4)
+      --  Read-only. Stream x FIFO error interrupt flag (x=7..4)
       FEIF4          : HISR_FEIF4_Field;
       --  unspecified
       Reserved_1_1   : STM32F429x.Bit;
-      --  Stream x direct mode error interrupt flag (x=7..4)
+      --  Read-only. Stream x direct mode error interrupt flag (x=7..4)
       DMEIF4         : HISR_DMEIF4_Field;
-      --  Stream x transfer error interrupt flag (x=7..4)
+      --  Read-only. Stream x transfer error interrupt flag (x=7..4)
       TEIF4          : HISR_TEIF4_Field;
-      --  Stream x half transfer interrupt flag (x=7..4)
+      --  Read-only. Stream x half transfer interrupt flag (x=7..4)
       HTIF4          : HISR_HTIF4_Field;
-      --  Stream x transfer complete interrupt flag (x=7..4)
+      --  Read-only. Stream x transfer complete interrupt flag (x=7..4)
       TCIF4          : HISR_TCIF4_Field;
-      --  Stream x FIFO error interrupt flag (x=7..4)
+      --  Read-only. Stream x FIFO error interrupt flag (x=7..4)
       FEIF5          : HISR_FEIF5_Field;
       --  unspecified
       Reserved_7_7   : STM32F429x.Bit;
-      --  Stream x direct mode error interrupt flag (x=7..4)
+      --  Read-only. Stream x direct mode error interrupt flag (x=7..4)
       DMEIF5         : HISR_DMEIF5_Field;
-      --  Stream x transfer error interrupt flag (x=7..4)
+      --  Read-only. Stream x transfer error interrupt flag (x=7..4)
       TEIF5          : HISR_TEIF5_Field;
-      --  Stream x half transfer interrupt flag (x=7..4)
+      --  Read-only. Stream x half transfer interrupt flag (x=7..4)
       HTIF5          : HISR_HTIF5_Field;
-      --  Stream x transfer complete interrupt flag (x=7..4)
+      --  Read-only. Stream x transfer complete interrupt flag (x=7..4)
       TCIF5          : HISR_TCIF5_Field;
       --  unspecified
       Reserved_12_15 : STM32F429x.UInt4;
-      --  Stream x FIFO error interrupt flag (x=7..4)
+      --  Read-only. Stream x FIFO error interrupt flag (x=7..4)
       FEIF6          : HISR_FEIF6_Field;
       --  unspecified
       Reserved_17_17 : STM32F429x.Bit;
-      --  Stream x direct mode error interrupt flag (x=7..4)
+      --  Read-only. Stream x direct mode error interrupt flag (x=7..4)
       DMEIF6         : HISR_DMEIF6_Field;
-      --  Stream x transfer error interrupt flag (x=7..4)
+      --  Read-only. Stream x transfer error interrupt flag (x=7..4)
       TEIF6          : HISR_TEIF6_Field;
-      --  Stream x half transfer interrupt flag (x=7..4)
+      --  Read-only. Stream x half transfer interrupt flag (x=7..4)
       HTIF6          : HISR_HTIF6_Field;
-      --  Stream x transfer complete interrupt flag (x=7..4)
+      --  Read-only. Stream x transfer complete interrupt flag (x=7..4)
       TCIF6          : HISR_TCIF6_Field;
-      --  Stream x FIFO error interrupt flag (x=7..4)
+      --  Read-only. Stream x FIFO error interrupt flag (x=7..4)
       FEIF7          : HISR_FEIF7_Field;
       --  unspecified
       Reserved_23_23 : STM32F429x.Bit;
-      --  Stream x direct mode error interrupt flag (x=7..4)
+      --  Read-only. Stream x direct mode error interrupt flag (x=7..4)
       DMEIF7         : HISR_DMEIF7_Field;
-      --  Stream x transfer error interrupt flag (x=7..4)
+      --  Read-only. Stream x transfer error interrupt flag (x=7..4)
       TEIF7          : HISR_TEIF7_Field;
-      --  Stream x half transfer interrupt flag (x=7..4)
+      --  Read-only. Stream x half transfer interrupt flag (x=7..4)
       HTIF7          : HISR_HTIF7_Field;
-      --  Stream x transfer complete interrupt flag (x=7..4)
+      --  Read-only. Stream x transfer complete interrupt flag (x=7..4)
       TCIF7          : HISR_TCIF7_Field;
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for HISR_Register use record
       FEIF4          at 0 range 0 .. 0;
@@ -233,10 +227,6 @@ package STM32F429x.DMA is
       TCIF7          at 0 range 27 .. 27;
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
-
-   --------------------
-   -- LIFCR_Register --
-   --------------------
 
    subtype LIFCR_CFEIF0_Field is STM32F429x.Bit;
    subtype LIFCR_CDMEIF0_Field is STM32F429x.Bit;
@@ -314,7 +304,7 @@ package STM32F429x.DMA is
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for LIFCR_Register use record
       CFEIF0         at 0 range 0 .. 0;
@@ -344,10 +334,6 @@ package STM32F429x.DMA is
       CTCIF3         at 0 range 27 .. 27;
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
-
-   --------------------
-   -- HIFCR_Register --
-   --------------------
 
    subtype HIFCR_CFEIF4_Field is STM32F429x.Bit;
    subtype HIFCR_CDMEIF4_Field is STM32F429x.Bit;
@@ -425,7 +411,7 @@ package STM32F429x.DMA is
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for HIFCR_Register use record
       CFEIF4         at 0 range 0 .. 0;
@@ -455,10 +441,6 @@ package STM32F429x.DMA is
       CTCIF7         at 0 range 27 .. 27;
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
-
-   -------------------
-   -- S0CR_Register --
-   -------------------
 
    subtype S0CR_EN_Field is STM32F429x.Bit;
    subtype S0CR_DMEIE_Field is STM32F429x.Bit;
@@ -525,7 +507,7 @@ package STM32F429x.DMA is
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S0CR_Register use record
       EN             at 0 range 0 .. 0;
@@ -551,29 +533,21 @@ package STM32F429x.DMA is
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
 
-   ---------------------
-   -- S0NDTR_Register --
-   ---------------------
-
-   subtype S0NDTR_NDT_Field is STM32F429x.Short;
+   subtype S0NDTR_NDT_Field is STM32F429x.UInt16;
 
    --  stream x number of data register
    type S0NDTR_Register is record
       --  Number of data items to transfer
       NDT            : S0NDTR_NDT_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short := 16#0#;
+      Reserved_16_31 : STM32F429x.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S0NDTR_Register use record
       NDT            at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   --------------------
-   -- S0FCR_Register --
-   --------------------
 
    subtype S0FCR_FTH_Field is STM32F429x.UInt2;
    subtype S0FCR_DMDIS_Field is STM32F429x.Bit;
@@ -586,7 +560,7 @@ package STM32F429x.DMA is
       FTH           : S0FCR_FTH_Field := 16#1#;
       --  Direct mode disable
       DMDIS         : S0FCR_DMDIS_Field := 16#0#;
-      --  FIFO status
+      --  Read-only. FIFO status
       FS            : S0FCR_FS_Field := 16#4#;
       --  unspecified
       Reserved_6_6  : STM32F429x.Bit := 16#0#;
@@ -595,7 +569,7 @@ package STM32F429x.DMA is
       --  unspecified
       Reserved_8_31 : STM32F429x.UInt24 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S0FCR_Register use record
       FTH           at 0 range 0 .. 1;
@@ -605,10 +579,6 @@ package STM32F429x.DMA is
       FEIE          at 0 range 7 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   -------------------
-   -- S1CR_Register --
-   -------------------
 
    subtype S1CR_EN_Field is STM32F429x.Bit;
    subtype S1CR_DMEIE_Field is STM32F429x.Bit;
@@ -676,7 +646,7 @@ package STM32F429x.DMA is
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S1CR_Register use record
       EN             at 0 range 0 .. 0;
@@ -702,29 +672,21 @@ package STM32F429x.DMA is
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
 
-   ---------------------
-   -- S1NDTR_Register --
-   ---------------------
-
-   subtype S1NDTR_NDT_Field is STM32F429x.Short;
+   subtype S1NDTR_NDT_Field is STM32F429x.UInt16;
 
    --  stream x number of data register
    type S1NDTR_Register is record
       --  Number of data items to transfer
       NDT            : S1NDTR_NDT_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short := 16#0#;
+      Reserved_16_31 : STM32F429x.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S1NDTR_Register use record
       NDT            at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   --------------------
-   -- S1FCR_Register --
-   --------------------
 
    subtype S1FCR_FTH_Field is STM32F429x.UInt2;
    subtype S1FCR_DMDIS_Field is STM32F429x.Bit;
@@ -737,7 +699,7 @@ package STM32F429x.DMA is
       FTH           : S1FCR_FTH_Field := 16#1#;
       --  Direct mode disable
       DMDIS         : S1FCR_DMDIS_Field := 16#0#;
-      --  FIFO status
+      --  Read-only. FIFO status
       FS            : S1FCR_FS_Field := 16#4#;
       --  unspecified
       Reserved_6_6  : STM32F429x.Bit := 16#0#;
@@ -746,7 +708,7 @@ package STM32F429x.DMA is
       --  unspecified
       Reserved_8_31 : STM32F429x.UInt24 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S1FCR_Register use record
       FTH           at 0 range 0 .. 1;
@@ -756,10 +718,6 @@ package STM32F429x.DMA is
       FEIE          at 0 range 7 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   -------------------
-   -- S2CR_Register --
-   -------------------
 
    subtype S2CR_EN_Field is STM32F429x.Bit;
    subtype S2CR_DMEIE_Field is STM32F429x.Bit;
@@ -827,7 +785,7 @@ package STM32F429x.DMA is
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S2CR_Register use record
       EN             at 0 range 0 .. 0;
@@ -853,29 +811,21 @@ package STM32F429x.DMA is
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
 
-   ---------------------
-   -- S2NDTR_Register --
-   ---------------------
-
-   subtype S2NDTR_NDT_Field is STM32F429x.Short;
+   subtype S2NDTR_NDT_Field is STM32F429x.UInt16;
 
    --  stream x number of data register
    type S2NDTR_Register is record
       --  Number of data items to transfer
       NDT            : S2NDTR_NDT_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short := 16#0#;
+      Reserved_16_31 : STM32F429x.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S2NDTR_Register use record
       NDT            at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   --------------------
-   -- S2FCR_Register --
-   --------------------
 
    subtype S2FCR_FTH_Field is STM32F429x.UInt2;
    subtype S2FCR_DMDIS_Field is STM32F429x.Bit;
@@ -888,7 +838,7 @@ package STM32F429x.DMA is
       FTH           : S2FCR_FTH_Field := 16#1#;
       --  Direct mode disable
       DMDIS         : S2FCR_DMDIS_Field := 16#0#;
-      --  FIFO status
+      --  Read-only. FIFO status
       FS            : S2FCR_FS_Field := 16#4#;
       --  unspecified
       Reserved_6_6  : STM32F429x.Bit := 16#0#;
@@ -897,7 +847,7 @@ package STM32F429x.DMA is
       --  unspecified
       Reserved_8_31 : STM32F429x.UInt24 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S2FCR_Register use record
       FTH           at 0 range 0 .. 1;
@@ -907,10 +857,6 @@ package STM32F429x.DMA is
       FEIE          at 0 range 7 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   -------------------
-   -- S3CR_Register --
-   -------------------
 
    subtype S3CR_EN_Field is STM32F429x.Bit;
    subtype S3CR_DMEIE_Field is STM32F429x.Bit;
@@ -978,7 +924,7 @@ package STM32F429x.DMA is
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S3CR_Register use record
       EN             at 0 range 0 .. 0;
@@ -1004,29 +950,21 @@ package STM32F429x.DMA is
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
 
-   ---------------------
-   -- S3NDTR_Register --
-   ---------------------
-
-   subtype S3NDTR_NDT_Field is STM32F429x.Short;
+   subtype S3NDTR_NDT_Field is STM32F429x.UInt16;
 
    --  stream x number of data register
    type S3NDTR_Register is record
       --  Number of data items to transfer
       NDT            : S3NDTR_NDT_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short := 16#0#;
+      Reserved_16_31 : STM32F429x.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S3NDTR_Register use record
       NDT            at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   --------------------
-   -- S3FCR_Register --
-   --------------------
 
    subtype S3FCR_FTH_Field is STM32F429x.UInt2;
    subtype S3FCR_DMDIS_Field is STM32F429x.Bit;
@@ -1039,7 +977,7 @@ package STM32F429x.DMA is
       FTH           : S3FCR_FTH_Field := 16#1#;
       --  Direct mode disable
       DMDIS         : S3FCR_DMDIS_Field := 16#0#;
-      --  FIFO status
+      --  Read-only. FIFO status
       FS            : S3FCR_FS_Field := 16#4#;
       --  unspecified
       Reserved_6_6  : STM32F429x.Bit := 16#0#;
@@ -1048,7 +986,7 @@ package STM32F429x.DMA is
       --  unspecified
       Reserved_8_31 : STM32F429x.UInt24 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S3FCR_Register use record
       FTH           at 0 range 0 .. 1;
@@ -1058,10 +996,6 @@ package STM32F429x.DMA is
       FEIE          at 0 range 7 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   -------------------
-   -- S4CR_Register --
-   -------------------
 
    subtype S4CR_EN_Field is STM32F429x.Bit;
    subtype S4CR_DMEIE_Field is STM32F429x.Bit;
@@ -1129,7 +1063,7 @@ package STM32F429x.DMA is
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S4CR_Register use record
       EN             at 0 range 0 .. 0;
@@ -1155,29 +1089,21 @@ package STM32F429x.DMA is
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
 
-   ---------------------
-   -- S4NDTR_Register --
-   ---------------------
-
-   subtype S4NDTR_NDT_Field is STM32F429x.Short;
+   subtype S4NDTR_NDT_Field is STM32F429x.UInt16;
 
    --  stream x number of data register
    type S4NDTR_Register is record
       --  Number of data items to transfer
       NDT            : S4NDTR_NDT_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short := 16#0#;
+      Reserved_16_31 : STM32F429x.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S4NDTR_Register use record
       NDT            at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   --------------------
-   -- S4FCR_Register --
-   --------------------
 
    subtype S4FCR_FTH_Field is STM32F429x.UInt2;
    subtype S4FCR_DMDIS_Field is STM32F429x.Bit;
@@ -1190,7 +1116,7 @@ package STM32F429x.DMA is
       FTH           : S4FCR_FTH_Field := 16#1#;
       --  Direct mode disable
       DMDIS         : S4FCR_DMDIS_Field := 16#0#;
-      --  FIFO status
+      --  Read-only. FIFO status
       FS            : S4FCR_FS_Field := 16#4#;
       --  unspecified
       Reserved_6_6  : STM32F429x.Bit := 16#0#;
@@ -1199,7 +1125,7 @@ package STM32F429x.DMA is
       --  unspecified
       Reserved_8_31 : STM32F429x.UInt24 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S4FCR_Register use record
       FTH           at 0 range 0 .. 1;
@@ -1209,10 +1135,6 @@ package STM32F429x.DMA is
       FEIE          at 0 range 7 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   -------------------
-   -- S5CR_Register --
-   -------------------
 
    subtype S5CR_EN_Field is STM32F429x.Bit;
    subtype S5CR_DMEIE_Field is STM32F429x.Bit;
@@ -1280,7 +1202,7 @@ package STM32F429x.DMA is
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S5CR_Register use record
       EN             at 0 range 0 .. 0;
@@ -1306,29 +1228,21 @@ package STM32F429x.DMA is
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
 
-   ---------------------
-   -- S5NDTR_Register --
-   ---------------------
-
-   subtype S5NDTR_NDT_Field is STM32F429x.Short;
+   subtype S5NDTR_NDT_Field is STM32F429x.UInt16;
 
    --  stream x number of data register
    type S5NDTR_Register is record
       --  Number of data items to transfer
       NDT            : S5NDTR_NDT_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short := 16#0#;
+      Reserved_16_31 : STM32F429x.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S5NDTR_Register use record
       NDT            at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   --------------------
-   -- S5FCR_Register --
-   --------------------
 
    subtype S5FCR_FTH_Field is STM32F429x.UInt2;
    subtype S5FCR_DMDIS_Field is STM32F429x.Bit;
@@ -1341,7 +1255,7 @@ package STM32F429x.DMA is
       FTH           : S5FCR_FTH_Field := 16#1#;
       --  Direct mode disable
       DMDIS         : S5FCR_DMDIS_Field := 16#0#;
-      --  FIFO status
+      --  Read-only. FIFO status
       FS            : S5FCR_FS_Field := 16#4#;
       --  unspecified
       Reserved_6_6  : STM32F429x.Bit := 16#0#;
@@ -1350,7 +1264,7 @@ package STM32F429x.DMA is
       --  unspecified
       Reserved_8_31 : STM32F429x.UInt24 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S5FCR_Register use record
       FTH           at 0 range 0 .. 1;
@@ -1360,10 +1274,6 @@ package STM32F429x.DMA is
       FEIE          at 0 range 7 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   -------------------
-   -- S6CR_Register --
-   -------------------
 
    subtype S6CR_EN_Field is STM32F429x.Bit;
    subtype S6CR_DMEIE_Field is STM32F429x.Bit;
@@ -1431,7 +1341,7 @@ package STM32F429x.DMA is
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S6CR_Register use record
       EN             at 0 range 0 .. 0;
@@ -1457,29 +1367,21 @@ package STM32F429x.DMA is
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
 
-   ---------------------
-   -- S6NDTR_Register --
-   ---------------------
-
-   subtype S6NDTR_NDT_Field is STM32F429x.Short;
+   subtype S6NDTR_NDT_Field is STM32F429x.UInt16;
 
    --  stream x number of data register
    type S6NDTR_Register is record
       --  Number of data items to transfer
       NDT            : S6NDTR_NDT_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short := 16#0#;
+      Reserved_16_31 : STM32F429x.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S6NDTR_Register use record
       NDT            at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   --------------------
-   -- S6FCR_Register --
-   --------------------
 
    subtype S6FCR_FTH_Field is STM32F429x.UInt2;
    subtype S6FCR_DMDIS_Field is STM32F429x.Bit;
@@ -1492,7 +1394,7 @@ package STM32F429x.DMA is
       FTH           : S6FCR_FTH_Field := 16#1#;
       --  Direct mode disable
       DMDIS         : S6FCR_DMDIS_Field := 16#0#;
-      --  FIFO status
+      --  Read-only. FIFO status
       FS            : S6FCR_FS_Field := 16#4#;
       --  unspecified
       Reserved_6_6  : STM32F429x.Bit := 16#0#;
@@ -1501,7 +1403,7 @@ package STM32F429x.DMA is
       --  unspecified
       Reserved_8_31 : STM32F429x.UInt24 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S6FCR_Register use record
       FTH           at 0 range 0 .. 1;
@@ -1511,10 +1413,6 @@ package STM32F429x.DMA is
       FEIE          at 0 range 7 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   -------------------
-   -- S7CR_Register --
-   -------------------
 
    subtype S7CR_EN_Field is STM32F429x.Bit;
    subtype S7CR_DMEIE_Field is STM32F429x.Bit;
@@ -1582,7 +1480,7 @@ package STM32F429x.DMA is
       --  unspecified
       Reserved_28_31 : STM32F429x.UInt4 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S7CR_Register use record
       EN             at 0 range 0 .. 0;
@@ -1608,29 +1506,21 @@ package STM32F429x.DMA is
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
 
-   ---------------------
-   -- S7NDTR_Register --
-   ---------------------
-
-   subtype S7NDTR_NDT_Field is STM32F429x.Short;
+   subtype S7NDTR_NDT_Field is STM32F429x.UInt16;
 
    --  stream x number of data register
    type S7NDTR_Register is record
       --  Number of data items to transfer
       NDT            : S7NDTR_NDT_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : STM32F429x.Short := 16#0#;
+      Reserved_16_31 : STM32F429x.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S7NDTR_Register use record
       NDT            at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   --------------------
-   -- S7FCR_Register --
-   --------------------
 
    subtype S7FCR_FTH_Field is STM32F429x.UInt2;
    subtype S7FCR_DMDIS_Field is STM32F429x.Bit;
@@ -1643,7 +1533,7 @@ package STM32F429x.DMA is
       FTH           : S7FCR_FTH_Field := 16#1#;
       --  Direct mode disable
       DMDIS         : S7FCR_DMDIS_Field := 16#0#;
-      --  FIFO status
+      --  Read-only. FIFO status
       FS            : S7FCR_FS_Field := 16#4#;
       --  unspecified
       Reserved_6_6  : STM32F429x.Bit := 16#0#;
@@ -1652,7 +1542,7 @@ package STM32F429x.DMA is
       --  unspecified
       Reserved_8_31 : STM32F429x.UInt24 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for S7FCR_Register use record
       FTH           at 0 range 0 .. 1;
@@ -1670,173 +1560,201 @@ package STM32F429x.DMA is
    --  DMA controller
    type DMA_Peripheral is record
       --  low interrupt status register
-      LISR   : LISR_Register;
+      LISR   : aliased LISR_Register;
+      pragma Volatile_Full_Access (LISR);
       --  high interrupt status register
-      HISR   : HISR_Register;
+      HISR   : aliased HISR_Register;
+      pragma Volatile_Full_Access (HISR);
       --  low interrupt flag clear register
-      LIFCR  : LIFCR_Register;
+      LIFCR  : aliased LIFCR_Register;
+      pragma Volatile_Full_Access (LIFCR);
       --  high interrupt flag clear register
-      HIFCR  : HIFCR_Register;
+      HIFCR  : aliased HIFCR_Register;
+      pragma Volatile_Full_Access (HIFCR);
       --  stream x configuration register
-      S0CR   : S0CR_Register;
+      S0CR   : aliased S0CR_Register;
+      pragma Volatile_Full_Access (S0CR);
       --  stream x number of data register
-      S0NDTR : S0NDTR_Register;
+      S0NDTR : aliased S0NDTR_Register;
+      pragma Volatile_Full_Access (S0NDTR);
       --  stream x peripheral address register
-      S0PAR  : STM32F429x.Word;
+      S0PAR  : aliased STM32F429x.UInt32;
       --  stream x memory 0 address register
-      S0M0AR : STM32F429x.Word;
+      S0M0AR : aliased STM32F429x.UInt32;
       --  stream x memory 1 address register
-      S0M1AR : STM32F429x.Word;
+      S0M1AR : aliased STM32F429x.UInt32;
       --  stream x FIFO control register
-      S0FCR  : S0FCR_Register;
+      S0FCR  : aliased S0FCR_Register;
+      pragma Volatile_Full_Access (S0FCR);
       --  stream x configuration register
-      S1CR   : S1CR_Register;
+      S1CR   : aliased S1CR_Register;
+      pragma Volatile_Full_Access (S1CR);
       --  stream x number of data register
-      S1NDTR : S1NDTR_Register;
+      S1NDTR : aliased S1NDTR_Register;
+      pragma Volatile_Full_Access (S1NDTR);
       --  stream x peripheral address register
-      S1PAR  : STM32F429x.Word;
+      S1PAR  : aliased STM32F429x.UInt32;
       --  stream x memory 0 address register
-      S1M0AR : STM32F429x.Word;
+      S1M0AR : aliased STM32F429x.UInt32;
       --  stream x memory 1 address register
-      S1M1AR : STM32F429x.Word;
+      S1M1AR : aliased STM32F429x.UInt32;
       --  stream x FIFO control register
-      S1FCR  : S1FCR_Register;
+      S1FCR  : aliased S1FCR_Register;
+      pragma Volatile_Full_Access (S1FCR);
       --  stream x configuration register
-      S2CR   : S2CR_Register;
+      S2CR   : aliased S2CR_Register;
+      pragma Volatile_Full_Access (S2CR);
       --  stream x number of data register
-      S2NDTR : S2NDTR_Register;
+      S2NDTR : aliased S2NDTR_Register;
+      pragma Volatile_Full_Access (S2NDTR);
       --  stream x peripheral address register
-      S2PAR  : STM32F429x.Word;
+      S2PAR  : aliased STM32F429x.UInt32;
       --  stream x memory 0 address register
-      S2M0AR : STM32F429x.Word;
+      S2M0AR : aliased STM32F429x.UInt32;
       --  stream x memory 1 address register
-      S2M1AR : STM32F429x.Word;
+      S2M1AR : aliased STM32F429x.UInt32;
       --  stream x FIFO control register
-      S2FCR  : S2FCR_Register;
+      S2FCR  : aliased S2FCR_Register;
+      pragma Volatile_Full_Access (S2FCR);
       --  stream x configuration register
-      S3CR   : S3CR_Register;
+      S3CR   : aliased S3CR_Register;
+      pragma Volatile_Full_Access (S3CR);
       --  stream x number of data register
-      S3NDTR : S3NDTR_Register;
+      S3NDTR : aliased S3NDTR_Register;
+      pragma Volatile_Full_Access (S3NDTR);
       --  stream x peripheral address register
-      S3PAR  : STM32F429x.Word;
+      S3PAR  : aliased STM32F429x.UInt32;
       --  stream x memory 0 address register
-      S3M0AR : STM32F429x.Word;
+      S3M0AR : aliased STM32F429x.UInt32;
       --  stream x memory 1 address register
-      S3M1AR : STM32F429x.Word;
+      S3M1AR : aliased STM32F429x.UInt32;
       --  stream x FIFO control register
-      S3FCR  : S3FCR_Register;
+      S3FCR  : aliased S3FCR_Register;
+      pragma Volatile_Full_Access (S3FCR);
       --  stream x configuration register
-      S4CR   : S4CR_Register;
+      S4CR   : aliased S4CR_Register;
+      pragma Volatile_Full_Access (S4CR);
       --  stream x number of data register
-      S4NDTR : S4NDTR_Register;
+      S4NDTR : aliased S4NDTR_Register;
+      pragma Volatile_Full_Access (S4NDTR);
       --  stream x peripheral address register
-      S4PAR  : STM32F429x.Word;
+      S4PAR  : aliased STM32F429x.UInt32;
       --  stream x memory 0 address register
-      S4M0AR : STM32F429x.Word;
+      S4M0AR : aliased STM32F429x.UInt32;
       --  stream x memory 1 address register
-      S4M1AR : STM32F429x.Word;
+      S4M1AR : aliased STM32F429x.UInt32;
       --  stream x FIFO control register
-      S4FCR  : S4FCR_Register;
+      S4FCR  : aliased S4FCR_Register;
+      pragma Volatile_Full_Access (S4FCR);
       --  stream x configuration register
-      S5CR   : S5CR_Register;
+      S5CR   : aliased S5CR_Register;
+      pragma Volatile_Full_Access (S5CR);
       --  stream x number of data register
-      S5NDTR : S5NDTR_Register;
+      S5NDTR : aliased S5NDTR_Register;
+      pragma Volatile_Full_Access (S5NDTR);
       --  stream x peripheral address register
-      S5PAR  : STM32F429x.Word;
+      S5PAR  : aliased STM32F429x.UInt32;
       --  stream x memory 0 address register
-      S5M0AR : STM32F429x.Word;
+      S5M0AR : aliased STM32F429x.UInt32;
       --  stream x memory 1 address register
-      S5M1AR : STM32F429x.Word;
+      S5M1AR : aliased STM32F429x.UInt32;
       --  stream x FIFO control register
-      S5FCR  : S5FCR_Register;
+      S5FCR  : aliased S5FCR_Register;
+      pragma Volatile_Full_Access (S5FCR);
       --  stream x configuration register
-      S6CR   : S6CR_Register;
+      S6CR   : aliased S6CR_Register;
+      pragma Volatile_Full_Access (S6CR);
       --  stream x number of data register
-      S6NDTR : S6NDTR_Register;
+      S6NDTR : aliased S6NDTR_Register;
+      pragma Volatile_Full_Access (S6NDTR);
       --  stream x peripheral address register
-      S6PAR  : STM32F429x.Word;
+      S6PAR  : aliased STM32F429x.UInt32;
       --  stream x memory 0 address register
-      S6M0AR : STM32F429x.Word;
+      S6M0AR : aliased STM32F429x.UInt32;
       --  stream x memory 1 address register
-      S6M1AR : STM32F429x.Word;
+      S6M1AR : aliased STM32F429x.UInt32;
       --  stream x FIFO control register
-      S6FCR  : S6FCR_Register;
+      S6FCR  : aliased S6FCR_Register;
+      pragma Volatile_Full_Access (S6FCR);
       --  stream x configuration register
-      S7CR   : S7CR_Register;
+      S7CR   : aliased S7CR_Register;
+      pragma Volatile_Full_Access (S7CR);
       --  stream x number of data register
-      S7NDTR : S7NDTR_Register;
+      S7NDTR : aliased S7NDTR_Register;
+      pragma Volatile_Full_Access (S7NDTR);
       --  stream x peripheral address register
-      S7PAR  : STM32F429x.Word;
+      S7PAR  : aliased STM32F429x.UInt32;
       --  stream x memory 0 address register
-      S7M0AR : STM32F429x.Word;
+      S7M0AR : aliased STM32F429x.UInt32;
       --  stream x memory 1 address register
-      S7M1AR : STM32F429x.Word;
+      S7M1AR : aliased STM32F429x.UInt32;
       --  stream x FIFO control register
-      S7FCR  : S7FCR_Register;
+      S7FCR  : aliased S7FCR_Register;
+      pragma Volatile_Full_Access (S7FCR);
    end record
      with Volatile;
 
    for DMA_Peripheral use record
-      LISR   at 0 range 0 .. 31;
-      HISR   at 4 range 0 .. 31;
-      LIFCR  at 8 range 0 .. 31;
-      HIFCR  at 12 range 0 .. 31;
-      S0CR   at 16 range 0 .. 31;
-      S0NDTR at 20 range 0 .. 31;
-      S0PAR  at 24 range 0 .. 31;
-      S0M0AR at 28 range 0 .. 31;
-      S0M1AR at 32 range 0 .. 31;
-      S0FCR  at 36 range 0 .. 31;
-      S1CR   at 40 range 0 .. 31;
-      S1NDTR at 44 range 0 .. 31;
-      S1PAR  at 48 range 0 .. 31;
-      S1M0AR at 52 range 0 .. 31;
-      S1M1AR at 56 range 0 .. 31;
-      S1FCR  at 60 range 0 .. 31;
-      S2CR   at 64 range 0 .. 31;
-      S2NDTR at 68 range 0 .. 31;
-      S2PAR  at 72 range 0 .. 31;
-      S2M0AR at 76 range 0 .. 31;
-      S2M1AR at 80 range 0 .. 31;
-      S2FCR  at 84 range 0 .. 31;
-      S3CR   at 88 range 0 .. 31;
-      S3NDTR at 92 range 0 .. 31;
-      S3PAR  at 96 range 0 .. 31;
-      S3M0AR at 100 range 0 .. 31;
-      S3M1AR at 104 range 0 .. 31;
-      S3FCR  at 108 range 0 .. 31;
-      S4CR   at 112 range 0 .. 31;
-      S4NDTR at 116 range 0 .. 31;
-      S4PAR  at 120 range 0 .. 31;
-      S4M0AR at 124 range 0 .. 31;
-      S4M1AR at 128 range 0 .. 31;
-      S4FCR  at 132 range 0 .. 31;
-      S5CR   at 136 range 0 .. 31;
-      S5NDTR at 140 range 0 .. 31;
-      S5PAR  at 144 range 0 .. 31;
-      S5M0AR at 148 range 0 .. 31;
-      S5M1AR at 152 range 0 .. 31;
-      S5FCR  at 156 range 0 .. 31;
-      S6CR   at 160 range 0 .. 31;
-      S6NDTR at 164 range 0 .. 31;
-      S6PAR  at 168 range 0 .. 31;
-      S6M0AR at 172 range 0 .. 31;
-      S6M1AR at 176 range 0 .. 31;
-      S6FCR  at 180 range 0 .. 31;
-      S7CR   at 184 range 0 .. 31;
-      S7NDTR at 188 range 0 .. 31;
-      S7PAR  at 192 range 0 .. 31;
-      S7M0AR at 196 range 0 .. 31;
-      S7M1AR at 200 range 0 .. 31;
-      S7FCR  at 204 range 0 .. 31;
+      LISR   at 16#0# range 0 .. 31;
+      HISR   at 16#4# range 0 .. 31;
+      LIFCR  at 16#8# range 0 .. 31;
+      HIFCR  at 16#C# range 0 .. 31;
+      S0CR   at 16#10# range 0 .. 31;
+      S0NDTR at 16#14# range 0 .. 31;
+      S0PAR  at 16#18# range 0 .. 31;
+      S0M0AR at 16#1C# range 0 .. 31;
+      S0M1AR at 16#20# range 0 .. 31;
+      S0FCR  at 16#24# range 0 .. 31;
+      S1CR   at 16#28# range 0 .. 31;
+      S1NDTR at 16#2C# range 0 .. 31;
+      S1PAR  at 16#30# range 0 .. 31;
+      S1M0AR at 16#34# range 0 .. 31;
+      S1M1AR at 16#38# range 0 .. 31;
+      S1FCR  at 16#3C# range 0 .. 31;
+      S2CR   at 16#40# range 0 .. 31;
+      S2NDTR at 16#44# range 0 .. 31;
+      S2PAR  at 16#48# range 0 .. 31;
+      S2M0AR at 16#4C# range 0 .. 31;
+      S2M1AR at 16#50# range 0 .. 31;
+      S2FCR  at 16#54# range 0 .. 31;
+      S3CR   at 16#58# range 0 .. 31;
+      S3NDTR at 16#5C# range 0 .. 31;
+      S3PAR  at 16#60# range 0 .. 31;
+      S3M0AR at 16#64# range 0 .. 31;
+      S3M1AR at 16#68# range 0 .. 31;
+      S3FCR  at 16#6C# range 0 .. 31;
+      S4CR   at 16#70# range 0 .. 31;
+      S4NDTR at 16#74# range 0 .. 31;
+      S4PAR  at 16#78# range 0 .. 31;
+      S4M0AR at 16#7C# range 0 .. 31;
+      S4M1AR at 16#80# range 0 .. 31;
+      S4FCR  at 16#84# range 0 .. 31;
+      S5CR   at 16#88# range 0 .. 31;
+      S5NDTR at 16#8C# range 0 .. 31;
+      S5PAR  at 16#90# range 0 .. 31;
+      S5M0AR at 16#94# range 0 .. 31;
+      S5M1AR at 16#98# range 0 .. 31;
+      S5FCR  at 16#9C# range 0 .. 31;
+      S6CR   at 16#A0# range 0 .. 31;
+      S6NDTR at 16#A4# range 0 .. 31;
+      S6PAR  at 16#A8# range 0 .. 31;
+      S6M0AR at 16#AC# range 0 .. 31;
+      S6M1AR at 16#B0# range 0 .. 31;
+      S6FCR  at 16#B4# range 0 .. 31;
+      S7CR   at 16#B8# range 0 .. 31;
+      S7NDTR at 16#BC# range 0 .. 31;
+      S7PAR  at 16#C0# range 0 .. 31;
+      S7M0AR at 16#C4# range 0 .. 31;
+      S7M1AR at 16#C8# range 0 .. 31;
+      S7FCR  at 16#CC# range 0 .. 31;
    end record;
 
    --  DMA controller
    DMA1_Periph : aliased DMA_Peripheral
-     with Import, Address => System'To_Address (16#40026000#);
+     with Import, Address => DMA1_Base;
 
    --  DMA controller
    DMA2_Periph : aliased DMA_Peripheral
-     with Import, Address => System'To_Address (16#40026400#);
+     with Import, Address => DMA2_Base;
 
 end STM32F429x.DMA;

@@ -1,7 +1,38 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
+--  Copyright (c) 2013, Nordic Semiconductor ASA
+--  All rights reserved.
+--
+--  Redistribution and use in source and binary forms, with or without
+--  modification, are permitted provided that the following conditions are met:
+--
+--  * Redistributions of source code must retain the above copyright notice, this
+--  list of conditions and the following disclaimer.
+--
+--  * Redistributions in binary form must reproduce the above copyright notice,
+--  this list of conditions and the following disclaimer in the documentation
+--  and/or other materials provided with the distribution.
+--
+--  * Neither the name of Nordic Semiconductor ASA nor the names of its
+--  contributors may be used to endorse or promote products derived from
+--  this software without specific prior written permission.
+--
+--  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+--  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+--  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+--  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+--  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+--  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+--  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+--  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+--  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+--  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+--
+
 --  This spec has been automatically generated from nrf51.svd
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -15,47 +46,37 @@ package nrf51.GPIOTE is
    --  Tasks asssociated with GPIOTE channels.
 
    --  Tasks asssociated with GPIOTE channels.
-   type TASKS_OUT_Registers is array (0 .. 3) of nrf51.Word;
+   type TASKS_OUT_Registers is array (0 .. 3) of nrf51.UInt32;
 
    --  Tasks asssociated with GPIOTE channels.
 
    --  Tasks asssociated with GPIOTE channels.
-   type EVENTS_IN_Registers is array (0 .. 3) of nrf51.Word;
-
-   -----------------------
-   -- INTENSET_Register --
-   -----------------------
+   type EVENTS_IN_Registers is array (0 .. 3) of nrf51.UInt32;
 
    --  Enable interrupt on IN[0] event.
-   type IN0_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_IN0_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for IN0_Field use
+   for INTENSET_IN0_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on IN[0] event.
-   type IN0_Field_1 is
-     (
-      --  Reset value for the field
-      In0_Field_Reset,
+   type INTENSET_IN0_Field_1 is
+     (--  Reset value for the field
+      Intenset_In0_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for IN0_Field_1 use
-     (In0_Field_Reset => 0,
+   for INTENSET_IN0_Field_1 use
+     (Intenset_In0_Field_Reset => 0,
       Set => 1);
 
-   -----------------
-   -- INTENSET.IN --
-   -----------------
-
    --  INTENSET_IN array
-   type INTENSET_IN_Field_Array is array (0 .. 3) of IN0_Field_1
+   type INTENSET_IN_Field_Array is array (0 .. 3) of INTENSET_IN0_Field_1
      with Component_Size => 1, Size => 4;
 
    --  Type definition for INTENSET_IN
@@ -79,27 +100,25 @@ package nrf51.GPIOTE is
    end record;
 
    --  Enable interrupt on PORT event.
-   type PORT_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_PORT_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for PORT_Field use
+   for INTENSET_PORT_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on PORT event.
-   type PORT_Field_1 is
-     (
-      --  Reset value for the field
-      Port_Field_Reset,
+   type INTENSET_PORT_Field_1 is
+     (--  Reset value for the field
+      Intenset_Port_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for PORT_Field_1 use
-     (Port_Field_Reset => 0,
+   for INTENSET_PORT_Field_1 use
+     (Intenset_Port_Field_Reset => 0,
       Set => 1);
 
    --  Interrupt enable set register.
@@ -109,9 +128,9 @@ package nrf51.GPIOTE is
       --  unspecified
       Reserved_4_30 : nrf51.UInt27 := 16#0#;
       --  Enable interrupt on PORT event.
-      PORT          : PORT_Field_1 := Port_Field_Reset;
+      PORT          : INTENSET_PORT_Field_1 := Intenset_Port_Field_Reset;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for INTENSET_Register use record
@@ -120,28 +139,30 @@ package nrf51.GPIOTE is
       PORT          at 0 range 31 .. 31;
    end record;
 
-   -----------------------
-   -- INTENCLR_Register --
-   -----------------------
+   --  Disable interrupt on IN[0] event.
+   type INTENCLR_IN0_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_IN0_Field use
+     (Disabled => 0,
+      Enabled => 1);
 
    --  Disable interrupt on IN[0] event.
-   type IN0_Field_2 is
-     (
-      --  Reset value for the field
-      In0_Field_Reset,
+   type INTENCLR_IN0_Field_1 is
+     (--  Reset value for the field
+      Intenclr_In0_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for IN0_Field_2 use
-     (In0_Field_Reset => 0,
+   for INTENCLR_IN0_Field_1 use
+     (Intenclr_In0_Field_Reset => 0,
       Clear => 1);
 
-   -----------------
-   -- INTENCLR.IN --
-   -----------------
-
    --  INTENCLR_IN array
-   type INTENCLR_IN_Field_Array is array (0 .. 3) of IN0_Field_2
+   type INTENCLR_IN_Field_Array is array (0 .. 3) of INTENCLR_IN0_Field_1
      with Component_Size => 1, Size => 4;
 
    --  Type definition for INTENCLR_IN
@@ -165,15 +186,25 @@ package nrf51.GPIOTE is
    end record;
 
    --  Disable interrupt on PORT event.
-   type PORT_Field_2 is
-     (
-      --  Reset value for the field
-      Port_Field_Reset,
+   type INTENCLR_PORT_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_PORT_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on PORT event.
+   type INTENCLR_PORT_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Port_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for PORT_Field_2 use
-     (Port_Field_Reset => 0,
+   for INTENCLR_PORT_Field_1 use
+     (Intenclr_Port_Field_Reset => 0,
       Clear => 1);
 
    --  Interrupt enable clear register.
@@ -183,9 +214,9 @@ package nrf51.GPIOTE is
       --  unspecified
       Reserved_4_30 : nrf51.UInt27 := 16#0#;
       --  Disable interrupt on PORT event.
-      PORT          : PORT_Field_2 := Port_Field_Reset;
+      PORT          : INTENCLR_PORT_Field_1 := Intenclr_Port_Field_Reset;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for INTENCLR_Register use record
@@ -194,21 +225,16 @@ package nrf51.GPIOTE is
       PORT          at 0 range 31 .. 31;
    end record;
 
-   ---------------------
-   -- CONFIG_Register --
-   ---------------------
-
    --  Mode
-   type MODE_Field is
-     (
-      --  Disabled.
+   type CONFIG_MODE_Field is
+     (--  Disabled.
       Disabled,
       --  Channel configure in event mode.
       Event,
       --  Channel configure in task mode.
       Task_k)
      with Size => 2;
-   for MODE_Field use
+   for CONFIG_MODE_Field use
      (Disabled => 0,
       Event => 1,
       Task_k => 3);
@@ -217,9 +243,8 @@ package nrf51.GPIOTE is
 
    --  Effects on output when in Task mode, or events on input that generates
    --  an event.
-   type POLARITY_Field is
-     (
-      --  No task or event.
+   type CONFIG_POLARITY_Field is
+     (--  No task or event.
       None,
       --  Low to high.
       Lotohi,
@@ -228,7 +253,7 @@ package nrf51.GPIOTE is
       --  Toggle.
       Toggle)
      with Size => 2;
-   for POLARITY_Field use
+   for CONFIG_POLARITY_Field use
      (None => 0,
       Lotohi => 1,
       Hitolo => 2,
@@ -236,21 +261,20 @@ package nrf51.GPIOTE is
 
    --  Initial value of the output when the GPIOTE channel is configured as a
    --  Task.
-   type OUTINIT_Field is
-     (
-      --  Initial low output when in task mode.
+   type CONFIG_OUTINIT_Field is
+     (--  Initial low output when in task mode.
       Low,
       --  Initial high output when in task mode.
       High)
      with Size => 1;
-   for OUTINIT_Field use
+   for CONFIG_OUTINIT_Field use
      (Low => 0,
       High => 1);
 
    --  Channel configuration registers.
    type CONFIG_Register is record
       --  Mode
-      MODE           : MODE_Field := Disabled;
+      MODE           : CONFIG_MODE_Field := nrf51.GPIOTE.Disabled;
       --  unspecified
       Reserved_2_7   : nrf51.UInt6 := 16#0#;
       --  Pin select.
@@ -259,16 +283,16 @@ package nrf51.GPIOTE is
       Reserved_13_15 : nrf51.UInt3 := 16#0#;
       --  Effects on output when in Task mode, or events on input that
       --  generates an event.
-      POLARITY       : POLARITY_Field := None;
+      POLARITY       : CONFIG_POLARITY_Field := nrf51.GPIOTE.None;
       --  unspecified
       Reserved_18_19 : nrf51.UInt2 := 16#0#;
       --  Initial value of the output when the GPIOTE channel is configured as
       --  a Task.
-      OUTINIT        : OUTINIT_Field := Low;
+      OUTINIT        : CONFIG_OUTINIT_Field := nrf51.GPIOTE.Low;
       --  unspecified
       Reserved_21_31 : nrf51.UInt11 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for CONFIG_Register use record
@@ -285,30 +309,25 @@ package nrf51.GPIOTE is
    --  Channel configuration registers.
    type CONFIG_Registers is array (0 .. 3) of CONFIG_Register;
 
-   --------------------
-   -- POWER_Register --
-   --------------------
-
    --  Peripheral power control.
-   type POWER_Field is
-     (
-      --  Module power disabled.
+   type POWER_POWER_Field is
+     (--  Module power disabled.
       Disabled,
       --  Module power enabled.
       Enabled)
      with Size => 1;
-   for POWER_Field use
+   for POWER_POWER_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Peripheral power control.
    type POWER_Register is record
       --  Peripheral power control.
-      POWER         : POWER_Field := Disabled;
+      POWER         : POWER_POWER_Field := nrf51.GPIOTE.Disabled;
       --  unspecified
       Reserved_1_31 : nrf51.UInt31 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for POWER_Register use record
@@ -323,30 +342,30 @@ package nrf51.GPIOTE is
    --  GPIO tasks and events.
    type GPIOTE_Peripheral is record
       --  Tasks asssociated with GPIOTE channels.
-      TASKS_OUT   : TASKS_OUT_Registers;
+      TASKS_OUT   : aliased TASKS_OUT_Registers;
       --  Tasks asssociated with GPIOTE channels.
-      EVENTS_IN   : EVENTS_IN_Registers;
+      EVENTS_IN   : aliased EVENTS_IN_Registers;
       --  Event generated from multiple pins.
-      EVENTS_PORT : nrf51.Word;
+      EVENTS_PORT : aliased nrf51.UInt32;
       --  Interrupt enable set register.
-      INTENSET    : INTENSET_Register;
+      INTENSET    : aliased INTENSET_Register;
       --  Interrupt enable clear register.
-      INTENCLR    : INTENCLR_Register;
+      INTENCLR    : aliased INTENCLR_Register;
       --  Channel configuration registers.
-      CONFIG      : CONFIG_Registers;
+      CONFIG      : aliased CONFIG_Registers;
       --  Peripheral power control.
-      POWER       : POWER_Register;
+      POWER       : aliased POWER_Register;
    end record
      with Volatile;
 
    for GPIOTE_Peripheral use record
-      TASKS_OUT   at 0 range 0 .. 127;
-      EVENTS_IN   at 256 range 0 .. 127;
-      EVENTS_PORT at 380 range 0 .. 31;
-      INTENSET    at 772 range 0 .. 31;
-      INTENCLR    at 776 range 0 .. 31;
-      CONFIG      at 1296 range 0 .. 127;
-      POWER       at 4092 range 0 .. 31;
+      TASKS_OUT   at 16#0# range 0 .. 127;
+      EVENTS_IN   at 16#100# range 0 .. 127;
+      EVENTS_PORT at 16#17C# range 0 .. 31;
+      INTENSET    at 16#304# range 0 .. 31;
+      INTENCLR    at 16#308# range 0 .. 31;
+      CONFIG      at 16#510# range 0 .. 127;
+      POWER       at 16#FFC# range 0 .. 31;
    end record;
 
    --  GPIO tasks and events.

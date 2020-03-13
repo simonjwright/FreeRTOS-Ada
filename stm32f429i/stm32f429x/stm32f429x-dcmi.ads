@@ -1,5 +1,7 @@
---  Automatically generated from STM32F429x.svd by SVD2Ada
---  see https://github.com/simonjwright/svd2ada
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
+--  This spec has been automatically generated from STM32F429x.svd
 
 pragma Restrictions (No_Elaboration_Code);
 
@@ -11,10 +13,6 @@ package STM32F429x.DCMI is
    ---------------
    -- Registers --
    ---------------
-
-   -----------------
-   -- CR_Register --
-   -----------------
 
    subtype CR_CAPTURE_Field is STM32F429x.Bit;
    subtype CR_CM_Field is STM32F429x.Bit;
@@ -57,7 +55,7 @@ package STM32F429x.DCMI is
       --  unspecified
       Reserved_15_31 : STM32F429x.UInt17 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CR_Register use record
       CAPTURE        at 0 range 0 .. 0;
@@ -75,26 +73,22 @@ package STM32F429x.DCMI is
       Reserved_15_31 at 0 range 15 .. 31;
    end record;
 
-   -----------------
-   -- SR_Register --
-   -----------------
-
    subtype SR_HSYNC_Field is STM32F429x.Bit;
    subtype SR_VSYNC_Field is STM32F429x.Bit;
    subtype SR_FNE_Field is STM32F429x.Bit;
 
    --  status register
    type SR_Register is record
-      --  HSYNC
+      --  Read-only. HSYNC
       HSYNC         : SR_HSYNC_Field;
-      --  VSYNC
+      --  Read-only. VSYNC
       VSYNC         : SR_VSYNC_Field;
-      --  FIFO not empty
+      --  Read-only. FIFO not empty
       FNE           : SR_FNE_Field;
       --  unspecified
       Reserved_3_31 : STM32F429x.UInt29;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for SR_Register use record
       HSYNC         at 0 range 0 .. 0;
@@ -102,10 +96,6 @@ package STM32F429x.DCMI is
       FNE           at 0 range 2 .. 2;
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
-
-   ------------------
-   -- RIS_Register --
-   ------------------
 
    subtype RIS_FRAME_RIS_Field is STM32F429x.Bit;
    subtype RIS_OVR_RIS_Field is STM32F429x.Bit;
@@ -115,20 +105,20 @@ package STM32F429x.DCMI is
 
    --  raw interrupt status register
    type RIS_Register is record
-      --  Capture complete raw interrupt status
+      --  Read-only. Capture complete raw interrupt status
       FRAME_RIS     : RIS_FRAME_RIS_Field;
-      --  Overrun raw interrupt status
+      --  Read-only. Overrun raw interrupt status
       OVR_RIS       : RIS_OVR_RIS_Field;
-      --  Synchronization error raw interrupt status
+      --  Read-only. Synchronization error raw interrupt status
       ERR_RIS       : RIS_ERR_RIS_Field;
-      --  VSYNC raw interrupt status
+      --  Read-only. VSYNC raw interrupt status
       VSYNC_RIS     : RIS_VSYNC_RIS_Field;
-      --  Line raw interrupt status
+      --  Read-only. Line raw interrupt status
       LINE_RIS      : RIS_LINE_RIS_Field;
       --  unspecified
       Reserved_5_31 : STM32F429x.UInt27;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for RIS_Register use record
       FRAME_RIS     at 0 range 0 .. 0;
@@ -138,10 +128,6 @@ package STM32F429x.DCMI is
       LINE_RIS      at 0 range 4 .. 4;
       Reserved_5_31 at 0 range 5 .. 31;
    end record;
-
-   ------------------
-   -- IER_Register --
-   ------------------
 
    subtype IER_FRAME_IE_Field is STM32F429x.Bit;
    subtype IER_OVR_IE_Field is STM32F429x.Bit;
@@ -164,7 +150,7 @@ package STM32F429x.DCMI is
       --  unspecified
       Reserved_5_31 : STM32F429x.UInt27 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for IER_Register use record
       FRAME_IE      at 0 range 0 .. 0;
@@ -175,10 +161,6 @@ package STM32F429x.DCMI is
       Reserved_5_31 at 0 range 5 .. 31;
    end record;
 
-   ------------------
-   -- MIS_Register --
-   ------------------
-
    subtype MIS_FRAME_MIS_Field is STM32F429x.Bit;
    subtype MIS_OVR_MIS_Field is STM32F429x.Bit;
    subtype MIS_ERR_MIS_Field is STM32F429x.Bit;
@@ -187,20 +169,20 @@ package STM32F429x.DCMI is
 
    --  masked interrupt status register
    type MIS_Register is record
-      --  Capture complete masked interrupt status
+      --  Read-only. Capture complete masked interrupt status
       FRAME_MIS     : MIS_FRAME_MIS_Field;
-      --  Overrun masked interrupt status
+      --  Read-only. Overrun masked interrupt status
       OVR_MIS       : MIS_OVR_MIS_Field;
-      --  Synchronization error masked interrupt status
+      --  Read-only. Synchronization error masked interrupt status
       ERR_MIS       : MIS_ERR_MIS_Field;
-      --  VSYNC masked interrupt status
+      --  Read-only. VSYNC masked interrupt status
       VSYNC_MIS     : MIS_VSYNC_MIS_Field;
-      --  Line masked interrupt status
+      --  Read-only. Line masked interrupt status
       LINE_MIS      : MIS_LINE_MIS_Field;
       --  unspecified
       Reserved_5_31 : STM32F429x.UInt27;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for MIS_Register use record
       FRAME_MIS     at 0 range 0 .. 0;
@@ -211,10 +193,6 @@ package STM32F429x.DCMI is
       Reserved_5_31 at 0 range 5 .. 31;
    end record;
 
-   ------------------
-   -- ICR_Register --
-   ------------------
-
    subtype ICR_FRAME_ISC_Field is STM32F429x.Bit;
    subtype ICR_OVR_ISC_Field is STM32F429x.Bit;
    subtype ICR_ERR_ISC_Field is STM32F429x.Bit;
@@ -223,20 +201,20 @@ package STM32F429x.DCMI is
 
    --  interrupt clear register
    type ICR_Register is record
-      --  Capture complete interrupt status clear
+      --  Write-only. Capture complete interrupt status clear
       FRAME_ISC     : ICR_FRAME_ISC_Field := 16#0#;
-      --  Overrun interrupt status clear
+      --  Write-only. Overrun interrupt status clear
       OVR_ISC       : ICR_OVR_ISC_Field := 16#0#;
-      --  Synchronization error interrupt status clear
+      --  Write-only. Synchronization error interrupt status clear
       ERR_ISC       : ICR_ERR_ISC_Field := 16#0#;
-      --  Vertical synch interrupt status clear
+      --  Write-only. Vertical synch interrupt status clear
       VSYNC_ISC     : ICR_VSYNC_ISC_Field := 16#0#;
-      --  line interrupt status clear
+      --  Write-only. line interrupt status clear
       LINE_ISC      : ICR_LINE_ISC_Field := 16#0#;
       --  unspecified
       Reserved_5_31 : STM32F429x.UInt27 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ICR_Register use record
       FRAME_ISC     at 0 range 0 .. 0;
@@ -246,10 +224,6 @@ package STM32F429x.DCMI is
       LINE_ISC      at 0 range 4 .. 4;
       Reserved_5_31 at 0 range 5 .. 31;
    end record;
-
-   -------------------
-   -- ESCR_Register --
-   -------------------
 
    subtype ESCR_FSC_Field is STM32F429x.Byte;
    subtype ESCR_LSC_Field is STM32F429x.Byte;
@@ -267,7 +241,7 @@ package STM32F429x.DCMI is
       --  Frame end delimiter code
       FEC : ESCR_FEC_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ESCR_Register use record
       FSC at 0 range 0 .. 7;
@@ -275,10 +249,6 @@ package STM32F429x.DCMI is
       LEC at 0 range 16 .. 23;
       FEC at 0 range 24 .. 31;
    end record;
-
-   -------------------
-   -- ESUR_Register --
-   -------------------
 
    subtype ESUR_FSU_Field is STM32F429x.Byte;
    subtype ESUR_LSU_Field is STM32F429x.Byte;
@@ -296,7 +266,7 @@ package STM32F429x.DCMI is
       --  Frame end delimiter unmask
       FEU : ESUR_FEU_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ESUR_Register use record
       FSU at 0 range 0 .. 7;
@@ -304,10 +274,6 @@ package STM32F429x.DCMI is
       LEU at 0 range 16 .. 23;
       FEU at 0 range 24 .. 31;
    end record;
-
-   ---------------------
-   -- CWSTRT_Register --
-   ---------------------
 
    subtype CWSTRT_HOFFCNT_Field is STM32F429x.UInt14;
    subtype CWSTRT_VST_Field is STM32F429x.UInt13;
@@ -323,7 +289,7 @@ package STM32F429x.DCMI is
       --  unspecified
       Reserved_29_31 : STM32F429x.UInt3 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CWSTRT_Register use record
       HOFFCNT        at 0 range 0 .. 13;
@@ -331,10 +297,6 @@ package STM32F429x.DCMI is
       VST            at 0 range 16 .. 28;
       Reserved_29_31 at 0 range 29 .. 31;
    end record;
-
-   ---------------------
-   -- CWSIZE_Register --
-   ---------------------
 
    subtype CWSIZE_CAPCNT_Field is STM32F429x.UInt14;
    subtype CWSIZE_VLINE_Field is STM32F429x.UInt14;
@@ -350,7 +312,7 @@ package STM32F429x.DCMI is
       --  unspecified
       Reserved_30_31 : STM32F429x.UInt2 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CWSIZE_Register use record
       CAPCNT         at 0 range 0 .. 13;
@@ -358,10 +320,6 @@ package STM32F429x.DCMI is
       VLINE          at 0 range 16 .. 29;
       Reserved_30_31 at 0 range 30 .. 31;
    end record;
-
-   -----------------
-   -- DR_Register --
-   -----------------
 
    --  DR_Byte array element
    subtype DR_Byte_Element is STM32F429x.Byte;
@@ -377,13 +335,13 @@ package STM32F429x.DCMI is
       case As_Array is
          when False =>
             --  Byte as a value
-            Val : STM32F429x.Word;
+            Val : STM32F429x.UInt32;
          when True =>
             --  Byte as an array
             Arr : DR_Byte_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for DR_Register use record
@@ -398,46 +356,57 @@ package STM32F429x.DCMI is
    --  Digital camera interface
    type DCMI_Peripheral is record
       --  control register 1
-      CR     : CR_Register;
+      CR     : aliased CR_Register;
+      pragma Volatile_Full_Access (CR);
       --  status register
-      SR     : SR_Register;
+      SR     : aliased SR_Register;
+      pragma Volatile_Full_Access (SR);
       --  raw interrupt status register
-      RIS    : RIS_Register;
+      RIS    : aliased RIS_Register;
+      pragma Volatile_Full_Access (RIS);
       --  interrupt enable register
-      IER    : IER_Register;
+      IER    : aliased IER_Register;
+      pragma Volatile_Full_Access (IER);
       --  masked interrupt status register
-      MIS    : MIS_Register;
+      MIS    : aliased MIS_Register;
+      pragma Volatile_Full_Access (MIS);
       --  interrupt clear register
-      ICR    : ICR_Register;
+      ICR    : aliased ICR_Register;
+      pragma Volatile_Full_Access (ICR);
       --  embedded synchronization code register
-      ESCR   : ESCR_Register;
+      ESCR   : aliased ESCR_Register;
+      pragma Volatile_Full_Access (ESCR);
       --  embedded synchronization unmask register
-      ESUR   : ESUR_Register;
+      ESUR   : aliased ESUR_Register;
+      pragma Volatile_Full_Access (ESUR);
       --  crop window start
-      CWSTRT : CWSTRT_Register;
+      CWSTRT : aliased CWSTRT_Register;
+      pragma Volatile_Full_Access (CWSTRT);
       --  crop window size
-      CWSIZE : CWSIZE_Register;
+      CWSIZE : aliased CWSIZE_Register;
+      pragma Volatile_Full_Access (CWSIZE);
       --  data register
-      DR     : DR_Register;
+      DR     : aliased DR_Register;
+      pragma Volatile_Full_Access (DR);
    end record
      with Volatile;
 
    for DCMI_Peripheral use record
-      CR     at 0 range 0 .. 31;
-      SR     at 4 range 0 .. 31;
-      RIS    at 8 range 0 .. 31;
-      IER    at 12 range 0 .. 31;
-      MIS    at 16 range 0 .. 31;
-      ICR    at 20 range 0 .. 31;
-      ESCR   at 24 range 0 .. 31;
-      ESUR   at 28 range 0 .. 31;
-      CWSTRT at 32 range 0 .. 31;
-      CWSIZE at 36 range 0 .. 31;
-      DR     at 40 range 0 .. 31;
+      CR     at 16#0# range 0 .. 31;
+      SR     at 16#4# range 0 .. 31;
+      RIS    at 16#8# range 0 .. 31;
+      IER    at 16#C# range 0 .. 31;
+      MIS    at 16#10# range 0 .. 31;
+      ICR    at 16#14# range 0 .. 31;
+      ESCR   at 16#18# range 0 .. 31;
+      ESUR   at 16#1C# range 0 .. 31;
+      CWSTRT at 16#20# range 0 .. 31;
+      CWSIZE at 16#24# range 0 .. 31;
+      DR     at 16#28# range 0 .. 31;
    end record;
 
    --  Digital camera interface
    DCMI_Periph : aliased DCMI_Peripheral
-     with Import, Address => System'To_Address (16#50050000#);
+     with Import, Address => DCMI_Base;
 
 end STM32F429x.DCMI;

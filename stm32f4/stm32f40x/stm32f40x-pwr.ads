@@ -1,8 +1,9 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
 --  This spec has been automatically generated from STM32F40x.svd
---  see https://github.com/simonjwright/svd2ada
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -12,10 +13,6 @@ package STM32F40x.PWR is
    ---------------
    -- Registers --
    ---------------
-
-   -----------------
-   -- CR_Register --
-   -----------------
 
    subtype CR_LPDS_Field is STM32F40x.Bit;
    subtype CR_PDDS_Field is STM32F40x.Bit;
@@ -52,8 +49,7 @@ package STM32F40x.PWR is
       --  unspecified
       Reserved_15_31 : STM32F40x.UInt17 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CR_Register use record
       LPDS           at 0 range 0 .. 0;
@@ -68,10 +64,6 @@ package STM32F40x.PWR is
       VOS            at 0 range 14 .. 14;
       Reserved_15_31 at 0 range 15 .. 31;
    end record;
-
-   ------------------
-   -- CSR_Register --
-   ------------------
 
    subtype CSR_WUF_Field is STM32F40x.Bit;
    subtype CSR_SBF_Field is STM32F40x.Bit;
@@ -104,8 +96,7 @@ package STM32F40x.PWR is
       --  unspecified
       Reserved_15_31 : STM32F40x.UInt17 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CSR_Register use record
       WUF            at 0 range 0 .. 0;
@@ -127,15 +118,17 @@ package STM32F40x.PWR is
    --  Power control
    type PWR_Peripheral is record
       --  power control register
-      CR  : CR_Register;
+      CR  : aliased CR_Register;
+      pragma Volatile_Full_Access (CR);
       --  power control/status register
-      CSR : CSR_Register;
+      CSR : aliased CSR_Register;
+      pragma Volatile_Full_Access (CSR);
    end record
      with Volatile;
 
    for PWR_Peripheral use record
-      CR  at 0 range 0 .. 31;
-      CSR at 4 range 0 .. 31;
+      CR  at 16#0# range 0 .. 31;
+      CSR at 16#4# range 0 .. 31;
    end record;
 
    --  Power control

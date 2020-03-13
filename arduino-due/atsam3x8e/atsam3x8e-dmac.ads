@@ -1,8 +1,9 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
 --  This spec has been automatically generated from ATSAM3X8E.svd
---  see https://github.com/simonjwright/svd2ada
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -14,107 +15,94 @@ package ATSAM3X8E.DMAC is
    -- Registers --
    ---------------
 
-   -------------------
-   -- GCFG_Register --
-   -------------------
-
    --  Arbiter Configuration
-   type ARB_CFG_Field is
-     (
-      --  Fixed priority arbiter.
+   type GCFG_ARB_CFG_Field is
+     (--  Fixed priority arbiter.
       Fixed,
       --  Modified round robin arbiter.
       Round_Robin)
      with Size => 1;
-   for ARB_CFG_Field use
+   for GCFG_ARB_CFG_Field use
      (Fixed => 0,
       Round_Robin => 1);
 
    --  DMAC Global Configuration Register
-   type GCFG_Register is record
+   type DMAC_GCFG_Register is record
       --  unspecified
       Reserved_0_3  : ATSAM3X8E.UInt4 := 16#0#;
       --  Arbiter Configuration
-      ARB_CFG       : ARB_CFG_Field := Round_Robin;
+      ARB_CFG       : GCFG_ARB_CFG_Field := ATSAM3X8E.DMAC.Round_Robin;
       --  unspecified
       Reserved_5_31 : ATSAM3X8E.UInt27 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for GCFG_Register use record
+   for DMAC_GCFG_Register use record
       Reserved_0_3  at 0 range 0 .. 3;
       ARB_CFG       at 0 range 4 .. 4;
       Reserved_5_31 at 0 range 5 .. 31;
    end record;
 
-   -----------------
-   -- EN_Register --
-   -----------------
-
-   subtype EN_ENABLE_Field is ATSAM3X8E.Bit;
+   subtype DMAC_EN_ENABLE_Field is ATSAM3X8E.Bit;
 
    --  DMAC Enable Register
-   type EN_Register is record
-      ENABLE        : EN_ENABLE_Field := 16#0#;
+   type DMAC_EN_Register is record
+      ENABLE        : DMAC_EN_ENABLE_Field := 16#0#;
       --  unspecified
       Reserved_1_31 : ATSAM3X8E.UInt31 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for EN_Register use record
+   for DMAC_EN_Register use record
       ENABLE        at 0 range 0 .. 0;
       Reserved_1_31 at 0 range 1 .. 31;
    end record;
 
-   -------------------
-   -- SREQ_Register --
-   -------------------
-
-   subtype SREQ_SSREQ0_Field is ATSAM3X8E.Bit;
-   subtype SREQ_DSREQ0_Field is ATSAM3X8E.Bit;
-   subtype SREQ_SSREQ1_Field is ATSAM3X8E.Bit;
-   subtype SREQ_DSREQ1_Field is ATSAM3X8E.Bit;
-   subtype SREQ_SSREQ2_Field is ATSAM3X8E.Bit;
-   subtype SREQ_DSREQ2_Field is ATSAM3X8E.Bit;
-   subtype SREQ_SSREQ3_Field is ATSAM3X8E.Bit;
-   subtype SREQ_DSREQ3_Field is ATSAM3X8E.Bit;
-   subtype SREQ_SSREQ4_Field is ATSAM3X8E.Bit;
-   subtype SREQ_DSREQ4_Field is ATSAM3X8E.Bit;
-   subtype SREQ_SSREQ5_Field is ATSAM3X8E.Bit;
-   subtype SREQ_DSREQ5_Field is ATSAM3X8E.Bit;
+   subtype DMAC_SREQ_SSREQ0_Field is ATSAM3X8E.Bit;
+   subtype DMAC_SREQ_DSREQ0_Field is ATSAM3X8E.Bit;
+   subtype DMAC_SREQ_SSREQ1_Field is ATSAM3X8E.Bit;
+   subtype DMAC_SREQ_DSREQ1_Field is ATSAM3X8E.Bit;
+   subtype DMAC_SREQ_SSREQ2_Field is ATSAM3X8E.Bit;
+   subtype DMAC_SREQ_DSREQ2_Field is ATSAM3X8E.Bit;
+   subtype DMAC_SREQ_SSREQ3_Field is ATSAM3X8E.Bit;
+   subtype DMAC_SREQ_DSREQ3_Field is ATSAM3X8E.Bit;
+   subtype DMAC_SREQ_SSREQ4_Field is ATSAM3X8E.Bit;
+   subtype DMAC_SREQ_DSREQ4_Field is ATSAM3X8E.Bit;
+   subtype DMAC_SREQ_SSREQ5_Field is ATSAM3X8E.Bit;
+   subtype DMAC_SREQ_DSREQ5_Field is ATSAM3X8E.Bit;
 
    --  DMAC Software Single Request Register
-   type SREQ_Register is record
+   type DMAC_SREQ_Register is record
       --  Source Request
-      SSREQ0         : SREQ_SSREQ0_Field := 16#0#;
+      SSREQ0         : DMAC_SREQ_SSREQ0_Field := 16#0#;
       --  Destination Request
-      DSREQ0         : SREQ_DSREQ0_Field := 16#0#;
+      DSREQ0         : DMAC_SREQ_DSREQ0_Field := 16#0#;
       --  Source Request
-      SSREQ1         : SREQ_SSREQ1_Field := 16#0#;
+      SSREQ1         : DMAC_SREQ_SSREQ1_Field := 16#0#;
       --  Destination Request
-      DSREQ1         : SREQ_DSREQ1_Field := 16#0#;
+      DSREQ1         : DMAC_SREQ_DSREQ1_Field := 16#0#;
       --  Source Request
-      SSREQ2         : SREQ_SSREQ2_Field := 16#0#;
+      SSREQ2         : DMAC_SREQ_SSREQ2_Field := 16#0#;
       --  Destination Request
-      DSREQ2         : SREQ_DSREQ2_Field := 16#0#;
+      DSREQ2         : DMAC_SREQ_DSREQ2_Field := 16#0#;
       --  Source Request
-      SSREQ3         : SREQ_SSREQ3_Field := 16#0#;
+      SSREQ3         : DMAC_SREQ_SSREQ3_Field := 16#0#;
       --  Destination Request
-      DSREQ3         : SREQ_DSREQ3_Field := 16#0#;
+      DSREQ3         : DMAC_SREQ_DSREQ3_Field := 16#0#;
       --  Source Request
-      SSREQ4         : SREQ_SSREQ4_Field := 16#0#;
+      SSREQ4         : DMAC_SREQ_SSREQ4_Field := 16#0#;
       --  Destination Request
-      DSREQ4         : SREQ_DSREQ4_Field := 16#0#;
+      DSREQ4         : DMAC_SREQ_DSREQ4_Field := 16#0#;
       --  Source Request
-      SSREQ5         : SREQ_SSREQ5_Field := 16#0#;
+      SSREQ5         : DMAC_SREQ_SSREQ5_Field := 16#0#;
       --  Destination Request
-      DSREQ5         : SREQ_DSREQ5_Field := 16#0#;
+      DSREQ5         : DMAC_SREQ_DSREQ5_Field := 16#0#;
       --  unspecified
       Reserved_12_31 : ATSAM3X8E.UInt20 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for SREQ_Register use record
+   for DMAC_SREQ_Register use record
       SSREQ0         at 0 range 0 .. 0;
       DSREQ0         at 0 range 1 .. 1;
       SSREQ1         at 0 range 2 .. 2;
@@ -130,55 +118,51 @@ package ATSAM3X8E.DMAC is
       Reserved_12_31 at 0 range 12 .. 31;
    end record;
 
-   -------------------
-   -- CREQ_Register --
-   -------------------
-
-   subtype CREQ_SCREQ0_Field is ATSAM3X8E.Bit;
-   subtype CREQ_DCREQ0_Field is ATSAM3X8E.Bit;
-   subtype CREQ_SCREQ1_Field is ATSAM3X8E.Bit;
-   subtype CREQ_DCREQ1_Field is ATSAM3X8E.Bit;
-   subtype CREQ_SCREQ2_Field is ATSAM3X8E.Bit;
-   subtype CREQ_DCREQ2_Field is ATSAM3X8E.Bit;
-   subtype CREQ_SCREQ3_Field is ATSAM3X8E.Bit;
-   subtype CREQ_DCREQ3_Field is ATSAM3X8E.Bit;
-   subtype CREQ_SCREQ4_Field is ATSAM3X8E.Bit;
-   subtype CREQ_DCREQ4_Field is ATSAM3X8E.Bit;
-   subtype CREQ_SCREQ5_Field is ATSAM3X8E.Bit;
-   subtype CREQ_DCREQ5_Field is ATSAM3X8E.Bit;
+   subtype DMAC_CREQ_SCREQ0_Field is ATSAM3X8E.Bit;
+   subtype DMAC_CREQ_DCREQ0_Field is ATSAM3X8E.Bit;
+   subtype DMAC_CREQ_SCREQ1_Field is ATSAM3X8E.Bit;
+   subtype DMAC_CREQ_DCREQ1_Field is ATSAM3X8E.Bit;
+   subtype DMAC_CREQ_SCREQ2_Field is ATSAM3X8E.Bit;
+   subtype DMAC_CREQ_DCREQ2_Field is ATSAM3X8E.Bit;
+   subtype DMAC_CREQ_SCREQ3_Field is ATSAM3X8E.Bit;
+   subtype DMAC_CREQ_DCREQ3_Field is ATSAM3X8E.Bit;
+   subtype DMAC_CREQ_SCREQ4_Field is ATSAM3X8E.Bit;
+   subtype DMAC_CREQ_DCREQ4_Field is ATSAM3X8E.Bit;
+   subtype DMAC_CREQ_SCREQ5_Field is ATSAM3X8E.Bit;
+   subtype DMAC_CREQ_DCREQ5_Field is ATSAM3X8E.Bit;
 
    --  DMAC Software Chunk Transfer Request Register
-   type CREQ_Register is record
+   type DMAC_CREQ_Register is record
       --  Source Chunk Request
-      SCREQ0         : CREQ_SCREQ0_Field := 16#0#;
+      SCREQ0         : DMAC_CREQ_SCREQ0_Field := 16#0#;
       --  Destination Chunk Request
-      DCREQ0         : CREQ_DCREQ0_Field := 16#0#;
+      DCREQ0         : DMAC_CREQ_DCREQ0_Field := 16#0#;
       --  Source Chunk Request
-      SCREQ1         : CREQ_SCREQ1_Field := 16#0#;
+      SCREQ1         : DMAC_CREQ_SCREQ1_Field := 16#0#;
       --  Destination Chunk Request
-      DCREQ1         : CREQ_DCREQ1_Field := 16#0#;
+      DCREQ1         : DMAC_CREQ_DCREQ1_Field := 16#0#;
       --  Source Chunk Request
-      SCREQ2         : CREQ_SCREQ2_Field := 16#0#;
+      SCREQ2         : DMAC_CREQ_SCREQ2_Field := 16#0#;
       --  Destination Chunk Request
-      DCREQ2         : CREQ_DCREQ2_Field := 16#0#;
+      DCREQ2         : DMAC_CREQ_DCREQ2_Field := 16#0#;
       --  Source Chunk Request
-      SCREQ3         : CREQ_SCREQ3_Field := 16#0#;
+      SCREQ3         : DMAC_CREQ_SCREQ3_Field := 16#0#;
       --  Destination Chunk Request
-      DCREQ3         : CREQ_DCREQ3_Field := 16#0#;
+      DCREQ3         : DMAC_CREQ_DCREQ3_Field := 16#0#;
       --  Source Chunk Request
-      SCREQ4         : CREQ_SCREQ4_Field := 16#0#;
+      SCREQ4         : DMAC_CREQ_SCREQ4_Field := 16#0#;
       --  Destination Chunk Request
-      DCREQ4         : CREQ_DCREQ4_Field := 16#0#;
+      DCREQ4         : DMAC_CREQ_DCREQ4_Field := 16#0#;
       --  Source Chunk Request
-      SCREQ5         : CREQ_SCREQ5_Field := 16#0#;
+      SCREQ5         : DMAC_CREQ_SCREQ5_Field := 16#0#;
       --  Destination Chunk Request
-      DCREQ5         : CREQ_DCREQ5_Field := 16#0#;
+      DCREQ5         : DMAC_CREQ_DCREQ5_Field := 16#0#;
       --  unspecified
       Reserved_12_31 : ATSAM3X8E.UInt20 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for CREQ_Register use record
+   for DMAC_CREQ_Register use record
       SCREQ0         at 0 range 0 .. 0;
       DCREQ0         at 0 range 1 .. 1;
       SCREQ1         at 0 range 2 .. 2;
@@ -194,55 +178,51 @@ package ATSAM3X8E.DMAC is
       Reserved_12_31 at 0 range 12 .. 31;
    end record;
 
-   -------------------
-   -- LAST_Register --
-   -------------------
-
-   subtype LAST_SLAST0_Field is ATSAM3X8E.Bit;
-   subtype LAST_DLAST0_Field is ATSAM3X8E.Bit;
-   subtype LAST_SLAST1_Field is ATSAM3X8E.Bit;
-   subtype LAST_DLAST1_Field is ATSAM3X8E.Bit;
-   subtype LAST_SLAST2_Field is ATSAM3X8E.Bit;
-   subtype LAST_DLAST2_Field is ATSAM3X8E.Bit;
-   subtype LAST_SLAST3_Field is ATSAM3X8E.Bit;
-   subtype LAST_DLAST3_Field is ATSAM3X8E.Bit;
-   subtype LAST_SLAST4_Field is ATSAM3X8E.Bit;
-   subtype LAST_DLAST4_Field is ATSAM3X8E.Bit;
-   subtype LAST_SLAST5_Field is ATSAM3X8E.Bit;
-   subtype LAST_DLAST5_Field is ATSAM3X8E.Bit;
+   subtype DMAC_LAST_SLAST0_Field is ATSAM3X8E.Bit;
+   subtype DMAC_LAST_DLAST0_Field is ATSAM3X8E.Bit;
+   subtype DMAC_LAST_SLAST1_Field is ATSAM3X8E.Bit;
+   subtype DMAC_LAST_DLAST1_Field is ATSAM3X8E.Bit;
+   subtype DMAC_LAST_SLAST2_Field is ATSAM3X8E.Bit;
+   subtype DMAC_LAST_DLAST2_Field is ATSAM3X8E.Bit;
+   subtype DMAC_LAST_SLAST3_Field is ATSAM3X8E.Bit;
+   subtype DMAC_LAST_DLAST3_Field is ATSAM3X8E.Bit;
+   subtype DMAC_LAST_SLAST4_Field is ATSAM3X8E.Bit;
+   subtype DMAC_LAST_DLAST4_Field is ATSAM3X8E.Bit;
+   subtype DMAC_LAST_SLAST5_Field is ATSAM3X8E.Bit;
+   subtype DMAC_LAST_DLAST5_Field is ATSAM3X8E.Bit;
 
    --  DMAC Software Last Transfer Flag Register
-   type LAST_Register is record
+   type DMAC_LAST_Register is record
       --  Source Last
-      SLAST0         : LAST_SLAST0_Field := 16#0#;
+      SLAST0         : DMAC_LAST_SLAST0_Field := 16#0#;
       --  Destination Last
-      DLAST0         : LAST_DLAST0_Field := 16#0#;
+      DLAST0         : DMAC_LAST_DLAST0_Field := 16#0#;
       --  Source Last
-      SLAST1         : LAST_SLAST1_Field := 16#0#;
+      SLAST1         : DMAC_LAST_SLAST1_Field := 16#0#;
       --  Destination Last
-      DLAST1         : LAST_DLAST1_Field := 16#0#;
+      DLAST1         : DMAC_LAST_DLAST1_Field := 16#0#;
       --  Source Last
-      SLAST2         : LAST_SLAST2_Field := 16#0#;
+      SLAST2         : DMAC_LAST_SLAST2_Field := 16#0#;
       --  Destination Last
-      DLAST2         : LAST_DLAST2_Field := 16#0#;
+      DLAST2         : DMAC_LAST_DLAST2_Field := 16#0#;
       --  Source Last
-      SLAST3         : LAST_SLAST3_Field := 16#0#;
+      SLAST3         : DMAC_LAST_SLAST3_Field := 16#0#;
       --  Destination Last
-      DLAST3         : LAST_DLAST3_Field := 16#0#;
+      DLAST3         : DMAC_LAST_DLAST3_Field := 16#0#;
       --  Source Last
-      SLAST4         : LAST_SLAST4_Field := 16#0#;
+      SLAST4         : DMAC_LAST_SLAST4_Field := 16#0#;
       --  Destination Last
-      DLAST4         : LAST_DLAST4_Field := 16#0#;
+      DLAST4         : DMAC_LAST_DLAST4_Field := 16#0#;
       --  Source Last
-      SLAST5         : LAST_SLAST5_Field := 16#0#;
+      SLAST5         : DMAC_LAST_SLAST5_Field := 16#0#;
       --  Destination Last
-      DLAST5         : LAST_DLAST5_Field := 16#0#;
+      DLAST5         : DMAC_LAST_DLAST5_Field := 16#0#;
       --  unspecified
       Reserved_12_31 : ATSAM3X8E.UInt20 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for LAST_Register use record
+   for DMAC_LAST_Register use record
       SLAST0         at 0 range 0 .. 0;
       DLAST0         at 0 range 1 .. 1;
       SLAST1         at 0 range 2 .. 2;
@@ -258,23 +238,16 @@ package ATSAM3X8E.DMAC is
       Reserved_12_31 at 0 range 12 .. 31;
    end record;
 
-   ---------------------
-   -- EBCIER_Register --
-   ---------------------
+   --  DMAC_EBCIER_BTC array element
+   subtype DMAC_EBCIER_BTC_Element is ATSAM3X8E.Bit;
 
-   ----------------
-   -- EBCIER.BTC --
-   ----------------
-
-   --  EBCIER_BTC array element
-   subtype EBCIER_BTC_Element is ATSAM3X8E.Bit;
-
-   --  EBCIER_BTC array
-   type EBCIER_BTC_Field_Array is array (0 .. 5) of EBCIER_BTC_Element
+   --  DMAC_EBCIER_BTC array
+   type DMAC_EBCIER_BTC_Field_Array is array (0 .. 5)
+     of DMAC_EBCIER_BTC_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for EBCIER_BTC
-   type EBCIER_BTC_Field
+   --  Type definition for DMAC_EBCIER_BTC
+   type DMAC_EBCIER_BTC_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -283,29 +256,26 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  BTC as an array
-            Arr : EBCIER_BTC_Field_Array;
+            Arr : DMAC_EBCIER_BTC_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for EBCIER_BTC_Field use record
+   for DMAC_EBCIER_BTC_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
-   -----------------
-   -- EBCIER.CBTC --
-   -----------------
+   --  DMAC_EBCIER_CBTC array element
+   subtype DMAC_EBCIER_CBTC_Element is ATSAM3X8E.Bit;
 
-   --  EBCIER_CBTC array element
-   subtype EBCIER_CBTC_Element is ATSAM3X8E.Bit;
-
-   --  EBCIER_CBTC array
-   type EBCIER_CBTC_Field_Array is array (0 .. 5) of EBCIER_CBTC_Element
+   --  DMAC_EBCIER_CBTC array
+   type DMAC_EBCIER_CBTC_Field_Array is array (0 .. 5)
+     of DMAC_EBCIER_CBTC_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for EBCIER_CBTC
-   type EBCIER_CBTC_Field
+   --  Type definition for DMAC_EBCIER_CBTC
+   type DMAC_EBCIER_CBTC_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -314,29 +284,26 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  CBTC as an array
-            Arr : EBCIER_CBTC_Field_Array;
+            Arr : DMAC_EBCIER_CBTC_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for EBCIER_CBTC_Field use record
+   for DMAC_EBCIER_CBTC_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
-   ----------------
-   -- EBCIER.ERR --
-   ----------------
+   --  DMAC_EBCIER_ERR array element
+   subtype DMAC_EBCIER_ERR_Element is ATSAM3X8E.Bit;
 
-   --  EBCIER_ERR array element
-   subtype EBCIER_ERR_Element is ATSAM3X8E.Bit;
-
-   --  EBCIER_ERR array
-   type EBCIER_ERR_Field_Array is array (0 .. 5) of EBCIER_ERR_Element
+   --  DMAC_EBCIER_ERR array
+   type DMAC_EBCIER_ERR_Field_Array is array (0 .. 5)
+     of DMAC_EBCIER_ERR_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for EBCIER_ERR
-   type EBCIER_ERR_Field
+   --  Type definition for DMAC_EBCIER_ERR
+   type DMAC_EBCIER_ERR_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -345,35 +312,38 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  ERR as an array
-            Arr : EBCIER_ERR_Field_Array;
+            Arr : DMAC_EBCIER_ERR_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for EBCIER_ERR_Field use record
+   for DMAC_EBCIER_ERR_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
    --  DMAC Error, Chained Buffer Transfer Completed Interrupt and Buffer
    --  Transfer Completed Interrupt Enable register.
-   type EBCIER_Register is record
+   type DMAC_EBCIER_Register is record
       --  Write-only. Buffer Transfer Completed [5:0]
-      BTC            : EBCIER_BTC_Field := (As_Array => False, Val => 16#0#);
+      BTC            : DMAC_EBCIER_BTC_Field :=
+                        (As_Array => False, Val => 16#0#);
       --  unspecified
       Reserved_6_7   : ATSAM3X8E.UInt2 := 16#0#;
       --  Write-only. Chained Buffer Transfer Completed [5:0]
-      CBTC           : EBCIER_CBTC_Field := (As_Array => False, Val => 16#0#);
+      CBTC           : DMAC_EBCIER_CBTC_Field :=
+                        (As_Array => False, Val => 16#0#);
       --  unspecified
       Reserved_14_15 : ATSAM3X8E.UInt2 := 16#0#;
       --  Write-only. Access Error [5:0]
-      ERR            : EBCIER_ERR_Field := (As_Array => False, Val => 16#0#);
+      ERR            : DMAC_EBCIER_ERR_Field :=
+                        (As_Array => False, Val => 16#0#);
       --  unspecified
       Reserved_22_31 : ATSAM3X8E.UInt10 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for EBCIER_Register use record
+   for DMAC_EBCIER_Register use record
       BTC            at 0 range 0 .. 5;
       Reserved_6_7   at 0 range 6 .. 7;
       CBTC           at 0 range 8 .. 13;
@@ -382,23 +352,16 @@ package ATSAM3X8E.DMAC is
       Reserved_22_31 at 0 range 22 .. 31;
    end record;
 
-   ---------------------
-   -- EBCIDR_Register --
-   ---------------------
+   --  DMAC_EBCIDR_BTC array element
+   subtype DMAC_EBCIDR_BTC_Element is ATSAM3X8E.Bit;
 
-   ----------------
-   -- EBCIDR.BTC --
-   ----------------
-
-   --  EBCIDR_BTC array element
-   subtype EBCIDR_BTC_Element is ATSAM3X8E.Bit;
-
-   --  EBCIDR_BTC array
-   type EBCIDR_BTC_Field_Array is array (0 .. 5) of EBCIDR_BTC_Element
+   --  DMAC_EBCIDR_BTC array
+   type DMAC_EBCIDR_BTC_Field_Array is array (0 .. 5)
+     of DMAC_EBCIDR_BTC_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for EBCIDR_BTC
-   type EBCIDR_BTC_Field
+   --  Type definition for DMAC_EBCIDR_BTC
+   type DMAC_EBCIDR_BTC_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -407,29 +370,26 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  BTC as an array
-            Arr : EBCIDR_BTC_Field_Array;
+            Arr : DMAC_EBCIDR_BTC_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for EBCIDR_BTC_Field use record
+   for DMAC_EBCIDR_BTC_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
-   -----------------
-   -- EBCIDR.CBTC --
-   -----------------
+   --  DMAC_EBCIDR_CBTC array element
+   subtype DMAC_EBCIDR_CBTC_Element is ATSAM3X8E.Bit;
 
-   --  EBCIDR_CBTC array element
-   subtype EBCIDR_CBTC_Element is ATSAM3X8E.Bit;
-
-   --  EBCIDR_CBTC array
-   type EBCIDR_CBTC_Field_Array is array (0 .. 5) of EBCIDR_CBTC_Element
+   --  DMAC_EBCIDR_CBTC array
+   type DMAC_EBCIDR_CBTC_Field_Array is array (0 .. 5)
+     of DMAC_EBCIDR_CBTC_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for EBCIDR_CBTC
-   type EBCIDR_CBTC_Field
+   --  Type definition for DMAC_EBCIDR_CBTC
+   type DMAC_EBCIDR_CBTC_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -438,29 +398,26 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  CBTC as an array
-            Arr : EBCIDR_CBTC_Field_Array;
+            Arr : DMAC_EBCIDR_CBTC_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for EBCIDR_CBTC_Field use record
+   for DMAC_EBCIDR_CBTC_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
-   ----------------
-   -- EBCIDR.ERR --
-   ----------------
+   --  DMAC_EBCIDR_ERR array element
+   subtype DMAC_EBCIDR_ERR_Element is ATSAM3X8E.Bit;
 
-   --  EBCIDR_ERR array element
-   subtype EBCIDR_ERR_Element is ATSAM3X8E.Bit;
-
-   --  EBCIDR_ERR array
-   type EBCIDR_ERR_Field_Array is array (0 .. 5) of EBCIDR_ERR_Element
+   --  DMAC_EBCIDR_ERR array
+   type DMAC_EBCIDR_ERR_Field_Array is array (0 .. 5)
+     of DMAC_EBCIDR_ERR_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for EBCIDR_ERR
-   type EBCIDR_ERR_Field
+   --  Type definition for DMAC_EBCIDR_ERR
+   type DMAC_EBCIDR_ERR_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -469,35 +426,38 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  ERR as an array
-            Arr : EBCIDR_ERR_Field_Array;
+            Arr : DMAC_EBCIDR_ERR_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for EBCIDR_ERR_Field use record
+   for DMAC_EBCIDR_ERR_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
    --  DMAC Error, Chained Buffer Transfer Completed Interrupt and Buffer
    --  Transfer Completed Interrupt Disable register.
-   type EBCIDR_Register is record
+   type DMAC_EBCIDR_Register is record
       --  Write-only. Buffer Transfer Completed [5:0]
-      BTC            : EBCIDR_BTC_Field := (As_Array => False, Val => 16#0#);
+      BTC            : DMAC_EBCIDR_BTC_Field :=
+                        (As_Array => False, Val => 16#0#);
       --  unspecified
       Reserved_6_7   : ATSAM3X8E.UInt2 := 16#0#;
       --  Write-only. Chained Buffer Transfer Completed [5:0]
-      CBTC           : EBCIDR_CBTC_Field := (As_Array => False, Val => 16#0#);
+      CBTC           : DMAC_EBCIDR_CBTC_Field :=
+                        (As_Array => False, Val => 16#0#);
       --  unspecified
       Reserved_14_15 : ATSAM3X8E.UInt2 := 16#0#;
       --  Write-only. Access Error [5:0]
-      ERR            : EBCIDR_ERR_Field := (As_Array => False, Val => 16#0#);
+      ERR            : DMAC_EBCIDR_ERR_Field :=
+                        (As_Array => False, Val => 16#0#);
       --  unspecified
       Reserved_22_31 : ATSAM3X8E.UInt10 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for EBCIDR_Register use record
+   for DMAC_EBCIDR_Register use record
       BTC            at 0 range 0 .. 5;
       Reserved_6_7   at 0 range 6 .. 7;
       CBTC           at 0 range 8 .. 13;
@@ -506,23 +466,16 @@ package ATSAM3X8E.DMAC is
       Reserved_22_31 at 0 range 22 .. 31;
    end record;
 
-   ---------------------
-   -- EBCIMR_Register --
-   ---------------------
+   --  DMAC_EBCIMR_BTC array element
+   subtype DMAC_EBCIMR_BTC_Element is ATSAM3X8E.Bit;
 
-   ----------------
-   -- EBCIMR.BTC --
-   ----------------
-
-   --  EBCIMR_BTC array element
-   subtype EBCIMR_BTC_Element is ATSAM3X8E.Bit;
-
-   --  EBCIMR_BTC array
-   type EBCIMR_BTC_Field_Array is array (0 .. 5) of EBCIMR_BTC_Element
+   --  DMAC_EBCIMR_BTC array
+   type DMAC_EBCIMR_BTC_Field_Array is array (0 .. 5)
+     of DMAC_EBCIMR_BTC_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for EBCIMR_BTC
-   type EBCIMR_BTC_Field
+   --  Type definition for DMAC_EBCIMR_BTC
+   type DMAC_EBCIMR_BTC_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -531,29 +484,26 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  BTC as an array
-            Arr : EBCIMR_BTC_Field_Array;
+            Arr : DMAC_EBCIMR_BTC_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for EBCIMR_BTC_Field use record
+   for DMAC_EBCIMR_BTC_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
-   -----------------
-   -- EBCIMR.CBTC --
-   -----------------
+   --  DMAC_EBCIMR_CBTC array element
+   subtype DMAC_EBCIMR_CBTC_Element is ATSAM3X8E.Bit;
 
-   --  EBCIMR_CBTC array element
-   subtype EBCIMR_CBTC_Element is ATSAM3X8E.Bit;
-
-   --  EBCIMR_CBTC array
-   type EBCIMR_CBTC_Field_Array is array (0 .. 5) of EBCIMR_CBTC_Element
+   --  DMAC_EBCIMR_CBTC array
+   type DMAC_EBCIMR_CBTC_Field_Array is array (0 .. 5)
+     of DMAC_EBCIMR_CBTC_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for EBCIMR_CBTC
-   type EBCIMR_CBTC_Field
+   --  Type definition for DMAC_EBCIMR_CBTC
+   type DMAC_EBCIMR_CBTC_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -562,29 +512,26 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  CBTC as an array
-            Arr : EBCIMR_CBTC_Field_Array;
+            Arr : DMAC_EBCIMR_CBTC_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for EBCIMR_CBTC_Field use record
+   for DMAC_EBCIMR_CBTC_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
-   ----------------
-   -- EBCIMR.ERR --
-   ----------------
+   --  DMAC_EBCIMR_ERR array element
+   subtype DMAC_EBCIMR_ERR_Element is ATSAM3X8E.Bit;
 
-   --  EBCIMR_ERR array element
-   subtype EBCIMR_ERR_Element is ATSAM3X8E.Bit;
-
-   --  EBCIMR_ERR array
-   type EBCIMR_ERR_Field_Array is array (0 .. 5) of EBCIMR_ERR_Element
+   --  DMAC_EBCIMR_ERR array
+   type DMAC_EBCIMR_ERR_Field_Array is array (0 .. 5)
+     of DMAC_EBCIMR_ERR_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for EBCIMR_ERR
-   type EBCIMR_ERR_Field
+   --  Type definition for DMAC_EBCIMR_ERR
+   type DMAC_EBCIMR_ERR_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -593,35 +540,35 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  ERR as an array
-            Arr : EBCIMR_ERR_Field_Array;
+            Arr : DMAC_EBCIMR_ERR_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for EBCIMR_ERR_Field use record
+   for DMAC_EBCIMR_ERR_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
    --  DMAC Error, Chained Buffer Transfer Completed Interrupt and Buffer
    --  transfer completed Mask Register.
-   type EBCIMR_Register is record
+   type DMAC_EBCIMR_Register is record
       --  Read-only. Buffer Transfer Completed [5:0]
-      BTC            : EBCIMR_BTC_Field := (As_Array => False, Val => 16#0#);
+      BTC            : DMAC_EBCIMR_BTC_Field;
       --  unspecified
       Reserved_6_7   : ATSAM3X8E.UInt2;
       --  Read-only. Chained Buffer Transfer Completed [5:0]
-      CBTC           : EBCIMR_CBTC_Field := (As_Array => False, Val => 16#0#);
+      CBTC           : DMAC_EBCIMR_CBTC_Field;
       --  unspecified
       Reserved_14_15 : ATSAM3X8E.UInt2;
       --  Read-only. Access Error [5:0]
-      ERR            : EBCIMR_ERR_Field := (As_Array => False, Val => 16#0#);
+      ERR            : DMAC_EBCIMR_ERR_Field;
       --  unspecified
       Reserved_22_31 : ATSAM3X8E.UInt10;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for EBCIMR_Register use record
+   for DMAC_EBCIMR_Register use record
       BTC            at 0 range 0 .. 5;
       Reserved_6_7   at 0 range 6 .. 7;
       CBTC           at 0 range 8 .. 13;
@@ -630,23 +577,16 @@ package ATSAM3X8E.DMAC is
       Reserved_22_31 at 0 range 22 .. 31;
    end record;
 
-   ---------------------
-   -- EBCISR_Register --
-   ---------------------
+   --  DMAC_EBCISR_BTC array element
+   subtype DMAC_EBCISR_BTC_Element is ATSAM3X8E.Bit;
 
-   ----------------
-   -- EBCISR.BTC --
-   ----------------
-
-   --  EBCISR_BTC array element
-   subtype EBCISR_BTC_Element is ATSAM3X8E.Bit;
-
-   --  EBCISR_BTC array
-   type EBCISR_BTC_Field_Array is array (0 .. 5) of EBCISR_BTC_Element
+   --  DMAC_EBCISR_BTC array
+   type DMAC_EBCISR_BTC_Field_Array is array (0 .. 5)
+     of DMAC_EBCISR_BTC_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for EBCISR_BTC
-   type EBCISR_BTC_Field
+   --  Type definition for DMAC_EBCISR_BTC
+   type DMAC_EBCISR_BTC_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -655,29 +595,26 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  BTC as an array
-            Arr : EBCISR_BTC_Field_Array;
+            Arr : DMAC_EBCISR_BTC_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for EBCISR_BTC_Field use record
+   for DMAC_EBCISR_BTC_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
-   -----------------
-   -- EBCISR.CBTC --
-   -----------------
+   --  DMAC_EBCISR_CBTC array element
+   subtype DMAC_EBCISR_CBTC_Element is ATSAM3X8E.Bit;
 
-   --  EBCISR_CBTC array element
-   subtype EBCISR_CBTC_Element is ATSAM3X8E.Bit;
-
-   --  EBCISR_CBTC array
-   type EBCISR_CBTC_Field_Array is array (0 .. 5) of EBCISR_CBTC_Element
+   --  DMAC_EBCISR_CBTC array
+   type DMAC_EBCISR_CBTC_Field_Array is array (0 .. 5)
+     of DMAC_EBCISR_CBTC_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for EBCISR_CBTC
-   type EBCISR_CBTC_Field
+   --  Type definition for DMAC_EBCISR_CBTC
+   type DMAC_EBCISR_CBTC_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -686,29 +623,26 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  CBTC as an array
-            Arr : EBCISR_CBTC_Field_Array;
+            Arr : DMAC_EBCISR_CBTC_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for EBCISR_CBTC_Field use record
+   for DMAC_EBCISR_CBTC_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
-   ----------------
-   -- EBCISR.ERR --
-   ----------------
+   --  DMAC_EBCISR_ERR array element
+   subtype DMAC_EBCISR_ERR_Element is ATSAM3X8E.Bit;
 
-   --  EBCISR_ERR array element
-   subtype EBCISR_ERR_Element is ATSAM3X8E.Bit;
-
-   --  EBCISR_ERR array
-   type EBCISR_ERR_Field_Array is array (0 .. 5) of EBCISR_ERR_Element
+   --  DMAC_EBCISR_ERR array
+   type DMAC_EBCISR_ERR_Field_Array is array (0 .. 5)
+     of DMAC_EBCISR_ERR_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for EBCISR_ERR
-   type EBCISR_ERR_Field
+   --  Type definition for DMAC_EBCISR_ERR
+   type DMAC_EBCISR_ERR_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -717,35 +651,35 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  ERR as an array
-            Arr : EBCISR_ERR_Field_Array;
+            Arr : DMAC_EBCISR_ERR_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for EBCISR_ERR_Field use record
+   for DMAC_EBCISR_ERR_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
    --  DMAC Error, Chained Buffer Transfer Completed Interrupt and Buffer
    --  transfer completed Status Register.
-   type EBCISR_Register is record
+   type DMAC_EBCISR_Register is record
       --  Read-only. Buffer Transfer Completed [5:0]
-      BTC            : EBCISR_BTC_Field := (As_Array => False, Val => 16#0#);
+      BTC            : DMAC_EBCISR_BTC_Field;
       --  unspecified
       Reserved_6_7   : ATSAM3X8E.UInt2;
       --  Read-only. Chained Buffer Transfer Completed [5:0]
-      CBTC           : EBCISR_CBTC_Field := (As_Array => False, Val => 16#0#);
+      CBTC           : DMAC_EBCISR_CBTC_Field;
       --  unspecified
       Reserved_14_15 : ATSAM3X8E.UInt2;
       --  Read-only. Access Error [5:0]
-      ERR            : EBCISR_ERR_Field := (As_Array => False, Val => 16#0#);
+      ERR            : DMAC_EBCISR_ERR_Field;
       --  unspecified
       Reserved_22_31 : ATSAM3X8E.UInt10;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for EBCISR_Register use record
+   for DMAC_EBCISR_Register use record
       BTC            at 0 range 0 .. 5;
       Reserved_6_7   at 0 range 6 .. 7;
       CBTC           at 0 range 8 .. 13;
@@ -754,23 +688,15 @@ package ATSAM3X8E.DMAC is
       Reserved_22_31 at 0 range 22 .. 31;
    end record;
 
-   -------------------
-   -- CHER_Register --
-   -------------------
+   --  DMAC_CHER_ENA array element
+   subtype DMAC_CHER_ENA_Element is ATSAM3X8E.Bit;
 
-   --------------
-   -- CHER.ENA --
-   --------------
-
-   --  CHER_ENA array element
-   subtype CHER_ENA_Element is ATSAM3X8E.Bit;
-
-   --  CHER_ENA array
-   type CHER_ENA_Field_Array is array (0 .. 5) of CHER_ENA_Element
+   --  DMAC_CHER_ENA array
+   type DMAC_CHER_ENA_Field_Array is array (0 .. 5) of DMAC_CHER_ENA_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for CHER_ENA
-   type CHER_ENA_Field
+   --  Type definition for DMAC_CHER_ENA
+   type DMAC_CHER_ENA_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -779,29 +705,26 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  ENA as an array
-            Arr : CHER_ENA_Field_Array;
+            Arr : DMAC_CHER_ENA_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for CHER_ENA_Field use record
+   for DMAC_CHER_ENA_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
-   ---------------
-   -- CHER.SUSP --
-   ---------------
+   --  DMAC_CHER_SUSP array element
+   subtype DMAC_CHER_SUSP_Element is ATSAM3X8E.Bit;
 
-   --  CHER_SUSP array element
-   subtype CHER_SUSP_Element is ATSAM3X8E.Bit;
-
-   --  CHER_SUSP array
-   type CHER_SUSP_Field_Array is array (0 .. 5) of CHER_SUSP_Element
+   --  DMAC_CHER_SUSP array
+   type DMAC_CHER_SUSP_Field_Array is array (0 .. 5)
+     of DMAC_CHER_SUSP_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for CHER_SUSP
-   type CHER_SUSP_Field
+   --  Type definition for DMAC_CHER_SUSP
+   type DMAC_CHER_SUSP_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -810,29 +733,26 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  SUSP as an array
-            Arr : CHER_SUSP_Field_Array;
+            Arr : DMAC_CHER_SUSP_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for CHER_SUSP_Field use record
+   for DMAC_CHER_SUSP_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
-   ---------------
-   -- CHER.KEEP --
-   ---------------
+   --  DMAC_CHER_KEEP array element
+   subtype DMAC_CHER_KEEP_Element is ATSAM3X8E.Bit;
 
-   --  CHER_KEEP array element
-   subtype CHER_KEEP_Element is ATSAM3X8E.Bit;
-
-   --  CHER_KEEP array
-   type CHER_KEEP_Field_Array is array (0 .. 5) of CHER_KEEP_Element
+   --  DMAC_CHER_KEEP array
+   type DMAC_CHER_KEEP_Field_Array is array (0 .. 5)
+     of DMAC_CHER_KEEP_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for CHER_KEEP
-   type CHER_KEEP_Field
+   --  Type definition for DMAC_CHER_KEEP
+   type DMAC_CHER_KEEP_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -841,34 +761,37 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  KEEP as an array
-            Arr : CHER_KEEP_Field_Array;
+            Arr : DMAC_CHER_KEEP_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for CHER_KEEP_Field use record
+   for DMAC_CHER_KEEP_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
    --  DMAC Channel Handler Enable Register
-   type CHER_Register is record
+   type DMAC_CHER_Register is record
       --  Write-only. Enable [5:0]
-      ENA            : CHER_ENA_Field := (As_Array => False, Val => 16#0#);
+      ENA            : DMAC_CHER_ENA_Field :=
+                        (As_Array => False, Val => 16#0#);
       --  unspecified
       Reserved_6_7   : ATSAM3X8E.UInt2 := 16#0#;
       --  Write-only. Suspend [5:0]
-      SUSP           : CHER_SUSP_Field := (As_Array => False, Val => 16#0#);
+      SUSP           : DMAC_CHER_SUSP_Field :=
+                        (As_Array => False, Val => 16#0#);
       --  unspecified
       Reserved_14_23 : ATSAM3X8E.UInt10 := 16#0#;
       --  Write-only. Keep on [5:0]
-      KEEP           : CHER_KEEP_Field := (As_Array => False, Val => 16#0#);
+      KEEP           : DMAC_CHER_KEEP_Field :=
+                        (As_Array => False, Val => 16#0#);
       --  unspecified
       Reserved_30_31 : ATSAM3X8E.UInt2 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for CHER_Register use record
+   for DMAC_CHER_Register use record
       ENA            at 0 range 0 .. 5;
       Reserved_6_7   at 0 range 6 .. 7;
       SUSP           at 0 range 8 .. 13;
@@ -877,23 +800,15 @@ package ATSAM3X8E.DMAC is
       Reserved_30_31 at 0 range 30 .. 31;
    end record;
 
-   -------------------
-   -- CHDR_Register --
-   -------------------
+   --  DMAC_CHDR_DIS array element
+   subtype DMAC_CHDR_DIS_Element is ATSAM3X8E.Bit;
 
-   --------------
-   -- CHDR.DIS --
-   --------------
-
-   --  CHDR_DIS array element
-   subtype CHDR_DIS_Element is ATSAM3X8E.Bit;
-
-   --  CHDR_DIS array
-   type CHDR_DIS_Field_Array is array (0 .. 5) of CHDR_DIS_Element
+   --  DMAC_CHDR_DIS array
+   type DMAC_CHDR_DIS_Field_Array is array (0 .. 5) of DMAC_CHDR_DIS_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for CHDR_DIS
-   type CHDR_DIS_Field
+   --  Type definition for DMAC_CHDR_DIS
+   type DMAC_CHDR_DIS_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -902,29 +817,25 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  DIS as an array
-            Arr : CHDR_DIS_Field_Array;
+            Arr : DMAC_CHDR_DIS_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for CHDR_DIS_Field use record
+   for DMAC_CHDR_DIS_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
-   --------------
-   -- CHDR.RES --
-   --------------
+   --  DMAC_CHDR_RES array element
+   subtype DMAC_CHDR_RES_Element is ATSAM3X8E.Bit;
 
-   --  CHDR_RES array element
-   subtype CHDR_RES_Element is ATSAM3X8E.Bit;
-
-   --  CHDR_RES array
-   type CHDR_RES_Field_Array is array (0 .. 5) of CHDR_RES_Element
+   --  DMAC_CHDR_RES array
+   type DMAC_CHDR_RES_Field_Array is array (0 .. 5) of DMAC_CHDR_RES_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for CHDR_RES
-   type CHDR_RES_Field
+   --  Type definition for DMAC_CHDR_RES
+   type DMAC_CHDR_RES_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -933,53 +844,47 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  RES as an array
-            Arr : CHDR_RES_Field_Array;
+            Arr : DMAC_CHDR_RES_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for CHDR_RES_Field use record
+   for DMAC_CHDR_RES_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
    --  DMAC Channel Handler Disable Register
-   type CHDR_Register is record
+   type DMAC_CHDR_Register is record
       --  Write-only. Disable [5:0]
-      DIS            : CHDR_DIS_Field := (As_Array => False, Val => 16#0#);
+      DIS            : DMAC_CHDR_DIS_Field :=
+                        (As_Array => False, Val => 16#0#);
       --  unspecified
       Reserved_6_7   : ATSAM3X8E.UInt2 := 16#0#;
       --  Write-only. Resume [5:0]
-      RES            : CHDR_RES_Field := (As_Array => False, Val => 16#0#);
+      RES            : DMAC_CHDR_RES_Field :=
+                        (As_Array => False, Val => 16#0#);
       --  unspecified
       Reserved_14_31 : ATSAM3X8E.UInt18 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for CHDR_Register use record
+   for DMAC_CHDR_Register use record
       DIS            at 0 range 0 .. 5;
       Reserved_6_7   at 0 range 6 .. 7;
       RES            at 0 range 8 .. 13;
       Reserved_14_31 at 0 range 14 .. 31;
    end record;
 
-   -------------------
-   -- CHSR_Register --
-   -------------------
+   --  DMAC_CHSR_ENA array element
+   subtype DMAC_CHSR_ENA_Element is ATSAM3X8E.Bit;
 
-   --------------
-   -- CHSR.ENA --
-   --------------
-
-   --  CHSR_ENA array element
-   subtype CHSR_ENA_Element is ATSAM3X8E.Bit;
-
-   --  CHSR_ENA array
-   type CHSR_ENA_Field_Array is array (0 .. 5) of CHSR_ENA_Element
+   --  DMAC_CHSR_ENA array
+   type DMAC_CHSR_ENA_Field_Array is array (0 .. 5) of DMAC_CHSR_ENA_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for CHSR_ENA
-   type CHSR_ENA_Field
+   --  Type definition for DMAC_CHSR_ENA
+   type DMAC_CHSR_ENA_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -988,29 +893,26 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  ENA as an array
-            Arr : CHSR_ENA_Field_Array;
+            Arr : DMAC_CHSR_ENA_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for CHSR_ENA_Field use record
+   for DMAC_CHSR_ENA_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
-   ---------------
-   -- CHSR.SUSP --
-   ---------------
+   --  DMAC_CHSR_SUSP array element
+   subtype DMAC_CHSR_SUSP_Element is ATSAM3X8E.Bit;
 
-   --  CHSR_SUSP array element
-   subtype CHSR_SUSP_Element is ATSAM3X8E.Bit;
-
-   --  CHSR_SUSP array
-   type CHSR_SUSP_Field_Array is array (0 .. 5) of CHSR_SUSP_Element
+   --  DMAC_CHSR_SUSP array
+   type DMAC_CHSR_SUSP_Field_Array is array (0 .. 5)
+     of DMAC_CHSR_SUSP_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for CHSR_SUSP
-   type CHSR_SUSP_Field
+   --  Type definition for DMAC_CHSR_SUSP
+   type DMAC_CHSR_SUSP_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -1019,29 +921,26 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  SUSP as an array
-            Arr : CHSR_SUSP_Field_Array;
+            Arr : DMAC_CHSR_SUSP_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for CHSR_SUSP_Field use record
+   for DMAC_CHSR_SUSP_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
-   ---------------
-   -- CHSR.EMPT --
-   ---------------
+   --  DMAC_CHSR_EMPT array element
+   subtype DMAC_CHSR_EMPT_Element is ATSAM3X8E.Bit;
 
-   --  CHSR_EMPT array element
-   subtype CHSR_EMPT_Element is ATSAM3X8E.Bit;
-
-   --  CHSR_EMPT array
-   type CHSR_EMPT_Field_Array is array (0 .. 5) of CHSR_EMPT_Element
+   --  DMAC_CHSR_EMPT array
+   type DMAC_CHSR_EMPT_Field_Array is array (0 .. 5)
+     of DMAC_CHSR_EMPT_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for CHSR_EMPT
-   type CHSR_EMPT_Field
+   --  Type definition for DMAC_CHSR_EMPT
+   type DMAC_CHSR_EMPT_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -1050,29 +949,26 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  EMPT as an array
-            Arr : CHSR_EMPT_Field_Array;
+            Arr : DMAC_CHSR_EMPT_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for CHSR_EMPT_Field use record
+   for DMAC_CHSR_EMPT_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
-   ---------------
-   -- CHSR.STAL --
-   ---------------
+   --  DMAC_CHSR_STAL array element
+   subtype DMAC_CHSR_STAL_Element is ATSAM3X8E.Bit;
 
-   --  CHSR_STAL array element
-   subtype CHSR_STAL_Element is ATSAM3X8E.Bit;
-
-   --  CHSR_STAL array
-   type CHSR_STAL_Field_Array is array (0 .. 5) of CHSR_STAL_Element
+   --  DMAC_CHSR_STAL array
+   type DMAC_CHSR_STAL_Field_Array is array (0 .. 5)
+     of DMAC_CHSR_STAL_Element
      with Component_Size => 1, Size => 6;
 
-   --  Type definition for CHSR_STAL
-   type CHSR_STAL_Field
+   --  Type definition for DMAC_CHSR_STAL
+   type DMAC_CHSR_STAL_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -1081,38 +977,38 @@ package ATSAM3X8E.DMAC is
             Val : ATSAM3X8E.UInt6;
          when True =>
             --  STAL as an array
-            Arr : CHSR_STAL_Field_Array;
+            Arr : DMAC_CHSR_STAL_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 6;
 
-   for CHSR_STAL_Field use record
+   for DMAC_CHSR_STAL_Field use record
       Val at 0 range 0 .. 5;
       Arr at 0 range 0 .. 5;
    end record;
 
    --  DMAC Channel Handler Status Register
-   type CHSR_Register is record
+   type DMAC_CHSR_Register is record
       --  Read-only. Enable [5:0]
-      ENA            : CHSR_ENA_Field := (As_Array => False, Val => 16#0#);
+      ENA            : DMAC_CHSR_ENA_Field;
       --  unspecified
       Reserved_6_7   : ATSAM3X8E.UInt2;
       --  Read-only. Suspend [5:0]
-      SUSP           : CHSR_SUSP_Field := (As_Array => False, Val => 16#0#);
+      SUSP           : DMAC_CHSR_SUSP_Field;
       --  unspecified
       Reserved_14_15 : ATSAM3X8E.UInt2;
       --  Read-only. Empty [5:0]
-      EMPT           : CHSR_EMPT_Field := (As_Array => False, Val => 16#1#);
+      EMPT           : DMAC_CHSR_EMPT_Field;
       --  unspecified
       Reserved_22_23 : ATSAM3X8E.UInt2;
       --  Read-only. Stalled [5:0]
-      STAL           : CHSR_STAL_Field := (As_Array => False, Val => 16#0#);
+      STAL           : DMAC_CHSR_STAL_Field;
       --  unspecified
       Reserved_30_31 : ATSAM3X8E.UInt2;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for CHSR_Register use record
+   for DMAC_CHSR_Register use record
       ENA            at 0 range 0 .. 5;
       Reserved_6_7   at 0 range 6 .. 7;
       SUSP           at 0 range 8 .. 13;
@@ -1123,36 +1019,27 @@ package ATSAM3X8E.DMAC is
       Reserved_30_31 at 0 range 30 .. 31;
    end record;
 
-   -------------------
-   -- DSCR_Register --
-   -------------------
-
-   subtype DSCR0_DSCR_Field is ATSAM3X8E.UInt30;
+   subtype DSCR_DSCR_Field is ATSAM3X8E.UInt30;
 
    --  DMAC Channel Descriptor Address Register (ch_num = 0)
    type DSCR_Register is record
       --  unspecified
       Reserved_0_1 : ATSAM3X8E.UInt2 := 16#0#;
       --  Buffer Transfer Descriptor Address
-      DSCR         : DSCR0_DSCR_Field := 16#0#;
+      DSCR         : DSCR_DSCR_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for DSCR_Register use record
       Reserved_0_1 at 0 range 0 .. 1;
       DSCR         at 0 range 2 .. 31;
    end record;
 
-   --------------------
-   -- CTRLA_Register --
-   --------------------
-
-   subtype CTRLA0_BTSIZE_Field is ATSAM3X8E.Short;
+   subtype CTRLA_BTSIZE_Field is ATSAM3X8E.UInt16;
 
    --  Source Chunk Transfer Size.
-   type SCSIZE_Field is
-     (
-      --  1 data transferred
+   type CTRLA0_SCSIZE_Field is
+     (--  1 data transferred
       Chk_1,
       --  4 data transferred
       Chk_4,
@@ -1169,7 +1056,7 @@ package ATSAM3X8E.DMAC is
       --  256 data transferred
       Chk_256)
      with Size => 3;
-   for SCSIZE_Field use
+   for CTRLA0_SCSIZE_Field use
      (Chk_1 => 0,
       Chk_4 => 1,
       Chk_8 => 2,
@@ -1180,9 +1067,8 @@ package ATSAM3X8E.DMAC is
       Chk_256 => 7);
 
    --  Destination Chunk Transfer Size
-   type DCSIZE_Field is
-     (
-      --  1 data transferred
+   type CTRLA0_DCSIZE_Field is
+     (--  1 data transferred
       Chk_1,
       --  4 data transferred
       Chk_4,
@@ -1199,7 +1085,7 @@ package ATSAM3X8E.DMAC is
       --  256 data transferred
       Chk_256)
      with Size => 3;
-   for DCSIZE_Field use
+   for CTRLA0_DCSIZE_Field use
      (Chk_1 => 0,
       Chk_4 => 1,
       Chk_8 => 2,
@@ -1210,60 +1096,58 @@ package ATSAM3X8E.DMAC is
       Chk_256 => 7);
 
    --  Transfer Width for the Source
-   type SRC_WIDTH_Field is
-     (
-      --  the transfer size is set to 8-bit width
+   type CTRLA0_SRC_WIDTH_Field is
+     (--  the transfer size is set to 8-bit width
       Byte,
       --  the transfer size is set to 16-bit width
       Half_Word,
       --  the transfer size is set to 32-bit width
       Word)
      with Size => 2;
-   for SRC_WIDTH_Field use
+   for CTRLA0_SRC_WIDTH_Field use
      (Byte => 0,
       Half_Word => 1,
       Word => 2);
 
    --  Transfer Width for the Destination
-   type DST_WIDTH_Field is
-     (
-      --  the transfer size is set to 8-bit width
+   type CTRLA0_DST_WIDTH_Field is
+     (--  the transfer size is set to 8-bit width
       Byte,
       --  the transfer size is set to 16-bit width
       Half_Word,
       --  the transfer size is set to 32-bit width
       Word)
      with Size => 2;
-   for DST_WIDTH_Field use
+   for CTRLA0_DST_WIDTH_Field use
      (Byte => 0,
       Half_Word => 1,
       Word => 2);
 
-   subtype CTRLA0_DONE_Field is ATSAM3X8E.Bit;
+   subtype CTRLA_DONE_Field is ATSAM3X8E.Bit;
 
    --  DMAC Channel Control A Register (ch_num = 0)
    type CTRLA_Register is record
       --  Buffer Transfer Size
-      BTSIZE         : CTRLA0_BTSIZE_Field := 16#0#;
+      BTSIZE         : CTRLA_BTSIZE_Field := 16#0#;
       --  Source Chunk Transfer Size.
-      SCSIZE         : SCSIZE_Field := Chk_1;
+      SCSIZE         : CTRLA0_SCSIZE_Field := ATSAM3X8E.DMAC.Chk_1;
       --  unspecified
       Reserved_19_19 : ATSAM3X8E.Bit := 16#0#;
       --  Destination Chunk Transfer Size
-      DCSIZE         : DCSIZE_Field := Chk_1;
+      DCSIZE         : CTRLA0_DCSIZE_Field := ATSAM3X8E.DMAC.Chk_1;
       --  unspecified
       Reserved_23_23 : ATSAM3X8E.Bit := 16#0#;
       --  Transfer Width for the Source
-      SRC_WIDTH      : SRC_WIDTH_Field := Byte;
+      SRC_WIDTH      : CTRLA0_SRC_WIDTH_Field := ATSAM3X8E.DMAC.Byte;
       --  unspecified
       Reserved_26_27 : ATSAM3X8E.UInt2 := 16#0#;
       --  Transfer Width for the Destination
-      DST_WIDTH      : DST_WIDTH_Field := Byte;
+      DST_WIDTH      : CTRLA0_DST_WIDTH_Field := ATSAM3X8E.DMAC.Byte;
       --  unspecified
       Reserved_30_30 : ATSAM3X8E.Bit := 16#0#;
-      DONE           : CTRLA0_DONE_Field := 16#0#;
+      DONE           : CTRLA_DONE_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CTRLA_Register use record
       BTSIZE         at 0 range 0 .. 15;
@@ -1278,40 +1162,32 @@ package ATSAM3X8E.DMAC is
       DONE           at 0 range 31 .. 31;
    end record;
 
-   --------------------
-   -- CTRLB_Register --
-   --------------------
-
    --  Source Address Descriptor
-   type SRC_DSCR_Field is
-     (
-      --  Source address is updated when the descriptor is fetched from the
-      --  memory.
+   type CTRLB0_SRC_DSCR_Field is
+     (--  Source address is updated when the descriptor is fetched from the memory.
       Fetch_From_Mem,
       --  Buffer Descriptor Fetch operation is disabled for the source.
       Fetch_Disable)
      with Size => 1;
-   for SRC_DSCR_Field use
+   for CTRLB0_SRC_DSCR_Field use
      (Fetch_From_Mem => 0,
       Fetch_Disable => 1);
 
    --  Destination Address Descriptor
-   type DST_DSCR_Field is
-     (
-      --  Destination address is updated when the descriptor is fetched from
-      --  the memory.
+   type CTRLB0_DST_DSCR_Field is
+     (--  Destination address is updated when the descriptor is fetched from the
+--  memory.
       Fetch_From_Mem,
       --  Buffer Descriptor Fetch operation is disabled for the destination.
       Fetch_Disable)
      with Size => 1;
-   for DST_DSCR_Field use
+   for CTRLB0_DST_DSCR_Field use
      (Fetch_From_Mem => 0,
       Fetch_Disable => 1);
 
    --  Flow Control
-   type FC_Field is
-     (
-      --  Memory-to-Memory Transfer DMAC is flow controller
+   type CTRLB0_FC_Field is
+     (--  Memory-to-Memory Transfer DMAC is flow controller
       Mem2Mem_Dma_Fc,
       --  Memory-to-Peripheral Transfer DMAC is flow controller
       Mem2Per_Dma_Fc,
@@ -1320,67 +1196,65 @@ package ATSAM3X8E.DMAC is
       --  Peripheral-to-Peripheral Transfer DMAC is flow controller
       Per2Per_Dma_Fc)
      with Size => 3;
-   for FC_Field use
+   for CTRLB0_FC_Field use
      (Mem2Mem_Dma_Fc => 0,
       Mem2Per_Dma_Fc => 1,
       Per2Mem_Dma_Fc => 2,
       Per2Per_Dma_Fc => 3);
 
    --  Incrementing, Decrementing or Fixed Address for the Source
-   type SRC_INCR_Field is
-     (
-      --  The source address is incremented
+   type CTRLB0_SRC_INCR_Field is
+     (--  The source address is incremented
       Incrementing,
       --  The source address is decremented
       Decrementing,
       --  The source address remains unchanged
       Fixed)
      with Size => 2;
-   for SRC_INCR_Field use
+   for CTRLB0_SRC_INCR_Field use
      (Incrementing => 0,
       Decrementing => 1,
       Fixed => 2);
 
    --  Incrementing, Decrementing or Fixed Address for the Destination
-   type DST_INCR_Field is
-     (
-      --  The destination address is incremented
+   type CTRLB0_DST_INCR_Field is
+     (--  The destination address is incremented
       Incrementing,
       --  The destination address is decremented
       Decrementing,
       --  The destination address remains unchanged
       Fixed)
      with Size => 2;
-   for DST_INCR_Field use
+   for CTRLB0_DST_INCR_Field use
      (Incrementing => 0,
       Decrementing => 1,
       Fixed => 2);
 
-   subtype CTRLB0_IEN_Field is ATSAM3X8E.Bit;
+   subtype CTRLB_IEN_Field is ATSAM3X8E.Bit;
 
    --  DMAC Channel Control B Register (ch_num = 0)
    type CTRLB_Register is record
       --  unspecified
-      Reserved_0_15  : ATSAM3X8E.Short := 16#0#;
+      Reserved_0_15  : ATSAM3X8E.UInt16 := 16#0#;
       --  Source Address Descriptor
-      SRC_DSCR       : SRC_DSCR_Field := Fetch_From_Mem;
+      SRC_DSCR       : CTRLB0_SRC_DSCR_Field := ATSAM3X8E.DMAC.Fetch_From_Mem;
       --  unspecified
       Reserved_17_19 : ATSAM3X8E.UInt3 := 16#0#;
       --  Destination Address Descriptor
-      DST_DSCR       : DST_DSCR_Field := Fetch_From_Mem;
+      DST_DSCR       : CTRLB0_DST_DSCR_Field := ATSAM3X8E.DMAC.Fetch_From_Mem;
       --  Flow Control
-      FC             : FC_Field := Mem2Mem_Dma_Fc;
+      FC             : CTRLB0_FC_Field := ATSAM3X8E.DMAC.Mem2Mem_Dma_Fc;
       --  Incrementing, Decrementing or Fixed Address for the Source
-      SRC_INCR       : SRC_INCR_Field := Incrementing;
+      SRC_INCR       : CTRLB0_SRC_INCR_Field := ATSAM3X8E.DMAC.Incrementing;
       --  unspecified
       Reserved_26_27 : ATSAM3X8E.UInt2 := 16#0#;
       --  Incrementing, Decrementing or Fixed Address for the Destination
-      DST_INCR       : DST_INCR_Field := Incrementing;
-      IEN            : CTRLB0_IEN_Field := 16#0#;
+      DST_INCR       : CTRLB0_DST_INCR_Field := ATSAM3X8E.DMAC.Incrementing;
+      IEN            : CTRLB_IEN_Field := 16#0#;
       --  unspecified
       Reserved_31_31 : ATSAM3X8E.Bit := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CTRLB_Register use record
       Reserved_0_15  at 0 range 0 .. 15;
@@ -1395,102 +1269,91 @@ package ATSAM3X8E.DMAC is
       Reserved_31_31 at 0 range 31 .. 31;
    end record;
 
-   ------------------
-   -- CFG_Register --
-   ------------------
-
-   subtype CFG0_SRC_PER_Field is ATSAM3X8E.UInt4;
-   subtype CFG0_DST_PER_Field is ATSAM3X8E.UInt4;
+   subtype CFG_SRC_PER_Field is ATSAM3X8E.UInt4;
+   subtype CFG_DST_PER_Field is ATSAM3X8E.UInt4;
 
    --  Software or Hardware Selection for the Source
-   type SRC_H2SEL_Field is
-     (
-      --  Software handshaking interface is used to trigger a transfer request.
+   type CFG0_SRC_H2SEL_Field is
+     (--  Software handshaking interface is used to trigger a transfer request.
       Sw,
       --  Hardware handshaking interface is used to trigger a transfer request.
       Hw)
      with Size => 1;
-   for SRC_H2SEL_Field use
+   for CFG0_SRC_H2SEL_Field use
      (Sw => 0,
       Hw => 1);
 
    --  Software or Hardware Selection for the Destination
-   type DST_H2SEL_Field is
-     (
-      --  Software handshaking interface is used to trigger a transfer request.
+   type CFG0_DST_H2SEL_Field is
+     (--  Software handshaking interface is used to trigger a transfer request.
       Sw,
       --  Hardware handshaking interface is used to trigger a transfer request.
       Hw)
      with Size => 1;
-   for DST_H2SEL_Field use
+   for CFG0_DST_H2SEL_Field use
      (Sw => 0,
       Hw => 1);
 
    --  Stop On Done
-   type SOD_Field is
-     (
-      --  STOP ON DONE disabled, the descriptor fetch operation ignores DONE
-      --  Field of CTRLA register.
+   type CFG0_SOD_Field is
+     (--  STOP ON DONE disabled, the descriptor fetch operation ignores DONE Field of
+--  CTRLA register.
       Disable,
-      --  STOP ON DONE activated, the DMAC module is automatically disabled if
-      --  DONE FIELD is set to 1.
+      --  STOP ON DONE activated, the DMAC module is automatically disabled if DONE
+--  FIELD is set to 1.
       Enable)
      with Size => 1;
-   for SOD_Field use
+   for CFG0_SOD_Field use
      (Disable => 0,
       Enable => 1);
 
    --  Interface Lock
-   type LOCK_IF_Field is
-     (
-      --  Interface Lock capability is disabled
+   type CFG0_LOCK_IF_Field is
+     (--  Interface Lock capability is disabled
       Disable,
       --  Interface Lock capability is enabled
       Enable)
      with Size => 1;
-   for LOCK_IF_Field use
+   for CFG0_LOCK_IF_Field use
      (Disable => 0,
       Enable => 1);
 
    --  Bus Lock
-   type LOCK_B_Field is
-     (
-      --  AHB Bus Locking capability is disabled.
+   type CFG0_LOCK_B_Field is
+     (--  AHB Bus Locking capability is disabled.
       Disable)
      with Size => 1;
-   for LOCK_B_Field use
+   for CFG0_LOCK_B_Field use
      (Disable => 0);
 
    --  Master Interface Arbiter Lock
-   type LOCK_IF_L_Field is
-     (
-      --  The Master Interface Arbiter is locked by the channel x for a chunk
-      --  transfer.
+   type CFG0_LOCK_IF_L_Field is
+     (--  The Master Interface Arbiter is locked by the channel x for a chunk
+--  transfer.
       Chunk,
       --  The Master Interface Arbiter is locked by the channel x for a buffer
-      --  transfer.
+--  transfer.
       Buffer)
      with Size => 1;
-   for LOCK_IF_L_Field use
+   for CFG0_LOCK_IF_L_Field use
      (Chunk => 0,
       Buffer => 1);
 
-   subtype CFG0_AHB_PROT_Field is ATSAM3X8E.UInt3;
+   subtype CFG_AHB_PROT_Field is ATSAM3X8E.UInt3;
 
    --  FIFO Configuration
-   type FIFOCFG_Field is
-     (
-      --  The largest defined length AHB burst is performed on the destination
-      --  AHB interface.
+   type CFG0_FIFOCFG_Field is
+     (--  The largest defined length AHB burst is performed on the destination AHB
+--  interface.
       Alap_Cfg,
-      --  When half FIFO size is available/filled, a source/destination request
-      --  is serviced.
+      --  When half FIFO size is available/filled, a source/destination request is
+--  serviced.
       Half_Cfg,
-      --  When there is enough space/data available to perform a single AHB
-      --  access, then the request is serviced.
+      --  When there is enough space/data available to perform a single AHB access,
+--  then the request is serviced.
       Asap_Cfg)
      with Size => 2;
-   for FIFOCFG_Field use
+   for CFG0_FIFOCFG_Field use
      (Alap_Cfg => 0,
       Half_Cfg => 1,
       Asap_Cfg => 2);
@@ -1498,41 +1361,41 @@ package ATSAM3X8E.DMAC is
    --  DMAC Channel Configuration Register (ch_num = 0)
    type CFG_Register is record
       --  Source with Peripheral identifier
-      SRC_PER        : CFG0_SRC_PER_Field := 16#0#;
+      SRC_PER        : CFG_SRC_PER_Field := 16#0#;
       --  Destination with Peripheral identifier
-      DST_PER        : CFG0_DST_PER_Field := 16#0#;
+      DST_PER        : CFG_DST_PER_Field := 16#0#;
       --  unspecified
       Reserved_8_8   : ATSAM3X8E.Bit := 16#0#;
       --  Software or Hardware Selection for the Source
-      SRC_H2SEL      : SRC_H2SEL_Field := Sw;
+      SRC_H2SEL      : CFG0_SRC_H2SEL_Field := ATSAM3X8E.DMAC.Sw;
       --  unspecified
       Reserved_10_12 : ATSAM3X8E.UInt3 := 16#0#;
       --  Software or Hardware Selection for the Destination
-      DST_H2SEL      : DST_H2SEL_Field := Sw;
+      DST_H2SEL      : CFG0_DST_H2SEL_Field := ATSAM3X8E.DMAC.Sw;
       --  unspecified
       Reserved_14_15 : ATSAM3X8E.UInt2 := 16#0#;
       --  Stop On Done
-      SOD            : SOD_Field := Disable;
+      SOD            : CFG0_SOD_Field := ATSAM3X8E.DMAC.Disable;
       --  unspecified
       Reserved_17_19 : ATSAM3X8E.UInt3 := 16#0#;
       --  Interface Lock
-      LOCK_IF        : LOCK_IF_Field := Disable;
+      LOCK_IF        : CFG0_LOCK_IF_Field := ATSAM3X8E.DMAC.Disable;
       --  Bus Lock
-      LOCK_B         : LOCK_B_Field := Disable;
+      LOCK_B         : CFG0_LOCK_B_Field := ATSAM3X8E.DMAC.Disable;
       --  Master Interface Arbiter Lock
-      LOCK_IF_L      : LOCK_IF_L_Field := Chunk;
+      LOCK_IF_L      : CFG0_LOCK_IF_L_Field := ATSAM3X8E.DMAC.Chunk;
       --  unspecified
       Reserved_23_23 : ATSAM3X8E.Bit := 16#0#;
       --  AHB Protection
-      AHB_PROT       : CFG0_AHB_PROT_Field := 16#1#;
+      AHB_PROT       : CFG_AHB_PROT_Field := 16#1#;
       --  unspecified
       Reserved_27_27 : ATSAM3X8E.Bit := 16#0#;
       --  FIFO Configuration
-      FIFOCFG        : FIFOCFG_Field := Alap_Cfg;
+      FIFOCFG        : CFG0_FIFOCFG_Field := ATSAM3X8E.DMAC.Alap_Cfg;
       --  unspecified
       Reserved_30_31 : ATSAM3X8E.UInt2 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CFG_Register use record
       SRC_PER        at 0 range 0 .. 3;
@@ -1554,51 +1417,43 @@ package ATSAM3X8E.DMAC is
       Reserved_30_31 at 0 range 30 .. 31;
    end record;
 
-   -------------------
-   -- WPMR_Register --
-   -------------------
-
-   subtype WPMR_WPEN_Field is ATSAM3X8E.Bit;
-   subtype WPMR_WPKEY_Field is ATSAM3X8E.UInt24;
+   subtype DMAC_WPMR_WPEN_Field is ATSAM3X8E.Bit;
+   subtype DMAC_WPMR_WPKEY_Field is ATSAM3X8E.UInt24;
 
    --  DMAC Write Protect Mode Register
-   type WPMR_Register is record
+   type DMAC_WPMR_Register is record
       --  Write Protect Enable
-      WPEN         : WPMR_WPEN_Field := 16#0#;
+      WPEN         : DMAC_WPMR_WPEN_Field := 16#0#;
       --  unspecified
       Reserved_1_7 : ATSAM3X8E.UInt7 := 16#0#;
       --  Write Protect KEY
-      WPKEY        : WPMR_WPKEY_Field := 16#0#;
+      WPKEY        : DMAC_WPMR_WPKEY_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for WPMR_Register use record
+   for DMAC_WPMR_Register use record
       WPEN         at 0 range 0 .. 0;
       Reserved_1_7 at 0 range 1 .. 7;
       WPKEY        at 0 range 8 .. 31;
    end record;
 
-   -------------------
-   -- WPSR_Register --
-   -------------------
-
-   subtype WPSR_WPVS_Field is ATSAM3X8E.Bit;
-   subtype WPSR_WPVSRC_Field is ATSAM3X8E.Short;
+   subtype DMAC_WPSR_WPVS_Field is ATSAM3X8E.Bit;
+   subtype DMAC_WPSR_WPVSRC_Field is ATSAM3X8E.UInt16;
 
    --  DMAC Write Protect Status Register
-   type WPSR_Register is record
+   type DMAC_WPSR_Register is record
       --  Read-only. Write Protect Violation Status
-      WPVS           : WPSR_WPVS_Field := 16#0#;
+      WPVS           : DMAC_WPSR_WPVS_Field;
       --  unspecified
       Reserved_1_7   : ATSAM3X8E.UInt7;
       --  Read-only. Write Protect Violation Source
-      WPVSRC         : WPSR_WPVSRC_Field := 16#0#;
+      WPVSRC         : DMAC_WPSR_WPVSRC_Field;
       --  unspecified
       Reserved_24_31 : ATSAM3X8E.Byte;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for WPSR_Register use record
+   for DMAC_WPSR_Register use record
       WPVS           at 0 range 0 .. 0;
       Reserved_1_7   at 0 range 1 .. 7;
       WPVSRC         at 0 range 8 .. 23;
@@ -1612,163 +1467,201 @@ package ATSAM3X8E.DMAC is
    --  DMA Controller
    type DMAC_Peripheral is record
       --  DMAC Global Configuration Register
-      GCFG   : GCFG_Register;
+      GCFG   : aliased DMAC_GCFG_Register;
+      pragma Volatile_Full_Access (GCFG);
       --  DMAC Enable Register
-      EN     : EN_Register;
+      EN     : aliased DMAC_EN_Register;
+      pragma Volatile_Full_Access (EN);
       --  DMAC Software Single Request Register
-      SREQ   : SREQ_Register;
+      SREQ   : aliased DMAC_SREQ_Register;
+      pragma Volatile_Full_Access (SREQ);
       --  DMAC Software Chunk Transfer Request Register
-      CREQ   : CREQ_Register;
+      CREQ   : aliased DMAC_CREQ_Register;
+      pragma Volatile_Full_Access (CREQ);
       --  DMAC Software Last Transfer Flag Register
-      LAST   : LAST_Register;
+      LAST   : aliased DMAC_LAST_Register;
+      pragma Volatile_Full_Access (LAST);
       --  DMAC Error, Chained Buffer Transfer Completed Interrupt and Buffer
       --  Transfer Completed Interrupt Enable register.
-      EBCIER : EBCIER_Register;
+      EBCIER : aliased DMAC_EBCIER_Register;
+      pragma Volatile_Full_Access (EBCIER);
       --  DMAC Error, Chained Buffer Transfer Completed Interrupt and Buffer
       --  Transfer Completed Interrupt Disable register.
-      EBCIDR : EBCIDR_Register;
+      EBCIDR : aliased DMAC_EBCIDR_Register;
+      pragma Volatile_Full_Access (EBCIDR);
       --  DMAC Error, Chained Buffer Transfer Completed Interrupt and Buffer
       --  transfer completed Mask Register.
-      EBCIMR : EBCIMR_Register;
+      EBCIMR : aliased DMAC_EBCIMR_Register;
+      pragma Volatile_Full_Access (EBCIMR);
       --  DMAC Error, Chained Buffer Transfer Completed Interrupt and Buffer
       --  transfer completed Status Register.
-      EBCISR : EBCISR_Register;
+      EBCISR : aliased DMAC_EBCISR_Register;
+      pragma Volatile_Full_Access (EBCISR);
       --  DMAC Channel Handler Enable Register
-      CHER   : CHER_Register;
+      CHER   : aliased DMAC_CHER_Register;
+      pragma Volatile_Full_Access (CHER);
       --  DMAC Channel Handler Disable Register
-      CHDR   : CHDR_Register;
+      CHDR   : aliased DMAC_CHDR_Register;
+      pragma Volatile_Full_Access (CHDR);
       --  DMAC Channel Handler Status Register
-      CHSR   : CHSR_Register;
+      CHSR   : aliased DMAC_CHSR_Register;
+      pragma Volatile_Full_Access (CHSR);
       --  DMAC Channel Source Address Register (ch_num = 0)
-      SADDR0 : ATSAM3X8E.Word;
+      SADDR0 : aliased ATSAM3X8E.UInt32;
       --  DMAC Channel Destination Address Register (ch_num = 0)
-      DADDR0 : ATSAM3X8E.Word;
+      DADDR0 : aliased ATSAM3X8E.UInt32;
       --  DMAC Channel Descriptor Address Register (ch_num = 0)
-      DSCR0  : DSCR_Register;
+      DSCR0  : aliased DSCR_Register;
+      pragma Volatile_Full_Access (DSCR0);
       --  DMAC Channel Control A Register (ch_num = 0)
-      CTRLA0 : CTRLA_Register;
+      CTRLA0 : aliased CTRLA_Register;
+      pragma Volatile_Full_Access (CTRLA0);
       --  DMAC Channel Control B Register (ch_num = 0)
-      CTRLB0 : CTRLB_Register;
+      CTRLB0 : aliased CTRLB_Register;
+      pragma Volatile_Full_Access (CTRLB0);
       --  DMAC Channel Configuration Register (ch_num = 0)
-      CFG0   : CFG_Register;
+      CFG0   : aliased CFG_Register;
+      pragma Volatile_Full_Access (CFG0);
       --  DMAC Channel Source Address Register (ch_num = 1)
-      SADDR1 : ATSAM3X8E.Word;
+      SADDR1 : aliased ATSAM3X8E.UInt32;
       --  DMAC Channel Destination Address Register (ch_num = 1)
-      DADDR1 : ATSAM3X8E.Word;
+      DADDR1 : aliased ATSAM3X8E.UInt32;
       --  DMAC Channel Descriptor Address Register (ch_num = 1)
-      DSCR1  : DSCR_Register;
+      DSCR1  : aliased DSCR_Register;
+      pragma Volatile_Full_Access (DSCR1);
       --  DMAC Channel Control A Register (ch_num = 1)
-      CTRLA1 : CTRLA_Register;
+      CTRLA1 : aliased CTRLA_Register;
+      pragma Volatile_Full_Access (CTRLA1);
       --  DMAC Channel Control B Register (ch_num = 1)
-      CTRLB1 : CTRLB_Register;
+      CTRLB1 : aliased CTRLB_Register;
+      pragma Volatile_Full_Access (CTRLB1);
       --  DMAC Channel Configuration Register (ch_num = 1)
-      CFG1   : CFG_Register;
+      CFG1   : aliased CFG_Register;
+      pragma Volatile_Full_Access (CFG1);
       --  DMAC Channel Source Address Register (ch_num = 2)
-      SADDR2 : ATSAM3X8E.Word;
+      SADDR2 : aliased ATSAM3X8E.UInt32;
       --  DMAC Channel Destination Address Register (ch_num = 2)
-      DADDR2 : ATSAM3X8E.Word;
+      DADDR2 : aliased ATSAM3X8E.UInt32;
       --  DMAC Channel Descriptor Address Register (ch_num = 2)
-      DSCR2  : DSCR_Register;
+      DSCR2  : aliased DSCR_Register;
+      pragma Volatile_Full_Access (DSCR2);
       --  DMAC Channel Control A Register (ch_num = 2)
-      CTRLA2 : CTRLA_Register;
+      CTRLA2 : aliased CTRLA_Register;
+      pragma Volatile_Full_Access (CTRLA2);
       --  DMAC Channel Control B Register (ch_num = 2)
-      CTRLB2 : CTRLB_Register;
+      CTRLB2 : aliased CTRLB_Register;
+      pragma Volatile_Full_Access (CTRLB2);
       --  DMAC Channel Configuration Register (ch_num = 2)
-      CFG2   : CFG_Register;
+      CFG2   : aliased CFG_Register;
+      pragma Volatile_Full_Access (CFG2);
       --  DMAC Channel Source Address Register (ch_num = 3)
-      SADDR3 : ATSAM3X8E.Word;
+      SADDR3 : aliased ATSAM3X8E.UInt32;
       --  DMAC Channel Destination Address Register (ch_num = 3)
-      DADDR3 : ATSAM3X8E.Word;
+      DADDR3 : aliased ATSAM3X8E.UInt32;
       --  DMAC Channel Descriptor Address Register (ch_num = 3)
-      DSCR3  : DSCR_Register;
+      DSCR3  : aliased DSCR_Register;
+      pragma Volatile_Full_Access (DSCR3);
       --  DMAC Channel Control A Register (ch_num = 3)
-      CTRLA3 : CTRLA_Register;
+      CTRLA3 : aliased CTRLA_Register;
+      pragma Volatile_Full_Access (CTRLA3);
       --  DMAC Channel Control B Register (ch_num = 3)
-      CTRLB3 : CTRLB_Register;
+      CTRLB3 : aliased CTRLB_Register;
+      pragma Volatile_Full_Access (CTRLB3);
       --  DMAC Channel Configuration Register (ch_num = 3)
-      CFG3   : CFG_Register;
+      CFG3   : aliased CFG_Register;
+      pragma Volatile_Full_Access (CFG3);
       --  DMAC Channel Source Address Register (ch_num = 4)
-      SADDR4 : ATSAM3X8E.Word;
+      SADDR4 : aliased ATSAM3X8E.UInt32;
       --  DMAC Channel Destination Address Register (ch_num = 4)
-      DADDR4 : ATSAM3X8E.Word;
+      DADDR4 : aliased ATSAM3X8E.UInt32;
       --  DMAC Channel Descriptor Address Register (ch_num = 4)
-      DSCR4  : DSCR_Register;
+      DSCR4  : aliased DSCR_Register;
+      pragma Volatile_Full_Access (DSCR4);
       --  DMAC Channel Control A Register (ch_num = 4)
-      CTRLA4 : CTRLA_Register;
+      CTRLA4 : aliased CTRLA_Register;
+      pragma Volatile_Full_Access (CTRLA4);
       --  DMAC Channel Control B Register (ch_num = 4)
-      CTRLB4 : CTRLB_Register;
+      CTRLB4 : aliased CTRLB_Register;
+      pragma Volatile_Full_Access (CTRLB4);
       --  DMAC Channel Configuration Register (ch_num = 4)
-      CFG4   : CFG_Register;
+      CFG4   : aliased CFG_Register;
+      pragma Volatile_Full_Access (CFG4);
       --  DMAC Channel Source Address Register (ch_num = 5)
-      SADDR5 : ATSAM3X8E.Word;
+      SADDR5 : aliased ATSAM3X8E.UInt32;
       --  DMAC Channel Destination Address Register (ch_num = 5)
-      DADDR5 : ATSAM3X8E.Word;
+      DADDR5 : aliased ATSAM3X8E.UInt32;
       --  DMAC Channel Descriptor Address Register (ch_num = 5)
-      DSCR5  : DSCR_Register;
+      DSCR5  : aliased DSCR_Register;
+      pragma Volatile_Full_Access (DSCR5);
       --  DMAC Channel Control A Register (ch_num = 5)
-      CTRLA5 : CTRLA_Register;
+      CTRLA5 : aliased CTRLA_Register;
+      pragma Volatile_Full_Access (CTRLA5);
       --  DMAC Channel Control B Register (ch_num = 5)
-      CTRLB5 : CTRLB_Register;
+      CTRLB5 : aliased CTRLB_Register;
+      pragma Volatile_Full_Access (CTRLB5);
       --  DMAC Channel Configuration Register (ch_num = 5)
-      CFG5   : CFG_Register;
+      CFG5   : aliased CFG_Register;
+      pragma Volatile_Full_Access (CFG5);
       --  DMAC Write Protect Mode Register
-      WPMR   : WPMR_Register;
+      WPMR   : aliased DMAC_WPMR_Register;
+      pragma Volatile_Full_Access (WPMR);
       --  DMAC Write Protect Status Register
-      WPSR   : WPSR_Register;
+      WPSR   : aliased DMAC_WPSR_Register;
+      pragma Volatile_Full_Access (WPSR);
    end record
      with Volatile;
 
    for DMAC_Peripheral use record
-      GCFG   at 0 range 0 .. 31;
-      EN     at 4 range 0 .. 31;
-      SREQ   at 8 range 0 .. 31;
-      CREQ   at 12 range 0 .. 31;
-      LAST   at 16 range 0 .. 31;
-      EBCIER at 24 range 0 .. 31;
-      EBCIDR at 28 range 0 .. 31;
-      EBCIMR at 32 range 0 .. 31;
-      EBCISR at 36 range 0 .. 31;
-      CHER   at 40 range 0 .. 31;
-      CHDR   at 44 range 0 .. 31;
-      CHSR   at 48 range 0 .. 31;
-      SADDR0 at 60 range 0 .. 31;
-      DADDR0 at 64 range 0 .. 31;
-      DSCR0  at 68 range 0 .. 31;
-      CTRLA0 at 72 range 0 .. 31;
-      CTRLB0 at 76 range 0 .. 31;
-      CFG0   at 80 range 0 .. 31;
-      SADDR1 at 100 range 0 .. 31;
-      DADDR1 at 104 range 0 .. 31;
-      DSCR1  at 108 range 0 .. 31;
-      CTRLA1 at 112 range 0 .. 31;
-      CTRLB1 at 116 range 0 .. 31;
-      CFG1   at 120 range 0 .. 31;
-      SADDR2 at 140 range 0 .. 31;
-      DADDR2 at 144 range 0 .. 31;
-      DSCR2  at 148 range 0 .. 31;
-      CTRLA2 at 152 range 0 .. 31;
-      CTRLB2 at 156 range 0 .. 31;
-      CFG2   at 160 range 0 .. 31;
-      SADDR3 at 180 range 0 .. 31;
-      DADDR3 at 184 range 0 .. 31;
-      DSCR3  at 188 range 0 .. 31;
-      CTRLA3 at 192 range 0 .. 31;
-      CTRLB3 at 196 range 0 .. 31;
-      CFG3   at 200 range 0 .. 31;
-      SADDR4 at 220 range 0 .. 31;
-      DADDR4 at 224 range 0 .. 31;
-      DSCR4  at 228 range 0 .. 31;
-      CTRLA4 at 232 range 0 .. 31;
-      CTRLB4 at 236 range 0 .. 31;
-      CFG4   at 240 range 0 .. 31;
-      SADDR5 at 260 range 0 .. 31;
-      DADDR5 at 264 range 0 .. 31;
-      DSCR5  at 268 range 0 .. 31;
-      CTRLA5 at 272 range 0 .. 31;
-      CTRLB5 at 276 range 0 .. 31;
-      CFG5   at 280 range 0 .. 31;
-      WPMR   at 484 range 0 .. 31;
-      WPSR   at 488 range 0 .. 31;
+      GCFG   at 16#0# range 0 .. 31;
+      EN     at 16#4# range 0 .. 31;
+      SREQ   at 16#8# range 0 .. 31;
+      CREQ   at 16#C# range 0 .. 31;
+      LAST   at 16#10# range 0 .. 31;
+      EBCIER at 16#18# range 0 .. 31;
+      EBCIDR at 16#1C# range 0 .. 31;
+      EBCIMR at 16#20# range 0 .. 31;
+      EBCISR at 16#24# range 0 .. 31;
+      CHER   at 16#28# range 0 .. 31;
+      CHDR   at 16#2C# range 0 .. 31;
+      CHSR   at 16#30# range 0 .. 31;
+      SADDR0 at 16#3C# range 0 .. 31;
+      DADDR0 at 16#40# range 0 .. 31;
+      DSCR0  at 16#44# range 0 .. 31;
+      CTRLA0 at 16#48# range 0 .. 31;
+      CTRLB0 at 16#4C# range 0 .. 31;
+      CFG0   at 16#50# range 0 .. 31;
+      SADDR1 at 16#64# range 0 .. 31;
+      DADDR1 at 16#68# range 0 .. 31;
+      DSCR1  at 16#6C# range 0 .. 31;
+      CTRLA1 at 16#70# range 0 .. 31;
+      CTRLB1 at 16#74# range 0 .. 31;
+      CFG1   at 16#78# range 0 .. 31;
+      SADDR2 at 16#8C# range 0 .. 31;
+      DADDR2 at 16#90# range 0 .. 31;
+      DSCR2  at 16#94# range 0 .. 31;
+      CTRLA2 at 16#98# range 0 .. 31;
+      CTRLB2 at 16#9C# range 0 .. 31;
+      CFG2   at 16#A0# range 0 .. 31;
+      SADDR3 at 16#B4# range 0 .. 31;
+      DADDR3 at 16#B8# range 0 .. 31;
+      DSCR3  at 16#BC# range 0 .. 31;
+      CTRLA3 at 16#C0# range 0 .. 31;
+      CTRLB3 at 16#C4# range 0 .. 31;
+      CFG3   at 16#C8# range 0 .. 31;
+      SADDR4 at 16#DC# range 0 .. 31;
+      DADDR4 at 16#E0# range 0 .. 31;
+      DSCR4  at 16#E4# range 0 .. 31;
+      CTRLA4 at 16#E8# range 0 .. 31;
+      CTRLB4 at 16#EC# range 0 .. 31;
+      CFG4   at 16#F0# range 0 .. 31;
+      SADDR5 at 16#104# range 0 .. 31;
+      DADDR5 at 16#108# range 0 .. 31;
+      DSCR5  at 16#10C# range 0 .. 31;
+      CTRLA5 at 16#110# range 0 .. 31;
+      CTRLB5 at 16#114# range 0 .. 31;
+      CFG5   at 16#118# range 0 .. 31;
+      WPMR   at 16#1E4# range 0 .. 31;
+      WPSR   at 16#1E8# range 0 .. 31;
    end record;
 
    --  DMA Controller

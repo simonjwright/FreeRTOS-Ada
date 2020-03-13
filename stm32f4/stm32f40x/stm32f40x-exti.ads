@@ -1,8 +1,9 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
 --  This spec has been automatically generated from STM32F40x.svd
---  see https://github.com/simonjwright/svd2ada
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -12,14 +13,6 @@ package STM32F40x.EXTI is
    ---------------
    -- Registers --
    ---------------
-
-   ------------------
-   -- IMR_Register --
-   ------------------
-
-   ------------
-   -- IMR.MR --
-   ------------
 
    --  IMR_MR array element
    subtype IMR_MR_Element is STM32F40x.Bit;
@@ -55,21 +48,12 @@ package STM32F40x.EXTI is
       --  unspecified
       Reserved_23_31 : STM32F40x.UInt9 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for IMR_Register use record
       MR             at 0 range 0 .. 22;
       Reserved_23_31 at 0 range 23 .. 31;
    end record;
-
-   ------------------
-   -- EMR_Register --
-   ------------------
-
-   ------------
-   -- EMR.MR --
-   ------------
 
    --  EMR_MR array element
    subtype EMR_MR_Element is STM32F40x.Bit;
@@ -105,21 +89,12 @@ package STM32F40x.EXTI is
       --  unspecified
       Reserved_23_31 : STM32F40x.UInt9 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for EMR_Register use record
       MR             at 0 range 0 .. 22;
       Reserved_23_31 at 0 range 23 .. 31;
    end record;
-
-   -------------------
-   -- RTSR_Register --
-   -------------------
-
-   -------------
-   -- RTSR.TR --
-   -------------
 
    --  RTSR_TR array element
    subtype RTSR_TR_Element is STM32F40x.Bit;
@@ -155,21 +130,12 @@ package STM32F40x.EXTI is
       --  unspecified
       Reserved_23_31 : STM32F40x.UInt9 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for RTSR_Register use record
       TR             at 0 range 0 .. 22;
       Reserved_23_31 at 0 range 23 .. 31;
    end record;
-
-   -------------------
-   -- FTSR_Register --
-   -------------------
-
-   -------------
-   -- FTSR.TR --
-   -------------
 
    --  FTSR_TR array element
    subtype FTSR_TR_Element is STM32F40x.Bit;
@@ -205,21 +171,12 @@ package STM32F40x.EXTI is
       --  unspecified
       Reserved_23_31 : STM32F40x.UInt9 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for FTSR_Register use record
       TR             at 0 range 0 .. 22;
       Reserved_23_31 at 0 range 23 .. 31;
    end record;
-
-   --------------------
-   -- SWIER_Register --
-   --------------------
-
-   -----------------
-   -- SWIER.SWIER --
-   -----------------
 
    --  SWIER array element
    subtype SWIER_Element is STM32F40x.Bit;
@@ -255,21 +212,12 @@ package STM32F40x.EXTI is
       --  unspecified
       Reserved_23_31 : STM32F40x.UInt9 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for SWIER_Register use record
       SWIER          at 0 range 0 .. 22;
       Reserved_23_31 at 0 range 23 .. 31;
    end record;
-
-   -----------------
-   -- PR_Register --
-   -----------------
-
-   -----------
-   -- PR.PR --
-   -----------
 
    --  PR array element
    subtype PR_Element is STM32F40x.Bit;
@@ -305,8 +253,7 @@ package STM32F40x.EXTI is
       --  unspecified
       Reserved_23_31 : STM32F40x.UInt9 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for PR_Register use record
       PR             at 0 range 0 .. 22;
@@ -320,27 +267,33 @@ package STM32F40x.EXTI is
    --  External interrupt/event controller
    type EXTI_Peripheral is record
       --  Interrupt mask register (EXTI_IMR)
-      IMR   : IMR_Register;
+      IMR   : aliased IMR_Register;
+      pragma Volatile_Full_Access (IMR);
       --  Event mask register (EXTI_EMR)
-      EMR   : EMR_Register;
+      EMR   : aliased EMR_Register;
+      pragma Volatile_Full_Access (EMR);
       --  Rising Trigger selection register (EXTI_RTSR)
-      RTSR  : RTSR_Register;
+      RTSR  : aliased RTSR_Register;
+      pragma Volatile_Full_Access (RTSR);
       --  Falling Trigger selection register (EXTI_FTSR)
-      FTSR  : FTSR_Register;
+      FTSR  : aliased FTSR_Register;
+      pragma Volatile_Full_Access (FTSR);
       --  Software interrupt event register (EXTI_SWIER)
-      SWIER : SWIER_Register;
+      SWIER : aliased SWIER_Register;
+      pragma Volatile_Full_Access (SWIER);
       --  Pending register (EXTI_PR)
-      PR    : PR_Register;
+      PR    : aliased PR_Register;
+      pragma Volatile_Full_Access (PR);
    end record
      with Volatile;
 
    for EXTI_Peripheral use record
-      IMR   at 0 range 0 .. 31;
-      EMR   at 4 range 0 .. 31;
-      RTSR  at 8 range 0 .. 31;
-      FTSR  at 12 range 0 .. 31;
-      SWIER at 16 range 0 .. 31;
-      PR    at 20 range 0 .. 31;
+      IMR   at 16#0# range 0 .. 31;
+      EMR   at 16#4# range 0 .. 31;
+      RTSR  at 16#8# range 0 .. 31;
+      FTSR  at 16#C# range 0 .. 31;
+      SWIER at 16#10# range 0 .. 31;
+      PR    at 16#14# range 0 .. 31;
    end record;
 
    --  External interrupt/event controller

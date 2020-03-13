@@ -1,8 +1,9 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
 --  This spec has been automatically generated from STM32F40x.svd
---  see https://github.com/simonjwright/svd2ada
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -12,10 +13,6 @@ package STM32F40x.GPIO is
    ---------------
    -- Registers --
    ---------------
-
-   --------------------
-   -- MODER_Register --
-   --------------------
 
    --  MODER array element
    subtype MODER_Element is STM32F40x.UInt2;
@@ -31,27 +28,19 @@ package STM32F40x.GPIO is
       case As_Array is
          when False =>
             --  MODER as a value
-            Val : STM32F40x.Word;
+            Val : STM32F40x.UInt32;
          when True =>
             --  MODER as an array
             Arr : MODER_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile_Full_Access,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for MODER_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
-
-   ---------------------
-   -- OTYPER_Register --
-   ---------------------
-
-   ---------------
-   -- OTYPER.OT --
-   ---------------
 
    --  OTYPER_OT array element
    subtype OTYPER_OT_Element is STM32F40x.Bit;
@@ -67,7 +56,7 @@ package STM32F40x.GPIO is
       case As_Array is
          when False =>
             --  OT as a value
-            Val : STM32F40x.Short;
+            Val : STM32F40x.UInt16;
          when True =>
             --  OT as an array
             Arr : OTYPER_OT_Field_Array;
@@ -85,19 +74,14 @@ package STM32F40x.GPIO is
       --  Port x configuration bits (y = 0..15)
       OT             : OTYPER_OT_Field := (As_Array => False, Val => 16#0#);
       --  unspecified
-      Reserved_16_31 : STM32F40x.Short := 16#0#;
+      Reserved_16_31 : STM32F40x.UInt16 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for OTYPER_Register use record
       OT             at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   ----------------------
-   -- OSPEEDR_Register --
-   ----------------------
 
    --  OSPEEDR array element
    subtype OSPEEDR_Element is STM32F40x.UInt2;
@@ -113,23 +97,19 @@ package STM32F40x.GPIO is
       case As_Array is
          when False =>
             --  OSPEEDR as a value
-            Val : STM32F40x.Word;
+            Val : STM32F40x.UInt32;
          when True =>
             --  OSPEEDR as an array
             Arr : OSPEEDR_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile_Full_Access,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for OSPEEDR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
-
-   --------------------
-   -- PUPDR_Register --
-   --------------------
 
    --  PUPDR array element
    subtype PUPDR_Element is STM32F40x.UInt2;
@@ -145,27 +125,19 @@ package STM32F40x.GPIO is
       case As_Array is
          when False =>
             --  PUPDR as a value
-            Val : STM32F40x.Word;
+            Val : STM32F40x.UInt32;
          when True =>
             --  PUPDR as an array
             Arr : PUPDR_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile_Full_Access,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for PUPDR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
-
-   ------------------
-   -- IDR_Register --
-   ------------------
-
-   -------------
-   -- IDR.IDR --
-   -------------
 
    --  IDR array element
    subtype IDR_Element is STM32F40x.Bit;
@@ -181,7 +153,7 @@ package STM32F40x.GPIO is
       case As_Array is
          when False =>
             --  IDR as a value
-            Val : STM32F40x.Short;
+            Val : STM32F40x.UInt16;
          when True =>
             --  IDR as an array
             Arr : IDR_Field_Array;
@@ -197,25 +169,16 @@ package STM32F40x.GPIO is
    --  GPIO port input data register
    type IDR_Register is record
       --  Read-only. Port input data (y = 0..15)
-      IDR            : IDR_Field := (As_Array => False, Val => 16#0#);
+      IDR            : IDR_Field;
       --  unspecified
-      Reserved_16_31 : STM32F40x.Short;
+      Reserved_16_31 : STM32F40x.UInt16;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for IDR_Register use record
       IDR            at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   ------------------
-   -- ODR_Register --
-   ------------------
-
-   -------------
-   -- ODR.ODR --
-   -------------
 
    --  ODR array element
    subtype ODR_Element is STM32F40x.Bit;
@@ -231,7 +194,7 @@ package STM32F40x.GPIO is
       case As_Array is
          when False =>
             --  ODR as a value
-            Val : STM32F40x.Short;
+            Val : STM32F40x.UInt16;
          when True =>
             --  ODR as an array
             Arr : ODR_Field_Array;
@@ -249,23 +212,14 @@ package STM32F40x.GPIO is
       --  Port output data (y = 0..15)
       ODR            : ODR_Field := (As_Array => False, Val => 16#0#);
       --  unspecified
-      Reserved_16_31 : STM32F40x.Short := 16#0#;
+      Reserved_16_31 : STM32F40x.UInt16 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for ODR_Register use record
       ODR            at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
-
-   -------------------
-   -- BSRR_Register --
-   -------------------
-
-   -------------
-   -- BSRR.BS --
-   -------------
 
    --  BSRR_BS array element
    subtype BSRR_BS_Element is STM32F40x.Bit;
@@ -281,7 +235,7 @@ package STM32F40x.GPIO is
       case As_Array is
          when False =>
             --  BS as a value
-            Val : STM32F40x.Short;
+            Val : STM32F40x.UInt16;
          when True =>
             --  BS as an array
             Arr : BSRR_BS_Field_Array;
@@ -293,10 +247,6 @@ package STM32F40x.GPIO is
       Val at 0 range 0 .. 15;
       Arr at 0 range 0 .. 15;
    end record;
-
-   -------------
-   -- BSRR.BR --
-   -------------
 
    --  BSRR_BR array element
    subtype BSRR_BR_Element is STM32F40x.Bit;
@@ -312,7 +262,7 @@ package STM32F40x.GPIO is
       case As_Array is
          when False =>
             --  BR as a value
-            Val : STM32F40x.Short;
+            Val : STM32F40x.UInt16;
          when True =>
             --  BR as an array
             Arr : BSRR_BR_Field_Array;
@@ -332,21 +282,12 @@ package STM32F40x.GPIO is
       --  Write-only. Port x set bit y (y= 0..15)
       BR : BSRR_BR_Field := (As_Array => False, Val => 16#0#);
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for BSRR_Register use record
       BS at 0 range 0 .. 15;
       BR at 0 range 16 .. 31;
    end record;
-
-   -------------------
-   -- LCKR_Register --
-   -------------------
-
-   --------------
-   -- LCKR.LCK --
-   --------------
 
    --  LCKR_LCK array element
    subtype LCKR_LCK_Element is STM32F40x.Bit;
@@ -362,7 +303,7 @@ package STM32F40x.GPIO is
       case As_Array is
          when False =>
             --  LCK as a value
-            Val : STM32F40x.Short;
+            Val : STM32F40x.UInt16;
          when True =>
             --  LCK as an array
             Arr : LCKR_LCK_Field_Array;
@@ -386,18 +327,13 @@ package STM32F40x.GPIO is
       --  unspecified
       Reserved_17_31 : STM32F40x.UInt15 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
-          Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for LCKR_Register use record
       LCK            at 0 range 0 .. 15;
       LCKK           at 0 range 16 .. 16;
       Reserved_17_31 at 0 range 17 .. 31;
    end record;
-
-   -------------------
-   -- AFRL_Register --
-   -------------------
 
    --  AFRL array element
    subtype AFRL_Element is STM32F40x.UInt4;
@@ -413,23 +349,19 @@ package STM32F40x.GPIO is
       case As_Array is
          when False =>
             --  AFRL as a value
-            Val : STM32F40x.Word;
+            Val : STM32F40x.UInt32;
          when True =>
             --  AFRL as an array
             Arr : AFRL_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile_Full_Access,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for AFRL_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
-
-   -------------------
-   -- AFRH_Register --
-   -------------------
 
    --  AFRH array element
    subtype AFRH_Element is STM32F40x.UInt4;
@@ -445,13 +377,13 @@ package STM32F40x.GPIO is
       case As_Array is
          when False =>
             --  AFRH as a value
-            Val : STM32F40x.Word;
+            Val : STM32F40x.UInt32;
          when True =>
             --  AFRH as an array
             Arr : AFRH_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile_Full_Access,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for AFRH_Register use record
@@ -466,39 +398,49 @@ package STM32F40x.GPIO is
    --  General-purpose I/Os
    type GPIO_Peripheral is record
       --  GPIO port mode register
-      MODER   : MODER_Register;
+      MODER   : aliased MODER_Register;
+      pragma Volatile_Full_Access (MODER);
       --  GPIO port output type register
-      OTYPER  : OTYPER_Register;
+      OTYPER  : aliased OTYPER_Register;
+      pragma Volatile_Full_Access (OTYPER);
       --  GPIO port output speed register
-      OSPEEDR : OSPEEDR_Register;
+      OSPEEDR : aliased OSPEEDR_Register;
+      pragma Volatile_Full_Access (OSPEEDR);
       --  GPIO port pull-up/pull-down register
-      PUPDR   : PUPDR_Register;
+      PUPDR   : aliased PUPDR_Register;
+      pragma Volatile_Full_Access (PUPDR);
       --  GPIO port input data register
-      IDR     : IDR_Register;
+      IDR     : aliased IDR_Register;
+      pragma Volatile_Full_Access (IDR);
       --  GPIO port output data register
-      ODR     : ODR_Register;
+      ODR     : aliased ODR_Register;
+      pragma Volatile_Full_Access (ODR);
       --  GPIO port bit set/reset register
-      BSRR    : BSRR_Register;
+      BSRR    : aliased BSRR_Register;
+      pragma Volatile_Full_Access (BSRR);
       --  GPIO port configuration lock register
-      LCKR    : LCKR_Register;
+      LCKR    : aliased LCKR_Register;
+      pragma Volatile_Full_Access (LCKR);
       --  GPIO alternate function low register
-      AFRL    : AFRL_Register;
+      AFRL    : aliased AFRL_Register;
+      pragma Volatile_Full_Access (AFRL);
       --  GPIO alternate function high register
-      AFRH    : AFRH_Register;
+      AFRH    : aliased AFRH_Register;
+      pragma Volatile_Full_Access (AFRH);
    end record
      with Volatile;
 
    for GPIO_Peripheral use record
-      MODER   at 0 range 0 .. 31;
-      OTYPER  at 4 range 0 .. 31;
-      OSPEEDR at 8 range 0 .. 31;
-      PUPDR   at 12 range 0 .. 31;
-      IDR     at 16 range 0 .. 31;
-      ODR     at 20 range 0 .. 31;
-      BSRR    at 24 range 0 .. 31;
-      LCKR    at 28 range 0 .. 31;
-      AFRL    at 32 range 0 .. 31;
-      AFRH    at 36 range 0 .. 31;
+      MODER   at 16#0# range 0 .. 31;
+      OTYPER  at 16#4# range 0 .. 31;
+      OSPEEDR at 16#8# range 0 .. 31;
+      PUPDR   at 16#C# range 0 .. 31;
+      IDR     at 16#10# range 0 .. 31;
+      ODR     at 16#14# range 0 .. 31;
+      BSRR    at 16#18# range 0 .. 31;
+      LCKR    at 16#1C# range 0 .. 31;
+      AFRL    at 16#20# range 0 .. 31;
+      AFRH    at 16#24# range 0 .. 31;
    end record;
 
    --  General-purpose I/Os

@@ -1,7 +1,38 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
+--  Copyright (c) 2013, Nordic Semiconductor ASA
+--  All rights reserved.
+--
+--  Redistribution and use in source and binary forms, with or without
+--  modification, are permitted provided that the following conditions are met:
+--
+--  * Redistributions of source code must retain the above copyright notice, this
+--  list of conditions and the following disclaimer.
+--
+--  * Redistributions in binary form must reproduce the above copyright notice,
+--  this list of conditions and the following disclaimer in the documentation
+--  and/or other materials provided with the distribution.
+--
+--  * Neither the name of Nordic Semiconductor ASA nor the names of its
+--  contributors may be used to endorse or promote products derived from
+--  this software without specific prior written permission.
+--
+--  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+--  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+--  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+--  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+--  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+--  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+--  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+--  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+--  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+--  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+--
+
 --  This spec has been automatically generated from nrf51.svd
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -12,130 +43,121 @@ package nrf51.RADIO is
    -- Registers --
    ---------------
 
-   ---------------------
-   -- SHORTS_Register --
-   ---------------------
-
    --  Shortcut between READY event and START task.
-   type READY_START_Field is
-     (
-      --  Shortcut disabled.
+   type SHORTS_READY_START_Field is
+     (--  Shortcut disabled.
       Disabled,
       --  Shortcut enabled.
       Enabled)
      with Size => 1;
-   for READY_START_Field use
+   for SHORTS_READY_START_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Shortcut between END event and DISABLE task.
-   type END_DISABLE_Field is
-     (
-      --  Shortcut disabled.
+   type SHORTS_END_DISABLE_Field is
+     (--  Shortcut disabled.
       Disabled,
       --  Shortcut enabled.
       Enabled)
      with Size => 1;
-   for END_DISABLE_Field use
+   for SHORTS_END_DISABLE_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Shortcut between DISABLED event and TXEN task.
-   type DISABLED_TXEN_Field is
-     (
-      --  Shortcut disabled.
+   type SHORTS_DISABLED_TXEN_Field is
+     (--  Shortcut disabled.
       Disabled,
       --  Shortcut enabled.
       Enabled)
      with Size => 1;
-   for DISABLED_TXEN_Field use
+   for SHORTS_DISABLED_TXEN_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Shortcut between DISABLED event and RXEN task.
-   type DISABLED_RXEN_Field is
-     (
-      --  Shortcut disabled.
+   type SHORTS_DISABLED_RXEN_Field is
+     (--  Shortcut disabled.
       Disabled,
       --  Shortcut enabled.
       Enabled)
      with Size => 1;
-   for DISABLED_RXEN_Field use
+   for SHORTS_DISABLED_RXEN_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Shortcut between ADDRESS event and RSSISTART task.
-   type ADDRESS_RSSISTART_Field is
-     (
-      --  Shortcut disabled.
+   type SHORTS_ADDRESS_RSSISTART_Field is
+     (--  Shortcut disabled.
       Disabled,
       --  Shortcut enabled.
       Enabled)
      with Size => 1;
-   for ADDRESS_RSSISTART_Field use
+   for SHORTS_ADDRESS_RSSISTART_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Shortcut between END event and START task.
-   type END_START_Field is
-     (
-      --  Shortcut disabled.
+   type SHORTS_END_START_Field is
+     (--  Shortcut disabled.
       Disabled,
       --  Shortcut enabled.
       Enabled)
      with Size => 1;
-   for END_START_Field use
+   for SHORTS_END_START_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Shortcut between ADDRESS event and BCSTART task.
-   type ADDRESS_BCSTART_Field is
-     (
-      --  Shortcut disabled.
+   type SHORTS_ADDRESS_BCSTART_Field is
+     (--  Shortcut disabled.
       Disabled,
       --  Shortcut enabled.
       Enabled)
      with Size => 1;
-   for ADDRESS_BCSTART_Field use
+   for SHORTS_ADDRESS_BCSTART_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Shortcut between DISABLED event and RSSISTOP task.
-   type DISABLED_RSSISTOP_Field is
-     (
-      --  Shortcut disabled.
+   type SHORTS_DISABLED_RSSISTOP_Field is
+     (--  Shortcut disabled.
       Disabled,
       --  Shortcut enabled.
       Enabled)
      with Size => 1;
-   for DISABLED_RSSISTOP_Field use
+   for SHORTS_DISABLED_RSSISTOP_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Shortcuts for the radio.
    type SHORTS_Register is record
       --  Shortcut between READY event and START task.
-      READY_START       : READY_START_Field := Disabled;
+      READY_START       : SHORTS_READY_START_Field := nrf51.RADIO.Disabled;
       --  Shortcut between END event and DISABLE task.
-      END_DISABLE       : END_DISABLE_Field := Disabled;
+      END_DISABLE       : SHORTS_END_DISABLE_Field := nrf51.RADIO.Disabled;
       --  Shortcut between DISABLED event and TXEN task.
-      DISABLED_TXEN     : DISABLED_TXEN_Field := Disabled;
+      DISABLED_TXEN     : SHORTS_DISABLED_TXEN_Field := nrf51.RADIO.Disabled;
       --  Shortcut between DISABLED event and RXEN task.
-      DISABLED_RXEN     : DISABLED_RXEN_Field := Disabled;
+      DISABLED_RXEN     : SHORTS_DISABLED_RXEN_Field := nrf51.RADIO.Disabled;
       --  Shortcut between ADDRESS event and RSSISTART task.
-      ADDRESS_RSSISTART : ADDRESS_RSSISTART_Field := Disabled;
+      ADDRESS_RSSISTART : SHORTS_ADDRESS_RSSISTART_Field :=
+                           nrf51.RADIO.Disabled;
       --  Shortcut between END event and START task.
-      END_START         : END_START_Field := Disabled;
+      END_START         : SHORTS_END_START_Field := nrf51.RADIO.Disabled;
       --  Shortcut between ADDRESS event and BCSTART task.
-      ADDRESS_BCSTART   : ADDRESS_BCSTART_Field := Disabled;
+      ADDRESS_BCSTART   : SHORTS_ADDRESS_BCSTART_Field :=
+                           nrf51.RADIO.Disabled;
       --  unspecified
       Reserved_7_7      : nrf51.Bit := 16#0#;
       --  Shortcut between DISABLED event and RSSISTOP task.
-      DISABLED_RSSISTOP : DISABLED_RSSISTOP_Field := Disabled;
+      DISABLED_RSSISTOP : SHORTS_DISABLED_RSSISTOP_Field :=
+                           nrf51.RADIO.Disabled;
       --  unspecified
       Reserved_9_31     : nrf51.UInt23 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for SHORTS_Register use record
@@ -151,252 +173,237 @@ package nrf51.RADIO is
       Reserved_9_31     at 0 range 9 .. 31;
    end record;
 
-   -----------------------
-   -- INTENSET_Register --
-   -----------------------
-
    --  Enable interrupt on READY event.
-   type READY_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_READY_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for READY_Field use
+   for INTENSET_READY_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on READY event.
-   type READY_Field_1 is
-     (
-      --  Reset value for the field
-      Ready_Field_Reset,
+   type INTENSET_READY_Field_1 is
+     (--  Reset value for the field
+      Intenset_Ready_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for READY_Field_1 use
-     (Ready_Field_Reset => 0,
+   for INTENSET_READY_Field_1 use
+     (Intenset_Ready_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on ADDRESS event.
-   type ADDRESS_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_ADDRESS_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for ADDRESS_Field use
+   for INTENSET_ADDRESS_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on ADDRESS event.
-   type ADDRESS_Field_1 is
-     (
-      --  Reset value for the field
-      Address_Field_Reset,
+   type INTENSET_ADDRESS_Field_1 is
+     (--  Reset value for the field
+      Intenset_Address_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for ADDRESS_Field_1 use
-     (Address_Field_Reset => 0,
+   for INTENSET_ADDRESS_Field_1 use
+     (Intenset_Address_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on PAYLOAD event.
-   type PAYLOAD_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_PAYLOAD_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for PAYLOAD_Field use
+   for INTENSET_PAYLOAD_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on PAYLOAD event.
-   type PAYLOAD_Field_1 is
-     (
-      --  Reset value for the field
-      Payload_Field_Reset,
+   type INTENSET_PAYLOAD_Field_1 is
+     (--  Reset value for the field
+      Intenset_Payload_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for PAYLOAD_Field_1 use
-     (Payload_Field_Reset => 0,
+   for INTENSET_PAYLOAD_Field_1 use
+     (Intenset_Payload_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on END event.
-   type END_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_END_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for END_Field use
+   for INTENSET_END_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on END event.
-   type END_Field_1 is
-     (
-      --  Reset value for the field
-      End_Field_Reset,
+   type INTENSET_END_Field_1 is
+     (--  Reset value for the field
+      Intenset_End_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for END_Field_1 use
-     (End_Field_Reset => 0,
+   for INTENSET_END_Field_1 use
+     (Intenset_End_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on DISABLED event.
-   type DISABLED_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_DISABLED_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for DISABLED_Field use
+   for INTENSET_DISABLED_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on DISABLED event.
-   type DISABLED_Field_1 is
-     (
-      --  Reset value for the field
-      Disabled_Field_Reset,
+   type INTENSET_DISABLED_Field_1 is
+     (--  Reset value for the field
+      Intenset_Disabled_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for DISABLED_Field_1 use
-     (Disabled_Field_Reset => 0,
+   for INTENSET_DISABLED_Field_1 use
+     (Intenset_Disabled_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on DEVMATCH event.
-   type DEVMATCH_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_DEVMATCH_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for DEVMATCH_Field use
+   for INTENSET_DEVMATCH_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on DEVMATCH event.
-   type DEVMATCH_Field_1 is
-     (
-      --  Reset value for the field
-      Devmatch_Field_Reset,
+   type INTENSET_DEVMATCH_Field_1 is
+     (--  Reset value for the field
+      Intenset_Devmatch_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for DEVMATCH_Field_1 use
-     (Devmatch_Field_Reset => 0,
+   for INTENSET_DEVMATCH_Field_1 use
+     (Intenset_Devmatch_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on DEVMISS event.
-   type DEVMISS_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_DEVMISS_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for DEVMISS_Field use
+   for INTENSET_DEVMISS_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on DEVMISS event.
-   type DEVMISS_Field_1 is
-     (
-      --  Reset value for the field
-      Devmiss_Field_Reset,
+   type INTENSET_DEVMISS_Field_1 is
+     (--  Reset value for the field
+      Intenset_Devmiss_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for DEVMISS_Field_1 use
-     (Devmiss_Field_Reset => 0,
+   for INTENSET_DEVMISS_Field_1 use
+     (Intenset_Devmiss_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on RSSIEND event.
-   type RSSIEND_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_RSSIEND_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for RSSIEND_Field use
+   for INTENSET_RSSIEND_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on RSSIEND event.
-   type RSSIEND_Field_1 is
-     (
-      --  Reset value for the field
-      Rssiend_Field_Reset,
+   type INTENSET_RSSIEND_Field_1 is
+     (--  Reset value for the field
+      Intenset_Rssiend_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for RSSIEND_Field_1 use
-     (Rssiend_Field_Reset => 0,
+   for INTENSET_RSSIEND_Field_1 use
+     (Intenset_Rssiend_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on BCMATCH event.
-   type BCMATCH_Field is
-     (
-      --  Interrupt disabled.
+   type INTENSET_BCMATCH_Field is
+     (--  Interrupt disabled.
       Disabled,
       --  Interrupt enabled.
       Enabled)
      with Size => 1;
-   for BCMATCH_Field use
+   for INTENSET_BCMATCH_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Enable interrupt on BCMATCH event.
-   type BCMATCH_Field_1 is
-     (
-      --  Reset value for the field
-      Bcmatch_Field_Reset,
+   type INTENSET_BCMATCH_Field_1 is
+     (--  Reset value for the field
+      Intenset_Bcmatch_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
-   for BCMATCH_Field_1 use
-     (Bcmatch_Field_Reset => 0,
+   for INTENSET_BCMATCH_Field_1 use
+     (Intenset_Bcmatch_Field_Reset => 0,
       Set => 1);
 
    --  Interrupt enable set register.
    type INTENSET_Register is record
       --  Enable interrupt on READY event.
-      READY          : READY_Field_1 := Ready_Field_Reset;
+      READY          : INTENSET_READY_Field_1 := Intenset_Ready_Field_Reset;
       --  Enable interrupt on ADDRESS event.
-      ADDRESS        : ADDRESS_Field_1 := Address_Field_Reset;
+      ADDRESS        : INTENSET_ADDRESS_Field_1 :=
+                        Intenset_Address_Field_Reset;
       --  Enable interrupt on PAYLOAD event.
-      PAYLOAD        : PAYLOAD_Field_1 := Payload_Field_Reset;
+      PAYLOAD        : INTENSET_PAYLOAD_Field_1 :=
+                        Intenset_Payload_Field_Reset;
       --  Enable interrupt on END event.
-      END_k          : END_Field_1 := End_Field_Reset;
+      END_k          : INTENSET_END_Field_1 := Intenset_End_Field_Reset;
       --  Enable interrupt on DISABLED event.
-      DISABLED       : DISABLED_Field_1 := Disabled_Field_Reset;
+      DISABLED       : INTENSET_DISABLED_Field_1 :=
+                        Intenset_Disabled_Field_Reset;
       --  Enable interrupt on DEVMATCH event.
-      DEVMATCH       : DEVMATCH_Field_1 := Devmatch_Field_Reset;
+      DEVMATCH       : INTENSET_DEVMATCH_Field_1 :=
+                        Intenset_Devmatch_Field_Reset;
       --  Enable interrupt on DEVMISS event.
-      DEVMISS        : DEVMISS_Field_1 := Devmiss_Field_Reset;
+      DEVMISS        : INTENSET_DEVMISS_Field_1 :=
+                        Intenset_Devmiss_Field_Reset;
       --  Enable interrupt on RSSIEND event.
-      RSSIEND        : RSSIEND_Field_1 := Rssiend_Field_Reset;
+      RSSIEND        : INTENSET_RSSIEND_Field_1 :=
+                        Intenset_Rssiend_Field_Reset;
       --  unspecified
       Reserved_8_9   : nrf51.UInt2 := 16#0#;
       --  Enable interrupt on BCMATCH event.
-      BCMATCH        : BCMATCH_Field_1 := Bcmatch_Field_Reset;
+      BCMATCH        : INTENSET_BCMATCH_Field_1 :=
+                        Intenset_Bcmatch_Field_Reset;
       --  unspecified
       Reserved_11_31 : nrf51.UInt21 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for INTENSET_Register use record
@@ -413,144 +420,237 @@ package nrf51.RADIO is
       Reserved_11_31 at 0 range 11 .. 31;
    end record;
 
-   -----------------------
-   -- INTENCLR_Register --
-   -----------------------
+   --  Disable interrupt on READY event.
+   type INTENCLR_READY_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_READY_Field use
+     (Disabled => 0,
+      Enabled => 1);
 
    --  Disable interrupt on READY event.
-   type READY_Field_2 is
-     (
-      --  Reset value for the field
-      Ready_Field_Reset,
+   type INTENCLR_READY_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Ready_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for READY_Field_2 use
-     (Ready_Field_Reset => 0,
+   for INTENCLR_READY_Field_1 use
+     (Intenclr_Ready_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on ADDRESS event.
-   type ADDRESS_Field_2 is
-     (
-      --  Reset value for the field
-      Address_Field_Reset,
+   type INTENCLR_ADDRESS_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_ADDRESS_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on ADDRESS event.
+   type INTENCLR_ADDRESS_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Address_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for ADDRESS_Field_2 use
-     (Address_Field_Reset => 0,
+   for INTENCLR_ADDRESS_Field_1 use
+     (Intenclr_Address_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on PAYLOAD event.
-   type PAYLOAD_Field_2 is
-     (
-      --  Reset value for the field
-      Payload_Field_Reset,
+   type INTENCLR_PAYLOAD_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_PAYLOAD_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on PAYLOAD event.
+   type INTENCLR_PAYLOAD_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Payload_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for PAYLOAD_Field_2 use
-     (Payload_Field_Reset => 0,
+   for INTENCLR_PAYLOAD_Field_1 use
+     (Intenclr_Payload_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on END event.
-   type END_Field_2 is
-     (
-      --  Reset value for the field
-      End_Field_Reset,
+   type INTENCLR_END_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_END_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on END event.
+   type INTENCLR_END_Field_1 is
+     (--  Reset value for the field
+      Intenclr_End_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for END_Field_2 use
-     (End_Field_Reset => 0,
+   for INTENCLR_END_Field_1 use
+     (Intenclr_End_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on DISABLED event.
-   type DISABLED_Field_2 is
-     (
-      --  Reset value for the field
-      Disabled_Field_Reset,
+   type INTENCLR_DISABLED_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_DISABLED_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on DISABLED event.
+   type INTENCLR_DISABLED_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Disabled_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for DISABLED_Field_2 use
-     (Disabled_Field_Reset => 0,
+   for INTENCLR_DISABLED_Field_1 use
+     (Intenclr_Disabled_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on DEVMATCH event.
-   type DEVMATCH_Field_2 is
-     (
-      --  Reset value for the field
-      Devmatch_Field_Reset,
+   type INTENCLR_DEVMATCH_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_DEVMATCH_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on DEVMATCH event.
+   type INTENCLR_DEVMATCH_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Devmatch_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for DEVMATCH_Field_2 use
-     (Devmatch_Field_Reset => 0,
+   for INTENCLR_DEVMATCH_Field_1 use
+     (Intenclr_Devmatch_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on DEVMISS event.
-   type DEVMISS_Field_2 is
-     (
-      --  Reset value for the field
-      Devmiss_Field_Reset,
+   type INTENCLR_DEVMISS_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_DEVMISS_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on DEVMISS event.
+   type INTENCLR_DEVMISS_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Devmiss_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for DEVMISS_Field_2 use
-     (Devmiss_Field_Reset => 0,
+   for INTENCLR_DEVMISS_Field_1 use
+     (Intenclr_Devmiss_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on RSSIEND event.
-   type RSSIEND_Field_2 is
-     (
-      --  Reset value for the field
-      Rssiend_Field_Reset,
+   type INTENCLR_RSSIEND_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_RSSIEND_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on RSSIEND event.
+   type INTENCLR_RSSIEND_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Rssiend_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for RSSIEND_Field_2 use
-     (Rssiend_Field_Reset => 0,
+   for INTENCLR_RSSIEND_Field_1 use
+     (Intenclr_Rssiend_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on BCMATCH event.
-   type BCMATCH_Field_2 is
-     (
-      --  Reset value for the field
-      Bcmatch_Field_Reset,
+   type INTENCLR_BCMATCH_Field is
+     (--  Interrupt disabled.
+      Disabled,
+      --  Interrupt enabled.
+      Enabled)
+     with Size => 1;
+   for INTENCLR_BCMATCH_Field use
+     (Disabled => 0,
+      Enabled => 1);
+
+   --  Disable interrupt on BCMATCH event.
+   type INTENCLR_BCMATCH_Field_1 is
+     (--  Reset value for the field
+      Intenclr_Bcmatch_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
-   for BCMATCH_Field_2 use
-     (Bcmatch_Field_Reset => 0,
+   for INTENCLR_BCMATCH_Field_1 use
+     (Intenclr_Bcmatch_Field_Reset => 0,
       Clear => 1);
 
    --  Interrupt enable clear register.
    type INTENCLR_Register is record
       --  Disable interrupt on READY event.
-      READY          : READY_Field_2 := Ready_Field_Reset;
+      READY          : INTENCLR_READY_Field_1 := Intenclr_Ready_Field_Reset;
       --  Disable interrupt on ADDRESS event.
-      ADDRESS        : ADDRESS_Field_2 := Address_Field_Reset;
+      ADDRESS        : INTENCLR_ADDRESS_Field_1 :=
+                        Intenclr_Address_Field_Reset;
       --  Disable interrupt on PAYLOAD event.
-      PAYLOAD        : PAYLOAD_Field_2 := Payload_Field_Reset;
+      PAYLOAD        : INTENCLR_PAYLOAD_Field_1 :=
+                        Intenclr_Payload_Field_Reset;
       --  Disable interrupt on END event.
-      END_k          : END_Field_2 := End_Field_Reset;
+      END_k          : INTENCLR_END_Field_1 := Intenclr_End_Field_Reset;
       --  Disable interrupt on DISABLED event.
-      DISABLED       : DISABLED_Field_2 := Disabled_Field_Reset;
+      DISABLED       : INTENCLR_DISABLED_Field_1 :=
+                        Intenclr_Disabled_Field_Reset;
       --  Disable interrupt on DEVMATCH event.
-      DEVMATCH       : DEVMATCH_Field_2 := Devmatch_Field_Reset;
+      DEVMATCH       : INTENCLR_DEVMATCH_Field_1 :=
+                        Intenclr_Devmatch_Field_Reset;
       --  Disable interrupt on DEVMISS event.
-      DEVMISS        : DEVMISS_Field_2 := Devmiss_Field_Reset;
+      DEVMISS        : INTENCLR_DEVMISS_Field_1 :=
+                        Intenclr_Devmiss_Field_Reset;
       --  Disable interrupt on RSSIEND event.
-      RSSIEND        : RSSIEND_Field_2 := Rssiend_Field_Reset;
+      RSSIEND        : INTENCLR_RSSIEND_Field_1 :=
+                        Intenclr_Rssiend_Field_Reset;
       --  unspecified
       Reserved_8_9   : nrf51.UInt2 := 16#0#;
       --  Disable interrupt on BCMATCH event.
-      BCMATCH        : BCMATCH_Field_2 := Bcmatch_Field_Reset;
+      BCMATCH        : INTENCLR_BCMATCH_Field_1 :=
+                        Intenclr_Bcmatch_Field_Reset;
       --  unspecified
       Reserved_11_31 : nrf51.UInt21 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for INTENCLR_Register use record
@@ -567,40 +667,31 @@ package nrf51.RADIO is
       Reserved_11_31 at 0 range 11 .. 31;
    end record;
 
-   ------------------------
-   -- CRCSTATUS_Register --
-   ------------------------
-
    --  CRC status of received packet.
-   type CRCSTATUS_Field is
-     (
-      --  Packet received with CRC error.
+   type CRCSTATUS_CRCSTATUS_Field is
+     (--  Packet received with CRC error.
       Crcerror,
       --  Packet received with CRC ok.
       Crcok)
      with Size => 1;
-   for CRCSTATUS_Field use
+   for CRCSTATUS_CRCSTATUS_Field use
      (Crcerror => 0,
       Crcok => 1);
 
    --  CRC status of received packet.
    type CRCSTATUS_Register is record
       --  Read-only. CRC status of received packet.
-      CRCSTATUS     : CRCSTATUS_Field;
+      CRCSTATUS     : CRCSTATUS_CRCSTATUS_Field;
       --  unspecified
       Reserved_1_31 : nrf51.UInt31;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for CRCSTATUS_Register use record
       CRCSTATUS     at 0 range 0 .. 0;
       Reserved_1_31 at 0 range 1 .. 31;
    end record;
-
-   ----------------------
-   -- RXMATCH_Register --
-   ----------------------
 
    subtype RXMATCH_RXMATCH_Field is nrf51.UInt3;
 
@@ -611,17 +702,13 @@ package nrf51.RADIO is
       --  unspecified
       Reserved_3_31 : nrf51.UInt29;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for RXMATCH_Register use record
       RXMATCH       at 0 range 0 .. 2;
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
-
-   --------------------
-   -- RXCRC_Register --
-   --------------------
 
    subtype RXCRC_RXCRC_Field is nrf51.UInt24;
 
@@ -632,17 +719,13 @@ package nrf51.RADIO is
       --  unspecified
       Reserved_24_31 : nrf51.Byte;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for RXCRC_Register use record
       RXCRC          at 0 range 0 .. 23;
       Reserved_24_31 at 0 range 24 .. 31;
    end record;
-
-   ------------------
-   -- DAI_Register --
-   ------------------
 
    subtype DAI_DAI_Field is nrf51.UInt3;
 
@@ -654,17 +737,13 @@ package nrf51.RADIO is
       --  unspecified
       Reserved_3_31 : nrf51.UInt29;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for DAI_Register use record
       DAI           at 0 range 0 .. 2;
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
-
-   ------------------------
-   -- FREQUENCY_Register --
-   ------------------------
 
    subtype FREQUENCY_FREQUENCY_Field is nrf51.UInt7;
 
@@ -676,7 +755,7 @@ package nrf51.RADIO is
       --  unspecified
       Reserved_7_31 : nrf51.UInt25 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for FREQUENCY_Register use record
@@ -684,15 +763,10 @@ package nrf51.RADIO is
       Reserved_7_31 at 0 range 7 .. 31;
    end record;
 
-   ----------------------
-   -- TXPOWER_Register --
-   ----------------------
-
    --  Radio output power. Decision point: TXEN task.
-   type TXPOWER_Field is
-     (
-      --  0dBm.
-      TXPOWER_Field_0DBm,
+   type TXPOWER_TXPOWER_Field is
+     (--  0dBm.
+      Val_0DBm,
       --  +4dBm.
       Pos4DBm,
       --  -30dBm.
@@ -708,8 +782,8 @@ package nrf51.RADIO is
       --  -4dBm.
       Neg4DBm)
      with Size => 8;
-   for TXPOWER_Field use
-     (TXPOWER_Field_0DBm => 0,
+   for TXPOWER_TXPOWER_Field use
+     (Val_0DBm => 0,
       Pos4DBm => 4,
       Neg30DBm => 216,
       Neg20DBm => 236,
@@ -721,11 +795,11 @@ package nrf51.RADIO is
    --  Output power.
    type TXPOWER_Register is record
       --  Radio output power. Decision point: TXEN task.
-      TXPOWER       : TXPOWER_Field := TXPOWER_Field_0DBm;
+      TXPOWER       : TXPOWER_TXPOWER_Field := nrf51.RADIO.Val_0DBm;
       --  unspecified
       Reserved_8_31 : nrf51.UInt24 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for TXPOWER_Register use record
@@ -733,15 +807,10 @@ package nrf51.RADIO is
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
 
-   -------------------
-   -- MODE_Register --
-   -------------------
-
    --  Radio data rate and modulation setting. Decision point: TXEN or RXEN
    --  task.
-   type MODE_Field is
-     (
-      --  1Mbit/s Nordic propietary radio mode.
+   type MODE_MODE_Field is
+     (--  1Mbit/s Nordic propietary radio mode.
       Nrf_1Mbit,
       --  2Mbit/s Nordic propietary radio mode.
       Nrf_2Mbit,
@@ -750,7 +819,7 @@ package nrf51.RADIO is
       --  1Mbit/s Bluetooth Low Energy
       Ble_1Mbit)
      with Size => 2;
-   for MODE_Field use
+   for MODE_MODE_Field use
      (Nrf_1Mbit => 0,
       Nrf_2Mbit => 1,
       Nrf_250Kbit => 2,
@@ -760,21 +829,17 @@ package nrf51.RADIO is
    type MODE_Register is record
       --  Radio data rate and modulation setting. Decision point: TXEN or RXEN
       --  task.
-      MODE          : MODE_Field := Nrf_1Mbit;
+      MODE          : MODE_MODE_Field := nrf51.RADIO.Nrf_1Mbit;
       --  unspecified
       Reserved_2_31 : nrf51.UInt30 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for MODE_Register use record
       MODE          at 0 range 0 .. 1;
       Reserved_2_31 at 0 range 2 .. 31;
    end record;
-
-   --------------------
-   -- PCNF0_Register --
-   --------------------
 
    subtype PCNF0_LFLEN_Field is nrf51.UInt4;
    subtype PCNF0_S0LEN_Field is nrf51.Bit;
@@ -795,7 +860,7 @@ package nrf51.RADIO is
       --  unspecified
       Reserved_20_31 : nrf51.UInt12 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for PCNF0_Register use record
@@ -807,35 +872,29 @@ package nrf51.RADIO is
       Reserved_20_31 at 0 range 20 .. 31;
    end record;
 
-   --------------------
-   -- PCNF1_Register --
-   --------------------
-
    subtype PCNF1_MAXLEN_Field is nrf51.Byte;
    subtype PCNF1_STATLEN_Field is nrf51.Byte;
    subtype PCNF1_BALEN_Field is nrf51.UInt3;
 
    --  On air endianness of packet length field. Decision point: START task.
-   type ENDIAN_Field is
-     (
-      --  Least significant bit on air first
+   type PCNF1_ENDIAN_Field is
+     (--  Least significant bit on air first
       Little,
       --  Most significant bit on air first
       Big)
      with Size => 1;
-   for ENDIAN_Field use
+   for PCNF1_ENDIAN_Field use
      (Little => 0,
       Big => 1);
 
    --  Packet whitening enable.
-   type WHITEEN_Field is
-     (
-      --  Whitening disabled.
+   type PCNF1_WHITEEN_Field is
+     (--  Whitening disabled.
       Disabled,
       --  Whitening enabled.
       Enabled)
      with Size => 1;
-   for WHITEEN_Field use
+   for PCNF1_WHITEEN_Field use
      (Disabled => 0,
       Enabled => 1);
 
@@ -850,13 +909,13 @@ package nrf51.RADIO is
       --  unspecified
       Reserved_19_23 : nrf51.UInt5 := 16#0#;
       --  On air endianness of packet length field. Decision point: START task.
-      ENDIAN         : ENDIAN_Field := Little;
+      ENDIAN         : PCNF1_ENDIAN_Field := nrf51.RADIO.Little;
       --  Packet whitening enable.
-      WHITEEN        : WHITEEN_Field := Disabled;
+      WHITEEN        : PCNF1_WHITEEN_Field := nrf51.RADIO.Disabled;
       --  unspecified
       Reserved_26_31 : nrf51.UInt6 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for PCNF1_Register use record
@@ -868,10 +927,6 @@ package nrf51.RADIO is
       WHITEEN        at 0 range 25 .. 25;
       Reserved_26_31 at 0 range 26 .. 31;
    end record;
-
-   ----------------------
-   -- PREFIX0_Register --
-   ----------------------
 
    --  PREFIX0_AP array element
    subtype PREFIX0_AP_Element is nrf51.Byte;
@@ -887,23 +942,19 @@ package nrf51.RADIO is
       case As_Array is
          when False =>
             --  AP as a value
-            Val : nrf51.Word;
+            Val : nrf51.UInt32;
          when True =>
             --  AP as an array
             Arr : PREFIX0_AP_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile_Full_Access,
+     with Unchecked_Union, Size => 32, Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for PREFIX0_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
-
-   ----------------------
-   -- PREFIX1_Register --
-   ----------------------
 
    --  PREFIX1_AP array element
    subtype PREFIX1_AP_Element is nrf51.Byte;
@@ -919,23 +970,19 @@ package nrf51.RADIO is
       case As_Array is
          when False =>
             --  AP as a value
-            Val : nrf51.Word;
+            Val : nrf51.UInt32;
          when True =>
             --  AP as an array
             Arr : PREFIX1_AP_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile_Full_Access,
+     with Unchecked_Union, Size => 32, Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for PREFIX1_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
-
-   ------------------------
-   -- TXADDRESS_Register --
-   ------------------------
 
    subtype TXADDRESS_TXADDRESS_Field is nrf51.UInt3;
 
@@ -947,7 +994,7 @@ package nrf51.RADIO is
       --  unspecified
       Reserved_3_31 : nrf51.UInt29 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for TXADDRESS_Register use record
@@ -955,28 +1002,20 @@ package nrf51.RADIO is
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
 
-   --------------------------
-   -- RXADDRESSES_Register --
-   --------------------------
-
    --  Enable reception on logical address 0. Decision point: START task.
-   type ADDR0_Field is
-     (
-      --  Reception disabled.
+   type RXADDRESSES_ADDR0_Field is
+     (--  Reception disabled.
       Disabled,
       --  Reception enabled.
       Enabled)
      with Size => 1;
-   for ADDR0_Field use
+   for RXADDRESSES_ADDR0_Field use
      (Disabled => 0,
       Enabled => 1);
 
-   ----------------------
-   -- RXADDRESSES.ADDR --
-   ----------------------
-
    --  RXADDRESSES_ADDR array
-   type RXADDRESSES_ADDR_Field_Array is array (0 .. 7) of ADDR0_Field
+   type RXADDRESSES_ADDR_Field_Array is array (0 .. 7)
+     of RXADDRESSES_ADDR0_Field
      with Component_Size => 1, Size => 8;
 
    --  Type definition for RXADDRESSES_ADDR
@@ -1007,7 +1046,7 @@ package nrf51.RADIO is
       --  unspecified
       Reserved_8_31 : nrf51.UInt24 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for RXADDRESSES_Register use record
@@ -1015,14 +1054,9 @@ package nrf51.RADIO is
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
 
-   ---------------------
-   -- CRCCNF_Register --
-   ---------------------
-
    --  CRC length. Decision point: START task.
-   type LEN_Field is
-     (
-      --  CRC calculation disabled.
+   type CRCCNF_LEN_Field is
+     (--  CRC calculation disabled.
       Disabled,
       --  One byte long CRC.
       One,
@@ -1031,7 +1065,7 @@ package nrf51.RADIO is
       --  Three bytes long CRC.
       Three)
      with Size => 2;
-   for LEN_Field use
+   for CRCCNF_LEN_Field use
      (Disabled => 0,
       One => 1,
       Two => 2,
@@ -1039,31 +1073,30 @@ package nrf51.RADIO is
 
    --  Leave packet address field out of the CRC calculation. Decision point:
    --  START task.
-   type SKIPADDR_Field is
-     (
-      --  Include packet address in CRC calculation.
+   type CRCCNF_SKIPADDR_Field is
+     (--  Include packet address in CRC calculation.
       Include,
-      --  Packet address is skipped in CRC calculation. The CRC calculation
-      --  will start at the first byte after the address.
+      --  Packet address is skipped in CRC calculation. The CRC calculation will
+--  start at the first byte after the address.
       Skip)
      with Size => 1;
-   for SKIPADDR_Field use
+   for CRCCNF_SKIPADDR_Field use
      (Include => 0,
       Skip => 1);
 
    --  CRC configuration.
    type CRCCNF_Register is record
       --  CRC length. Decision point: START task.
-      LEN           : LEN_Field := Disabled;
+      LEN           : CRCCNF_LEN_Field := nrf51.RADIO.Disabled;
       --  unspecified
       Reserved_2_7  : nrf51.UInt6 := 16#0#;
       --  Leave packet address field out of the CRC calculation. Decision
       --  point: START task.
-      SKIPADDR      : SKIPADDR_Field := Include;
+      SKIPADDR      : CRCCNF_SKIPADDR_Field := nrf51.RADIO.Include;
       --  unspecified
       Reserved_9_31 : nrf51.UInt23 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for CRCCNF_Register use record
@@ -1072,10 +1105,6 @@ package nrf51.RADIO is
       SKIPADDR      at 0 range 8 .. 8;
       Reserved_9_31 at 0 range 9 .. 31;
    end record;
-
-   ----------------------
-   -- CRCPOLY_Register --
-   ----------------------
 
    subtype CRCPOLY_CRCPOLY_Field is nrf51.UInt24;
 
@@ -1086,17 +1115,13 @@ package nrf51.RADIO is
       --  unspecified
       Reserved_24_31 : nrf51.Byte := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for CRCPOLY_Register use record
       CRCPOLY        at 0 range 0 .. 23;
       Reserved_24_31 at 0 range 24 .. 31;
    end record;
-
-   ----------------------
-   -- CRCINIT_Register --
-   ----------------------
 
    subtype CRCINIT_CRCINIT_Field is nrf51.UInt24;
 
@@ -1107,7 +1132,7 @@ package nrf51.RADIO is
       --  unspecified
       Reserved_24_31 : nrf51.Byte := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for CRCINIT_Register use record
@@ -1115,44 +1140,38 @@ package nrf51.RADIO is
       Reserved_24_31 at 0 range 24 .. 31;
    end record;
 
-   -------------------
-   -- TEST_Register --
-   -------------------
-
    --  Constant carrier. Decision point: TXEN task.
-   type CONSTCARRIER_Field is
-     (
-      --  Constant carrier disabled.
+   type TEST_CONSTCARRIER_Field is
+     (--  Constant carrier disabled.
       Disabled,
       --  Constant carrier enabled.
       Enabled)
      with Size => 1;
-   for CONSTCARRIER_Field use
+   for TEST_CONSTCARRIER_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  PLL lock. Decision point: TXEN or RXEN task.
-   type PLLLOCK_Field is
-     (
-      --  PLL lock disabled.
+   type TEST_PLLLOCK_Field is
+     (--  PLL lock disabled.
       Disabled,
       --  PLL lock enabled.
       Enabled)
      with Size => 1;
-   for PLLLOCK_Field use
+   for TEST_PLLLOCK_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Test features enable register.
    type TEST_Register is record
       --  Constant carrier. Decision point: TXEN task.
-      CONSTCARRIER  : CONSTCARRIER_Field := Disabled;
+      CONSTCARRIER  : TEST_CONSTCARRIER_Field := nrf51.RADIO.Disabled;
       --  PLL lock. Decision point: TXEN or RXEN task.
-      PLLLOCK       : PLLLOCK_Field := Disabled;
+      PLLLOCK       : TEST_PLLLOCK_Field := nrf51.RADIO.Disabled;
       --  unspecified
       Reserved_2_31 : nrf51.UInt30 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for TEST_Register use record
@@ -1160,10 +1179,6 @@ package nrf51.RADIO is
       PLLLOCK       at 0 range 1 .. 1;
       Reserved_2_31 at 0 range 2 .. 31;
    end record;
-
-   -------------------
-   -- TIFS_Register --
-   -------------------
 
    subtype TIFS_TIFS_Field is nrf51.Byte;
 
@@ -1174,17 +1189,13 @@ package nrf51.RADIO is
       --  unspecified
       Reserved_8_31 : nrf51.UInt24 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for TIFS_Register use record
       TIFS          at 0 range 0 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
-
-   -------------------------
-   -- RSSISAMPLE_Register --
-   -------------------------
 
    subtype RSSISAMPLE_RSSISAMPLE_Field is nrf51.UInt7;
 
@@ -1196,7 +1207,7 @@ package nrf51.RADIO is
       --  unspecified
       Reserved_7_31 : nrf51.UInt25;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for RSSISAMPLE_Register use record
@@ -1204,14 +1215,9 @@ package nrf51.RADIO is
       Reserved_7_31 at 0 range 7 .. 31;
    end record;
 
-   --------------------
-   -- STATE_Register --
-   --------------------
-
    --  Current radio state.
-   type STATE_Field is
-     (
-      --  Radio is in the Disabled state.
+   type STATE_STATE_Field is
+     (--  Radio is in the Disabled state.
       Disabled,
       --  Radio is in the Rx Ramp Up state.
       Rxru,
@@ -1230,7 +1236,7 @@ package nrf51.RADIO is
       --  Radio is in the Tx Disable state.
       Txdisable)
      with Size => 4;
-   for STATE_Field use
+   for STATE_STATE_Field use
      (Disabled => 0,
       Rxru => 1,
       Rxidle => 2,
@@ -1244,21 +1250,17 @@ package nrf51.RADIO is
    --  Current radio state.
    type STATE_Register is record
       --  Read-only. Current radio state.
-      STATE         : STATE_Field;
+      STATE         : STATE_STATE_Field;
       --  unspecified
       Reserved_4_31 : nrf51.UInt28;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for STATE_Register use record
       STATE         at 0 range 0 .. 3;
       Reserved_4_31 at 0 range 4 .. 31;
    end record;
-
-   --------------------------
-   -- DATAWHITEIV_Register --
-   --------------------------
 
    subtype DATAWHITEIV_DATAWHITEIV_Field is nrf51.UInt7;
 
@@ -1270,7 +1272,7 @@ package nrf51.RADIO is
       --  unspecified
       Reserved_7_31 : nrf51.UInt25 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for DATAWHITEIV_Register use record
@@ -1281,22 +1283,18 @@ package nrf51.RADIO is
    --  Device address base segment.
 
    --  Device address base segment.
-   type DAB_Registers is array (0 .. 7) of nrf51.Word;
+   type DAB_Registers is array (0 .. 7) of nrf51.UInt32;
 
-   ------------------
-   -- DAP_Register --
-   ------------------
-
-   subtype DAP_DAP_Field is nrf51.Short;
+   subtype DAP_DAP_Field is nrf51.UInt16;
 
    --  Device address prefix.
    type DAP_Register is record
       --  Device address prefix.
       DAP            : DAP_DAP_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : nrf51.Short := 16#0#;
+      Reserved_16_31 : nrf51.UInt16 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for DAP_Register use record
@@ -1307,28 +1305,19 @@ package nrf51.RADIO is
    --  Device address prefix.
    type DAP_Registers is array (0 .. 7) of DAP_Register;
 
-   --------------------
-   -- DACNF_Register --
-   --------------------
-
    --  Enable or disable device address matching using device address 0.
-   type ENA0_Field is
-     (
-      --  Disabled.
+   type DACNF_ENA0_Field is
+     (--  Disabled.
       Disabled,
       --  Enabled.
       Enabled)
      with Size => 1;
-   for ENA0_Field use
+   for DACNF_ENA0_Field use
      (Disabled => 0,
       Enabled => 1);
 
-   ---------------
-   -- DACNF.ENA --
-   ---------------
-
    --  DACNF_ENA array
-   type DACNF_ENA_Field_Array is array (0 .. 7) of ENA0_Field
+   type DACNF_ENA_Field_Array is array (0 .. 7) of DACNF_ENA0_Field
      with Component_Size => 1, Size => 8;
 
    --  Type definition for DACNF_ENA
@@ -1350,10 +1339,6 @@ package nrf51.RADIO is
       Val at 0 range 0 .. 7;
       Arr at 0 range 0 .. 7;
    end record;
-
-   -----------------
-   -- DACNF.TXADD --
-   -----------------
 
    --  DACNF_TXADD array element
    subtype DACNF_TXADD_Element is nrf51.Bit;
@@ -1389,9 +1374,9 @@ package nrf51.RADIO is
       --  TxAdd for device address 0.
       TXADD          : DACNF_TXADD_Field := (As_Array => False, Val => 16#0#);
       --  unspecified
-      Reserved_16_31 : nrf51.Short := 16#0#;
+      Reserved_16_31 : nrf51.UInt16 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for DACNF_Register use record
@@ -1400,21 +1385,16 @@ package nrf51.RADIO is
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   ------------------------
-   -- OVERRIDE4_Register --
-   ------------------------
-
    subtype OVERRIDE4_OVERRIDE4_Field is nrf51.UInt28;
 
    --  Enable or disable override of default trim values.
-   type ENABLE_Field is
-     (
-      --  Override trim values disabled.
+   type OVERRIDE4_ENABLE_Field is
+     (--  Override trim values disabled.
       Disabled,
       --  Override trim values enabled.
       Enabled)
      with Size => 1;
-   for ENABLE_Field use
+   for OVERRIDE4_ENABLE_Field use
      (Disabled => 0,
       Enabled => 1);
 
@@ -1425,9 +1405,9 @@ package nrf51.RADIO is
       --  unspecified
       Reserved_28_30 : nrf51.UInt3 := 16#0#;
       --  Enable or disable override of default trim values.
-      ENABLE         : ENABLE_Field := Disabled;
+      ENABLE         : OVERRIDE4_ENABLE_Field := nrf51.RADIO.Disabled;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for OVERRIDE4_Register use record
@@ -1436,30 +1416,25 @@ package nrf51.RADIO is
       ENABLE         at 0 range 31 .. 31;
    end record;
 
-   --------------------
-   -- POWER_Register --
-   --------------------
-
    --  Peripheral power control.
-   type POWER_Field is
-     (
-      --  Module power disabled.
+   type POWER_POWER_Field is
+     (--  Module power disabled.
       Disabled,
       --  Module power enabled.
       Enabled)
      with Size => 1;
-   for POWER_Field use
+   for POWER_POWER_Field use
      (Disabled => 0,
       Enabled => 1);
 
    --  Peripheral power control.
    type POWER_Register is record
       --  Peripheral power control.
-      POWER         : POWER_Field := Disabled;
+      POWER         : POWER_POWER_Field := nrf51.RADIO.Disabled;
       --  unspecified
       Reserved_1_31 : nrf51.UInt31 := 16#0#;
    end record
-     with Volatile_Full_Access, Size => 32,
+     with Volatile_Full_Access, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
    for POWER_Register use record
@@ -1474,175 +1449,175 @@ package nrf51.RADIO is
    --  The radio.
    type RADIO_Peripheral is record
       --  Enable radio in TX mode.
-      TASKS_TXEN      : nrf51.Word;
+      TASKS_TXEN      : aliased nrf51.UInt32;
       --  Enable radio in RX mode.
-      TASKS_RXEN      : nrf51.Word;
+      TASKS_RXEN      : aliased nrf51.UInt32;
       --  Start radio.
-      TASKS_START     : nrf51.Word;
+      TASKS_START     : aliased nrf51.UInt32;
       --  Stop radio.
-      TASKS_STOP      : nrf51.Word;
+      TASKS_STOP      : aliased nrf51.UInt32;
       --  Disable radio.
-      TASKS_DISABLE   : nrf51.Word;
+      TASKS_DISABLE   : aliased nrf51.UInt32;
       --  Start the RSSI and take one sample of the receive signal strength.
-      TASKS_RSSISTART : nrf51.Word;
+      TASKS_RSSISTART : aliased nrf51.UInt32;
       --  Stop the RSSI measurement.
-      TASKS_RSSISTOP  : nrf51.Word;
+      TASKS_RSSISTOP  : aliased nrf51.UInt32;
       --  Start the bit counter.
-      TASKS_BCSTART   : nrf51.Word;
+      TASKS_BCSTART   : aliased nrf51.UInt32;
       --  Stop the bit counter.
-      TASKS_BCSTOP    : nrf51.Word;
+      TASKS_BCSTOP    : aliased nrf51.UInt32;
       --  Ready event.
-      EVENTS_READY    : nrf51.Word;
+      EVENTS_READY    : aliased nrf51.UInt32;
       --  Address event.
-      EVENTS_ADDRESS  : nrf51.Word;
+      EVENTS_ADDRESS  : aliased nrf51.UInt32;
       --  Payload event.
-      EVENTS_PAYLOAD  : nrf51.Word;
+      EVENTS_PAYLOAD  : aliased nrf51.UInt32;
       --  End event.
-      EVENTS_END      : nrf51.Word;
+      EVENTS_END      : aliased nrf51.UInt32;
       --  Disable event.
-      EVENTS_DISABLED : nrf51.Word;
+      EVENTS_DISABLED : aliased nrf51.UInt32;
       --  A device address match occurred on the last received packet.
-      EVENTS_DEVMATCH : nrf51.Word;
+      EVENTS_DEVMATCH : aliased nrf51.UInt32;
       --  No device address match occurred on the last received packet.
-      EVENTS_DEVMISS  : nrf51.Word;
+      EVENTS_DEVMISS  : aliased nrf51.UInt32;
       --  Sampling of the receive signal strength complete. A new RSSI sample
       --  is ready for readout at the RSSISAMPLE register.
-      EVENTS_RSSIEND  : nrf51.Word;
+      EVENTS_RSSIEND  : aliased nrf51.UInt32;
       --  Bit counter reached bit count value specified in BCC register.
-      EVENTS_BCMATCH  : nrf51.Word;
+      EVENTS_BCMATCH  : aliased nrf51.UInt32;
       --  Shortcuts for the radio.
-      SHORTS          : SHORTS_Register;
+      SHORTS          : aliased SHORTS_Register;
       --  Interrupt enable set register.
-      INTENSET        : INTENSET_Register;
+      INTENSET        : aliased INTENSET_Register;
       --  Interrupt enable clear register.
-      INTENCLR        : INTENCLR_Register;
+      INTENCLR        : aliased INTENCLR_Register;
       --  CRC status of received packet.
-      CRCSTATUS       : CRCSTATUS_Register;
+      CRCSTATUS       : aliased CRCSTATUS_Register;
       --  Received address.
-      RXMATCH         : RXMATCH_Register;
+      RXMATCH         : aliased RXMATCH_Register;
       --  Received CRC.
-      RXCRC           : RXCRC_Register;
+      RXCRC           : aliased RXCRC_Register;
       --  Device address match index.
-      DAI             : DAI_Register;
+      DAI             : aliased DAI_Register;
       --  Packet pointer. Decision point: START task.
-      PACKETPTR       : nrf51.Word;
+      PACKETPTR       : aliased nrf51.UInt32;
       --  Frequency.
-      FREQUENCY       : FREQUENCY_Register;
+      FREQUENCY       : aliased FREQUENCY_Register;
       --  Output power.
-      TXPOWER         : TXPOWER_Register;
+      TXPOWER         : aliased TXPOWER_Register;
       --  Data rate and modulation.
-      MODE            : MODE_Register;
+      MODE            : aliased MODE_Register;
       --  Packet configuration 0.
-      PCNF0           : PCNF0_Register;
+      PCNF0           : aliased PCNF0_Register;
       --  Packet configuration 1.
-      PCNF1           : PCNF1_Register;
+      PCNF1           : aliased PCNF1_Register;
       --  Radio base address 0. Decision point: START task.
-      BASE0           : nrf51.Word;
+      BASE0           : aliased nrf51.UInt32;
       --  Radio base address 1. Decision point: START task.
-      BASE1           : nrf51.Word;
+      BASE1           : aliased nrf51.UInt32;
       --  Prefixes bytes for logical addresses 0 to 3.
-      PREFIX0         : PREFIX0_Register;
+      PREFIX0         : aliased PREFIX0_Register;
       --  Prefixes bytes for logical addresses 4 to 7.
-      PREFIX1         : PREFIX1_Register;
+      PREFIX1         : aliased PREFIX1_Register;
       --  Transmit address select.
-      TXADDRESS       : TXADDRESS_Register;
+      TXADDRESS       : aliased TXADDRESS_Register;
       --  Receive address select.
-      RXADDRESSES     : RXADDRESSES_Register;
+      RXADDRESSES     : aliased RXADDRESSES_Register;
       --  CRC configuration.
-      CRCCNF          : CRCCNF_Register;
+      CRCCNF          : aliased CRCCNF_Register;
       --  CRC polynomial.
-      CRCPOLY         : CRCPOLY_Register;
+      CRCPOLY         : aliased CRCPOLY_Register;
       --  CRC initial value.
-      CRCINIT         : CRCINIT_Register;
+      CRCINIT         : aliased CRCINIT_Register;
       --  Test features enable register.
-      TEST            : TEST_Register;
+      TEST            : aliased TEST_Register;
       --  Inter Frame Spacing in microseconds.
-      TIFS            : TIFS_Register;
+      TIFS            : aliased TIFS_Register;
       --  RSSI sample.
-      RSSISAMPLE      : RSSISAMPLE_Register;
+      RSSISAMPLE      : aliased RSSISAMPLE_Register;
       --  Current radio state.
-      STATE           : STATE_Register;
+      STATE           : aliased STATE_Register;
       --  Data whitening initial value.
-      DATAWHITEIV     : DATAWHITEIV_Register;
+      DATAWHITEIV     : aliased DATAWHITEIV_Register;
       --  Bit counter compare.
-      BCC             : nrf51.Word;
+      BCC             : aliased nrf51.UInt32;
       --  Device address base segment.
-      DAB             : DAB_Registers;
+      DAB             : aliased DAB_Registers;
       --  Device address prefix.
-      DAP             : DAP_Registers;
+      DAP             : aliased DAP_Registers;
       --  Device address match configuration.
-      DACNF           : DACNF_Register;
+      DACNF           : aliased DACNF_Register;
       --  Trim value override register 0.
-      OVERRIDE0       : nrf51.Word;
+      OVERRIDE0       : aliased nrf51.UInt32;
       --  Trim value override register 1.
-      OVERRIDE1       : nrf51.Word;
+      OVERRIDE1       : aliased nrf51.UInt32;
       --  Trim value override register 2.
-      OVERRIDE2       : nrf51.Word;
+      OVERRIDE2       : aliased nrf51.UInt32;
       --  Trim value override register 3.
-      OVERRIDE3       : nrf51.Word;
+      OVERRIDE3       : aliased nrf51.UInt32;
       --  Trim value override register 4.
-      OVERRIDE4       : OVERRIDE4_Register;
+      OVERRIDE4       : aliased OVERRIDE4_Register;
       --  Peripheral power control.
-      POWER           : POWER_Register;
+      POWER           : aliased POWER_Register;
    end record
      with Volatile;
 
    for RADIO_Peripheral use record
-      TASKS_TXEN      at 0 range 0 .. 31;
-      TASKS_RXEN      at 4 range 0 .. 31;
-      TASKS_START     at 8 range 0 .. 31;
-      TASKS_STOP      at 12 range 0 .. 31;
-      TASKS_DISABLE   at 16 range 0 .. 31;
-      TASKS_RSSISTART at 20 range 0 .. 31;
-      TASKS_RSSISTOP  at 24 range 0 .. 31;
-      TASKS_BCSTART   at 28 range 0 .. 31;
-      TASKS_BCSTOP    at 32 range 0 .. 31;
-      EVENTS_READY    at 256 range 0 .. 31;
-      EVENTS_ADDRESS  at 260 range 0 .. 31;
-      EVENTS_PAYLOAD  at 264 range 0 .. 31;
-      EVENTS_END      at 268 range 0 .. 31;
-      EVENTS_DISABLED at 272 range 0 .. 31;
-      EVENTS_DEVMATCH at 276 range 0 .. 31;
-      EVENTS_DEVMISS  at 280 range 0 .. 31;
-      EVENTS_RSSIEND  at 284 range 0 .. 31;
-      EVENTS_BCMATCH  at 296 range 0 .. 31;
-      SHORTS          at 512 range 0 .. 31;
-      INTENSET        at 772 range 0 .. 31;
-      INTENCLR        at 776 range 0 .. 31;
-      CRCSTATUS       at 1024 range 0 .. 31;
-      RXMATCH         at 1032 range 0 .. 31;
-      RXCRC           at 1036 range 0 .. 31;
-      DAI             at 1040 range 0 .. 31;
-      PACKETPTR       at 1284 range 0 .. 31;
-      FREQUENCY       at 1288 range 0 .. 31;
-      TXPOWER         at 1292 range 0 .. 31;
-      MODE            at 1296 range 0 .. 31;
-      PCNF0           at 1300 range 0 .. 31;
-      PCNF1           at 1304 range 0 .. 31;
-      BASE0           at 1308 range 0 .. 31;
-      BASE1           at 1312 range 0 .. 31;
-      PREFIX0         at 1316 range 0 .. 31;
-      PREFIX1         at 1320 range 0 .. 31;
-      TXADDRESS       at 1324 range 0 .. 31;
-      RXADDRESSES     at 1328 range 0 .. 31;
-      CRCCNF          at 1332 range 0 .. 31;
-      CRCPOLY         at 1336 range 0 .. 31;
-      CRCINIT         at 1340 range 0 .. 31;
-      TEST            at 1344 range 0 .. 31;
-      TIFS            at 1348 range 0 .. 31;
-      RSSISAMPLE      at 1352 range 0 .. 31;
-      STATE           at 1360 range 0 .. 31;
-      DATAWHITEIV     at 1364 range 0 .. 31;
-      BCC             at 1376 range 0 .. 31;
-      DAB             at 1536 range 0 .. 255;
-      DAP             at 1568 range 0 .. 255;
-      DACNF           at 1600 range 0 .. 31;
-      OVERRIDE0       at 1828 range 0 .. 31;
-      OVERRIDE1       at 1832 range 0 .. 31;
-      OVERRIDE2       at 1836 range 0 .. 31;
-      OVERRIDE3       at 1840 range 0 .. 31;
-      OVERRIDE4       at 1844 range 0 .. 31;
-      POWER           at 4092 range 0 .. 31;
+      TASKS_TXEN      at 16#0# range 0 .. 31;
+      TASKS_RXEN      at 16#4# range 0 .. 31;
+      TASKS_START     at 16#8# range 0 .. 31;
+      TASKS_STOP      at 16#C# range 0 .. 31;
+      TASKS_DISABLE   at 16#10# range 0 .. 31;
+      TASKS_RSSISTART at 16#14# range 0 .. 31;
+      TASKS_RSSISTOP  at 16#18# range 0 .. 31;
+      TASKS_BCSTART   at 16#1C# range 0 .. 31;
+      TASKS_BCSTOP    at 16#20# range 0 .. 31;
+      EVENTS_READY    at 16#100# range 0 .. 31;
+      EVENTS_ADDRESS  at 16#104# range 0 .. 31;
+      EVENTS_PAYLOAD  at 16#108# range 0 .. 31;
+      EVENTS_END      at 16#10C# range 0 .. 31;
+      EVENTS_DISABLED at 16#110# range 0 .. 31;
+      EVENTS_DEVMATCH at 16#114# range 0 .. 31;
+      EVENTS_DEVMISS  at 16#118# range 0 .. 31;
+      EVENTS_RSSIEND  at 16#11C# range 0 .. 31;
+      EVENTS_BCMATCH  at 16#128# range 0 .. 31;
+      SHORTS          at 16#200# range 0 .. 31;
+      INTENSET        at 16#304# range 0 .. 31;
+      INTENCLR        at 16#308# range 0 .. 31;
+      CRCSTATUS       at 16#400# range 0 .. 31;
+      RXMATCH         at 16#408# range 0 .. 31;
+      RXCRC           at 16#40C# range 0 .. 31;
+      DAI             at 16#410# range 0 .. 31;
+      PACKETPTR       at 16#504# range 0 .. 31;
+      FREQUENCY       at 16#508# range 0 .. 31;
+      TXPOWER         at 16#50C# range 0 .. 31;
+      MODE            at 16#510# range 0 .. 31;
+      PCNF0           at 16#514# range 0 .. 31;
+      PCNF1           at 16#518# range 0 .. 31;
+      BASE0           at 16#51C# range 0 .. 31;
+      BASE1           at 16#520# range 0 .. 31;
+      PREFIX0         at 16#524# range 0 .. 31;
+      PREFIX1         at 16#528# range 0 .. 31;
+      TXADDRESS       at 16#52C# range 0 .. 31;
+      RXADDRESSES     at 16#530# range 0 .. 31;
+      CRCCNF          at 16#534# range 0 .. 31;
+      CRCPOLY         at 16#538# range 0 .. 31;
+      CRCINIT         at 16#53C# range 0 .. 31;
+      TEST            at 16#540# range 0 .. 31;
+      TIFS            at 16#544# range 0 .. 31;
+      RSSISAMPLE      at 16#548# range 0 .. 31;
+      STATE           at 16#550# range 0 .. 31;
+      DATAWHITEIV     at 16#554# range 0 .. 31;
+      BCC             at 16#560# range 0 .. 31;
+      DAB             at 16#600# range 0 .. 255;
+      DAP             at 16#620# range 0 .. 255;
+      DACNF           at 16#640# range 0 .. 31;
+      OVERRIDE0       at 16#724# range 0 .. 31;
+      OVERRIDE1       at 16#728# range 0 .. 31;
+      OVERRIDE2       at 16#72C# range 0 .. 31;
+      OVERRIDE3       at 16#730# range 0 .. 31;
+      OVERRIDE4       at 16#734# range 0 .. 31;
+      POWER           at 16#FFC# range 0 .. 31;
    end record;
 
    --  The radio.

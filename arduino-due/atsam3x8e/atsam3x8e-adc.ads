@@ -1,8 +1,9 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
 --  This spec has been automatically generated from ATSAM3X8E.svd
---  see https://github.com/simonjwright/svd2ada
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -14,51 +15,41 @@ package ATSAM3X8E.ADC is
    -- Registers --
    ---------------
 
-   -----------------
-   -- CR_Register --
-   -----------------
-
-   subtype CR_SWRST_Field is ATSAM3X8E.Bit;
-   subtype CR_START_Field is ATSAM3X8E.Bit;
+   subtype ADC_CR_SWRST_Field is ATSAM3X8E.Bit;
+   subtype ADC_CR_START_Field is ATSAM3X8E.Bit;
 
    --  Control Register
-   type CR_Register is record
+   type ADC_CR_Register is record
       --  Write-only. Software Reset
-      SWRST         : CR_SWRST_Field := 16#0#;
+      SWRST         : ADC_CR_SWRST_Field := 16#0#;
       --  Write-only. Start Conversion
-      START         : CR_START_Field := 16#0#;
+      START         : ADC_CR_START_Field := 16#0#;
       --  unspecified
       Reserved_2_31 : ATSAM3X8E.UInt30 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for CR_Register use record
+   for ADC_CR_Register use record
       SWRST         at 0 range 0 .. 0;
       START         at 0 range 1 .. 1;
       Reserved_2_31 at 0 range 2 .. 31;
    end record;
 
-   -----------------
-   -- MR_Register --
-   -----------------
-
    --  Trigger Enable
-   type TRGEN_Field is
-     (
-      --  Hardware triggers are disabled. Starting a conversion is only
-      --  possible by software.
+   type MR_TRGEN_Field is
+     (--  Hardware triggers are disabled. Starting a conversion is only possible by
+--  software.
       Dis,
       --  Hardware trigger selected by TRGSEL field is enabled.
       En)
      with Size => 1;
-   for TRGEN_Field use
+   for MR_TRGEN_Field use
      (Dis => 0,
       En => 1);
 
    --  Trigger Selection
-   type TRGSEL_Field is
-     (
-      --  External : ADCTRG
+   type MR_TRGSEL_Field is
+     (--  External : ADCTRG
       Adc_Trig0,
       --  TIOA Output of the Timer Counter Channel 0
       Adc_Trig1,
@@ -71,7 +62,7 @@ package ATSAM3X8E.ADC is
       --  PWM Event Line 0
       Adc_Trig5)
      with Size => 3;
-   for TRGSEL_Field use
+   for MR_TRGSEL_Field use
      (Adc_Trig0 => 0,
       Adc_Trig1 => 1,
       Adc_Trig2 => 2,
@@ -80,62 +71,57 @@ package ATSAM3X8E.ADC is
       Adc_Trig5 => 5);
 
    --  Resolution
-   type LOWRES_Field is
-     (
-      --  12-bit resolution
+   type MR_LOWRES_Field is
+     (--  12-bit resolution
       Bits_12,
       --  10-bit resolution
       Bits_10)
      with Size => 1;
-   for LOWRES_Field use
+   for MR_LOWRES_Field use
      (Bits_12 => 0,
       Bits_10 => 1);
 
    --  Sleep Mode
-   type SLEEP_Field is
-     (
-      --  Normal Mode: The ADC Core and reference voltage circuitry are kept ON
-      --  between conversions
+   type MR_SLEEP_Field is
+     (--  Normal Mode: The ADC Core and reference voltage circuitry are kept ON
+--  between conversions
       Normal,
-      --  Sleep Mode: The ADC Core and reference voltage circuitry are OFF
-      --  between conversions
+      --  Sleep Mode: The ADC Core and reference voltage circuitry are OFF between
+--  conversions
       Sleep)
      with Size => 1;
-   for SLEEP_Field use
+   for MR_SLEEP_Field use
      (Normal => 0,
       Sleep => 1);
 
    --  Fast Wake Up
-   type FWUP_Field is
-     (
-      --  Normal Sleep Mode: The sleep mode is defined by the SLEEP bit
+   type MR_FWUP_Field is
+     (--  Normal Sleep Mode: The sleep mode is defined by the SLEEP bit
       Off,
-      --  Fast Wake Up Sleep Mode: The Voltage reference is ON between
-      --  conversions and ADC Core is OFF
+      --  Fast Wake Up Sleep Mode: The Voltage reference is ON between conversions
+--  and ADC Core is OFF
       On)
      with Size => 1;
-   for FWUP_Field use
+   for MR_FWUP_Field use
      (Off => 0,
       On => 1);
 
    --  Free Run Mode
-   type FREERUN_Field is
-     (
-      --  Normal Mode
+   type MR_FREERUN_Field is
+     (--  Normal Mode
       Off,
       --  Free Run Mode: Never wait for any trigger.
       On)
      with Size => 1;
-   for FREERUN_Field use
+   for MR_FREERUN_Field use
      (Off => 0,
       On => 1);
 
-   subtype MR_PRESCAL_Field is ATSAM3X8E.Byte;
+   subtype ADC_MR_PRESCAL_Field is ATSAM3X8E.Byte;
 
    --  Start Up Time
-   type STARTUP_Field is
-     (
-      --  0 periods of ADCClock
+   type MR_STARTUP_Field is
+     (--  0 periods of ADCClock
       Sut0,
       --  8 periods of ADCClock
       Sut8,
@@ -168,7 +154,7 @@ package ATSAM3X8E.ADC is
       --  960 periods of ADCClock
       Sut960)
      with Size => 4;
-   for STARTUP_Field use
+   for MR_STARTUP_Field use
      (Sut0 => 0,
       Sut8 => 1,
       Sut16 => 2,
@@ -187,9 +173,8 @@ package ATSAM3X8E.ADC is
       Sut960 => 15);
 
    --  Analog Settling Time
-   type SETTLING_Field is
-     (
-      --  3 periods of ADCClock
+   type MR_SETTLING_Field is
+     (--  3 periods of ADCClock
       Ast3,
       --  5 periods of ADCClock
       Ast5,
@@ -198,79 +183,76 @@ package ATSAM3X8E.ADC is
       --  17 periods of ADCClock
       Ast17)
      with Size => 2;
-   for SETTLING_Field use
+   for MR_SETTLING_Field use
      (Ast3 => 0,
       Ast5 => 1,
       Ast9 => 2,
       Ast17 => 3);
 
    --  Analog Change
-   type ANACH_Field is
-     (
-      --  No analog change on channel switching: DIFF0, GAIN0 and OFF0 are used
-      --  for all channels
+   type MR_ANACH_Field is
+     (--  No analog change on channel switching: DIFF0, GAIN0 and OFF0 are used for
+--  all channels
       None,
-      --  Allows different analog settings for each channel. See ADC_CGR and
-      --  ADC_COR Registers
+      --  Allows different analog settings for each channel. See ADC_CGR and ADC_COR
+--  Registers
       Allowed)
      with Size => 1;
-   for ANACH_Field use
+   for MR_ANACH_Field use
      (None => 0,
       Allowed => 1);
 
-   subtype MR_TRACKTIM_Field is ATSAM3X8E.UInt4;
-   subtype MR_TRANSFER_Field is ATSAM3X8E.UInt2;
+   subtype ADC_MR_TRACKTIM_Field is ATSAM3X8E.UInt4;
+   subtype ADC_MR_TRANSFER_Field is ATSAM3X8E.UInt2;
 
    --  Use Sequence Enable
-   type USEQ_Field is
-     (
-      --  Normal Mode: The controller converts channels in a simple numeric
-      --  order.
+   type MR_USEQ_Field is
+     (--  Normal Mode: The controller converts channels in a simple numeric order.
       Num_Order,
-      --  User Sequence Mode: The sequence respects what is defined in
-      --  ADC_SEQR1 and ADC_SEQR2 registers.
+      --  User Sequence Mode: The sequence respects what is defined in ADC_SEQR1 and
+--  ADC_SEQR2 registers.
       Reg_Order)
      with Size => 1;
-   for USEQ_Field use
+   for MR_USEQ_Field use
      (Num_Order => 0,
       Reg_Order => 1);
 
    --  Mode Register
-   type MR_Register is record
+   type ADC_MR_Register is record
       --  Trigger Enable
-      TRGEN          : TRGEN_Field := Dis;
+      TRGEN          : MR_TRGEN_Field := ATSAM3X8E.ADC.Dis;
       --  Trigger Selection
-      TRGSEL         : TRGSEL_Field := Adc_Trig0;
+      TRGSEL         : MR_TRGSEL_Field := ATSAM3X8E.ADC.Adc_Trig0;
       --  Resolution
-      LOWRES         : LOWRES_Field := Bits_12;
+      LOWRES         : MR_LOWRES_Field := ATSAM3X8E.ADC.Bits_12;
       --  Sleep Mode
-      SLEEP          : SLEEP_Field := Normal;
+      SLEEP          : MR_SLEEP_Field := ATSAM3X8E.ADC.Normal;
       --  Fast Wake Up
-      FWUP           : FWUP_Field := Off;
+      FWUP           : MR_FWUP_Field := ATSAM3X8E.ADC.Off;
       --  Free Run Mode
-      FREERUN        : FREERUN_Field := Off;
+      FREERUN        : MR_FREERUN_Field := ATSAM3X8E.ADC.Off;
       --  Prescaler Rate Selection
-      PRESCAL        : MR_PRESCAL_Field := 16#0#;
+      PRESCAL        : ADC_MR_PRESCAL_Field := 16#0#;
       --  Start Up Time
-      STARTUP        : STARTUP_Field := Sut0;
+      STARTUP        : MR_STARTUP_Field := ATSAM3X8E.ADC.Sut0;
       --  Analog Settling Time
-      SETTLING       : SETTLING_Field := Ast3;
+      SETTLING       : MR_SETTLING_Field := ATSAM3X8E.ADC.Ast3;
       --  unspecified
       Reserved_22_22 : ATSAM3X8E.Bit := 16#0#;
       --  Analog Change
-      ANACH          : ANACH_Field := None;
+      ANACH          : MR_ANACH_Field := ATSAM3X8E.ADC.None;
       --  Tracking Time
-      TRACKTIM       : MR_TRACKTIM_Field := 16#0#;
+      TRACKTIM       : ADC_MR_TRACKTIM_Field := 16#0#;
       --  Transfer Period
-      TRANSFER       : MR_TRANSFER_Field := 16#0#;
+      TRANSFER       : ADC_MR_TRANSFER_Field := 16#0#;
       --  unspecified
       Reserved_30_30 : ATSAM3X8E.Bit := 16#0#;
       --  Use Sequence Enable
-      USEQ           : USEQ_Field := Num_Order;
+      USEQ           : MR_USEQ_Field := ATSAM3X8E.ADC.Num_Order;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for MR_Register use record
+   for ADC_MR_Register use record
       TRGEN          at 0 range 0 .. 0;
       TRGSEL         at 0 range 1 .. 3;
       LOWRES         at 0 range 4 .. 4;
@@ -288,272 +270,262 @@ package ATSAM3X8E.ADC is
       USEQ           at 0 range 31 .. 31;
    end record;
 
-   -------------------
-   -- SEQR_Register --
-   -------------------
+   --  ADC_SEQR1_USCH array element
+   subtype ADC_SEQR1_USCH_Element is ATSAM3X8E.UInt4;
 
-   --  SEQR1_USCH array element
-   subtype SEQR1_USCH_Element is ATSAM3X8E.UInt4;
-
-   --  SEQR1_USCH array
-   type SEQR1_USCH_Field_Array is array (0 .. 7) of SEQR1_USCH_Element
+   --  ADC_SEQR1_USCH array
+   type ADC_SEQR1_USCH_Field_Array is array (1 .. 8)
+     of ADC_SEQR1_USCH_Element
      with Component_Size => 4, Size => 32;
 
    --  Channel Sequence Register 1
-   type SEQR_Register
+   type ADC_SEQR1_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  USCH as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  USCH as an array
-            Arr : SEQR1_USCH_Field_Array;
+            Arr : ADC_SEQR1_USCH_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for SEQR_Register use record
+   for ADC_SEQR1_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- CHER_Register --
-   -------------------
+   --  ADC_SEQR2_USCH array element
+   subtype ADC_SEQR2_USCH_Element is ATSAM3X8E.UInt4;
 
-   -------------
-   -- CHER.CH --
-   -------------
+   --  ADC_SEQR2_USCH array
+   type ADC_SEQR2_USCH_Field_Array is array (9 .. 16)
+     of ADC_SEQR2_USCH_Element
+     with Component_Size => 4, Size => 32;
 
-   --  CHER_CH array element
-   subtype CHER_CH_Element is ATSAM3X8E.Bit;
+   --  Channel Sequence Register 2
+   type ADC_SEQR2_Register
+     (As_Array : Boolean := False)
+   is record
+      case As_Array is
+         when False =>
+            --  USCH as a value
+            Val : ATSAM3X8E.UInt32;
+         when True =>
+            --  USCH as an array
+            Arr : ADC_SEQR2_USCH_Field_Array;
+      end case;
+   end record
+     with Unchecked_Union, Size => 32, Object_Size => 32,
+          Bit_Order => System.Low_Order_First;
 
-   --  CHER_CH array
-   type CHER_CH_Field_Array is array (0 .. 15) of CHER_CH_Element
+   for ADC_SEQR2_Register use record
+      Val at 0 range 0 .. 31;
+      Arr at 0 range 0 .. 31;
+   end record;
+
+   --  ADC_CHER_CH array element
+   subtype ADC_CHER_CH_Element is ATSAM3X8E.Bit;
+
+   --  ADC_CHER_CH array
+   type ADC_CHER_CH_Field_Array is array (0 .. 15) of ADC_CHER_CH_Element
      with Component_Size => 1, Size => 16;
 
-   --  Type definition for CHER_CH
-   type CHER_CH_Field
+   --  Type definition for ADC_CHER_CH
+   type ADC_CHER_CH_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  CH as a value
-            Val : ATSAM3X8E.Short;
+            Val : ATSAM3X8E.UInt16;
          when True =>
             --  CH as an array
-            Arr : CHER_CH_Field_Array;
+            Arr : ADC_CHER_CH_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 16;
 
-   for CHER_CH_Field use record
+   for ADC_CHER_CH_Field use record
       Val at 0 range 0 .. 15;
       Arr at 0 range 0 .. 15;
    end record;
 
    --  Channel Enable Register
-   type CHER_Register is record
+   type ADC_CHER_Register is record
       --  Write-only. Channel 0 Enable
-      CH             : CHER_CH_Field := (As_Array => False, Val => 16#0#);
+      CH             : ADC_CHER_CH_Field := (As_Array => False, Val => 16#0#);
       --  unspecified
-      Reserved_16_31 : ATSAM3X8E.Short := 16#0#;
+      Reserved_16_31 : ATSAM3X8E.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for CHER_Register use record
+   for ADC_CHER_Register use record
       CH             at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   -------------------
-   -- CHDR_Register --
-   -------------------
+   --  ADC_CHDR_CH array element
+   subtype ADC_CHDR_CH_Element is ATSAM3X8E.Bit;
 
-   -------------
-   -- CHDR.CH --
-   -------------
-
-   --  CHDR_CH array element
-   subtype CHDR_CH_Element is ATSAM3X8E.Bit;
-
-   --  CHDR_CH array
-   type CHDR_CH_Field_Array is array (0 .. 15) of CHDR_CH_Element
+   --  ADC_CHDR_CH array
+   type ADC_CHDR_CH_Field_Array is array (0 .. 15) of ADC_CHDR_CH_Element
      with Component_Size => 1, Size => 16;
 
-   --  Type definition for CHDR_CH
-   type CHDR_CH_Field
+   --  Type definition for ADC_CHDR_CH
+   type ADC_CHDR_CH_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  CH as a value
-            Val : ATSAM3X8E.Short;
+            Val : ATSAM3X8E.UInt16;
          when True =>
             --  CH as an array
-            Arr : CHDR_CH_Field_Array;
+            Arr : ADC_CHDR_CH_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 16;
 
-   for CHDR_CH_Field use record
+   for ADC_CHDR_CH_Field use record
       Val at 0 range 0 .. 15;
       Arr at 0 range 0 .. 15;
    end record;
 
    --  Channel Disable Register
-   type CHDR_Register is record
+   type ADC_CHDR_Register is record
       --  Write-only. Channel 0 Disable
-      CH             : CHDR_CH_Field := (As_Array => False, Val => 16#0#);
+      CH             : ADC_CHDR_CH_Field := (As_Array => False, Val => 16#0#);
       --  unspecified
-      Reserved_16_31 : ATSAM3X8E.Short := 16#0#;
+      Reserved_16_31 : ATSAM3X8E.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for CHDR_Register use record
+   for ADC_CHDR_Register use record
       CH             at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   -------------------
-   -- CHSR_Register --
-   -------------------
+   --  ADC_CHSR_CH array element
+   subtype ADC_CHSR_CH_Element is ATSAM3X8E.Bit;
 
-   -------------
-   -- CHSR.CH --
-   -------------
-
-   --  CHSR_CH array element
-   subtype CHSR_CH_Element is ATSAM3X8E.Bit;
-
-   --  CHSR_CH array
-   type CHSR_CH_Field_Array is array (0 .. 15) of CHSR_CH_Element
+   --  ADC_CHSR_CH array
+   type ADC_CHSR_CH_Field_Array is array (0 .. 15) of ADC_CHSR_CH_Element
      with Component_Size => 1, Size => 16;
 
-   --  Type definition for CHSR_CH
-   type CHSR_CH_Field
+   --  Type definition for ADC_CHSR_CH
+   type ADC_CHSR_CH_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  CH as a value
-            Val : ATSAM3X8E.Short;
+            Val : ATSAM3X8E.UInt16;
          when True =>
             --  CH as an array
-            Arr : CHSR_CH_Field_Array;
+            Arr : ADC_CHSR_CH_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 16;
 
-   for CHSR_CH_Field use record
+   for ADC_CHSR_CH_Field use record
       Val at 0 range 0 .. 15;
       Arr at 0 range 0 .. 15;
    end record;
 
    --  Channel Status Register
-   type CHSR_Register is record
+   type ADC_CHSR_Register is record
       --  Read-only. Channel 0 Status
-      CH             : CHSR_CH_Field := (As_Array => False, Val => 16#0#);
+      CH             : ADC_CHSR_CH_Field;
       --  unspecified
-      Reserved_16_31 : ATSAM3X8E.Short;
+      Reserved_16_31 : ATSAM3X8E.UInt16;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for CHSR_Register use record
+   for ADC_CHSR_Register use record
       CH             at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   -------------------
-   -- LCDR_Register --
-   -------------------
-
-   subtype LCDR_LDATA_Field is ATSAM3X8E.UInt12;
-   subtype LCDR_CHNB_Field is ATSAM3X8E.UInt4;
+   subtype ADC_LCDR_LDATA_Field is ATSAM3X8E.UInt12;
+   subtype ADC_LCDR_CHNB_Field is ATSAM3X8E.UInt4;
 
    --  Last Converted Data Register
-   type LCDR_Register is record
+   type ADC_LCDR_Register is record
       --  Read-only. Last Data Converted
-      LDATA          : LCDR_LDATA_Field := 16#0#;
+      LDATA          : ADC_LCDR_LDATA_Field;
       --  Read-only. Channel Number
-      CHNB           : LCDR_CHNB_Field := 16#0#;
+      CHNB           : ADC_LCDR_CHNB_Field;
       --  unspecified
-      Reserved_16_31 : ATSAM3X8E.Short;
+      Reserved_16_31 : ATSAM3X8E.UInt16;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for LCDR_Register use record
+   for ADC_LCDR_Register use record
       LDATA          at 0 range 0 .. 11;
       CHNB           at 0 range 12 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   ------------------
-   -- IER_Register --
-   ------------------
+   --  ADC_IER_EOC array element
+   subtype ADC_IER_EOC_Element is ATSAM3X8E.Bit;
 
-   -------------
-   -- IER.EOC --
-   -------------
-
-   --  IER_EOC array element
-   subtype IER_EOC_Element is ATSAM3X8E.Bit;
-
-   --  IER_EOC array
-   type IER_EOC_Field_Array is array (0 .. 15) of IER_EOC_Element
+   --  ADC_IER_EOC array
+   type ADC_IER_EOC_Field_Array is array (0 .. 15) of ADC_IER_EOC_Element
      with Component_Size => 1, Size => 16;
 
-   --  Type definition for IER_EOC
-   type IER_EOC_Field
+   --  Type definition for ADC_IER_EOC
+   type ADC_IER_EOC_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  EOC as a value
-            Val : ATSAM3X8E.Short;
+            Val : ATSAM3X8E.UInt16;
          when True =>
             --  EOC as an array
-            Arr : IER_EOC_Field_Array;
+            Arr : ADC_IER_EOC_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 16;
 
-   for IER_EOC_Field use record
+   for ADC_IER_EOC_Field use record
       Val at 0 range 0 .. 15;
       Arr at 0 range 0 .. 15;
    end record;
 
-   subtype IER_DRDY_Field is ATSAM3X8E.Bit;
-   subtype IER_GOVRE_Field is ATSAM3X8E.Bit;
-   subtype IER_COMPE_Field is ATSAM3X8E.Bit;
-   subtype IER_ENDRX_Field is ATSAM3X8E.Bit;
-   subtype IER_RXBUFF_Field is ATSAM3X8E.Bit;
+   subtype ADC_IER_DRDY_Field is ATSAM3X8E.Bit;
+   subtype ADC_IER_GOVRE_Field is ATSAM3X8E.Bit;
+   subtype ADC_IER_COMPE_Field is ATSAM3X8E.Bit;
+   subtype ADC_IER_ENDRX_Field is ATSAM3X8E.Bit;
+   subtype ADC_IER_RXBUFF_Field is ATSAM3X8E.Bit;
 
    --  Interrupt Enable Register
-   type IER_Register is record
+   type ADC_IER_Register is record
       --  Write-only. End of Conversion Interrupt Enable 0
-      EOC            : IER_EOC_Field := (As_Array => False, Val => 16#0#);
+      EOC            : ADC_IER_EOC_Field := (As_Array => False, Val => 16#0#);
       --  unspecified
       Reserved_16_23 : ATSAM3X8E.Byte := 16#0#;
       --  Write-only. Data Ready Interrupt Enable
-      DRDY           : IER_DRDY_Field := 16#0#;
+      DRDY           : ADC_IER_DRDY_Field := 16#0#;
       --  Write-only. General Overrun Error Interrupt Enable
-      GOVRE          : IER_GOVRE_Field := 16#0#;
+      GOVRE          : ADC_IER_GOVRE_Field := 16#0#;
       --  Write-only. Comparison Event Interrupt Enable
-      COMPE          : IER_COMPE_Field := 16#0#;
+      COMPE          : ADC_IER_COMPE_Field := 16#0#;
       --  Write-only. End of Receive Buffer Interrupt Enable
-      ENDRX          : IER_ENDRX_Field := 16#0#;
+      ENDRX          : ADC_IER_ENDRX_Field := 16#0#;
       --  Write-only. Receive Buffer Full Interrupt Enable
-      RXBUFF         : IER_RXBUFF_Field := 16#0#;
+      RXBUFF         : ADC_IER_RXBUFF_Field := 16#0#;
       --  unspecified
       Reserved_29_31 : ATSAM3X8E.UInt3 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for IER_Register use record
+   for ADC_IER_Register use record
       EOC            at 0 range 0 .. 15;
       Reserved_16_23 at 0 range 16 .. 23;
       DRDY           at 0 range 24 .. 24;
@@ -564,69 +536,61 @@ package ATSAM3X8E.ADC is
       Reserved_29_31 at 0 range 29 .. 31;
    end record;
 
-   ------------------
-   -- IDR_Register --
-   ------------------
+   --  ADC_IDR_EOC array element
+   subtype ADC_IDR_EOC_Element is ATSAM3X8E.Bit;
 
-   -------------
-   -- IDR.EOC --
-   -------------
-
-   --  IDR_EOC array element
-   subtype IDR_EOC_Element is ATSAM3X8E.Bit;
-
-   --  IDR_EOC array
-   type IDR_EOC_Field_Array is array (0 .. 15) of IDR_EOC_Element
+   --  ADC_IDR_EOC array
+   type ADC_IDR_EOC_Field_Array is array (0 .. 15) of ADC_IDR_EOC_Element
      with Component_Size => 1, Size => 16;
 
-   --  Type definition for IDR_EOC
-   type IDR_EOC_Field
+   --  Type definition for ADC_IDR_EOC
+   type ADC_IDR_EOC_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  EOC as a value
-            Val : ATSAM3X8E.Short;
+            Val : ATSAM3X8E.UInt16;
          when True =>
             --  EOC as an array
-            Arr : IDR_EOC_Field_Array;
+            Arr : ADC_IDR_EOC_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 16;
 
-   for IDR_EOC_Field use record
+   for ADC_IDR_EOC_Field use record
       Val at 0 range 0 .. 15;
       Arr at 0 range 0 .. 15;
    end record;
 
-   subtype IDR_DRDY_Field is ATSAM3X8E.Bit;
-   subtype IDR_GOVRE_Field is ATSAM3X8E.Bit;
-   subtype IDR_COMPE_Field is ATSAM3X8E.Bit;
-   subtype IDR_ENDRX_Field is ATSAM3X8E.Bit;
-   subtype IDR_RXBUFF_Field is ATSAM3X8E.Bit;
+   subtype ADC_IDR_DRDY_Field is ATSAM3X8E.Bit;
+   subtype ADC_IDR_GOVRE_Field is ATSAM3X8E.Bit;
+   subtype ADC_IDR_COMPE_Field is ATSAM3X8E.Bit;
+   subtype ADC_IDR_ENDRX_Field is ATSAM3X8E.Bit;
+   subtype ADC_IDR_RXBUFF_Field is ATSAM3X8E.Bit;
 
    --  Interrupt Disable Register
-   type IDR_Register is record
+   type ADC_IDR_Register is record
       --  Write-only. End of Conversion Interrupt Disable 0
-      EOC            : IDR_EOC_Field := (As_Array => False, Val => 16#0#);
+      EOC            : ADC_IDR_EOC_Field := (As_Array => False, Val => 16#0#);
       --  unspecified
       Reserved_16_23 : ATSAM3X8E.Byte := 16#0#;
       --  Write-only. Data Ready Interrupt Disable
-      DRDY           : IDR_DRDY_Field := 16#0#;
+      DRDY           : ADC_IDR_DRDY_Field := 16#0#;
       --  Write-only. General Overrun Error Interrupt Disable
-      GOVRE          : IDR_GOVRE_Field := 16#0#;
+      GOVRE          : ADC_IDR_GOVRE_Field := 16#0#;
       --  Write-only. Comparison Event Interrupt Disable
-      COMPE          : IDR_COMPE_Field := 16#0#;
+      COMPE          : ADC_IDR_COMPE_Field := 16#0#;
       --  Write-only. End of Receive Buffer Interrupt Disable
-      ENDRX          : IDR_ENDRX_Field := 16#0#;
+      ENDRX          : ADC_IDR_ENDRX_Field := 16#0#;
       --  Write-only. Receive Buffer Full Interrupt Disable
-      RXBUFF         : IDR_RXBUFF_Field := 16#0#;
+      RXBUFF         : ADC_IDR_RXBUFF_Field := 16#0#;
       --  unspecified
       Reserved_29_31 : ATSAM3X8E.UInt3 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for IDR_Register use record
+   for ADC_IDR_Register use record
       EOC            at 0 range 0 .. 15;
       Reserved_16_23 at 0 range 16 .. 23;
       DRDY           at 0 range 24 .. 24;
@@ -637,69 +601,61 @@ package ATSAM3X8E.ADC is
       Reserved_29_31 at 0 range 29 .. 31;
    end record;
 
-   ------------------
-   -- IMR_Register --
-   ------------------
+   --  ADC_IMR_EOC array element
+   subtype ADC_IMR_EOC_Element is ATSAM3X8E.Bit;
 
-   -------------
-   -- IMR.EOC --
-   -------------
-
-   --  IMR_EOC array element
-   subtype IMR_EOC_Element is ATSAM3X8E.Bit;
-
-   --  IMR_EOC array
-   type IMR_EOC_Field_Array is array (0 .. 15) of IMR_EOC_Element
+   --  ADC_IMR_EOC array
+   type ADC_IMR_EOC_Field_Array is array (0 .. 15) of ADC_IMR_EOC_Element
      with Component_Size => 1, Size => 16;
 
-   --  Type definition for IMR_EOC
-   type IMR_EOC_Field
+   --  Type definition for ADC_IMR_EOC
+   type ADC_IMR_EOC_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  EOC as a value
-            Val : ATSAM3X8E.Short;
+            Val : ATSAM3X8E.UInt16;
          when True =>
             --  EOC as an array
-            Arr : IMR_EOC_Field_Array;
+            Arr : ADC_IMR_EOC_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 16;
 
-   for IMR_EOC_Field use record
+   for ADC_IMR_EOC_Field use record
       Val at 0 range 0 .. 15;
       Arr at 0 range 0 .. 15;
    end record;
 
-   subtype IMR_DRDY_Field is ATSAM3X8E.Bit;
-   subtype IMR_GOVRE_Field is ATSAM3X8E.Bit;
-   subtype IMR_COMPE_Field is ATSAM3X8E.Bit;
-   subtype IMR_ENDRX_Field is ATSAM3X8E.Bit;
-   subtype IMR_RXBUFF_Field is ATSAM3X8E.Bit;
+   subtype ADC_IMR_DRDY_Field is ATSAM3X8E.Bit;
+   subtype ADC_IMR_GOVRE_Field is ATSAM3X8E.Bit;
+   subtype ADC_IMR_COMPE_Field is ATSAM3X8E.Bit;
+   subtype ADC_IMR_ENDRX_Field is ATSAM3X8E.Bit;
+   subtype ADC_IMR_RXBUFF_Field is ATSAM3X8E.Bit;
 
    --  Interrupt Mask Register
-   type IMR_Register is record
+   type ADC_IMR_Register is record
       --  Read-only. End of Conversion Interrupt Mask 0
-      EOC            : IMR_EOC_Field := (As_Array => False, Val => 16#0#);
+      EOC            : ADC_IMR_EOC_Field;
       --  unspecified
       Reserved_16_23 : ATSAM3X8E.Byte;
       --  Read-only. Data Ready Interrupt Mask
-      DRDY           : IMR_DRDY_Field := 16#0#;
+      DRDY           : ADC_IMR_DRDY_Field;
       --  Read-only. General Overrun Error Interrupt Mask
-      GOVRE          : IMR_GOVRE_Field := 16#0#;
+      GOVRE          : ADC_IMR_GOVRE_Field;
       --  Read-only. Comparison Event Interrupt Mask
-      COMPE          : IMR_COMPE_Field := 16#0#;
+      COMPE          : ADC_IMR_COMPE_Field;
       --  Read-only. End of Receive Buffer Interrupt Mask
-      ENDRX          : IMR_ENDRX_Field := 16#0#;
+      ENDRX          : ADC_IMR_ENDRX_Field;
       --  Read-only. Receive Buffer Full Interrupt Mask
-      RXBUFF         : IMR_RXBUFF_Field := 16#0#;
+      RXBUFF         : ADC_IMR_RXBUFF_Field;
       --  unspecified
       Reserved_29_31 : ATSAM3X8E.UInt3;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for IMR_Register use record
+   for ADC_IMR_Register use record
       EOC            at 0 range 0 .. 15;
       Reserved_16_23 at 0 range 16 .. 23;
       DRDY           at 0 range 24 .. 24;
@@ -710,69 +666,61 @@ package ATSAM3X8E.ADC is
       Reserved_29_31 at 0 range 29 .. 31;
    end record;
 
-   ------------------
-   -- ISR_Register --
-   ------------------
+   --  ADC_ISR_EOC array element
+   subtype ADC_ISR_EOC_Element is ATSAM3X8E.Bit;
 
-   -------------
-   -- ISR.EOC --
-   -------------
-
-   --  ISR_EOC array element
-   subtype ISR_EOC_Element is ATSAM3X8E.Bit;
-
-   --  ISR_EOC array
-   type ISR_EOC_Field_Array is array (0 .. 15) of ISR_EOC_Element
+   --  ADC_ISR_EOC array
+   type ADC_ISR_EOC_Field_Array is array (0 .. 15) of ADC_ISR_EOC_Element
      with Component_Size => 1, Size => 16;
 
-   --  Type definition for ISR_EOC
-   type ISR_EOC_Field
+   --  Type definition for ADC_ISR_EOC
+   type ADC_ISR_EOC_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  EOC as a value
-            Val : ATSAM3X8E.Short;
+            Val : ATSAM3X8E.UInt16;
          when True =>
             --  EOC as an array
-            Arr : ISR_EOC_Field_Array;
+            Arr : ADC_ISR_EOC_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 16;
 
-   for ISR_EOC_Field use record
+   for ADC_ISR_EOC_Field use record
       Val at 0 range 0 .. 15;
       Arr at 0 range 0 .. 15;
    end record;
 
-   subtype ISR_DRDY_Field is ATSAM3X8E.Bit;
-   subtype ISR_GOVRE_Field is ATSAM3X8E.Bit;
-   subtype ISR_COMPE_Field is ATSAM3X8E.Bit;
-   subtype ISR_ENDRX_Field is ATSAM3X8E.Bit;
-   subtype ISR_RXBUFF_Field is ATSAM3X8E.Bit;
+   subtype ADC_ISR_DRDY_Field is ATSAM3X8E.Bit;
+   subtype ADC_ISR_GOVRE_Field is ATSAM3X8E.Bit;
+   subtype ADC_ISR_COMPE_Field is ATSAM3X8E.Bit;
+   subtype ADC_ISR_ENDRX_Field is ATSAM3X8E.Bit;
+   subtype ADC_ISR_RXBUFF_Field is ATSAM3X8E.Bit;
 
    --  Interrupt Status Register
-   type ISR_Register is record
+   type ADC_ISR_Register is record
       --  Read-only. End of Conversion 0
-      EOC            : ISR_EOC_Field := (As_Array => False, Val => 16#0#);
+      EOC            : ADC_ISR_EOC_Field;
       --  unspecified
       Reserved_16_23 : ATSAM3X8E.Byte;
       --  Read-only. Data Ready
-      DRDY           : ISR_DRDY_Field := 16#0#;
+      DRDY           : ADC_ISR_DRDY_Field;
       --  Read-only. General Overrun Error
-      GOVRE          : ISR_GOVRE_Field := 16#0#;
+      GOVRE          : ADC_ISR_GOVRE_Field;
       --  Read-only. Comparison Error
-      COMPE          : ISR_COMPE_Field := 16#0#;
+      COMPE          : ADC_ISR_COMPE_Field;
       --  Read-only. End of RX Buffer
-      ENDRX          : ISR_ENDRX_Field := 16#0#;
+      ENDRX          : ADC_ISR_ENDRX_Field;
       --  Read-only. RX Buffer Full
-      RXBUFF         : ISR_RXBUFF_Field := 16#0#;
+      RXBUFF         : ADC_ISR_RXBUFF_Field;
       --  unspecified
       Reserved_29_31 : ATSAM3X8E.UInt3;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for ISR_Register use record
+   for ADC_ISR_Register use record
       EOC            at 0 range 0 .. 15;
       Reserved_16_23 at 0 range 16 .. 23;
       DRDY           at 0 range 24 .. 24;
@@ -783,112 +731,97 @@ package ATSAM3X8E.ADC is
       Reserved_29_31 at 0 range 29 .. 31;
    end record;
 
-   -------------------
-   -- OVER_Register --
-   -------------------
+   --  ADC_OVER_OVRE array element
+   subtype ADC_OVER_OVRE_Element is ATSAM3X8E.Bit;
 
-   ---------------
-   -- OVER.OVRE --
-   ---------------
-
-   --  OVER_OVRE array element
-   subtype OVER_OVRE_Element is ATSAM3X8E.Bit;
-
-   --  OVER_OVRE array
-   type OVER_OVRE_Field_Array is array (0 .. 15) of OVER_OVRE_Element
+   --  ADC_OVER_OVRE array
+   type ADC_OVER_OVRE_Field_Array is array (0 .. 15) of ADC_OVER_OVRE_Element
      with Component_Size => 1, Size => 16;
 
-   --  Type definition for OVER_OVRE
-   type OVER_OVRE_Field
+   --  Type definition for ADC_OVER_OVRE
+   type ADC_OVER_OVRE_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  OVRE as a value
-            Val : ATSAM3X8E.Short;
+            Val : ATSAM3X8E.UInt16;
          when True =>
             --  OVRE as an array
-            Arr : OVER_OVRE_Field_Array;
+            Arr : ADC_OVER_OVRE_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 16;
 
-   for OVER_OVRE_Field use record
+   for ADC_OVER_OVRE_Field use record
       Val at 0 range 0 .. 15;
       Arr at 0 range 0 .. 15;
    end record;
 
    --  Overrun Status Register
-   type OVER_Register is record
+   type ADC_OVER_Register is record
       --  Read-only. Overrun Error 0
-      OVRE           : OVER_OVRE_Field := (As_Array => False, Val => 16#0#);
+      OVRE           : ADC_OVER_OVRE_Field;
       --  unspecified
-      Reserved_16_31 : ATSAM3X8E.Short;
+      Reserved_16_31 : ATSAM3X8E.UInt16;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for OVER_Register use record
+   for ADC_OVER_Register use record
       OVRE           at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   ------------------
-   -- EMR_Register --
-   ------------------
-
    --  Comparison Mode
-   type CMPMODE_Field is
-     (
-      --  Generates an event when the converted data is lower than the low
-      --  threshold of the window.
+   type EMR_CMPMODE_Field is
+     (--  Generates an event when the converted data is lower than the low threshold
+--  of the window.
       Low,
       --  Generates an event when the converted data is higher than the high
-      --  threshold of the window.
+--  threshold of the window.
       High,
-      --  Generates an event when the converted data is in the comparison
-      --  window.
+      --  Generates an event when the converted data is in the comparison window.
       In_k,
-      --  Generates an event when the converted data is out of the comparison
-      --  window.
+      --  Generates an event when the converted data is out of the comparison window.
       Out_k)
      with Size => 2;
-   for CMPMODE_Field use
+   for EMR_CMPMODE_Field use
      (Low => 0,
       High => 1,
       In_k => 2,
       Out_k => 3);
 
-   subtype EMR_CMPSEL_Field is ATSAM3X8E.UInt4;
-   subtype EMR_CMPALL_Field is ATSAM3X8E.Bit;
-   subtype EMR_CMPFILTER_Field is ATSAM3X8E.UInt2;
-   subtype EMR_TAG_Field is ATSAM3X8E.Bit;
+   subtype ADC_EMR_CMPSEL_Field is ATSAM3X8E.UInt4;
+   subtype ADC_EMR_CMPALL_Field is ATSAM3X8E.Bit;
+   subtype ADC_EMR_CMPFILTER_Field is ATSAM3X8E.UInt2;
+   subtype ADC_EMR_TAG_Field is ATSAM3X8E.Bit;
 
    --  Extended Mode Register
-   type EMR_Register is record
+   type ADC_EMR_Register is record
       --  Comparison Mode
-      CMPMODE        : CMPMODE_Field := Low;
+      CMPMODE        : EMR_CMPMODE_Field := ATSAM3X8E.ADC.Low;
       --  unspecified
       Reserved_2_3   : ATSAM3X8E.UInt2 := 16#0#;
       --  Comparison Selected Channel
-      CMPSEL         : EMR_CMPSEL_Field := 16#0#;
+      CMPSEL         : ADC_EMR_CMPSEL_Field := 16#0#;
       --  unspecified
       Reserved_8_8   : ATSAM3X8E.Bit := 16#0#;
       --  Compare All Channels
-      CMPALL         : EMR_CMPALL_Field := 16#0#;
+      CMPALL         : ADC_EMR_CMPALL_Field := 16#0#;
       --  unspecified
       Reserved_10_11 : ATSAM3X8E.UInt2 := 16#0#;
       --  Compare Event Filtering
-      CMPFILTER      : EMR_CMPFILTER_Field := 16#0#;
+      CMPFILTER      : ADC_EMR_CMPFILTER_Field := 16#0#;
       --  unspecified
       Reserved_14_23 : ATSAM3X8E.UInt10 := 16#0#;
       --  TAG of ADC_LDCR register
-      TAG            : EMR_TAG_Field := 16#0#;
+      TAG            : ADC_EMR_TAG_Field := 16#0#;
       --  unspecified
       Reserved_25_31 : ATSAM3X8E.UInt7 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for EMR_Register use record
+   for ADC_EMR_Register use record
       CMPMODE        at 0 range 0 .. 1;
       Reserved_2_3   at 0 range 2 .. 3;
       CMPSEL         at 0 range 4 .. 7;
@@ -901,191 +834,160 @@ package ATSAM3X8E.ADC is
       Reserved_25_31 at 0 range 25 .. 31;
    end record;
 
-   ------------------
-   -- CWR_Register --
-   ------------------
-
-   subtype CWR_LOWTHRES_Field is ATSAM3X8E.UInt12;
-   subtype CWR_HIGHTHRES_Field is ATSAM3X8E.UInt12;
+   subtype ADC_CWR_LOWTHRES_Field is ATSAM3X8E.UInt12;
+   subtype ADC_CWR_HIGHTHRES_Field is ATSAM3X8E.UInt12;
 
    --  Compare Window Register
-   type CWR_Register is record
+   type ADC_CWR_Register is record
       --  Low Threshold
-      LOWTHRES       : CWR_LOWTHRES_Field := 16#0#;
+      LOWTHRES       : ADC_CWR_LOWTHRES_Field := 16#0#;
       --  unspecified
       Reserved_12_15 : ATSAM3X8E.UInt4 := 16#0#;
       --  High Threshold
-      HIGHTHRES      : CWR_HIGHTHRES_Field := 16#0#;
+      HIGHTHRES      : ADC_CWR_HIGHTHRES_Field := 16#0#;
       --  unspecified
       Reserved_28_31 : ATSAM3X8E.UInt4 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for CWR_Register use record
+   for ADC_CWR_Register use record
       LOWTHRES       at 0 range 0 .. 11;
       Reserved_12_15 at 0 range 12 .. 15;
       HIGHTHRES      at 0 range 16 .. 27;
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
 
-   ------------------
-   -- CGR_Register --
-   ------------------
+   --  ADC_CGR_GAIN array element
+   subtype ADC_CGR_GAIN_Element is ATSAM3X8E.UInt2;
 
-   --  CGR_GAIN array element
-   subtype CGR_GAIN_Element is ATSAM3X8E.UInt2;
-
-   --  CGR_GAIN array
-   type CGR_GAIN_Field_Array is array (0 .. 15) of CGR_GAIN_Element
+   --  ADC_CGR_GAIN array
+   type ADC_CGR_GAIN_Field_Array is array (0 .. 15) of ADC_CGR_GAIN_Element
      with Component_Size => 2, Size => 32;
 
    --  Channel Gain Register
-   type CGR_Register
+   type ADC_CGR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  GAIN as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  GAIN as an array
-            Arr : CGR_GAIN_Field_Array;
+            Arr : ADC_CGR_GAIN_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for CGR_Register use record
+   for ADC_CGR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- COR_Register --
-   ------------------
+   --  ADC_COR_OFF array element
+   subtype ADC_COR_OFF_Element is ATSAM3X8E.Bit;
 
-   -------------
-   -- COR.OFF --
-   -------------
-
-   --  COR_OFF array element
-   subtype COR_OFF_Element is ATSAM3X8E.Bit;
-
-   --  COR_OFF array
-   type COR_OFF_Field_Array is array (0 .. 15) of COR_OFF_Element
+   --  ADC_COR_OFF array
+   type ADC_COR_OFF_Field_Array is array (0 .. 15) of ADC_COR_OFF_Element
      with Component_Size => 1, Size => 16;
 
-   --  Type definition for COR_OFF
-   type COR_OFF_Field
+   --  Type definition for ADC_COR_OFF
+   type ADC_COR_OFF_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  OFF as a value
-            Val : ATSAM3X8E.Short;
+            Val : ATSAM3X8E.UInt16;
          when True =>
             --  OFF as an array
-            Arr : COR_OFF_Field_Array;
+            Arr : ADC_COR_OFF_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 16;
 
-   for COR_OFF_Field use record
+   for ADC_COR_OFF_Field use record
       Val at 0 range 0 .. 15;
       Arr at 0 range 0 .. 15;
    end record;
 
-   --------------
-   -- COR.DIFF --
-   --------------
+   --  ADC_COR_DIFF array element
+   subtype ADC_COR_DIFF_Element is ATSAM3X8E.Bit;
 
-   --  COR_DIFF array element
-   subtype COR_DIFF_Element is ATSAM3X8E.Bit;
-
-   --  COR_DIFF array
-   type COR_DIFF_Field_Array is array (0 .. 15) of COR_DIFF_Element
+   --  ADC_COR_DIFF array
+   type ADC_COR_DIFF_Field_Array is array (0 .. 15) of ADC_COR_DIFF_Element
      with Component_Size => 1, Size => 16;
 
-   --  Type definition for COR_DIFF
-   type COR_DIFF_Field
+   --  Type definition for ADC_COR_DIFF
+   type ADC_COR_DIFF_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  DIFF as a value
-            Val : ATSAM3X8E.Short;
+            Val : ATSAM3X8E.UInt16;
          when True =>
             --  DIFF as an array
-            Arr : COR_DIFF_Field_Array;
+            Arr : ADC_COR_DIFF_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 16;
 
-   for COR_DIFF_Field use record
+   for ADC_COR_DIFF_Field use record
       Val at 0 range 0 .. 15;
       Arr at 0 range 0 .. 15;
    end record;
 
    --  Channel Offset Register
-   type COR_Register is record
+   type ADC_COR_Register is record
       --  Offset for channel 0
-      OFF  : COR_OFF_Field := (As_Array => False, Val => 16#0#);
+      OFF  : ADC_COR_OFF_Field := (As_Array => False, Val => 16#0#);
       --  Differential inputs for channel 0
-      DIFF : COR_DIFF_Field := (As_Array => False, Val => 16#0#);
+      DIFF : ADC_COR_DIFF_Field := (As_Array => False, Val => 16#0#);
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for COR_Register use record
+   for ADC_COR_Register use record
       OFF  at 0 range 0 .. 15;
       DIFF at 0 range 16 .. 31;
    end record;
 
-   ------------------
-   -- CDR_Register --
-   ------------------
-
-   subtype CDR_DATA_Field is ATSAM3X8E.UInt12;
+   subtype ADC_CDR_DATA_Field is ATSAM3X8E.UInt12;
 
    --  Channel Data Register
-   type CDR_Register is record
+   type ADC_CDR_Register is record
       --  Read-only. Converted Data
-      DATA           : CDR_DATA_Field := 16#0#;
+      DATA           : ADC_CDR_DATA_Field;
       --  unspecified
       Reserved_12_31 : ATSAM3X8E.UInt20;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for CDR_Register use record
+   for ADC_CDR_Register use record
       DATA           at 0 range 0 .. 11;
       Reserved_12_31 at 0 range 12 .. 31;
    end record;
 
-   --  Channel Data Register
-   type CDR_Registers is array (0 .. 15) of CDR_Register;
-
-   ------------------
-   -- ACR_Register --
-   ------------------
-
-   subtype ACR_TSON_Field is ATSAM3X8E.Bit;
-   subtype ACR_IBCTL_Field is ATSAM3X8E.UInt2;
+   subtype ADC_ACR_TSON_Field is ATSAM3X8E.Bit;
+   subtype ADC_ACR_IBCTL_Field is ATSAM3X8E.UInt2;
 
    --  Analog Control Register
-   type ACR_Register is record
+   type ADC_ACR_Register is record
       --  unspecified
       Reserved_0_3   : ATSAM3X8E.UInt4 := 16#0#;
       --  Temperature Sensor On
-      TSON           : ACR_TSON_Field := 16#0#;
+      TSON           : ADC_ACR_TSON_Field := 16#0#;
       --  unspecified
       Reserved_5_7   : ATSAM3X8E.UInt3 := 16#0#;
       --  ADC Bias Current Control
-      IBCTL          : ACR_IBCTL_Field := 16#1#;
+      IBCTL          : ADC_ACR_IBCTL_Field := 16#1#;
       --  unspecified
       Reserved_10_31 : ATSAM3X8E.UInt22 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for ACR_Register use record
+   for ADC_ACR_Register use record
       Reserved_0_3   at 0 range 0 .. 3;
       TSON           at 0 range 4 .. 4;
       Reserved_5_7   at 0 range 5 .. 7;
@@ -1093,124 +995,104 @@ package ATSAM3X8E.ADC is
       Reserved_10_31 at 0 range 10 .. 31;
    end record;
 
-   -------------------
-   -- WPMR_Register --
-   -------------------
-
-   subtype WPMR_WPEN_Field is ATSAM3X8E.Bit;
-   subtype WPMR_WPKEY_Field is ATSAM3X8E.UInt24;
+   subtype ADC_WPMR_WPEN_Field is ATSAM3X8E.Bit;
+   subtype ADC_WPMR_WPKEY_Field is ATSAM3X8E.UInt24;
 
    --  Write Protect Mode Register
-   type WPMR_Register is record
+   type ADC_WPMR_Register is record
       --  Write Protect Enable
-      WPEN         : WPMR_WPEN_Field := 16#0#;
+      WPEN         : ADC_WPMR_WPEN_Field := 16#0#;
       --  unspecified
       Reserved_1_7 : ATSAM3X8E.UInt7 := 16#0#;
       --  Write Protect KEY
-      WPKEY        : WPMR_WPKEY_Field := 16#0#;
+      WPKEY        : ADC_WPMR_WPKEY_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for WPMR_Register use record
+   for ADC_WPMR_Register use record
       WPEN         at 0 range 0 .. 0;
       Reserved_1_7 at 0 range 1 .. 7;
       WPKEY        at 0 range 8 .. 31;
    end record;
 
-   -------------------
-   -- WPSR_Register --
-   -------------------
-
-   subtype WPSR_WPVS_Field is ATSAM3X8E.Bit;
-   subtype WPSR_WPVSRC_Field is ATSAM3X8E.Short;
+   subtype ADC_WPSR_WPVS_Field is ATSAM3X8E.Bit;
+   subtype ADC_WPSR_WPVSRC_Field is ATSAM3X8E.UInt16;
 
    --  Write Protect Status Register
-   type WPSR_Register is record
+   type ADC_WPSR_Register is record
       --  Read-only. Write Protect Violation Status
-      WPVS           : WPSR_WPVS_Field := 16#0#;
+      WPVS           : ADC_WPSR_WPVS_Field;
       --  unspecified
       Reserved_1_7   : ATSAM3X8E.UInt7;
       --  Read-only. Write Protect Violation Source
-      WPVSRC         : WPSR_WPVSRC_Field := 16#0#;
+      WPVSRC         : ADC_WPSR_WPVSRC_Field;
       --  unspecified
       Reserved_24_31 : ATSAM3X8E.Byte;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for WPSR_Register use record
+   for ADC_WPSR_Register use record
       WPVS           at 0 range 0 .. 0;
       Reserved_1_7   at 0 range 1 .. 7;
       WPVSRC         at 0 range 8 .. 23;
       Reserved_24_31 at 0 range 24 .. 31;
    end record;
 
-   ------------------
-   -- RCR_Register --
-   ------------------
-
-   subtype RCR_RXCTR_Field is ATSAM3X8E.Short;
+   subtype ADC_RCR_RXCTR_Field is ATSAM3X8E.UInt16;
 
    --  Receive Counter Register
-   type RCR_Register is record
+   type ADC_RCR_Register is record
       --  Receive Counter Register
-      RXCTR          : RCR_RXCTR_Field := 16#0#;
+      RXCTR          : ADC_RCR_RXCTR_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : ATSAM3X8E.Short := 16#0#;
+      Reserved_16_31 : ATSAM3X8E.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for RCR_Register use record
+   for ADC_RCR_Register use record
       RXCTR          at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   -------------------
-   -- RNCR_Register --
-   -------------------
-
-   subtype RNCR_RXNCTR_Field is ATSAM3X8E.Short;
+   subtype ADC_RNCR_RXNCTR_Field is ATSAM3X8E.UInt16;
 
    --  Receive Next Counter Register
-   type RNCR_Register is record
+   type ADC_RNCR_Register is record
       --  Receive Next Counter
-      RXNCTR         : RNCR_RXNCTR_Field := 16#0#;
+      RXNCTR         : ADC_RNCR_RXNCTR_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : ATSAM3X8E.Short := 16#0#;
+      Reserved_16_31 : ATSAM3X8E.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for RNCR_Register use record
+   for ADC_RNCR_Register use record
       RXNCTR         at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   -------------------
-   -- PTCR_Register --
-   -------------------
-
-   subtype PTCR_RXTEN_Field is ATSAM3X8E.Bit;
-   subtype PTCR_RXTDIS_Field is ATSAM3X8E.Bit;
-   subtype PTCR_TXTEN_Field is ATSAM3X8E.Bit;
-   subtype PTCR_TXTDIS_Field is ATSAM3X8E.Bit;
+   subtype ADC_PTCR_RXTEN_Field is ATSAM3X8E.Bit;
+   subtype ADC_PTCR_RXTDIS_Field is ATSAM3X8E.Bit;
+   subtype ADC_PTCR_TXTEN_Field is ATSAM3X8E.Bit;
+   subtype ADC_PTCR_TXTDIS_Field is ATSAM3X8E.Bit;
 
    --  Transfer Control Register
-   type PTCR_Register is record
+   type ADC_PTCR_Register is record
       --  Write-only. Receiver Transfer Enable
-      RXTEN          : PTCR_RXTEN_Field := 16#0#;
+      RXTEN          : ADC_PTCR_RXTEN_Field := 16#0#;
       --  Write-only. Receiver Transfer Disable
-      RXTDIS         : PTCR_RXTDIS_Field := 16#0#;
+      RXTDIS         : ADC_PTCR_RXTDIS_Field := 16#0#;
       --  unspecified
       Reserved_2_7   : ATSAM3X8E.UInt6 := 16#0#;
       --  Write-only. Transmitter Transfer Enable
-      TXTEN          : PTCR_TXTEN_Field := 16#0#;
+      TXTEN          : ADC_PTCR_TXTEN_Field := 16#0#;
       --  Write-only. Transmitter Transfer Disable
-      TXTDIS         : PTCR_TXTDIS_Field := 16#0#;
+      TXTDIS         : ADC_PTCR_TXTDIS_Field := 16#0#;
       --  unspecified
       Reserved_10_31 : ATSAM3X8E.UInt22 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for PTCR_Register use record
+   for ADC_PTCR_Register use record
       RXTEN          at 0 range 0 .. 0;
       RXTDIS         at 0 range 1 .. 1;
       Reserved_2_7   at 0 range 2 .. 7;
@@ -1219,27 +1101,23 @@ package ATSAM3X8E.ADC is
       Reserved_10_31 at 0 range 10 .. 31;
    end record;
 
-   -------------------
-   -- PTSR_Register --
-   -------------------
-
-   subtype PTSR_RXTEN_Field is ATSAM3X8E.Bit;
-   subtype PTSR_TXTEN_Field is ATSAM3X8E.Bit;
+   subtype ADC_PTSR_RXTEN_Field is ATSAM3X8E.Bit;
+   subtype ADC_PTSR_TXTEN_Field is ATSAM3X8E.Bit;
 
    --  Transfer Status Register
-   type PTSR_Register is record
+   type ADC_PTSR_Register is record
       --  Read-only. Receiver Transfer Enable
-      RXTEN         : PTSR_RXTEN_Field := 16#0#;
+      RXTEN         : ADC_PTSR_RXTEN_Field;
       --  unspecified
       Reserved_1_7  : ATSAM3X8E.UInt7;
       --  Read-only. Transmitter Transfer Enable
-      TXTEN         : PTSR_TXTEN_Field := 16#0#;
+      TXTEN         : ADC_PTSR_TXTEN_Field;
       --  unspecified
       Reserved_9_31 : ATSAM3X8E.UInt23;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for PTSR_Register use record
+   for ADC_PTSR_Register use record
       RXTEN         at 0 range 0 .. 0;
       Reserved_1_7  at 0 range 1 .. 7;
       TXTEN         at 0 range 8 .. 8;
@@ -1253,90 +1131,175 @@ package ATSAM3X8E.ADC is
    --  Analog-to-Digital Converter
    type ADC_Peripheral is record
       --  Control Register
-      CR    : CR_Register;
+      CR     : aliased ADC_CR_Register;
+      pragma Volatile_Full_Access (CR);
       --  Mode Register
-      MR    : MR_Register;
+      MR     : aliased ADC_MR_Register;
+      pragma Volatile_Full_Access (MR);
       --  Channel Sequence Register 1
-      SEQR1 : SEQR_Register;
+      SEQR1  : aliased ADC_SEQR1_Register;
+      pragma Volatile_Full_Access (SEQR1);
       --  Channel Sequence Register 2
-      SEQR2 : SEQR_Register;
+      SEQR2  : aliased ADC_SEQR2_Register;
+      pragma Volatile_Full_Access (SEQR2);
       --  Channel Enable Register
-      CHER  : CHER_Register;
+      CHER   : aliased ADC_CHER_Register;
+      pragma Volatile_Full_Access (CHER);
       --  Channel Disable Register
-      CHDR  : CHDR_Register;
+      CHDR   : aliased ADC_CHDR_Register;
+      pragma Volatile_Full_Access (CHDR);
       --  Channel Status Register
-      CHSR  : CHSR_Register;
+      CHSR   : aliased ADC_CHSR_Register;
+      pragma Volatile_Full_Access (CHSR);
       --  Last Converted Data Register
-      LCDR  : LCDR_Register;
+      LCDR   : aliased ADC_LCDR_Register;
+      pragma Volatile_Full_Access (LCDR);
       --  Interrupt Enable Register
-      IER   : IER_Register;
+      IER    : aliased ADC_IER_Register;
+      pragma Volatile_Full_Access (IER);
       --  Interrupt Disable Register
-      IDR   : IDR_Register;
+      IDR    : aliased ADC_IDR_Register;
+      pragma Volatile_Full_Access (IDR);
       --  Interrupt Mask Register
-      IMR   : IMR_Register;
+      IMR    : aliased ADC_IMR_Register;
+      pragma Volatile_Full_Access (IMR);
       --  Interrupt Status Register
-      ISR   : ISR_Register;
+      ISR    : aliased ADC_ISR_Register;
+      pragma Volatile_Full_Access (ISR);
       --  Overrun Status Register
-      OVER  : OVER_Register;
+      OVER   : aliased ADC_OVER_Register;
+      pragma Volatile_Full_Access (OVER);
       --  Extended Mode Register
-      EMR   : EMR_Register;
+      EMR    : aliased ADC_EMR_Register;
+      pragma Volatile_Full_Access (EMR);
       --  Compare Window Register
-      CWR   : CWR_Register;
+      CWR    : aliased ADC_CWR_Register;
+      pragma Volatile_Full_Access (CWR);
       --  Channel Gain Register
-      CGR   : CGR_Register;
+      CGR    : aliased ADC_CGR_Register;
+      pragma Volatile_Full_Access (CGR);
       --  Channel Offset Register
-      COR   : COR_Register;
+      COR    : aliased ADC_COR_Register;
+      pragma Volatile_Full_Access (COR);
       --  Channel Data Register
-      CDR   : CDR_Registers;
+      CDR_0  : aliased ADC_CDR_Register;
+      pragma Volatile_Full_Access (CDR_0);
+      --  Channel Data Register
+      CDR_1  : aliased ADC_CDR_Register;
+      pragma Volatile_Full_Access (CDR_1);
+      --  Channel Data Register
+      CDR_2  : aliased ADC_CDR_Register;
+      pragma Volatile_Full_Access (CDR_2);
+      --  Channel Data Register
+      CDR_3  : aliased ADC_CDR_Register;
+      pragma Volatile_Full_Access (CDR_3);
+      --  Channel Data Register
+      CDR_4  : aliased ADC_CDR_Register;
+      pragma Volatile_Full_Access (CDR_4);
+      --  Channel Data Register
+      CDR_5  : aliased ADC_CDR_Register;
+      pragma Volatile_Full_Access (CDR_5);
+      --  Channel Data Register
+      CDR_6  : aliased ADC_CDR_Register;
+      pragma Volatile_Full_Access (CDR_6);
+      --  Channel Data Register
+      CDR_7  : aliased ADC_CDR_Register;
+      pragma Volatile_Full_Access (CDR_7);
+      --  Channel Data Register
+      CDR_8  : aliased ADC_CDR_Register;
+      pragma Volatile_Full_Access (CDR_8);
+      --  Channel Data Register
+      CDR_9  : aliased ADC_CDR_Register;
+      pragma Volatile_Full_Access (CDR_9);
+      --  Channel Data Register
+      CDR_10 : aliased ADC_CDR_Register;
+      pragma Volatile_Full_Access (CDR_10);
+      --  Channel Data Register
+      CDR_11 : aliased ADC_CDR_Register;
+      pragma Volatile_Full_Access (CDR_11);
+      --  Channel Data Register
+      CDR_12 : aliased ADC_CDR_Register;
+      pragma Volatile_Full_Access (CDR_12);
+      --  Channel Data Register
+      CDR_13 : aliased ADC_CDR_Register;
+      pragma Volatile_Full_Access (CDR_13);
+      --  Channel Data Register
+      CDR_14 : aliased ADC_CDR_Register;
+      pragma Volatile_Full_Access (CDR_14);
+      --  Channel Data Register
+      CDR_15 : aliased ADC_CDR_Register;
+      pragma Volatile_Full_Access (CDR_15);
       --  Analog Control Register
-      ACR   : ACR_Register;
+      ACR    : aliased ADC_ACR_Register;
+      pragma Volatile_Full_Access (ACR);
       --  Write Protect Mode Register
-      WPMR  : WPMR_Register;
+      WPMR   : aliased ADC_WPMR_Register;
+      pragma Volatile_Full_Access (WPMR);
       --  Write Protect Status Register
-      WPSR  : WPSR_Register;
+      WPSR   : aliased ADC_WPSR_Register;
+      pragma Volatile_Full_Access (WPSR);
       --  Receive Pointer Register
-      RPR   : ATSAM3X8E.Word;
+      RPR    : aliased ATSAM3X8E.UInt32;
       --  Receive Counter Register
-      RCR   : RCR_Register;
+      RCR    : aliased ADC_RCR_Register;
+      pragma Volatile_Full_Access (RCR);
       --  Receive Next Pointer Register
-      RNPR  : ATSAM3X8E.Word;
+      RNPR   : aliased ATSAM3X8E.UInt32;
       --  Receive Next Counter Register
-      RNCR  : RNCR_Register;
+      RNCR   : aliased ADC_RNCR_Register;
+      pragma Volatile_Full_Access (RNCR);
       --  Transfer Control Register
-      PTCR  : PTCR_Register;
+      PTCR   : aliased ADC_PTCR_Register;
+      pragma Volatile_Full_Access (PTCR);
       --  Transfer Status Register
-      PTSR  : PTSR_Register;
+      PTSR   : aliased ADC_PTSR_Register;
+      pragma Volatile_Full_Access (PTSR);
    end record
      with Volatile;
 
    for ADC_Peripheral use record
-      CR    at 0 range 0 .. 31;
-      MR    at 4 range 0 .. 31;
-      SEQR1 at 8 range 0 .. 31;
-      SEQR2 at 12 range 0 .. 31;
-      CHER  at 16 range 0 .. 31;
-      CHDR  at 20 range 0 .. 31;
-      CHSR  at 24 range 0 .. 31;
-      LCDR  at 32 range 0 .. 31;
-      IER   at 36 range 0 .. 31;
-      IDR   at 40 range 0 .. 31;
-      IMR   at 44 range 0 .. 31;
-      ISR   at 48 range 0 .. 31;
-      OVER  at 60 range 0 .. 31;
-      EMR   at 64 range 0 .. 31;
-      CWR   at 68 range 0 .. 31;
-      CGR   at 72 range 0 .. 31;
-      COR   at 76 range 0 .. 31;
-      CDR   at 80 range 0 .. 511;
-      ACR   at 148 range 0 .. 31;
-      WPMR  at 228 range 0 .. 31;
-      WPSR  at 232 range 0 .. 31;
-      RPR   at 256 range 0 .. 31;
-      RCR   at 260 range 0 .. 31;
-      RNPR  at 272 range 0 .. 31;
-      RNCR  at 276 range 0 .. 31;
-      PTCR  at 288 range 0 .. 31;
-      PTSR  at 292 range 0 .. 31;
+      CR     at 16#0# range 0 .. 31;
+      MR     at 16#4# range 0 .. 31;
+      SEQR1  at 16#8# range 0 .. 31;
+      SEQR2  at 16#C# range 0 .. 31;
+      CHER   at 16#10# range 0 .. 31;
+      CHDR   at 16#14# range 0 .. 31;
+      CHSR   at 16#18# range 0 .. 31;
+      LCDR   at 16#20# range 0 .. 31;
+      IER    at 16#24# range 0 .. 31;
+      IDR    at 16#28# range 0 .. 31;
+      IMR    at 16#2C# range 0 .. 31;
+      ISR    at 16#30# range 0 .. 31;
+      OVER   at 16#3C# range 0 .. 31;
+      EMR    at 16#40# range 0 .. 31;
+      CWR    at 16#44# range 0 .. 31;
+      CGR    at 16#48# range 0 .. 31;
+      COR    at 16#4C# range 0 .. 31;
+      CDR_0  at 16#50# range 0 .. 31;
+      CDR_1  at 16#54# range 0 .. 31;
+      CDR_2  at 16#58# range 0 .. 31;
+      CDR_3  at 16#5C# range 0 .. 31;
+      CDR_4  at 16#60# range 0 .. 31;
+      CDR_5  at 16#64# range 0 .. 31;
+      CDR_6  at 16#68# range 0 .. 31;
+      CDR_7  at 16#6C# range 0 .. 31;
+      CDR_8  at 16#70# range 0 .. 31;
+      CDR_9  at 16#74# range 0 .. 31;
+      CDR_10 at 16#78# range 0 .. 31;
+      CDR_11 at 16#7C# range 0 .. 31;
+      CDR_12 at 16#80# range 0 .. 31;
+      CDR_13 at 16#84# range 0 .. 31;
+      CDR_14 at 16#88# range 0 .. 31;
+      CDR_15 at 16#8C# range 0 .. 31;
+      ACR    at 16#94# range 0 .. 31;
+      WPMR   at 16#E4# range 0 .. 31;
+      WPSR   at 16#E8# range 0 .. 31;
+      RPR    at 16#100# range 0 .. 31;
+      RCR    at 16#104# range 0 .. 31;
+      RNPR   at 16#110# range 0 .. 31;
+      RNCR   at 16#114# range 0 .. 31;
+      PTCR   at 16#120# range 0 .. 31;
+      PTSR   at 16#124# range 0 .. 31;
    end record;
 
    --  Analog-to-Digital Converter

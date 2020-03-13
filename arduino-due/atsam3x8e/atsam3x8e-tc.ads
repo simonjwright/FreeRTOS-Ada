@@ -1,8 +1,9 @@
+pragma Ada_2012;
+pragma Style_Checks (Off);
+
 --  This spec has been automatically generated from ATSAM3X8E.svd
---  see https://github.com/simonjwright/svd2ada
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -13,26 +14,22 @@ package ATSAM3X8E.TC is
    -- Registers --
    ---------------
 
-   ------------------
-   -- CCR_Register --
-   ------------------
-
-   subtype CCR0_CLKEN_Field is ATSAM3X8E.Bit;
-   subtype CCR0_CLKDIS_Field is ATSAM3X8E.Bit;
-   subtype CCR0_SWTRG_Field is ATSAM3X8E.Bit;
+   subtype CCR_CLKEN_Field is ATSAM3X8E.Bit;
+   subtype CCR_CLKDIS_Field is ATSAM3X8E.Bit;
+   subtype CCR_SWTRG_Field is ATSAM3X8E.Bit;
 
    --  Channel Control Register (channel = 0)
    type CCR_Register is record
       --  Write-only. Counter Clock Enable Command
-      CLKEN         : CCR0_CLKEN_Field := 16#0#;
+      CLKEN         : CCR_CLKEN_Field := 16#0#;
       --  Write-only. Counter Clock Disable Command
-      CLKDIS        : CCR0_CLKDIS_Field := 16#0#;
+      CLKDIS        : CCR_CLKDIS_Field := 16#0#;
       --  Write-only. Software Trigger Command
-      SWTRG         : CCR0_SWTRG_Field := 16#0#;
+      SWTRG         : CCR_SWTRG_Field := 16#0#;
       --  unspecified
       Reserved_3_31 : ATSAM3X8E.UInt29 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CCR_Register use record
       CLKEN         at 0 range 0 .. 0;
@@ -41,14 +38,9 @@ package ATSAM3X8E.TC is
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
 
-   ------------------
-   -- CMR_Register --
-   ------------------
-
    --  Clock Selection
-   type TCCLKS_Field is
-     (
-      --  Clock selected: TCLK1
+   type CMR0_TCCLKS_Field is
+     (--  Clock selected: TCLK1
       Timer_Clock1,
       --  Clock selected: TCLK2
       Timer_Clock2,
@@ -65,7 +57,7 @@ package ATSAM3X8E.TC is
       --  Clock selected: XC2
       Xc2)
      with Size => 3;
-   for TCCLKS_Field use
+   for CMR0_TCCLKS_Field use
      (Timer_Clock1 => 0,
       Timer_Clock2 => 1,
       Timer_Clock3 => 2,
@@ -75,12 +67,11 @@ package ATSAM3X8E.TC is
       Xc1 => 6,
       Xc2 => 7);
 
-   subtype CMR0_CLKI_Field is ATSAM3X8E.Bit;
+   subtype CMR_CLKI_Field is ATSAM3X8E.Bit;
 
    --  Burst Signal Selection
-   type BURST_Field is
-     (
-      --  The clock is not gated by an external signal.
+   type CMR0_BURST_Field is
+     (--  The clock is not gated by an external signal.
       None,
       --  XC0 is ANDed with the selected clock.
       Xc0,
@@ -89,19 +80,18 @@ package ATSAM3X8E.TC is
       --  XC2 is ANDed with the selected clock.
       Xc2)
      with Size => 2;
-   for BURST_Field use
+   for CMR0_BURST_Field use
      (None => 0,
       Xc0 => 1,
       Xc1 => 2,
       Xc2 => 3);
 
-   subtype CMR0_LDBSTOP_Field is ATSAM3X8E.Bit;
-   subtype CMR0_LDBDIS_Field is ATSAM3X8E.Bit;
+   subtype CMR_LDBSTOP_Field is ATSAM3X8E.Bit;
+   subtype CMR_LDBDIS_Field is ATSAM3X8E.Bit;
 
    --  External Trigger Edge Selection
-   type ETRGEDG_Field is
-     (
-      --  The clock is not gated by an external signal.
+   type CMR0_ETRGEDG_Field is
+     (--  The clock is not gated by an external signal.
       None,
       --  Rising edge
       Rising,
@@ -110,20 +100,19 @@ package ATSAM3X8E.TC is
       --  Each edge
       Edge)
      with Size => 2;
-   for ETRGEDG_Field use
+   for CMR0_ETRGEDG_Field use
      (None => 0,
       Rising => 1,
       Falling => 2,
       Edge => 3);
 
-   subtype CMR0_ABETRG_Field is ATSAM3X8E.Bit;
-   subtype CMR0_CPCTRG_Field is ATSAM3X8E.Bit;
-   subtype CMR0_WAVE_Field is ATSAM3X8E.Bit;
+   subtype CMR_ABETRG_Field is ATSAM3X8E.Bit;
+   subtype CMR_CPCTRG_Field is ATSAM3X8E.Bit;
+   subtype CMR_WAVE_Field is ATSAM3X8E.Bit;
 
    --  RA Loading Edge Selection
-   type LDRA_Field is
-     (
-      --  None
+   type CMR0_LDRA_Field is
+     (--  None
       None,
       --  Rising edge of TIOA
       Rising,
@@ -132,16 +121,15 @@ package ATSAM3X8E.TC is
       --  Each edge of TIOA
       Edge)
      with Size => 2;
-   for LDRA_Field use
+   for CMR0_LDRA_Field use
      (None => 0,
       Rising => 1,
       Falling => 2,
       Edge => 3);
 
    --  RB Loading Edge Selection
-   type LDRB_Field is
-     (
-      --  None
+   type CMR0_LDRB_Field is
+     (--  None
       None,
       --  Rising edge of TIOA
       Rising,
@@ -150,7 +138,7 @@ package ATSAM3X8E.TC is
       --  Each edge of TIOA
       Edge)
      with Size => 2;
-   for LDRB_Field use
+   for CMR0_LDRB_Field use
      (None => 0,
       Rising => 1,
       Falling => 2,
@@ -159,33 +147,33 @@ package ATSAM3X8E.TC is
    --  Channel Mode Register (channel = 0)
    type CMR_Register is record
       --  Clock Selection
-      TCCLKS         : TCCLKS_Field := Timer_Clock1;
+      TCCLKS         : CMR0_TCCLKS_Field := ATSAM3X8E.TC.Timer_Clock1;
       --  Clock Invert
-      CLKI           : CMR0_CLKI_Field := 16#0#;
+      CLKI           : CMR_CLKI_Field := 16#0#;
       --  Burst Signal Selection
-      BURST          : BURST_Field := None;
+      BURST          : CMR0_BURST_Field := ATSAM3X8E.TC.None;
       --  Counter Clock Stopped with RB Loading
-      LDBSTOP        : CMR0_LDBSTOP_Field := 16#0#;
+      LDBSTOP        : CMR_LDBSTOP_Field := 16#0#;
       --  Counter Clock Disable with RB Loading
-      LDBDIS         : CMR0_LDBDIS_Field := 16#0#;
+      LDBDIS         : CMR_LDBDIS_Field := 16#0#;
       --  External Trigger Edge Selection
-      ETRGEDG        : ETRGEDG_Field := None;
+      ETRGEDG        : CMR0_ETRGEDG_Field := ATSAM3X8E.TC.None;
       --  TIOA or TIOB External Trigger Selection
-      ABETRG         : CMR0_ABETRG_Field := 16#0#;
+      ABETRG         : CMR_ABETRG_Field := 16#0#;
       --  unspecified
       Reserved_11_13 : ATSAM3X8E.UInt3 := 16#0#;
       --  RC Compare Trigger Enable
-      CPCTRG         : CMR0_CPCTRG_Field := 16#0#;
+      CPCTRG         : CMR_CPCTRG_Field := 16#0#;
       --  Waveform Mode
-      WAVE           : CMR0_WAVE_Field := 16#0#;
+      WAVE           : CMR_WAVE_Field := 16#0#;
       --  RA Loading Edge Selection
-      LDRA           : LDRA_Field := None;
+      LDRA           : CMR0_LDRA_Field := ATSAM3X8E.TC.None;
       --  RB Loading Edge Selection
-      LDRB           : LDRB_Field := None;
+      LDRB           : CMR0_LDRB_Field := ATSAM3X8E.TC.None;
       --  unspecified
       Reserved_20_31 : ATSAM3X8E.UInt12 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for CMR_Register use record
       TCCLKS         at 0 range 0 .. 2;
@@ -203,18 +191,60 @@ package ATSAM3X8E.TC is
       Reserved_20_31 at 0 range 20 .. 31;
    end record;
 
-   -----------------------------
-   -- CMR0_WAVE_EQ_1_Register --
-   -----------------------------
+   --  Clock Selection
+   type CMR0_WAVE_EQ_1_TCCLKS_Field is
+     (--  Clock selected: TCLK1
+      Timer_Clock1,
+      --  Clock selected: TCLK2
+      Timer_Clock2,
+      --  Clock selected: TCLK3
+      Timer_Clock3,
+      --  Clock selected: TCLK4
+      Timer_Clock4,
+      --  Clock selected: TCLK5
+      Timer_Clock5,
+      --  Clock selected: XC0
+      Xc0,
+      --  Clock selected: XC1
+      Xc1,
+      --  Clock selected: XC2
+      Xc2)
+     with Size => 3;
+   for CMR0_WAVE_EQ_1_TCCLKS_Field use
+     (Timer_Clock1 => 0,
+      Timer_Clock2 => 1,
+      Timer_Clock3 => 2,
+      Timer_Clock4 => 3,
+      Timer_Clock5 => 4,
+      Xc0 => 5,
+      Xc1 => 6,
+      Xc2 => 7);
 
-   subtype CMR0_WAVE_EQ_1_CLKI_Field is ATSAM3X8E.Bit;
-   subtype CMR0_WAVE_EQ_1_CPCSTOP_Field is ATSAM3X8E.Bit;
-   subtype CMR0_WAVE_EQ_1_CPCDIS_Field is ATSAM3X8E.Bit;
+   subtype TC0_CMR0_WAVE_EQ_1_CLKI_Field is ATSAM3X8E.Bit;
+
+   --  Burst Signal Selection
+   type CMR0_WAVE_EQ_1_BURST_Field is
+     (--  The clock is not gated by an external signal.
+      None,
+      --  XC0 is ANDed with the selected clock.
+      Xc0,
+      --  XC1 is ANDed with the selected clock.
+      Xc1,
+      --  XC2 is ANDed with the selected clock.
+      Xc2)
+     with Size => 2;
+   for CMR0_WAVE_EQ_1_BURST_Field use
+     (None => 0,
+      Xc0 => 1,
+      Xc1 => 2,
+      Xc2 => 3);
+
+   subtype TC0_CMR0_WAVE_EQ_1_CPCSTOP_Field is ATSAM3X8E.Bit;
+   subtype TC0_CMR0_WAVE_EQ_1_CPCDIS_Field is ATSAM3X8E.Bit;
 
    --  External Event Edge Selection
-   type EEVTEDG_Field is
-     (
-      --  None
+   type CMR0_WAVE_EQ_1_EEVTEDG_Field is
+     (--  None
       None,
       --  Rising edge
       Rising,
@@ -223,16 +253,15 @@ package ATSAM3X8E.TC is
       --  Each edge
       Edge)
      with Size => 2;
-   for EEVTEDG_Field use
+   for CMR0_WAVE_EQ_1_EEVTEDG_Field use
      (None => 0,
       Rising => 1,
       Falling => 2,
       Edge => 3);
 
    --  External Event Selection
-   type EEVT_Field is
-     (
-      --  TIOB
+   type CMR0_WAVE_EQ_1_EEVT_Field is
+     (--  TIOB
       Tiob,
       --  XC0
       Xc0,
@@ -241,18 +270,17 @@ package ATSAM3X8E.TC is
       --  XC2
       Xc2)
      with Size => 2;
-   for EEVT_Field use
+   for CMR0_WAVE_EQ_1_EEVT_Field use
      (Tiob => 0,
       Xc0 => 1,
       Xc1 => 2,
       Xc2 => 3);
 
-   subtype CMR0_WAVE_EQ_1_ENETRG_Field is ATSAM3X8E.Bit;
+   subtype TC0_CMR0_WAVE_EQ_1_ENETRG_Field is ATSAM3X8E.Bit;
 
    --  Waveform Selection
-   type WAVSEL_Field is
-     (
-      --  UP mode without automatic trigger on RC Compare
+   type CMR0_WAVE_EQ_1_WAVSEL_Field is
+     (--  UP mode without automatic trigger on RC Compare
       Up,
       --  UPDOWN mode without automatic trigger on RC Compare
       Updown,
@@ -261,18 +289,17 @@ package ATSAM3X8E.TC is
       --  UPDOWN mode with automatic trigger on RC Compare
       Updown_Rc)
      with Size => 2;
-   for WAVSEL_Field use
+   for CMR0_WAVE_EQ_1_WAVSEL_Field use
      (Up => 0,
       Updown => 1,
       Up_Rc => 2,
       Updown_Rc => 3);
 
-   subtype CMR0_WAVE_EQ_1_WAVE_Field is ATSAM3X8E.Bit;
+   subtype TC0_CMR0_WAVE_EQ_1_WAVE_Field is ATSAM3X8E.Bit;
 
    --  RA Compare Effect on TIOA
-   type ACPA_Field is
-     (
-      --  None
+   type CMR0_WAVE_EQ_1_ACPA_Field is
+     (--  None
       None,
       --  Set
       Set,
@@ -281,16 +308,15 @@ package ATSAM3X8E.TC is
       --  Toggle
       Toggle)
      with Size => 2;
-   for ACPA_Field use
+   for CMR0_WAVE_EQ_1_ACPA_Field use
      (None => 0,
       Set => 1,
       Clear => 2,
       Toggle => 3);
 
    --  RC Compare Effect on TIOA
-   type ACPC_Field is
-     (
-      --  None
+   type CMR0_WAVE_EQ_1_ACPC_Field is
+     (--  None
       None,
       --  Set
       Set,
@@ -299,16 +325,15 @@ package ATSAM3X8E.TC is
       --  Toggle
       Toggle)
      with Size => 2;
-   for ACPC_Field use
+   for CMR0_WAVE_EQ_1_ACPC_Field use
      (None => 0,
       Set => 1,
       Clear => 2,
       Toggle => 3);
 
    --  External Event Effect on TIOA
-   type AEEVT_Field is
-     (
-      --  None
+   type CMR0_WAVE_EQ_1_AEEVT_Field is
+     (--  None
       None,
       --  Set
       Set,
@@ -317,16 +342,15 @@ package ATSAM3X8E.TC is
       --  Toggle
       Toggle)
      with Size => 2;
-   for AEEVT_Field use
+   for CMR0_WAVE_EQ_1_AEEVT_Field use
      (None => 0,
       Set => 1,
       Clear => 2,
       Toggle => 3);
 
    --  Software Trigger Effect on TIOA
-   type ASWTRG_Field is
-     (
-      --  None
+   type CMR0_WAVE_EQ_1_ASWTRG_Field is
+     (--  None
       None,
       --  Set
       Set,
@@ -335,16 +359,15 @@ package ATSAM3X8E.TC is
       --  Toggle
       Toggle)
      with Size => 2;
-   for ASWTRG_Field use
+   for CMR0_WAVE_EQ_1_ASWTRG_Field use
      (None => 0,
       Set => 1,
       Clear => 2,
       Toggle => 3);
 
    --  RB Compare Effect on TIOB
-   type BCPB_Field is
-     (
-      --  None
+   type CMR0_WAVE_EQ_1_BCPB_Field is
+     (--  None
       None,
       --  Set
       Set,
@@ -353,16 +376,15 @@ package ATSAM3X8E.TC is
       --  Toggle
       Toggle)
      with Size => 2;
-   for BCPB_Field use
+   for CMR0_WAVE_EQ_1_BCPB_Field use
      (None => 0,
       Set => 1,
       Clear => 2,
       Toggle => 3);
 
    --  RC Compare Effect on TIOB
-   type BCPC_Field is
-     (
-      --  None
+   type CMR0_WAVE_EQ_1_BCPC_Field is
+     (--  None
       None,
       --  Set
       Set,
@@ -371,16 +393,15 @@ package ATSAM3X8E.TC is
       --  Toggle
       Toggle)
      with Size => 2;
-   for BCPC_Field use
+   for CMR0_WAVE_EQ_1_BCPC_Field use
      (None => 0,
       Set => 1,
       Clear => 2,
       Toggle => 3);
 
    --  External Event Effect on TIOB
-   type BEEVT_Field is
-     (
-      --  None
+   type CMR0_WAVE_EQ_1_BEEVT_Field is
+     (--  None
       None,
       --  Set
       Set,
@@ -389,16 +410,15 @@ package ATSAM3X8E.TC is
       --  Toggle
       Toggle)
      with Size => 2;
-   for BEEVT_Field use
+   for CMR0_WAVE_EQ_1_BEEVT_Field use
      (None => 0,
       Set => 1,
       Clear => 2,
       Toggle => 3);
 
    --  Software Trigger Effect on TIOB
-   type BSWTRG_Field is
-     (
-      --  None
+   type CMR0_WAVE_EQ_1_BSWTRG_Field is
+     (--  None
       None,
       --  Set
       Set,
@@ -407,54 +427,54 @@ package ATSAM3X8E.TC is
       --  Toggle
       Toggle)
      with Size => 2;
-   for BSWTRG_Field use
+   for CMR0_WAVE_EQ_1_BSWTRG_Field use
      (None => 0,
       Set => 1,
       Clear => 2,
       Toggle => 3);
 
    --  Channel Mode Register (channel = 0)
-   type CMR0_WAVE_EQ_1_Register is record
+   type TC0_CMR0_WAVE_EQ_1_Register is record
       --  Clock Selection
-      TCCLKS  : TCCLKS_Field := Timer_Clock1;
+      TCCLKS  : CMR0_WAVE_EQ_1_TCCLKS_Field := ATSAM3X8E.TC.Timer_Clock1;
       --  Clock Invert
-      CLKI    : CMR0_WAVE_EQ_1_CLKI_Field := 16#0#;
+      CLKI    : TC0_CMR0_WAVE_EQ_1_CLKI_Field := 16#0#;
       --  Burst Signal Selection
-      BURST   : BURST_Field := None;
+      BURST   : CMR0_WAVE_EQ_1_BURST_Field := ATSAM3X8E.TC.None;
       --  Counter Clock Stopped with RC Compare
-      CPCSTOP : CMR0_WAVE_EQ_1_CPCSTOP_Field := 16#0#;
+      CPCSTOP : TC0_CMR0_WAVE_EQ_1_CPCSTOP_Field := 16#0#;
       --  Counter Clock Disable with RC Compare
-      CPCDIS  : CMR0_WAVE_EQ_1_CPCDIS_Field := 16#0#;
+      CPCDIS  : TC0_CMR0_WAVE_EQ_1_CPCDIS_Field := 16#0#;
       --  External Event Edge Selection
-      EEVTEDG : EEVTEDG_Field := None;
+      EEVTEDG : CMR0_WAVE_EQ_1_EEVTEDG_Field := ATSAM3X8E.TC.None;
       --  External Event Selection
-      EEVT    : EEVT_Field := Tiob;
+      EEVT    : CMR0_WAVE_EQ_1_EEVT_Field := ATSAM3X8E.TC.Tiob;
       --  External Event Trigger Enable
-      ENETRG  : CMR0_WAVE_EQ_1_ENETRG_Field := 16#0#;
+      ENETRG  : TC0_CMR0_WAVE_EQ_1_ENETRG_Field := 16#0#;
       --  Waveform Selection
-      WAVSEL  : WAVSEL_Field := Up;
+      WAVSEL  : CMR0_WAVE_EQ_1_WAVSEL_Field := ATSAM3X8E.TC.Up;
       --  Waveform Mode
-      WAVE    : CMR0_WAVE_EQ_1_WAVE_Field := 16#0#;
+      WAVE    : TC0_CMR0_WAVE_EQ_1_WAVE_Field := 16#0#;
       --  RA Compare Effect on TIOA
-      ACPA    : ACPA_Field := None;
+      ACPA    : CMR0_WAVE_EQ_1_ACPA_Field := ATSAM3X8E.TC.None;
       --  RC Compare Effect on TIOA
-      ACPC    : ACPC_Field := None;
+      ACPC    : CMR0_WAVE_EQ_1_ACPC_Field := ATSAM3X8E.TC.None;
       --  External Event Effect on TIOA
-      AEEVT   : AEEVT_Field := None;
+      AEEVT   : CMR0_WAVE_EQ_1_AEEVT_Field := ATSAM3X8E.TC.None;
       --  Software Trigger Effect on TIOA
-      ASWTRG  : ASWTRG_Field := None;
+      ASWTRG  : CMR0_WAVE_EQ_1_ASWTRG_Field := ATSAM3X8E.TC.None;
       --  RB Compare Effect on TIOB
-      BCPB    : BCPB_Field := None;
+      BCPB    : CMR0_WAVE_EQ_1_BCPB_Field := ATSAM3X8E.TC.None;
       --  RC Compare Effect on TIOB
-      BCPC    : BCPC_Field := None;
+      BCPC    : CMR0_WAVE_EQ_1_BCPC_Field := ATSAM3X8E.TC.None;
       --  External Event Effect on TIOB
-      BEEVT   : BEEVT_Field := None;
+      BEEVT   : CMR0_WAVE_EQ_1_BEEVT_Field := ATSAM3X8E.TC.None;
       --  Software Trigger Effect on TIOB
-      BSWTRG  : BSWTRG_Field := None;
+      BSWTRG  : CMR0_WAVE_EQ_1_BSWTRG_Field := ATSAM3X8E.TC.None;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for CMR0_WAVE_EQ_1_Register use record
+   for TC0_CMR0_WAVE_EQ_1_Register use record
       TCCLKS  at 0 range 0 .. 2;
       CLKI    at 0 range 3 .. 3;
       BURST   at 0 range 4 .. 5;
@@ -475,23 +495,19 @@ package ATSAM3X8E.TC is
       BSWTRG  at 0 range 30 .. 31;
    end record;
 
-   -------------------
-   -- SMMR_Register --
-   -------------------
-
-   subtype SMMR0_GCEN_Field is ATSAM3X8E.Bit;
-   subtype SMMR0_DOWN_Field is ATSAM3X8E.Bit;
+   subtype SMMR_GCEN_Field is ATSAM3X8E.Bit;
+   subtype SMMR_DOWN_Field is ATSAM3X8E.Bit;
 
    --  Stepper Motor Mode Register (channel = 0)
    type SMMR_Register is record
       --  Gray Count Enable
-      GCEN          : SMMR0_GCEN_Field := 16#0#;
+      GCEN          : SMMR_GCEN_Field := 16#0#;
       --  DOWN Count
-      DOWN          : SMMR0_DOWN_Field := 16#0#;
+      DOWN          : SMMR_DOWN_Field := 16#0#;
       --  unspecified
       Reserved_2_31 : ATSAM3X8E.UInt30 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for SMMR_Register use record
       GCEN          at 0 range 0 .. 0;
@@ -499,52 +515,48 @@ package ATSAM3X8E.TC is
       Reserved_2_31 at 0 range 2 .. 31;
    end record;
 
-   -----------------
-   -- SR_Register --
-   -----------------
-
-   subtype SR0_COVFS_Field is ATSAM3X8E.Bit;
-   subtype SR0_LOVRS_Field is ATSAM3X8E.Bit;
-   subtype SR0_CPAS_Field is ATSAM3X8E.Bit;
-   subtype SR0_CPBS_Field is ATSAM3X8E.Bit;
-   subtype SR0_CPCS_Field is ATSAM3X8E.Bit;
-   subtype SR0_LDRAS_Field is ATSAM3X8E.Bit;
-   subtype SR0_LDRBS_Field is ATSAM3X8E.Bit;
-   subtype SR0_ETRGS_Field is ATSAM3X8E.Bit;
-   subtype SR0_CLKSTA_Field is ATSAM3X8E.Bit;
-   subtype SR0_MTIOA_Field is ATSAM3X8E.Bit;
-   subtype SR0_MTIOB_Field is ATSAM3X8E.Bit;
+   subtype SR_COVFS_Field is ATSAM3X8E.Bit;
+   subtype SR_LOVRS_Field is ATSAM3X8E.Bit;
+   subtype SR_CPAS_Field is ATSAM3X8E.Bit;
+   subtype SR_CPBS_Field is ATSAM3X8E.Bit;
+   subtype SR_CPCS_Field is ATSAM3X8E.Bit;
+   subtype SR_LDRAS_Field is ATSAM3X8E.Bit;
+   subtype SR_LDRBS_Field is ATSAM3X8E.Bit;
+   subtype SR_ETRGS_Field is ATSAM3X8E.Bit;
+   subtype SR_CLKSTA_Field is ATSAM3X8E.Bit;
+   subtype SR_MTIOA_Field is ATSAM3X8E.Bit;
+   subtype SR_MTIOB_Field is ATSAM3X8E.Bit;
 
    --  Status Register (channel = 0)
    type SR_Register is record
       --  Read-only. Counter Overflow Status
-      COVFS          : SR0_COVFS_Field := 16#0#;
+      COVFS          : SR_COVFS_Field;
       --  Read-only. Load Overrun Status
-      LOVRS          : SR0_LOVRS_Field := 16#0#;
+      LOVRS          : SR_LOVRS_Field;
       --  Read-only. RA Compare Status
-      CPAS           : SR0_CPAS_Field := 16#0#;
+      CPAS           : SR_CPAS_Field;
       --  Read-only. RB Compare Status
-      CPBS           : SR0_CPBS_Field := 16#0#;
+      CPBS           : SR_CPBS_Field;
       --  Read-only. RC Compare Status
-      CPCS           : SR0_CPCS_Field := 16#0#;
+      CPCS           : SR_CPCS_Field;
       --  Read-only. RA Loading Status
-      LDRAS          : SR0_LDRAS_Field := 16#0#;
+      LDRAS          : SR_LDRAS_Field;
       --  Read-only. RB Loading Status
-      LDRBS          : SR0_LDRBS_Field := 16#0#;
+      LDRBS          : SR_LDRBS_Field;
       --  Read-only. External Trigger Status
-      ETRGS          : SR0_ETRGS_Field := 16#0#;
+      ETRGS          : SR_ETRGS_Field;
       --  unspecified
       Reserved_8_15  : ATSAM3X8E.Byte;
       --  Read-only. Clock Enabling Status
-      CLKSTA         : SR0_CLKSTA_Field := 16#0#;
+      CLKSTA         : SR_CLKSTA_Field;
       --  Read-only. TIOA Mirror
-      MTIOA          : SR0_MTIOA_Field := 16#0#;
+      MTIOA          : SR_MTIOA_Field;
       --  Read-only. TIOB Mirror
-      MTIOB          : SR0_MTIOB_Field := 16#0#;
+      MTIOB          : SR_MTIOB_Field;
       --  unspecified
       Reserved_19_31 : ATSAM3X8E.UInt13;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for SR_Register use record
       COVFS          at 0 range 0 .. 0;
@@ -562,41 +574,37 @@ package ATSAM3X8E.TC is
       Reserved_19_31 at 0 range 19 .. 31;
    end record;
 
-   ------------------
-   -- IER_Register --
-   ------------------
-
-   subtype IER0_COVFS_Field is ATSAM3X8E.Bit;
-   subtype IER0_LOVRS_Field is ATSAM3X8E.Bit;
-   subtype IER0_CPAS_Field is ATSAM3X8E.Bit;
-   subtype IER0_CPBS_Field is ATSAM3X8E.Bit;
-   subtype IER0_CPCS_Field is ATSAM3X8E.Bit;
-   subtype IER0_LDRAS_Field is ATSAM3X8E.Bit;
-   subtype IER0_LDRBS_Field is ATSAM3X8E.Bit;
-   subtype IER0_ETRGS_Field is ATSAM3X8E.Bit;
+   subtype IER_COVFS_Field is ATSAM3X8E.Bit;
+   subtype IER_LOVRS_Field is ATSAM3X8E.Bit;
+   subtype IER_CPAS_Field is ATSAM3X8E.Bit;
+   subtype IER_CPBS_Field is ATSAM3X8E.Bit;
+   subtype IER_CPCS_Field is ATSAM3X8E.Bit;
+   subtype IER_LDRAS_Field is ATSAM3X8E.Bit;
+   subtype IER_LDRBS_Field is ATSAM3X8E.Bit;
+   subtype IER_ETRGS_Field is ATSAM3X8E.Bit;
 
    --  Interrupt Enable Register (channel = 0)
    type IER_Register is record
       --  Write-only. Counter Overflow
-      COVFS         : IER0_COVFS_Field := 16#0#;
+      COVFS         : IER_COVFS_Field := 16#0#;
       --  Write-only. Load Overrun
-      LOVRS         : IER0_LOVRS_Field := 16#0#;
+      LOVRS         : IER_LOVRS_Field := 16#0#;
       --  Write-only. RA Compare
-      CPAS          : IER0_CPAS_Field := 16#0#;
+      CPAS          : IER_CPAS_Field := 16#0#;
       --  Write-only. RB Compare
-      CPBS          : IER0_CPBS_Field := 16#0#;
+      CPBS          : IER_CPBS_Field := 16#0#;
       --  Write-only. RC Compare
-      CPCS          : IER0_CPCS_Field := 16#0#;
+      CPCS          : IER_CPCS_Field := 16#0#;
       --  Write-only. RA Loading
-      LDRAS         : IER0_LDRAS_Field := 16#0#;
+      LDRAS         : IER_LDRAS_Field := 16#0#;
       --  Write-only. RB Loading
-      LDRBS         : IER0_LDRBS_Field := 16#0#;
+      LDRBS         : IER_LDRBS_Field := 16#0#;
       --  Write-only. External Trigger
-      ETRGS         : IER0_ETRGS_Field := 16#0#;
+      ETRGS         : IER_ETRGS_Field := 16#0#;
       --  unspecified
       Reserved_8_31 : ATSAM3X8E.UInt24 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for IER_Register use record
       COVFS         at 0 range 0 .. 0;
@@ -610,41 +618,37 @@ package ATSAM3X8E.TC is
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
 
-   ------------------
-   -- IDR_Register --
-   ------------------
-
-   subtype IDR0_COVFS_Field is ATSAM3X8E.Bit;
-   subtype IDR0_LOVRS_Field is ATSAM3X8E.Bit;
-   subtype IDR0_CPAS_Field is ATSAM3X8E.Bit;
-   subtype IDR0_CPBS_Field is ATSAM3X8E.Bit;
-   subtype IDR0_CPCS_Field is ATSAM3X8E.Bit;
-   subtype IDR0_LDRAS_Field is ATSAM3X8E.Bit;
-   subtype IDR0_LDRBS_Field is ATSAM3X8E.Bit;
-   subtype IDR0_ETRGS_Field is ATSAM3X8E.Bit;
+   subtype IDR_COVFS_Field is ATSAM3X8E.Bit;
+   subtype IDR_LOVRS_Field is ATSAM3X8E.Bit;
+   subtype IDR_CPAS_Field is ATSAM3X8E.Bit;
+   subtype IDR_CPBS_Field is ATSAM3X8E.Bit;
+   subtype IDR_CPCS_Field is ATSAM3X8E.Bit;
+   subtype IDR_LDRAS_Field is ATSAM3X8E.Bit;
+   subtype IDR_LDRBS_Field is ATSAM3X8E.Bit;
+   subtype IDR_ETRGS_Field is ATSAM3X8E.Bit;
 
    --  Interrupt Disable Register (channel = 0)
    type IDR_Register is record
       --  Write-only. Counter Overflow
-      COVFS         : IDR0_COVFS_Field := 16#0#;
+      COVFS         : IDR_COVFS_Field := 16#0#;
       --  Write-only. Load Overrun
-      LOVRS         : IDR0_LOVRS_Field := 16#0#;
+      LOVRS         : IDR_LOVRS_Field := 16#0#;
       --  Write-only. RA Compare
-      CPAS          : IDR0_CPAS_Field := 16#0#;
+      CPAS          : IDR_CPAS_Field := 16#0#;
       --  Write-only. RB Compare
-      CPBS          : IDR0_CPBS_Field := 16#0#;
+      CPBS          : IDR_CPBS_Field := 16#0#;
       --  Write-only. RC Compare
-      CPCS          : IDR0_CPCS_Field := 16#0#;
+      CPCS          : IDR_CPCS_Field := 16#0#;
       --  Write-only. RA Loading
-      LDRAS         : IDR0_LDRAS_Field := 16#0#;
+      LDRAS         : IDR_LDRAS_Field := 16#0#;
       --  Write-only. RB Loading
-      LDRBS         : IDR0_LDRBS_Field := 16#0#;
+      LDRBS         : IDR_LDRBS_Field := 16#0#;
       --  Write-only. External Trigger
-      ETRGS         : IDR0_ETRGS_Field := 16#0#;
+      ETRGS         : IDR_ETRGS_Field := 16#0#;
       --  unspecified
       Reserved_8_31 : ATSAM3X8E.UInt24 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for IDR_Register use record
       COVFS         at 0 range 0 .. 0;
@@ -658,41 +662,37 @@ package ATSAM3X8E.TC is
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
 
-   ------------------
-   -- IMR_Register --
-   ------------------
-
-   subtype IMR0_COVFS_Field is ATSAM3X8E.Bit;
-   subtype IMR0_LOVRS_Field is ATSAM3X8E.Bit;
-   subtype IMR0_CPAS_Field is ATSAM3X8E.Bit;
-   subtype IMR0_CPBS_Field is ATSAM3X8E.Bit;
-   subtype IMR0_CPCS_Field is ATSAM3X8E.Bit;
-   subtype IMR0_LDRAS_Field is ATSAM3X8E.Bit;
-   subtype IMR0_LDRBS_Field is ATSAM3X8E.Bit;
-   subtype IMR0_ETRGS_Field is ATSAM3X8E.Bit;
+   subtype IMR_COVFS_Field is ATSAM3X8E.Bit;
+   subtype IMR_LOVRS_Field is ATSAM3X8E.Bit;
+   subtype IMR_CPAS_Field is ATSAM3X8E.Bit;
+   subtype IMR_CPBS_Field is ATSAM3X8E.Bit;
+   subtype IMR_CPCS_Field is ATSAM3X8E.Bit;
+   subtype IMR_LDRAS_Field is ATSAM3X8E.Bit;
+   subtype IMR_LDRBS_Field is ATSAM3X8E.Bit;
+   subtype IMR_ETRGS_Field is ATSAM3X8E.Bit;
 
    --  Interrupt Mask Register (channel = 0)
    type IMR_Register is record
       --  Read-only. Counter Overflow
-      COVFS         : IMR0_COVFS_Field := 16#0#;
+      COVFS         : IMR_COVFS_Field;
       --  Read-only. Load Overrun
-      LOVRS         : IMR0_LOVRS_Field := 16#0#;
+      LOVRS         : IMR_LOVRS_Field;
       --  Read-only. RA Compare
-      CPAS          : IMR0_CPAS_Field := 16#0#;
+      CPAS          : IMR_CPAS_Field;
       --  Read-only. RB Compare
-      CPBS          : IMR0_CPBS_Field := 16#0#;
+      CPBS          : IMR_CPBS_Field;
       --  Read-only. RC Compare
-      CPCS          : IMR0_CPCS_Field := 16#0#;
+      CPCS          : IMR_CPCS_Field;
       --  Read-only. RA Loading
-      LDRAS         : IMR0_LDRAS_Field := 16#0#;
+      LDRAS         : IMR_LDRAS_Field;
       --  Read-only. RB Loading
-      LDRBS         : IMR0_LDRBS_Field := 16#0#;
+      LDRBS         : IMR_LDRBS_Field;
       --  Read-only. External Trigger
-      ETRGS         : IMR0_ETRGS_Field := 16#0#;
+      ETRGS         : IMR_ETRGS_Field;
       --  unspecified
       Reserved_8_31 : ATSAM3X8E.UInt24;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for IMR_Register use record
       COVFS         at 0 range 0 .. 0;
@@ -706,58 +706,290 @@ package ATSAM3X8E.TC is
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
 
-   -----------------------------
-   -- CMR1_WAVE_EQ_1_Register --
-   -----------------------------
+   --  Clock Selection
+   type CMR1_WAVE_EQ_1_TCCLKS_Field is
+     (--  Clock selected: TCLK1
+      Timer_Clock1,
+      --  Clock selected: TCLK2
+      Timer_Clock2,
+      --  Clock selected: TCLK3
+      Timer_Clock3,
+      --  Clock selected: TCLK4
+      Timer_Clock4,
+      --  Clock selected: TCLK5
+      Timer_Clock5,
+      --  Clock selected: XC0
+      Xc0,
+      --  Clock selected: XC1
+      Xc1,
+      --  Clock selected: XC2
+      Xc2)
+     with Size => 3;
+   for CMR1_WAVE_EQ_1_TCCLKS_Field use
+     (Timer_Clock1 => 0,
+      Timer_Clock2 => 1,
+      Timer_Clock3 => 2,
+      Timer_Clock4 => 3,
+      Timer_Clock5 => 4,
+      Xc0 => 5,
+      Xc1 => 6,
+      Xc2 => 7);
 
-   subtype CMR1_WAVE_EQ_1_CLKI_Field is ATSAM3X8E.Bit;
-   subtype CMR1_WAVE_EQ_1_CPCSTOP_Field is ATSAM3X8E.Bit;
-   subtype CMR1_WAVE_EQ_1_CPCDIS_Field is ATSAM3X8E.Bit;
-   subtype CMR1_WAVE_EQ_1_ENETRG_Field is ATSAM3X8E.Bit;
-   subtype CMR1_WAVE_EQ_1_WAVE_Field is ATSAM3X8E.Bit;
+   subtype TC0_CMR1_WAVE_EQ_1_CLKI_Field is ATSAM3X8E.Bit;
+
+   --  Burst Signal Selection
+   type CMR1_WAVE_EQ_1_BURST_Field is
+     (--  The clock is not gated by an external signal.
+      None,
+      --  XC0 is ANDed with the selected clock.
+      Xc0,
+      --  XC1 is ANDed with the selected clock.
+      Xc1,
+      --  XC2 is ANDed with the selected clock.
+      Xc2)
+     with Size => 2;
+   for CMR1_WAVE_EQ_1_BURST_Field use
+     (None => 0,
+      Xc0 => 1,
+      Xc1 => 2,
+      Xc2 => 3);
+
+   subtype TC0_CMR1_WAVE_EQ_1_CPCSTOP_Field is ATSAM3X8E.Bit;
+   subtype TC0_CMR1_WAVE_EQ_1_CPCDIS_Field is ATSAM3X8E.Bit;
+
+   --  External Event Edge Selection
+   type CMR1_WAVE_EQ_1_EEVTEDG_Field is
+     (--  None
+      None,
+      --  Rising edge
+      Rising,
+      --  Falling edge
+      Falling,
+      --  Each edge
+      Edge)
+     with Size => 2;
+   for CMR1_WAVE_EQ_1_EEVTEDG_Field use
+     (None => 0,
+      Rising => 1,
+      Falling => 2,
+      Edge => 3);
+
+   --  External Event Selection
+   type CMR1_WAVE_EQ_1_EEVT_Field is
+     (--  TIOB
+      Tiob,
+      --  XC0
+      Xc0,
+      --  XC1
+      Xc1,
+      --  XC2
+      Xc2)
+     with Size => 2;
+   for CMR1_WAVE_EQ_1_EEVT_Field use
+     (Tiob => 0,
+      Xc0 => 1,
+      Xc1 => 2,
+      Xc2 => 3);
+
+   subtype TC0_CMR1_WAVE_EQ_1_ENETRG_Field is ATSAM3X8E.Bit;
+
+   --  Waveform Selection
+   type CMR1_WAVE_EQ_1_WAVSEL_Field is
+     (--  UP mode without automatic trigger on RC Compare
+      Up,
+      --  UPDOWN mode without automatic trigger on RC Compare
+      Updown,
+      --  UP mode with automatic trigger on RC Compare
+      Up_Rc,
+      --  UPDOWN mode with automatic trigger on RC Compare
+      Updown_Rc)
+     with Size => 2;
+   for CMR1_WAVE_EQ_1_WAVSEL_Field use
+     (Up => 0,
+      Updown => 1,
+      Up_Rc => 2,
+      Updown_Rc => 3);
+
+   subtype TC0_CMR1_WAVE_EQ_1_WAVE_Field is ATSAM3X8E.Bit;
+
+   --  RA Compare Effect on TIOA
+   type CMR1_WAVE_EQ_1_ACPA_Field is
+     (--  None
+      None,
+      --  Set
+      Set,
+      --  Clear
+      Clear,
+      --  Toggle
+      Toggle)
+     with Size => 2;
+   for CMR1_WAVE_EQ_1_ACPA_Field use
+     (None => 0,
+      Set => 1,
+      Clear => 2,
+      Toggle => 3);
+
+   --  RC Compare Effect on TIOA
+   type CMR1_WAVE_EQ_1_ACPC_Field is
+     (--  None
+      None,
+      --  Set
+      Set,
+      --  Clear
+      Clear,
+      --  Toggle
+      Toggle)
+     with Size => 2;
+   for CMR1_WAVE_EQ_1_ACPC_Field use
+     (None => 0,
+      Set => 1,
+      Clear => 2,
+      Toggle => 3);
+
+   --  External Event Effect on TIOA
+   type CMR1_WAVE_EQ_1_AEEVT_Field is
+     (--  None
+      None,
+      --  Set
+      Set,
+      --  Clear
+      Clear,
+      --  Toggle
+      Toggle)
+     with Size => 2;
+   for CMR1_WAVE_EQ_1_AEEVT_Field use
+     (None => 0,
+      Set => 1,
+      Clear => 2,
+      Toggle => 3);
+
+   --  Software Trigger Effect on TIOA
+   type CMR1_WAVE_EQ_1_ASWTRG_Field is
+     (--  None
+      None,
+      --  Set
+      Set,
+      --  Clear
+      Clear,
+      --  Toggle
+      Toggle)
+     with Size => 2;
+   for CMR1_WAVE_EQ_1_ASWTRG_Field use
+     (None => 0,
+      Set => 1,
+      Clear => 2,
+      Toggle => 3);
+
+   --  RB Compare Effect on TIOB
+   type CMR1_WAVE_EQ_1_BCPB_Field is
+     (--  None
+      None,
+      --  Set
+      Set,
+      --  Clear
+      Clear,
+      --  Toggle
+      Toggle)
+     with Size => 2;
+   for CMR1_WAVE_EQ_1_BCPB_Field use
+     (None => 0,
+      Set => 1,
+      Clear => 2,
+      Toggle => 3);
+
+   --  RC Compare Effect on TIOB
+   type CMR1_WAVE_EQ_1_BCPC_Field is
+     (--  None
+      None,
+      --  Set
+      Set,
+      --  Clear
+      Clear,
+      --  Toggle
+      Toggle)
+     with Size => 2;
+   for CMR1_WAVE_EQ_1_BCPC_Field use
+     (None => 0,
+      Set => 1,
+      Clear => 2,
+      Toggle => 3);
+
+   --  External Event Effect on TIOB
+   type CMR1_WAVE_EQ_1_BEEVT_Field is
+     (--  None
+      None,
+      --  Set
+      Set,
+      --  Clear
+      Clear,
+      --  Toggle
+      Toggle)
+     with Size => 2;
+   for CMR1_WAVE_EQ_1_BEEVT_Field use
+     (None => 0,
+      Set => 1,
+      Clear => 2,
+      Toggle => 3);
+
+   --  Software Trigger Effect on TIOB
+   type CMR1_WAVE_EQ_1_BSWTRG_Field is
+     (--  None
+      None,
+      --  Set
+      Set,
+      --  Clear
+      Clear,
+      --  Toggle
+      Toggle)
+     with Size => 2;
+   for CMR1_WAVE_EQ_1_BSWTRG_Field use
+     (None => 0,
+      Set => 1,
+      Clear => 2,
+      Toggle => 3);
 
    --  Channel Mode Register (channel = 1)
-   type CMR1_WAVE_EQ_1_Register is record
+   type TC0_CMR1_WAVE_EQ_1_Register is record
       --  Clock Selection
-      TCCLKS  : TCCLKS_Field := Timer_Clock1;
+      TCCLKS  : CMR1_WAVE_EQ_1_TCCLKS_Field := ATSAM3X8E.TC.Timer_Clock1;
       --  Clock Invert
-      CLKI    : CMR1_WAVE_EQ_1_CLKI_Field := 16#0#;
+      CLKI    : TC0_CMR1_WAVE_EQ_1_CLKI_Field := 16#0#;
       --  Burst Signal Selection
-      BURST   : BURST_Field := None;
+      BURST   : CMR1_WAVE_EQ_1_BURST_Field := ATSAM3X8E.TC.None;
       --  Counter Clock Stopped with RC Compare
-      CPCSTOP : CMR1_WAVE_EQ_1_CPCSTOP_Field := 16#0#;
+      CPCSTOP : TC0_CMR1_WAVE_EQ_1_CPCSTOP_Field := 16#0#;
       --  Counter Clock Disable with RC Compare
-      CPCDIS  : CMR1_WAVE_EQ_1_CPCDIS_Field := 16#0#;
+      CPCDIS  : TC0_CMR1_WAVE_EQ_1_CPCDIS_Field := 16#0#;
       --  External Event Edge Selection
-      EEVTEDG : EEVTEDG_Field := None;
+      EEVTEDG : CMR1_WAVE_EQ_1_EEVTEDG_Field := ATSAM3X8E.TC.None;
       --  External Event Selection
-      EEVT    : EEVT_Field := Tiob;
+      EEVT    : CMR1_WAVE_EQ_1_EEVT_Field := ATSAM3X8E.TC.Tiob;
       --  External Event Trigger Enable
-      ENETRG  : CMR1_WAVE_EQ_1_ENETRG_Field := 16#0#;
+      ENETRG  : TC0_CMR1_WAVE_EQ_1_ENETRG_Field := 16#0#;
       --  Waveform Selection
-      WAVSEL  : WAVSEL_Field := Up;
+      WAVSEL  : CMR1_WAVE_EQ_1_WAVSEL_Field := ATSAM3X8E.TC.Up;
       --  Waveform Mode
-      WAVE    : CMR1_WAVE_EQ_1_WAVE_Field := 16#0#;
+      WAVE    : TC0_CMR1_WAVE_EQ_1_WAVE_Field := 16#0#;
       --  RA Compare Effect on TIOA
-      ACPA    : ACPA_Field := None;
+      ACPA    : CMR1_WAVE_EQ_1_ACPA_Field := ATSAM3X8E.TC.None;
       --  RC Compare Effect on TIOA
-      ACPC    : ACPC_Field := None;
+      ACPC    : CMR1_WAVE_EQ_1_ACPC_Field := ATSAM3X8E.TC.None;
       --  External Event Effect on TIOA
-      AEEVT   : AEEVT_Field := None;
+      AEEVT   : CMR1_WAVE_EQ_1_AEEVT_Field := ATSAM3X8E.TC.None;
       --  Software Trigger Effect on TIOA
-      ASWTRG  : ASWTRG_Field := None;
+      ASWTRG  : CMR1_WAVE_EQ_1_ASWTRG_Field := ATSAM3X8E.TC.None;
       --  RB Compare Effect on TIOB
-      BCPB    : BCPB_Field := None;
+      BCPB    : CMR1_WAVE_EQ_1_BCPB_Field := ATSAM3X8E.TC.None;
       --  RC Compare Effect on TIOB
-      BCPC    : BCPC_Field := None;
+      BCPC    : CMR1_WAVE_EQ_1_BCPC_Field := ATSAM3X8E.TC.None;
       --  External Event Effect on TIOB
-      BEEVT   : BEEVT_Field := None;
+      BEEVT   : CMR1_WAVE_EQ_1_BEEVT_Field := ATSAM3X8E.TC.None;
       --  Software Trigger Effect on TIOB
-      BSWTRG  : BSWTRG_Field := None;
+      BSWTRG  : CMR1_WAVE_EQ_1_BSWTRG_Field := ATSAM3X8E.TC.None;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for CMR1_WAVE_EQ_1_Register use record
+   for TC0_CMR1_WAVE_EQ_1_Register use record
       TCCLKS  at 0 range 0 .. 2;
       CLKI    at 0 range 3 .. 3;
       BURST   at 0 range 4 .. 5;
@@ -778,58 +1010,290 @@ package ATSAM3X8E.TC is
       BSWTRG  at 0 range 30 .. 31;
    end record;
 
-   -----------------------------
-   -- CMR2_WAVE_EQ_1_Register --
-   -----------------------------
+   --  Clock Selection
+   type CMR2_WAVE_EQ_1_TCCLKS_Field is
+     (--  Clock selected: TCLK1
+      Timer_Clock1,
+      --  Clock selected: TCLK2
+      Timer_Clock2,
+      --  Clock selected: TCLK3
+      Timer_Clock3,
+      --  Clock selected: TCLK4
+      Timer_Clock4,
+      --  Clock selected: TCLK5
+      Timer_Clock5,
+      --  Clock selected: XC0
+      Xc0,
+      --  Clock selected: XC1
+      Xc1,
+      --  Clock selected: XC2
+      Xc2)
+     with Size => 3;
+   for CMR2_WAVE_EQ_1_TCCLKS_Field use
+     (Timer_Clock1 => 0,
+      Timer_Clock2 => 1,
+      Timer_Clock3 => 2,
+      Timer_Clock4 => 3,
+      Timer_Clock5 => 4,
+      Xc0 => 5,
+      Xc1 => 6,
+      Xc2 => 7);
 
-   subtype CMR2_WAVE_EQ_1_CLKI_Field is ATSAM3X8E.Bit;
-   subtype CMR2_WAVE_EQ_1_CPCSTOP_Field is ATSAM3X8E.Bit;
-   subtype CMR2_WAVE_EQ_1_CPCDIS_Field is ATSAM3X8E.Bit;
-   subtype CMR2_WAVE_EQ_1_ENETRG_Field is ATSAM3X8E.Bit;
-   subtype CMR2_WAVE_EQ_1_WAVE_Field is ATSAM3X8E.Bit;
+   subtype TC0_CMR2_WAVE_EQ_1_CLKI_Field is ATSAM3X8E.Bit;
+
+   --  Burst Signal Selection
+   type CMR2_WAVE_EQ_1_BURST_Field is
+     (--  The clock is not gated by an external signal.
+      None,
+      --  XC0 is ANDed with the selected clock.
+      Xc0,
+      --  XC1 is ANDed with the selected clock.
+      Xc1,
+      --  XC2 is ANDed with the selected clock.
+      Xc2)
+     with Size => 2;
+   for CMR2_WAVE_EQ_1_BURST_Field use
+     (None => 0,
+      Xc0 => 1,
+      Xc1 => 2,
+      Xc2 => 3);
+
+   subtype TC0_CMR2_WAVE_EQ_1_CPCSTOP_Field is ATSAM3X8E.Bit;
+   subtype TC0_CMR2_WAVE_EQ_1_CPCDIS_Field is ATSAM3X8E.Bit;
+
+   --  External Event Edge Selection
+   type CMR2_WAVE_EQ_1_EEVTEDG_Field is
+     (--  None
+      None,
+      --  Rising edge
+      Rising,
+      --  Falling edge
+      Falling,
+      --  Each edge
+      Edge)
+     with Size => 2;
+   for CMR2_WAVE_EQ_1_EEVTEDG_Field use
+     (None => 0,
+      Rising => 1,
+      Falling => 2,
+      Edge => 3);
+
+   --  External Event Selection
+   type CMR2_WAVE_EQ_1_EEVT_Field is
+     (--  TIOB
+      Tiob,
+      --  XC0
+      Xc0,
+      --  XC1
+      Xc1,
+      --  XC2
+      Xc2)
+     with Size => 2;
+   for CMR2_WAVE_EQ_1_EEVT_Field use
+     (Tiob => 0,
+      Xc0 => 1,
+      Xc1 => 2,
+      Xc2 => 3);
+
+   subtype TC0_CMR2_WAVE_EQ_1_ENETRG_Field is ATSAM3X8E.Bit;
+
+   --  Waveform Selection
+   type CMR2_WAVE_EQ_1_WAVSEL_Field is
+     (--  UP mode without automatic trigger on RC Compare
+      Up,
+      --  UPDOWN mode without automatic trigger on RC Compare
+      Updown,
+      --  UP mode with automatic trigger on RC Compare
+      Up_Rc,
+      --  UPDOWN mode with automatic trigger on RC Compare
+      Updown_Rc)
+     with Size => 2;
+   for CMR2_WAVE_EQ_1_WAVSEL_Field use
+     (Up => 0,
+      Updown => 1,
+      Up_Rc => 2,
+      Updown_Rc => 3);
+
+   subtype TC0_CMR2_WAVE_EQ_1_WAVE_Field is ATSAM3X8E.Bit;
+
+   --  RA Compare Effect on TIOA
+   type CMR2_WAVE_EQ_1_ACPA_Field is
+     (--  None
+      None,
+      --  Set
+      Set,
+      --  Clear
+      Clear,
+      --  Toggle
+      Toggle)
+     with Size => 2;
+   for CMR2_WAVE_EQ_1_ACPA_Field use
+     (None => 0,
+      Set => 1,
+      Clear => 2,
+      Toggle => 3);
+
+   --  RC Compare Effect on TIOA
+   type CMR2_WAVE_EQ_1_ACPC_Field is
+     (--  None
+      None,
+      --  Set
+      Set,
+      --  Clear
+      Clear,
+      --  Toggle
+      Toggle)
+     with Size => 2;
+   for CMR2_WAVE_EQ_1_ACPC_Field use
+     (None => 0,
+      Set => 1,
+      Clear => 2,
+      Toggle => 3);
+
+   --  External Event Effect on TIOA
+   type CMR2_WAVE_EQ_1_AEEVT_Field is
+     (--  None
+      None,
+      --  Set
+      Set,
+      --  Clear
+      Clear,
+      --  Toggle
+      Toggle)
+     with Size => 2;
+   for CMR2_WAVE_EQ_1_AEEVT_Field use
+     (None => 0,
+      Set => 1,
+      Clear => 2,
+      Toggle => 3);
+
+   --  Software Trigger Effect on TIOA
+   type CMR2_WAVE_EQ_1_ASWTRG_Field is
+     (--  None
+      None,
+      --  Set
+      Set,
+      --  Clear
+      Clear,
+      --  Toggle
+      Toggle)
+     with Size => 2;
+   for CMR2_WAVE_EQ_1_ASWTRG_Field use
+     (None => 0,
+      Set => 1,
+      Clear => 2,
+      Toggle => 3);
+
+   --  RB Compare Effect on TIOB
+   type CMR2_WAVE_EQ_1_BCPB_Field is
+     (--  None
+      None,
+      --  Set
+      Set,
+      --  Clear
+      Clear,
+      --  Toggle
+      Toggle)
+     with Size => 2;
+   for CMR2_WAVE_EQ_1_BCPB_Field use
+     (None => 0,
+      Set => 1,
+      Clear => 2,
+      Toggle => 3);
+
+   --  RC Compare Effect on TIOB
+   type CMR2_WAVE_EQ_1_BCPC_Field is
+     (--  None
+      None,
+      --  Set
+      Set,
+      --  Clear
+      Clear,
+      --  Toggle
+      Toggle)
+     with Size => 2;
+   for CMR2_WAVE_EQ_1_BCPC_Field use
+     (None => 0,
+      Set => 1,
+      Clear => 2,
+      Toggle => 3);
+
+   --  External Event Effect on TIOB
+   type CMR2_WAVE_EQ_1_BEEVT_Field is
+     (--  None
+      None,
+      --  Set
+      Set,
+      --  Clear
+      Clear,
+      --  Toggle
+      Toggle)
+     with Size => 2;
+   for CMR2_WAVE_EQ_1_BEEVT_Field use
+     (None => 0,
+      Set => 1,
+      Clear => 2,
+      Toggle => 3);
+
+   --  Software Trigger Effect on TIOB
+   type CMR2_WAVE_EQ_1_BSWTRG_Field is
+     (--  None
+      None,
+      --  Set
+      Set,
+      --  Clear
+      Clear,
+      --  Toggle
+      Toggle)
+     with Size => 2;
+   for CMR2_WAVE_EQ_1_BSWTRG_Field use
+     (None => 0,
+      Set => 1,
+      Clear => 2,
+      Toggle => 3);
 
    --  Channel Mode Register (channel = 2)
-   type CMR2_WAVE_EQ_1_Register is record
+   type TC0_CMR2_WAVE_EQ_1_Register is record
       --  Clock Selection
-      TCCLKS  : TCCLKS_Field := Timer_Clock1;
+      TCCLKS  : CMR2_WAVE_EQ_1_TCCLKS_Field := ATSAM3X8E.TC.Timer_Clock1;
       --  Clock Invert
-      CLKI    : CMR2_WAVE_EQ_1_CLKI_Field := 16#0#;
+      CLKI    : TC0_CMR2_WAVE_EQ_1_CLKI_Field := 16#0#;
       --  Burst Signal Selection
-      BURST   : BURST_Field := None;
+      BURST   : CMR2_WAVE_EQ_1_BURST_Field := ATSAM3X8E.TC.None;
       --  Counter Clock Stopped with RC Compare
-      CPCSTOP : CMR2_WAVE_EQ_1_CPCSTOP_Field := 16#0#;
+      CPCSTOP : TC0_CMR2_WAVE_EQ_1_CPCSTOP_Field := 16#0#;
       --  Counter Clock Disable with RC Compare
-      CPCDIS  : CMR2_WAVE_EQ_1_CPCDIS_Field := 16#0#;
+      CPCDIS  : TC0_CMR2_WAVE_EQ_1_CPCDIS_Field := 16#0#;
       --  External Event Edge Selection
-      EEVTEDG : EEVTEDG_Field := None;
+      EEVTEDG : CMR2_WAVE_EQ_1_EEVTEDG_Field := ATSAM3X8E.TC.None;
       --  External Event Selection
-      EEVT    : EEVT_Field := Tiob;
+      EEVT    : CMR2_WAVE_EQ_1_EEVT_Field := ATSAM3X8E.TC.Tiob;
       --  External Event Trigger Enable
-      ENETRG  : CMR2_WAVE_EQ_1_ENETRG_Field := 16#0#;
+      ENETRG  : TC0_CMR2_WAVE_EQ_1_ENETRG_Field := 16#0#;
       --  Waveform Selection
-      WAVSEL  : WAVSEL_Field := Up;
+      WAVSEL  : CMR2_WAVE_EQ_1_WAVSEL_Field := ATSAM3X8E.TC.Up;
       --  Waveform Mode
-      WAVE    : CMR2_WAVE_EQ_1_WAVE_Field := 16#0#;
+      WAVE    : TC0_CMR2_WAVE_EQ_1_WAVE_Field := 16#0#;
       --  RA Compare Effect on TIOA
-      ACPA    : ACPA_Field := None;
+      ACPA    : CMR2_WAVE_EQ_1_ACPA_Field := ATSAM3X8E.TC.None;
       --  RC Compare Effect on TIOA
-      ACPC    : ACPC_Field := None;
+      ACPC    : CMR2_WAVE_EQ_1_ACPC_Field := ATSAM3X8E.TC.None;
       --  External Event Effect on TIOA
-      AEEVT   : AEEVT_Field := None;
+      AEEVT   : CMR2_WAVE_EQ_1_AEEVT_Field := ATSAM3X8E.TC.None;
       --  Software Trigger Effect on TIOA
-      ASWTRG  : ASWTRG_Field := None;
+      ASWTRG  : CMR2_WAVE_EQ_1_ASWTRG_Field := ATSAM3X8E.TC.None;
       --  RB Compare Effect on TIOB
-      BCPB    : BCPB_Field := None;
+      BCPB    : CMR2_WAVE_EQ_1_BCPB_Field := ATSAM3X8E.TC.None;
       --  RC Compare Effect on TIOB
-      BCPC    : BCPC_Field := None;
+      BCPC    : CMR2_WAVE_EQ_1_BCPC_Field := ATSAM3X8E.TC.None;
       --  External Event Effect on TIOB
-      BEEVT   : BEEVT_Field := None;
+      BEEVT   : CMR2_WAVE_EQ_1_BEEVT_Field := ATSAM3X8E.TC.None;
       --  Software Trigger Effect on TIOB
-      BSWTRG  : BSWTRG_Field := None;
+      BSWTRG  : CMR2_WAVE_EQ_1_BSWTRG_Field := ATSAM3X8E.TC.None;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for CMR2_WAVE_EQ_1_Register use record
+   for TC0_CMR2_WAVE_EQ_1_Register use record
       TCCLKS  at 0 range 0 .. 2;
       CLKI    at 0 range 3 .. 3;
       BURST   at 0 range 4 .. 5;
@@ -850,129 +1314,118 @@ package ATSAM3X8E.TC is
       BSWTRG  at 0 range 30 .. 31;
    end record;
 
-   ------------------
-   -- BCR_Register --
-   ------------------
-
-   subtype BCR_SYNC_Field is ATSAM3X8E.Bit;
+   subtype TC0_BCR_SYNC_Field is ATSAM3X8E.Bit;
 
    --  Block Control Register
-   type BCR_Register is record
+   type TC0_BCR_Register is record
       --  Write-only. Synchro Command
-      SYNC          : BCR_SYNC_Field := 16#0#;
+      SYNC          : TC0_BCR_SYNC_Field := 16#0#;
       --  unspecified
       Reserved_1_31 : ATSAM3X8E.UInt31 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for BCR_Register use record
+   for TC0_BCR_Register use record
       SYNC          at 0 range 0 .. 0;
       Reserved_1_31 at 0 range 1 .. 31;
    end record;
 
-   ------------------
-   -- BMR_Register --
-   ------------------
-
    --  External Clock Signal 0 Selection
-   type TC0XC0S_Field is
-     (
-      --  Signal connected to XC0: TCLK0
+   type BMR_TC0XC0S_Field is
+     (--  Signal connected to XC0: TCLK0
       Tclk0,
       --  Signal connected to XC0: TIOA1
       Tioa1,
       --  Signal connected to XC0: TIOA2
       Tioa2)
      with Size => 2;
-   for TC0XC0S_Field use
+   for BMR_TC0XC0S_Field use
      (Tclk0 => 0,
       Tioa1 => 2,
       Tioa2 => 3);
 
    --  External Clock Signal 1 Selection
-   type TC1XC1S_Field is
-     (
-      --  Signal connected to XC1: TCLK1
+   type BMR_TC1XC1S_Field is
+     (--  Signal connected to XC1: TCLK1
       Tclk1,
       --  Signal connected to XC1: TIOA0
       Tioa0,
       --  Signal connected to XC1: TIOA2
       Tioa2)
      with Size => 2;
-   for TC1XC1S_Field use
+   for BMR_TC1XC1S_Field use
      (Tclk1 => 0,
       Tioa0 => 2,
       Tioa2 => 3);
 
    --  External Clock Signal 2 Selection
-   type TC2XC2S_Field is
-     (
-      --  Signal connected to XC2: TCLK2
+   type BMR_TC2XC2S_Field is
+     (--  Signal connected to XC2: TCLK2
       Tclk2,
       --  Signal connected to XC2: TIOA1
       Tioa1,
       --  Signal connected to XC2: TIOA2
       Tioa2)
      with Size => 2;
-   for TC2XC2S_Field use
+   for BMR_TC2XC2S_Field use
      (Tclk2 => 0,
       Tioa1 => 2,
       Tioa2 => 3);
 
-   subtype BMR_QDEN_Field is ATSAM3X8E.Bit;
-   subtype BMR_POSEN_Field is ATSAM3X8E.Bit;
-   subtype BMR_SPEEDEN_Field is ATSAM3X8E.Bit;
-   subtype BMR_QDTRANS_Field is ATSAM3X8E.Bit;
-   subtype BMR_EDGPHA_Field is ATSAM3X8E.Bit;
-   subtype BMR_INVA_Field is ATSAM3X8E.Bit;
-   subtype BMR_INVB_Field is ATSAM3X8E.Bit;
-   subtype BMR_INVIDX_Field is ATSAM3X8E.Bit;
-   subtype BMR_SWAP_Field is ATSAM3X8E.Bit;
-   subtype BMR_IDXPHB_Field is ATSAM3X8E.Bit;
-   subtype BMR_FILTER_Field is ATSAM3X8E.Bit;
-   subtype BMR_MAXFILT_Field is ATSAM3X8E.UInt6;
+   subtype TC0_BMR_QDEN_Field is ATSAM3X8E.Bit;
+   subtype TC0_BMR_POSEN_Field is ATSAM3X8E.Bit;
+   subtype TC0_BMR_SPEEDEN_Field is ATSAM3X8E.Bit;
+   subtype TC0_BMR_QDTRANS_Field is ATSAM3X8E.Bit;
+   subtype TC0_BMR_EDGPHA_Field is ATSAM3X8E.Bit;
+   subtype TC0_BMR_INVA_Field is ATSAM3X8E.Bit;
+   subtype TC0_BMR_INVB_Field is ATSAM3X8E.Bit;
+   subtype TC0_BMR_INVIDX_Field is ATSAM3X8E.Bit;
+   subtype TC0_BMR_SWAP_Field is ATSAM3X8E.Bit;
+   subtype TC0_BMR_IDXPHB_Field is ATSAM3X8E.Bit;
+   subtype TC0_BMR_FILTER_Field is ATSAM3X8E.Bit;
+   subtype TC0_BMR_MAXFILT_Field is ATSAM3X8E.UInt6;
 
    --  Block Mode Register
-   type BMR_Register is record
+   type TC0_BMR_Register is record
       --  External Clock Signal 0 Selection
-      TC0XC0S        : TC0XC0S_Field := Tclk0;
+      TC0XC0S        : BMR_TC0XC0S_Field := ATSAM3X8E.TC.Tclk0;
       --  External Clock Signal 1 Selection
-      TC1XC1S        : TC1XC1S_Field := Tclk1;
+      TC1XC1S        : BMR_TC1XC1S_Field := ATSAM3X8E.TC.Tclk1;
       --  External Clock Signal 2 Selection
-      TC2XC2S        : TC2XC2S_Field := Tclk2;
+      TC2XC2S        : BMR_TC2XC2S_Field := ATSAM3X8E.TC.Tclk2;
       --  unspecified
       Reserved_6_7   : ATSAM3X8E.UInt2 := 16#0#;
       --  Quadrature Decoder ENabled
-      QDEN           : BMR_QDEN_Field := 16#0#;
+      QDEN           : TC0_BMR_QDEN_Field := 16#0#;
       --  POSition ENabled
-      POSEN          : BMR_POSEN_Field := 16#0#;
+      POSEN          : TC0_BMR_POSEN_Field := 16#0#;
       --  SPEED ENabled
-      SPEEDEN        : BMR_SPEEDEN_Field := 16#0#;
+      SPEEDEN        : TC0_BMR_SPEEDEN_Field := 16#0#;
       --  Quadrature Decoding TRANSparent
-      QDTRANS        : BMR_QDTRANS_Field := 16#0#;
+      QDTRANS        : TC0_BMR_QDTRANS_Field := 16#0#;
       --  EDGe on PHA count mode
-      EDGPHA         : BMR_EDGPHA_Field := 16#0#;
+      EDGPHA         : TC0_BMR_EDGPHA_Field := 16#0#;
       --  INVerted phA
-      INVA           : BMR_INVA_Field := 16#0#;
+      INVA           : TC0_BMR_INVA_Field := 16#0#;
       --  INVerted phB
-      INVB           : BMR_INVB_Field := 16#0#;
+      INVB           : TC0_BMR_INVB_Field := 16#0#;
       --  INVerted InDeX
-      INVIDX         : BMR_INVIDX_Field := 16#0#;
+      INVIDX         : TC0_BMR_INVIDX_Field := 16#0#;
       --  SWAP PHA and PHB
-      SWAP           : BMR_SWAP_Field := 16#0#;
+      SWAP           : TC0_BMR_SWAP_Field := 16#0#;
       --  InDeX pin is PHB pin
-      IDXPHB         : BMR_IDXPHB_Field := 16#0#;
+      IDXPHB         : TC0_BMR_IDXPHB_Field := 16#0#;
       --  unspecified
       Reserved_18_18 : ATSAM3X8E.Bit := 16#0#;
-      FILTER         : BMR_FILTER_Field := 16#0#;
+      FILTER         : TC0_BMR_FILTER_Field := 16#0#;
       --  MAXimum FILTer
-      MAXFILT        : BMR_MAXFILT_Field := 16#0#;
+      MAXFILT        : TC0_BMR_MAXFILT_Field := 16#0#;
       --  unspecified
       Reserved_26_31 : ATSAM3X8E.UInt6 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for BMR_Register use record
+   for TC0_BMR_Register use record
       TC0XC0S        at 0 range 0 .. 1;
       TC1XC1S        at 0 range 2 .. 3;
       TC2XC2S        at 0 range 4 .. 5;
@@ -993,117 +1446,101 @@ package ATSAM3X8E.TC is
       Reserved_26_31 at 0 range 26 .. 31;
    end record;
 
-   -------------------
-   -- QIER_Register --
-   -------------------
-
-   subtype QIER_IDX_Field is ATSAM3X8E.Bit;
-   subtype QIER_DIRCHG_Field is ATSAM3X8E.Bit;
-   subtype QIER_QERR_Field is ATSAM3X8E.Bit;
+   subtype TC0_QIER_IDX_Field is ATSAM3X8E.Bit;
+   subtype TC0_QIER_DIRCHG_Field is ATSAM3X8E.Bit;
+   subtype TC0_QIER_QERR_Field is ATSAM3X8E.Bit;
 
    --  QDEC Interrupt Enable Register
-   type QIER_Register is record
+   type TC0_QIER_Register is record
       --  Write-only. InDeX
-      IDX           : QIER_IDX_Field := 16#0#;
+      IDX           : TC0_QIER_IDX_Field := 16#0#;
       --  Write-only. DIRection CHanGe
-      DIRCHG        : QIER_DIRCHG_Field := 16#0#;
+      DIRCHG        : TC0_QIER_DIRCHG_Field := 16#0#;
       --  Write-only. Quadrature ERRor
-      QERR          : QIER_QERR_Field := 16#0#;
+      QERR          : TC0_QIER_QERR_Field := 16#0#;
       --  unspecified
       Reserved_3_31 : ATSAM3X8E.UInt29 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for QIER_Register use record
+   for TC0_QIER_Register use record
       IDX           at 0 range 0 .. 0;
       DIRCHG        at 0 range 1 .. 1;
       QERR          at 0 range 2 .. 2;
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
 
-   -------------------
-   -- QIDR_Register --
-   -------------------
-
-   subtype QIDR_IDX_Field is ATSAM3X8E.Bit;
-   subtype QIDR_DIRCHG_Field is ATSAM3X8E.Bit;
-   subtype QIDR_QERR_Field is ATSAM3X8E.Bit;
+   subtype TC0_QIDR_IDX_Field is ATSAM3X8E.Bit;
+   subtype TC0_QIDR_DIRCHG_Field is ATSAM3X8E.Bit;
+   subtype TC0_QIDR_QERR_Field is ATSAM3X8E.Bit;
 
    --  QDEC Interrupt Disable Register
-   type QIDR_Register is record
+   type TC0_QIDR_Register is record
       --  Write-only. InDeX
-      IDX           : QIDR_IDX_Field := 16#0#;
+      IDX           : TC0_QIDR_IDX_Field := 16#0#;
       --  Write-only. DIRection CHanGe
-      DIRCHG        : QIDR_DIRCHG_Field := 16#0#;
+      DIRCHG        : TC0_QIDR_DIRCHG_Field := 16#0#;
       --  Write-only. Quadrature ERRor
-      QERR          : QIDR_QERR_Field := 16#0#;
+      QERR          : TC0_QIDR_QERR_Field := 16#0#;
       --  unspecified
       Reserved_3_31 : ATSAM3X8E.UInt29 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for QIDR_Register use record
+   for TC0_QIDR_Register use record
       IDX           at 0 range 0 .. 0;
       DIRCHG        at 0 range 1 .. 1;
       QERR          at 0 range 2 .. 2;
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
 
-   -------------------
-   -- QIMR_Register --
-   -------------------
-
-   subtype QIMR_IDX_Field is ATSAM3X8E.Bit;
-   subtype QIMR_DIRCHG_Field is ATSAM3X8E.Bit;
-   subtype QIMR_QERR_Field is ATSAM3X8E.Bit;
+   subtype TC0_QIMR_IDX_Field is ATSAM3X8E.Bit;
+   subtype TC0_QIMR_DIRCHG_Field is ATSAM3X8E.Bit;
+   subtype TC0_QIMR_QERR_Field is ATSAM3X8E.Bit;
 
    --  QDEC Interrupt Mask Register
-   type QIMR_Register is record
+   type TC0_QIMR_Register is record
       --  Read-only. InDeX
-      IDX           : QIMR_IDX_Field := 16#0#;
+      IDX           : TC0_QIMR_IDX_Field;
       --  Read-only. DIRection CHanGe
-      DIRCHG        : QIMR_DIRCHG_Field := 16#0#;
+      DIRCHG        : TC0_QIMR_DIRCHG_Field;
       --  Read-only. Quadrature ERRor
-      QERR          : QIMR_QERR_Field := 16#0#;
+      QERR          : TC0_QIMR_QERR_Field;
       --  unspecified
       Reserved_3_31 : ATSAM3X8E.UInt29;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for QIMR_Register use record
+   for TC0_QIMR_Register use record
       IDX           at 0 range 0 .. 0;
       DIRCHG        at 0 range 1 .. 1;
       QERR          at 0 range 2 .. 2;
       Reserved_3_31 at 0 range 3 .. 31;
    end record;
 
-   -------------------
-   -- QISR_Register --
-   -------------------
-
-   subtype QISR_IDX_Field is ATSAM3X8E.Bit;
-   subtype QISR_DIRCHG_Field is ATSAM3X8E.Bit;
-   subtype QISR_QERR_Field is ATSAM3X8E.Bit;
-   subtype QISR_DIR_Field is ATSAM3X8E.Bit;
+   subtype TC0_QISR_IDX_Field is ATSAM3X8E.Bit;
+   subtype TC0_QISR_DIRCHG_Field is ATSAM3X8E.Bit;
+   subtype TC0_QISR_QERR_Field is ATSAM3X8E.Bit;
+   subtype TC0_QISR_DIR_Field is ATSAM3X8E.Bit;
 
    --  QDEC Interrupt Status Register
-   type QISR_Register is record
+   type TC0_QISR_Register is record
       --  Read-only. InDeX
-      IDX           : QISR_IDX_Field := 16#0#;
+      IDX           : TC0_QISR_IDX_Field;
       --  Read-only. DIRection CHanGe
-      DIRCHG        : QISR_DIRCHG_Field := 16#0#;
+      DIRCHG        : TC0_QISR_DIRCHG_Field;
       --  Read-only. Quadrature ERRor
-      QERR          : QISR_QERR_Field := 16#0#;
+      QERR          : TC0_QISR_QERR_Field;
       --  unspecified
       Reserved_3_7  : ATSAM3X8E.UInt5;
       --  Read-only. DIRection
-      DIR           : QISR_DIR_Field := 16#0#;
+      DIR           : TC0_QISR_DIR_Field;
       --  unspecified
       Reserved_9_31 : ATSAM3X8E.UInt23;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for QISR_Register use record
+   for TC0_QISR_Register use record
       IDX           at 0 range 0 .. 0;
       DIRCHG        at 0 range 1 .. 1;
       QERR          at 0 range 2 .. 2;
@@ -1112,23 +1549,15 @@ package ATSAM3X8E.TC is
       Reserved_9_31 at 0 range 9 .. 31;
    end record;
 
-   ------------------
-   -- FMR_Register --
-   ------------------
+   --  TC0_FMR_ENCF array element
+   subtype TC0_FMR_ENCF_Element is ATSAM3X8E.Bit;
 
-   --------------
-   -- FMR.ENCF --
-   --------------
-
-   --  FMR_ENCF array element
-   subtype FMR_ENCF_Element is ATSAM3X8E.Bit;
-
-   --  FMR_ENCF array
-   type FMR_ENCF_Field_Array is array (0 .. 1) of FMR_ENCF_Element
+   --  TC0_FMR_ENCF array
+   type TC0_FMR_ENCF_Field_Array is array (0 .. 1) of TC0_FMR_ENCF_Element
      with Component_Size => 1, Size => 2;
 
-   --  Type definition for FMR_ENCF
-   type FMR_ENCF_Field
+   --  Type definition for TC0_FMR_ENCF
+   type TC0_FMR_ENCF_Field
      (As_Array : Boolean := False)
    is record
       case As_Array is
@@ -1137,49 +1566,45 @@ package ATSAM3X8E.TC is
             Val : ATSAM3X8E.UInt2;
          when True =>
             --  ENCF as an array
-            Arr : FMR_ENCF_Field_Array;
+            Arr : TC0_FMR_ENCF_Field_Array;
       end case;
    end record
      with Unchecked_Union, Size => 2;
 
-   for FMR_ENCF_Field use record
+   for TC0_FMR_ENCF_Field use record
       Val at 0 range 0 .. 1;
       Arr at 0 range 0 .. 1;
    end record;
 
    --  Fault Mode Register
-   type FMR_Register is record
+   type TC0_FMR_Register is record
       --  ENable Compare Fault Channel 0
-      ENCF          : FMR_ENCF_Field := (As_Array => False, Val => 16#0#);
+      ENCF          : TC0_FMR_ENCF_Field := (As_Array => False, Val => 16#0#);
       --  unspecified
       Reserved_2_31 : ATSAM3X8E.UInt30 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for FMR_Register use record
+   for TC0_FMR_Register use record
       ENCF          at 0 range 0 .. 1;
       Reserved_2_31 at 0 range 2 .. 31;
    end record;
 
-   -------------------
-   -- WPMR_Register --
-   -------------------
-
-   subtype WPMR_WPEN_Field is ATSAM3X8E.Bit;
-   subtype WPMR_WPKEY_Field is ATSAM3X8E.UInt24;
+   subtype TC0_WPMR_WPEN_Field is ATSAM3X8E.Bit;
+   subtype TC0_WPMR_WPKEY_Field is ATSAM3X8E.UInt24;
 
    --  Write Protect Mode Register
-   type WPMR_Register is record
+   type TC0_WPMR_Register is record
       --  Write Protect Enable
-      WPEN         : WPMR_WPEN_Field := 16#0#;
+      WPEN         : TC0_WPMR_WPEN_Field := 16#0#;
       --  unspecified
       Reserved_1_7 : ATSAM3X8E.UInt7 := 16#0#;
       --  Write Protect KEY
-      WPKEY        : WPMR_WPKEY_Field := 16#0#;
+      WPKEY        : TC0_WPMR_WPKEY_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for WPMR_Register use record
+   for TC0_WPMR_Register use record
       WPEN         at 0 range 0 .. 0;
       Reserved_1_7 at 0 range 1 .. 7;
       WPKEY        at 0 range 8 .. 31;
@@ -1189,135 +1614,186 @@ package ATSAM3X8E.TC is
    -- Peripherals --
    -----------------
 
+   type TC0_Disc is
+     (Default,
+      Wave_Eq_1);
+
    --  Timer Counter 0
-   type TC_Peripheral is record
+   type TC_Peripheral
+     (Discriminent : TC0_Disc := Default)
+   is record
       --  Channel Control Register (channel = 0)
-      CCR0  : CCR_Register;
-      --  Channel Mode Register (channel = 0)
-      CMR0  : CMR_Register;
+      CCR0           : aliased CCR_Register;
+      pragma Volatile_Full_Access (CCR0);
       --  Stepper Motor Mode Register (channel = 0)
-      SMMR0 : SMMR_Register;
+      SMMR0          : aliased SMMR_Register;
+      pragma Volatile_Full_Access (SMMR0);
       --  Counter Value (channel = 0)
-      CV0   : ATSAM3X8E.Word;
+      CV0            : aliased ATSAM3X8E.UInt32;
       --  Register A (channel = 0)
-      RA0   : ATSAM3X8E.Word;
+      RA0            : aliased ATSAM3X8E.UInt32;
       --  Register B (channel = 0)
-      RB0   : ATSAM3X8E.Word;
+      RB0            : aliased ATSAM3X8E.UInt32;
       --  Register C (channel = 0)
-      RC0   : ATSAM3X8E.Word;
+      RC0            : aliased ATSAM3X8E.UInt32;
       --  Status Register (channel = 0)
-      SR0   : SR_Register;
+      SR0            : aliased SR_Register;
+      pragma Volatile_Full_Access (SR0);
       --  Interrupt Enable Register (channel = 0)
-      IER0  : IER_Register;
+      IER0           : aliased IER_Register;
+      pragma Volatile_Full_Access (IER0);
       --  Interrupt Disable Register (channel = 0)
-      IDR0  : IDR_Register;
+      IDR0           : aliased IDR_Register;
+      pragma Volatile_Full_Access (IDR0);
       --  Interrupt Mask Register (channel = 0)
-      IMR0  : IMR_Register;
+      IMR0           : aliased IMR_Register;
+      pragma Volatile_Full_Access (IMR0);
       --  Channel Control Register (channel = 1)
-      CCR1  : CCR_Register;
-      --  Channel Mode Register (channel = 1)
-      CMR1  : CMR_Register;
+      CCR1           : aliased CCR_Register;
+      pragma Volatile_Full_Access (CCR1);
       --  Stepper Motor Mode Register (channel = 1)
-      SMMR1 : SMMR_Register;
+      SMMR1          : aliased SMMR_Register;
+      pragma Volatile_Full_Access (SMMR1);
       --  Counter Value (channel = 1)
-      CV1   : ATSAM3X8E.Word;
+      CV1            : aliased ATSAM3X8E.UInt32;
       --  Register A (channel = 1)
-      RA1   : ATSAM3X8E.Word;
+      RA1            : aliased ATSAM3X8E.UInt32;
       --  Register B (channel = 1)
-      RB1   : ATSAM3X8E.Word;
+      RB1            : aliased ATSAM3X8E.UInt32;
       --  Register C (channel = 1)
-      RC1   : ATSAM3X8E.Word;
+      RC1            : aliased ATSAM3X8E.UInt32;
       --  Status Register (channel = 1)
-      SR1   : SR_Register;
+      SR1            : aliased SR_Register;
+      pragma Volatile_Full_Access (SR1);
       --  Interrupt Enable Register (channel = 1)
-      IER1  : IER_Register;
+      IER1           : aliased IER_Register;
+      pragma Volatile_Full_Access (IER1);
       --  Interrupt Disable Register (channel = 1)
-      IDR1  : IDR_Register;
+      IDR1           : aliased IDR_Register;
+      pragma Volatile_Full_Access (IDR1);
       --  Interrupt Mask Register (channel = 1)
-      IMR1  : IMR_Register;
+      IMR1           : aliased IMR_Register;
+      pragma Volatile_Full_Access (IMR1);
       --  Channel Control Register (channel = 2)
-      CCR2  : CCR_Register;
-      --  Channel Mode Register (channel = 2)
-      CMR2  : CMR_Register;
+      CCR2           : aliased CCR_Register;
+      pragma Volatile_Full_Access (CCR2);
       --  Stepper Motor Mode Register (channel = 2)
-      SMMR2 : SMMR_Register;
+      SMMR2          : aliased SMMR_Register;
+      pragma Volatile_Full_Access (SMMR2);
       --  Counter Value (channel = 2)
-      CV2   : ATSAM3X8E.Word;
+      CV2            : aliased ATSAM3X8E.UInt32;
       --  Register A (channel = 2)
-      RA2   : ATSAM3X8E.Word;
+      RA2            : aliased ATSAM3X8E.UInt32;
       --  Register B (channel = 2)
-      RB2   : ATSAM3X8E.Word;
+      RB2            : aliased ATSAM3X8E.UInt32;
       --  Register C (channel = 2)
-      RC2   : ATSAM3X8E.Word;
+      RC2            : aliased ATSAM3X8E.UInt32;
       --  Status Register (channel = 2)
-      SR2   : SR_Register;
+      SR2            : aliased SR_Register;
+      pragma Volatile_Full_Access (SR2);
       --  Interrupt Enable Register (channel = 2)
-      IER2  : IER_Register;
+      IER2           : aliased IER_Register;
+      pragma Volatile_Full_Access (IER2);
       --  Interrupt Disable Register (channel = 2)
-      IDR2  : IDR_Register;
+      IDR2           : aliased IDR_Register;
+      pragma Volatile_Full_Access (IDR2);
       --  Interrupt Mask Register (channel = 2)
-      IMR2  : IMR_Register;
+      IMR2           : aliased IMR_Register;
+      pragma Volatile_Full_Access (IMR2);
       --  Block Control Register
-      BCR   : BCR_Register;
+      BCR            : aliased TC0_BCR_Register;
+      pragma Volatile_Full_Access (BCR);
       --  Block Mode Register
-      BMR   : BMR_Register;
+      BMR            : aliased TC0_BMR_Register;
+      pragma Volatile_Full_Access (BMR);
       --  QDEC Interrupt Enable Register
-      QIER  : QIER_Register;
+      QIER           : aliased TC0_QIER_Register;
+      pragma Volatile_Full_Access (QIER);
       --  QDEC Interrupt Disable Register
-      QIDR  : QIDR_Register;
+      QIDR           : aliased TC0_QIDR_Register;
+      pragma Volatile_Full_Access (QIDR);
       --  QDEC Interrupt Mask Register
-      QIMR  : QIMR_Register;
+      QIMR           : aliased TC0_QIMR_Register;
+      pragma Volatile_Full_Access (QIMR);
       --  QDEC Interrupt Status Register
-      QISR  : QISR_Register;
+      QISR           : aliased TC0_QISR_Register;
+      pragma Volatile_Full_Access (QISR);
       --  Fault Mode Register
-      FMR   : FMR_Register;
+      FMR            : aliased TC0_FMR_Register;
+      pragma Volatile_Full_Access (FMR);
       --  Write Protect Mode Register
-      WPMR  : WPMR_Register;
+      WPMR           : aliased TC0_WPMR_Register;
+      pragma Volatile_Full_Access (WPMR);
+      case Discriminent is
+         when Default =>
+            --  Channel Mode Register (channel = 0)
+            CMR0 : aliased CMR_Register;
+            pragma Volatile_Full_Access (CMR0);
+            --  Channel Mode Register (channel = 1)
+            CMR1 : aliased CMR_Register;
+            pragma Volatile_Full_Access (CMR1);
+            --  Channel Mode Register (channel = 2)
+            CMR2 : aliased CMR_Register;
+            pragma Volatile_Full_Access (CMR2);
+         when Wave_Eq_1 =>
+            --  Channel Mode Register (channel = 0)
+            CMR0_WAVE_EQ_1 : aliased TC0_CMR0_WAVE_EQ_1_Register;
+            pragma Volatile_Full_Access (CMR0_WAVE_EQ_1);
+            --  Channel Mode Register (channel = 1)
+            CMR1_WAVE_EQ_1 : aliased TC0_CMR1_WAVE_EQ_1_Register;
+            pragma Volatile_Full_Access (CMR1_WAVE_EQ_1);
+            --  Channel Mode Register (channel = 2)
+            CMR2_WAVE_EQ_1 : aliased TC0_CMR2_WAVE_EQ_1_Register;
+            pragma Volatile_Full_Access (CMR2_WAVE_EQ_1);
+      end case;
    end record
-     with Volatile;
+     with Unchecked_Union, Volatile;
 
    for TC_Peripheral use record
-      CCR0  at 0 range 0 .. 31;
-      CMR0  at 4 range 0 .. 31;
-      SMMR0 at 8 range 0 .. 31;
-      CV0   at 16 range 0 .. 31;
-      RA0   at 20 range 0 .. 31;
-      RB0   at 24 range 0 .. 31;
-      RC0   at 28 range 0 .. 31;
-      SR0   at 32 range 0 .. 31;
-      IER0  at 36 range 0 .. 31;
-      IDR0  at 40 range 0 .. 31;
-      IMR0  at 44 range 0 .. 31;
-      CCR1  at 64 range 0 .. 31;
-      CMR1  at 68 range 0 .. 31;
-      SMMR1 at 72 range 0 .. 31;
-      CV1   at 80 range 0 .. 31;
-      RA1   at 84 range 0 .. 31;
-      RB1   at 88 range 0 .. 31;
-      RC1   at 92 range 0 .. 31;
-      SR1   at 96 range 0 .. 31;
-      IER1  at 100 range 0 .. 31;
-      IDR1  at 104 range 0 .. 31;
-      IMR1  at 108 range 0 .. 31;
-      CCR2  at 128 range 0 .. 31;
-      CMR2  at 132 range 0 .. 31;
-      SMMR2 at 136 range 0 .. 31;
-      CV2   at 144 range 0 .. 31;
-      RA2   at 148 range 0 .. 31;
-      RB2   at 152 range 0 .. 31;
-      RC2   at 156 range 0 .. 31;
-      SR2   at 160 range 0 .. 31;
-      IER2  at 164 range 0 .. 31;
-      IDR2  at 168 range 0 .. 31;
-      IMR2  at 172 range 0 .. 31;
-      BCR   at 192 range 0 .. 31;
-      BMR   at 196 range 0 .. 31;
-      QIER  at 200 range 0 .. 31;
-      QIDR  at 204 range 0 .. 31;
-      QIMR  at 208 range 0 .. 31;
-      QISR  at 212 range 0 .. 31;
-      FMR   at 216 range 0 .. 31;
-      WPMR  at 228 range 0 .. 31;
+      CCR0           at 16#0# range 0 .. 31;
+      SMMR0          at 16#8# range 0 .. 31;
+      CV0            at 16#10# range 0 .. 31;
+      RA0            at 16#14# range 0 .. 31;
+      RB0            at 16#18# range 0 .. 31;
+      RC0            at 16#1C# range 0 .. 31;
+      SR0            at 16#20# range 0 .. 31;
+      IER0           at 16#24# range 0 .. 31;
+      IDR0           at 16#28# range 0 .. 31;
+      IMR0           at 16#2C# range 0 .. 31;
+      CCR1           at 16#40# range 0 .. 31;
+      SMMR1          at 16#48# range 0 .. 31;
+      CV1            at 16#50# range 0 .. 31;
+      RA1            at 16#54# range 0 .. 31;
+      RB1            at 16#58# range 0 .. 31;
+      RC1            at 16#5C# range 0 .. 31;
+      SR1            at 16#60# range 0 .. 31;
+      IER1           at 16#64# range 0 .. 31;
+      IDR1           at 16#68# range 0 .. 31;
+      IMR1           at 16#6C# range 0 .. 31;
+      CCR2           at 16#80# range 0 .. 31;
+      SMMR2          at 16#88# range 0 .. 31;
+      CV2            at 16#90# range 0 .. 31;
+      RA2            at 16#94# range 0 .. 31;
+      RB2            at 16#98# range 0 .. 31;
+      RC2            at 16#9C# range 0 .. 31;
+      SR2            at 16#A0# range 0 .. 31;
+      IER2           at 16#A4# range 0 .. 31;
+      IDR2           at 16#A8# range 0 .. 31;
+      IMR2           at 16#AC# range 0 .. 31;
+      BCR            at 16#C0# range 0 .. 31;
+      BMR            at 16#C4# range 0 .. 31;
+      QIER           at 16#C8# range 0 .. 31;
+      QIDR           at 16#CC# range 0 .. 31;
+      QIMR           at 16#D0# range 0 .. 31;
+      QISR           at 16#D4# range 0 .. 31;
+      FMR            at 16#D8# range 0 .. 31;
+      WPMR           at 16#E4# range 0 .. 31;
+      CMR0           at 16#4# range 0 .. 31;
+      CMR1           at 16#44# range 0 .. 31;
+      CMR2           at 16#84# range 0 .. 31;
+      CMR0_WAVE_EQ_1 at 16#4# range 0 .. 31;
+      CMR1_WAVE_EQ_1 at 16#44# range 0 .. 31;
+      CMR2_WAVE_EQ_1 at 16#84# range 0 .. 31;
    end record;
 
    --  Timer Counter 0
