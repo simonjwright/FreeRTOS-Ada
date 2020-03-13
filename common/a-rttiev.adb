@@ -31,6 +31,17 @@
 
 --  Adapted from the GCC 7.1.0 version for Cortex GNAT RTS.
 
+--  This implementation doesn't follow the implemntation advice of ARM
+--  D.15(25) (that the protected handler procedure should be executed
+--  directly by the real time clock interrupt mechanism). Instead,
+--  there's a highest-priority task.
+--
+--  The reason is for compatibility with the armv6s-m (cortex-m0)
+--  architecture, which can only implement locking by inhibiting
+--  interrupts rather than via the BASEPRI mechanism. This would make
+--  it difficult to mix Ada's PO locking with FreeRTOS's locking
+--  around SysTick.
+
 with System.FreeRTOS.Tasks;
 
 package body Ada.Real_Time.Timing_Events is
@@ -114,6 +125,7 @@ package body Ada.Real_Time.Timing_Events is
      Priority             => System.Priority'Last,
      Storage_Size         => 1024,
      --  Will be overrun on micro:bit with -O0; -Og is OK.
+     --  In any case, beware! an event's handler uses this task's stack.
      Secondary_Stack_Size => 0
    is
       pragma Task_Name ("events_timer");
@@ -124,23 +136,29 @@ package body Ada.Real_Time.Timing_Events is
       Next : Time := Time_First;
       Period : constant Time_Span := Milliseconds (5);
 
-      --  This is a simplistic implementation.
-      --
       --  If there is no next event, Process_Queued_Events returns
       --  Time_First, and this task delays for Period before looking
       --  again.
       --
       --  If there is a next event, Process_Queued_Events returns the
       --  time when that event is to fire, and this task delays until
-      --  then.
+      --  the earlier of that time and the time Period ahead.
       --
-      --  In either case, events which are scheduled during this
-      --  task's delay are not considered until the delay expires.
+      --  In either case, events which are posted during this task's
+      --  delay to run during that delay are not considered until the
+      --  delay expires.
 
    begin
       loop
          Process_Queued_Events (Next_Event_Time => Next);
-         delay until (if Next = Time_First then Clock + Period else Next);
+         declare
+            Now_Plus_Period : constant Time := Clock + Period;
+         begin
+            delay until (if Next = Time_First
+                           or Next > Now_Plus_Period
+                         then Now_Plus_Period
+                         else Next);
+         end;
       end loop;
    end Timer;
 
