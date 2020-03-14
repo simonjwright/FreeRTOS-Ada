@@ -1,4 +1,4 @@
---  Copyright (C) 2016, 2019 Free Software Foundation, Inc.
+--  Copyright (C) 2016, 2019, 2020 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -18,6 +18,12 @@
 
 --  This package, in file debounce_hardware.adb, is the
 --  hardware-implemented version of debouncing.
+--
+--  To run, connect a pushbutton between GND and pin 53. On button-up,
+--  the LED will flash a number of times indicating how many button-up
+--  interrupts were received,
+--
+--  To check, comment out the line where debounce is enabled (:132).
 
 with Ada.Interrupts.Names;
 with Ada.Real_Time;
@@ -63,7 +69,7 @@ package body Debounce_Impl is
       end Wait;
 
       procedure Handler is
-         Status : constant ISR_Register := PIOB_Periph.ISR;
+         Status : constant PIOA_ISR_Register := PIOB_Periph.ISR;
       begin
          if Status.Arr (Input_Pin) /= 0 then
             Interrupts := Interrupts + 1;
@@ -122,7 +128,7 @@ begin
    --  .. debounce vs glitch ..
    PIOB_Periph.DIFSR.Arr := (Input_Pin => 1, others => 0);
 
-   --  .. enable debounce ..
+   --  .. enable debounce (comment-out to disable) ..
    PIOB_Periph.IFER.Arr := (Input_Pin => 1, others => 0);
 
    --  .. enable interrupts.
