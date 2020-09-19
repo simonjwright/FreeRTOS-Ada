@@ -1,4 +1,4 @@
---  Copyright (C) 2018 Free Software Foundation, Inc.
+--  Copyright (C) 2018, 2020 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -16,9 +16,11 @@
 --  along with this program; see the file COPYING3.  If not, see
 --  <http://www.gnu.org/licenses/>.
 
-project Testbed is
+with "Ada_Drivers_Library/ada_drivers_library";
 
-   for Main use ("seconds.adb", "testbed.adb");
+project Tests is
+
+   for Main use ("circle.adb", "events.adb", "seconds.adb");
    for Languages use ("Ada");
    for Source_Dirs use (".", "../test-common");
    for Object_Dir use ".build";
@@ -62,4 +64,4 @@ project Testbed is
       for Communication_Protocol use "remote";
    end IDE;
 
-end Testbed;
+end Tests;

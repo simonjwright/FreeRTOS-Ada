@@ -1,4 +1,4 @@
---  Copyright (C) 2018 Free Software Foundation, Inc.
+--  Copyright (C) 2018,2020 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -24,7 +24,7 @@ pragma Unreferenced (Lights);
 
 with Ada.Real_Time;
 
-procedure Testbed is
+procedure Circle is
 
    --  These are the default values of the stack control parameters.
 
@@ -51,4 +51,4 @@ procedure Testbed is
 
 begin
    delay until Ada.Real_Time.Time_Last;
-end Testbed;
+end Circle;

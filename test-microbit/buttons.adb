@@ -1,4 +1,4 @@
---  Copyright (C) 2018 Free Software Foundation, Inc.
+--  Copyright (C) 2018, 2020 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -18,8 +18,7 @@
 
 with Ada.Interrupts.Names;
 with Ada.Real_Time;
-with nrf51.GPIO;
-with nrf51.GPIOTE;
+with nRF.GPIO.Tasks_And_Events;
 
 package body Buttons is
 
@@ -27,6 +26,7 @@ package body Buttons is
    for Button_Rep use (Button_A => 17, Button_B => 26);
 
    type Button_Data is record
+      Point : nRF.GPIO.GPIO_Point;
       State : Toggle := Off;
       Last_Time : Ada.Real_Time.Time := Ada.Real_Time.Time_First;
    end record;
@@ -34,9 +34,17 @@ package body Buttons is
    type Buttons_Data is array (Button_Rep) of Button_Data;
 
    protected Button_Handler is
+      --  Only call one of these.
+      procedure Enable_Channel_Interrupts;
+      procedure Enable_Port_Interrupts;
+
       function Button_State (Btn : Button_Rep) return Toggle;
    private
-      State : Buttons_Data;
+      State : Buttons_Data :=
+        (Button_A => (Point => (Pin => Button_A'Enum_Rep),
+                      others => <>),
+         Button_B => (Point => (Pin => Button_B'Enum_Rep),
+                      others => <>));
       procedure Handler
       with Attach_Handler => Ada.Interrupts.Names.GPIOTE_IRQ;
    end Button_Handler;
@@ -47,51 +55,80 @@ package body Buttons is
                                       when B => Button_B));
 
    protected body Button_Handler is
+
+      procedure Enable_Channel_Interrupts is
+         use nRF.GPIO.Tasks_And_Events;
+      begin
+         Enable_Event (Chan => 0,
+                       GPIO_Pin => Button_A'Enum_Rep,
+                       Polarity => Falling_Edge);
+         Enable_Channel_Interrupt (Chan => 0);
+         Enable_Event (Chan => 1,
+                       GPIO_Pin => Button_B'Enum_Rep,
+                       Polarity => Falling_Edge);
+         Enable_Channel_Interrupt (Chan => 1);
+      end Enable_Channel_Interrupts;
+
+      procedure Enable_Port_Interrupts is
+      begin
+         nRF.GPIO.Tasks_And_Events.Enable_Port_Interrupt;
+      end Enable_Port_Interrupts;
+
       function Button_State (Btn : Button_Rep) return Toggle is
         (State (Btn).State);
 
       procedure Handler is
-      begin
-         nrf51.GPIOTE.GPIOTE_Periph.EVENTS_PORT := 0;
-         declare
+         use nRF.GPIO;
+         procedure Process_Event (For_Button : Button_Rep);
+         procedure Process_Event (For_Button : Button_Rep) is
             Now   : constant Ada.Real_Time.Time := Ada.Real_Time.Clock;
             Other : constant array (Toggle) of Toggle := (Off => On,
                                                           On  => Off);
-            use nrf51.GPIO;
             use type Ada.Real_Time.Time;
             use type Ada.Real_Time.Time_Span;
          begin
-            for B in State'Range loop
-               if GPIO_Periph.IN_k.Arr (B'Enum_Rep) = Low
-                 and then Now - State (B).Last_Time
-                 > Ada.Real_Time.Milliseconds (25)
-               then
-                  State (B).State := Other (State (B).State);
-                  State (B).Last_Time := Now;
-               end if;
-            end loop;
-         end;
+            if not State (For_Button).Point.Set
+              and then Now - State (For_Button).Last_Time
+              > Ada.Real_Time.Milliseconds (50)  -- debouncing
+            then
+               State (For_Button).State := Other (State (For_Button).State);
+               State (For_Button).Last_Time := Now;
+            end if;
+         end Process_Event;
+      begin
+         if Tasks_And_Events.Channel_Event_Set (Chan => 0) then
+            Tasks_And_Events.Acknowledge_Channel_Interrupt (Chan => 0);
+            Process_Event (Button_A);
+         end if;
+         if Tasks_And_Events.Channel_Event_Set (Chan => 1) then
+            Tasks_And_Events.Acknowledge_Channel_Interrupt (Chan => 1);
+            Process_Event (Button_B);
+         end if;
+         if Tasks_And_Events.Port_Event_Set then
+            Tasks_And_Events.Acknowledge_Port_Interrupt;
+            Process_Event (Button_A);
+            Process_Event (Button_B);
+         end if;
       end Handler;
    end Button_Handler;
 
    procedure Initialize;
    procedure Initialize is
-      use nrf51.GPIO;
-      use nrf51.GPIOTE;
+      use nRF.GPIO;
+      Config : constant GPIO_Configuration :=
+        (Mode         => Mode_In,
+         Resistors    => Pull_Up,
+         Input_Buffer => Input_Buffer_Connect,
+         Sense        => Sense_For_Low_Level,
+         others       => <>);
    begin
       --  Buttons
-      GPIO_Periph.PIN_CNF (Button_A'Enum_Rep) := (DIR    => Input,
-                                                  INPUT  => Connect,
-                                                  PULL   => Pullup,
-                                                  SENSE  => Low,
-                                                  others => <>);
-      GPIO_Periph.PIN_CNF (Button_B'Enum_Rep) := (DIR    => Input,
-                                                  INPUT  => Connect,
-                                                  PULL   => Pullup,
-                                                  SENSE  => Low,
-                                                  others => <>);
+      Configure_IO (This   => (Pin => Button_A'Enum_Rep),
+                    Config => Config);
+      Configure_IO (This   => (Pin => Button_B'Enum_Rep),
+                    Config => Config);
 
-      GPIOTE_Periph.INTENSET.PORT := Set;
+      Button_Handler.Enable_Channel_Interrupts;
    end Initialize;
 
 begin

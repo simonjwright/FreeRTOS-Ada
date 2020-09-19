@@ -1,4 +1,4 @@
-# Copyright (C) 2018 Free Software Foundation, Inc.
+# Copyright (C) 2018, 2020 Free Software Foundation, Inc.
 #
 # This file is part of the Cortex GNAT RTS package.
 #
@@ -16,12 +16,15 @@
 #  along with this program; see the file COPYING3.  If not, see
 #  <http://www.gnu.org/licenses/>.
 
-all: seconds.hex testbed.hex
+all: circle.hex events.hex seconds.hex
 
-seconds testbed: force
-	gprbuild -p -P testbed
+circle events seconds: rebuild.stamp
+rebuild.stamp: force
+	gprbuild -p -P tests
+	touch $@
 clean::
-	gprclean -P testbed
+	gprclean -P tests
+	rm -f rebuild.stamp
 
 clean::
 	-rm *~ *.ali *.o *.hex
