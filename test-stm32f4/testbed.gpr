@@ -1,4 +1,4 @@
---  Copyright (C) 2016-2018 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2020 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -18,7 +18,9 @@
 
 project Testbed is
 
-   for Main use ("testbed.adb", "generate_hard_fault.adb");
+   for Main use ("testbed.adb",
+                 "delay_in_po-main.adb",
+                 "generate_hard_fault.adb");
    for Languages use ("Ada", "C");
    for Source_Dirs use (".", "../test-common");
    for Object_Dir use ".build";
@@ -27,6 +29,7 @@ project Testbed is
    for Runtime ("ada") use project'Project_Dir & "../local/stm32f4";
 
    package Builder is
+      for Executable ("delay_in_po-main.adb") use "delay_in_po";
       for Global_Configuration_Pragmas use "gnat.adc";
       for Global_Compilation_Switches ("ada") use
         (
