@@ -18,7 +18,8 @@
 
 abstract project Common is
 
-   type Compiler_Release is ("gcc6", "gnat-gpl-2017", "gcc7", "gcc8");
+   type Compiler_Release is
+     ("gcc6", "gnat-gpl-2017", "gcc7", "gcc8", "gnat-ce-2020");
    Release : Compiler_Release := external ("RELEASE", "gcc8");
 
    type Install_Locally is ("yes", "no");

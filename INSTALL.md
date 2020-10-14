@@ -33,6 +33,7 @@ Values for `RELEASE` are as below:
 | GNAT GPL 2017 | `gnat-gpl-2017` |
 | GNAT CE 2018 | `gcc8` |
 | GNAT CE 2019 | `gcc8` |
+| GNAT CE 2020 | `gnat-ce-2020` |
 
 Build by running
 <tt>make&nbsp;RELEASE=<i>release</i>&nbsp;all</tt> at the top level (or, if you only want one runtime, by <tt>make&nbsp;RELEASE=<i>release</i></tt> in that runtime's subdirectory).

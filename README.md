@@ -1,6 +1,6 @@
 This package includes GNAT Ada Run Time Systems (RTSs) based
 on [FreeRTOS](http://www.freertos.org) and targeted at boards with
-Cortex-M0, M3, -M4, -M4F MCUs
+Cortex-M0, -M3, -M4, -M4F MCUs
 (respectively
 [BBC micro:bit](http://microbit.org),
 [Arduino Due](https://www.arduino.cc), and the STM32F4-series evaluation
