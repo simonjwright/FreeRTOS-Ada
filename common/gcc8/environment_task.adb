@@ -40,7 +40,7 @@ package body Environment_Task is
    --  For creating the environment task; declared here to avoid
    --  accessibility level issues.
    Environment_Task_Elaborated : aliased Boolean;
-   Activation_Chain_Dummy : System.Tasking.Activation_Chain
+(Environment_Task_Secondary_Stack_Size   Activation_Chain_Dummy : System.Tasking.Activation_Chain
      with Suppress_Initialization;
    Environment_TCB : aliased System.Tasking.Ada_Task_Control_Block
      (System.Tasking.Null_Entry);
@@ -53,6 +53,16 @@ package body Environment_Task is
      Convention => Ada,
      External_Name => "_environment_task_storage_size";
    pragma Weak_External (Environment_Task_Storage_Size);
+
+   --  If the link includes a symbol _environment_task_secondary_stack_size,
+   --  use this as the secondary stack size: otherwise, use the default.
+   Environment_Task_Secondary_Stack_Size :
+     constant System.Parameters.Size_Type
+   with
+     Import,
+     Convention => Ada,
+     External_Name => "_environment_task_secondary_stack_size";
+   pragma Weak_External (Environment_Task_Secondary_Stack_Size);
 
    procedure Create is
       --  Will be overwritten by binder-generated code if the main
@@ -69,7 +79,11 @@ package body Environment_Task is
             then 1536
             else Environment_Task_Storage_Size),
          Sec_Stack_Address    => null,
-         Secondary_Stack_Size => System.Parameters.Unspecified_Size,
+         Secondary_Stack_Size =>
+           (if Environment_Task_Secondary_Stack_Size'Address
+              = System.Null_Address
+            then System.Parameters.Unspecified_Size
+            else Environment_Task_Secondary_Stack_Size),
          Task_Info            => System.Task_Info.Unspecified_Task_Info,
          CPU                  => System.Tasking.Unspecified_CPU,
          State                => Environment_Task'Access,
