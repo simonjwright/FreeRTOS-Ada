@@ -40,7 +40,7 @@ package body Environment_Task is
    --  For creating the environment task; declared here to avoid
    --  accessibility level issues.
    Environment_Task_Elaborated : aliased Boolean;
-(Environment_Task_Secondary_Stack_Size   Activation_Chain_Dummy : System.Tasking.Activation_Chain
+   Activation_Chain_Dummy : System.Tasking.Activation_Chain
      with Suppress_Initialization;
    Environment_TCB : aliased System.Tasking.Ada_Task_Control_Block
      (System.Tasking.Null_Entry);
