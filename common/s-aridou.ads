@@ -2,7 +2,7 @@
 --                                                                          --
 --                         GNAT COMPILER COMPONENTS                         --
 --                                                                          --
---                      S Y S T E M . A R I T H _ 6 4                       --
+--                  S Y S T E M . A R I T H _ D O U B L E                   --
 --                                                                          --
 --                                 S p e c                                  --
 --                                                                          --
@@ -29,68 +29,66 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  This unit provides software routines for doing arithmetic on 64-bit
---  signed integer values in cases where either overflow checking is
---  required, or intermediate results are longer than 64 bits.
+--  This package provides software routines for doing arithmetic on "double"
+--  signed integer values in cases where either overflow checking is required,
+--  or intermediate results are longer than the result type.
 
-pragma Restrictions (No_Elaboration_Code);
---  Allow direct call from gigi generated code
+generic
 
-with Interfaces;
+   type Double_Int is range <>;
 
-package System.Arith_64 is
+   type Double_Uns is mod <>;
+
+   type Single_Uns is mod <>;
+
+   with function Shift_Left (A : Double_Uns; B : Natural) return Double_Uns
+     is <>;
+
+   with function Shift_Right (A : Double_Uns; B : Natural) return Double_Uns
+     is <>;
+
+   with function Shift_Left (A : Single_Uns; B : Natural) return Single_Uns
+     is <>;
+
+package System.Arith_Double is
    pragma Pure;
 
-   subtype Int64 is Interfaces.Integer_64;
+   function Add_With_Ovflo_Check (X, Y : Double_Int) return Double_Int;
+   --  Raises Constraint_Error if sum of operands overflows Double_Int,
+   --  otherwise returns the signed integer sum.
 
-   function Add_With_Ovflo_Check64 (X, Y : Int64) return Int64;
-   --  Raises Constraint_Error if sum of operands overflows 64 bits,
-   --  otherwise returns the 64-bit signed integer sum.
+   function Subtract_With_Ovflo_Check (X, Y : Double_Int) return Double_Int;
+   --  Raises Constraint_Error if difference of operands overflows Double_Int,
+   --  otherwise returns the signed integer difference.
 
-   function Subtract_With_Ovflo_Check64 (X, Y : Int64) return Int64;
-   --  Raises Constraint_Error if difference of operands overflows 64
-   --  bits, otherwise returns the 64-bit signed integer difference.
+   function Multiply_With_Ovflo_Check (X, Y : Double_Int) return Double_Int;
+   pragma Convention (C, Multiply_With_Ovflo_Check);
+   --  Raises Constraint_Error if product of operands overflows Double_Int,
+   --  otherwise returns the signed integer product. Gigi may also call this
+   --  routine directly.
 
-   function Multiply_With_Ovflo_Check64 (X, Y : Int64) return Int64;
-   pragma Export (C, Multiply_With_Ovflo_Check64, "__gnat_mulv64");
-   --  Raises Constraint_Error if product of operands overflows 64
-   --  bits, otherwise returns the 64-bit signed integer product.
-   --  Gigi may also call this routine directly.
-
-   procedure Scaled_Divide64
-     (X, Y, Z : Int64;
-      Q, R    : out Int64;
+   procedure Scaled_Divide
+     (X, Y, Z : Double_Int;
+      Q, R    : out Double_Int;
       Round   : Boolean);
    --  Performs the division of (X * Y) / Z, storing the quotient in Q
    --  and the remainder in R. Constraint_Error is raised if Z is zero,
-   --  or if the quotient does not fit in 64 bits. Round indicates if
+   --  or if the quotient does not fit in Double_Int. Round indicates if
    --  the result should be rounded. If Round is False, then Q, R are
    --  the normal quotient and remainder from a truncating division.
    --  If Round is True, then Q is the rounded quotient. The remainder
    --  R is not affected by the setting of the Round flag.
 
-   procedure Scaled_Divide
-     (X, Y, Z : Int64;
-      Q, R    : out Int64;
-      Round   : Boolean) renames Scaled_Divide64;
-   --  Renamed procedure to preserve compatibility with earlier versions
-
-   procedure Double_Divide64
-     (X, Y, Z : Int64;
-      Q, R    : out Int64;
+   procedure Double_Divide
+     (X, Y, Z : Double_Int;
+      Q, R    : out Double_Int;
       Round   : Boolean);
    --  Performs the division X / (Y * Z), storing the quotient in Q and
    --  the remainder in R. Constraint_Error is raised if Y or Z is zero,
-   --  or if the quotient does not fit in 64 bits. Round indicates if the
+   --  or if the quotient does not fit in Double_Int. Round indicates if the
    --  result should be rounded. If Round is False, then Q, R are the normal
    --  quotient and remainder from a truncating division. If Round is True,
    --  then Q is the rounded quotient. The remainder R is not affected by the
    --  setting of the Round flag.
 
-   procedure Double_Divide
-     (X, Y, Z : Int64;
-      Q, R    : out Int64;
-      Round   : Boolean) renames Double_Divide64;
-   --  Renamed procedure to preserve compatibility with earlier versions
-
-end System.Arith_64;
+end System.Arith_Double;
