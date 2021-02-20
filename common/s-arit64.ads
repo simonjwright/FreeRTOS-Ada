@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 S p e c                                  --
 --                                                                          --
---          Copyright (C) 1992-2020, Free Software Foundation, Inc.         --
+--          Copyright (C) 1992-2021, Free Software Foundation, Inc.         --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -33,6 +33,8 @@
 --  signed integer values in cases where either overflow checking is
 --  required, or intermediate results are longer than 64 bits.
 
+--  For Cortex GNAT RTS, re-imported from the FSF GCC 11 release.
+
 pragma Restrictions (No_Elaboration_Code);
 --  Allow direct call from gigi generated code
 
@@ -47,15 +49,27 @@ package System.Arith_64 is
    --  Raises Constraint_Error if sum of operands overflows 64 bits,
    --  otherwise returns the 64-bit signed integer sum.
 
+   function Add_With_Ovflo_Check (X, Y : Int64) return Int64
+     renames Add_With_Ovflo_Check64;
+   --  Renamed subprogram to preserve compatibility with earlier versions
+
    function Subtract_With_Ovflo_Check64 (X, Y : Int64) return Int64;
    --  Raises Constraint_Error if difference of operands overflows 64
    --  bits, otherwise returns the 64-bit signed integer difference.
+
+   function Subtract_With_Ovflo_Check (X, Y : Int64) return Int64
+     renames Subtract_With_Ovflo_Check64;
+   --  Renamed subprogram to preserve compatibility with earlier versions
 
    function Multiply_With_Ovflo_Check64 (X, Y : Int64) return Int64;
    pragma Export (C, Multiply_With_Ovflo_Check64, "__gnat_mulv64");
    --  Raises Constraint_Error if product of operands overflows 64
    --  bits, otherwise returns the 64-bit signed integer product.
    --  Gigi may also call this routine directly.
+
+   function Multiply_With_Ovflo_Check (X, Y : Int64) return Int64
+     renames Multiply_With_Ovflo_Check64;
+   --  Renamed subprogram to preserve compatibility with earlier versions
 
    procedure Scaled_Divide64
      (X, Y, Z : Int64;

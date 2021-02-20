@@ -21,7 +21,7 @@ with "../FreeRTOS";
 
 library project Build_Runtime is
 
-   for Languages use ("Ada", "C");
+   for Languages use ("Ada", "C", "ASM");
 
    for Library_Auto_Init use "False";
    for Library_Name use "gnat";

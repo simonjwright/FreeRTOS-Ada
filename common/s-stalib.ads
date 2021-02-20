@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 S p e c                                  --
 --                                                                          --
---       Copyright (C) 1992-2013, 2016, Free Software Foundation, Inc.      --
+--          Copyright (C) 1992-2020, Free Software Foundation, Inc.         --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -46,10 +46,6 @@
 
 pragma Restrictions (No_Elaboration_Code);
 pragma Compiler_Unit_Warning;
-
-pragma Polling (Off);
---  We must turn polling off for this unit, because otherwise we get
---  elaboration circularities with Ada.Exceptions if polling is on.
 
 with Ada.Unchecked_Conversion;
 
@@ -106,7 +102,6 @@ package System.Standard_Library is
       Lang : Character;
       --  A character indicating the language raising the exception.
       --  Set to "A" for exceptions defined by an Ada program.
-      --  Set to "V" for imported VMS exceptions.
       --  Set to "C" for imported C++ exceptions.
 
       Name_Length : Natural;
@@ -122,9 +117,8 @@ package System.Standard_Library is
       --  identities and names.
 
       Foreign_Data : Address;
-      --  Data for imported exceptions. This represents the exception code
-      --  for the handling of Import/Export_Exception for the VMS case.
-      --  This represents the address of the RTTI for the C++ case.
+      --  Data for imported exceptions. Not used in the Ada case. This
+      --  represents the address of the RTTI for the C++ case.
 
       Raise_Hook : Raise_Action;
       --  This field can be used to place a "hook" on an exception. If the
@@ -222,12 +216,23 @@ package System.Standard_Library is
       --  This is the default behavior.
 
       Every_Raise,
-      --  Denotes every possible raise event, either explicit or due to
-      --  a specific language rule, within the context of a task or not.
+      --  Denotes the initial raise event for any exception occurrence, either
+      --  explicit or due to a specific language rule, within the context of a
+      --  task or not.
 
-      Unhandled_Raise
-        --  Denotes the raise events corresponding to exceptions for which
-        --  there is no user defined handler.
+      Unhandled_Raise,
+      --  Denotes the raise events corresponding to exceptions for which there
+      --  is no user defined handler. This includes unhandled exceptions in
+      --  task bodies.
+
+      Unhandled_Raise_In_Main
+      --  Same as Unhandled_Raise, except exceptions in task bodies are not
+      --  included. Same as RM_Convention, except (1) the message is printed as
+      --  soon as the environment task completes due to an unhandled exception
+      --  (before awaiting the termination of dependent tasks, and before
+      --  library-level finalization), and (2) a symbolic traceback is given
+      --  if possible. This is the default behavior if the binder switch -E is
+      --  used.
      );
    --  Provide a way to denote different kinds of automatic traces related
    --  to exceptions that can be requested.
@@ -243,7 +248,7 @@ package System.Standard_Library is
    --  procedure Abort_Undefer_Direct;
    --  pragma Inline (Abort_Undefer_Direct);
    --  --  A little procedure that just calls Abort_Undefer.all, for use in
-   --  clean up procedures, which only permit a simple subprogram name.
+   --  --  clean up procedures, which only permit a simple subprogram name.
 
    --  procedure Adafinal;
    --  Performs the Ada Runtime finalization the first time it is invoked.

@@ -29,6 +29,8 @@ Values for `RELEASE` are as below:
 | FSF GCC 7 | `gcc7` |
 | FSF GCC 8 | `gcc8` |
 | FSF GCC 9 | `gcc8` |
+| FSF GCC 10 | `gcc8` |
+| FSF GCC 11 | `gnat-ce-2020` |
 | GNAT GPL 2016 | `gcc6` |
 | GNAT GPL 2017 | `gnat-gpl-2017` |
 | GNAT CE 2018 | `gcc8` |
