@@ -1,4 +1,4 @@
---  Copyright (C) 2017 Free Software Foundation, Inc.
+--  Copyright (C) 2017-2020 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
@@ -18,7 +18,7 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-package Hardfault_Handling is
+package System.Hardfault_Handling is
 
    --  Normally, we'd mark this unit as preelaborable, but that would
    --  mean that the binder-generated code wouldn't reference it, so
@@ -32,4 +32,4 @@ package Hardfault_Handling is
      External_Name => "HardFault_Handler";
    pragma Machine_Attribute (Handler, "naked");
 
-end Hardfault_Handling;
+end System.Hardfault_Handling;
