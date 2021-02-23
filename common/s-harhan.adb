@@ -1,4 +1,4 @@
---  Copyright (C) 2017-2018 Free Software Foundation, Inc.
+--  Copyright (C) 2017-2020 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
@@ -25,7 +25,7 @@
 with Interfaces;
 with System.Machine_Code;
 
-package body Hardfault_Handling is
+package body System.Hardfault_Handling is
 
    procedure Handler is
    begin
@@ -184,4 +184,4 @@ package body Hardfault_Handling is
       System.Machine_Code.Asm ("bkpt #0" & ASCII.LF, Volatile => True);
    end Breakpoint;
 
-end Hardfault_Handling;
+end System.Hardfault_Handling;
