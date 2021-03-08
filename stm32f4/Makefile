@@ -18,7 +18,7 @@
 
 SVD2ADA ?= ~/adacore/svd2ada
 
-all: stm32f40x
+all:
 	gprbuild -p -P build_runtime.gpr
 
 stm32f40x:

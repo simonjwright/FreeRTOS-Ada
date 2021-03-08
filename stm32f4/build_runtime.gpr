@@ -1,4 +1,4 @@
---  Copyright (C) 2016-2018, 2020 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2021 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -33,7 +33,6 @@ library project Build_Runtime is
    for Source_Dirs use Common.Paths &
      (
       "adainclude",
-      "stm32f40x",
       FreeRTOS.Source,
       FreeRTOS.Portable_Base & "ARM_CM4F"
      );
