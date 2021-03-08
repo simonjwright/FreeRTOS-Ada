@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  Copyright (c) 2013, Nordic Semiconductor ASA
