@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  Copyright (c) 2013, Nordic Semiconductor ASA
@@ -57,12 +56,12 @@ package nrf51.CLOCK is
    --  Enable interrupt on HFCLKSTARTED event.
    type INTENSET_HFCLKSTARTED_Field_1 is
      (--  Reset value for the field
-      Intenset_Hfclkstarted_Field_Reset,
+      INTENSET_HFCLKSTARTED_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
    for INTENSET_HFCLKSTARTED_Field_1 use
-     (Intenset_Hfclkstarted_Field_Reset => 0,
+     (INTENSET_HFCLKSTARTED_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on LFCLKSTARTED event.
@@ -79,12 +78,12 @@ package nrf51.CLOCK is
    --  Enable interrupt on LFCLKSTARTED event.
    type INTENSET_LFCLKSTARTED_Field_1 is
      (--  Reset value for the field
-      Intenset_Lfclkstarted_Field_Reset,
+      INTENSET_LFCLKSTARTED_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
    for INTENSET_LFCLKSTARTED_Field_1 use
-     (Intenset_Lfclkstarted_Field_Reset => 0,
+     (INTENSET_LFCLKSTARTED_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on DONE event.
@@ -101,12 +100,12 @@ package nrf51.CLOCK is
    --  Enable interrupt on DONE event.
    type INTENSET_DONE_Field_1 is
      (--  Reset value for the field
-      Intenset_Done_Field_Reset,
+      INTENSET_DONE_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
    for INTENSET_DONE_Field_1 use
-     (Intenset_Done_Field_Reset => 0,
+     (INTENSET_DONE_Field_Reset => 0,
       Set => 1);
 
    --  Enable interrupt on CTTO event.
@@ -123,28 +122,28 @@ package nrf51.CLOCK is
    --  Enable interrupt on CTTO event.
    type INTENSET_CTTO_Field_1 is
      (--  Reset value for the field
-      Intenset_Ctto_Field_Reset,
+      INTENSET_CTTO_Field_Reset,
       --  Enable interrupt on write.
       Set)
      with Size => 1;
    for INTENSET_CTTO_Field_1 use
-     (Intenset_Ctto_Field_Reset => 0,
+     (INTENSET_CTTO_Field_Reset => 0,
       Set => 1);
 
    --  Interrupt enable set register.
    type INTENSET_Register is record
       --  Enable interrupt on HFCLKSTARTED event.
       HFCLKSTARTED  : INTENSET_HFCLKSTARTED_Field_1 :=
-                       Intenset_Hfclkstarted_Field_Reset;
+                       INTENSET_HFCLKSTARTED_Field_Reset;
       --  Enable interrupt on LFCLKSTARTED event.
       LFCLKSTARTED  : INTENSET_LFCLKSTARTED_Field_1 :=
-                       Intenset_Lfclkstarted_Field_Reset;
+                       INTENSET_LFCLKSTARTED_Field_Reset;
       --  unspecified
       Reserved_2_2  : nrf51.Bit := 16#0#;
       --  Enable interrupt on DONE event.
-      DONE          : INTENSET_DONE_Field_1 := Intenset_Done_Field_Reset;
+      DONE          : INTENSET_DONE_Field_1 := INTENSET_DONE_Field_Reset;
       --  Enable interrupt on CTTO event.
-      CTTO          : INTENSET_CTTO_Field_1 := Intenset_Ctto_Field_Reset;
+      CTTO          : INTENSET_CTTO_Field_1 := INTENSET_CTTO_Field_Reset;
       --  unspecified
       Reserved_5_31 : nrf51.UInt27 := 16#0#;
    end record
@@ -174,12 +173,12 @@ package nrf51.CLOCK is
    --  Disable interrupt on HFCLKSTARTED event.
    type INTENCLR_HFCLKSTARTED_Field_1 is
      (--  Reset value for the field
-      Intenclr_Hfclkstarted_Field_Reset,
+      INTENCLR_HFCLKSTARTED_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
    for INTENCLR_HFCLKSTARTED_Field_1 use
-     (Intenclr_Hfclkstarted_Field_Reset => 0,
+     (INTENCLR_HFCLKSTARTED_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on LFCLKSTARTED event.
@@ -196,12 +195,12 @@ package nrf51.CLOCK is
    --  Disable interrupt on LFCLKSTARTED event.
    type INTENCLR_LFCLKSTARTED_Field_1 is
      (--  Reset value for the field
-      Intenclr_Lfclkstarted_Field_Reset,
+      INTENCLR_LFCLKSTARTED_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
    for INTENCLR_LFCLKSTARTED_Field_1 use
-     (Intenclr_Lfclkstarted_Field_Reset => 0,
+     (INTENCLR_LFCLKSTARTED_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on DONE event.
@@ -218,12 +217,12 @@ package nrf51.CLOCK is
    --  Disable interrupt on DONE event.
    type INTENCLR_DONE_Field_1 is
      (--  Reset value for the field
-      Intenclr_Done_Field_Reset,
+      INTENCLR_DONE_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
    for INTENCLR_DONE_Field_1 use
-     (Intenclr_Done_Field_Reset => 0,
+     (INTENCLR_DONE_Field_Reset => 0,
       Clear => 1);
 
    --  Disable interrupt on CTTO event.
@@ -240,28 +239,28 @@ package nrf51.CLOCK is
    --  Disable interrupt on CTTO event.
    type INTENCLR_CTTO_Field_1 is
      (--  Reset value for the field
-      Intenclr_Ctto_Field_Reset,
+      INTENCLR_CTTO_Field_Reset,
       --  Disable interrupt on write.
       Clear)
      with Size => 1;
    for INTENCLR_CTTO_Field_1 use
-     (Intenclr_Ctto_Field_Reset => 0,
+     (INTENCLR_CTTO_Field_Reset => 0,
       Clear => 1);
 
    --  Interrupt enable clear register.
    type INTENCLR_Register is record
       --  Disable interrupt on HFCLKSTARTED event.
       HFCLKSTARTED  : INTENCLR_HFCLKSTARTED_Field_1 :=
-                       Intenclr_Hfclkstarted_Field_Reset;
+                       INTENCLR_HFCLKSTARTED_Field_Reset;
       --  Disable interrupt on LFCLKSTARTED event.
       LFCLKSTARTED  : INTENCLR_LFCLKSTARTED_Field_1 :=
-                       Intenclr_Lfclkstarted_Field_Reset;
+                       INTENCLR_LFCLKSTARTED_Field_Reset;
       --  unspecified
       Reserved_2_2  : nrf51.Bit := 16#0#;
       --  Disable interrupt on DONE event.
-      DONE          : INTENCLR_DONE_Field_1 := Intenclr_Done_Field_Reset;
+      DONE          : INTENCLR_DONE_Field_1 := INTENCLR_DONE_Field_Reset;
       --  Disable interrupt on CTTO event.
-      CTTO          : INTENCLR_CTTO_Field_1 := Intenclr_Ctto_Field_Reset;
+      CTTO          : INTENCLR_CTTO_Field_1 := INTENCLR_CTTO_Field_Reset;
       --  unspecified
       Reserved_5_31 : nrf51.UInt27 := 16#0#;
    end record
@@ -280,12 +279,12 @@ package nrf51.CLOCK is
    --  Task HFCLKSTART trigger status.
    type HFCLKRUN_STATUS_Field is
      (--  Task HFCLKSTART has not been triggered.
-      Nottriggered,
+      NotTriggered,
       --  Task HFCLKSTART has been triggered.
       Triggered)
      with Size => 1;
    for HFCLKRUN_STATUS_Field use
-     (Nottriggered => 0,
+     (NotTriggered => 0,
       Triggered => 1);
 
    --  Task HFCLKSTART trigger status.
@@ -306,24 +305,24 @@ package nrf51.CLOCK is
    --  Active clock source for the HF clock.
    type HFCLKSTAT_SRC_Field is
      (--  Internal 16MHz RC oscillator running and generating the HFCLK clock.
-      Rc,
+      RC,
       --  External 16MHz/32MHz crystal oscillator running and generating the HFCLK
 --  clock.
       Xtal)
      with Size => 1;
    for HFCLKSTAT_SRC_Field use
-     (Rc => 0,
+     (RC => 0,
       Xtal => 1);
 
    --  State for the HFCLK.
    type HFCLKSTAT_STATE_Field is
      (--  HFCLK clock not running.
-      Notrunning,
+      NotRunning,
       --  HFCLK clock running.
       Running)
      with Size => 1;
    for HFCLKSTAT_STATE_Field use
-     (Notrunning => 0,
+     (NotRunning => 0,
       Running => 1);
 
    --  High frequency clock status.
@@ -350,12 +349,12 @@ package nrf51.CLOCK is
    --  Task LFCLKSTART triggered status.
    type LFCLKRUN_STATUS_Field is
      (--  Task LFCLKSTART has not been triggered.
-      Nottriggered,
+      NotTriggered,
       --  Task LFCLKSTART has been triggered.
       Triggered)
      with Size => 1;
    for LFCLKRUN_STATUS_Field use
-     (Nottriggered => 0,
+     (NotTriggered => 0,
       Triggered => 1);
 
    --  Task LFCLKSTART triggered status.
@@ -376,7 +375,7 @@ package nrf51.CLOCK is
    --  Active clock source for the LF clock.
    type LFCLKSTAT_SRC_Field is
      (--  Internal 32KiHz RC oscillator running and generating the LFCLK clock.
-      Rc,
+      RC,
       --  External 32KiHz crystal oscillator running and generating the LFCLK clock.
       Xtal,
       --  Internal 32KiHz synthesizer from the HFCLK running and generating the LFCLK
@@ -384,19 +383,19 @@ package nrf51.CLOCK is
       Synth)
      with Size => 2;
    for LFCLKSTAT_SRC_Field use
-     (Rc => 0,
+     (RC => 0,
       Xtal => 1,
       Synth => 2);
 
    --  State for the LF clock.
    type LFCLKSTAT_STATE_Field is
      (--  LFCLK clock not running.
-      Notrunning,
+      NotRunning,
       --  LFCLK clock running.
       Running)
      with Size => 1;
    for LFCLKSTAT_STATE_Field use
-     (Notrunning => 0,
+     (NotRunning => 0,
       Running => 1);
 
    --  Low frequency clock status.
@@ -423,14 +422,14 @@ package nrf51.CLOCK is
    --  Clock source for the LFCLK clock, set when task LKCLKSTART is triggered.
    type LFCLKSRCCOPY_SRC_Field is
      (--  Internal 32KiHz RC oscillator.
-      Rc,
+      RC,
       --  External 32KiHz crystal.
       Xtal,
       --  Internal 32KiHz synthesizer from HFCLK system clock.
       Synth)
      with Size => 2;
    for LFCLKSRCCOPY_SRC_Field use
-     (Rc => 0,
+     (RC => 0,
       Xtal => 1,
       Synth => 2);
 
@@ -453,21 +452,21 @@ package nrf51.CLOCK is
    --  Clock source.
    type LFCLKSRC_SRC_Field is
      (--  Internal 32KiHz RC oscillator.
-      Rc,
+      RC,
       --  External 32KiHz crystal.
       Xtal,
       --  Internal 32KiHz synthesizer from HFCLK system clock.
       Synth)
      with Size => 2;
    for LFCLKSRC_SRC_Field use
-     (Rc => 0,
+     (RC => 0,
       Xtal => 1,
       Synth => 2);
 
    --  Clock source for the LFCLK clock.
    type LFCLKSRC_Register is record
       --  Clock source.
-      SRC           : LFCLKSRC_SRC_Field := nrf51.CLOCK.Rc;
+      SRC           : LFCLKSRC_SRC_Field := nrf51.CLOCK.RC;
       --  unspecified
       Reserved_2_31 : nrf51.UInt30 := 16#0#;
    end record
@@ -499,18 +498,18 @@ package nrf51.CLOCK is
    --  External Xtal frequency selection.
    type XTALFREQ_XTALFREQ_Field is
      (--  32MHz xtal is used as source for the HFCLK oscillator.
-      Val_32Mhz,
+      Val_32MHz,
       --  16MHz xtal is used as source for the HFCLK oscillator.
-      Val_16Mhz)
+      Val_16MHz)
      with Size => 8;
    for XTALFREQ_XTALFREQ_Field use
-     (Val_32Mhz => 0,
-      Val_16Mhz => 255);
+     (Val_32MHz => 0,
+      Val_16MHz => 255);
 
    --  Crystal frequency.
    type XTALFREQ_Register is record
       --  External Xtal frequency selection.
-      XTALFREQ      : XTALFREQ_XTALFREQ_Field := nrf51.CLOCK.Val_16Mhz;
+      XTALFREQ      : XTALFREQ_XTALFREQ_Field := nrf51.CLOCK.Val_16MHz;
       --  unspecified
       Reserved_8_31 : nrf51.UInt24 := 16#FFFFFF#;
    end record

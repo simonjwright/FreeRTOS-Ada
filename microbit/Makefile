@@ -18,7 +18,7 @@
 
 SVD2ADA ?= ~/adacore/svd2ada
 
-all: nrf51
+all:
 	gprbuild -p -P build_runtime.gpr
 
 nrf51:
