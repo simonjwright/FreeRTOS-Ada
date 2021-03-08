@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  This spec has been automatically generated from STM32F429x.svd
