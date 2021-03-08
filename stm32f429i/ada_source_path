@@ -1,4 +1,3 @@
 adainclude
-stm32f429x
 ../common
 ../common/math
