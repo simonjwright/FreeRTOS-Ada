@@ -1,4 +1,4 @@
-# Copyright (C) 2016, 2018, 2020 Free Software Foundation, Inc.
+# Copyright (C) 2016-2021 Free Software Foundation, Inc.
 #
 # This file is part of the Cortex GNAT RTS package.
 #
@@ -18,7 +18,7 @@
 
 SVD2ADA ?= ~/adacore/svd2ada
 
-all: stm32f429x
+all:
 	gprbuild -p -P build_runtime.gpr
 
 stm32f429x:
@@ -32,6 +32,5 @@ install: all
 
 clean:
 	-gprclean -P build_runtime.gpr
-	rm -rf stm32f429x
 
 .PHONY: all install clean

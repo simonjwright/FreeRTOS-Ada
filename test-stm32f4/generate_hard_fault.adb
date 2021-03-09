@@ -1,4 +1,4 @@
---  Copyright (C) 2017 Free Software Foundation, Inc.
+--  Copyright (C) 2017-2021 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -22,8 +22,10 @@
 
 with Ada.Real_Time;
 
-with Hardfault_Handling;
-pragma Unreferenced (Hardfault_Handling);
+pragma Warnings (Off, "is an internal GNAT unit");
+with System.Hardfault_Handling;
+pragma Warnings (On, "is an internal GNAT unit");
+pragma Unreferenced (System.Hardfault_Handling);
 
 with Faulting_Task;
 pragma Unreferenced (Faulting_Task);

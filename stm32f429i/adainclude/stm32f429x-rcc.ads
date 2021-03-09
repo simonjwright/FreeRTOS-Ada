@@ -1,31 +1,30 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
---  This spec has been automatically generated from STM32F40x.svd
+--  This spec has been automatically generated from STM32F429x.svd
 
 pragma Restrictions (No_Elaboration_Code);
 
 with System;
 
-package STM32F40x.RCC is
+package STM32F429x.RCC is
    pragma Preelaborate;
 
    ---------------
    -- Registers --
    ---------------
 
-   subtype CR_HSION_Field is STM32F40x.Bit;
-   subtype CR_HSIRDY_Field is STM32F40x.Bit;
-   subtype CR_HSITRIM_Field is STM32F40x.UInt5;
-   subtype CR_HSICAL_Field is STM32F40x.Byte;
-   subtype CR_HSEON_Field is STM32F40x.Bit;
-   subtype CR_HSERDY_Field is STM32F40x.Bit;
-   subtype CR_HSEBYP_Field is STM32F40x.Bit;
-   subtype CR_CSSON_Field is STM32F40x.Bit;
-   subtype CR_PLLON_Field is STM32F40x.Bit;
-   subtype CR_PLLRDY_Field is STM32F40x.Bit;
-   subtype CR_PLLI2SON_Field is STM32F40x.Bit;
-   subtype CR_PLLI2SRDY_Field is STM32F40x.Bit;
+   subtype CR_HSION_Field is STM32F429x.Bit;
+   subtype CR_HSIRDY_Field is STM32F429x.Bit;
+   subtype CR_HSITRIM_Field is STM32F429x.UInt5;
+   subtype CR_HSICAL_Field is STM32F429x.Byte;
+   subtype CR_HSEON_Field is STM32F429x.Bit;
+   subtype CR_HSERDY_Field is STM32F429x.Bit;
+   subtype CR_HSEBYP_Field is STM32F429x.Bit;
+   subtype CR_CSSON_Field is STM32F429x.Bit;
+   subtype CR_PLLON_Field is STM32F429x.Bit;
+   subtype CR_PLLRDY_Field is STM32F429x.Bit;
+   subtype CR_PLLI2SON_Field is STM32F429x.Bit;
+   subtype CR_PLLI2SRDY_Field is STM32F429x.Bit;
 
    --  clock control register
    type CR_Register is record
@@ -34,7 +33,7 @@ package STM32F40x.RCC is
       --  Read-only. Internal high-speed clock ready flag
       HSIRDY         : CR_HSIRDY_Field := 16#1#;
       --  unspecified
-      Reserved_2_2   : STM32F40x.Bit := 16#0#;
+      Reserved_2_2   : STM32F429x.Bit := 16#0#;
       --  Internal high-speed clock trimming
       HSITRIM        : CR_HSITRIM_Field := 16#10#;
       --  Read-only. Internal high-speed clock calibration
@@ -48,7 +47,7 @@ package STM32F40x.RCC is
       --  Clock security system enable
       CSSON          : CR_CSSON_Field := 16#0#;
       --  unspecified
-      Reserved_20_23 : STM32F40x.UInt4 := 16#0#;
+      Reserved_20_23 : STM32F429x.UInt4 := 16#0#;
       --  Main PLL (PLL) enable
       PLLON          : CR_PLLON_Field := 16#0#;
       --  Read-only. Main PLL (PLL) clock ready flag
@@ -58,7 +57,7 @@ package STM32F40x.RCC is
       --  Read-only. PLLI2S clock ready flag
       PLLI2SRDY      : CR_PLLI2SRDY_Field := 16#0#;
       --  unspecified
-      Reserved_28_31 : STM32F40x.UInt4 := 16#0#;
+      Reserved_28_31 : STM32F429x.UInt4 := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
@@ -80,11 +79,11 @@ package STM32F40x.RCC is
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
 
-   subtype PLLCFGR_PLLM_Field is STM32F40x.UInt6;
-   subtype PLLCFGR_PLLN_Field is STM32F40x.UInt9;
-   subtype PLLCFGR_PLLP_Field is STM32F40x.UInt2;
-   subtype PLLCFGR_PLLSRC_Field is STM32F40x.Bit;
-   subtype PLLCFGR_PLLQ_Field is STM32F40x.UInt4;
+   subtype PLLCFGR_PLLM_Field is STM32F429x.UInt6;
+   subtype PLLCFGR_PLLN_Field is STM32F429x.UInt9;
+   subtype PLLCFGR_PLLP_Field is STM32F429x.UInt2;
+   subtype PLLCFGR_PLLSRC_Field is STM32F429x.Bit;
+   subtype PLLCFGR_PLLQ_Field is STM32F429x.UInt4;
 
    --  PLL configuration register
    type PLLCFGR_Register is record
@@ -94,20 +93,20 @@ package STM32F40x.RCC is
       --  Main PLL (PLL) multiplication factor for VCO
       PLLN           : PLLCFGR_PLLN_Field := 16#C0#;
       --  unspecified
-      Reserved_15_15 : STM32F40x.Bit := 16#0#;
+      Reserved_15_15 : STM32F429x.Bit := 16#0#;
       --  Main PLL (PLL) division factor for main system clock
       PLLP           : PLLCFGR_PLLP_Field := 16#0#;
       --  unspecified
-      Reserved_18_21 : STM32F40x.UInt4 := 16#0#;
+      Reserved_18_21 : STM32F429x.UInt4 := 16#0#;
       --  Main PLL(PLL) and audio PLL (PLLI2S) entry clock source
       PLLSRC         : PLLCFGR_PLLSRC_Field := 16#0#;
       --  unspecified
-      Reserved_23_23 : STM32F40x.Bit := 16#0#;
+      Reserved_23_23 : STM32F429x.Bit := 16#0#;
       --  Main PLL (PLL) division factor for USB OTG FS, SDIO and random number
       --  generator clocks
       PLLQ           : PLLCFGR_PLLQ_Field := 16#4#;
       --  unspecified
-      Reserved_28_31 : STM32F40x.UInt4 := 16#2#;
+      Reserved_28_31 : STM32F429x.UInt4 := 16#2#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
@@ -123,11 +122,11 @@ package STM32F40x.RCC is
       Reserved_28_31 at 0 range 28 .. 31;
    end record;
 
-   subtype CFGR_SW_Field is STM32F40x.UInt2;
-   subtype CFGR_SWS_Field is STM32F40x.UInt2;
-   subtype CFGR_HPRE_Field is STM32F40x.UInt4;
+   subtype CFGR_SW_Field is STM32F429x.UInt2;
+   subtype CFGR_SWS_Field is STM32F429x.UInt2;
+   subtype CFGR_HPRE_Field is STM32F429x.UInt4;
    --  CFGR_PPRE array element
-   subtype CFGR_PPRE_Element is STM32F40x.UInt3;
+   subtype CFGR_PPRE_Element is STM32F429x.UInt3;
 
    --  CFGR_PPRE array
    type CFGR_PPRE_Field_Array is array (1 .. 2) of CFGR_PPRE_Element
@@ -140,7 +139,7 @@ package STM32F40x.RCC is
       case As_Array is
          when False =>
             --  PPRE as a value
-            Val : STM32F40x.UInt6;
+            Val : STM32F429x.UInt6;
          when True =>
             --  PPRE as an array
             Arr : CFGR_PPRE_Field_Array;
@@ -153,12 +152,12 @@ package STM32F40x.RCC is
       Arr at 0 range 0 .. 5;
    end record;
 
-   subtype CFGR_RTCPRE_Field is STM32F40x.UInt5;
-   subtype CFGR_MCO1_Field is STM32F40x.UInt2;
-   subtype CFGR_I2SSRC_Field is STM32F40x.Bit;
-   subtype CFGR_MCO1PRE_Field is STM32F40x.UInt3;
-   subtype CFGR_MCO2PRE_Field is STM32F40x.UInt3;
-   subtype CFGR_MCO2_Field is STM32F40x.UInt2;
+   subtype CFGR_RTCPRE_Field is STM32F429x.UInt5;
+   subtype CFGR_MCO1_Field is STM32F429x.UInt2;
+   subtype CFGR_I2SSRC_Field is STM32F429x.Bit;
+   subtype CFGR_MCO1PRE_Field is STM32F429x.UInt3;
+   subtype CFGR_MCO2PRE_Field is STM32F429x.UInt3;
+   subtype CFGR_MCO2_Field is STM32F429x.UInt2;
 
    --  clock configuration register
    type CFGR_Register is record
@@ -169,7 +168,7 @@ package STM32F40x.RCC is
       --  AHB prescaler
       HPRE         : CFGR_HPRE_Field := 16#0#;
       --  unspecified
-      Reserved_8_9 : STM32F40x.UInt2 := 16#0#;
+      Reserved_8_9 : STM32F429x.UInt2 := 16#0#;
       --  APB Low speed prescaler (APB1)
       PPRE         : CFGR_PPRE_Field := (As_Array => False, Val => 16#0#);
       --  HSE division factor for RTC clock
@@ -201,26 +200,29 @@ package STM32F40x.RCC is
       MCO2         at 0 range 30 .. 31;
    end record;
 
-   subtype CIR_LSIRDYF_Field is STM32F40x.Bit;
-   subtype CIR_LSERDYF_Field is STM32F40x.Bit;
-   subtype CIR_HSIRDYF_Field is STM32F40x.Bit;
-   subtype CIR_HSERDYF_Field is STM32F40x.Bit;
-   subtype CIR_PLLRDYF_Field is STM32F40x.Bit;
-   subtype CIR_PLLI2SRDYF_Field is STM32F40x.Bit;
-   subtype CIR_CSSF_Field is STM32F40x.Bit;
-   subtype CIR_LSIRDYIE_Field is STM32F40x.Bit;
-   subtype CIR_LSERDYIE_Field is STM32F40x.Bit;
-   subtype CIR_HSIRDYIE_Field is STM32F40x.Bit;
-   subtype CIR_HSERDYIE_Field is STM32F40x.Bit;
-   subtype CIR_PLLRDYIE_Field is STM32F40x.Bit;
-   subtype CIR_PLLI2SRDYIE_Field is STM32F40x.Bit;
-   subtype CIR_LSIRDYC_Field is STM32F40x.Bit;
-   subtype CIR_LSERDYC_Field is STM32F40x.Bit;
-   subtype CIR_HSIRDYC_Field is STM32F40x.Bit;
-   subtype CIR_HSERDYC_Field is STM32F40x.Bit;
-   subtype CIR_PLLRDYC_Field is STM32F40x.Bit;
-   subtype CIR_PLLI2SRDYC_Field is STM32F40x.Bit;
-   subtype CIR_CSSC_Field is STM32F40x.Bit;
+   subtype CIR_LSIRDYF_Field is STM32F429x.Bit;
+   subtype CIR_LSERDYF_Field is STM32F429x.Bit;
+   subtype CIR_HSIRDYF_Field is STM32F429x.Bit;
+   subtype CIR_HSERDYF_Field is STM32F429x.Bit;
+   subtype CIR_PLLRDYF_Field is STM32F429x.Bit;
+   subtype CIR_PLLI2SRDYF_Field is STM32F429x.Bit;
+   subtype CIR_PLLSAIRDYF_Field is STM32F429x.Bit;
+   subtype CIR_CSSF_Field is STM32F429x.Bit;
+   subtype CIR_LSIRDYIE_Field is STM32F429x.Bit;
+   subtype CIR_LSERDYIE_Field is STM32F429x.Bit;
+   subtype CIR_HSIRDYIE_Field is STM32F429x.Bit;
+   subtype CIR_HSERDYIE_Field is STM32F429x.Bit;
+   subtype CIR_PLLRDYIE_Field is STM32F429x.Bit;
+   subtype CIR_PLLI2SRDYIE_Field is STM32F429x.Bit;
+   subtype CIR_PLLSAIRDYIE_Field is STM32F429x.Bit;
+   subtype CIR_LSIRDYC_Field is STM32F429x.Bit;
+   subtype CIR_LSERDYC_Field is STM32F429x.Bit;
+   subtype CIR_HSIRDYC_Field is STM32F429x.Bit;
+   subtype CIR_HSERDYC_Field is STM32F429x.Bit;
+   subtype CIR_PLLRDYC_Field is STM32F429x.Bit;
+   subtype CIR_PLLI2SRDYC_Field is STM32F429x.Bit;
+   subtype CIR_PLLSAIRDYC_Field is STM32F429x.Bit;
+   subtype CIR_CSSC_Field is STM32F429x.Bit;
 
    --  clock interrupt register
    type CIR_Register is record
@@ -236,8 +238,8 @@ package STM32F40x.RCC is
       PLLRDYF        : CIR_PLLRDYF_Field := 16#0#;
       --  Read-only. PLLI2S ready interrupt flag
       PLLI2SRDYF     : CIR_PLLI2SRDYF_Field := 16#0#;
-      --  unspecified
-      Reserved_6_6   : STM32F40x.Bit := 16#0#;
+      --  Read-only. PLLSAI ready interrupt flag
+      PLLSAIRDYF     : CIR_PLLSAIRDYF_Field := 16#0#;
       --  Read-only. Clock security system interrupt flag
       CSSF           : CIR_CSSF_Field := 16#0#;
       --  LSI ready interrupt enable
@@ -252,8 +254,10 @@ package STM32F40x.RCC is
       PLLRDYIE       : CIR_PLLRDYIE_Field := 16#0#;
       --  PLLI2S ready interrupt enable
       PLLI2SRDYIE    : CIR_PLLI2SRDYIE_Field := 16#0#;
+      --  PLLSAI Ready Interrupt Enable
+      PLLSAIRDYIE    : CIR_PLLSAIRDYIE_Field := 16#0#;
       --  unspecified
-      Reserved_14_15 : STM32F40x.UInt2 := 16#0#;
+      Reserved_15_15 : STM32F429x.Bit := 16#0#;
       --  Write-only. LSI ready interrupt clear
       LSIRDYC        : CIR_LSIRDYC_Field := 16#0#;
       --  Write-only. LSE ready interrupt clear
@@ -266,12 +270,12 @@ package STM32F40x.RCC is
       PLLRDYC        : CIR_PLLRDYC_Field := 16#0#;
       --  Write-only. PLLI2S ready interrupt clear
       PLLI2SRDYC     : CIR_PLLI2SRDYC_Field := 16#0#;
-      --  unspecified
-      Reserved_22_22 : STM32F40x.Bit := 16#0#;
+      --  Write-only. PLLSAI Ready Interrupt Clear
+      PLLSAIRDYC     : CIR_PLLSAIRDYC_Field := 16#0#;
       --  Write-only. Clock security system interrupt clear
       CSSC           : CIR_CSSC_Field := 16#0#;
       --  unspecified
-      Reserved_24_31 : STM32F40x.Byte := 16#0#;
+      Reserved_24_31 : STM32F429x.Byte := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
@@ -282,7 +286,7 @@ package STM32F40x.RCC is
       HSERDYF        at 0 range 3 .. 3;
       PLLRDYF        at 0 range 4 .. 4;
       PLLI2SRDYF     at 0 range 5 .. 5;
-      Reserved_6_6   at 0 range 6 .. 6;
+      PLLSAIRDYF     at 0 range 6 .. 6;
       CSSF           at 0 range 7 .. 7;
       LSIRDYIE       at 0 range 8 .. 8;
       LSERDYIE       at 0 range 9 .. 9;
@@ -290,32 +294,36 @@ package STM32F40x.RCC is
       HSERDYIE       at 0 range 11 .. 11;
       PLLRDYIE       at 0 range 12 .. 12;
       PLLI2SRDYIE    at 0 range 13 .. 13;
-      Reserved_14_15 at 0 range 14 .. 15;
+      PLLSAIRDYIE    at 0 range 14 .. 14;
+      Reserved_15_15 at 0 range 15 .. 15;
       LSIRDYC        at 0 range 16 .. 16;
       LSERDYC        at 0 range 17 .. 17;
       HSIRDYC        at 0 range 18 .. 18;
       HSERDYC        at 0 range 19 .. 19;
       PLLRDYC        at 0 range 20 .. 20;
       PLLI2SRDYC     at 0 range 21 .. 21;
-      Reserved_22_22 at 0 range 22 .. 22;
+      PLLSAIRDYC     at 0 range 22 .. 22;
       CSSC           at 0 range 23 .. 23;
       Reserved_24_31 at 0 range 24 .. 31;
    end record;
 
-   subtype AHB1RSTR_GPIOARST_Field is STM32F40x.Bit;
-   subtype AHB1RSTR_GPIOBRST_Field is STM32F40x.Bit;
-   subtype AHB1RSTR_GPIOCRST_Field is STM32F40x.Bit;
-   subtype AHB1RSTR_GPIODRST_Field is STM32F40x.Bit;
-   subtype AHB1RSTR_GPIOERST_Field is STM32F40x.Bit;
-   subtype AHB1RSTR_GPIOFRST_Field is STM32F40x.Bit;
-   subtype AHB1RSTR_GPIOGRST_Field is STM32F40x.Bit;
-   subtype AHB1RSTR_GPIOHRST_Field is STM32F40x.Bit;
-   subtype AHB1RSTR_GPIOIRST_Field is STM32F40x.Bit;
-   subtype AHB1RSTR_CRCRST_Field is STM32F40x.Bit;
-   subtype AHB1RSTR_DMA1RST_Field is STM32F40x.Bit;
-   subtype AHB1RSTR_DMA2RST_Field is STM32F40x.Bit;
-   subtype AHB1RSTR_ETHMACRST_Field is STM32F40x.Bit;
-   subtype AHB1RSTR_OTGHSRST_Field is STM32F40x.Bit;
+   subtype AHB1RSTR_GPIOARST_Field is STM32F429x.Bit;
+   subtype AHB1RSTR_GPIOBRST_Field is STM32F429x.Bit;
+   subtype AHB1RSTR_GPIOCRST_Field is STM32F429x.Bit;
+   subtype AHB1RSTR_GPIODRST_Field is STM32F429x.Bit;
+   subtype AHB1RSTR_GPIOERST_Field is STM32F429x.Bit;
+   subtype AHB1RSTR_GPIOFRST_Field is STM32F429x.Bit;
+   subtype AHB1RSTR_GPIOGRST_Field is STM32F429x.Bit;
+   subtype AHB1RSTR_GPIOHRST_Field is STM32F429x.Bit;
+   subtype AHB1RSTR_GPIOIRST_Field is STM32F429x.Bit;
+   subtype AHB1RSTR_GPIOJRST_Field is STM32F429x.Bit;
+   subtype AHB1RSTR_GPIOKRST_Field is STM32F429x.Bit;
+   subtype AHB1RSTR_CRCRST_Field is STM32F429x.Bit;
+   subtype AHB1RSTR_DMA1RST_Field is STM32F429x.Bit;
+   subtype AHB1RSTR_DMA2RST_Field is STM32F429x.Bit;
+   subtype AHB1RSTR_DMA2DRST_Field is STM32F429x.Bit;
+   subtype AHB1RSTR_ETHMACRST_Field is STM32F429x.Bit;
+   subtype AHB1RSTR_OTGHSRST_Field is STM32F429x.Bit;
 
    --  AHB1 peripheral reset register
    type AHB1RSTR_Register is record
@@ -337,26 +345,32 @@ package STM32F40x.RCC is
       GPIOHRST       : AHB1RSTR_GPIOHRST_Field := 16#0#;
       --  IO port I reset
       GPIOIRST       : AHB1RSTR_GPIOIRST_Field := 16#0#;
+      --  IO port J reset
+      GPIOJRST       : AHB1RSTR_GPIOJRST_Field := 16#0#;
+      --  IO port K reset
+      GPIOKRST       : AHB1RSTR_GPIOKRST_Field := 16#0#;
       --  unspecified
-      Reserved_9_11  : STM32F40x.UInt3 := 16#0#;
+      Reserved_11_11 : STM32F429x.Bit := 16#0#;
       --  CRC reset
       CRCRST         : AHB1RSTR_CRCRST_Field := 16#0#;
       --  unspecified
-      Reserved_13_20 : STM32F40x.Byte := 16#0#;
+      Reserved_13_20 : STM32F429x.Byte := 16#0#;
       --  DMA2 reset
       DMA1RST        : AHB1RSTR_DMA1RST_Field := 16#0#;
       --  DMA2 reset
       DMA2RST        : AHB1RSTR_DMA2RST_Field := 16#0#;
+      --  DMA2D reset
+      DMA2DRST       : AHB1RSTR_DMA2DRST_Field := 16#0#;
       --  unspecified
-      Reserved_23_24 : STM32F40x.UInt2 := 16#0#;
+      Reserved_24_24 : STM32F429x.Bit := 16#0#;
       --  Ethernet MAC reset
       ETHMACRST      : AHB1RSTR_ETHMACRST_Field := 16#0#;
       --  unspecified
-      Reserved_26_28 : STM32F40x.UInt3 := 16#0#;
+      Reserved_26_28 : STM32F429x.UInt3 := 16#0#;
       --  USB OTG HS module reset
       OTGHSRST       : AHB1RSTR_OTGHSRST_Field := 16#0#;
       --  unspecified
-      Reserved_30_31 : STM32F40x.UInt2 := 16#0#;
+      Reserved_30_31 : STM32F429x.UInt2 := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
@@ -370,34 +384,37 @@ package STM32F40x.RCC is
       GPIOGRST       at 0 range 6 .. 6;
       GPIOHRST       at 0 range 7 .. 7;
       GPIOIRST       at 0 range 8 .. 8;
-      Reserved_9_11  at 0 range 9 .. 11;
+      GPIOJRST       at 0 range 9 .. 9;
+      GPIOKRST       at 0 range 10 .. 10;
+      Reserved_11_11 at 0 range 11 .. 11;
       CRCRST         at 0 range 12 .. 12;
       Reserved_13_20 at 0 range 13 .. 20;
       DMA1RST        at 0 range 21 .. 21;
       DMA2RST        at 0 range 22 .. 22;
-      Reserved_23_24 at 0 range 23 .. 24;
+      DMA2DRST       at 0 range 23 .. 23;
+      Reserved_24_24 at 0 range 24 .. 24;
       ETHMACRST      at 0 range 25 .. 25;
       Reserved_26_28 at 0 range 26 .. 28;
       OTGHSRST       at 0 range 29 .. 29;
       Reserved_30_31 at 0 range 30 .. 31;
    end record;
 
-   subtype AHB2RSTR_DCMIRST_Field is STM32F40x.Bit;
-   subtype AHB2RSTR_RNGRST_Field is STM32F40x.Bit;
-   subtype AHB2RSTR_OTGFSRST_Field is STM32F40x.Bit;
+   subtype AHB2RSTR_DCMIRST_Field is STM32F429x.Bit;
+   subtype AHB2RSTR_RNGRST_Field is STM32F429x.Bit;
+   subtype AHB2RSTR_OTGFSRST_Field is STM32F429x.Bit;
 
    --  AHB2 peripheral reset register
    type AHB2RSTR_Register is record
       --  Camera interface reset
       DCMIRST       : AHB2RSTR_DCMIRST_Field := 16#0#;
       --  unspecified
-      Reserved_1_5  : STM32F40x.UInt5 := 16#0#;
+      Reserved_1_5  : STM32F429x.UInt5 := 16#0#;
       --  Random number generator module reset
       RNGRST        : AHB2RSTR_RNGRST_Field := 16#0#;
       --  USB OTG FS module reset
       OTGFSRST      : AHB2RSTR_OTGFSRST_Field := 16#0#;
       --  unspecified
-      Reserved_8_31 : STM32F40x.UInt24 := 16#0#;
+      Reserved_8_31 : STM32F429x.UInt24 := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
@@ -409,45 +426,47 @@ package STM32F40x.RCC is
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
 
-   subtype AHB3RSTR_FSMCRST_Field is STM32F40x.Bit;
+   subtype AHB3RSTR_FMCRST_Field is STM32F429x.Bit;
 
    --  AHB3 peripheral reset register
    type AHB3RSTR_Register is record
-      --  Flexible static memory controller module reset
-      FSMCRST       : AHB3RSTR_FSMCRST_Field := 16#0#;
+      --  Flexible memory controller module reset
+      FMCRST        : AHB3RSTR_FMCRST_Field := 16#0#;
       --  unspecified
-      Reserved_1_31 : STM32F40x.UInt31 := 16#0#;
+      Reserved_1_31 : STM32F429x.UInt31 := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for AHB3RSTR_Register use record
-      FSMCRST       at 0 range 0 .. 0;
+      FMCRST        at 0 range 0 .. 0;
       Reserved_1_31 at 0 range 1 .. 31;
    end record;
 
-   subtype APB1RSTR_TIM2RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_TIM3RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_TIM4RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_TIM5RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_TIM6RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_TIM7RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_TIM12RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_TIM13RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_TIM14RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_WWDGRST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_SPI2RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_SPI3RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_UART2RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_UART3RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_UART4RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_UART5RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_I2C1RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_I2C2RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_I2C3RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_CAN1RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_CAN2RST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_PWRRST_Field is STM32F40x.Bit;
-   subtype APB1RSTR_DACRST_Field is STM32F40x.Bit;
+   subtype APB1RSTR_TIM2RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_TIM3RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_TIM4RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_TIM5RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_TIM6RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_TIM7RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_TIM12RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_TIM13RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_TIM14RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_WWDGRST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_SPI2RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_SPI3RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_UART2RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_UART3RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_UART4RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_UART5RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_I2C1RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_I2C2RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_I2C3RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_CAN1RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_CAN2RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_PWRRST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_DACRST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_UART7RST_Field is STM32F429x.Bit;
+   subtype APB1RSTR_UART8RST_Field is STM32F429x.Bit;
 
    --  APB1 peripheral reset register
    type APB1RSTR_Register is record
@@ -470,17 +489,17 @@ package STM32F40x.RCC is
       --  TIM14 reset
       TIM14RST       : APB1RSTR_TIM14RST_Field := 16#0#;
       --  unspecified
-      Reserved_9_10  : STM32F40x.UInt2 := 16#0#;
+      Reserved_9_10  : STM32F429x.UInt2 := 16#0#;
       --  Window watchdog reset
       WWDGRST        : APB1RSTR_WWDGRST_Field := 16#0#;
       --  unspecified
-      Reserved_12_13 : STM32F40x.UInt2 := 16#0#;
+      Reserved_12_13 : STM32F429x.UInt2 := 16#0#;
       --  SPI 2 reset
       SPI2RST        : APB1RSTR_SPI2RST_Field := 16#0#;
       --  SPI 3 reset
       SPI3RST        : APB1RSTR_SPI3RST_Field := 16#0#;
       --  unspecified
-      Reserved_16_16 : STM32F40x.Bit := 16#0#;
+      Reserved_16_16 : STM32F429x.Bit := 16#0#;
       --  USART 2 reset
       UART2RST       : APB1RSTR_UART2RST_Field := 16#0#;
       --  USART 3 reset
@@ -496,19 +515,21 @@ package STM32F40x.RCC is
       --  I2C3 reset
       I2C3RST        : APB1RSTR_I2C3RST_Field := 16#0#;
       --  unspecified
-      Reserved_24_24 : STM32F40x.Bit := 16#0#;
+      Reserved_24_24 : STM32F429x.Bit := 16#0#;
       --  CAN1 reset
       CAN1RST        : APB1RSTR_CAN1RST_Field := 16#0#;
       --  CAN2 reset
       CAN2RST        : APB1RSTR_CAN2RST_Field := 16#0#;
       --  unspecified
-      Reserved_27_27 : STM32F40x.Bit := 16#0#;
+      Reserved_27_27 : STM32F429x.Bit := 16#0#;
       --  Power interface reset
       PWRRST         : APB1RSTR_PWRRST_Field := 16#0#;
       --  DAC reset
       DACRST         : APB1RSTR_DACRST_Field := 16#0#;
-      --  unspecified
-      Reserved_30_31 : STM32F40x.UInt2 := 16#0#;
+      --  UART7 reset
+      UART7RST       : APB1RSTR_UART7RST_Field := 16#0#;
+      --  UART8 reset
+      UART8RST       : APB1RSTR_UART8RST_Field := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
@@ -541,20 +562,26 @@ package STM32F40x.RCC is
       Reserved_27_27 at 0 range 27 .. 27;
       PWRRST         at 0 range 28 .. 28;
       DACRST         at 0 range 29 .. 29;
-      Reserved_30_31 at 0 range 30 .. 31;
+      UART7RST       at 0 range 30 .. 30;
+      UART8RST       at 0 range 31 .. 31;
    end record;
 
-   subtype APB2RSTR_TIM1RST_Field is STM32F40x.Bit;
-   subtype APB2RSTR_TIM8RST_Field is STM32F40x.Bit;
-   subtype APB2RSTR_USART1RST_Field is STM32F40x.Bit;
-   subtype APB2RSTR_USART6RST_Field is STM32F40x.Bit;
-   subtype APB2RSTR_ADCRST_Field is STM32F40x.Bit;
-   subtype APB2RSTR_SDIORST_Field is STM32F40x.Bit;
-   subtype APB2RSTR_SPI1RST_Field is STM32F40x.Bit;
-   subtype APB2RSTR_SYSCFGRST_Field is STM32F40x.Bit;
-   subtype APB2RSTR_TIM9RST_Field is STM32F40x.Bit;
-   subtype APB2RSTR_TIM10RST_Field is STM32F40x.Bit;
-   subtype APB2RSTR_TIM11RST_Field is STM32F40x.Bit;
+   subtype APB2RSTR_TIM1RST_Field is STM32F429x.Bit;
+   subtype APB2RSTR_TIM8RST_Field is STM32F429x.Bit;
+   subtype APB2RSTR_USART1RST_Field is STM32F429x.Bit;
+   subtype APB2RSTR_USART6RST_Field is STM32F429x.Bit;
+   subtype APB2RSTR_ADCRST_Field is STM32F429x.Bit;
+   subtype APB2RSTR_SDIORST_Field is STM32F429x.Bit;
+   subtype APB2RSTR_SPI1RST_Field is STM32F429x.Bit;
+   subtype APB2RSTR_SPI4RST_Field is STM32F429x.Bit;
+   subtype APB2RSTR_SYSCFGRST_Field is STM32F429x.Bit;
+   subtype APB2RSTR_TIM9RST_Field is STM32F429x.Bit;
+   subtype APB2RSTR_TIM10RST_Field is STM32F429x.Bit;
+   subtype APB2RSTR_TIM11RST_Field is STM32F429x.Bit;
+   subtype APB2RSTR_SPI5RST_Field is STM32F429x.Bit;
+   subtype APB2RSTR_SPI6RST_Field is STM32F429x.Bit;
+   subtype APB2RSTR_SAI1RST_Field is STM32F429x.Bit;
+   subtype APB2RSTR_LTDCRST_Field is STM32F429x.Bit;
 
    --  APB2 peripheral reset register
    type APB2RSTR_Register is record
@@ -563,27 +590,27 @@ package STM32F40x.RCC is
       --  TIM8 reset
       TIM8RST        : APB2RSTR_TIM8RST_Field := 16#0#;
       --  unspecified
-      Reserved_2_3   : STM32F40x.UInt2 := 16#0#;
+      Reserved_2_3   : STM32F429x.UInt2 := 16#0#;
       --  USART1 reset
       USART1RST      : APB2RSTR_USART1RST_Field := 16#0#;
       --  USART6 reset
       USART6RST      : APB2RSTR_USART6RST_Field := 16#0#;
       --  unspecified
-      Reserved_6_7   : STM32F40x.UInt2 := 16#0#;
+      Reserved_6_7   : STM32F429x.UInt2 := 16#0#;
       --  ADC interface reset (common to all ADCs)
       ADCRST         : APB2RSTR_ADCRST_Field := 16#0#;
       --  unspecified
-      Reserved_9_10  : STM32F40x.UInt2 := 16#0#;
+      Reserved_9_10  : STM32F429x.UInt2 := 16#0#;
       --  SDIO reset
       SDIORST        : APB2RSTR_SDIORST_Field := 16#0#;
       --  SPI 1 reset
       SPI1RST        : APB2RSTR_SPI1RST_Field := 16#0#;
-      --  unspecified
-      Reserved_13_13 : STM32F40x.Bit := 16#0#;
+      --  SPI4 reset
+      SPI4RST        : APB2RSTR_SPI4RST_Field := 16#0#;
       --  System configuration controller reset
       SYSCFGRST      : APB2RSTR_SYSCFGRST_Field := 16#0#;
       --  unspecified
-      Reserved_15_15 : STM32F40x.Bit := 16#0#;
+      Reserved_15_15 : STM32F429x.Bit := 16#0#;
       --  TIM9 reset
       TIM9RST        : APB2RSTR_TIM9RST_Field := 16#0#;
       --  TIM10 reset
@@ -591,7 +618,19 @@ package STM32F40x.RCC is
       --  TIM11 reset
       TIM11RST       : APB2RSTR_TIM11RST_Field := 16#0#;
       --  unspecified
-      Reserved_19_31 : STM32F40x.UInt13 := 16#0#;
+      Reserved_19_19 : STM32F429x.Bit := 16#0#;
+      --  SPI5 reset
+      SPI5RST        : APB2RSTR_SPI5RST_Field := 16#0#;
+      --  SPI6 reset
+      SPI6RST        : APB2RSTR_SPI6RST_Field := 16#0#;
+      --  SAI1 reset
+      SAI1RST        : APB2RSTR_SAI1RST_Field := 16#0#;
+      --  unspecified
+      Reserved_23_25 : STM32F429x.UInt3 := 16#0#;
+      --  LTDC reset
+      LTDCRST        : APB2RSTR_LTDCRST_Field := 16#0#;
+      --  unspecified
+      Reserved_27_31 : STM32F429x.UInt5 := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
@@ -606,34 +645,44 @@ package STM32F40x.RCC is
       Reserved_9_10  at 0 range 9 .. 10;
       SDIORST        at 0 range 11 .. 11;
       SPI1RST        at 0 range 12 .. 12;
-      Reserved_13_13 at 0 range 13 .. 13;
+      SPI4RST        at 0 range 13 .. 13;
       SYSCFGRST      at 0 range 14 .. 14;
       Reserved_15_15 at 0 range 15 .. 15;
       TIM9RST        at 0 range 16 .. 16;
       TIM10RST       at 0 range 17 .. 17;
       TIM11RST       at 0 range 18 .. 18;
-      Reserved_19_31 at 0 range 19 .. 31;
+      Reserved_19_19 at 0 range 19 .. 19;
+      SPI5RST        at 0 range 20 .. 20;
+      SPI6RST        at 0 range 21 .. 21;
+      SAI1RST        at 0 range 22 .. 22;
+      Reserved_23_25 at 0 range 23 .. 25;
+      LTDCRST        at 0 range 26 .. 26;
+      Reserved_27_31 at 0 range 27 .. 31;
    end record;
 
-   subtype AHB1ENR_GPIOAEN_Field is STM32F40x.Bit;
-   subtype AHB1ENR_GPIOBEN_Field is STM32F40x.Bit;
-   subtype AHB1ENR_GPIOCEN_Field is STM32F40x.Bit;
-   subtype AHB1ENR_GPIODEN_Field is STM32F40x.Bit;
-   subtype AHB1ENR_GPIOEEN_Field is STM32F40x.Bit;
-   subtype AHB1ENR_GPIOFEN_Field is STM32F40x.Bit;
-   subtype AHB1ENR_GPIOGEN_Field is STM32F40x.Bit;
-   subtype AHB1ENR_GPIOHEN_Field is STM32F40x.Bit;
-   subtype AHB1ENR_GPIOIEN_Field is STM32F40x.Bit;
-   subtype AHB1ENR_CRCEN_Field is STM32F40x.Bit;
-   subtype AHB1ENR_BKPSRAMEN_Field is STM32F40x.Bit;
-   subtype AHB1ENR_DMA1EN_Field is STM32F40x.Bit;
-   subtype AHB1ENR_DMA2EN_Field is STM32F40x.Bit;
-   subtype AHB1ENR_ETHMACEN_Field is STM32F40x.Bit;
-   subtype AHB1ENR_ETHMACTXEN_Field is STM32F40x.Bit;
-   subtype AHB1ENR_ETHMACRXEN_Field is STM32F40x.Bit;
-   subtype AHB1ENR_ETHMACPTPEN_Field is STM32F40x.Bit;
-   subtype AHB1ENR_OTGHSEN_Field is STM32F40x.Bit;
-   subtype AHB1ENR_OTGHSULPIEN_Field is STM32F40x.Bit;
+   subtype AHB1ENR_GPIOAEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_GPIOBEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_GPIOCEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_GPIODEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_GPIOEEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_GPIOFEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_GPIOGEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_GPIOHEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_GPIOIEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_GPIOJEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_GPIOKEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_CRCEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_BKPSRAMEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_CCMDATARAMEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_DMA1EN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_DMA2EN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_DMA2DEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_ETHMACEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_ETHMACTXEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_ETHMACRXEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_ETHMACPTPEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_OTGHSEN_Field is STM32F429x.Bit;
+   subtype AHB1ENR_OTGHSULPIEN_Field is STM32F429x.Bit;
 
    --  AHB1 peripheral clock register
    type AHB1ENR_Register is record
@@ -655,22 +704,30 @@ package STM32F40x.RCC is
       GPIOHEN        : AHB1ENR_GPIOHEN_Field := 16#0#;
       --  IO port I clock enable
       GPIOIEN        : AHB1ENR_GPIOIEN_Field := 16#0#;
+      --  IO port J clock enable
+      GPIOJEN        : AHB1ENR_GPIOJEN_Field := 16#0#;
+      --  IO port K clock enable
+      GPIOKEN        : AHB1ENR_GPIOKEN_Field := 16#0#;
       --  unspecified
-      Reserved_9_11  : STM32F40x.UInt3 := 16#0#;
+      Reserved_11_11 : STM32F429x.Bit := 16#0#;
       --  CRC clock enable
       CRCEN          : AHB1ENR_CRCEN_Field := 16#0#;
       --  unspecified
-      Reserved_13_17 : STM32F40x.UInt5 := 16#0#;
+      Reserved_13_17 : STM32F429x.UInt5 := 16#0#;
       --  Backup SRAM interface clock enable
       BKPSRAMEN      : AHB1ENR_BKPSRAMEN_Field := 16#0#;
       --  unspecified
-      Reserved_19_20 : STM32F40x.UInt2 := 16#2#;
+      Reserved_19_19 : STM32F429x.Bit := 16#0#;
+      --  CCM data RAM clock enable
+      CCMDATARAMEN   : AHB1ENR_CCMDATARAMEN_Field := 16#1#;
       --  DMA1 clock enable
       DMA1EN         : AHB1ENR_DMA1EN_Field := 16#0#;
       --  DMA2 clock enable
       DMA2EN         : AHB1ENR_DMA2EN_Field := 16#0#;
+      --  DMA2D clock enable
+      DMA2DEN        : AHB1ENR_DMA2DEN_Field := 16#0#;
       --  unspecified
-      Reserved_23_24 : STM32F40x.UInt2 := 16#0#;
+      Reserved_24_24 : STM32F429x.Bit := 16#0#;
       --  Ethernet MAC clock enable
       ETHMACEN       : AHB1ENR_ETHMACEN_Field := 16#0#;
       --  Ethernet Transmission clock enable
@@ -684,7 +741,7 @@ package STM32F40x.RCC is
       --  USB OTG HSULPI clock enable
       OTGHSULPIEN    : AHB1ENR_OTGHSULPIEN_Field := 16#0#;
       --  unspecified
-      Reserved_31_31 : STM32F40x.Bit := 16#0#;
+      Reserved_31_31 : STM32F429x.Bit := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
@@ -698,14 +755,18 @@ package STM32F40x.RCC is
       GPIOGEN        at 0 range 6 .. 6;
       GPIOHEN        at 0 range 7 .. 7;
       GPIOIEN        at 0 range 8 .. 8;
-      Reserved_9_11  at 0 range 9 .. 11;
+      GPIOJEN        at 0 range 9 .. 9;
+      GPIOKEN        at 0 range 10 .. 10;
+      Reserved_11_11 at 0 range 11 .. 11;
       CRCEN          at 0 range 12 .. 12;
       Reserved_13_17 at 0 range 13 .. 17;
       BKPSRAMEN      at 0 range 18 .. 18;
-      Reserved_19_20 at 0 range 19 .. 20;
+      Reserved_19_19 at 0 range 19 .. 19;
+      CCMDATARAMEN   at 0 range 20 .. 20;
       DMA1EN         at 0 range 21 .. 21;
       DMA2EN         at 0 range 22 .. 22;
-      Reserved_23_24 at 0 range 23 .. 24;
+      DMA2DEN        at 0 range 23 .. 23;
+      Reserved_24_24 at 0 range 24 .. 24;
       ETHMACEN       at 0 range 25 .. 25;
       ETHMACTXEN     at 0 range 26 .. 26;
       ETHMACRXEN     at 0 range 27 .. 27;
@@ -715,22 +776,22 @@ package STM32F40x.RCC is
       Reserved_31_31 at 0 range 31 .. 31;
    end record;
 
-   subtype AHB2ENR_DCMIEN_Field is STM32F40x.Bit;
-   subtype AHB2ENR_RNGEN_Field is STM32F40x.Bit;
-   subtype AHB2ENR_OTGFSEN_Field is STM32F40x.Bit;
+   subtype AHB2ENR_DCMIEN_Field is STM32F429x.Bit;
+   subtype AHB2ENR_RNGEN_Field is STM32F429x.Bit;
+   subtype AHB2ENR_OTGFSEN_Field is STM32F429x.Bit;
 
    --  AHB2 peripheral clock enable register
    type AHB2ENR_Register is record
       --  Camera interface enable
       DCMIEN        : AHB2ENR_DCMIEN_Field := 16#0#;
       --  unspecified
-      Reserved_1_5  : STM32F40x.UInt5 := 16#0#;
+      Reserved_1_5  : STM32F429x.UInt5 := 16#0#;
       --  Random number generator clock enable
       RNGEN         : AHB2ENR_RNGEN_Field := 16#0#;
       --  USB OTG FS clock enable
       OTGFSEN       : AHB2ENR_OTGFSEN_Field := 16#0#;
       --  unspecified
-      Reserved_8_31 : STM32F40x.UInt24 := 16#0#;
+      Reserved_8_31 : STM32F429x.UInt24 := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
@@ -742,45 +803,47 @@ package STM32F40x.RCC is
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
 
-   subtype AHB3ENR_FSMCEN_Field is STM32F40x.Bit;
+   subtype AHB3ENR_FMCEN_Field is STM32F429x.Bit;
 
    --  AHB3 peripheral clock enable register
    type AHB3ENR_Register is record
-      --  Flexible static memory controller module clock enable
-      FSMCEN        : AHB3ENR_FSMCEN_Field := 16#0#;
+      --  Flexible memory controller module clock enable
+      FMCEN         : AHB3ENR_FMCEN_Field := 16#0#;
       --  unspecified
-      Reserved_1_31 : STM32F40x.UInt31 := 16#0#;
+      Reserved_1_31 : STM32F429x.UInt31 := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for AHB3ENR_Register use record
-      FSMCEN        at 0 range 0 .. 0;
+      FMCEN         at 0 range 0 .. 0;
       Reserved_1_31 at 0 range 1 .. 31;
    end record;
 
-   subtype APB1ENR_TIM2EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_TIM3EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_TIM4EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_TIM5EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_TIM6EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_TIM7EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_TIM12EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_TIM13EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_TIM14EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_WWDGEN_Field is STM32F40x.Bit;
-   subtype APB1ENR_SPI2EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_SPI3EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_USART2EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_USART3EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_UART4EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_UART5EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_I2C1EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_I2C2EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_I2C3EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_CAN1EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_CAN2EN_Field is STM32F40x.Bit;
-   subtype APB1ENR_PWREN_Field is STM32F40x.Bit;
-   subtype APB1ENR_DACEN_Field is STM32F40x.Bit;
+   subtype APB1ENR_TIM2EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_TIM3EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_TIM4EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_TIM5EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_TIM6EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_TIM7EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_TIM12EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_TIM13EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_TIM14EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_WWDGEN_Field is STM32F429x.Bit;
+   subtype APB1ENR_SPI2EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_SPI3EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_USART2EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_USART3EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_UART4EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_UART5EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_I2C1EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_I2C2EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_I2C3EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_CAN1EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_CAN2EN_Field is STM32F429x.Bit;
+   subtype APB1ENR_PWREN_Field is STM32F429x.Bit;
+   subtype APB1ENR_DACEN_Field is STM32F429x.Bit;
+   subtype APB1ENR_UART7ENR_Field is STM32F429x.Bit;
+   subtype APB1ENR_UART8ENR_Field is STM32F429x.Bit;
 
    --  APB1 peripheral clock enable register
    type APB1ENR_Register is record
@@ -803,17 +866,17 @@ package STM32F40x.RCC is
       --  TIM14 clock enable
       TIM14EN        : APB1ENR_TIM14EN_Field := 16#0#;
       --  unspecified
-      Reserved_9_10  : STM32F40x.UInt2 := 16#0#;
+      Reserved_9_10  : STM32F429x.UInt2 := 16#0#;
       --  Window watchdog clock enable
       WWDGEN         : APB1ENR_WWDGEN_Field := 16#0#;
       --  unspecified
-      Reserved_12_13 : STM32F40x.UInt2 := 16#0#;
+      Reserved_12_13 : STM32F429x.UInt2 := 16#0#;
       --  SPI2 clock enable
       SPI2EN         : APB1ENR_SPI2EN_Field := 16#0#;
       --  SPI3 clock enable
       SPI3EN         : APB1ENR_SPI3EN_Field := 16#0#;
       --  unspecified
-      Reserved_16_16 : STM32F40x.Bit := 16#0#;
+      Reserved_16_16 : STM32F429x.Bit := 16#0#;
       --  USART 2 clock enable
       USART2EN       : APB1ENR_USART2EN_Field := 16#0#;
       --  USART3 clock enable
@@ -829,19 +892,21 @@ package STM32F40x.RCC is
       --  I2C3 clock enable
       I2C3EN         : APB1ENR_I2C3EN_Field := 16#0#;
       --  unspecified
-      Reserved_24_24 : STM32F40x.Bit := 16#0#;
+      Reserved_24_24 : STM32F429x.Bit := 16#0#;
       --  CAN 1 clock enable
       CAN1EN         : APB1ENR_CAN1EN_Field := 16#0#;
       --  CAN 2 clock enable
       CAN2EN         : APB1ENR_CAN2EN_Field := 16#0#;
       --  unspecified
-      Reserved_27_27 : STM32F40x.Bit := 16#0#;
+      Reserved_27_27 : STM32F429x.Bit := 16#0#;
       --  Power interface clock enable
       PWREN          : APB1ENR_PWREN_Field := 16#0#;
       --  DAC interface clock enable
       DACEN          : APB1ENR_DACEN_Field := 16#0#;
-      --  unspecified
-      Reserved_30_31 : STM32F40x.UInt2 := 16#0#;
+      --  UART7 clock enable
+      UART7ENR       : APB1ENR_UART7ENR_Field := 16#0#;
+      --  UART8 clock enable
+      UART8ENR       : APB1ENR_UART8ENR_Field := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
@@ -874,22 +939,28 @@ package STM32F40x.RCC is
       Reserved_27_27 at 0 range 27 .. 27;
       PWREN          at 0 range 28 .. 28;
       DACEN          at 0 range 29 .. 29;
-      Reserved_30_31 at 0 range 30 .. 31;
+      UART7ENR       at 0 range 30 .. 30;
+      UART8ENR       at 0 range 31 .. 31;
    end record;
 
-   subtype APB2ENR_TIM1EN_Field is STM32F40x.Bit;
-   subtype APB2ENR_TIM8EN_Field is STM32F40x.Bit;
-   subtype APB2ENR_USART1EN_Field is STM32F40x.Bit;
-   subtype APB2ENR_USART6EN_Field is STM32F40x.Bit;
-   subtype APB2ENR_ADC1EN_Field is STM32F40x.Bit;
-   subtype APB2ENR_ADC2EN_Field is STM32F40x.Bit;
-   subtype APB2ENR_ADC3EN_Field is STM32F40x.Bit;
-   subtype APB2ENR_SDIOEN_Field is STM32F40x.Bit;
-   subtype APB2ENR_SPI1EN_Field is STM32F40x.Bit;
-   subtype APB2ENR_SYSCFGEN_Field is STM32F40x.Bit;
-   subtype APB2ENR_TIM9EN_Field is STM32F40x.Bit;
-   subtype APB2ENR_TIM10EN_Field is STM32F40x.Bit;
-   subtype APB2ENR_TIM11EN_Field is STM32F40x.Bit;
+   subtype APB2ENR_TIM1EN_Field is STM32F429x.Bit;
+   subtype APB2ENR_TIM8EN_Field is STM32F429x.Bit;
+   subtype APB2ENR_USART1EN_Field is STM32F429x.Bit;
+   subtype APB2ENR_USART6EN_Field is STM32F429x.Bit;
+   subtype APB2ENR_ADC1EN_Field is STM32F429x.Bit;
+   subtype APB2ENR_ADC2EN_Field is STM32F429x.Bit;
+   subtype APB2ENR_ADC3EN_Field is STM32F429x.Bit;
+   subtype APB2ENR_SDIOEN_Field is STM32F429x.Bit;
+   subtype APB2ENR_SPI1EN_Field is STM32F429x.Bit;
+   subtype APB2ENR_SPI4ENR_Field is STM32F429x.Bit;
+   subtype APB2ENR_SYSCFGEN_Field is STM32F429x.Bit;
+   subtype APB2ENR_TIM9EN_Field is STM32F429x.Bit;
+   subtype APB2ENR_TIM10EN_Field is STM32F429x.Bit;
+   subtype APB2ENR_TIM11EN_Field is STM32F429x.Bit;
+   subtype APB2ENR_SPI5ENR_Field is STM32F429x.Bit;
+   subtype APB2ENR_SPI6ENR_Field is STM32F429x.Bit;
+   subtype APB2ENR_SAI1EN_Field is STM32F429x.Bit;
+   subtype APB2ENR_LTDCEN_Field is STM32F429x.Bit;
 
    --  APB2 peripheral clock enable register
    type APB2ENR_Register is record
@@ -898,13 +969,13 @@ package STM32F40x.RCC is
       --  TIM8 clock enable
       TIM8EN         : APB2ENR_TIM8EN_Field := 16#0#;
       --  unspecified
-      Reserved_2_3   : STM32F40x.UInt2 := 16#0#;
+      Reserved_2_3   : STM32F429x.UInt2 := 16#0#;
       --  USART1 clock enable
       USART1EN       : APB2ENR_USART1EN_Field := 16#0#;
       --  USART6 clock enable
       USART6EN       : APB2ENR_USART6EN_Field := 16#0#;
       --  unspecified
-      Reserved_6_7   : STM32F40x.UInt2 := 16#0#;
+      Reserved_6_7   : STM32F429x.UInt2 := 16#0#;
       --  ADC1 clock enable
       ADC1EN         : APB2ENR_ADC1EN_Field := 16#0#;
       --  ADC2 clock enable
@@ -915,12 +986,12 @@ package STM32F40x.RCC is
       SDIOEN         : APB2ENR_SDIOEN_Field := 16#0#;
       --  SPI1 clock enable
       SPI1EN         : APB2ENR_SPI1EN_Field := 16#0#;
-      --  unspecified
-      Reserved_13_13 : STM32F40x.Bit := 16#0#;
+      --  SPI4 clock enable
+      SPI4ENR        : APB2ENR_SPI4ENR_Field := 16#0#;
       --  System configuration controller clock enable
       SYSCFGEN       : APB2ENR_SYSCFGEN_Field := 16#0#;
       --  unspecified
-      Reserved_15_15 : STM32F40x.Bit := 16#0#;
+      Reserved_15_15 : STM32F429x.Bit := 16#0#;
       --  TIM9 clock enable
       TIM9EN         : APB2ENR_TIM9EN_Field := 16#0#;
       --  TIM10 clock enable
@@ -928,7 +999,19 @@ package STM32F40x.RCC is
       --  TIM11 clock enable
       TIM11EN        : APB2ENR_TIM11EN_Field := 16#0#;
       --  unspecified
-      Reserved_19_31 : STM32F40x.UInt13 := 16#0#;
+      Reserved_19_19 : STM32F429x.Bit := 16#0#;
+      --  SPI5 clock enable
+      SPI5ENR        : APB2ENR_SPI5ENR_Field := 16#0#;
+      --  SPI6 clock enable
+      SPI6ENR        : APB2ENR_SPI6ENR_Field := 16#0#;
+      --  SAI1 clock enable
+      SAI1EN         : APB2ENR_SAI1EN_Field := 16#0#;
+      --  unspecified
+      Reserved_23_25 : STM32F429x.UInt3 := 16#0#;
+      --  LTDC clock enable
+      LTDCEN         : APB2ENR_LTDCEN_Field := 16#0#;
+      --  unspecified
+      Reserved_27_31 : STM32F429x.UInt5 := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
@@ -944,37 +1027,47 @@ package STM32F40x.RCC is
       ADC3EN         at 0 range 10 .. 10;
       SDIOEN         at 0 range 11 .. 11;
       SPI1EN         at 0 range 12 .. 12;
-      Reserved_13_13 at 0 range 13 .. 13;
+      SPI4ENR        at 0 range 13 .. 13;
       SYSCFGEN       at 0 range 14 .. 14;
       Reserved_15_15 at 0 range 15 .. 15;
       TIM9EN         at 0 range 16 .. 16;
       TIM10EN        at 0 range 17 .. 17;
       TIM11EN        at 0 range 18 .. 18;
-      Reserved_19_31 at 0 range 19 .. 31;
+      Reserved_19_19 at 0 range 19 .. 19;
+      SPI5ENR        at 0 range 20 .. 20;
+      SPI6ENR        at 0 range 21 .. 21;
+      SAI1EN         at 0 range 22 .. 22;
+      Reserved_23_25 at 0 range 23 .. 25;
+      LTDCEN         at 0 range 26 .. 26;
+      Reserved_27_31 at 0 range 27 .. 31;
    end record;
 
-   subtype AHB1LPENR_GPIOALPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_GPIOBLPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_GPIOCLPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_GPIODLPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_GPIOELPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_GPIOFLPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_GPIOGLPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_GPIOHLPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_GPIOILPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_CRCLPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_FLITFLPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_SRAM1LPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_SRAM2LPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_BKPSRAMLPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_DMA1LPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_DMA2LPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_ETHMACLPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_ETHMACTXLPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_ETHMACRXLPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_ETHMACPTPLPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_OTGHSLPEN_Field is STM32F40x.Bit;
-   subtype AHB1LPENR_OTGHSULPILPEN_Field is STM32F40x.Bit;
+   subtype AHB1LPENR_GPIOALPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_GPIOBLPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_GPIOCLPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_GPIODLPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_GPIOELPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_GPIOFLPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_GPIOGLPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_GPIOHLPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_GPIOILPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_GPIOJLPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_GPIOKLPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_CRCLPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_FLITFLPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_SRAM1LPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_SRAM2LPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_BKPSRAMLPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_SRAM3LPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_DMA1LPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_DMA2LPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_DMA2DLPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_ETHMACLPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_ETHMACTXLPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_ETHMACRXLPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_ETHMACPTPLPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_OTGHSLPEN_Field is STM32F429x.Bit;
+   subtype AHB1LPENR_OTGHSULPILPEN_Field is STM32F429x.Bit;
 
    --  AHB1 peripheral clock enable in low power mode register
    type AHB1LPENR_Register is record
@@ -996,12 +1089,16 @@ package STM32F40x.RCC is
       GPIOHLPEN      : AHB1LPENR_GPIOHLPEN_Field := 16#1#;
       --  IO port I clock enable during Sleep mode
       GPIOILPEN      : AHB1LPENR_GPIOILPEN_Field := 16#1#;
+      --  IO port J clock enable during Sleep mode
+      GPIOJLPEN      : AHB1LPENR_GPIOJLPEN_Field := 16#0#;
+      --  IO port K clock enable during Sleep mode
+      GPIOKLPEN      : AHB1LPENR_GPIOKLPEN_Field := 16#0#;
       --  unspecified
-      Reserved_9_11  : STM32F40x.UInt3 := 16#0#;
+      Reserved_11_11 : STM32F429x.Bit := 16#0#;
       --  CRC clock enable during Sleep mode
       CRCLPEN        : AHB1LPENR_CRCLPEN_Field := 16#1#;
       --  unspecified
-      Reserved_13_14 : STM32F40x.UInt2 := 16#0#;
+      Reserved_13_14 : STM32F429x.UInt2 := 16#0#;
       --  Flash interface clock enable during Sleep mode
       FLITFLPEN      : AHB1LPENR_FLITFLPEN_Field := 16#1#;
       --  SRAM 1interface clock enable during Sleep mode
@@ -1010,14 +1107,18 @@ package STM32F40x.RCC is
       SRAM2LPEN      : AHB1LPENR_SRAM2LPEN_Field := 16#1#;
       --  Backup SRAM interface clock enable during Sleep mode
       BKPSRAMLPEN    : AHB1LPENR_BKPSRAMLPEN_Field := 16#1#;
+      --  SRAM 3 interface clock enable during Sleep mode
+      SRAM3LPEN      : AHB1LPENR_SRAM3LPEN_Field := 16#0#;
       --  unspecified
-      Reserved_19_20 : STM32F40x.UInt2 := 16#0#;
+      Reserved_20_20 : STM32F429x.Bit := 16#0#;
       --  DMA1 clock enable during Sleep mode
       DMA1LPEN       : AHB1LPENR_DMA1LPEN_Field := 16#1#;
       --  DMA2 clock enable during Sleep mode
       DMA2LPEN       : AHB1LPENR_DMA2LPEN_Field := 16#1#;
+      --  DMA2D clock enable during Sleep mode
+      DMA2DLPEN      : AHB1LPENR_DMA2DLPEN_Field := 16#0#;
       --  unspecified
-      Reserved_23_24 : STM32F40x.UInt2 := 16#0#;
+      Reserved_24_24 : STM32F429x.Bit := 16#0#;
       --  Ethernet MAC clock enable during Sleep mode
       ETHMACLPEN     : AHB1LPENR_ETHMACLPEN_Field := 16#1#;
       --  Ethernet transmission clock enable during Sleep mode
@@ -1031,7 +1132,7 @@ package STM32F40x.RCC is
       --  USB OTG HS ULPI clock enable during Sleep mode
       OTGHSULPILPEN  : AHB1LPENR_OTGHSULPILPEN_Field := 16#1#;
       --  unspecified
-      Reserved_31_31 : STM32F40x.Bit := 16#0#;
+      Reserved_31_31 : STM32F429x.Bit := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
@@ -1045,17 +1146,21 @@ package STM32F40x.RCC is
       GPIOGLPEN      at 0 range 6 .. 6;
       GPIOHLPEN      at 0 range 7 .. 7;
       GPIOILPEN      at 0 range 8 .. 8;
-      Reserved_9_11  at 0 range 9 .. 11;
+      GPIOJLPEN      at 0 range 9 .. 9;
+      GPIOKLPEN      at 0 range 10 .. 10;
+      Reserved_11_11 at 0 range 11 .. 11;
       CRCLPEN        at 0 range 12 .. 12;
       Reserved_13_14 at 0 range 13 .. 14;
       FLITFLPEN      at 0 range 15 .. 15;
       SRAM1LPEN      at 0 range 16 .. 16;
       SRAM2LPEN      at 0 range 17 .. 17;
       BKPSRAMLPEN    at 0 range 18 .. 18;
-      Reserved_19_20 at 0 range 19 .. 20;
+      SRAM3LPEN      at 0 range 19 .. 19;
+      Reserved_20_20 at 0 range 20 .. 20;
       DMA1LPEN       at 0 range 21 .. 21;
       DMA2LPEN       at 0 range 22 .. 22;
-      Reserved_23_24 at 0 range 23 .. 24;
+      DMA2DLPEN      at 0 range 23 .. 23;
+      Reserved_24_24 at 0 range 24 .. 24;
       ETHMACLPEN     at 0 range 25 .. 25;
       ETHMACTXLPEN   at 0 range 26 .. 26;
       ETHMACRXLPEN   at 0 range 27 .. 27;
@@ -1065,22 +1170,22 @@ package STM32F40x.RCC is
       Reserved_31_31 at 0 range 31 .. 31;
    end record;
 
-   subtype AHB2LPENR_DCMILPEN_Field is STM32F40x.Bit;
-   subtype AHB2LPENR_RNGLPEN_Field is STM32F40x.Bit;
-   subtype AHB2LPENR_OTGFSLPEN_Field is STM32F40x.Bit;
+   subtype AHB2LPENR_DCMILPEN_Field is STM32F429x.Bit;
+   subtype AHB2LPENR_RNGLPEN_Field is STM32F429x.Bit;
+   subtype AHB2LPENR_OTGFSLPEN_Field is STM32F429x.Bit;
 
    --  AHB2 peripheral clock enable in low power mode register
    type AHB2LPENR_Register is record
       --  Camera interface enable during Sleep mode
       DCMILPEN      : AHB2LPENR_DCMILPEN_Field := 16#1#;
       --  unspecified
-      Reserved_1_5  : STM32F40x.UInt5 := 16#18#;
+      Reserved_1_5  : STM32F429x.UInt5 := 16#18#;
       --  Random number generator clock enable during Sleep mode
       RNGLPEN       : AHB2LPENR_RNGLPEN_Field := 16#1#;
       --  USB OTG FS clock enable during Sleep mode
       OTGFSLPEN     : AHB2LPENR_OTGFSLPEN_Field := 16#1#;
       --  unspecified
-      Reserved_8_31 : STM32F40x.UInt24 := 16#0#;
+      Reserved_8_31 : STM32F429x.UInt24 := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
@@ -1092,46 +1197,47 @@ package STM32F40x.RCC is
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
 
-   subtype AHB3LPENR_FSMCLPEN_Field is STM32F40x.Bit;
+   subtype AHB3LPENR_FMCLPEN_Field is STM32F429x.Bit;
 
    --  AHB3 peripheral clock enable in low power mode register
    type AHB3LPENR_Register is record
-      --  Flexible static memory controller module clock enable during Sleep
-      --  mode
-      FSMCLPEN      : AHB3LPENR_FSMCLPEN_Field := 16#1#;
+      --  Flexible memory controller module clock enable during Sleep mode
+      FMCLPEN       : AHB3LPENR_FMCLPEN_Field := 16#1#;
       --  unspecified
-      Reserved_1_31 : STM32F40x.UInt31 := 16#0#;
+      Reserved_1_31 : STM32F429x.UInt31 := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for AHB3LPENR_Register use record
-      FSMCLPEN      at 0 range 0 .. 0;
+      FMCLPEN       at 0 range 0 .. 0;
       Reserved_1_31 at 0 range 1 .. 31;
    end record;
 
-   subtype APB1LPENR_TIM2LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_TIM3LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_TIM4LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_TIM5LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_TIM6LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_TIM7LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_TIM12LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_TIM13LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_TIM14LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_WWDGLPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_SPI2LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_SPI3LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_USART2LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_USART3LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_UART4LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_UART5LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_I2C1LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_I2C2LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_I2C3LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_CAN1LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_CAN2LPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_PWRLPEN_Field is STM32F40x.Bit;
-   subtype APB1LPENR_DACLPEN_Field is STM32F40x.Bit;
+   subtype APB1LPENR_TIM2LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_TIM3LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_TIM4LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_TIM5LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_TIM6LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_TIM7LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_TIM12LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_TIM13LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_TIM14LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_WWDGLPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_SPI2LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_SPI3LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_USART2LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_USART3LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_UART4LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_UART5LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_I2C1LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_I2C2LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_I2C3LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_CAN1LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_CAN2LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_PWRLPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_DACLPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_UART7LPEN_Field is STM32F429x.Bit;
+   subtype APB1LPENR_UART8LPEN_Field is STM32F429x.Bit;
 
    --  APB1 peripheral clock enable in low power mode register
    type APB1LPENR_Register is record
@@ -1154,17 +1260,17 @@ package STM32F40x.RCC is
       --  TIM14 clock enable during Sleep mode
       TIM14LPEN      : APB1LPENR_TIM14LPEN_Field := 16#1#;
       --  unspecified
-      Reserved_9_10  : STM32F40x.UInt2 := 16#0#;
+      Reserved_9_10  : STM32F429x.UInt2 := 16#0#;
       --  Window watchdog clock enable during Sleep mode
       WWDGLPEN       : APB1LPENR_WWDGLPEN_Field := 16#1#;
       --  unspecified
-      Reserved_12_13 : STM32F40x.UInt2 := 16#0#;
+      Reserved_12_13 : STM32F429x.UInt2 := 16#0#;
       --  SPI2 clock enable during Sleep mode
       SPI2LPEN       : APB1LPENR_SPI2LPEN_Field := 16#1#;
       --  SPI3 clock enable during Sleep mode
       SPI3LPEN       : APB1LPENR_SPI3LPEN_Field := 16#1#;
       --  unspecified
-      Reserved_16_16 : STM32F40x.Bit := 16#0#;
+      Reserved_16_16 : STM32F429x.Bit := 16#0#;
       --  USART2 clock enable during Sleep mode
       USART2LPEN     : APB1LPENR_USART2LPEN_Field := 16#1#;
       --  USART3 clock enable during Sleep mode
@@ -1180,19 +1286,21 @@ package STM32F40x.RCC is
       --  I2C3 clock enable during Sleep mode
       I2C3LPEN       : APB1LPENR_I2C3LPEN_Field := 16#1#;
       --  unspecified
-      Reserved_24_24 : STM32F40x.Bit := 16#0#;
+      Reserved_24_24 : STM32F429x.Bit := 16#0#;
       --  CAN 1 clock enable during Sleep mode
       CAN1LPEN       : APB1LPENR_CAN1LPEN_Field := 16#1#;
       --  CAN 2 clock enable during Sleep mode
       CAN2LPEN       : APB1LPENR_CAN2LPEN_Field := 16#1#;
       --  unspecified
-      Reserved_27_27 : STM32F40x.Bit := 16#0#;
+      Reserved_27_27 : STM32F429x.Bit := 16#0#;
       --  Power interface clock enable during Sleep mode
       PWRLPEN        : APB1LPENR_PWRLPEN_Field := 16#1#;
       --  DAC interface clock enable during Sleep mode
       DACLPEN        : APB1LPENR_DACLPEN_Field := 16#1#;
-      --  unspecified
-      Reserved_30_31 : STM32F40x.UInt2 := 16#0#;
+      --  UART7 clock enable during Sleep mode
+      UART7LPEN      : APB1LPENR_UART7LPEN_Field := 16#0#;
+      --  UART8 clock enable during Sleep mode
+      UART8LPEN      : APB1LPENR_UART8LPEN_Field := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
@@ -1225,22 +1333,28 @@ package STM32F40x.RCC is
       Reserved_27_27 at 0 range 27 .. 27;
       PWRLPEN        at 0 range 28 .. 28;
       DACLPEN        at 0 range 29 .. 29;
-      Reserved_30_31 at 0 range 30 .. 31;
+      UART7LPEN      at 0 range 30 .. 30;
+      UART8LPEN      at 0 range 31 .. 31;
    end record;
 
-   subtype APB2LPENR_TIM1LPEN_Field is STM32F40x.Bit;
-   subtype APB2LPENR_TIM8LPEN_Field is STM32F40x.Bit;
-   subtype APB2LPENR_USART1LPEN_Field is STM32F40x.Bit;
-   subtype APB2LPENR_USART6LPEN_Field is STM32F40x.Bit;
-   subtype APB2LPENR_ADC1LPEN_Field is STM32F40x.Bit;
-   subtype APB2LPENR_ADC2LPEN_Field is STM32F40x.Bit;
-   subtype APB2LPENR_ADC3LPEN_Field is STM32F40x.Bit;
-   subtype APB2LPENR_SDIOLPEN_Field is STM32F40x.Bit;
-   subtype APB2LPENR_SPI1LPEN_Field is STM32F40x.Bit;
-   subtype APB2LPENR_SYSCFGLPEN_Field is STM32F40x.Bit;
-   subtype APB2LPENR_TIM9LPEN_Field is STM32F40x.Bit;
-   subtype APB2LPENR_TIM10LPEN_Field is STM32F40x.Bit;
-   subtype APB2LPENR_TIM11LPEN_Field is STM32F40x.Bit;
+   subtype APB2LPENR_TIM1LPEN_Field is STM32F429x.Bit;
+   subtype APB2LPENR_TIM8LPEN_Field is STM32F429x.Bit;
+   subtype APB2LPENR_USART1LPEN_Field is STM32F429x.Bit;
+   subtype APB2LPENR_USART6LPEN_Field is STM32F429x.Bit;
+   subtype APB2LPENR_ADC1LPEN_Field is STM32F429x.Bit;
+   subtype APB2LPENR_ADC2LPEN_Field is STM32F429x.Bit;
+   subtype APB2LPENR_ADC3LPEN_Field is STM32F429x.Bit;
+   subtype APB2LPENR_SDIOLPEN_Field is STM32F429x.Bit;
+   subtype APB2LPENR_SPI1LPEN_Field is STM32F429x.Bit;
+   subtype APB2LPENR_SPI4LPEN_Field is STM32F429x.Bit;
+   subtype APB2LPENR_SYSCFGLPEN_Field is STM32F429x.Bit;
+   subtype APB2LPENR_TIM9LPEN_Field is STM32F429x.Bit;
+   subtype APB2LPENR_TIM10LPEN_Field is STM32F429x.Bit;
+   subtype APB2LPENR_TIM11LPEN_Field is STM32F429x.Bit;
+   subtype APB2LPENR_SPI5LPEN_Field is STM32F429x.Bit;
+   subtype APB2LPENR_SPI6LPEN_Field is STM32F429x.Bit;
+   subtype APB2LPENR_SAI1LPEN_Field is STM32F429x.Bit;
+   subtype APB2LPENR_LTDCLPEN_Field is STM32F429x.Bit;
 
    --  APB2 peripheral clock enabled in low power mode register
    type APB2LPENR_Register is record
@@ -1249,13 +1363,13 @@ package STM32F40x.RCC is
       --  TIM8 clock enable during Sleep mode
       TIM8LPEN       : APB2LPENR_TIM8LPEN_Field := 16#1#;
       --  unspecified
-      Reserved_2_3   : STM32F40x.UInt2 := 16#0#;
+      Reserved_2_3   : STM32F429x.UInt2 := 16#0#;
       --  USART1 clock enable during Sleep mode
       USART1LPEN     : APB2LPENR_USART1LPEN_Field := 16#1#;
       --  USART6 clock enable during Sleep mode
       USART6LPEN     : APB2LPENR_USART6LPEN_Field := 16#1#;
       --  unspecified
-      Reserved_6_7   : STM32F40x.UInt2 := 16#0#;
+      Reserved_6_7   : STM32F429x.UInt2 := 16#0#;
       --  ADC1 clock enable during Sleep mode
       ADC1LPEN       : APB2LPENR_ADC1LPEN_Field := 16#1#;
       --  ADC2 clock enable during Sleep mode
@@ -1266,12 +1380,12 @@ package STM32F40x.RCC is
       SDIOLPEN       : APB2LPENR_SDIOLPEN_Field := 16#1#;
       --  SPI 1 clock enable during Sleep mode
       SPI1LPEN       : APB2LPENR_SPI1LPEN_Field := 16#1#;
-      --  unspecified
-      Reserved_13_13 : STM32F40x.Bit := 16#0#;
+      --  SPI 4 clock enable during Sleep mode
+      SPI4LPEN       : APB2LPENR_SPI4LPEN_Field := 16#0#;
       --  System configuration controller clock enable during Sleep mode
       SYSCFGLPEN     : APB2LPENR_SYSCFGLPEN_Field := 16#1#;
       --  unspecified
-      Reserved_15_15 : STM32F40x.Bit := 16#0#;
+      Reserved_15_15 : STM32F429x.Bit := 16#0#;
       --  TIM9 clock enable during sleep mode
       TIM9LPEN       : APB2LPENR_TIM9LPEN_Field := 16#1#;
       --  TIM10 clock enable during Sleep mode
@@ -1279,7 +1393,19 @@ package STM32F40x.RCC is
       --  TIM11 clock enable during Sleep mode
       TIM11LPEN      : APB2LPENR_TIM11LPEN_Field := 16#1#;
       --  unspecified
-      Reserved_19_31 : STM32F40x.UInt13 := 16#0#;
+      Reserved_19_19 : STM32F429x.Bit := 16#0#;
+      --  SPI 5 clock enable during Sleep mode
+      SPI5LPEN       : APB2LPENR_SPI5LPEN_Field := 16#0#;
+      --  SPI 6 clock enable during Sleep mode
+      SPI6LPEN       : APB2LPENR_SPI6LPEN_Field := 16#0#;
+      --  SAI1 clock enable
+      SAI1LPEN       : APB2LPENR_SAI1LPEN_Field := 16#0#;
+      --  unspecified
+      Reserved_23_25 : STM32F429x.UInt3 := 16#0#;
+      --  LTDC clock enable
+      LTDCLPEN       : APB2LPENR_LTDCLPEN_Field := 16#0#;
+      --  unspecified
+      Reserved_27_31 : STM32F429x.UInt5 := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
@@ -1295,20 +1421,26 @@ package STM32F40x.RCC is
       ADC3LPEN       at 0 range 10 .. 10;
       SDIOLPEN       at 0 range 11 .. 11;
       SPI1LPEN       at 0 range 12 .. 12;
-      Reserved_13_13 at 0 range 13 .. 13;
+      SPI4LPEN       at 0 range 13 .. 13;
       SYSCFGLPEN     at 0 range 14 .. 14;
       Reserved_15_15 at 0 range 15 .. 15;
       TIM9LPEN       at 0 range 16 .. 16;
       TIM10LPEN      at 0 range 17 .. 17;
       TIM11LPEN      at 0 range 18 .. 18;
-      Reserved_19_31 at 0 range 19 .. 31;
+      Reserved_19_19 at 0 range 19 .. 19;
+      SPI5LPEN       at 0 range 20 .. 20;
+      SPI6LPEN       at 0 range 21 .. 21;
+      SAI1LPEN       at 0 range 22 .. 22;
+      Reserved_23_25 at 0 range 23 .. 25;
+      LTDCLPEN       at 0 range 26 .. 26;
+      Reserved_27_31 at 0 range 27 .. 31;
    end record;
 
-   subtype BDCR_LSEON_Field is STM32F40x.Bit;
-   subtype BDCR_LSERDY_Field is STM32F40x.Bit;
-   subtype BDCR_LSEBYP_Field is STM32F40x.Bit;
+   subtype BDCR_LSEON_Field is STM32F429x.Bit;
+   subtype BDCR_LSERDY_Field is STM32F429x.Bit;
+   subtype BDCR_LSEBYP_Field is STM32F429x.Bit;
    --  BDCR_RTCSEL array element
-   subtype BDCR_RTCSEL_Element is STM32F40x.Bit;
+   subtype BDCR_RTCSEL_Element is STM32F429x.Bit;
 
    --  BDCR_RTCSEL array
    type BDCR_RTCSEL_Field_Array is array (0 .. 1) of BDCR_RTCSEL_Element
@@ -1321,7 +1453,7 @@ package STM32F40x.RCC is
       case As_Array is
          when False =>
             --  RTCSEL as a value
-            Val : STM32F40x.UInt2;
+            Val : STM32F429x.UInt2;
          when True =>
             --  RTCSEL as an array
             Arr : BDCR_RTCSEL_Field_Array;
@@ -1334,8 +1466,8 @@ package STM32F40x.RCC is
       Arr at 0 range 0 .. 1;
    end record;
 
-   subtype BDCR_RTCEN_Field is STM32F40x.Bit;
-   subtype BDCR_BDRST_Field is STM32F40x.Bit;
+   subtype BDCR_RTCEN_Field is STM32F429x.Bit;
+   subtype BDCR_BDRST_Field is STM32F429x.Bit;
 
    --  Backup domain control register
    type BDCR_Register is record
@@ -1346,17 +1478,17 @@ package STM32F40x.RCC is
       --  External low-speed oscillator bypass
       LSEBYP         : BDCR_LSEBYP_Field := 16#0#;
       --  unspecified
-      Reserved_3_7   : STM32F40x.UInt5 := 16#0#;
+      Reserved_3_7   : STM32F429x.UInt5 := 16#0#;
       --  RTC clock source selection
       RTCSEL         : BDCR_RTCSEL_Field := (As_Array => False, Val => 16#0#);
       --  unspecified
-      Reserved_10_14 : STM32F40x.UInt5 := 16#0#;
+      Reserved_10_14 : STM32F429x.UInt5 := 16#0#;
       --  RTC clock enable
       RTCEN          : BDCR_RTCEN_Field := 16#0#;
       --  Backup domain software reset
       BDRST          : BDCR_BDRST_Field := 16#0#;
       --  unspecified
-      Reserved_17_31 : STM32F40x.UInt15 := 16#0#;
+      Reserved_17_31 : STM32F429x.UInt15 := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
@@ -1372,16 +1504,16 @@ package STM32F40x.RCC is
       Reserved_17_31 at 0 range 17 .. 31;
    end record;
 
-   subtype CSR_LSION_Field is STM32F40x.Bit;
-   subtype CSR_LSIRDY_Field is STM32F40x.Bit;
-   subtype CSR_RMVF_Field is STM32F40x.Bit;
-   subtype CSR_BORRSTF_Field is STM32F40x.Bit;
-   subtype CSR_PADRSTF_Field is STM32F40x.Bit;
-   subtype CSR_PORRSTF_Field is STM32F40x.Bit;
-   subtype CSR_SFTRSTF_Field is STM32F40x.Bit;
-   subtype CSR_WDGRSTF_Field is STM32F40x.Bit;
-   subtype CSR_WWDGRSTF_Field is STM32F40x.Bit;
-   subtype CSR_LPWRRSTF_Field is STM32F40x.Bit;
+   subtype CSR_LSION_Field is STM32F429x.Bit;
+   subtype CSR_LSIRDY_Field is STM32F429x.Bit;
+   subtype CSR_RMVF_Field is STM32F429x.Bit;
+   subtype CSR_BORRSTF_Field is STM32F429x.Bit;
+   subtype CSR_PADRSTF_Field is STM32F429x.Bit;
+   subtype CSR_PORRSTF_Field is STM32F429x.Bit;
+   subtype CSR_SFTRSTF_Field is STM32F429x.Bit;
+   subtype CSR_WDGRSTF_Field is STM32F429x.Bit;
+   subtype CSR_WWDGRSTF_Field is STM32F429x.Bit;
+   subtype CSR_LPWRRSTF_Field is STM32F429x.Bit;
 
    --  clock control & status register
    type CSR_Register is record
@@ -1390,7 +1522,7 @@ package STM32F40x.RCC is
       --  Read-only. Internal low-speed oscillator ready
       LSIRDY        : CSR_LSIRDY_Field := 16#0#;
       --  unspecified
-      Reserved_2_23 : STM32F40x.UInt22 := 16#0#;
+      Reserved_2_23 : STM32F429x.UInt22 := 16#0#;
       --  Remove reset flag
       RMVF          : CSR_RMVF_Field := 16#0#;
       --  BOR reset flag
@@ -1424,10 +1556,10 @@ package STM32F40x.RCC is
       LPWRRSTF      at 0 range 31 .. 31;
    end record;
 
-   subtype SSCGR_MODPER_Field is STM32F40x.UInt13;
-   subtype SSCGR_INCSTEP_Field is STM32F40x.UInt15;
-   subtype SSCGR_SPREADSEL_Field is STM32F40x.Bit;
-   subtype SSCGR_SSCGEN_Field is STM32F40x.Bit;
+   subtype SSCGR_MODPER_Field is STM32F429x.UInt13;
+   subtype SSCGR_INCSTEP_Field is STM32F429x.UInt15;
+   subtype SSCGR_SPREADSEL_Field is STM32F429x.Bit;
+   subtype SSCGR_SSCGEN_Field is STM32F429x.Bit;
 
    --  spread spectrum clock generation register
    type SSCGR_Register is record
@@ -1436,7 +1568,7 @@ package STM32F40x.RCC is
       --  Incrementation step
       INCSTEP        : SSCGR_INCSTEP_Field := 16#0#;
       --  unspecified
-      Reserved_28_29 : STM32F40x.UInt2 := 16#0#;
+      Reserved_28_29 : STM32F429x.UInt2 := 16#0#;
       --  Spread Select
       SPREADSEL      : SSCGR_SPREADSEL_Field := 16#0#;
       --  Spread spectrum modulation enable
@@ -1452,30 +1584,109 @@ package STM32F40x.RCC is
       SSCGEN         at 0 range 31 .. 31;
    end record;
 
-   subtype PLLI2SCFGR_PLLI2SNx_Field is STM32F40x.UInt9;
-   subtype PLLI2SCFGR_PLLI2SRx_Field is STM32F40x.UInt3;
+   subtype PLLI2SCFGR_PLLI2SN_Field is STM32F429x.UInt9;
+   subtype PLLI2SCFGR_PLLI2SQ_Field is STM32F429x.UInt4;
+   subtype PLLI2SCFGR_PLLI2SR_Field is STM32F429x.UInt3;
 
    --  PLLI2S configuration register
    type PLLI2SCFGR_Register is record
       --  unspecified
-      Reserved_0_5   : STM32F40x.UInt6 := 16#0#;
+      Reserved_0_5   : STM32F429x.UInt6 := 16#0#;
       --  PLLI2S multiplication factor for VCO
-      PLLI2SNx       : PLLI2SCFGR_PLLI2SNx_Field := 16#C0#;
+      PLLI2SN        : PLLI2SCFGR_PLLI2SN_Field := 16#C0#;
       --  unspecified
-      Reserved_15_27 : STM32F40x.UInt13 := 16#0#;
+      Reserved_15_23 : STM32F429x.UInt9 := 16#0#;
+      --  PLLI2S division factor for SAI1 clock
+      PLLI2SQ        : PLLI2SCFGR_PLLI2SQ_Field := 16#0#;
       --  PLLI2S division factor for I2S clocks
-      PLLI2SRx       : PLLI2SCFGR_PLLI2SRx_Field := 16#2#;
+      PLLI2SR        : PLLI2SCFGR_PLLI2SR_Field := 16#2#;
       --  unspecified
-      Reserved_31_31 : STM32F40x.Bit := 16#0#;
+      Reserved_31_31 : STM32F429x.Bit := 16#0#;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
    for PLLI2SCFGR_Register use record
       Reserved_0_5   at 0 range 0 .. 5;
-      PLLI2SNx       at 0 range 6 .. 14;
-      Reserved_15_27 at 0 range 15 .. 27;
-      PLLI2SRx       at 0 range 28 .. 30;
+      PLLI2SN        at 0 range 6 .. 14;
+      Reserved_15_23 at 0 range 15 .. 23;
+      PLLI2SQ        at 0 range 24 .. 27;
+      PLLI2SR        at 0 range 28 .. 30;
       Reserved_31_31 at 0 range 31 .. 31;
+   end record;
+
+   subtype PLLSAICFGR_PLLSAIN_Field is STM32F429x.UInt9;
+   subtype PLLSAICFGR_PLLSAIQ_Field is STM32F429x.UInt4;
+   subtype PLLSAICFGR_PLLSAIR_Field is STM32F429x.UInt3;
+
+   --  PLLSAICFGR
+   type PLLSAICFGR_Register is record
+      --  unspecified
+      Reserved_0_5   : STM32F429x.UInt6 := 16#0#;
+      --  PLLSAIN
+      PLLSAIN        : PLLSAICFGR_PLLSAIN_Field := 16#C0#;
+      --  unspecified
+      Reserved_15_23 : STM32F429x.UInt9 := 16#0#;
+      --  PLLSAIN
+      PLLSAIQ        : PLLSAICFGR_PLLSAIQ_Field := 16#4#;
+      --  PLLSAIN
+      PLLSAIR        : PLLSAICFGR_PLLSAIR_Field := 16#2#;
+      --  unspecified
+      Reserved_31_31 : STM32F429x.Bit := 16#0#;
+   end record
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
+
+   for PLLSAICFGR_Register use record
+      Reserved_0_5   at 0 range 0 .. 5;
+      PLLSAIN        at 0 range 6 .. 14;
+      Reserved_15_23 at 0 range 15 .. 23;
+      PLLSAIQ        at 0 range 24 .. 27;
+      PLLSAIR        at 0 range 28 .. 30;
+      Reserved_31_31 at 0 range 31 .. 31;
+   end record;
+
+   subtype DCKCFGR_PLLI2SDIVQ_Field is STM32F429x.UInt5;
+   subtype DCKCFGR_PLLSAIDIVQ_Field is STM32F429x.UInt5;
+   subtype DCKCFGR_PLLSAIDIVR_Field is STM32F429x.UInt2;
+   subtype DCKCFGR_SAI1ASRC_Field is STM32F429x.UInt2;
+   subtype DCKCFGR_SAI1BSRC_Field is STM32F429x.UInt2;
+   subtype DCKCFGR_TIMPRE_Field is STM32F429x.Bit;
+
+   --  DCKCFGR
+   type DCKCFGR_Register is record
+      --  PLLI2SDIVQ
+      PLLI2SDIVQ     : DCKCFGR_PLLI2SDIVQ_Field := 16#0#;
+      --  unspecified
+      Reserved_5_7   : STM32F429x.UInt3 := 16#0#;
+      --  PLLSAIDIVQ
+      PLLSAIDIVQ     : DCKCFGR_PLLSAIDIVQ_Field := 16#0#;
+      --  unspecified
+      Reserved_13_15 : STM32F429x.UInt3 := 16#0#;
+      --  PLLSAIDIVR
+      PLLSAIDIVR     : DCKCFGR_PLLSAIDIVR_Field := 16#0#;
+      --  unspecified
+      Reserved_18_19 : STM32F429x.UInt2 := 16#0#;
+      --  SAI1ASRC
+      SAI1ASRC       : DCKCFGR_SAI1ASRC_Field := 16#0#;
+      --  SAI1BSRC
+      SAI1BSRC       : DCKCFGR_SAI1BSRC_Field := 16#0#;
+      --  TIMPRE
+      TIMPRE         : DCKCFGR_TIMPRE_Field := 16#0#;
+      --  unspecified
+      Reserved_25_31 : STM32F429x.UInt7 := 16#0#;
+   end record
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
+
+   for DCKCFGR_Register use record
+      PLLI2SDIVQ     at 0 range 0 .. 4;
+      Reserved_5_7   at 0 range 5 .. 7;
+      PLLSAIDIVQ     at 0 range 8 .. 12;
+      Reserved_13_15 at 0 range 13 .. 15;
+      PLLSAIDIVR     at 0 range 16 .. 17;
+      Reserved_18_19 at 0 range 18 .. 19;
+      SAI1ASRC       at 0 range 20 .. 21;
+      SAI1BSRC       at 0 range 22 .. 23;
+      TIMPRE         at 0 range 24 .. 24;
+      Reserved_25_31 at 0 range 25 .. 31;
    end record;
 
    -----------------
@@ -1553,6 +1764,12 @@ package STM32F40x.RCC is
       --  PLLI2S configuration register
       PLLI2SCFGR : aliased PLLI2SCFGR_Register;
       pragma Volatile_Full_Access (PLLI2SCFGR);
+      --  PLLSAICFGR
+      PLLSAICFGR : aliased PLLSAICFGR_Register;
+      pragma Volatile_Full_Access (PLLSAICFGR);
+      --  DCKCFGR
+      DCKCFGR    : aliased DCKCFGR_Register;
+      pragma Volatile_Full_Access (DCKCFGR);
    end record
      with Volatile;
 
@@ -1580,10 +1797,12 @@ package STM32F40x.RCC is
       CSR        at 16#74# range 0 .. 31;
       SSCGR      at 16#80# range 0 .. 31;
       PLLI2SCFGR at 16#84# range 0 .. 31;
+      PLLSAICFGR at 16#88# range 0 .. 31;
+      DCKCFGR    at 16#8C# range 0 .. 31;
    end record;
 
    --  Reset and clock control
    RCC_Periph : aliased RCC_Peripheral
      with Import, Address => RCC_Base;
 
-end STM32F40x.RCC;
+end STM32F429x.RCC;
