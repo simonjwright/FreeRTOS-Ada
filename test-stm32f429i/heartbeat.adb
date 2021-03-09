@@ -1,4 +1,4 @@
---  Copyright (C) 2016, 2017 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2021 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -17,59 +17,56 @@
 --  <http://www.gnu.org/licenses/>.
 
 with Ada.Real_Time;
-with STM32F429x.GPIO; use STM32F429x.GPIO;
-with STM32F429x.RCC;  use STM32F429x.RCC;
+with STM32.Device;
+with STM32.GPIO;
 
 package body Heartbeat is
 
+   type LED is (Green, Red);
+   for LED use (Green  => 13,
+                Red    => 14);
+
+   LEDs : STM32.GPIO.GPIO_Points
+     := (Green'Enum_Rep  => (Periph => STM32.Device.GPIO_G'Access,
+                             Pin => STM32.GPIO.Pin_13),
+         Red'Enum_Rep    => (Periph => STM32.Device.GPIO_G'Access,
+                             Pin => STM32.GPIO.Pin_14));
+
    task Beat
-   with Storage_Size => 1024
-   is
-      pragma Task_Name ("heartbeat.beat");
-   end Beat;
+   with Storage_Size => 1024;
 
    task body Beat is
-      Green_Pin : constant := 13;
-      Red_Pin   : constant := 14;
       use type Ada.Real_Time.Time;
    begin
       for J in 1 .. 5 loop
-         GPIOG_Periph.BSRR.BS := (As_Array => True,
-                                  Arr => (Green_Pin => 1, others => 0));
+         STM32.GPIO.Set (LEDs (Green'Enum_Rep));
          delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (100);
-         GPIOG_Periph.BSRR.BR := (As_Array => True,
-                                  Arr => (Green_Pin => 1, others => 0));
+         STM32.GPIO.Clear (LEDs (Green'Enum_Rep));
          delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (100);
       end loop;
       loop
-         GPIOG_Periph.BSRR.BS := (As_Array => True,
-                                  Arr => (Green_Pin => 1, others => 0));
-         delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (100);
-         GPIOG_Periph.BSRR.BR := (As_Array => True,
-                                  Arr => (Green_Pin => 1, others => 0));
-         delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (900);
-
-         GPIOG_Periph.BSRR.BS := (As_Array => True,
-                                  Arr => (Red_Pin => 1, others => 0));
-         delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (100);
-         GPIOG_Periph.BSRR.BR := (As_Array => True,
-                                  Arr => (Red_Pin => 1, others => 0));
-         delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (900);
+         for P of LEDs loop
+            STM32.GPIO.Set (P);
+            delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (100);
+            STM32.GPIO.Clear (P);
+            delay until Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (900);
+         end loop;
       end loop;
    end Beat;
 
-begin
-   --  Enable GPIOG
-   declare
-      AHB1ENR : STM32F429x.RCC.AHB1ENR_Register;
+   procedure Initialize;
+   procedure Initialize is
+      use STM32.Device;
+      use STM32.GPIO;
    begin
-      AHB1ENR := RCC_Periph.AHB1ENR;
-      AHB1ENR.GPIOGEN := 1;
-      RCC_Periph.AHB1ENR := AHB1ENR;
-   end;
+      Enable_Clock (GPIO_G);
+      Configure_IO (LEDs,
+                    Config => (Mode      => Mode_Out,
+                               Resistors => Pull_Up,
+                               others    => <>));
+      Clear (LEDs);
+   end Initialize;
 
-   --  PG13 is the green LED, PG14 is the red LED.
-   GPIOG_Periph.MODER := (As_Array => True,
-                          Arr      => (13 | 14    => 1,
-                                       others     => 0));
+begin
+   Initialize;
 end Heartbeat;
