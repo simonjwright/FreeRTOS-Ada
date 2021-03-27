@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  This spec has been automatically generated from ATSAM3X8E.svd
@@ -54,76 +53,76 @@ package ATSAM3X8E.EFC is
    --  Flash Command
    type FCR_FCMD_Field is
      (--  Get Flash Descriptor
-      Getd,
+      GETD,
       --  Write page
-      Wp,
+      WP,
       --  Write page and lock
-      Wpl,
+      WPL,
       --  Erase page and write page
-      Ewp,
+      EWP,
       --  Erase page and write page then lock
-      Ewpl,
+      EWPL,
       --  Erase all
-      Ea,
+      EA,
       --  Set Lock Bit
-      Slb,
+      SLB,
       --  Clear Lock Bit
-      Clb,
+      CLB,
       --  Get Lock Bit
-      Glb,
+      GLB,
       --  Set GPNVM Bit
-      Sgpb,
+      SGPB,
       --  Clear GPNVM Bit
-      Cgpb,
+      CGPB,
       --  Get GPNVM Bit
-      Ggpb,
+      GGPB,
       --  Start Read Unique Identifier
-      Stui,
+      STUI,
       --  Stop Read Unique Identifier
-      Spui,
+      SPUI,
       --  Get CALIB Bit
-      Gcalb)
+      GCALB)
      with Size => 8;
    for FCR_FCMD_Field use
-     (Getd => 0,
-      Wp => 1,
-      Wpl => 2,
-      Ewp => 3,
-      Ewpl => 4,
-      Ea => 5,
-      Slb => 8,
-      Clb => 9,
-      Glb => 10,
-      Sgpb => 11,
-      Cgpb => 12,
-      Ggpb => 13,
-      Stui => 14,
-      Spui => 15,
-      Gcalb => 16);
+     (GETD => 0,
+      WP => 1,
+      WPL => 2,
+      EWP => 3,
+      EWPL => 4,
+      EA => 5,
+      SLB => 8,
+      CLB => 9,
+      GLB => 10,
+      SGPB => 11,
+      CGPB => 12,
+      GGPB => 13,
+      STUI => 14,
+      SPUI => 15,
+      GCALB => 16);
 
    subtype EFC0_FCR_FARG_Field is ATSAM3X8E.UInt16;
 
    --  Flash Writing Protection Key
    type FCR_FKEY_Field is
      (--  Reset value for the field
-      Fcr_Fkey_Field_Reset,
+      FCR_FKEY_Field_Reset,
       --  The 0x5A value enables the command defined by the bits of the register. If
 --  the field is written with a different value, the write is not performed and
 --  no action is started.
-      Passwd)
+      PASSWD)
      with Size => 8;
    for FCR_FKEY_Field use
-     (Fcr_Fkey_Field_Reset => 0,
-      Passwd => 90);
+     (FCR_FKEY_Field_Reset => 0,
+      PASSWD => 90);
 
    --  EEFC Flash Command Register
    type EFC0_FCR_Register is record
       --  Write-only. Flash Command
-      FCMD : FCR_FCMD_Field := ATSAM3X8E.EFC.Getd;
+      FCMD : FCR_FCMD_Field := ATSAM3X8E.EFC.GETD;
       --  Write-only. Flash Command Argument
       FARG : EFC0_FCR_FARG_Field := 16#0#;
       --  Write-only. Flash Writing Protection Key
-      FKEY : FCR_FKEY_Field := Fcr_Fkey_Field_Reset;
+      FKEY : FCR_FKEY_Field := FCR_FKEY_Field_Reset;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 

@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  This spec has been automatically generated from ATSAM3X8E.svd
@@ -16,19 +15,19 @@ package ATSAM3X8E.EBI is
 
    type CFG_PAGESIZE_Field is
      (--  Main area 512 Bytes + Spare area 16 Bytes = 528 Bytes
-      Ps512_16,
+      PS512_16,
       --  Main area 1024 Bytes + Spare area 32 Bytes = 1056 Bytes
-      Ps1024_32,
+      PS1024_32,
       --  Main area 2048 Bytes + Spare area 64 Bytes = 2112 Bytes
-      Ps2048_64,
+      PS2048_64,
       --  Main area 4096 Bytes + Spare area 128 Bytes = 4224 Bytes
-      Ps4096_128)
+      PS4096_128)
      with Size => 2;
    for CFG_PAGESIZE_Field use
-     (Ps512_16 => 0,
-      Ps1024_32 => 1,
-      Ps2048_64 => 2,
-      Ps4096_128 => 3);
+     (PS512_16 => 0,
+      PS1024_32 => 1,
+      PS2048_64 => 2,
+      PS4096_128 => 3);
 
    subtype SMC_CFG_WSPARE_Field is ATSAM3X8E.Bit;
    subtype SMC_CFG_RSPARE_Field is ATSAM3X8E.Bit;
@@ -67,7 +66,7 @@ package ATSAM3X8E.EBI is
 
    --  SMC NFC Configuration Register
    type SMC_CFG_Register is record
-      PAGESIZE       : CFG_PAGESIZE_Field := ATSAM3X8E.EBI.Ps512_16;
+      PAGESIZE       : CFG_PAGESIZE_Field := ATSAM3X8E.EBI.PS512_16;
       --  unspecified
       Reserved_2_7   : ATSAM3X8E.UInt6 := 16#0#;
       --  Write Spare Area
@@ -430,25 +429,25 @@ package ATSAM3X8E.EBI is
    --  ECC Page Size
    type ECC_MD_ECC_PAGESIZE_Field is
      (--  Main area 512 Bytes + Spare area 16 Bytes = 528 Bytes
-      Ps512_16,
+      PS512_16,
       --  Main area 1024 Bytes + Spare area 32 Bytes = 1056 Bytes
-      Ps1024_32,
+      PS1024_32,
       --  Main area 2048 Bytes + Spare area 64 Bytes = 2112 Bytes
-      Ps2048_64,
+      PS2048_64,
       --  Main area 4096 Bytes + Spare area 128 Bytes = 4224 Bytes
-      Ps4096_128)
+      PS4096_128)
      with Size => 2;
    for ECC_MD_ECC_PAGESIZE_Field use
-     (Ps512_16 => 0,
-      Ps1024_32 => 1,
-      Ps2048_64 => 2,
-      Ps4096_128 => 3);
+     (PS512_16 => 0,
+      PS1024_32 => 1,
+      PS2048_64 => 2,
+      PS4096_128 => 3);
 
    --  Type of Correction
    type ECC_MD_TYPCORREC_Field is
      (--  1 bit correction for a page of 512/1024/2048/4096 Bytes (for 8 or 16-bit
 --  NAND Flash)
-      Cpage,
+      CPAGE,
       --  1 bit correction for 256 Bytes of data for a page of 512/2048/4096 bytes
 --  (for 8-bit NAND Flash only)
       C256B,
@@ -457,18 +456,18 @@ package ATSAM3X8E.EBI is
       C512B)
      with Size => 2;
    for ECC_MD_TYPCORREC_Field use
-     (Cpage => 0,
+     (CPAGE => 0,
       C256B => 1,
       C512B => 2);
 
    --  SMC ECC Mode Register
    type SMC_ECC_MD_Register is record
       --  ECC Page Size
-      ECC_PAGESIZE  : ECC_MD_ECC_PAGESIZE_Field := ATSAM3X8E.EBI.Ps512_16;
+      ECC_PAGESIZE  : ECC_MD_ECC_PAGESIZE_Field := ATSAM3X8E.EBI.PS512_16;
       --  unspecified
       Reserved_2_3  : ATSAM3X8E.UInt2 := 16#0#;
       --  Type of Correction
-      TYPCORREC     : ECC_MD_TYPCORREC_Field := ATSAM3X8E.EBI.Cpage;
+      TYPCORREC     : ECC_MD_TYPCORREC_Field := ATSAM3X8E.EBI.CPAGE;
       --  unspecified
       Reserved_6_31 : ATSAM3X8E.UInt26 := 16#0#;
    end record
@@ -1255,62 +1254,62 @@ package ATSAM3X8E.EBI is
 
    type MODE0_READ_MODE_Field is
      (--  The Read operation is controlled by the NCS signal.
-      Ncs_Ctrl,
+      NCS_CTRL,
       --  The Read operation is controlled by the NRD signal.
-      Nrd_Ctrl)
+      NRD_CTRL)
      with Size => 1;
    for MODE0_READ_MODE_Field use
-     (Ncs_Ctrl => 0,
-      Nrd_Ctrl => 1);
+     (NCS_CTRL => 0,
+      NRD_CTRL => 1);
 
    type MODE0_WRITE_MODE_Field is
      (--  The Write operation is controller by the NCS signal.
-      Ncs_Ctrl,
+      NCS_CTRL,
       --  The Write operation is controlled by the NWE signal.
-      Nwe_Ctrl)
+      NWE_CTRL)
      with Size => 1;
    for MODE0_WRITE_MODE_Field use
-     (Ncs_Ctrl => 0,
-      Nwe_Ctrl => 1);
+     (NCS_CTRL => 0,
+      NWE_CTRL => 1);
 
    --  NWAIT Mode
    type MODE0_EXNW_MODE_Field is
      (--  Disabled
-      Disabled,
+      DISABLED,
       --  Frozen Mode
-      Frozen,
+      FROZEN,
       --  Ready Mode
-      Ready)
+      READY)
      with Size => 2;
    for MODE0_EXNW_MODE_Field use
-     (Disabled => 0,
-      Frozen => 2,
-      Ready => 3);
+     (DISABLED => 0,
+      FROZEN => 2,
+      READY => 3);
 
    subtype MODE_BAT_Field is ATSAM3X8E.Bit;
 
    --  Data Bus Width
    type MODE0_DBW_Field is
      (--  8-bit bus
-      Bit_8,
+      BIT_8,
       --  16-bit bus
-      Bit_16)
+      BIT_16)
      with Size => 1;
    for MODE0_DBW_Field use
-     (Bit_8 => 0,
-      Bit_16 => 1);
+     (BIT_8 => 0,
+      BIT_16 => 1);
 
    subtype MODE_TDF_CYCLES_Field is ATSAM3X8E.UInt4;
    subtype MODE_TDF_MODE_Field is ATSAM3X8E.Bit;
 
    --  SMC Mode Register (CS_number = 0)
    type MODE_Register is record
-      READ_MODE      : MODE0_READ_MODE_Field := ATSAM3X8E.EBI.Nrd_Ctrl;
-      WRITE_MODE     : MODE0_WRITE_MODE_Field := ATSAM3X8E.EBI.Nwe_Ctrl;
+      READ_MODE      : MODE0_READ_MODE_Field := ATSAM3X8E.EBI.NRD_CTRL;
+      WRITE_MODE     : MODE0_WRITE_MODE_Field := ATSAM3X8E.EBI.NWE_CTRL;
       --  unspecified
       Reserved_2_3   : ATSAM3X8E.UInt2 := 16#0#;
       --  NWAIT Mode
-      EXNW_MODE      : MODE0_EXNW_MODE_Field := ATSAM3X8E.EBI.Disabled;
+      EXNW_MODE      : MODE0_EXNW_MODE_Field := ATSAM3X8E.EBI.DISABLED;
       --  unspecified
       Reserved_6_7   : ATSAM3X8E.UInt2 := 16#0#;
       --  Byte Access Type
@@ -1318,7 +1317,7 @@ package ATSAM3X8E.EBI is
       --  unspecified
       Reserved_9_11  : ATSAM3X8E.UInt3 := 16#0#;
       --  Data Bus Width
-      DBW            : MODE0_DBW_Field := ATSAM3X8E.EBI.Bit_8;
+      DBW            : MODE0_DBW_Field := ATSAM3X8E.EBI.BIT_8;
       --  unspecified
       Reserved_13_15 : ATSAM3X8E.UInt3 := 16#0#;
       --  Data Float Time
@@ -1414,8 +1413,8 @@ package ATSAM3X8E.EBI is
 
    type SMC_Disc is
      (Default,
-      W9Bit,
-      W8Bit);
+      W9BIT,
+      W8BIT);
 
    --  Static Memory Controller
    type SMC_Peripheral
@@ -1640,14 +1639,14 @@ package ATSAM3X8E.EBI is
             --  SMC ECC parity 7 Register
             ECC_PR7 : aliased ECC_PR_Register;
             pragma Volatile_Full_Access (ECC_PR7);
-         when W9Bit =>
+         when W9BIT =>
             --  SMC ECC Parity 0 Register
             ECC_PR0_W9BIT : aliased SMC_ECC_PR0_W9BIT_Register;
             pragma Volatile_Full_Access (ECC_PR0_W9BIT);
             --  SMC ECC parity 1 Register
             ECC_PR1_W9BIT : aliased SMC_ECC_PR1_W9BIT_Register;
             pragma Volatile_Full_Access (ECC_PR1_W9BIT);
-         when W8Bit =>
+         when W8BIT =>
             --  SMC ECC Parity 0 Register
             ECC_PR0_W8BIT : aliased SMC_ECC_PR0_W8BIT_Register;
             pragma Volatile_Full_Access (ECC_PR0_W8BIT);

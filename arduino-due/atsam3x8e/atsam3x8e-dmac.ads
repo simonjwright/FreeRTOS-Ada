@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  This spec has been automatically generated from ATSAM3X8E.svd
@@ -18,20 +17,20 @@ package ATSAM3X8E.DMAC is
    --  Arbiter Configuration
    type GCFG_ARB_CFG_Field is
      (--  Fixed priority arbiter.
-      Fixed,
+      FIXED,
       --  Modified round robin arbiter.
-      Round_Robin)
+      ROUND_ROBIN)
      with Size => 1;
    for GCFG_ARB_CFG_Field use
-     (Fixed => 0,
-      Round_Robin => 1);
+     (FIXED => 0,
+      ROUND_ROBIN => 1);
 
    --  DMAC Global Configuration Register
    type DMAC_GCFG_Register is record
       --  unspecified
       Reserved_0_3  : ATSAM3X8E.UInt4 := 16#0#;
       --  Arbiter Configuration
-      ARB_CFG       : GCFG_ARB_CFG_Field := ATSAM3X8E.DMAC.Round_Robin;
+      ARB_CFG       : GCFG_ARB_CFG_Field := ATSAM3X8E.DMAC.ROUND_ROBIN;
       --  unspecified
       Reserved_5_31 : ATSAM3X8E.UInt27 := 16#0#;
    end record
@@ -1040,88 +1039,88 @@ package ATSAM3X8E.DMAC is
    --  Source Chunk Transfer Size.
    type CTRLA0_SCSIZE_Field is
      (--  1 data transferred
-      Chk_1,
+      CHK_1,
       --  4 data transferred
-      Chk_4,
+      CHK_4,
       --  8 data transferred
-      Chk_8,
+      CHK_8,
       --  16 data transferred
-      Chk_16,
+      CHK_16,
       --  32 data transferred
-      Chk_32,
+      CHK_32,
       --  64 data transferred
-      Chk_64,
+      CHK_64,
       --  128 data transferred
-      Chk_128,
+      CHK_128,
       --  256 data transferred
-      Chk_256)
+      CHK_256)
      with Size => 3;
    for CTRLA0_SCSIZE_Field use
-     (Chk_1 => 0,
-      Chk_4 => 1,
-      Chk_8 => 2,
-      Chk_16 => 3,
-      Chk_32 => 4,
-      Chk_64 => 5,
-      Chk_128 => 6,
-      Chk_256 => 7);
+     (CHK_1 => 0,
+      CHK_4 => 1,
+      CHK_8 => 2,
+      CHK_16 => 3,
+      CHK_32 => 4,
+      CHK_64 => 5,
+      CHK_128 => 6,
+      CHK_256 => 7);
 
    --  Destination Chunk Transfer Size
    type CTRLA0_DCSIZE_Field is
      (--  1 data transferred
-      Chk_1,
+      CHK_1,
       --  4 data transferred
-      Chk_4,
+      CHK_4,
       --  8 data transferred
-      Chk_8,
+      CHK_8,
       --  16 data transferred
-      Chk_16,
+      CHK_16,
       --  32 data transferred
-      Chk_32,
+      CHK_32,
       --  64 data transferred
-      Chk_64,
+      CHK_64,
       --  128 data transferred
-      Chk_128,
+      CHK_128,
       --  256 data transferred
-      Chk_256)
+      CHK_256)
      with Size => 3;
    for CTRLA0_DCSIZE_Field use
-     (Chk_1 => 0,
-      Chk_4 => 1,
-      Chk_8 => 2,
-      Chk_16 => 3,
-      Chk_32 => 4,
-      Chk_64 => 5,
-      Chk_128 => 6,
-      Chk_256 => 7);
+     (CHK_1 => 0,
+      CHK_4 => 1,
+      CHK_8 => 2,
+      CHK_16 => 3,
+      CHK_32 => 4,
+      CHK_64 => 5,
+      CHK_128 => 6,
+      CHK_256 => 7);
 
    --  Transfer Width for the Source
    type CTRLA0_SRC_WIDTH_Field is
      (--  the transfer size is set to 8-bit width
-      Byte,
+      BYTE,
       --  the transfer size is set to 16-bit width
-      Half_Word,
+      HALF_WORD,
       --  the transfer size is set to 32-bit width
-      Word)
+      WORD)
      with Size => 2;
    for CTRLA0_SRC_WIDTH_Field use
-     (Byte => 0,
-      Half_Word => 1,
-      Word => 2);
+     (BYTE => 0,
+      HALF_WORD => 1,
+      WORD => 2);
 
    --  Transfer Width for the Destination
    type CTRLA0_DST_WIDTH_Field is
      (--  the transfer size is set to 8-bit width
-      Byte,
+      BYTE,
       --  the transfer size is set to 16-bit width
-      Half_Word,
+      HALF_WORD,
       --  the transfer size is set to 32-bit width
-      Word)
+      WORD)
      with Size => 2;
    for CTRLA0_DST_WIDTH_Field use
-     (Byte => 0,
-      Half_Word => 1,
-      Word => 2);
+     (BYTE => 0,
+      HALF_WORD => 1,
+      WORD => 2);
 
    subtype CTRLA_DONE_Field is ATSAM3X8E.Bit;
 
@@ -1130,19 +1129,19 @@ package ATSAM3X8E.DMAC is
       --  Buffer Transfer Size
       BTSIZE         : CTRLA_BTSIZE_Field := 16#0#;
       --  Source Chunk Transfer Size.
-      SCSIZE         : CTRLA0_SCSIZE_Field := ATSAM3X8E.DMAC.Chk_1;
+      SCSIZE         : CTRLA0_SCSIZE_Field := ATSAM3X8E.DMAC.CHK_1;
       --  unspecified
       Reserved_19_19 : ATSAM3X8E.Bit := 16#0#;
       --  Destination Chunk Transfer Size
-      DCSIZE         : CTRLA0_DCSIZE_Field := ATSAM3X8E.DMAC.Chk_1;
+      DCSIZE         : CTRLA0_DCSIZE_Field := ATSAM3X8E.DMAC.CHK_1;
       --  unspecified
       Reserved_23_23 : ATSAM3X8E.Bit := 16#0#;
       --  Transfer Width for the Source
-      SRC_WIDTH      : CTRLA0_SRC_WIDTH_Field := ATSAM3X8E.DMAC.Byte;
+      SRC_WIDTH      : CTRLA0_SRC_WIDTH_Field := ATSAM3X8E.DMAC.BYTE;
       --  unspecified
       Reserved_26_27 : ATSAM3X8E.UInt2 := 16#0#;
       --  Transfer Width for the Destination
-      DST_WIDTH      : CTRLA0_DST_WIDTH_Field := ATSAM3X8E.DMAC.Byte;
+      DST_WIDTH      : CTRLA0_DST_WIDTH_Field := ATSAM3X8E.DMAC.BYTE;
       --  unspecified
       Reserved_30_30 : ATSAM3X8E.Bit := 16#0#;
       DONE           : CTRLA_DONE_Field := 16#0#;
@@ -1165,70 +1164,70 @@ package ATSAM3X8E.DMAC is
    --  Source Address Descriptor
    type CTRLB0_SRC_DSCR_Field is
      (--  Source address is updated when the descriptor is fetched from the memory.
-      Fetch_From_Mem,
+      FETCH_FROM_MEM,
       --  Buffer Descriptor Fetch operation is disabled for the source.
-      Fetch_Disable)
+      FETCH_DISABLE)
      with Size => 1;
    for CTRLB0_SRC_DSCR_Field use
-     (Fetch_From_Mem => 0,
-      Fetch_Disable => 1);
+     (FETCH_FROM_MEM => 0,
+      FETCH_DISABLE => 1);
 
    --  Destination Address Descriptor
    type CTRLB0_DST_DSCR_Field is
      (--  Destination address is updated when the descriptor is fetched from the
 --  memory.
-      Fetch_From_Mem,
+      FETCH_FROM_MEM,
       --  Buffer Descriptor Fetch operation is disabled for the destination.
-      Fetch_Disable)
+      FETCH_DISABLE)
      with Size => 1;
    for CTRLB0_DST_DSCR_Field use
-     (Fetch_From_Mem => 0,
-      Fetch_Disable => 1);
+     (FETCH_FROM_MEM => 0,
+      FETCH_DISABLE => 1);
 
    --  Flow Control
    type CTRLB0_FC_Field is
      (--  Memory-to-Memory Transfer DMAC is flow controller
-      Mem2Mem_Dma_Fc,
+      MEM2MEM_DMA_FC,
       --  Memory-to-Peripheral Transfer DMAC is flow controller
-      Mem2Per_Dma_Fc,
+      MEM2PER_DMA_FC,
       --  Peripheral-to-Memory Transfer DMAC is flow controller
-      Per2Mem_Dma_Fc,
+      PER2MEM_DMA_FC,
       --  Peripheral-to-Peripheral Transfer DMAC is flow controller
-      Per2Per_Dma_Fc)
+      PER2PER_DMA_FC)
      with Size => 3;
    for CTRLB0_FC_Field use
-     (Mem2Mem_Dma_Fc => 0,
-      Mem2Per_Dma_Fc => 1,
-      Per2Mem_Dma_Fc => 2,
-      Per2Per_Dma_Fc => 3);
+     (MEM2MEM_DMA_FC => 0,
+      MEM2PER_DMA_FC => 1,
+      PER2MEM_DMA_FC => 2,
+      PER2PER_DMA_FC => 3);
 
    --  Incrementing, Decrementing or Fixed Address for the Source
    type CTRLB0_SRC_INCR_Field is
      (--  The source address is incremented
-      Incrementing,
+      INCREMENTING,
       --  The source address is decremented
-      Decrementing,
+      DECREMENTING,
       --  The source address remains unchanged
-      Fixed)
+      FIXED)
      with Size => 2;
    for CTRLB0_SRC_INCR_Field use
-     (Incrementing => 0,
-      Decrementing => 1,
-      Fixed => 2);
+     (INCREMENTING => 0,
+      DECREMENTING => 1,
+      FIXED => 2);
 
    --  Incrementing, Decrementing or Fixed Address for the Destination
    type CTRLB0_DST_INCR_Field is
      (--  The destination address is incremented
-      Incrementing,
+      INCREMENTING,
       --  The destination address is decremented
-      Decrementing,
+      DECREMENTING,
       --  The destination address remains unchanged
-      Fixed)
+      FIXED)
      with Size => 2;
    for CTRLB0_DST_INCR_Field use
-     (Incrementing => 0,
-      Decrementing => 1,
-      Fixed => 2);
+     (INCREMENTING => 0,
+      DECREMENTING => 1,
+      FIXED => 2);
 
    subtype CTRLB_IEN_Field is ATSAM3X8E.Bit;
 
@@ -1237,19 +1236,19 @@ package ATSAM3X8E.DMAC is
       --  unspecified
       Reserved_0_15  : ATSAM3X8E.UInt16 := 16#0#;
       --  Source Address Descriptor
-      SRC_DSCR       : CTRLB0_SRC_DSCR_Field := ATSAM3X8E.DMAC.Fetch_From_Mem;
+      SRC_DSCR       : CTRLB0_SRC_DSCR_Field := ATSAM3X8E.DMAC.FETCH_FROM_MEM;
       --  unspecified
       Reserved_17_19 : ATSAM3X8E.UInt3 := 16#0#;
       --  Destination Address Descriptor
-      DST_DSCR       : CTRLB0_DST_DSCR_Field := ATSAM3X8E.DMAC.Fetch_From_Mem;
+      DST_DSCR       : CTRLB0_DST_DSCR_Field := ATSAM3X8E.DMAC.FETCH_FROM_MEM;
       --  Flow Control
-      FC             : CTRLB0_FC_Field := ATSAM3X8E.DMAC.Mem2Mem_Dma_Fc;
+      FC             : CTRLB0_FC_Field := ATSAM3X8E.DMAC.MEM2MEM_DMA_FC;
       --  Incrementing, Decrementing or Fixed Address for the Source
-      SRC_INCR       : CTRLB0_SRC_INCR_Field := ATSAM3X8E.DMAC.Incrementing;
+      SRC_INCR       : CTRLB0_SRC_INCR_Field := ATSAM3X8E.DMAC.INCREMENTING;
       --  unspecified
       Reserved_26_27 : ATSAM3X8E.UInt2 := 16#0#;
       --  Incrementing, Decrementing or Fixed Address for the Destination
-      DST_INCR       : CTRLB0_DST_INCR_Field := ATSAM3X8E.DMAC.Incrementing;
+      DST_INCR       : CTRLB0_DST_INCR_Field := ATSAM3X8E.DMAC.INCREMENTING;
       IEN            : CTRLB_IEN_Field := 16#0#;
       --  unspecified
       Reserved_31_31 : ATSAM3X8E.Bit := 16#0#;
@@ -1275,69 +1274,69 @@ package ATSAM3X8E.DMAC is
    --  Software or Hardware Selection for the Source
    type CFG0_SRC_H2SEL_Field is
      (--  Software handshaking interface is used to trigger a transfer request.
-      Sw,
+      SW,
       --  Hardware handshaking interface is used to trigger a transfer request.
-      Hw)
+      HW)
      with Size => 1;
    for CFG0_SRC_H2SEL_Field use
-     (Sw => 0,
-      Hw => 1);
+     (SW => 0,
+      HW => 1);
 
    --  Software or Hardware Selection for the Destination
    type CFG0_DST_H2SEL_Field is
      (--  Software handshaking interface is used to trigger a transfer request.
-      Sw,
+      SW,
       --  Hardware handshaking interface is used to trigger a transfer request.
-      Hw)
+      HW)
      with Size => 1;
    for CFG0_DST_H2SEL_Field use
-     (Sw => 0,
-      Hw => 1);
+     (SW => 0,
+      HW => 1);
 
    --  Stop On Done
    type CFG0_SOD_Field is
      (--  STOP ON DONE disabled, the descriptor fetch operation ignores DONE Field of
 --  CTRLA register.
-      Disable,
+      DISABLE,
       --  STOP ON DONE activated, the DMAC module is automatically disabled if DONE
 --  FIELD is set to 1.
-      Enable)
+      ENABLE)
      with Size => 1;
    for CFG0_SOD_Field use
-     (Disable => 0,
-      Enable => 1);
+     (DISABLE => 0,
+      ENABLE => 1);
 
    --  Interface Lock
    type CFG0_LOCK_IF_Field is
      (--  Interface Lock capability is disabled
-      Disable,
+      DISABLE,
       --  Interface Lock capability is enabled
-      Enable)
+      ENABLE)
      with Size => 1;
    for CFG0_LOCK_IF_Field use
-     (Disable => 0,
-      Enable => 1);
+     (DISABLE => 0,
+      ENABLE => 1);
 
    --  Bus Lock
    type CFG0_LOCK_B_Field is
      (--  AHB Bus Locking capability is disabled.
-      Disable)
+      DISABLE)
      with Size => 1;
    for CFG0_LOCK_B_Field use
-     (Disable => 0);
+     (DISABLE => 0);
 
    --  Master Interface Arbiter Lock
    type CFG0_LOCK_IF_L_Field is
      (--  The Master Interface Arbiter is locked by the channel x for a chunk
 --  transfer.
-      Chunk,
+      CHUNK,
       --  The Master Interface Arbiter is locked by the channel x for a buffer
 --  transfer.
-      Buffer)
+      BUFFER)
      with Size => 1;
    for CFG0_LOCK_IF_L_Field use
-     (Chunk => 0,
-      Buffer => 1);
+     (CHUNK => 0,
+      BUFFER => 1);
 
    subtype CFG_AHB_PROT_Field is ATSAM3X8E.UInt3;
 
@@ -1345,18 +1344,18 @@ package ATSAM3X8E.DMAC is
    type CFG0_FIFOCFG_Field is
      (--  The largest defined length AHB burst is performed on the destination AHB
 --  interface.
-      Alap_Cfg,
+      ALAP_CFG,
       --  When half FIFO size is available/filled, a source/destination request is
 --  serviced.
-      Half_Cfg,
+      HALF_CFG,
       --  When there is enough space/data available to perform a single AHB access,
 --  then the request is serviced.
-      Asap_Cfg)
+      ASAP_CFG)
      with Size => 2;
    for CFG0_FIFOCFG_Field use
-     (Alap_Cfg => 0,
-      Half_Cfg => 1,
-      Asap_Cfg => 2);
+     (ALAP_CFG => 0,
+      HALF_CFG => 1,
+      ASAP_CFG => 2);
 
    --  DMAC Channel Configuration Register (ch_num = 0)
    type CFG_Register is record
@@ -1367,23 +1366,23 @@ package ATSAM3X8E.DMAC is
       --  unspecified
       Reserved_8_8   : ATSAM3X8E.Bit := 16#0#;
       --  Software or Hardware Selection for the Source
-      SRC_H2SEL      : CFG0_SRC_H2SEL_Field := ATSAM3X8E.DMAC.Sw;
+      SRC_H2SEL      : CFG0_SRC_H2SEL_Field := ATSAM3X8E.DMAC.SW;
       --  unspecified
       Reserved_10_12 : ATSAM3X8E.UInt3 := 16#0#;
       --  Software or Hardware Selection for the Destination
-      DST_H2SEL      : CFG0_DST_H2SEL_Field := ATSAM3X8E.DMAC.Sw;
+      DST_H2SEL      : CFG0_DST_H2SEL_Field := ATSAM3X8E.DMAC.SW;
       --  unspecified
       Reserved_14_15 : ATSAM3X8E.UInt2 := 16#0#;
       --  Stop On Done
-      SOD            : CFG0_SOD_Field := ATSAM3X8E.DMAC.Disable;
+      SOD            : CFG0_SOD_Field := ATSAM3X8E.DMAC.DISABLE;
       --  unspecified
       Reserved_17_19 : ATSAM3X8E.UInt3 := 16#0#;
       --  Interface Lock
-      LOCK_IF        : CFG0_LOCK_IF_Field := ATSAM3X8E.DMAC.Disable;
+      LOCK_IF        : CFG0_LOCK_IF_Field := ATSAM3X8E.DMAC.DISABLE;
       --  Bus Lock
-      LOCK_B         : CFG0_LOCK_B_Field := ATSAM3X8E.DMAC.Disable;
+      LOCK_B         : CFG0_LOCK_B_Field := ATSAM3X8E.DMAC.DISABLE;
       --  Master Interface Arbiter Lock
-      LOCK_IF_L      : CFG0_LOCK_IF_L_Field := ATSAM3X8E.DMAC.Chunk;
+      LOCK_IF_L      : CFG0_LOCK_IF_L_Field := ATSAM3X8E.DMAC.CHUNK;
       --  unspecified
       Reserved_23_23 : ATSAM3X8E.Bit := 16#0#;
       --  AHB Protection
@@ -1391,7 +1390,7 @@ package ATSAM3X8E.DMAC is
       --  unspecified
       Reserved_27_27 : ATSAM3X8E.Bit := 16#0#;
       --  FIFO Configuration
-      FIFOCFG        : CFG0_FIFOCFG_Field := ATSAM3X8E.DMAC.Alap_Cfg;
+      FIFOCFG        : CFG0_FIFOCFG_Field := ATSAM3X8E.DMAC.ALAP_CFG;
       --  unspecified
       Reserved_30_31 : ATSAM3X8E.UInt2 := 16#0#;
    end record

@@ -95,7 +95,7 @@ begin
       PMC_MCKR : PMC_MCKR_Register;
    begin
       --  Select Main Clock, PRES 0 (no prescaling)
-      PMC_Periph.PMC_MCKR := (CSS    => Main_Clk,
+      PMC_Periph.PMC_MCKR := (CSS    => MAIN_CLK,
                               others => <>);
       --  Loop until ready
       loop
@@ -104,7 +104,7 @@ begin
 
       --  Set PRES 8
       PMC_MCKR            := PMC_Periph.PMC_MCKR;
-      PMC_MCKR.PRES       := Clk_8;
+      PMC_MCKR.PRES       := CLK_8;
       PMC_Periph.PMC_MCKR := PMC_MCKR;
       --  Loop until ready
       loop
@@ -115,7 +115,7 @@ begin
       --  Main_Clock above, as recommended
       --  Set PRES
       PMC_MCKR            := PMC_Periph.PMC_MCKR;
-      PMC_MCKR.PRES       := Clk_2;
+      PMC_MCKR.PRES       := CLK_2;
       PMC_Periph.PMC_MCKR := PMC_MCKR;
       --  Loop until ready
       loop
@@ -124,7 +124,7 @@ begin
 
       --  Set CSS
       PMC_MCKR            := PMC_Periph.PMC_MCKR;
-      PMC_MCKR.CSS        := Plla_Clk;
+      PMC_MCKR.CSS        := PLLA_CLK;
       PMC_Periph.PMC_MCKR := PMC_MCKR;
       --  Loop until ready
       loop

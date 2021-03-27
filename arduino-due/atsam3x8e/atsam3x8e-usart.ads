@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  This spec has been automatically generated from ATSAM3X8E.svd
@@ -161,124 +160,124 @@ package ATSAM3X8E.USART is
    --  USART Mode of Operation
    type MR_USART_MODE_Field is
      (--  Normal mode
-      Normal,
+      NORMAL,
       --  RS485
-      Rs485,
+      RS485,
       --  Hardware Handshaking
-      Hw_Handshaking,
+      HW_HANDSHAKING,
       --  IS07816 Protocol: T = 0
-      Is07816_T_0,
+      IS07816_T_0,
       --  IS07816 Protocol: T = 1
-      Is07816_T_1,
+      IS07816_T_1,
       --  IrDA
-      Irda,
+      IRDA,
       --  LIN Master
-      Lin_Master,
+      LIN_MASTER,
       --  LIN Slave
-      Lin_Slave,
+      LIN_SLAVE,
       --  SPI Master
-      Spi_Master,
+      SPI_MASTER,
       --  SPI Slave
-      Spi_Slave)
+      SPI_SLAVE)
      with Size => 4;
    for MR_USART_MODE_Field use
-     (Normal => 0,
-      Rs485 => 1,
-      Hw_Handshaking => 2,
-      Is07816_T_0 => 4,
-      Is07816_T_1 => 6,
-      Irda => 8,
-      Lin_Master => 10,
-      Lin_Slave => 11,
-      Spi_Master => 14,
-      Spi_Slave => 15);
+     (NORMAL => 0,
+      RS485 => 1,
+      HW_HANDSHAKING => 2,
+      IS07816_T_0 => 4,
+      IS07816_T_1 => 6,
+      IRDA => 8,
+      LIN_MASTER => 10,
+      LIN_SLAVE => 11,
+      SPI_MASTER => 14,
+      SPI_SLAVE => 15);
 
    --  Clock Selection
    type MR_USCLKS_Field is
      (--  Master Clock MCK is selected
-      Mck,
+      MCK,
       --  Internal Clock Divided MCK/DIV (DIV=8) is selected
-      Div,
+      DIV,
       --  Serial Clock SLK is selected
-      Sck)
+      SCK)
      with Size => 2;
    for MR_USCLKS_Field use
-     (Mck => 0,
-      Div => 1,
-      Sck => 3);
+     (MCK => 0,
+      DIV => 1,
+      SCK => 3);
 
    --  Character Length.
    type MR_CHRL_Field is
      (--  Character length is 5 bits
-      Val_5_Bit,
+      Val_5_BIT,
       --  Character length is 6 bits
-      Val_6_Bit,
+      Val_6_BIT,
       --  Character length is 7 bits
-      Val_7_Bit,
+      Val_7_BIT,
       --  Character length is 8 bits
-      Val_8_Bit)
+      Val_8_BIT)
      with Size => 2;
    for MR_CHRL_Field use
-     (Val_5_Bit => 0,
-      Val_6_Bit => 1,
-      Val_7_Bit => 2,
-      Val_8_Bit => 3);
+     (Val_5_BIT => 0,
+      Val_6_BIT => 1,
+      Val_7_BIT => 2,
+      Val_8_BIT => 3);
 
    subtype USART0_MR_SYNC_Field is ATSAM3X8E.Bit;
 
    --  Parity Type
    type MR_PAR_Field is
      (--  Even parity
-      Even,
+      EVEN,
       --  Odd parity
-      Odd,
+      ODD,
       --  Parity forced to 0 (Space)
-      Space,
+      SPACE,
       --  Parity forced to 1 (Mark)
-      Mark,
+      MARK,
       --  No parity
-      No,
+      NO,
       --  Multidrop mode
-      Multidrop)
+      MULTIDROP)
      with Size => 3;
    for MR_PAR_Field use
-     (Even => 0,
-      Odd => 1,
-      Space => 2,
-      Mark => 3,
-      No => 4,
-      Multidrop => 6);
+     (EVEN => 0,
+      ODD => 1,
+      SPACE => 2,
+      MARK => 3,
+      NO => 4,
+      MULTIDROP => 6);
 
    --  Number of Stop Bits
    type MR_NBSTOP_Field is
      (--  1 stop bit
-      Val_1_Bit,
+      Val_1_BIT,
       --  1.5 stop bit (SYNC = 0) or reserved (SYNC = 1)
-      Val_1_5_Bit,
+      Val_1_5_BIT,
       --  2 stop bits
-      Val_2_Bit)
+      Val_2_BIT)
      with Size => 2;
    for MR_NBSTOP_Field use
-     (Val_1_Bit => 0,
-      Val_1_5_Bit => 1,
-      Val_2_Bit => 2);
+     (Val_1_BIT => 0,
+      Val_1_5_BIT => 1,
+      Val_2_BIT => 2);
 
    --  Channel Mode
    type MR_CHMODE_Field is
      (--  Normal Mode
-      Normal,
+      NORMAL,
       --  Automatic Echo. Receiver input is connected to the TXD pin.
-      Automatic,
+      AUTOMATIC,
       --  Local Loopback. Transmitter output is connected to the Receiver Input.
-      Local_Loopback,
+      LOCAL_LOOPBACK,
       --  Remote Loopback. RXD pin is internally connected to the TXD pin.
-      Remote_Loopback)
+      REMOTE_LOOPBACK)
      with Size => 2;
    for MR_CHMODE_Field use
-     (Normal => 0,
-      Automatic => 1,
-      Local_Loopback => 2,
-      Remote_Loopback => 3);
+     (NORMAL => 0,
+      AUTOMATIC => 1,
+      LOCAL_LOOPBACK => 2,
+      REMOTE_LOOPBACK => 3);
 
    subtype USART0_MR_MSBF_Field is ATSAM3X8E.Bit;
    subtype USART0_MR_MODE9_Field is ATSAM3X8E.Bit;
@@ -297,19 +296,19 @@ package ATSAM3X8E.USART is
    --  Mode Register
    type USART0_MR_Register is record
       --  USART Mode of Operation
-      USART_MODE     : MR_USART_MODE_Field := ATSAM3X8E.USART.Normal;
+      USART_MODE     : MR_USART_MODE_Field := ATSAM3X8E.USART.NORMAL;
       --  Clock Selection
-      USCLKS         : MR_USCLKS_Field := ATSAM3X8E.USART.Mck;
+      USCLKS         : MR_USCLKS_Field := ATSAM3X8E.USART.MCK;
       --  Character Length.
-      CHRL           : MR_CHRL_Field := ATSAM3X8E.USART.Val_5_Bit;
+      CHRL           : MR_CHRL_Field := ATSAM3X8E.USART.Val_5_BIT;
       --  Synchronous Mode Select
       SYNC           : USART0_MR_SYNC_Field := 16#0#;
       --  Parity Type
-      PAR            : MR_PAR_Field := ATSAM3X8E.USART.Even;
+      PAR            : MR_PAR_Field := ATSAM3X8E.USART.EVEN;
       --  Number of Stop Bits
-      NBSTOP         : MR_NBSTOP_Field := ATSAM3X8E.USART.Val_1_Bit;
+      NBSTOP         : MR_NBSTOP_Field := ATSAM3X8E.USART.Val_1_BIT;
       --  Channel Mode
-      CHMODE         : MR_CHMODE_Field := ATSAM3X8E.USART.Normal;
+      CHMODE         : MR_CHMODE_Field := ATSAM3X8E.USART.NORMAL;
       --  Bit Order
       MSBF           : USART0_MR_MSBF_Field := 16#0#;
       --  9-bit Character Length
@@ -368,41 +367,41 @@ package ATSAM3X8E.USART is
    --  USART Mode of Operation
    type MR_SPI_MODE_USART_MODE_Field is
      (--  Reset value for the field
-      Mr_Spi_Mode_Usart_Mode_Field_Reset,
+      MR_SPI_MODE_USART_MODE_Field_Reset,
       --  SPI Master
-      Spi_Master,
+      SPI_MASTER,
       --  SPI Slave
-      Spi_Slave)
+      SPI_SLAVE)
      with Size => 4;
    for MR_SPI_MODE_USART_MODE_Field use
-     (Mr_Spi_Mode_Usart_Mode_Field_Reset => 0,
-      Spi_Master => 14,
-      Spi_Slave => 15);
+     (MR_SPI_MODE_USART_MODE_Field_Reset => 0,
+      SPI_MASTER => 14,
+      SPI_SLAVE => 15);
 
    --  Clock Selection
    type MR_SPI_MODE_USCLKS_Field is
      (--  Master Clock MCK is selected
-      Mck,
+      MCK,
       --  Internal Clock Divided MCK/DIV (DIV=8) is selected
-      Div,
+      DIV,
       --  Serial Clock SLK is selected
-      Sck)
+      SCK)
      with Size => 2;
    for MR_SPI_MODE_USCLKS_Field use
-     (Mck => 0,
-      Div => 1,
-      Sck => 3);
+     (MCK => 0,
+      DIV => 1,
+      SCK => 3);
 
    --  Character Length.
    type MR_SPI_MODE_CHRL_Field is
      (--  Reset value for the field
-      Mr_Spi_Mode_Chrl_Field_Reset,
+      MR_SPI_MODE_CHRL_Field_Reset,
       --  Character length is 8 bits
-      Val_8_Bit)
+      Val_8_BIT)
      with Size => 2;
    for MR_SPI_MODE_CHRL_Field use
-     (Mr_Spi_Mode_Chrl_Field_Reset => 0,
-      Val_8_Bit => 3);
+     (MR_SPI_MODE_CHRL_Field_Reset => 0,
+      Val_8_BIT => 3);
 
    subtype USART0_MR_SPI_MODE_CPHA_Field is ATSAM3X8E.Bit;
    subtype USART0_MR_SPI_MODE_CPOL_Field is ATSAM3X8E.Bit;
@@ -412,11 +411,11 @@ package ATSAM3X8E.USART is
    type USART0_MR_SPI_MODE_Register is record
       --  USART Mode of Operation
       USART_MODE     : MR_SPI_MODE_USART_MODE_Field :=
-                        Mr_Spi_Mode_Usart_Mode_Field_Reset;
+                        MR_SPI_MODE_USART_MODE_Field_Reset;
       --  Clock Selection
-      USCLKS         : MR_SPI_MODE_USCLKS_Field := ATSAM3X8E.USART.Mck;
+      USCLKS         : MR_SPI_MODE_USCLKS_Field := ATSAM3X8E.USART.MCK;
       --  Character Length.
-      CHRL           : MR_SPI_MODE_CHRL_Field := Mr_Spi_Mode_Chrl_Field_Reset;
+      CHRL           : MR_SPI_MODE_CHRL_Field := MR_SPI_MODE_CHRL_Field_Reset;
       --  SPI Clock Phase
       CPHA           : USART0_MR_SPI_MODE_CPHA_Field := 16#0#;
       --  unspecified
@@ -1425,19 +1424,19 @@ package ATSAM3X8E.USART is
    --  Transmitter Preamble Pattern
    type MAN_TX_PP_Field is
      (--  The preamble is composed of '1's
-      All_One,
+      ALL_ONE,
       --  The preamble is composed of '0's
-      All_Zero,
+      ALL_ZERO,
       --  The preamble is composed of '01's
-      Zero_One,
+      ZERO_ONE,
       --  The preamble is composed of '10's
-      One_Zero)
+      ONE_ZERO)
      with Size => 2;
    for MAN_TX_PP_Field use
-     (All_One => 0,
-      All_Zero => 1,
-      Zero_One => 2,
-      One_Zero => 3);
+     (ALL_ONE => 0,
+      ALL_ZERO => 1,
+      ZERO_ONE => 2,
+      ONE_ZERO => 3);
 
    subtype USART0_MAN_TX_MPOL_Field is ATSAM3X8E.Bit;
    subtype USART0_MAN_RX_PL_Field is ATSAM3X8E.UInt4;
@@ -1445,19 +1444,19 @@ package ATSAM3X8E.USART is
    --  Receiver Preamble Pattern detected
    type MAN_RX_PP_Field is
      (--  The preamble is composed of '1's
-      All_One,
+      ALL_ONE,
       --  The preamble is composed of '0's
-      All_Zero,
+      ALL_ZERO,
       --  The preamble is composed of '01's
-      Zero_One,
+      ZERO_ONE,
       --  The preamble is composed of '10's
-      One_Zero)
+      ONE_ZERO)
      with Size => 2;
    for MAN_RX_PP_Field use
-     (All_One => 0,
-      All_Zero => 1,
-      Zero_One => 2,
-      One_Zero => 3);
+     (ALL_ONE => 0,
+      ALL_ZERO => 1,
+      ZERO_ONE => 2,
+      ONE_ZERO => 3);
 
    subtype USART0_MAN_RX_MPOL_Field is ATSAM3X8E.Bit;
    subtype USART0_MAN_ONE_Field is ATSAM3X8E.Bit;
@@ -1470,7 +1469,7 @@ package ATSAM3X8E.USART is
       --  unspecified
       Reserved_4_7   : ATSAM3X8E.UInt4 := 16#0#;
       --  Transmitter Preamble Pattern
-      TX_PP          : MAN_TX_PP_Field := ATSAM3X8E.USART.All_One;
+      TX_PP          : MAN_TX_PP_Field := ATSAM3X8E.USART.ALL_ONE;
       --  unspecified
       Reserved_10_11 : ATSAM3X8E.UInt2 := 16#0#;
       --  Transmitter Manchester Polarity
@@ -1482,7 +1481,7 @@ package ATSAM3X8E.USART is
       --  unspecified
       Reserved_20_23 : ATSAM3X8E.UInt4 := 16#0#;
       --  Receiver Preamble Pattern detected
-      RX_PP          : MAN_RX_PP_Field := ATSAM3X8E.USART.All_One;
+      RX_PP          : MAN_RX_PP_Field := ATSAM3X8E.USART.ALL_ONE;
       --  unspecified
       Reserved_26_27 : ATSAM3X8E.UInt2 := 16#0#;
       --  Receiver Manchester Polarity
@@ -1516,16 +1515,16 @@ package ATSAM3X8E.USART is
    --  LIN Node Action
    type LINMR_NACT_Field is
      (--  The USART transmits the response.
-      Publish,
+      PUBLISH,
       --  The USART receives the response.
-      Subscribe,
+      SUBSCRIBE,
       --  The USART does not transmit and does not receive the response.
-      Ignore)
+      IGNORE)
      with Size => 2;
    for LINMR_NACT_Field use
-     (Publish => 0,
-      Subscribe => 1,
-      Ignore => 2);
+     (PUBLISH => 0,
+      SUBSCRIBE => 1,
+      IGNORE => 2);
 
    subtype USART0_LINMR_PARDIS_Field is ATSAM3X8E.Bit;
    subtype USART0_LINMR_CHKDIS_Field is ATSAM3X8E.Bit;
@@ -1539,7 +1538,7 @@ package ATSAM3X8E.USART is
    --  LIN Mode Register
    type USART0_LINMR_Register is record
       --  LIN Node Action
-      NACT           : LINMR_NACT_Field := ATSAM3X8E.USART.Publish;
+      NACT           : LINMR_NACT_Field := ATSAM3X8E.USART.PUBLISH;
       --  Parity Disable
       PARDIS         : USART0_LINMR_PARDIS_Field := 16#0#;
       --  Checksum Disable
@@ -1757,8 +1756,8 @@ package ATSAM3X8E.USART is
 
    type USART0_Disc is
      (Default,
-      Spi_Mode,
-      Lin_Mode);
+      SPI_MODE,
+      LIN_MODE);
 
    --  Universal Synchronous Asynchronous Receiver Transmitter 0
    type USART_Peripheral
@@ -1849,7 +1848,7 @@ package ATSAM3X8E.USART is
             --  Channel Status Register
             CSR : aliased USART0_CSR_Register;
             pragma Volatile_Full_Access (CSR);
-         when Spi_Mode =>
+         when SPI_MODE =>
             --  Control Register
             CR_SPI_MODE : aliased USART0_CR_SPI_MODE_Register;
             pragma Volatile_Full_Access (CR_SPI_MODE);
@@ -1868,7 +1867,7 @@ package ATSAM3X8E.USART is
             --  Channel Status Register
             CSR_SPI_MODE : aliased USART0_CSR_SPI_MODE_Register;
             pragma Volatile_Full_Access (CSR_SPI_MODE);
-         when Lin_Mode =>
+         when LIN_MODE =>
             --  Interrupt Enable Register
             IER_LIN_MODE : aliased USART0_IER_LIN_MODE_Register;
             pragma Volatile_Full_Access (IER_LIN_MODE);

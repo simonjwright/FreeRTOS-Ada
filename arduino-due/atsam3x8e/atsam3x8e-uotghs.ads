@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  This spec has been automatically generated from ATSAM3X8E.svd
@@ -24,20 +23,20 @@ package ATSAM3X8E.UOTGHS is
    type DEVCTRL_SPDCONF_Field is
      (--  The peripheral starts in full-speed mode and performs a high-speed reset to
 --  switch to the high-speed mode if the host is high-speed capable.
-      Normal,
+      NORMAL,
       --  For a better consumption, if high-speed is not needed.
-      Low_Power,
+      LOW_POWER,
       --  Forced high speed.
-      High_Speed,
+      HIGH_SPEED,
       --  The peripheral remains in full-speed mode whatever the host speed
 --  capability.
-      Forced_Fs)
+      FORCED_FS)
      with Size => 2;
    for DEVCTRL_SPDCONF_Field use
-     (Normal => 0,
-      Low_Power => 1,
-      High_Speed => 2,
-      Forced_Fs => 3);
+     (NORMAL => 0,
+      LOW_POWER => 1,
+      HIGH_SPEED => 2,
+      FORCED_FS => 3);
 
    subtype UOTGHS_DEVCTRL_LS_Field is ATSAM3X8E.Bit;
    subtype UOTGHS_DEVCTRL_TSTJ_Field is ATSAM3X8E.Bit;
@@ -56,7 +55,7 @@ package ATSAM3X8E.UOTGHS is
       --  Remote Wake-Up
       RMWKUP         : UOTGHS_DEVCTRL_RMWKUP_Field := 16#0#;
       --  Mode Configuration
-      SPDCONF        : DEVCTRL_SPDCONF_Field := ATSAM3X8E.UOTGHS.Normal;
+      SPDCONF        : DEVCTRL_SPDCONF_Field := ATSAM3X8E.UOTGHS.NORMAL;
       --  Low-Speed Mode Force
       LS             : UOTGHS_DEVCTRL_LS_Field := 16#0#;
       --  Test mode J
@@ -743,95 +742,95 @@ package ATSAM3X8E.UOTGHS is
    --  Endpoint Banks
    type DEVEPTCFG_EPBK_Field is
      (--  Single-bank endpoint
-      Val_1_Bank,
+      Val_1_BANK,
       --  Double-bank endpoint
-      Val_2_Bank,
+      Val_2_BANK,
       --  Triple-bank endpoint
-      Val_3_Bank)
+      Val_3_BANK)
      with Size => 2;
    for DEVEPTCFG_EPBK_Field use
-     (Val_1_Bank => 0,
-      Val_2_Bank => 1,
-      Val_3_Bank => 2);
+     (Val_1_BANK => 0,
+      Val_2_BANK => 1,
+      Val_3_BANK => 2);
 
    --  Endpoint Size
    type DEVEPTCFG_EPSIZE_Field is
      (--  8 bytes
-      Val_8_Byte,
+      Val_8_BYTE,
       --  16 bytes
-      Val_16_Byte,
+      Val_16_BYTE,
       --  32 bytes
-      Val_32_Byte,
+      Val_32_BYTE,
       --  64 bytes
-      Val_64_Byte,
+      Val_64_BYTE,
       --  128 bytes
-      Val_128_Byte,
+      Val_128_BYTE,
       --  256 bytes
-      Val_256_Byte,
+      Val_256_BYTE,
       --  512 bytes
-      Val_512_Byte,
+      Val_512_BYTE,
       --  1024 bytes
-      Val_1024_Byte)
+      Val_1024_BYTE)
      with Size => 3;
    for DEVEPTCFG_EPSIZE_Field use
-     (Val_8_Byte => 0,
-      Val_16_Byte => 1,
-      Val_32_Byte => 2,
-      Val_64_Byte => 3,
-      Val_128_Byte => 4,
-      Val_256_Byte => 5,
-      Val_512_Byte => 6,
-      Val_1024_Byte => 7);
+     (Val_8_BYTE => 0,
+      Val_16_BYTE => 1,
+      Val_32_BYTE => 2,
+      Val_64_BYTE => 3,
+      Val_128_BYTE => 4,
+      Val_256_BYTE => 5,
+      Val_512_BYTE => 6,
+      Val_1024_BYTE => 7);
 
    --  Endpoint Direction
    type DEVEPTCFG_EPDIR_Field is
      (--  The endpoint direction is OUT.
-      Out_k,
+      OUT_k,
       --  The endpoint direction is IN (nor for control endpoints).
-      In_k)
+      IN_k)
      with Size => 1;
    for DEVEPTCFG_EPDIR_Field use
-     (Out_k => 0,
-      In_k => 1);
+     (OUT_k => 0,
+      IN_k => 1);
 
    subtype UOTGHS_DEVEPTCFG_AUTOSW_Field is ATSAM3X8E.Bit;
 
    --  Endpoint Type
    type DEVEPTCFG_EPTYPE_Field is
      (--  Control
-      Ctrl,
+      CTRL,
       --  Isochronous
-      Iso,
+      ISO,
       --  Bulk
-      Blk,
+      BLK,
       --  Interrupt
-      Intrpt)
+      INTRPT)
      with Size => 2;
    for DEVEPTCFG_EPTYPE_Field use
-     (Ctrl => 0,
-      Iso => 1,
-      Blk => 2,
-      Intrpt => 3);
+     (CTRL => 0,
+      ISO => 1,
+      BLK => 2,
+      INTRPT => 3);
 
    --  Number of transaction per microframe for isochronous endpoint
    type DEVEPTCFG_NBTRANS_Field is
      (--  reserved to endpoint that does not have the high-bandwidth isochronous
 --  capability.
-      Val_0_Trans,
+      Val_0_TRANS,
       --  default value: one transaction per micro-frame.
-      Val_1_Trans,
+      Val_1_TRANS,
       --  2 transactions per micro-frame. This endpoint should be configured as
 --  double-bank.
-      Val_2_Trans,
+      Val_2_TRANS,
       --  3 transactions per micro-frame. This endpoint should be configured as
 --  triple-bank.
-      Val_3_Trans)
+      Val_3_TRANS)
      with Size => 2;
    for DEVEPTCFG_NBTRANS_Field use
-     (Val_0_Trans => 0,
-      Val_1_Trans => 1,
-      Val_2_Trans => 2,
-      Val_3_Trans => 3);
+     (Val_0_TRANS => 0,
+      Val_1_TRANS => 1,
+      Val_2_TRANS => 2,
+      Val_3_TRANS => 3);
 
    --  Device Endpoint Configuration Register (n = 0)
    type UOTGHS_DEVEPTCFG_Register is record
@@ -840,22 +839,22 @@ package ATSAM3X8E.UOTGHS is
       --  Endpoint Memory Allocate
       ALLOC          : UOTGHS_DEVEPTCFG_ALLOC_Field := 16#0#;
       --  Endpoint Banks
-      EPBK           : DEVEPTCFG_EPBK_Field := ATSAM3X8E.UOTGHS.Val_1_Bank;
+      EPBK           : DEVEPTCFG_EPBK_Field := ATSAM3X8E.UOTGHS.Val_1_BANK;
       --  Endpoint Size
-      EPSIZE         : DEVEPTCFG_EPSIZE_Field := ATSAM3X8E.UOTGHS.Val_8_Byte;
+      EPSIZE         : DEVEPTCFG_EPSIZE_Field := ATSAM3X8E.UOTGHS.Val_8_BYTE;
       --  unspecified
       Reserved_7_7   : ATSAM3X8E.Bit := 16#0#;
       --  Endpoint Direction
-      EPDIR          : DEVEPTCFG_EPDIR_Field := ATSAM3X8E.UOTGHS.Out_k;
+      EPDIR          : DEVEPTCFG_EPDIR_Field := ATSAM3X8E.UOTGHS.OUT_k;
       --  Automatic Switch
       AUTOSW         : UOTGHS_DEVEPTCFG_AUTOSW_Field := 16#0#;
       --  unspecified
       Reserved_10_10 : ATSAM3X8E.Bit := 16#0#;
       --  Endpoint Type
-      EPTYPE         : DEVEPTCFG_EPTYPE_Field := ATSAM3X8E.UOTGHS.Ctrl;
+      EPTYPE         : DEVEPTCFG_EPTYPE_Field := ATSAM3X8E.UOTGHS.CTRL;
       --  Number of transaction per microframe for isochronous endpoint
       NBTRANS        : DEVEPTCFG_NBTRANS_Field :=
-                        ATSAM3X8E.UOTGHS.Val_0_Trans;
+                        ATSAM3X8E.UOTGHS.Val_0_TRANS;
       --  unspecified
       Reserved_15_31 : ATSAM3X8E.UInt17 := 16#0#;
    end record
@@ -887,50 +886,50 @@ package ATSAM3X8E.UOTGHS is
    --  Data Toggle Sequence
    type DEVEPTISR_DTSEQ_Field is
      (--  Data0 toggle sequence
-      Data0,
+      DATA0,
       --  Data1 toggle sequence
-      Data1,
+      DATA1,
       --  Reserved for high-bandwidth isochronous endpoint
-      Data2,
+      DATA2,
       --  Reserved for high-bandwidth isochronous endpoint
-      Mdata)
+      MDATA)
      with Size => 2;
    for DEVEPTISR_DTSEQ_Field use
-     (Data0 => 0,
-      Data1 => 1,
-      Data2 => 2,
-      Mdata => 3);
+     (DATA0 => 0,
+      DATA1 => 1,
+      DATA2 => 2,
+      MDATA => 3);
 
    --  Number of Busy Banks
    type DEVEPTISR_NBUSYBK_Field is
      (--  0 busy bank (all banks free)
-      Val_0_Busy,
+      Val_0_BUSY,
       --  1 busy bank
-      Val_1_Busy,
+      Val_1_BUSY,
       --  2 busy banks
-      Val_2_Busy,
+      Val_2_BUSY,
       --  3 busy banks
-      Val_3_Busy)
+      Val_3_BUSY)
      with Size => 2;
    for DEVEPTISR_NBUSYBK_Field use
-     (Val_0_Busy => 0,
-      Val_1_Busy => 1,
-      Val_2_Busy => 2,
-      Val_3_Busy => 3);
+     (Val_0_BUSY => 0,
+      Val_1_BUSY => 1,
+      Val_2_BUSY => 2,
+      Val_3_BUSY => 3);
 
    --  Current Bank
    type DEVEPTISR_CURRBK_Field is
      (--  Current bank is bank0
-      Bank0,
+      BANK0,
       --  Current bank is bank1
-      Bank1,
+      BANK1,
       --  Current bank is bank2
-      Bank2)
+      BANK2)
      with Size => 2;
    for DEVEPTISR_CURRBK_Field use
-     (Bank0 => 0,
-      Bank1 => 1,
-      Bank2 => 2);
+     (BANK0 => 0,
+      BANK1 => 1,
+      BANK2 => 2);
 
    subtype UOTGHS_DEVEPTISR_RWALL_Field is ATSAM3X8E.Bit;
    subtype UOTGHS_DEVEPTISR_CTRLDIR_Field is ATSAM3X8E.Bit;
@@ -1422,20 +1421,20 @@ package ATSAM3X8E.UOTGHS is
      (--  The host starts in full-speed mode and performs a high-speed reset to
 --  switch to the high-speed mode if the downstream peripheral is high-speed
 --  capable.
-      Normal,
+      NORMAL,
       --  For a better consumption, if high-speed is not needed.
-      Low_Power,
+      LOW_POWER,
       --  Forced high speed.
-      High_Speed,
+      HIGH_SPEED,
       --  The host remains to full-speed mode whatever the peripheral speed
 --  capability.
-      Forced_Fs)
+      FORCED_FS)
      with Size => 2;
    for HSTCTRL_SPDCONF_Field use
-     (Normal => 0,
-      Low_Power => 1,
-      High_Speed => 2,
-      Forced_Fs => 3);
+     (NORMAL => 0,
+      LOW_POWER => 1,
+      HIGH_SPEED => 2,
+      FORCED_FS => 3);
 
    --  Host General Control Register
    type UOTGHS_HSTCTRL_Register is record
@@ -1450,7 +1449,7 @@ package ATSAM3X8E.UOTGHS is
       --  unspecified
       Reserved_11_11 : ATSAM3X8E.Bit := 16#0#;
       --  Mode Configuration
-      SPDCONF        : HSTCTRL_SPDCONF_Field := ATSAM3X8E.UOTGHS.Normal;
+      SPDCONF        : HSTCTRL_SPDCONF_Field := ATSAM3X8E.UOTGHS.NORMAL;
       --  unspecified
       Reserved_14_31 : ATSAM3X8E.UInt18 := 16#0#;
    end record
@@ -2220,78 +2219,78 @@ package ATSAM3X8E.UOTGHS is
    --  Pipe Banks
    type HSTPIPCFG_PBK_Field is
      (--  Single-bank pipe
-      Val_1_Bank,
+      Val_1_BANK,
       --  Double-bank pipe
-      Val_2_Bank,
+      Val_2_BANK,
       --  Triple-bank pipe
-      Val_3_Bank)
+      Val_3_BANK)
      with Size => 2;
    for HSTPIPCFG_PBK_Field use
-     (Val_1_Bank => 0,
-      Val_2_Bank => 1,
-      Val_3_Bank => 2);
+     (Val_1_BANK => 0,
+      Val_2_BANK => 1,
+      Val_3_BANK => 2);
 
    --  Pipe Size
    type HSTPIPCFG_PSIZE_Field is
      (--  8 bytes
-      Val_8_Byte,
+      Val_8_BYTE,
       --  16 bytes
-      Val_16_Byte,
+      Val_16_BYTE,
       --  32 bytes
-      Val_32_Byte,
+      Val_32_BYTE,
       --  64 bytes
-      Val_64_Byte,
+      Val_64_BYTE,
       --  128 bytes
-      Val_128_Byte,
+      Val_128_BYTE,
       --  256 bytes
-      Val_256_Byte,
+      Val_256_BYTE,
       --  512 bytes
-      Val_512_Byte,
+      Val_512_BYTE,
       --  1024 bytes
-      Val_1024_Byte)
+      Val_1024_BYTE)
      with Size => 3;
    for HSTPIPCFG_PSIZE_Field use
-     (Val_8_Byte => 0,
-      Val_16_Byte => 1,
-      Val_32_Byte => 2,
-      Val_64_Byte => 3,
-      Val_128_Byte => 4,
-      Val_256_Byte => 5,
-      Val_512_Byte => 6,
-      Val_1024_Byte => 7);
+     (Val_8_BYTE => 0,
+      Val_16_BYTE => 1,
+      Val_32_BYTE => 2,
+      Val_64_BYTE => 3,
+      Val_128_BYTE => 4,
+      Val_256_BYTE => 5,
+      Val_512_BYTE => 6,
+      Val_1024_BYTE => 7);
 
    --  Pipe Token
    type HSTPIPCFG_PTOKEN_Field is
      (--  SETUP
-      Setup,
+      SETUP,
       --  IN
-      In_k,
+      IN_k,
       --  OUT
-      Out_k)
+      OUT_k)
      with Size => 2;
    for HSTPIPCFG_PTOKEN_Field use
-     (Setup => 0,
-      In_k => 1,
-      Out_k => 2);
+     (SETUP => 0,
+      IN_k => 1,
+      OUT_k => 2);
 
    subtype UOTGHS_HSTPIPCFG_AUTOSW_Field is ATSAM3X8E.Bit;
 
    --  Pipe Type
    type HSTPIPCFG_PTYPE_Field is
      (--  Control
-      Ctrl,
+      CTRL,
       --  Isochronous
-      Iso,
+      ISO,
       --  Bulk
-      Blk,
+      BLK,
       --  Interrupt
-      Intrpt)
+      INTRPT)
      with Size => 2;
    for HSTPIPCFG_PTYPE_Field use
-     (Ctrl => 0,
-      Iso => 1,
-      Blk => 2,
-      Intrpt => 3);
+     (CTRL => 0,
+      ISO => 1,
+      BLK => 2,
+      INTRPT => 3);
 
    subtype UOTGHS_HSTPIPCFG_PEPNUM_Field is ATSAM3X8E.UInt4;
    subtype UOTGHS_HSTPIPCFG_INTFRQ_Field is ATSAM3X8E.Byte;
@@ -2303,19 +2302,19 @@ package ATSAM3X8E.UOTGHS is
       --  Pipe Memory Allocate
       ALLOC          : UOTGHS_HSTPIPCFG_ALLOC_Field := 16#0#;
       --  Pipe Banks
-      PBK            : HSTPIPCFG_PBK_Field := ATSAM3X8E.UOTGHS.Val_1_Bank;
+      PBK            : HSTPIPCFG_PBK_Field := ATSAM3X8E.UOTGHS.Val_1_BANK;
       --  Pipe Size
-      PSIZE          : HSTPIPCFG_PSIZE_Field := ATSAM3X8E.UOTGHS.Val_8_Byte;
+      PSIZE          : HSTPIPCFG_PSIZE_Field := ATSAM3X8E.UOTGHS.Val_8_BYTE;
       --  unspecified
       Reserved_7_7   : ATSAM3X8E.Bit := 16#0#;
       --  Pipe Token
-      PTOKEN         : HSTPIPCFG_PTOKEN_Field := ATSAM3X8E.UOTGHS.Setup;
+      PTOKEN         : HSTPIPCFG_PTOKEN_Field := ATSAM3X8E.UOTGHS.SETUP;
       --  Automatic Switch
       AUTOSW         : UOTGHS_HSTPIPCFG_AUTOSW_Field := 16#0#;
       --  unspecified
       Reserved_11_11 : ATSAM3X8E.Bit := 16#0#;
       --  Pipe Type
-      PTYPE          : HSTPIPCFG_PTYPE_Field := ATSAM3X8E.UOTGHS.Ctrl;
+      PTYPE          : HSTPIPCFG_PTYPE_Field := ATSAM3X8E.UOTGHS.CTRL;
       --  unspecified
       Reserved_14_15 : ATSAM3X8E.UInt2 := 16#0#;
       --  Pipe Endpoint Number
@@ -2355,44 +2354,44 @@ package ATSAM3X8E.UOTGHS is
    --  Data Toggle Sequence
    type HSTPIPISR_DTSEQ_Field is
      (--  Data0 toggle sequence
-      Data0,
+      DATA0,
       --  Data1 toggle sequence
-      Data1)
+      DATA1)
      with Size => 2;
    for HSTPIPISR_DTSEQ_Field use
-     (Data0 => 0,
-      Data1 => 1);
+     (DATA0 => 0,
+      DATA1 => 1);
 
    --  Number of Busy Banks
    type HSTPIPISR_NBUSYBK_Field is
      (--  0 busy bank (all banks free)
-      Val_0_Busy,
+      Val_0_BUSY,
       --  1 busy bank
-      Val_1_Busy,
+      Val_1_BUSY,
       --  2 busy banks
-      Val_2_Busy,
+      Val_2_BUSY,
       --  3 busy banks
-      Val_3_Busy)
+      Val_3_BUSY)
      with Size => 2;
    for HSTPIPISR_NBUSYBK_Field use
-     (Val_0_Busy => 0,
-      Val_1_Busy => 1,
-      Val_2_Busy => 2,
-      Val_3_Busy => 3);
+     (Val_0_BUSY => 0,
+      Val_1_BUSY => 1,
+      Val_2_BUSY => 2,
+      Val_3_BUSY => 3);
 
    --  Current Bank
    type HSTPIPISR_CURRBK_Field is
      (--  Current bank is bank0
-      Bank0,
+      BANK0,
       --  Current bank is bank1
-      Bank1,
+      BANK1,
       --  Current bank is bank2
-      Bank2)
+      BANK2)
      with Size => 2;
    for HSTPIPISR_CURRBK_Field use
-     (Bank0 => 0,
-      Bank1 => 1,
-      Bank2 => 2);
+     (BANK0 => 0,
+      BANK1 => 1,
+      BANK2 => 2);
 
    subtype UOTGHS_HSTPIPISR_RWALL_Field is ATSAM3X8E.Bit;
    subtype UOTGHS_HSTPIPISR_CFGOK_Field is ATSAM3X8E.Bit;
@@ -2928,24 +2927,24 @@ package ATSAM3X8E.UOTGHS is
    --  UOTGID Pin Enable
    type CTRL_UIDE_Field is
      (--  The USB mode (device/host) is selected from the UIMOD bit.
-      Uimod,
+      UIMOD,
       --  The USB mode (device/host) is selected from the UOTGID input pin.
-      Uotgid)
+      UOTGID)
      with Size => 1;
    for CTRL_UIDE_Field use
-     (Uimod => 0,
-      Uotgid => 1);
+     (UIMOD => 0,
+      UOTGID => 1);
 
    --  UOTGHS Mode
    type CTRL_UIMOD_Field is
      (--  The module is in USB host mode.
-      Host,
+      HOST,
       --  The module is in USB device mode.
-      Device)
+      DEVICE)
      with Size => 1;
    for CTRL_UIMOD_Field use
-     (Host => 0,
-      Device => 1);
+     (HOST => 0,
+      DEVICE => 1);
 
    --  General Control Register
    type UOTGHS_CTRL_Register is record
@@ -2992,9 +2991,9 @@ package ATSAM3X8E.UOTGHS is
       --  unspecified
       Reserved_23_23 : ATSAM3X8E.Bit := 16#0#;
       --  UOTGID Pin Enable
-      UIDE           : CTRL_UIDE_Field := ATSAM3X8E.UOTGHS.Uotgid;
+      UIDE           : CTRL_UIDE_Field := ATSAM3X8E.UOTGHS.UOTGID;
       --  UOTGHS Mode
-      UIMOD          : CTRL_UIMOD_Field := ATSAM3X8E.UOTGHS.Device;
+      UIMOD          : CTRL_UIMOD_Field := ATSAM3X8E.UOTGHS.DEVICE;
       --  unspecified
       Reserved_26_31 : ATSAM3X8E.UInt6 := 16#0#;
    end record
@@ -3042,16 +3041,16 @@ package ATSAM3X8E.UOTGHS is
    --  Speed Status
    type SR_SPEED_Field is
      (--  Full-Speed mode
-      Full_Speed,
+      FULL_SPEED,
       --  High-Speed mode
-      High_Speed,
+      HIGH_SPEED,
       --  Low-Speed mode
-      Low_Speed)
+      LOW_SPEED)
      with Size => 2;
    for SR_SPEED_Field use
-     (Full_Speed => 0,
-      High_Speed => 1,
-      Low_Speed => 2);
+     (FULL_SPEED => 0,
+      HIGH_SPEED => 1,
+      LOW_SPEED => 2);
 
    subtype UOTGHS_SR_CLKUSABLE_Field is ATSAM3X8E.Bit;
 
@@ -3213,63 +3212,63 @@ package ATSAM3X8E.UOTGHS is
    --  Dual Role Device State
    type FSM_DRDSTATE_Field is
      (--  This is the start state for A-devices (when the ID pin is 0)
-      A_Idlestate,
+      A_IDLESTATE,
       --  In this state, the A-device waits for the voltage on VBus to rise above the
 --  A-device VBus Valid threshold (4.4 V).
-      A_Wait_Vrise,
+      A_WAIT_VRISE,
       --  In this state, the A-device waits for the B-device to signal a connection.
-      A_Wait_Bcon,
+      A_WAIT_BCON,
       --  In this state, the A-device that operates in Host mode is operational.
-      A_Host,
+      A_HOST,
       --  The A-device operating as a host is in the suspend mode.
-      A_Suspend,
+      A_SUSPEND,
       --  The A-device operates as a peripheral.
-      A_Peripheral,
+      A_PERIPHERAL,
       --  In this state, the A-device waits for the voltage on VBus to drop below the
 --  A-device Session Valid threshold (1.4 V).
-      A_Wait_Vfall,
+      A_WAIT_VFALL,
       --  In this state, the A-device waits for recovery of the over-current
 --  condition that caused it to enter this state.
-      A_Vbus_Err,
+      A_VBUS_ERR,
       --  In this state, the A-device waits for the data USB line to discharge (100
 --  us).
-      A_Wait_Discharge,
+      A_WAIT_DISCHARGE,
       --  This is the start state for B-device (when the ID pin is 1).
-      B_Idle,
+      B_IDLE,
       --  In this state, the B-device acts as the peripheral.
-      B_Peripheral,
+      B_PERIPHERAL,
       --  In this state, the B-device is in suspend mode and waits until 3 ms before
 --  initiating the HNP protocol if requested.
-      B_Wait_Begin_Hnp,
+      B_WAIT_BEGIN_HNP,
       --  In this state, the B-device waits for the data USB line to discharge (100
 --  us) before becoming Host.
-      B_Wait_Discharge,
+      B_WAIT_DISCHARGE,
       --  In this state, the B-device waits for the A-device to signal a connect
 --  before becoming B-Host.
-      B_Wait_Acon,
+      B_WAIT_ACON,
       --  In this state, the B-device acts as the Host.
-      B_Host,
+      B_HOST,
       --  In this state, the B-device attempts to start a session using the SRP
 --  protocol.
-      B_Srp_Init)
+      B_SRP_INIT)
      with Size => 4;
    for FSM_DRDSTATE_Field use
-     (A_Idlestate => 0,
-      A_Wait_Vrise => 1,
-      A_Wait_Bcon => 2,
-      A_Host => 3,
-      A_Suspend => 4,
-      A_Peripheral => 5,
-      A_Wait_Vfall => 6,
-      A_Vbus_Err => 7,
-      A_Wait_Discharge => 8,
-      B_Idle => 9,
-      B_Peripheral => 10,
-      B_Wait_Begin_Hnp => 11,
-      B_Wait_Discharge => 12,
-      B_Wait_Acon => 13,
-      B_Host => 14,
-      B_Srp_Init => 15);
+     (A_IDLESTATE => 0,
+      A_WAIT_VRISE => 1,
+      A_WAIT_BCON => 2,
+      A_HOST => 3,
+      A_SUSPEND => 4,
+      A_PERIPHERAL => 5,
+      A_WAIT_VFALL => 6,
+      A_VBUS_ERR => 7,
+      A_WAIT_DISCHARGE => 8,
+      B_IDLE => 9,
+      B_PERIPHERAL => 10,
+      B_WAIT_BEGIN_HNP => 11,
+      B_WAIT_DISCHARGE => 12,
+      B_WAIT_ACON => 13,
+      B_HOST => 14,
+      B_SRP_INIT => 15);
 
    --  General Finite State Machine Register
    type UOTGHS_FSM_Register is record

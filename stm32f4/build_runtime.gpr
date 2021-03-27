@@ -94,7 +94,7 @@ library project Build_Runtime is
       for Switches ("s-assert.adb") use ALL_ADAFLAGS & ("-g");
       for Switches ("a-tags.adb") use ALL_ADAFLAGS & ("-g");
       for Switches ("last_chance_handler.c") use ALL_CFLAGS & ("-g", "-O0");
-      for Switches ("hardfault_handling.adb") use ALL_ADAFLAGS & ("-g", "-O0");
+      for Switches ("s-harhan.adb") use ALL_ADAFLAGS & ("-g", "-O0");
    end Compiler;
 
    package Install is

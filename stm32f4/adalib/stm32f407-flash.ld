@@ -1,7 +1,7 @@
 /* The MIT License
  *
  * Copyright (c) 2007, 2008, 2009, 2010 Dado Sutter and Bogdan Marinescu
- * Copyright (c) 2012-2020 Simon Wright <simon@pushface.org>
+ * Copyright (c) 2012-2021 Simon Wright <simon@pushface.org>
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -154,7 +154,7 @@ SECTIONS
     } >sram
 
     end = .;
-    PROVIDE( _estack = 0x20020000);
+    PROVIDE(_estack = ORIGIN(sram) + LENGTH(sram));
 
     /DISCARD/ : { *(.note.GNU-stack) *(.gnu_debuglink) *(.gnu.lto_*) }
 

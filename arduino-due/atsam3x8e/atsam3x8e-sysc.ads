@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  This spec has been automatically generated from ATSAM3X8E.svd
@@ -120,33 +119,33 @@ package ATSAM3X8E.SYSC is
    --  Time Event Selection
    type CR_TIMEVSEL_Field is
      (--  Minute change
-      Minute,
+      MINUTE,
       --  Hour change
-      Hour,
+      HOUR,
       --  Every day at midnight
-      Midnight,
+      MIDNIGHT,
       --  Every day at noon
-      Noon)
+      NOON)
      with Size => 2;
    for CR_TIMEVSEL_Field use
-     (Minute => 0,
-      Hour => 1,
-      Midnight => 2,
-      Noon => 3);
+     (MINUTE => 0,
+      HOUR => 1,
+      MIDNIGHT => 2,
+      NOON => 3);
 
    --  Calendar Event Selection
    type CR_CALEVSEL_Field is
      (--  Week change (every Monday at time 00:00:00)
-      Week,
+      WEEK,
       --  Month change (every 01 of each month at time 00:00:00)
-      Month,
+      MONTH,
       --  Year change (every January 1 at time 00:00:00)
-      Year)
+      YEAR)
      with Size => 2;
    for CR_CALEVSEL_Field use
-     (Week => 0,
-      Month => 1,
-      Year => 2);
+     (WEEK => 0,
+      MONTH => 1,
+      YEAR => 2);
 
    --  Control Register
    type RTC_CR_Register is record
@@ -157,11 +156,11 @@ package ATSAM3X8E.SYSC is
       --  unspecified
       Reserved_2_7   : ATSAM3X8E.UInt6 := 16#0#;
       --  Time Event Selection
-      TIMEVSEL       : CR_TIMEVSEL_Field := ATSAM3X8E.SYSC.Minute;
+      TIMEVSEL       : CR_TIMEVSEL_Field := ATSAM3X8E.SYSC.MINUTE;
       --  unspecified
       Reserved_10_15 : ATSAM3X8E.UInt6 := 16#0#;
       --  Calendar Event Selection
-      CALEVSEL       : CR_CALEVSEL_Field := ATSAM3X8E.SYSC.Week;
+      CALEVSEL       : CR_CALEVSEL_Field := ATSAM3X8E.SYSC.WEEK;
       --  unspecified
       Reserved_18_31 : ATSAM3X8E.UInt14 := 16#0#;
    end record
@@ -594,25 +593,25 @@ package ATSAM3X8E.SYSC is
    --  Voltage Regulator Off
    type CR_VROFF_Field is
      (--  no effect.
-      No_Effect,
+      NO_EFFECT,
       --  if KEY is correct, asserts vddcore_nreset and stops the voltage regulator.
-      Stop_Vreg)
+      STOP_VREG)
      with Size => 1;
    for CR_VROFF_Field use
-     (No_Effect => 0,
-      Stop_Vreg => 1);
+     (NO_EFFECT => 0,
+      STOP_VREG => 1);
 
    --  Crystal Oscillator Select
    type CR_XTALSEL_Field is
      (--  no effect.
-      No_Effect,
+      NO_EFFECT,
       --  if KEY is correct, switches the slow clock on the crystal oscillator
 --  output.
-      Crystal_Sel)
+      CRYSTAL_SEL)
      with Size => 1;
    for CR_XTALSEL_Field use
-     (No_Effect => 0,
-      Crystal_Sel => 1);
+     (NO_EFFECT => 0,
+      CRYSTAL_SEL => 1);
 
    subtype SUPC_CR_KEY_Field is ATSAM3X8E.Byte;
 
@@ -621,9 +620,9 @@ package ATSAM3X8E.SYSC is
       --  unspecified
       Reserved_0_1  : ATSAM3X8E.UInt2 := 16#0#;
       --  Write-only. Voltage Regulator Off
-      VROFF         : CR_VROFF_Field := ATSAM3X8E.SYSC.No_Effect;
+      VROFF         : CR_VROFF_Field := ATSAM3X8E.SYSC.NO_EFFECT;
       --  Write-only. Crystal Oscillator Select
-      XTALSEL       : CR_XTALSEL_Field := ATSAM3X8E.SYSC.No_Effect;
+      XTALSEL       : CR_XTALSEL_Field := ATSAM3X8E.SYSC.NO_EFFECT;
       --  unspecified
       Reserved_4_23 : ATSAM3X8E.UInt20 := 16#0#;
       --  Write-only. Password
@@ -695,48 +694,48 @@ package ATSAM3X8E.SYSC is
    --  Supply Monitor Sampling Period
    type SMMR_SMSMPL_Field is
      (--  Supply Monitor disabled
-      Smd,
+      SMD,
       --  Continuous Supply Monitor
-      Csm,
+      CSM,
       --  Supply Monitor enabled one SLCK period every 32 SLCK periods
-      Val_32Slck,
+      Val_32SLCK,
       --  Supply Monitor enabled one SLCK period every 256 SLCK periods
-      Val_256Slck,
+      Val_256SLCK,
       --  Supply Monitor enabled one SLCK period every 2,048 SLCK periods
-      Val_2048Slck)
+      Val_2048SLCK)
      with Size => 3;
    for SMMR_SMSMPL_Field use
-     (Smd => 0,
-      Csm => 1,
-      Val_32Slck => 2,
-      Val_256Slck => 3,
-      Val_2048Slck => 4);
+     (SMD => 0,
+      CSM => 1,
+      Val_32SLCK => 2,
+      Val_256SLCK => 3,
+      Val_2048SLCK => 4);
 
    --  Supply Monitor Reset Enable
    type SMMR_SMRSTEN_Field is
      (--  the core reset signal "vddcore_nreset" is not affected when a supply
 --  monitor detection occurs.
-      Not_Enable,
+      NOT_ENABLE,
       --  the core reset signal, vddcore_nreset is asserted when a supply monitor
 --  detection occurs.
-      Enable)
+      ENABLE)
      with Size => 1;
    for SMMR_SMRSTEN_Field use
-     (Not_Enable => 0,
-      Enable => 1);
+     (NOT_ENABLE => 0,
+      ENABLE => 1);
 
    --  Supply Monitor Interrupt Enable
    type SMMR_SMIEN_Field is
      (--  the SUPC interrupt signal is not affected when a supply monitor detection
 --  occurs.
-      Not_Enable,
+      NOT_ENABLE,
       --  the SUPC interrupt signal is asserted when a supply monitor detection
 --  occurs.
-      Enable)
+      ENABLE)
      with Size => 1;
    for SMMR_SMIEN_Field use
-     (Not_Enable => 0,
-      Enable => 1);
+     (NOT_ENABLE => 0,
+      ENABLE => 1);
 
    --  Supply Controller Supply Monitor Mode Register
    type SUPC_SMMR_Register is record
@@ -745,13 +744,13 @@ package ATSAM3X8E.SYSC is
       --  unspecified
       Reserved_4_7   : ATSAM3X8E.UInt4 := 16#0#;
       --  Supply Monitor Sampling Period
-      SMSMPL         : SMMR_SMSMPL_Field := ATSAM3X8E.SYSC.Smd;
+      SMSMPL         : SMMR_SMSMPL_Field := ATSAM3X8E.SYSC.SMD;
       --  unspecified
       Reserved_11_11 : ATSAM3X8E.Bit := 16#0#;
       --  Supply Monitor Reset Enable
-      SMRSTEN        : SMMR_SMRSTEN_Field := ATSAM3X8E.SYSC.Not_Enable;
+      SMRSTEN        : SMMR_SMRSTEN_Field := ATSAM3X8E.SYSC.NOT_ENABLE;
       --  Supply Monitor Interrupt Enable
-      SMIEN          : SMMR_SMIEN_Field := ATSAM3X8E.SYSC.Not_Enable;
+      SMIEN          : SMMR_SMIEN_Field := ATSAM3X8E.SYSC.NOT_ENABLE;
       --  unspecified
       Reserved_14_31 : ATSAM3X8E.UInt18 := 16#0#;
    end record
@@ -771,38 +770,38 @@ package ATSAM3X8E.SYSC is
    type MR_BODRSTEN_Field is
      (--  the core reset signal "vddcore_nreset" is not affected when a brownout
 --  detection occurs.
-      Not_Enable,
+      NOT_ENABLE,
       --  the core reset signal, vddcore_nreset is asserted when a brownout detection
 --  occurs.
-      Enable)
+      ENABLE)
      with Size => 1;
    for MR_BODRSTEN_Field use
-     (Not_Enable => 0,
-      Enable => 1);
+     (NOT_ENABLE => 0,
+      ENABLE => 1);
 
    --  Brownout Detector Disable
    type MR_BODDIS_Field is
      (--  the core brownout detector is enabled.
-      Enable,
+      ENABLE,
       --  the core brownout detector is disabled.
-      Disable)
+      DISABLE)
      with Size => 1;
    for MR_BODDIS_Field use
-     (Enable => 0,
-      Disable => 1);
+     (ENABLE => 0,
+      DISABLE => 1);
 
    subtype SUPC_MR_VDDIORDYONREG_Field is ATSAM3X8E.Bit;
 
    --  Oscillator Bypass
    type MR_OSCBYPASS_Field is
      (--  no effect. Clock selection depends on XTALSEL value.
-      No_Effect,
+      NO_EFFECT,
       --  the 32-KHz XTAL oscillator is selected and is put in bypass mode.
-      Bypass)
+      BYPASS)
      with Size => 1;
    for MR_OSCBYPASS_Field use
-     (No_Effect => 0,
-      Bypass => 1);
+     (NO_EFFECT => 0,
+      BYPASS => 1);
 
    subtype SUPC_MR_KEY_Field is ATSAM3X8E.Byte;
 
@@ -811,14 +810,14 @@ package ATSAM3X8E.SYSC is
       --  unspecified
       Reserved_0_11  : ATSAM3X8E.UInt12 := 16#A00#;
       --  Brownout Detector Reset Enable
-      BODRSTEN       : MR_BODRSTEN_Field := ATSAM3X8E.SYSC.Enable;
+      BODRSTEN       : MR_BODRSTEN_Field := ATSAM3X8E.SYSC.ENABLE;
       --  Brownout Detector Disable
-      BODDIS         : MR_BODDIS_Field := ATSAM3X8E.SYSC.Enable;
+      BODDIS         : MR_BODDIS_Field := ATSAM3X8E.SYSC.ENABLE;
       VDDIORDYONREG  : SUPC_MR_VDDIORDYONREG_Field := 16#1#;
       --  unspecified
       Reserved_15_19 : ATSAM3X8E.UInt5 := 16#0#;
       --  Oscillator Bypass
-      OSCBYPASS      : MR_OSCBYPASS_Field := ATSAM3X8E.SYSC.No_Effect;
+      OSCBYPASS      : MR_OSCBYPASS_Field := ATSAM3X8E.SYSC.NO_EFFECT;
       --  unspecified
       Reserved_21_23 : ATSAM3X8E.UInt3 := 16#0#;
       --  Password Key
@@ -840,111 +839,111 @@ package ATSAM3X8E.SYSC is
    --  Force Wake Up Enable
    type WUMR_FWUPEN_Field is
      (--  the Force Wake Up pin has no wake up effect.
-      Not_Enable,
+      NOT_ENABLE,
       --  the Force Wake Up pin low forces the wake up of the core power supply.
-      Enable)
+      ENABLE)
      with Size => 1;
    for WUMR_FWUPEN_Field use
-     (Not_Enable => 0,
-      Enable => 1);
+     (NOT_ENABLE => 0,
+      ENABLE => 1);
 
    --  Supply Monitor Wake Up Enable
    type WUMR_SMEN_Field is
      (--  the supply monitor detection has no wake up effect.
-      Not_Enable,
+      NOT_ENABLE,
       --  the supply monitor detection forces the wake up of the core power supply.
-      Enable)
+      ENABLE)
      with Size => 1;
    for WUMR_SMEN_Field use
-     (Not_Enable => 0,
-      Enable => 1);
+     (NOT_ENABLE => 0,
+      ENABLE => 1);
 
    --  Real Time Timer Wake Up Enable
    type WUMR_RTTEN_Field is
      (--  the RTT alarm signal has no wake up effect.
-      Not_Enable,
+      NOT_ENABLE,
       --  the RTT alarm signal forces the wake up of the core power supply.
-      Enable)
+      ENABLE)
      with Size => 1;
    for WUMR_RTTEN_Field use
-     (Not_Enable => 0,
-      Enable => 1);
+     (NOT_ENABLE => 0,
+      ENABLE => 1);
 
    --  Real Time Clock Wake Up Enable
    type WUMR_RTCEN_Field is
      (--  the RTC alarm signal has no wake up effect.
-      Not_Enable,
+      NOT_ENABLE,
       --  the RTC alarm signal forces the wake up of the core power supply.
-      Enable)
+      ENABLE)
      with Size => 1;
    for WUMR_RTCEN_Field use
-     (Not_Enable => 0,
-      Enable => 1);
+     (NOT_ENABLE => 0,
+      ENABLE => 1);
 
    --  Force Wake Up Debouncer Period
    type WUMR_FWUPDBC_Field is
      (--  Immediate, no debouncing, detected active at least on one Slow Clock edge.
-      Immediate,
+      IMMEDIATE,
       --  FWUP shall be low for at least 3 SLCK periods
-      Val_3_Sclk,
+      Val_3_SCLK,
       --  FWUP shall be low for at least 32 SLCK periods
-      Val_32_Sclk,
+      Val_32_SCLK,
       --  FWUP shall be low for at least 512 SLCK periods
-      Val_512_Sclk,
+      Val_512_SCLK,
       --  FWUP shall be low for at least 4,096 SLCK periods
-      Val_4096_Sclk,
+      Val_4096_SCLK,
       --  FWUP shall be low for at least 32,768 SLCK periods
-      Val_32768_Sclk)
+      Val_32768_SCLK)
      with Size => 3;
    for WUMR_FWUPDBC_Field use
-     (Immediate => 0,
-      Val_3_Sclk => 1,
-      Val_32_Sclk => 2,
-      Val_512_Sclk => 3,
-      Val_4096_Sclk => 4,
-      Val_32768_Sclk => 5);
+     (IMMEDIATE => 0,
+      Val_3_SCLK => 1,
+      Val_32_SCLK => 2,
+      Val_512_SCLK => 3,
+      Val_4096_SCLK => 4,
+      Val_32768_SCLK => 5);
 
    --  Wake Up Inputs Debouncer Period
    type WUMR_WKUPDBC_Field is
      (--  Immediate, no debouncing, detected active at least on one Slow Clock edge.
-      Immediate,
+      IMMEDIATE,
       --  WKUPx shall be in its active state for at least 3 SLCK periods
-      Val_3_Sclk,
+      Val_3_SCLK,
       --  WKUPx shall be in its active state for at least 32 SLCK periods
-      Val_32_Sclk,
+      Val_32_SCLK,
       --  WKUPx shall be in its active state for at least 512 SLCK periods
-      Val_512_Sclk,
+      Val_512_SCLK,
       --  WKUPx shall be in its active state for at least 4,096 SLCK periods
-      Val_4096_Sclk,
+      Val_4096_SCLK,
       --  WKUPx shall be in its active state for at least 32,768 SLCK periods
-      Val_32768_Sclk)
+      Val_32768_SCLK)
      with Size => 3;
    for WUMR_WKUPDBC_Field use
-     (Immediate => 0,
-      Val_3_Sclk => 1,
-      Val_32_Sclk => 2,
-      Val_512_Sclk => 3,
-      Val_4096_Sclk => 4,
-      Val_32768_Sclk => 5);
+     (IMMEDIATE => 0,
+      Val_3_SCLK => 1,
+      Val_32_SCLK => 2,
+      Val_512_SCLK => 3,
+      Val_4096_SCLK => 4,
+      Val_32768_SCLK => 5);
 
    --  Supply Controller Wake Up Mode Register
    type SUPC_WUMR_Register is record
       --  Force Wake Up Enable
-      FWUPEN         : WUMR_FWUPEN_Field := ATSAM3X8E.SYSC.Not_Enable;
+      FWUPEN         : WUMR_FWUPEN_Field := ATSAM3X8E.SYSC.NOT_ENABLE;
       --  Supply Monitor Wake Up Enable
-      SMEN           : WUMR_SMEN_Field := ATSAM3X8E.SYSC.Not_Enable;
+      SMEN           : WUMR_SMEN_Field := ATSAM3X8E.SYSC.NOT_ENABLE;
       --  Real Time Timer Wake Up Enable
-      RTTEN          : WUMR_RTTEN_Field := ATSAM3X8E.SYSC.Not_Enable;
+      RTTEN          : WUMR_RTTEN_Field := ATSAM3X8E.SYSC.NOT_ENABLE;
       --  Real Time Clock Wake Up Enable
-      RTCEN          : WUMR_RTCEN_Field := ATSAM3X8E.SYSC.Not_Enable;
+      RTCEN          : WUMR_RTCEN_Field := ATSAM3X8E.SYSC.NOT_ENABLE;
       --  unspecified
       Reserved_4_7   : ATSAM3X8E.UInt4 := 16#0#;
       --  Force Wake Up Debouncer Period
-      FWUPDBC        : WUMR_FWUPDBC_Field := ATSAM3X8E.SYSC.Immediate;
+      FWUPDBC        : WUMR_FWUPDBC_Field := ATSAM3X8E.SYSC.IMMEDIATE;
       --  unspecified
       Reserved_11_11 : ATSAM3X8E.Bit := 16#0#;
       --  Wake Up Inputs Debouncer Period
-      WKUPDBC        : WUMR_WKUPDBC_Field := ATSAM3X8E.SYSC.Immediate;
+      WKUPDBC        : WUMR_WKUPDBC_Field := ATSAM3X8E.SYSC.IMMEDIATE;
       --  unspecified
       Reserved_15_31 : ATSAM3X8E.UInt17 := 16#0#;
    end record
@@ -965,14 +964,14 @@ package ATSAM3X8E.SYSC is
    --  Wake Up Input Enable 0
    type WUIR_WKUPEN0_Field is
      (--  the corresponding wake-up input has no wake up effect.
-      Disable,
+      DISABLE,
       --  the corresponding wake-up input forces the wake up of the core power
 --  supply.
-      Enable)
+      ENABLE)
      with Size => 1;
    for WUIR_WKUPEN0_Field use
-     (Disable => 0,
-      Enable => 1);
+     (DISABLE => 0,
+      ENABLE => 1);
 
    --  SUPC_WUIR_WKUPEN array
    type SUPC_WUIR_WKUPEN_Field_Array is array (0 .. 15) of WUIR_WKUPEN0_Field
@@ -1002,14 +1001,14 @@ package ATSAM3X8E.SYSC is
    type WUIR_WKUPT0_Field is
      (--  a high to low level transition for a period defined by WKUPDBC on the
 --  corresponding wake-up input forces the wake up of the core power supply.
-      High_To_Low,
+      HIGH_TO_LOW,
       --  a low to high level transition for a period defined by WKUPDBC on the
 --  correspond-ing wake-up input forces the wake up of the core power supply.
-      Low_To_High)
+      LOW_TO_HIGH)
      with Size => 1;
    for WUIR_WKUPT0_Field use
-     (High_To_Low => 0,
-      Low_To_High => 1);
+     (HIGH_TO_LOW => 0,
+      LOW_TO_HIGH => 1);
 
    --  SUPC_WUIR_WKUPT array
    type SUPC_WUIR_WKUPT_Field_Array is array (0 .. 15) of WUIR_WKUPT0_Field
@@ -1053,125 +1052,125 @@ package ATSAM3X8E.SYSC is
    type SR_FWUPS_Field is
      (--  no wake up due to the assertion of the FWUP pin has occurred since the last
 --  read of SUPC_SR.
-      No,
+      NO,
       --  at least one wake up due to the assertion of the FWUP pin has occurred
 --  since the last read of SUPC_SR.
-      Present)
+      PRESENT)
      with Size => 1;
    for SR_FWUPS_Field use
-     (No => 0,
-      Present => 1);
+     (NO => 0,
+      PRESENT => 1);
 
    --  WKUP Wake Up Status
    type SR_WKUPS_Field is
      (--  no wake up due to the assertion of the WKUP pins has occurred since the
 --  last read of SUPC_SR.
-      No,
+      NO,
       --  at least one wake up due to the assertion of the WKUP pins has occurred
 --  since the last read of SUPC_SR.
-      Present)
+      PRESENT)
      with Size => 1;
    for SR_WKUPS_Field use
-     (No => 0,
-      Present => 1);
+     (NO => 0,
+      PRESENT => 1);
 
    --  Supply Monitor Detection Wake Up Status
    type SR_SMWS_Field is
      (--  no wake up due to a supply monitor detection has occurred since the last
 --  read of SUPC_SR.
-      No,
+      NO,
       --  at least one wake up due to a supply monitor detection has occurred since
 --  the last read of SUPC_SR.
-      Present)
+      PRESENT)
      with Size => 1;
    for SR_SMWS_Field use
-     (No => 0,
-      Present => 1);
+     (NO => 0,
+      PRESENT => 1);
 
    --  Brownout Detector Reset Status
    type SR_BODRSTS_Field is
      (--  no core brownout rising edge event has been detected since the last read of
 --  the SUPC_SR.
-      No,
+      NO,
       --  at least one brownout output rising edge event has been detected since the
 --  last read of the SUPC_SR.
-      Present)
+      PRESENT)
      with Size => 1;
    for SR_BODRSTS_Field use
-     (No => 0,
-      Present => 1);
+     (NO => 0,
+      PRESENT => 1);
 
    --  Supply Monitor Reset Status
    type SR_SMRSTS_Field is
      (--  no supply monitor detection has generated a core reset since the last read
 --  of the SUPC_SR.
-      No,
+      NO,
       --  at least one supply monitor detection has generated a core reset since the
 --  last read of the SUPC_SR.
-      Present)
+      PRESENT)
      with Size => 1;
    for SR_SMRSTS_Field use
-     (No => 0,
-      Present => 1);
+     (NO => 0,
+      PRESENT => 1);
 
    --  Supply Monitor Status
    type SR_SMS_Field is
      (--  no supply monitor detection since the last read of SUPC_SR.
-      No,
+      NO,
       --  at least one supply monitor detection since the last read of SUPC_SR.
-      Present)
+      PRESENT)
      with Size => 1;
    for SR_SMS_Field use
-     (No => 0,
-      Present => 1);
+     (NO => 0,
+      PRESENT => 1);
 
    --  Supply Monitor Output Status
    type SR_SMOS_Field is
      (--  the supply monitor detected VDDUTMI higher than its threshold at its last
 --  measurement.
-      High,
+      HIGH,
       --  the supply monitor detected VDDUTMI lower than its threshold at its last
 --  measurement.
-      Low)
+      LOW)
      with Size => 1;
    for SR_SMOS_Field use
-     (High => 0,
-      Low => 1);
+     (HIGH => 0,
+      LOW => 1);
 
    --  32-kHz Oscillator Selection Status
    type SR_OSCSEL_Field is
      (--  the slow clock, SLCK is generated by the embedded 32-kHz RC oscillator.
-      Rc,
+      RC,
       --  the slow clock, SLCK is generated by the 32-kHz crystal oscillator.
-      Cryst)
+      CRYST)
      with Size => 1;
    for SR_OSCSEL_Field use
-     (Rc => 0,
-      Cryst => 1);
+     (RC => 0,
+      CRYST => 1);
 
    --  FWUP Input Status
    type SR_FWUPIS_Field is
      (--  FWUP input is tied low.
-      Low,
+      LOW,
       --  FWUP input is tied high.
-      High)
+      HIGH)
      with Size => 1;
    for SR_FWUPIS_Field use
-     (Low => 0,
-      High => 1);
+     (LOW => 0,
+      HIGH => 1);
 
    --  WKUP Input Status 0
    type SR_WKUPIS0_Field is
      (--  the corresponding wake-up input is disabled, or was inactive at the time
 --  the debouncer triggered a wake up event.
-      Dis,
+      DIS,
       --  the corresponding wake-up input was active at the time the debouncer
 --  triggered a wake up event.
-      En)
+      EN)
      with Size => 1;
    for SR_WKUPIS0_Field use
-     (Dis => 0,
-      En => 1);
+     (DIS => 0,
+      EN => 1);
 
    --  SUPC_SR_WKUPIS array
    type SUPC_SR_WKUPIS_Field_Array is array (0 .. 15) of SR_WKUPIS0_Field

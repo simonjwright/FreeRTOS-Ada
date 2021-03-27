@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  This spec has been automatically generated from ATSAM3X8E.svd
@@ -20,33 +19,33 @@ package ATSAM3X8E.CHIPID is
    --  Embedded Processor
    type CIDR_EPROC_Field is
      (--  ARM946ES
-      Arm946Es,
+      ARM946ES,
       --  ARM7TDMI
-      Arm7Tdmi,
+      ARM7TDMI,
       --  Cortex-M3
-      Cm3,
+      CM3,
       --  ARM920T
-      Arm920T,
+      ARM920T,
       --  ARM926EJS
-      Arm926Ejs,
+      ARM926EJS,
       --  Cortex-A5
-      Ca5,
+      CA5,
       --  Cortex-M4
-      Cm4)
+      CM4)
      with Size => 3;
    for CIDR_EPROC_Field use
-     (Arm946Es => 1,
-      Arm7Tdmi => 2,
-      Cm3 => 3,
-      Arm920T => 4,
-      Arm926Ejs => 5,
-      Ca5 => 6,
-      Cm4 => 7);
+     (ARM946ES => 1,
+      ARM7TDMI => 2,
+      CM3 => 3,
+      ARM920T => 4,
+      ARM926EJS => 5,
+      CA5 => 6,
+      CM4 => 7);
 
    --  Nonvolatile Program Memory Size
    type CIDR_NVPSIZ_Field is
      (--  None
-      None,
+      NONE,
       --  8K bytes
       Val_8K,
       --  16K bytes
@@ -67,7 +66,7 @@ package ATSAM3X8E.CHIPID is
       Val_2048K)
      with Size => 4;
    for CIDR_NVPSIZ_Field use
-     (None => 0,
+     (NONE => 0,
       Val_8K => 1,
       Val_16K => 2,
       Val_32K => 3,
@@ -158,132 +157,132 @@ package ATSAM3X8E.CHIPID is
    --  Architecture Identifier
    type CIDR_ARCH_Field is
      (--  AT91SAM9xx Series
-      At91Sam9XX,
+      AT91SAM9xx,
       --  AT91SAM9XExx Series
-      At91Sam9Xexx,
+      AT91SAM9XExx,
       --  AT91x34 Series
-      At91X34,
+      AT91x34,
       --  CAP7 Series
-      Cap7,
+      CAP7,
       --  CAP9 Series
-      Cap9,
+      CAP9,
       --  CAP11 Series
-      Cap11,
+      CAP11,
       --  AT91x40 Series
-      At91X40,
+      AT91x40,
       --  AT91x42 Series
-      At91X42,
+      AT91x42,
       --  AT91x55 Series
-      At91X55,
+      AT91x55,
       --  AT91SAM7Axx Series
-      At91Sam7Axx,
+      AT91SAM7Axx,
       --  AT91SAM7AQxx Series
-      At91Sam7Aqxx,
+      AT91SAM7AQxx,
       --  AT91x63 Series
-      At91X63,
+      AT91x63,
       --  AT91SAM7Sxx Series
-      At91Sam7Sxx,
+      AT91SAM7Sxx,
       --  AT91SAM7XCxx Series
-      At91Sam7Xcxx,
+      AT91SAM7XCxx,
       --  AT91SAM7SExx Series
-      At91Sam7Sexx,
+      AT91SAM7SExx,
       --  AT91SAM7Lxx Series
-      At91Sam7Lxx,
+      AT91SAM7Lxx,
       --  AT91SAM7Xxx Series
-      At91Sam7Xxx,
+      AT91SAM7Xxx,
       --  AT91SAM7SLxx Series
-      At91Sam7Slxx,
+      AT91SAM7SLxx,
       --  SAM3UxC Series (100-pin version)
-      Sam3Uxc,
+      SAM3UxC,
       --  SAM3UxE Series (144-pin version)
-      Sam3Uxe,
+      SAM3UxE,
       --  SAM3AxC/SAM4AxC Series (100-pin version)
-      Sam3Axc_Sam4Axc,
+      SAM3AxC_SAM4AxC,
       --  SAM3XxC/SAM4XxC Series (100-pin version)
-      Sam3Xxc_Sam4Xxc,
+      SAM3XxC_SAM4XxC,
       --  SAM3XxE/SAM4XxE Series (144-pin version)
-      Sam3Xxe_Sam4Xxe,
+      SAM3XxE_SAM4XxE,
       --  SAM3XxG/SAM4XxG Series (208/217-pin version)
-      Sam3Xxg_Sam4Xxg,
+      SAM3XxG_SAM4XxG,
       --  SAM3SxA/SAM4SxA Series (48-pin version)
-      Sam3Sxa_Sam4Sxa,
+      SAM3SxA_SAM4SxA,
       --  SAM3SxB/SAM4SxB Series (64-pin version)
-      Sam3Sxb_Sam4Sxb,
+      SAM3SxB_SAM4SxB,
       --  SAM3SxC/SAM4SxC Series (100-pin version)
-      Sam3Sxc_Sam4Sxc,
+      SAM3SxC_SAM4SxC,
       --  AT91x92 Series
-      At91X92,
+      AT91x92,
       --  SAM3NxA Series (48-pin version)
-      Sam3Nxa,
+      SAM3NxA,
       --  SAM3NxB Series (64-pin version)
-      Sam3Nxb,
+      SAM3NxB,
       --  SAM3NxC Series (100-pin version)
-      Sam3Nxc,
+      SAM3NxC,
       --  SAM3SDxB Series (64-pin version)
-      Sam3Sdxb,
+      SAM3SDxB,
       --  SAM3SDxC Series (100-pin version)
-      Sam3Sdxc,
+      SAM3SDxC,
       --  SAM5A
-      Sam5A,
+      SAM5A,
       --  AT75Cxx Series
-      At75Cxx)
+      AT75Cxx)
      with Size => 8;
    for CIDR_ARCH_Field use
-     (At91Sam9XX => 25,
-      At91Sam9Xexx => 41,
-      At91X34 => 52,
-      Cap7 => 55,
-      Cap9 => 57,
-      Cap11 => 59,
-      At91X40 => 64,
-      At91X42 => 66,
-      At91X55 => 85,
-      At91Sam7Axx => 96,
-      At91Sam7Aqxx => 97,
-      At91X63 => 99,
-      At91Sam7Sxx => 112,
-      At91Sam7Xcxx => 113,
-      At91Sam7Sexx => 114,
-      At91Sam7Lxx => 115,
-      At91Sam7Xxx => 117,
-      At91Sam7Slxx => 118,
-      Sam3Uxc => 128,
-      Sam3Uxe => 129,
-      Sam3Axc_Sam4Axc => 131,
-      Sam3Xxc_Sam4Xxc => 132,
-      Sam3Xxe_Sam4Xxe => 133,
-      Sam3Xxg_Sam4Xxg => 134,
-      Sam3Sxa_Sam4Sxa => 136,
-      Sam3Sxb_Sam4Sxb => 137,
-      Sam3Sxc_Sam4Sxc => 138,
-      At91X92 => 146,
-      Sam3Nxa => 147,
-      Sam3Nxb => 148,
-      Sam3Nxc => 149,
-      Sam3Sdxb => 153,
-      Sam3Sdxc => 154,
-      Sam5A => 165,
-      At75Cxx => 240);
+     (AT91SAM9xx => 25,
+      AT91SAM9XExx => 41,
+      AT91x34 => 52,
+      CAP7 => 55,
+      CAP9 => 57,
+      CAP11 => 59,
+      AT91x40 => 64,
+      AT91x42 => 66,
+      AT91x55 => 85,
+      AT91SAM7Axx => 96,
+      AT91SAM7AQxx => 97,
+      AT91x63 => 99,
+      AT91SAM7Sxx => 112,
+      AT91SAM7XCxx => 113,
+      AT91SAM7SExx => 114,
+      AT91SAM7Lxx => 115,
+      AT91SAM7Xxx => 117,
+      AT91SAM7SLxx => 118,
+      SAM3UxC => 128,
+      SAM3UxE => 129,
+      SAM3AxC_SAM4AxC => 131,
+      SAM3XxC_SAM4XxC => 132,
+      SAM3XxE_SAM4XxE => 133,
+      SAM3XxG_SAM4XxG => 134,
+      SAM3SxA_SAM4SxA => 136,
+      SAM3SxB_SAM4SxB => 137,
+      SAM3SxC_SAM4SxC => 138,
+      AT91x92 => 146,
+      SAM3NxA => 147,
+      SAM3NxB => 148,
+      SAM3NxC => 149,
+      SAM3SDxB => 153,
+      SAM3SDxC => 154,
+      SAM5A => 165,
+      AT75Cxx => 240);
 
    --  Nonvolatile Program Memory Type
    type CIDR_NVPTYP_Field is
      (--  ROM
-      Rom,
+      ROM,
       --  ROMless or on-chip Flash
-      Romless,
+      ROMLESS,
       --  Embedded Flash Memory
-      Flash,
+      FLASH,
       --  ROM and Embedded Flash MemoryNVPSIZ is ROM size NVPSIZ2 is Flash size
-      Rom_Flash,
+      ROM_FLASH,
       --  SRAM emulating ROM
-      Sram)
+      SRAM)
      with Size => 3;
    for CIDR_NVPTYP_Field use
-     (Rom => 0,
-      Romless => 1,
-      Flash => 2,
-      Rom_Flash => 3,
-      Sram => 4);
+     (ROM => 0,
+      ROMLESS => 1,
+      FLASH => 2,
+      ROM_FLASH => 3,
+      SRAM => 4);
 
    subtype CHIPID_CIDR_EXT_Field is ATSAM3X8E.Bit;
 
