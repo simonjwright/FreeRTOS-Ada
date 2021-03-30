@@ -1,4 +1,4 @@
---  Copyright (C) 2016, 2020 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2021 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
@@ -45,23 +45,27 @@ begin
    end;
 
    --  Select the Main Clock
-   PMC_Periph.CKGR_MOR := (KEY      => 16#37#,
-                           MOSCXTEN => 1,     -- main crystal oscillator enable
-                           MOSCRCEN => 1,     -- main on-chip rc osc. enable
-                           MOSCXTST => 8,     -- startup time
-                           others   => <>);
-   --  XXX shouldn't this give 4 MHz, not 12?
+   declare
+      CKGR_MOR : constant CKGR_MOR_Register :=
+        (KEY      => 16#37#,
+         MOSCXTEN => 1,     -- main crystal oscillator enable
+         MOSCRCEN => 1,     -- main on-chip rc osc. enable
+         MOSCXTST => 8,     -- startup time
+         others   => <>);
+      --  XXX shouldn't this give 4 MHz, not 12?
+   begin
+      PMC_Periph.CKGR_MOR := CKGR_MOR;
+   end;
 
    --  Loop until stable
    loop
-      exit when PMC_Periph.PMC_SR.MOSCXTS /= 0;
+      exit when PMC_Periph.PMC_SR.MOSCXTS = 1;
    end loop;
 
    --  Select the Main oscillator
    declare
-      CKGR_MOR : CKGR_MOR_Register;
+      CKGR_MOR : CKGR_MOR_Register := PMC_Periph.CKGR_MOR;
    begin
-      CKGR_MOR            := PMC_Periph.CKGR_MOR;
       CKGR_MOR.KEY        := 16#37#;
       CKGR_MOR.MOSCSEL    := 1;
       PMC_Periph.CKGR_MOR := CKGR_MOR;
@@ -73,18 +77,28 @@ begin
    end loop;
 
    --  Disable PLLA (?hardware bugfix?)
-   PMC_Periph.CKGR_PLLAR := (ONE    => 1,
-                             MULA   => 0,
-                             DIVA   => 0,
-                             others => <>);
+   declare
+      CKGR_PLLAR : constant CKGR_PLLAR_Register :=
+        (ONE    => 1,
+         MULA   => 0,
+         DIVA   => 0,
+         others => <>);
+   begin
+      PMC_Periph.CKGR_PLLAR := CKGR_PLLAR;
+   end;
 
    --  Set PLLA to multiply by 14, count 16#3f#, divide by 1 (=>
    --  enable PLL); Main Clock is 12 MHz, => 168 Mhz
-   PMC_Periph.CKGR_PLLAR := (ONE       => 1,
-                             MULA      => 13,   -- multipler - 1
-                             PLLACOUNT => 16#3f#,
-                             DIVA      => 1,
-                             others    => <>);
+   declare
+      CKGR_PLLAR : constant CKGR_PLLAR_Register :=
+        (ONE       => 1,
+         MULA      => 13,   -- multipler - 1
+         PLLACOUNT => 16#3f#,
+         DIVA      => 1,
+         others    => <>);
+   begin
+      PMC_Periph.CKGR_PLLAR := CKGR_PLLAR;
+   end;
 
    --  Loop until ready
    loop
@@ -95,8 +109,9 @@ begin
       PMC_MCKR : PMC_MCKR_Register;
    begin
       --  Select Main Clock, PRES 0 (no prescaling)
-      PMC_Periph.PMC_MCKR := (CSS    => MAIN_CLK,
-                              others => <>);
+      PMC_MCKR := (CSS    => MAIN_CLK,
+                   others => <>);
+      PMC_Periph.PMC_MCKR := PMC_MCKR;
       --  Loop until ready
       loop
          exit when PMC_Periph.PMC_SR.MCKRDY /= 0;
