@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  This spec has been automatically generated from ATSAM3X8E.svd
@@ -504,18 +503,18 @@ package ATSAM3X8E.PWM is
    type SCM_UPDM_Field is
      (--  Manual write of double buffer registers and manual update of synchronous
 --  channels
-      Mode0,
+      MODE0,
       --  Manual write of double buffer registers and automatic update of synchronous
 --  channels
-      Mode1,
+      MODE1,
       --  Automatic write of duty-cycle update registers by the PDC and automatic
 --  update of synchronous channels
-      Mode2)
+      MODE2)
      with Size => 2;
    for SCM_UPDM_Field use
-     (Mode0 => 0,
-      Mode1 => 1,
-      Mode2 => 2);
+     (MODE0 => 0,
+      MODE1 => 1,
+      MODE2 => 2);
 
    subtype PWM_SCM_PTRM_Field is ATSAM3X8E.Bit;
    subtype PWM_SCM_PTRCS_Field is ATSAM3X8E.UInt3;
@@ -528,7 +527,7 @@ package ATSAM3X8E.PWM is
       --  unspecified
       Reserved_8_15  : ATSAM3X8E.Byte := 16#0#;
       --  Synchronous Channels Update Mode
-      UPDM           : SCM_UPDM_Field := ATSAM3X8E.PWM.Mode0;
+      UPDM           : SCM_UPDM_Field := ATSAM3X8E.PWM.MODE0;
       --  unspecified
       Reserved_18_19 : ATSAM3X8E.UInt2 := 16#0#;
       --  PDC Transfer Request Mode
@@ -2081,46 +2080,46 @@ package ATSAM3X8E.PWM is
    --  Channel Pre-scaler
    type CMR0_CPRE_Field is
      (--  Master clock
-      Mck,
+      MCK,
       --  Master clock/2
-      Mck_Div_2,
+      MCK_DIV_2,
       --  Master clock/4
-      Mck_Div_4,
+      MCK_DIV_4,
       --  Master clock/8
-      Mck_Div_8,
+      MCK_DIV_8,
       --  Master clock/16
-      Mck_Div_16,
+      MCK_DIV_16,
       --  Master clock/32
-      Mck_Div_32,
+      MCK_DIV_32,
       --  Master clock/64
-      Mck_Div_64,
+      MCK_DIV_64,
       --  Master clock/128
-      Mck_Div_128,
+      MCK_DIV_128,
       --  Master clock/256
-      Mck_Div_256,
+      MCK_DIV_256,
       --  Master clock/512
-      Mck_Div_512,
+      MCK_DIV_512,
       --  Master clock/1024
-      Mck_Div_1024,
+      MCK_DIV_1024,
       --  Clock A
-      Clka,
+      CLKA,
       --  Clock B
-      Clkb)
+      CLKB)
      with Size => 4;
    for CMR0_CPRE_Field use
-     (Mck => 0,
-      Mck_Div_2 => 1,
-      Mck_Div_4 => 2,
-      Mck_Div_8 => 3,
-      Mck_Div_16 => 4,
-      Mck_Div_32 => 5,
-      Mck_Div_64 => 6,
-      Mck_Div_128 => 7,
-      Mck_Div_256 => 8,
-      Mck_Div_512 => 9,
-      Mck_Div_1024 => 10,
-      Clka => 11,
-      Clkb => 12);
+     (MCK => 0,
+      MCK_DIV_2 => 1,
+      MCK_DIV_4 => 2,
+      MCK_DIV_8 => 3,
+      MCK_DIV_16 => 4,
+      MCK_DIV_32 => 5,
+      MCK_DIV_64 => 6,
+      MCK_DIV_128 => 7,
+      MCK_DIV_256 => 8,
+      MCK_DIV_512 => 9,
+      MCK_DIV_1024 => 10,
+      CLKA => 11,
+      CLKB => 12);
 
    subtype CMR_CALG_Field is ATSAM3X8E.Bit;
    subtype CMR_CPOL_Field is ATSAM3X8E.Bit;
@@ -2132,7 +2131,7 @@ package ATSAM3X8E.PWM is
    --  PWM Channel Mode Register (ch_num = 0)
    type CMR_Register is record
       --  Channel Pre-scaler
-      CPRE           : CMR0_CPRE_Field := ATSAM3X8E.PWM.Mck;
+      CPRE           : CMR0_CPRE_Field := ATSAM3X8E.PWM.MCK;
       --  unspecified
       Reserved_4_7   : ATSAM3X8E.UInt4 := 16#0#;
       --  Channel Alignment

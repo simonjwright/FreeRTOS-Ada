@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  This spec has been automatically generated from ATSAM3X8E.svd
@@ -26,20 +25,20 @@ package ATSAM3X8E.CAN is
    --  Reception Synchronization Stage (not readable)
    type MR_RXSYNC_Field is
      (--  Rx Signal with Double Synchro Stages (2 Positive Edges)
-      Double_Pp,
+      DOUBLE_PP,
       --  Rx Signal with Double Synchro Stages (One Positive Edge and One Negative
 --  Edge)
-      Double_Pn,
+      DOUBLE_PN,
       --  Rx Signal with Single Synchro Stage (Positive Edge)
-      Single_P,
+      SINGLE_P,
       --  Rx Signal with No Synchro Stage
-      None)
+      NONE)
      with Size => 3;
    for MR_RXSYNC_Field use
-     (Double_Pp => 0,
-      Double_Pn => 1,
-      Single_P => 2,
-      None => 3);
+     (DOUBLE_PP => 0,
+      DOUBLE_PN => 1,
+      SINGLE_P => 2,
+      NONE => 3);
 
    --  Mode Register
    type CAN0_MR_Register is record
@@ -62,7 +61,7 @@ package ATSAM3X8E.CAN is
       --  unspecified
       Reserved_8_23  : ATSAM3X8E.UInt16 := 16#0#;
       --  Reception Synchronization Stage (not readable)
-      RXSYNC         : MR_RXSYNC_Field := ATSAM3X8E.CAN.Double_Pp;
+      RXSYNC         : MR_RXSYNC_Field := ATSAM3X8E.CAN.DOUBLE_PP;
       --  unspecified
       Reserved_27_31 : ATSAM3X8E.UInt5 := 16#0#;
    end record
@@ -488,14 +487,14 @@ package ATSAM3X8E.CAN is
    --  Sampling Mode
    type BR_SMP_Field is
      (--  The incoming bit stream is sampled once at sample point.
-      Once,
+      ONCE,
       --  The incoming bit stream is sampled three times with a period of a MCK clock
 --  period, centered on sample point.
-      Three)
+      THREE)
      with Size => 1;
    for BR_SMP_Field use
-     (Once => 0,
-      Three => 1);
+     (ONCE => 0,
+      THREE => 1);
 
    --  Baudrate Register
    type CAN0_BR_Register is record
@@ -520,7 +519,7 @@ package ATSAM3X8E.CAN is
       --  unspecified
       Reserved_23_23 : ATSAM3X8E.Bit := 16#0#;
       --  Sampling Mode
-      SMP            : BR_SMP_Field := ATSAM3X8E.CAN.Once;
+      SMP            : BR_SMP_Field := ATSAM3X8E.CAN.ONCE;
       --  unspecified
       Reserved_25_31 : ATSAM3X8E.UInt7 := 16#0#;
    end record
@@ -733,31 +732,31 @@ package ATSAM3X8E.CAN is
    type MMR0_MOT_Field is
      (--  Mailbox is disabled. This prevents receiving or transmitting any messages
 --  with this mailbox.
-      Mb_Disabled,
+      MB_DISABLED,
       --  Reception Mailbox. Mailbox is configured for reception. If a message is
 --  received while the mailbox data register is full, it is discarded.
-      Mb_Rx,
+      MB_RX,
       --  Reception mailbox with overwrite. Mailbox is configured for reception. If a
 --  message is received while the mailbox is full, it overwrites the previous
 --  message.
-      Mb_Rx_Overwrite,
+      MB_RX_OVERWRITE,
       --  Transmit mailbox. Mailbox is configured for transmission.
-      Mb_Tx,
+      MB_TX,
       --  Consumer Mailbox. Mailbox is configured in reception but behaves as a
 --  Transmit Mailbox, i.e., it sends a remote frame and waits for an answer.
-      Mb_Consumer,
+      MB_CONSUMER,
       --  Producer Mailbox. Mailbox is configured in transmission but also behaves
 --  like a reception mailbox, i.e., it waits to receive a Remote Frame before
 --  sending its contents.
-      Mb_Producer)
+      MB_PRODUCER)
      with Size => 3;
    for MMR0_MOT_Field use
-     (Mb_Disabled => 0,
-      Mb_Rx => 1,
-      Mb_Rx_Overwrite => 2,
-      Mb_Tx => 3,
-      Mb_Consumer => 4,
-      Mb_Producer => 5);
+     (MB_DISABLED => 0,
+      MB_RX => 1,
+      MB_RX_OVERWRITE => 2,
+      MB_TX => 3,
+      MB_CONSUMER => 4,
+      MB_PRODUCER => 5);
 
    --  Mailbox Mode Register (MB = 0)
    type MMR_Register is record
@@ -768,7 +767,7 @@ package ATSAM3X8E.CAN is
       --  unspecified
       Reserved_20_23 : ATSAM3X8E.UInt4 := 16#0#;
       --  Mailbox Object Type
-      MOT            : MMR0_MOT_Field := ATSAM3X8E.CAN.Mb_Disabled;
+      MOT            : MMR0_MOT_Field := ATSAM3X8E.CAN.MB_DISABLED;
       --  unspecified
       Reserved_27_31 : ATSAM3X8E.UInt5 := 16#0#;
    end record

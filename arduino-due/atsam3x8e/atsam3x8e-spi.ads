@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  This spec has been automatically generated from ATSAM3X8E.svd
@@ -335,34 +334,34 @@ package ATSAM3X8E.SPI is
    --  Bits Per Transfer
    type CSR_BITS_Field is
      (--  8 bits for transfer
-      Val_8_Bit,
+      Val_8_BIT,
       --  9 bits for transfer
-      Val_9_Bit,
+      Val_9_BIT,
       --  10 bits for transfer
-      Val_10_Bit,
+      Val_10_BIT,
       --  11 bits for transfer
-      Val_11_Bit,
+      Val_11_BIT,
       --  12 bits for transfer
-      Val_12_Bit,
+      Val_12_BIT,
       --  13 bits for transfer
-      Val_13_Bit,
+      Val_13_BIT,
       --  14 bits for transfer
-      Val_14_Bit,
+      Val_14_BIT,
       --  15 bits for transfer
-      Val_15_Bit,
+      Val_15_BIT,
       --  16 bits for transfer
-      Val_16_Bit)
+      Val_16_BIT)
      with Size => 4;
    for CSR_BITS_Field use
-     (Val_8_Bit => 0,
-      Val_9_Bit => 1,
-      Val_10_Bit => 2,
-      Val_11_Bit => 3,
-      Val_12_Bit => 4,
-      Val_13_Bit => 5,
-      Val_14_Bit => 6,
-      Val_15_Bit => 7,
-      Val_16_Bit => 8);
+     (Val_8_BIT => 0,
+      Val_9_BIT => 1,
+      Val_10_BIT => 2,
+      Val_11_BIT => 3,
+      Val_12_BIT => 4,
+      Val_13_BIT => 5,
+      Val_14_BIT => 6,
+      Val_15_BIT => 7,
+      Val_16_BIT => 8);
 
    subtype SPI0_CSR_SCBR_Field is ATSAM3X8E.Byte;
    subtype SPI0_CSR_DLYBS_Field is ATSAM3X8E.Byte;
@@ -379,7 +378,7 @@ package ATSAM3X8E.SPI is
       --  Chip Select Active After Transfer
       CSAAT  : SPI0_CSR_CSAAT_Field := 16#0#;
       --  Bits Per Transfer
-      BITS   : CSR_BITS_Field := ATSAM3X8E.SPI.Val_8_Bit;
+      BITS   : CSR_BITS_Field := ATSAM3X8E.SPI.Val_8_BIT;
       --  Serial Clock Baud Rate
       SCBR   : SPI0_CSR_SCBR_Field := 16#0#;
       --  Delay Before SPCK

@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  This spec has been automatically generated from ATSAM3X8E.svd
@@ -83,19 +82,19 @@ package ATSAM3X8E.EMAC is
    --  MDC clock divider
    type NCFGR_CLK_Field is
      (--  MCK divided by 8 (MCK up to 20 MHz).
-      Mck_8,
+      MCK_8,
       --  MCK divided by 16 (MCK up to 40 MHz).
-      Mck_16,
+      MCK_16,
       --  MCK divided by 32 (MCK up to 80 MHz).
-      Mck_32,
+      MCK_32,
       --  MCK divided by 64 (MCK up to 160 MHz).
-      Mck_64)
+      MCK_64)
      with Size => 2;
    for NCFGR_CLK_Field use
-     (Mck_8 => 0,
-      Mck_16 => 1,
-      Mck_32 => 2,
-      Mck_64 => 3);
+     (MCK_8 => 0,
+      MCK_16 => 1,
+      MCK_32 => 2,
+      MCK_64 => 3);
 
    subtype EMAC_NCFGR_RTY_Field is ATSAM3X8E.Bit;
    subtype EMAC_NCFGR_PAE_Field is ATSAM3X8E.Bit;
@@ -103,19 +102,19 @@ package ATSAM3X8E.EMAC is
    --  Receive Buffer Offset
    type NCFGR_RBOF_Field is
      (--  No offset from start of receive buffer.
-      Offset_0,
+      OFFSET_0,
       --  One-byte offset from start of receive buffer.
-      Offset_1,
+      OFFSET_1,
       --  Two-byte offset from start of receive buffer.
-      Offset_2,
+      OFFSET_2,
       --  Three-byte offset from start of receive buffer.
-      Offset_3)
+      OFFSET_3)
      with Size => 2;
    for NCFGR_RBOF_Field use
-     (Offset_0 => 0,
-      Offset_1 => 1,
-      Offset_2 => 2,
-      Offset_3 => 3);
+     (OFFSET_0 => 0,
+      OFFSET_1 => 1,
+      OFFSET_2 => 2,
+      OFFSET_3 => 3);
 
    subtype EMAC_NCFGR_RLCE_Field is ATSAM3X8E.Bit;
    subtype EMAC_NCFGR_DRFCS_Field is ATSAM3X8E.Bit;
@@ -145,13 +144,13 @@ package ATSAM3X8E.EMAC is
       --  unspecified
       Reserved_9_9   : ATSAM3X8E.Bit := 16#0#;
       --  MDC clock divider
-      CLK            : NCFGR_CLK_Field := ATSAM3X8E.EMAC.Mck_32;
+      CLK            : NCFGR_CLK_Field := ATSAM3X8E.EMAC.MCK_32;
       --  Retry test
       RTY            : EMAC_NCFGR_RTY_Field := 16#0#;
       --  Pause Enable
       PAE            : EMAC_NCFGR_PAE_Field := 16#0#;
       --  Receive Buffer Offset
-      RBOF           : NCFGR_RBOF_Field := ATSAM3X8E.EMAC.Offset_0;
+      RBOF           : NCFGR_RBOF_Field := ATSAM3X8E.EMAC.OFFSET_0;
       --  Receive Length field Checking Enable
       RLCE           : EMAC_NCFGR_RLCE_Field := 16#0#;
       --  Discard Receive FCS

@@ -1,4 +1,4 @@
---  Copyright (C) 2020 Free Software Foundation, Inc.
+--  Copyright (C) 2020-2021 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -18,8 +18,12 @@
 
 with Event_Support;
 with Ada.Real_Time.Timing_Events;
---  with Hardfault_Handling;
---  pragma Unreferenced (Hardfault_Handling);
+
+pragma Warnings (Off, "internal GNAT unit");
+with System.Hardfault_Handling;
+pragma Warnings (On, "internal GNAT unit");
+pragma Unreferenced (System.Hardfault_Handling);
+
 procedure Events is
    --  Environment_Task_Storage_Size : constant Natural := 1536
    --  with
@@ -36,5 +40,6 @@ begin
      (Ada.Real_Time.Timing_Events.Timing_Event (Event_Support.Slow));
    Event_Support.Handler
      (Ada.Real_Time.Timing_Events.Timing_Event (Event_Support.Quick));
+
    delay until Ada.Real_Time.Time_Last;
 end Events;

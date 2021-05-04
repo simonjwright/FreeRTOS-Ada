@@ -1,4 +1,4 @@
---  Copyright (C) 2018,2020 Free Software Foundation, Inc.
+--  Copyright (C) 2018-2021 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -16,8 +16,10 @@
 --  along with this program; see the file COPYING3.  If not, see
 --  <http://www.gnu.org/licenses/>.
 
-with Hardfault_Handling;
-pragma Unreferenced (Hardfault_Handling);
+pragma Warnings (Off, "internal GNAT unit");
+with System.Hardfault_Handling;
+pragma Warnings (On, "internal GNAT unit");
+pragma Unreferenced (System.Hardfault_Handling);
 
 with Lights;
 pragma Unreferenced (Lights);

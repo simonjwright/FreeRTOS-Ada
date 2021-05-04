@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  This spec has been automatically generated from ATSAM3X8E.svd
@@ -39,168 +38,168 @@ package ATSAM3X8E.ADC is
    type MR_TRGEN_Field is
      (--  Hardware triggers are disabled. Starting a conversion is only possible by
 --  software.
-      Dis,
+      DIS,
       --  Hardware trigger selected by TRGSEL field is enabled.
-      En)
+      EN)
      with Size => 1;
    for MR_TRGEN_Field use
-     (Dis => 0,
-      En => 1);
+     (DIS => 0,
+      EN => 1);
 
    --  Trigger Selection
    type MR_TRGSEL_Field is
      (--  External : ADCTRG
-      Adc_Trig0,
+      ADC_TRIG0,
       --  TIOA Output of the Timer Counter Channel 0
-      Adc_Trig1,
+      ADC_TRIG1,
       --  TIOA Output of the Timer Counter Channel 1
-      Adc_Trig2,
+      ADC_TRIG2,
       --  TIOA Output of the Timer Counter Channel 2
-      Adc_Trig3,
+      ADC_TRIG3,
       --  PWM Event Line 0
-      Adc_Trig4,
+      ADC_TRIG4,
       --  PWM Event Line 0
-      Adc_Trig5)
+      ADC_TRIG5)
      with Size => 3;
    for MR_TRGSEL_Field use
-     (Adc_Trig0 => 0,
-      Adc_Trig1 => 1,
-      Adc_Trig2 => 2,
-      Adc_Trig3 => 3,
-      Adc_Trig4 => 4,
-      Adc_Trig5 => 5);
+     (ADC_TRIG0 => 0,
+      ADC_TRIG1 => 1,
+      ADC_TRIG2 => 2,
+      ADC_TRIG3 => 3,
+      ADC_TRIG4 => 4,
+      ADC_TRIG5 => 5);
 
    --  Resolution
    type MR_LOWRES_Field is
      (--  12-bit resolution
-      Bits_12,
+      BITS_12,
       --  10-bit resolution
-      Bits_10)
+      BITS_10)
      with Size => 1;
    for MR_LOWRES_Field use
-     (Bits_12 => 0,
-      Bits_10 => 1);
+     (BITS_12 => 0,
+      BITS_10 => 1);
 
    --  Sleep Mode
    type MR_SLEEP_Field is
      (--  Normal Mode: The ADC Core and reference voltage circuitry are kept ON
 --  between conversions
-      Normal,
+      NORMAL,
       --  Sleep Mode: The ADC Core and reference voltage circuitry are OFF between
 --  conversions
-      Sleep)
+      SLEEP)
      with Size => 1;
    for MR_SLEEP_Field use
-     (Normal => 0,
-      Sleep => 1);
+     (NORMAL => 0,
+      SLEEP => 1);
 
    --  Fast Wake Up
    type MR_FWUP_Field is
      (--  Normal Sleep Mode: The sleep mode is defined by the SLEEP bit
-      Off,
+      OFF,
       --  Fast Wake Up Sleep Mode: The Voltage reference is ON between conversions
 --  and ADC Core is OFF
-      On)
+      ON)
      with Size => 1;
    for MR_FWUP_Field use
-     (Off => 0,
-      On => 1);
+     (OFF => 0,
+      ON => 1);
 
    --  Free Run Mode
    type MR_FREERUN_Field is
      (--  Normal Mode
-      Off,
+      OFF,
       --  Free Run Mode: Never wait for any trigger.
-      On)
+      ON)
      with Size => 1;
    for MR_FREERUN_Field use
-     (Off => 0,
-      On => 1);
+     (OFF => 0,
+      ON => 1);
 
    subtype ADC_MR_PRESCAL_Field is ATSAM3X8E.Byte;
 
    --  Start Up Time
    type MR_STARTUP_Field is
      (--  0 periods of ADCClock
-      Sut0,
+      SUT0,
       --  8 periods of ADCClock
-      Sut8,
+      SUT8,
       --  16 periods of ADCClock
-      Sut16,
+      SUT16,
       --  24 periods of ADCClock
-      Sut24,
+      SUT24,
       --  64 periods of ADCClock
-      Sut64,
+      SUT64,
       --  80 periods of ADCClock
-      Sut80,
+      SUT80,
       --  96 periods of ADCClock
-      Sut96,
+      SUT96,
       --  112 periods of ADCClock
-      Sut112,
+      SUT112,
       --  512 periods of ADCClock
-      Sut512,
+      SUT512,
       --  576 periods of ADCClock
-      Sut576,
+      SUT576,
       --  640 periods of ADCClock
-      Sut640,
+      SUT640,
       --  704 periods of ADCClock
-      Sut704,
+      SUT704,
       --  768 periods of ADCClock
-      Sut768,
+      SUT768,
       --  832 periods of ADCClock
-      Sut832,
+      SUT832,
       --  896 periods of ADCClock
-      Sut896,
+      SUT896,
       --  960 periods of ADCClock
-      Sut960)
+      SUT960)
      with Size => 4;
    for MR_STARTUP_Field use
-     (Sut0 => 0,
-      Sut8 => 1,
-      Sut16 => 2,
-      Sut24 => 3,
-      Sut64 => 4,
-      Sut80 => 5,
-      Sut96 => 6,
-      Sut112 => 7,
-      Sut512 => 8,
-      Sut576 => 9,
-      Sut640 => 10,
-      Sut704 => 11,
-      Sut768 => 12,
-      Sut832 => 13,
-      Sut896 => 14,
-      Sut960 => 15);
+     (SUT0 => 0,
+      SUT8 => 1,
+      SUT16 => 2,
+      SUT24 => 3,
+      SUT64 => 4,
+      SUT80 => 5,
+      SUT96 => 6,
+      SUT112 => 7,
+      SUT512 => 8,
+      SUT576 => 9,
+      SUT640 => 10,
+      SUT704 => 11,
+      SUT768 => 12,
+      SUT832 => 13,
+      SUT896 => 14,
+      SUT960 => 15);
 
    --  Analog Settling Time
    type MR_SETTLING_Field is
      (--  3 periods of ADCClock
-      Ast3,
+      AST3,
       --  5 periods of ADCClock
-      Ast5,
+      AST5,
       --  9 periods of ADCClock
-      Ast9,
+      AST9,
       --  17 periods of ADCClock
-      Ast17)
+      AST17)
      with Size => 2;
    for MR_SETTLING_Field use
-     (Ast3 => 0,
-      Ast5 => 1,
-      Ast9 => 2,
-      Ast17 => 3);
+     (AST3 => 0,
+      AST5 => 1,
+      AST9 => 2,
+      AST17 => 3);
 
    --  Analog Change
    type MR_ANACH_Field is
      (--  No analog change on channel switching: DIFF0, GAIN0 and OFF0 are used for
 --  all channels
-      None,
+      NONE,
       --  Allows different analog settings for each channel. See ADC_CGR and ADC_COR
 --  Registers
-      Allowed)
+      ALLOWED)
      with Size => 1;
    for MR_ANACH_Field use
-     (None => 0,
-      Allowed => 1);
+     (NONE => 0,
+      ALLOWED => 1);
 
    subtype ADC_MR_TRACKTIM_Field is ATSAM3X8E.UInt4;
    subtype ADC_MR_TRANSFER_Field is ATSAM3X8E.UInt2;
@@ -208,39 +207,39 @@ package ATSAM3X8E.ADC is
    --  Use Sequence Enable
    type MR_USEQ_Field is
      (--  Normal Mode: The controller converts channels in a simple numeric order.
-      Num_Order,
+      NUM_ORDER,
       --  User Sequence Mode: The sequence respects what is defined in ADC_SEQR1 and
 --  ADC_SEQR2 registers.
-      Reg_Order)
+      REG_ORDER)
      with Size => 1;
    for MR_USEQ_Field use
-     (Num_Order => 0,
-      Reg_Order => 1);
+     (NUM_ORDER => 0,
+      REG_ORDER => 1);
 
    --  Mode Register
    type ADC_MR_Register is record
       --  Trigger Enable
-      TRGEN          : MR_TRGEN_Field := ATSAM3X8E.ADC.Dis;
+      TRGEN          : MR_TRGEN_Field := ATSAM3X8E.ADC.DIS;
       --  Trigger Selection
-      TRGSEL         : MR_TRGSEL_Field := ATSAM3X8E.ADC.Adc_Trig0;
+      TRGSEL         : MR_TRGSEL_Field := ATSAM3X8E.ADC.ADC_TRIG0;
       --  Resolution
-      LOWRES         : MR_LOWRES_Field := ATSAM3X8E.ADC.Bits_12;
+      LOWRES         : MR_LOWRES_Field := ATSAM3X8E.ADC.BITS_12;
       --  Sleep Mode
-      SLEEP          : MR_SLEEP_Field := ATSAM3X8E.ADC.Normal;
+      SLEEP          : MR_SLEEP_Field := ATSAM3X8E.ADC.NORMAL;
       --  Fast Wake Up
-      FWUP           : MR_FWUP_Field := ATSAM3X8E.ADC.Off;
+      FWUP           : MR_FWUP_Field := ATSAM3X8E.ADC.OFF;
       --  Free Run Mode
-      FREERUN        : MR_FREERUN_Field := ATSAM3X8E.ADC.Off;
+      FREERUN        : MR_FREERUN_Field := ATSAM3X8E.ADC.OFF;
       --  Prescaler Rate Selection
       PRESCAL        : ADC_MR_PRESCAL_Field := 16#0#;
       --  Start Up Time
-      STARTUP        : MR_STARTUP_Field := ATSAM3X8E.ADC.Sut0;
+      STARTUP        : MR_STARTUP_Field := ATSAM3X8E.ADC.SUT0;
       --  Analog Settling Time
-      SETTLING       : MR_SETTLING_Field := ATSAM3X8E.ADC.Ast3;
+      SETTLING       : MR_SETTLING_Field := ATSAM3X8E.ADC.AST3;
       --  unspecified
       Reserved_22_22 : ATSAM3X8E.Bit := 16#0#;
       --  Analog Change
-      ANACH          : MR_ANACH_Field := ATSAM3X8E.ADC.None;
+      ANACH          : MR_ANACH_Field := ATSAM3X8E.ADC.NONE;
       --  Tracking Time
       TRACKTIM       : ADC_MR_TRACKTIM_Field := 16#0#;
       --  Transfer Period
@@ -248,7 +247,7 @@ package ATSAM3X8E.ADC is
       --  unspecified
       Reserved_30_30 : ATSAM3X8E.Bit := 16#0#;
       --  Use Sequence Enable
-      USEQ           : MR_USEQ_Field := ATSAM3X8E.ADC.Num_Order;
+      USEQ           : MR_USEQ_Field := ATSAM3X8E.ADC.NUM_ORDER;
    end record
      with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
@@ -776,20 +775,20 @@ package ATSAM3X8E.ADC is
    type EMR_CMPMODE_Field is
      (--  Generates an event when the converted data is lower than the low threshold
 --  of the window.
-      Low,
+      LOW,
       --  Generates an event when the converted data is higher than the high
 --  threshold of the window.
-      High,
+      HIGH,
       --  Generates an event when the converted data is in the comparison window.
-      In_k,
+      IN_k,
       --  Generates an event when the converted data is out of the comparison window.
-      Out_k)
+      OUT_k)
      with Size => 2;
    for EMR_CMPMODE_Field use
-     (Low => 0,
-      High => 1,
-      In_k => 2,
-      Out_k => 3);
+     (LOW => 0,
+      HIGH => 1,
+      IN_k => 2,
+      OUT_k => 3);
 
    subtype ADC_EMR_CMPSEL_Field is ATSAM3X8E.UInt4;
    subtype ADC_EMR_CMPALL_Field is ATSAM3X8E.Bit;
@@ -799,7 +798,7 @@ package ATSAM3X8E.ADC is
    --  Extended Mode Register
    type ADC_EMR_Register is record
       --  Comparison Mode
-      CMPMODE        : EMR_CMPMODE_Field := ATSAM3X8E.ADC.Low;
+      CMPMODE        : EMR_CMPMODE_Field := ATSAM3X8E.ADC.LOW;
       --  unspecified
       Reserved_2_3   : ATSAM3X8E.UInt2 := 16#0#;
       --  Comparison Selected Channel

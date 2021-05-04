@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  This spec has been automatically generated from ATSAM3X8E.svd
@@ -34,26 +33,26 @@ package ATSAM3X8E.DACC is
    --  Trigger Enable
    type MR_TRGEN_Field is
      (--  External trigger mode disabled. DACC in free running mode.
-      Dis,
+      DIS,
       --  External trigger mode enabled.
-      En)
+      EN)
      with Size => 1;
    for MR_TRGEN_Field use
-     (Dis => 0,
-      En => 1);
+     (DIS => 0,
+      EN => 1);
 
    subtype DACC_MR_TRGSEL_Field is ATSAM3X8E.UInt3;
 
    --  Word Transfer
    type MR_WORD_Field is
      (--  Half-Word transfer
-      Half,
+      HALF,
       --  Word Transfer
-      Word)
+      WORD)
      with Size => 1;
    for MR_WORD_Field use
-     (Half => 0,
-      Word => 1);
+     (HALF => 0,
+      WORD => 1);
 
    subtype DACC_MR_SLEEP_Field is ATSAM3X8E.Bit;
    subtype DACC_MR_FASTWKUP_Field is ATSAM3X8E.Bit;
@@ -62,36 +61,36 @@ package ATSAM3X8E.DACC is
    --  User Channel Selection
    type MR_USER_SEL_Field is
      (--  Channel 0
-      Channel0,
+      CHANNEL0,
       --  Channel 1
-      Channel1)
+      CHANNEL1)
      with Size => 2;
    for MR_USER_SEL_Field use
-     (Channel0 => 0,
-      Channel1 => 1);
+     (CHANNEL0 => 0,
+      CHANNEL1 => 1);
 
    --  Tag Selection Mode
    type MR_TAG_Field is
      (--  Tag selection mode disabled. Using USER_SEL to select the channel for the
 --  conversion.
-      Dis,
+      DIS,
       --  Tag selection mode enabled
-      En)
+      EN)
      with Size => 1;
    for MR_TAG_Field use
-     (Dis => 0,
-      En => 1);
+     (DIS => 0,
+      EN => 1);
 
    --  Max Speed Mode
    type MR_MAXS_Field is
      (--  Normal Mode
-      Normal,
+      NORMAL,
       --  Max Speed Mode enabled
-      Maximum)
+      MAXIMUM)
      with Size => 1;
    for MR_MAXS_Field use
-     (Normal => 0,
-      Maximum => 1);
+     (NORMAL => 0,
+      MAXIMUM => 1);
 
    --  Startup Time Selection
    type MR_STARTUP_Field is
@@ -197,11 +196,11 @@ package ATSAM3X8E.DACC is
    --  Mode Register
    type DACC_MR_Register is record
       --  Trigger Enable
-      TRGEN          : MR_TRGEN_Field := ATSAM3X8E.DACC.Dis;
+      TRGEN          : MR_TRGEN_Field := ATSAM3X8E.DACC.DIS;
       --  Trigger Selection
       TRGSEL         : DACC_MR_TRGSEL_Field := 16#0#;
       --  Word Transfer
-      WORD           : MR_WORD_Field := ATSAM3X8E.DACC.Half;
+      WORD           : MR_WORD_Field := ATSAM3X8E.DACC.HALF;
       --  Sleep Mode
       SLEEP          : DACC_MR_SLEEP_Field := 16#0#;
       --  Fast Wake up Mode
@@ -211,13 +210,13 @@ package ATSAM3X8E.DACC is
       --  Refresh Period
       REFRESH        : DACC_MR_REFRESH_Field := 16#0#;
       --  User Channel Selection
-      USER_SEL       : MR_USER_SEL_Field := ATSAM3X8E.DACC.Channel0;
+      USER_SEL       : MR_USER_SEL_Field := ATSAM3X8E.DACC.CHANNEL0;
       --  unspecified
       Reserved_18_19 : ATSAM3X8E.UInt2 := 16#0#;
       --  Tag Selection Mode
-      TAG            : MR_TAG_Field := ATSAM3X8E.DACC.Dis;
+      TAG            : MR_TAG_Field := ATSAM3X8E.DACC.DIS;
       --  Max Speed Mode
-      MAXS           : MR_MAXS_Field := ATSAM3X8E.DACC.Normal;
+      MAXS           : MR_MAXS_Field := ATSAM3X8E.DACC.NORMAL;
       --  unspecified
       Reserved_22_23 : ATSAM3X8E.UInt2 := 16#0#;
       --  Startup Time Selection

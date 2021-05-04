@@ -1,4 +1,4 @@
---  Copyright (C) 2016-2018 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2021 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
@@ -18,7 +18,6 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-with Ada.Interrupts;
 with Interfaces;
 with System.Machine_Code;
 with System.Parameters;
@@ -67,11 +66,11 @@ package body Startup is
       --  _edata:  the first address after read/write data in SRAM
       --  _sbss:   the start of BSS (to be initialized to zero)
       --  _ebss:   the first address after BSS.
+      --
+      --  _isr_vector is set up in interrupt_vectors.s.
 
       use System.Storage_Elements;
 
-      --  ISR_Vector : Storage_Element
-      --    with Import, Convention => Asm, External_Name => "_isr_vector";
       Sdata : Storage_Element
         with Import, Convention => Asm, External_Name => "_sdata";
       Edata : Storage_Element
@@ -95,44 +94,11 @@ package body Startup is
       Bss : Storage_Array (1 .. Bss_Size)
         with Import, Convention => Ada, External_Name => "_sbss";
 
-      --  type CP_Access is (Denied, Privileged, Reserved, Full)
-      --  with
-      --    Size => 2;
-      --  pragma Unreferenced (Privileged, Reserved);
-      --  type CP_Accesses is array (0 .. 15) of CP_Access
-      --  with
-      --    Component_Size => 2,
-      --    Size => 32;
-      --  type SCB_Registers is record
-      --     VTOR  : System.Address;
-      --     CPACR : CP_Accesses := (others => Denied);
-      --  end record
-      --  with
-      --    Volatile;
-      --  for SCB_Registers use record
-      --     VTOR  at 16#08# range 0 .. 31;
-      --     CPACR at 16#88# range 0 .. 31;
-      --  end record;
-
-      --  SCB : SCB_Registers
-      --    with
-      --      Import,
-      --      Convention => Ada,
-      --      Address => System'To_Address (16#E000_ED00#);
-
    begin
       --  Copy data to SRAM
       Data_In_Sram := Data_In_Flash;
       --  Initialize BSS in SRAM
       Bss := (others => 0);
-
-      --  --  Enable FPU
-      --  SCB.CPACR := (10 => Full, 11 => Full, others => Denied);
-      --  --  Wait for store to complete, restart pipeline
-      --  System.Machine_Code.Asm ("dsb", Volatile => True);
-      --  System.Machine_Code.Asm ("isb", Volatile => True);
-
-      --  SCB.VTOR := ISR_Vector'Address;
 
       Set_Up_Heap;
       Set_Up_Clock;
@@ -144,29 +110,19 @@ package body Startup is
       System.FreeRTOS.Tasks.Start_Scheduler;
    end Program_Initialization;
 
-   -------------------------
-   --  Interrupt vectors  --
-   -------------------------
+   --------------------------
+   --  Interrupt Handlers  --
+   --------------------------
 
-   --  Vector Table, STM32F4xxxx Reference Manual DocID018909 Rev 11
-   --  Table 62.
+   --  The interrupt vector is set up in interrupt_vectors.s, using
+   --  the handlers defined here.
 
-   procedure Dummy_Handler;
-   procedure Dummy_Handler is
-      IPSR : Interfaces.Unsigned_32
-        with Volatile; -- don't want it to be optimised away
-   begin
-      System.Machine_Code.Asm
-        ("mrs %0, ipsr",
-         Outputs => Interfaces.Unsigned_32'Asm_Output ("=r", IPSR),
-         Volatile => True);
-      loop
-         null;
-      end loop;
-   end Dummy_Handler;
+   --  These handlers are all defined as Weak so that they can be
+   --  replaced by real handlers at link time.
 
-   --  The remaining handlers are all defined as Weak so that they can
-   --  be replaced by real handlers at link time.
+   --  If we defined the weak handlers in interrupt_vectors.s, the
+   --  references would be satisfied internally and so couldn't be
+   --  replaced by the real handler.
 
    procedure HardFault_Handler
    with Export, Convention => Ada, External_Name => "HardFault_Handler";
@@ -178,6 +134,7 @@ package body Startup is
       end loop;
    end HardFault_Handler;
 
+   --  Provided by FreeRTOS.
    procedure SVC_Handler
    with Export, Convention => Ada, External_Name => "SVC_Handler";
    pragma Weak_External (SVC_Handler);
@@ -188,6 +145,7 @@ package body Startup is
       end loop;
    end SVC_Handler;
 
+   --  Provided by FreeRTOS.
    procedure PendSV_Handler
    with Export, Convention => Ada, External_Name => "PendSV_Handler";
    pragma Weak_External (PendSV_Handler);
@@ -198,6 +156,7 @@ package body Startup is
       end loop;
    end PendSV_Handler;
 
+   --  Provided by FreeRTOS.
    procedure SysTick_Handler
    with Export, Convention => Ada, External_Name => "SysTick_Handler";
    pragma Weak_External (SysTick_Handler);
@@ -235,27 +194,5 @@ package body Startup is
          null;
       end loop;
    end IRQ_Handler;
-
-   type Handler is access procedure;
-
-   use type Ada.Interrupts.Interrupt_ID;
-   Vectors : array (-14 .. Ada.Interrupts.Interrupt_ID'Last) of Handler :=
-     (-9 .. -6 | -4 .. -3 => null,                     -- reserved
-      -14                 => Dummy_Handler'Access,     -- NMI
-      -13                 => HardFault_Handler'Access, -- HardFault
-      -12                 => Dummy_Handler'Access,     -- MemManagement
-      -11                 => Dummy_Handler'Access,     -- BusFault
-      -10                 => Dummy_Handler'Access,     -- UsageFault
-      -5                  => SVC_Handler'Access,       -- SVCall
-      -2                  => PendSV_Handler'Access,    -- PendSV
-      -1                  => SysTick_Handler'Access,   -- SysTick
-      0 .. 16             => IRQ_Handler'Access,
-      17                  => RTC1_IRQHandler'Access,
-      others              => IRQ_Handler'Access)
-   with
-     Export,
-     Convention           => Ada,
-     External_Name        => "isr_vector";
-   pragma Linker_Section (Vectors, ".isr_vector");
 
 end Startup;

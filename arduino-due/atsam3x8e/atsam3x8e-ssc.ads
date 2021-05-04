@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  This spec has been automatically generated from ATSAM3X8E.svd
@@ -72,79 +71,79 @@ package ATSAM3X8E.SSC is
    --  Receive Clock Selection
    type RCMR_CKS_Field is
      (--  Divided Clock
-      Mck,
+      MCK,
       --  TK Clock signal
-      Tk,
+      TK,
       --  RK pin
-      Rk)
+      RK)
      with Size => 2;
    for RCMR_CKS_Field use
-     (Mck => 0,
-      Tk => 1,
-      Rk => 2);
+     (MCK => 0,
+      TK => 1,
+      RK => 2);
 
    --  Receive Clock Output Mode Selection
    type RCMR_CKO_Field is
      (--  None
-      None,
+      NONE,
       --  Continuous Receive Clock
-      Continuous,
+      CONTINUOUS,
       --  Receive Clock only during data transfers
-      Transfer)
+      TRANSFER)
      with Size => 3;
    for RCMR_CKO_Field use
-     (None => 0,
-      Continuous => 1,
-      Transfer => 2);
+     (NONE => 0,
+      CONTINUOUS => 1,
+      TRANSFER => 2);
 
    subtype SSC_RCMR_CKI_Field is ATSAM3X8E.Bit;
 
    --  Receive Clock Gating Selection
    type RCMR_CKG_Field is
      (--  None
-      None,
+      NONE,
       --  Continuous Receive Clock
-      Continuous,
+      CONTINUOUS,
       --  Receive Clock only during data transfers
-      Transfer)
+      TRANSFER)
      with Size => 2;
    for RCMR_CKG_Field use
-     (None => 0,
-      Continuous => 1,
-      Transfer => 2);
+     (NONE => 0,
+      CONTINUOUS => 1,
+      TRANSFER => 2);
 
    --  Receive Start Selection
    type RCMR_START_Field is
      (--  Continuous, as soon as the receiver is enabled, and immediately after the
 --  end of transfer of the previous data.
-      Continuous,
+      CONTINUOUS,
       --  Transmit start
-      Transmit,
+      TRANSMIT,
       --  Detection of a low level on RF signal
-      Rf_Low,
+      RF_LOW,
       --  Detection of a high level on RF signal
-      Rf_High,
+      RF_HIGH,
       --  Detection of a falling edge on RF signal
-      Rf_Falling,
+      RF_FALLING,
       --  Detection of a rising edge on RF signal
-      Rf_Rising,
+      RF_RISING,
       --  Detection of any level change on RF signal
-      Rf_Level,
+      RF_LEVEL,
       --  Detection of any edge on RF signal
-      Rf_Edge,
+      RF_EDGE,
       --  Compare 0
-      Cmp_0)
+      CMP_0)
      with Size => 4;
    for RCMR_START_Field use
-     (Continuous => 0,
-      Transmit => 1,
-      Rf_Low => 2,
-      Rf_High => 3,
-      Rf_Falling => 4,
-      Rf_Rising => 5,
-      Rf_Level => 6,
-      Rf_Edge => 7,
-      Cmp_0 => 8);
+     (CONTINUOUS => 0,
+      TRANSMIT => 1,
+      RF_LOW => 2,
+      RF_HIGH => 3,
+      RF_FALLING => 4,
+      RF_RISING => 5,
+      RF_LEVEL => 6,
+      RF_EDGE => 7,
+      CMP_0 => 8);
 
    subtype SSC_RCMR_STOP_Field is ATSAM3X8E.Bit;
    subtype SSC_RCMR_STTDLY_Field is ATSAM3X8E.Byte;
@@ -153,15 +152,15 @@ package ATSAM3X8E.SSC is
    --  Receive Clock Mode Register
    type SSC_RCMR_Register is record
       --  Receive Clock Selection
-      CKS            : RCMR_CKS_Field := ATSAM3X8E.SSC.Mck;
+      CKS            : RCMR_CKS_Field := ATSAM3X8E.SSC.MCK;
       --  Receive Clock Output Mode Selection
-      CKO            : RCMR_CKO_Field := ATSAM3X8E.SSC.None;
+      CKO            : RCMR_CKO_Field := ATSAM3X8E.SSC.NONE;
       --  Receive Clock Inversion
       CKI            : SSC_RCMR_CKI_Field := 16#0#;
       --  Receive Clock Gating Selection
-      CKG            : RCMR_CKG_Field := ATSAM3X8E.SSC.None;
+      CKG            : RCMR_CKG_Field := ATSAM3X8E.SSC.NONE;
       --  Receive Start Selection
-      START          : RCMR_START_Field := ATSAM3X8E.SSC.Continuous;
+      START          : RCMR_START_Field := ATSAM3X8E.SSC.CONTINUOUS;
       --  Receive Stop Selection
       STOP           : SSC_RCMR_STOP_Field := 16#0#;
       --  unspecified
@@ -194,36 +193,36 @@ package ATSAM3X8E.SSC is
    --  Receive Frame Sync Output Selection
    type RFMR_FSOS_Field is
      (--  None
-      None,
+      NONE,
       --  Negative Pulse
-      Negative,
+      NEGATIVE,
       --  Positive Pulse
-      Positive,
+      POSITIVE,
       --  Driven Low during data transfer
-      Low,
+      LOW,
       --  Driven High during data transfer
-      High,
+      HIGH,
       --  Toggling at each start of data transfer
-      Toggling)
+      TOGGLING)
      with Size => 3;
    for RFMR_FSOS_Field use
-     (None => 0,
-      Negative => 1,
-      Positive => 2,
-      Low => 3,
-      High => 4,
-      Toggling => 5);
+     (NONE => 0,
+      NEGATIVE => 1,
+      POSITIVE => 2,
+      LOW => 3,
+      HIGH => 4,
+      TOGGLING => 5);
 
    --  Frame Sync Edge Detection
    type RFMR_FSEDGE_Field is
      (--  Positive Edge Detection
-      Positive,
+      POSITIVE,
       --  Negative Edge Detection
-      Negative)
+      NEGATIVE)
      with Size => 1;
    for RFMR_FSEDGE_Field use
-     (Positive => 0,
-      Negative => 1);
+     (POSITIVE => 0,
+      NEGATIVE => 1);
 
    subtype SSC_RFMR_FSLEN_EXT_Field is ATSAM3X8E.UInt4;
 
@@ -244,11 +243,11 @@ package ATSAM3X8E.SSC is
       --  Receive Frame Sync Length
       FSLEN          : SSC_RFMR_FSLEN_Field := 16#0#;
       --  Receive Frame Sync Output Selection
-      FSOS           : RFMR_FSOS_Field := ATSAM3X8E.SSC.None;
+      FSOS           : RFMR_FSOS_Field := ATSAM3X8E.SSC.NONE;
       --  unspecified
       Reserved_23_23 : ATSAM3X8E.Bit := 16#0#;
       --  Frame Sync Edge Detection
-      FSEDGE         : RFMR_FSEDGE_Field := ATSAM3X8E.SSC.Positive;
+      FSEDGE         : RFMR_FSEDGE_Field := ATSAM3X8E.SSC.POSITIVE;
       --  unspecified
       Reserved_25_27 : ATSAM3X8E.UInt3 := 16#0#;
       --  FSLEN Field Extension
@@ -274,80 +273,80 @@ package ATSAM3X8E.SSC is
    --  Transmit Clock Selection
    type TCMR_CKS_Field is
      (--  Divided Clock
-      Mck,
+      MCK,
       --  TK Clock signal
-      Tk,
+      TK,
       --  RK pin
-      Rk)
+      RK)
      with Size => 2;
    for TCMR_CKS_Field use
-     (Mck => 0,
-      Tk => 1,
-      Rk => 2);
+     (MCK => 0,
+      TK => 1,
+      RK => 2);
 
    --  Transmit Clock Output Mode Selection
    type TCMR_CKO_Field is
      (--  None
-      None,
+      NONE,
       --  Continuous Receive Clock
-      Continuous,
+      CONTINUOUS,
       --  Transmit Clock only during data transfers
-      Transfer)
+      TRANSFER)
      with Size => 3;
    for TCMR_CKO_Field use
-     (None => 0,
-      Continuous => 1,
-      Transfer => 2);
+     (NONE => 0,
+      CONTINUOUS => 1,
+      TRANSFER => 2);
 
    subtype SSC_TCMR_CKI_Field is ATSAM3X8E.Bit;
 
    --  Transmit Clock Gating Selection
    type TCMR_CKG_Field is
      (--  None
-      None,
+      NONE,
       --  Transmit Clock enabled only if TF Low
-      Continuous,
+      CONTINUOUS,
       --  Transmit Clock enabled only if TF High
-      Transfer)
+      TRANSFER)
      with Size => 2;
    for TCMR_CKG_Field use
-     (None => 0,
-      Continuous => 1,
-      Transfer => 2);
+     (NONE => 0,
+      CONTINUOUS => 1,
+      TRANSFER => 2);
 
    --  Transmit Start Selection
    type TCMR_START_Field is
      (--  Continuous, as soon as a word is written in the SSC_THR Register (if
 --  Transmit is enabled), and immediately after the end of transfer of the
 --  previous data.
-      Continuous,
+      CONTINUOUS,
       --  Receive start
-      Receive,
+      RECEIVE,
       --  Detection of a low level on TF signal
-      Rf_Low,
+      RF_LOW,
       --  Detection of a high level on TF signal
-      Rf_High,
+      RF_HIGH,
       --  Detection of a falling edge on TF signal
-      Rf_Falling,
+      RF_FALLING,
       --  Detection of a rising edge on TF signal
-      Rf_Rising,
+      RF_RISING,
       --  Detection of any level change on TF signal
-      Rf_Level,
+      RF_LEVEL,
       --  Detection of any edge on TF signal
-      Rf_Edge,
+      RF_EDGE,
       --  Compare 0
-      Cmp_0)
+      CMP_0)
      with Size => 4;
    for TCMR_START_Field use
-     (Continuous => 0,
-      Receive => 1,
-      Rf_Low => 2,
-      Rf_High => 3,
-      Rf_Falling => 4,
-      Rf_Rising => 5,
-      Rf_Level => 6,
-      Rf_Edge => 7,
-      Cmp_0 => 8);
+     (CONTINUOUS => 0,
+      RECEIVE => 1,
+      RF_LOW => 2,
+      RF_HIGH => 3,
+      RF_FALLING => 4,
+      RF_RISING => 5,
+      RF_LEVEL => 6,
+      RF_EDGE => 7,
+      CMP_0 => 8);
 
    subtype SSC_TCMR_STTDLY_Field is ATSAM3X8E.Byte;
    subtype SSC_TCMR_PERIOD_Field is ATSAM3X8E.Byte;
@@ -355,15 +354,15 @@ package ATSAM3X8E.SSC is
    --  Transmit Clock Mode Register
    type SSC_TCMR_Register is record
       --  Transmit Clock Selection
-      CKS            : TCMR_CKS_Field := ATSAM3X8E.SSC.Mck;
+      CKS            : TCMR_CKS_Field := ATSAM3X8E.SSC.MCK;
       --  Transmit Clock Output Mode Selection
-      CKO            : TCMR_CKO_Field := ATSAM3X8E.SSC.None;
+      CKO            : TCMR_CKO_Field := ATSAM3X8E.SSC.NONE;
       --  Transmit Clock Inversion
       CKI            : SSC_TCMR_CKI_Field := 16#0#;
       --  Transmit Clock Gating Selection
-      CKG            : TCMR_CKG_Field := ATSAM3X8E.SSC.None;
+      CKG            : TCMR_CKG_Field := ATSAM3X8E.SSC.NONE;
       --  Transmit Start Selection
-      START          : TCMR_START_Field := ATSAM3X8E.SSC.Continuous;
+      START          : TCMR_START_Field := ATSAM3X8E.SSC.CONTINUOUS;
       --  unspecified
       Reserved_12_15 : ATSAM3X8E.UInt4 := 16#0#;
       --  Transmit Start Delay
@@ -393,38 +392,38 @@ package ATSAM3X8E.SSC is
    --  Transmit Frame Sync Output Selection
    type TFMR_FSOS_Field is
      (--  None
-      None,
+      NONE,
       --  Negative Pulse
-      Negative,
+      NEGATIVE,
       --  Positive Pulse
-      Positive,
+      POSITIVE,
       --  Driven Low during data transfer
-      Low,
+      LOW,
       --  Driven High during data transfer
-      High,
+      HIGH,
       --  Toggling at each start of data transfer
-      Toggling)
+      TOGGLING)
      with Size => 3;
    for TFMR_FSOS_Field use
-     (None => 0,
-      Negative => 1,
-      Positive => 2,
-      Low => 3,
-      High => 4,
-      Toggling => 5);
+     (NONE => 0,
+      NEGATIVE => 1,
+      POSITIVE => 2,
+      LOW => 3,
+      HIGH => 4,
+      TOGGLING => 5);
 
    subtype SSC_TFMR_FSDEN_Field is ATSAM3X8E.Bit;
 
    --  Frame Sync Edge Detection
    type TFMR_FSEDGE_Field is
      (--  Positive Edge Detection
-      Positive,
+      POSITIVE,
       --  Negative Edge Detection
-      Negative)
+      NEGATIVE)
      with Size => 1;
    for TFMR_FSEDGE_Field use
-     (Positive => 0,
-      Negative => 1);
+     (POSITIVE => 0,
+      NEGATIVE => 1);
 
    subtype SSC_TFMR_FSLEN_EXT_Field is ATSAM3X8E.UInt4;
 
@@ -445,11 +444,11 @@ package ATSAM3X8E.SSC is
       --  Transmit Frame Sync Length
       FSLEN          : SSC_TFMR_FSLEN_Field := 16#0#;
       --  Transmit Frame Sync Output Selection
-      FSOS           : TFMR_FSOS_Field := ATSAM3X8E.SSC.None;
+      FSOS           : TFMR_FSOS_Field := ATSAM3X8E.SSC.NONE;
       --  Frame Sync Data Enable
       FSDEN          : SSC_TFMR_FSDEN_Field := 16#0#;
       --  Frame Sync Edge Detection
-      FSEDGE         : TFMR_FSEDGE_Field := ATSAM3X8E.SSC.Positive;
+      FSEDGE         : TFMR_FSEDGE_Field := ATSAM3X8E.SSC.POSITIVE;
       --  unspecified
       Reserved_25_27 : ATSAM3X8E.UInt3 := 16#0#;
       --  FSLEN Field Extension

@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  This spec has been automatically generated from ATSAM3X8E.svd
@@ -326,16 +325,16 @@ package ATSAM3X8E.PMC is
    --  Main On-Chip RC Oscillator Frequency Selection
    type CKGR_MOR_MOSCRCF_Field is
      (--  The Fast RC Oscillator Frequency is at 4 MHz (default)
-      Val_4_Mhz,
+      Val_4_MHz,
       --  The Fast RC Oscillator Frequency is at 8 MHz
-      Val_8_Mhz,
+      Val_8_MHz,
       --  The Fast RC Oscillator Frequency is at 12 MHz
-      Val_12_Mhz)
+      Val_12_MHz)
      with Size => 3;
    for CKGR_MOR_MOSCRCF_Field use
-     (Val_4_Mhz => 0,
-      Val_8_Mhz => 1,
-      Val_12_Mhz => 2);
+     (Val_4_MHz => 0,
+      Val_8_MHz => 1,
+      Val_12_MHz => 2);
 
    subtype CKGR_MOR_MOSCXTST_Field is ATSAM3X8E.Byte;
    subtype CKGR_MOR_KEY_Field is ATSAM3X8E.Byte;
@@ -353,7 +352,7 @@ package ATSAM3X8E.PMC is
       --  Main On-Chip RC Oscillator Enable
       MOSCRCEN       : CKGR_MOR_MOSCRCEN_Field := 16#0#;
       --  Main On-Chip RC Oscillator Frequency Selection
-      MOSCRCF        : CKGR_MOR_MOSCRCF_Field := ATSAM3X8E.PMC.Val_4_Mhz;
+      MOSCRCF        : CKGR_MOR_MOSCRCF_Field := ATSAM3X8E.PMC.Val_4_MHz;
       --  unspecified
       Reserved_7_7   : ATSAM3X8E.Bit := 16#0#;
       --  Main Crystal Oscillator Start-up Time
@@ -440,48 +439,48 @@ package ATSAM3X8E.PMC is
    --  Master Clock Source Selection
    type PMC_MCKR_CSS_Field is
      (--  Slow Clock is selected
-      Slow_Clk,
+      SLOW_CLK,
       --  Main Clock is selected
-      Main_Clk,
+      MAIN_CLK,
       --  PLLA Clock is selected
-      Plla_Clk,
+      PLLA_CLK,
       --  UPLL Clock is selected
-      Upll_Clk)
+      UPLL_CLK)
      with Size => 2;
    for PMC_MCKR_CSS_Field use
-     (Slow_Clk => 0,
-      Main_Clk => 1,
-      Plla_Clk => 2,
-      Upll_Clk => 3);
+     (SLOW_CLK => 0,
+      MAIN_CLK => 1,
+      PLLA_CLK => 2,
+      UPLL_CLK => 3);
 
    --  Processor Clock Prescaler
    type PMC_MCKR_PRES_Field is
      (--  Selected clock
-      Clk_1,
+      CLK_1,
       --  Selected clock divided by 2
-      Clk_2,
+      CLK_2,
       --  Selected clock divided by 4
-      Clk_4,
+      CLK_4,
       --  Selected clock divided by 8
-      Clk_8,
+      CLK_8,
       --  Selected clock divided by 16
-      Clk_16,
+      CLK_16,
       --  Selected clock divided by 32
-      Clk_32,
+      CLK_32,
       --  Selected clock divided by 64
-      Clk_64,
+      CLK_64,
       --  Selected clock divided by 3
-      Clk_3)
+      CLK_3)
      with Size => 3;
    for PMC_MCKR_PRES_Field use
-     (Clk_1 => 0,
-      Clk_2 => 1,
-      Clk_4 => 2,
-      Clk_8 => 3,
-      Clk_16 => 4,
-      Clk_32 => 5,
-      Clk_64 => 6,
-      Clk_3 => 7);
+     (CLK_1 => 0,
+      CLK_2 => 1,
+      CLK_4 => 2,
+      CLK_8 => 3,
+      CLK_16 => 4,
+      CLK_32 => 5,
+      CLK_64 => 6,
+      CLK_3 => 7);
 
    subtype PMC_MCKR_PLLADIV2_Field is ATSAM3X8E.Bit;
    subtype PMC_MCKR_UPLLDIV2_Field is ATSAM3X8E.Bit;
@@ -489,11 +488,11 @@ package ATSAM3X8E.PMC is
    --  Master Clock Register
    type PMC_MCKR_Register is record
       --  Master Clock Source Selection
-      CSS            : PMC_MCKR_CSS_Field := ATSAM3X8E.PMC.Main_Clk;
+      CSS            : PMC_MCKR_CSS_Field := ATSAM3X8E.PMC.MAIN_CLK;
       --  unspecified
       Reserved_2_3   : ATSAM3X8E.UInt2 := 16#0#;
       --  Processor Clock Prescaler
-      PRES           : PMC_MCKR_PRES_Field := ATSAM3X8E.PMC.Clk_1;
+      PRES           : PMC_MCKR_PRES_Field := ATSAM3X8E.PMC.CLK_1;
       --  unspecified
       Reserved_7_11  : ATSAM3X8E.UInt5 := 16#0#;
       --  PLLA Divisor by 2
@@ -540,57 +539,57 @@ package ATSAM3X8E.PMC is
    --  Master Clock Source Selection
    type PMC_PCK_CSS_Field is
      (--  Slow Clock is selected
-      Slow_Clk,
+      SLOW_CLK,
       --  Main Clock is selected
-      Main_Clk,
+      MAIN_CLK,
       --  PLLA Clock is selected
-      Plla_Clk,
+      PLLA_CLK,
       --  UPLL Clock is selected
-      Upll_Clk,
+      UPLL_CLK,
       --  Master Clock is selected
-      Mck)
+      MCK)
      with Size => 3;
    for PMC_PCK_CSS_Field use
-     (Slow_Clk => 0,
-      Main_Clk => 1,
-      Plla_Clk => 2,
-      Upll_Clk => 3,
-      Mck => 4);
+     (SLOW_CLK => 0,
+      MAIN_CLK => 1,
+      PLLA_CLK => 2,
+      UPLL_CLK => 3,
+      MCK => 4);
 
    --  Programmable Clock Prescaler
    type PMC_PCK_PRES_Field is
      (--  Selected clock
-      Clk_1,
+      CLK_1,
       --  Selected clock divided by 2
-      Clk_2,
+      CLK_2,
       --  Selected clock divided by 4
-      Clk_4,
+      CLK_4,
       --  Selected clock divided by 8
-      Clk_8,
+      CLK_8,
       --  Selected clock divided by 16
-      Clk_16,
+      CLK_16,
       --  Selected clock divided by 32
-      Clk_32,
+      CLK_32,
       --  Selected clock divided by 64
-      Clk_64)
+      CLK_64)
      with Size => 3;
    for PMC_PCK_PRES_Field use
-     (Clk_1 => 0,
-      Clk_2 => 1,
-      Clk_4 => 2,
-      Clk_8 => 3,
-      Clk_16 => 4,
-      Clk_32 => 5,
-      Clk_64 => 6);
+     (CLK_1 => 0,
+      CLK_2 => 1,
+      CLK_4 => 2,
+      CLK_8 => 3,
+      CLK_16 => 4,
+      CLK_32 => 5,
+      CLK_64 => 6);
 
    --  Programmable Clock 0 Register
    type PMC_PCK_Register is record
       --  Master Clock Source Selection
-      CSS           : PMC_PCK_CSS_Field := ATSAM3X8E.PMC.Slow_Clk;
+      CSS           : PMC_PCK_CSS_Field := ATSAM3X8E.PMC.SLOW_CLK;
       --  unspecified
       Reserved_3_3  : ATSAM3X8E.Bit := 16#0#;
       --  Programmable Clock Prescaler
-      PRES          : PMC_PCK_PRES_Field := ATSAM3X8E.PMC.Clk_1;
+      PRES          : PMC_PCK_PRES_Field := ATSAM3X8E.PMC.CLK_1;
       --  unspecified
       Reserved_7_31 : ATSAM3X8E.UInt25 := 16#0#;
    end record
@@ -1242,16 +1241,16 @@ package ATSAM3X8E.PMC is
    --  Divisor Value
    type PMC_PCR_DIV_Field is
      (--  Peripheral clock is MCK
-      Periph_Div_Mck,
+      PERIPH_DIV_MCK,
       --  Peripheral clock is MCK/2
-      Periph_Div2_Mck,
+      PERIPH_DIV2_MCK,
       --  Peripheral clock is MCK/4
-      Periph_Div4_Mck)
+      PERIPH_DIV4_MCK)
      with Size => 2;
    for PMC_PCR_DIV_Field use
-     (Periph_Div_Mck => 0,
-      Periph_Div2_Mck => 1,
-      Periph_Div4_Mck => 2);
+     (PERIPH_DIV_MCK => 0,
+      PERIPH_DIV2_MCK => 1,
+      PERIPH_DIV4_MCK => 2);
 
    subtype PMC_PCR_EN_Field is ATSAM3X8E.Bit;
 
@@ -1266,7 +1265,7 @@ package ATSAM3X8E.PMC is
       --  unspecified
       Reserved_13_15 : ATSAM3X8E.UInt3 := 16#0#;
       --  Divisor Value
-      DIV            : PMC_PCR_DIV_Field := ATSAM3X8E.PMC.Periph_Div_Mck;
+      DIV            : PMC_PCR_DIV_Field := ATSAM3X8E.PMC.PERIPH_DIV_MCK;
       --  unspecified
       Reserved_18_27 : ATSAM3X8E.UInt10 := 16#0#;
       --  Enable

@@ -1,6 +1,7 @@
 /* The MIT License
  *
  * Copyright (c) 2007, 2008, 2009, 2010 Dado Sutter and Bogdan Marinescu
+ * Copyright (c) 2012-2021 Simon Wright <simon@pushface.org>
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -48,20 +49,12 @@ MEMORY
 
 SECTIONS
 {
-    .isr_vector :
+    .text :
     {
         . = ALIGN(4);
-        _isr_vector = .;
-        LONG(_estack)
-        LONG(program_initialization + 1)
-        KEEP(*(.isr_vector))
-    } > flash
+        *(.isr_vector)
+        . = ALIGN(512);
 
-    .text 0x00080100:
-    {
-        . = ALIGN(4);
-        /* _text = .; */
-        /* PROVIDE(stext = .);*/
         *(.text)
         *(.text.*)
         *(.gnu.linkonce.t.*)
@@ -147,7 +140,7 @@ SECTIONS
     } >sram
 
     end = .;
-    PROVIDE( _estack = 0x20088000);
+    PROVIDE(_estack = ORIGIN(sram) + LENGTH(sram));
 
     /DISCARD/ : { *(.note.GNU-stack) *(.gnu_debuglink) *(.gnu.lto_*) }
 

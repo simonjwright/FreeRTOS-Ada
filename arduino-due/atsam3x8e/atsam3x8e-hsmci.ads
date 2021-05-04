@@ -1,4 +1,3 @@
-pragma Ada_2012;
 pragma Style_Checks (Off);
 
 --  This spec has been automatically generated from ATSAM3X8E.svd
@@ -135,19 +134,19 @@ package ATSAM3X8E.HSMCI is
    --  SDCard/SDIO Slot
    type SDCR_SDCSEL_Field is
      (--  Slot A is selected.
-      Slota,
+      SLOTA,
       --  SDCARD/SDIO Slot B selected
-      Slotb,
+      SLOTB,
       --  -
-      Slotc,
+      SLOTC,
       --  -
-      Slotd)
+      SLOTD)
      with Size => 2;
    for SDCR_SDCSEL_Field use
-     (Slota => 0,
-      Slotb => 1,
-      Slotc => 2,
-      Slotd => 3);
+     (SLOTA => 0,
+      SLOTB => 1,
+      SLOTC => 2,
+      SLOTD => 3);
 
    --  SDCard/SDIO Bus Width
    type SDCR_SDCBUS_Field is
@@ -166,7 +165,7 @@ package ATSAM3X8E.HSMCI is
    --  SD/SDIO Card Register
    type HSMCI_SDCR_Register is record
       --  SDCard/SDIO Slot
-      SDCSEL        : SDCR_SDCSEL_Field := ATSAM3X8E.HSMCI.Slota;
+      SDCSEL        : SDCR_SDCSEL_Field := ATSAM3X8E.HSMCI.SLOTA;
       --  unspecified
       Reserved_2_5  : ATSAM3X8E.UInt4 := 16#0#;
       --  SDCard/SDIO Bus Width
@@ -188,63 +187,63 @@ package ATSAM3X8E.HSMCI is
    --  Response Type
    type CMDR_RSPTYP_Field is
      (--  No response.
-      Noresp,
+      NORESP,
       --  48-bit response.
-      Val_48_Bit,
+      Val_48_BIT,
       --  136-bit response.
-      Val_136_Bit,
+      Val_136_BIT,
       --  R1b response type
       R1B)
      with Size => 2;
    for CMDR_RSPTYP_Field use
-     (Noresp => 0,
-      Val_48_Bit => 1,
-      Val_136_Bit => 2,
+     (NORESP => 0,
+      Val_48_BIT => 1,
+      Val_136_BIT => 2,
       R1B => 3);
 
    --  Special Command
    type CMDR_SPCMD_Field is
      (--  Not a special CMD.
-      Std,
+      STD,
       --  Initialization CMD: 74 clock cycles for initialization sequence.
-      Init,
+      INIT,
       --  Synchronized CMD: Wait for the end of the current data block transfer
 --  before sending the pending command.
-      Sync,
+      SYNC,
       --  CE-ATA Completion Signal disable Command. The host cancels the ability for
 --  the device to return a command completion signal on the command line.
-      Ce_Ata,
+      CE_ATA,
       --  Interrupt command: Corresponds to the Interrupt Mode (CMD40).
-      It_Cmd,
+      IT_CMD,
       --  Interrupt response: Corresponds to the Interrupt Mode (CMD40).
-      It_Resp,
+      IT_RESP,
       --  Boot Operation Request. Start a boot operation mode, the host processor can
 --  read boot data from the MMC device directly.
-      Bor,
+      BOR,
       --  End Boot Operation. This command allows the host processor to terminate the
 --  boot operation mode.
-      Ebo)
+      EBO)
      with Size => 3;
    for CMDR_SPCMD_Field use
-     (Std => 0,
-      Init => 1,
-      Sync => 2,
-      Ce_Ata => 3,
-      It_Cmd => 4,
-      It_Resp => 5,
-      Bor => 6,
-      Ebo => 7);
+     (STD => 0,
+      INIT => 1,
+      SYNC => 2,
+      CE_ATA => 3,
+      IT_CMD => 4,
+      IT_RESP => 5,
+      BOR => 6,
+      EBO => 7);
 
    --  Open Drain Command
    type CMDR_OPDCMD_Field is
      (--  Push pull command.
-      Pushpull,
+      PUSHPULL,
       --  Open drain command.
-      Opendrain)
+      OPENDRAIN)
      with Size => 1;
    for CMDR_OPDCMD_Field use
-     (Pushpull => 0,
-      Opendrain => 1);
+     (PUSHPULL => 0,
+      OPENDRAIN => 1);
 
    --  Max Latency for Command to Response
    type CMDR_MAXLAT_Field is
@@ -260,73 +259,73 @@ package ATSAM3X8E.HSMCI is
    --  Transfer Command
    type CMDR_TRCMD_Field is
      (--  No data transfer
-      No_Data,
+      NO_DATA,
       --  Start data transfer
-      Start_Data,
+      START_DATA,
       --  Stop data transfer
-      Stop_Data)
+      STOP_DATA)
      with Size => 2;
    for CMDR_TRCMD_Field use
-     (No_Data => 0,
-      Start_Data => 1,
-      Stop_Data => 2);
+     (NO_DATA => 0,
+      START_DATA => 1,
+      STOP_DATA => 2);
 
    --  Transfer Direction
    type CMDR_TRDIR_Field is
      (--  Write.
-      Write,
+      WRITE,
       --  Read.
-      Read)
+      READ)
      with Size => 1;
    for CMDR_TRDIR_Field use
-     (Write => 0,
-      Read => 1);
+     (WRITE => 0,
+      READ => 1);
 
    --  Transfer Type
    type CMDR_TRTYP_Field is
      (--  MMC/SDCard Single Block
-      Single,
+      SINGLE,
       --  MMC/SDCard Multiple Block
-      Multiple,
+      MULTIPLE,
       --  MMC Stream
-      Stream,
+      STREAM,
       --  SDIO Byte
-      Byte,
+      BYTE,
       --  SDIO Block
-      Block)
+      BLOCK)
      with Size => 3;
    for CMDR_TRTYP_Field use
-     (Single => 0,
-      Multiple => 1,
-      Stream => 2,
-      Byte => 4,
-      Block => 5);
+     (SINGLE => 0,
+      MULTIPLE => 1,
+      STREAM => 2,
+      BYTE => 4,
+      BLOCK => 5);
 
    --  SDIO Special Command
    type CMDR_IOSPCMD_Field is
      (--  Not an SDIO Special Command
-      Std,
+      STD,
       --  SDIO Suspend Command
-      Suspend,
+      SUSPEND,
       --  SDIO Resume Command
-      Resume)
+      RESUME)
      with Size => 2;
    for CMDR_IOSPCMD_Field use
-     (Std => 0,
-      Suspend => 1,
-      Resume => 2);
+     (STD => 0,
+      SUSPEND => 1,
+      RESUME => 2);
 
    --  ATA with Command Completion Signal
    type CMDR_ATACS_Field is
      (--  Normal operation mode.
-      Normal,
+      NORMAL,
       --  This bit indicates that a completion signal is expected within a programmed
 --  amount of time (HSMCI_CSTOR).
-      Completion)
+      COMPLETION)
      with Size => 1;
    for CMDR_ATACS_Field use
-     (Normal => 0,
-      Completion => 1);
+     (NORMAL => 0,
+      COMPLETION => 1);
 
    subtype HSMCI_CMDR_BOOT_ACK_Field is ATSAM3X8E.Bit;
 
@@ -335,27 +334,27 @@ package ATSAM3X8E.HSMCI is
       --  Write-only. Command Number
       CMDNB          : HSMCI_CMDR_CMDNB_Field := 16#0#;
       --  Write-only. Response Type
-      RSPTYP         : CMDR_RSPTYP_Field := ATSAM3X8E.HSMCI.Noresp;
+      RSPTYP         : CMDR_RSPTYP_Field := ATSAM3X8E.HSMCI.NORESP;
       --  Write-only. Special Command
-      SPCMD          : CMDR_SPCMD_Field := ATSAM3X8E.HSMCI.Std;
+      SPCMD          : CMDR_SPCMD_Field := ATSAM3X8E.HSMCI.STD;
       --  Write-only. Open Drain Command
-      OPDCMD         : CMDR_OPDCMD_Field := ATSAM3X8E.HSMCI.Pushpull;
+      OPDCMD         : CMDR_OPDCMD_Field := ATSAM3X8E.HSMCI.PUSHPULL;
       --  Write-only. Max Latency for Command to Response
       MAXLAT         : CMDR_MAXLAT_Field := ATSAM3X8E.HSMCI.Val_5;
       --  unspecified
       Reserved_13_15 : ATSAM3X8E.UInt3 := 16#0#;
       --  Write-only. Transfer Command
-      TRCMD          : CMDR_TRCMD_Field := ATSAM3X8E.HSMCI.No_Data;
+      TRCMD          : CMDR_TRCMD_Field := ATSAM3X8E.HSMCI.NO_DATA;
       --  Write-only. Transfer Direction
-      TRDIR          : CMDR_TRDIR_Field := ATSAM3X8E.HSMCI.Write;
+      TRDIR          : CMDR_TRDIR_Field := ATSAM3X8E.HSMCI.WRITE;
       --  Write-only. Transfer Type
-      TRTYP          : CMDR_TRTYP_Field := ATSAM3X8E.HSMCI.Single;
+      TRTYP          : CMDR_TRTYP_Field := ATSAM3X8E.HSMCI.SINGLE;
       --  unspecified
       Reserved_22_23 : ATSAM3X8E.UInt2 := 16#0#;
       --  Write-only. SDIO Special Command
-      IOSPCMD        : CMDR_IOSPCMD_Field := ATSAM3X8E.HSMCI.Std;
+      IOSPCMD        : CMDR_IOSPCMD_Field := ATSAM3X8E.HSMCI.STD;
       --  Write-only. ATA with Command Completion Signal
-      ATACS          : CMDR_ATACS_Field := ATSAM3X8E.HSMCI.Normal;
+      ATACS          : CMDR_ATACS_Field := ATSAM3X8E.HSMCI.NORMAL;
       --  Write-only. Boot Operation Acknowledge.
       BOOT_ACK       : HSMCI_CMDR_BOOT_ACK_Field := 16#0#;
       --  unspecified
@@ -384,25 +383,25 @@ package ATSAM3X8E.HSMCI is
    type BLKR_BCNT_Field is
      (--  MMC/SDCARD Multiple BlockFrom 1 to 65635: Value 0 corresponds to an
 --  infinite block transfer.
-      Multiple,
+      MULTIPLE,
       --  SDIO ByteFrom 1 to 512 bytes: Value 0 corresponds to a 512-byte
 --  transfer.Values from 0x200 to 0xFFFF are forbidden.
-      Byte,
+      BYTE,
       --  SDIO BlockFrom 1 to 511 blocks: Value 0 corresponds to an infinite block
 --  transfer.Values from 0x200 to 0xFFFF are forbidden.
-      Block)
+      BLOCK)
      with Size => 16;
    for BLKR_BCNT_Field use
-     (Multiple => 0,
-      Byte => 4,
-      Block => 5);
+     (MULTIPLE => 0,
+      BYTE => 4,
+      BLOCK => 5);
 
    subtype HSMCI_BLKR_BLKLEN_Field is ATSAM3X8E.UInt16;
 
    --  Block Register
    type HSMCI_BLKR_Register is record
       --  MMC/SDIO Block Count - SDIO Byte Count
-      BCNT   : BLKR_BCNT_Field := ATSAM3X8E.HSMCI.Multiple;
+      BCNT   : BLKR_BCNT_Field := ATSAM3X8E.HSMCI.MULTIPLE;
       --  Data Block Length
       BLKLEN : HSMCI_BLKR_BLKLEN_Field := 16#0#;
    end record
@@ -1059,22 +1058,22 @@ package ATSAM3X8E.HSMCI is
    type WPSR_WP_VS_Field is
      (--  No Write Protection Violation occurred since the last read of this register
 --  (WP_SR)
-      None,
+      NONE,
       --  Write Protection detected unauthorized attempt to write a control register
 --  had occurred (since the last read.)
-      Write,
+      WRITE,
       --  Software reset had been performed while Write Protection was enabled (since
 --  the last read).
-      Reset,
+      RESET,
       --  Both Write Protection violation and software reset with Write Protection
 --  enabled have occurred since the last read.
-      Both)
+      BOTH)
      with Size => 4;
    for WPSR_WP_VS_Field use
-     (None => 0,
-      Write => 1,
-      Reset => 2,
-      Both => 3);
+     (NONE => 0,
+      WRITE => 1,
+      RESET => 2,
+      BOTH => 3);
 
    subtype HSMCI_WPSR_WP_VSRC_Field is ATSAM3X8E.UInt16;
 

@@ -1,4 +1,4 @@
---  Copyright (C) 2016-2020 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2021 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -21,7 +21,7 @@ with "../FreeRTOS";
 
 library project Build_Runtime is
 
-   for Languages use ("Ada", "C");
+   for Languages use ("Ada", "C", "ASM");
 
    for Library_Auto_Init use "False";
    for Library_Name use "gnat";
@@ -33,7 +33,6 @@ library project Build_Runtime is
    for Source_Dirs use Common.Paths &
      (
       "adainclude",
-      "nrf51",
       FreeRTOS.Source,
       FreeRTOS.Portable_Base & "ARM_CM0"
      );
@@ -95,7 +94,7 @@ library project Build_Runtime is
       for Switches ("s-assert.adb") use ALL_ADAFLAGS & ("-g");
       for Switches ("a-tags.adb") use ALL_ADAFLAGS & ("-g");
       for Switches ("last_chance_handler.c") use ALL_CFLAGS & ("-g", "-O0");
-      for Switches ("hardfault_handling.adb") use ALL_ADAFLAGS & ("-g", "-O0");
+      for Switches ("s-harhan.adb") use ALL_ADAFLAGS & ("-g", "-O0");
       for Switches ("nrf51-swi.ads") use ALL_ADAFLAGS & ("-gnatwU");
    end Compiler;
 
