@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 S p e c                                  --
 --                                                                          --
---    Copyright (C) 1992-2013, 2016-2018, Free Software Foundation, Inc.    --
+--    Copyright (C) 1992-2013, 2016-2021, Free Software Foundation, Inc.    --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -80,5 +80,21 @@ package System.Parameters is
    --  The GCC8 binder generates references.
    --
    --  0 means to use 10% of the task's stack.
+
+   ----------------------------------------------
+   -- Characteristics of types in Interfaces.C --
+   ----------------------------------------------
+
+   long_bits : constant := Long_Integer'Size;
+   --  Number of bits in type long and unsigned_long. The normal convention
+   --  is that this is the same as type Long_Integer, but this may not be true
+   --  of all targets.
+
+   ptr_bits  : constant := Standard'Address_Size;
+   subtype C_Address is System.Address;
+   --  Number of bits in Interfaces.C pointers, normally a standard address
+
+   C_Malloc_Linkname : constant String := "__gnat_malloc";
+   --  Name of runtime function used to allocate such a pointer
 
 end System.Parameters;
