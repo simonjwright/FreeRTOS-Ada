@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 S p e c                                  --
 --                                                                          --
---          Copyright (C) 1992-2009, Free Software Foundation, Inc.         --
+--          Copyright (C) 1992-2022, Free Software Foundation, Inc.         --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -32,55 +32,44 @@
 --  This package contains routines for scanning modular Unsigned
 --  values for use in Text_IO.Modular_IO, and the Value attribute.
 
+--  Preconditions in this unit are meant for analysis only, not for run-time
+--  checking, so that the expected exceptions are raised. This is enforced by
+--  setting the corresponding assertion policy to Ignore. Postconditions and
+--  contract cases should not be executed at runtime as well, in order not to
+--  slow down the execution of these functions.
+
+pragma Assertion_Policy (Pre                => Ignore,
+                         Post               => Ignore,
+                         Contract_Cases     => Ignore,
+                         Ghost              => Ignore,
+                         Subprogram_Variant => Ignore);
+
 with System.Unsigned_Types;
+with System.Value_U;
 
-package System.Val_Uns is
-   pragma Pure;
+package System.Val_Uns with SPARK_Mode is
+   pragma Preelaborate;
 
-   function Scan_Raw_Unsigned
+   subtype Unsigned is Unsigned_Types.Unsigned;
+
+   package Impl is new Value_U (Unsigned);
+
+   procedure Scan_Raw_Unsigned
      (Str : String;
       Ptr : not null access Integer;
-      Max : Integer) return System.Unsigned_Types.Unsigned;
-   --  This function scans the string starting at Str (Ptr.all) for a valid
-   --  integer according to the syntax described in (RM 3.5(43)). The substring
-   --  scanned extends no further than Str (Max).  Note: this does not scan
-   --  leading or trailing blanks, nor leading sign.
-   --
-   --  There are three cases for the return:
-   --
-   --  If a valid integer is found, then Ptr.all is updated past the last
-   --  character of the integer.
-   --
-   --  If no valid integer is found, then Ptr.all points either to an initial
-   --  non-digit character, or to Max + 1 if the field is all spaces and the
-   --  exception Constraint_Error is raised.
-   --
-   --  If a syntactically valid integer is scanned, but the value is out of
-   --  range, or, in the based case, the base value is out of range or there
-   --  is an out of range digit, then Ptr.all points past the integer, and
-   --  Constraint_Error is raised.
-   --
-   --  Note: these rules correspond to the requirements for leaving the pointer
-   --  positioned in Text_IO.Get
-   --
-   --  Note: if Str is empty, i.e. if Max is less than Ptr, then this is a
-   --  special case of an all-blank string, and Ptr is unchanged, and hence
-   --  is greater than Max as required in this case.
+      Max : Integer;
+      Res : out Unsigned)
+     renames Impl.Scan_Raw_Unsigned;
 
-   function Scan_Unsigned
+   procedure Scan_Unsigned
      (Str : String;
       Ptr : not null access Integer;
-      Max : Integer) return System.Unsigned_Types.Unsigned;
-   --  Same as Scan_Raw_Unsigned, except scans optional leading
-   --  blanks, and an optional leading plus sign.
-   --  Note: if a minus sign is present, Constraint_Error will be raised.
-   --  Note: trailing blanks are not scanned.
+      Max : Integer;
+      Res : out Unsigned)
+     renames Impl.Scan_Unsigned;
 
    function Value_Unsigned
-     (Str : String) return System.Unsigned_Types.Unsigned;
-   --  Used in computing X'Value (Str) where X is a modular integer type whose
-   --  modulus does not exceed the range of System.Unsigned_Types.Unsigned. Str
-   --  is the string argument of the attribute. Constraint_Error is raised if
-   --  the string is malformed, or if the value is out of range.
+     (Str : String) return Unsigned
+     renames Impl.Value_Unsigned;
 
 end System.Val_Uns;

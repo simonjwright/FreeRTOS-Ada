@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 B o d y                                  --
 --                                                                          --
---          Copyright (C) 1992-2017, Free Software Foundation, Inc.         --
+--          Copyright (C) 1992-2022, Free Software Foundation, Inc.         --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -29,52 +29,8 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  Modified from GCC 7.1.0 to remove recursion for Cortex GNAT RTS.
+--  This package does not require a body, since it is an instantiation. We
+--  provide a dummy file containing a No_Body pragma so that previous versions
+--  of the body (which did exist) will not interfere.
 
-with System.Unsigned_Types; use System.Unsigned_Types;
-
-package body System.Img_Uns is
-
-   --------------------
-   -- Image_Unsigned --
-   --------------------
-
-   procedure Image_Unsigned
-     (V : System.Unsigned_Types.Unsigned;
-      S : in out String;
-      P : out Natural)
-   is
-      pragma Assert (S'First = 1);
-   begin
-      S (1) := ' ';
-      P := 1;
-      Set_Image_Unsigned (V, S, P);
-   end Image_Unsigned;
-
-   ------------------------
-   -- Set_Image_Unsigned --
-   ------------------------
-
-   procedure Set_Image_Unsigned
-     (V : Unsigned;
-      S : in out String;
-      P : in out Natural)
-   is
-      Local_V : Unsigned := V;
-      Local_P : Natural := P;
-      Reversed : String (S'Range);
-   begin
-      while Local_V >= 10 loop
-         Local_P := Local_P + 1;
-         Reversed (Local_P) := Character'Val (48 + (Local_V rem 10));
-         Local_V := Local_V / 10;
-      end loop;
-      Local_P := Local_P + 1;
-      Reversed (Local_P) := Character'Val (48 + Local_V);
-      for J in 0 .. (Local_P - P) loop
-         S (P + 1 + J) := Reversed (Local_P - J);
-      end loop;
-      P := Local_P;
-   end Set_Image_Unsigned;
-
-end System.Img_Uns;
+pragma No_Body;
