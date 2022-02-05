@@ -54,6 +54,7 @@ The standard packages included (there are more, implementation-specific, ones) f
     Interfaces
     Interfaces.C
     Interfaces.C.Extensions
+    Interfaces.C.Pointers
     Interfaces.C.Strings
     System
     System.Assertions
