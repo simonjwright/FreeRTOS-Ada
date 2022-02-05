@@ -1,17 +1,16 @@
 # Installing and using Cortex GNAT RTS #
 
+## FreeRTOS ##
+
+This repository uses a Git submodule for FreeRTOS. If you want to use a stand-alone release of FreeRTOS, you'll need to edit `FreeRTOS.gpr` in the top-level directory to match. Otherwise, after cloning the repository,
+```
+git submodule init
+git submodule update
+```
+
 ## Installing ##
 
 The runtimes are supplied unbuilt. In order to build them, some scenario variables need to be set.
-
-### FreeRTOS ###
-
-The compiler has to find the FreeRTOS sources.
-
-| Variable | Use | Default |
-| ---------|-----|-------- |
-| `FREERTOS_PARENT` | where FreeRTOS is installed | `HOME` |
-| `FREERTOS_RELEASE` | version | `FreeRTOSv10.0.1` |
 
 ### Compiler release ###
 

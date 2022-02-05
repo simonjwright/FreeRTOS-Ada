@@ -1,4 +1,4 @@
---  Copyright (C) 2017-2018 Free Software Foundation, Inc.
+--  Copyright (C) 2017-2022 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -18,13 +18,16 @@
 
 abstract project FreeRTOS is
 
-   Parent := external ("FREERTOS_PARENT", external ("HOME"));
-   Release := external ("FREERTOS_RELEASE", "FreeRTOSv10.0.1");
-   Base := Parent & "/" & Release & "/";
+   -- ** Uncomment these if you have FreeRTOS installed externally **
+   -- Parent := external ("FREERTOS_PARENT", external ("HOME"));
+   -- Release := external ("FREERTOS_RELEASE", "FreeRTOSv10.0.1");
+   -- Base := Parent & "/" & Release & "/";
+   -- Source := Base & "FreeRTOS/Source/";
 
-   Source := Base & "FreeRTOS/Source/";
+   -- ** Comment this if you have FreeRTOS installed externally **
+   Source := project'Project_Dir & "FreeRTOS-Kernel/";
+
    Include := Source & "include";
-
    Portable_Base := Source & "portable/GCC/";
    --  You'll need to add e.g. "ARM_CM3" for your processor
 
