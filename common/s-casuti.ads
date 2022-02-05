@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 S p e c                                  --
 --                                                                          --
---          Copyright (C) 1995-2013, Free Software Foundation, Inc.         --
+--          Copyright (C) 1995-2022, Free Software Foundation, Inc.         --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -36,8 +36,6 @@
 
 --  Note that all the routines in this package are available to the user
 --  via GNAT.Case_Util, which imports all the entities from this package.
-
-pragma Compiler_Unit_Warning;
 
 package System.Case_Util is
    pragma Pure;

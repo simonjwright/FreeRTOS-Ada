@@ -19,8 +19,9 @@
 abstract project Common is
 
    type Compiler_Release is
-     ("gcc6", "gnat-gpl-2017", "gcc7", "gcc8", "gnat-ce-2020", "gcc11");
-   Release : Compiler_Release := external ("RELEASE", "gcc8");
+     ("gcc6", "gnat-gpl-2017", "gcc7", "gcc8", "gnat-ce-2020",
+      "gcc11", "gcc12");
+   Release : Compiler_Release := external ("RELEASE", "gcc11");
    Release_Path := Release;
    case Release is
       when "gcc11" =>

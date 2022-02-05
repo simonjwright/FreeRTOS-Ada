@@ -19,7 +19,7 @@ During compiler development, the interface between the compiler and the run time
 
 | Variable | Default |
 | ---------|-------- |
-| `RELEASE` | gcc8 |
+| `RELEASE` | gcc11 |
 
 Values for `RELEASE` are as below:
 
@@ -31,6 +31,7 @@ Values for `RELEASE` are as below:
 | FSF GCC 9 | `gcc8` |
 | FSF GCC 10 | `gcc8` |
 | FSF GCC 11 | `gcc11` |
+| FSF GCC 12 | `gcc12` |
 | GNAT GPL 2016 | `gcc6` |
 | GNAT GPL 2017 | `gnat-gpl-2017` |
 | GNAT CE 2018 | `gcc8` |
