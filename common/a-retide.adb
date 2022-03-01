@@ -6,7 +6,7 @@
 --                                                                          --
 --                                  B o d y                                 --
 --                                                                          --
---    Copyright (C) 1992-2010, 2016-2018, Free Software Foundation, Inc.    --
+--  Copyright (C) 1992-2010, 2016-2018, 2020 Free Software Foundation, Inc. --
 --                                                                          --
 -- GNARL is free software; you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -32,6 +32,7 @@
 --  Modified from GCC 4.9.1 for Cortex GNAT RTS.
 
 with Interfaces;
+with System.Tasking;
 
 package body Ada.Real_Time.Delays is
 
@@ -43,7 +44,15 @@ package body Ada.Real_Time.Delays is
         External_Name => "vTaskDelay";
       Now : constant Time := Clock;
       Ticks_To_Delay : constant Time := (if T > Now then T - Now else 0);
+      Self_Id : constant System.Tasking.Task_Id := System.Tasking.Self;
    begin
+      --  This is a restricted profile, so we must raise Program_Error
+      --  if this potentially blocking operation is called from a
+      --  protected action.
+      if Self_Id.Common.Protected_Action_Nesting > 0 then
+         raise Program_Error with "potentially blocking operation";
+      end if;
+
       vTaskDelay (Interfaces.Unsigned_32 (Ticks_To_Delay));
    end Delay_Until;
 

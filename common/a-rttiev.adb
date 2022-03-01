@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 B o d y                                  --
 --                                                                          --
---        Copyright (C) 2005-2014, 2017, Free Software Foundation, Inc.     --
+--   Copyright (C) 2005-2014, 2017, 2020 Free Software Foundation, Inc.     --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -30,6 +30,17 @@
 ------------------------------------------------------------------------------
 
 --  Adapted from the GCC 7.1.0 version for Cortex GNAT RTS.
+
+--  This implementation doesn't follow the implemntation advice of ARM
+--  D.15(25) (that the protected handler procedure should be executed
+--  directly by the real time clock interrupt mechanism). Instead,
+--  there's a highest-priority task.
+--
+--  The reason is for compatibility with the armv6s-m (cortex-m0)
+--  architecture, which can only implement locking by inhibiting
+--  interrupts rather than via the BASEPRI mechanism. This would make
+--  it difficult to mix Ada's PO locking with FreeRTOS's locking
+--  around SysTick.
 
 with System.FreeRTOS.Tasks;
 
@@ -74,125 +85,6 @@ package body Ada.Real_Time.Timing_Events is
       No_Element : constant Cursor := null;
    end Event_List;
 
-   package body Event_List
-   is
-
-      --  Event comparisons are in terms of the events' timeouts.
-      function Less_For_Sort (Left, Right : Any_Timing_Event) return Boolean
-      is (Left.Timeout < Right.Timeout);
-      function Equal_For_Sort (Left, Right : Any_Timing_Event) return Boolean
-      is (Left.Timeout = Right.Timeout);
-
-      function Is_Empty (L : List) return Boolean
-      is (L.Head = null);
-
-      procedure Append (L : in out List; Item : Any_Timing_Event)
-      is
-      begin
-         if L.Head = null then
-            L.Head := Item;
-            L.Tail := Item;
-            pragma Assert (L.Head = Item
-                           and then L.Tail = Item
-                           and then L.Head.Next = null
-                           and then L.Head.Prev = null);
-         elsif Less_For_Sort (Item, L.Head) then
-            --  Insert before the list head.
-            L.Head.Prev := Item;
-            Item.Next := L.Head;
-            L.Head := Item;
-            pragma Assert (L.Head = Item
-                           and then L.Head.Prev = null
-                           and then L.Head.Next.Prev = L.Head);
-         elsif Less_For_Sort (L.Tail, Item)
-           or else Equal_For_Sort (L.Tail, Item)
-         then
-            --  Insert after the list tail.
-            L.Tail.Next := Item;
-            Item.Prev := L.Tail;
-            L.Tail := Item;
-            pragma Assert (L.Tail = Item
-                           and then L.Tail.Next = null
-                           and then L.Tail.Prev.Next = L.Tail);
-         else
-            --  Need to insert after the last item in the list which is
-            --  less than or equal to this item.
-            --
-            --  We don't need to alter the list head or tail.
-            declare
-               P : Any_Timing_Event := L.Head;
-            begin
-               while Less_For_Sort (P.Next, Item)
-                 or else Equal_For_Sort (P.Next, Item) loop
-                  P := P.Next;
-               end loop;
-               P.Next.Prev := Item;
-               Item.Next := P.Next;
-               Item.Prev := P;
-               P.Next := Item;
-            end;
-            pragma Assert (Item.Next.Prev = Item
-                           and then Item.Prev.Next = Item);
-         end if;
-      end Append;
-
-      function First_Element (L : List) return Any_Timing_Event
-      is (L.Head);
-
-      procedure Delete_First (L : in out List)
-      is
-         First : constant Any_Timing_Event := L.Head;
-      begin
-         L.Head := First.Next;
-         if L.Head = null then
-            L.Tail := null;
-         else
-            L.Head.Prev := null;
-         end if;
-
-         --  Remove links from the removed event.
-         First.Next := null;
-         First.Prev := null;
-      end Delete_First;
-
-      function Find (L : List; Item : Any_Timing_Event) return Cursor
-      is
-         Result : Any_Timing_Event := L.Head;
-      begin
-         loop
-            if Result = null then
-               return No_Element;
-            elsif Result = Item then
-               return Cursor (Result);
-            else
-               Result := Result.Next;
-            end if;
-         end loop;
-      end Find;
-
-      procedure Delete (L : in out List; C : in out Cursor)
-      is
-      begin
-         if C.Prev = null then
-            L.Head := C.Next;
-         else
-            C.Prev.Next := C.Next;
-         end if;
-         if C.Next = null then
-            L.Tail := C.Prev;
-         else
-            C.Next.Prev := C.Prev;
-         end if;
-
-         --  Remove links from the removed event.
-         C.Next := null;
-         C.Prev := null;
-
-         C := No_Element;
-      end Delete;
-
-   end Event_List;
-
    -------------
    -- Locking --
    -------------
@@ -228,8 +120,15 @@ package body Ada.Real_Time.Timing_Events is
    -- Timer --
    -----------
 
-   task Timer is
-      pragma Priority (System.Priority'Last);
+   task Timer
+   with
+     Priority             => System.Priority'Last,
+     Storage_Size         => 1024,
+     --  Will be overrun on micro:bit with -O0; -Og is OK.
+     --  In any case, beware! an event's handler uses this task's stack.
+     Secondary_Stack_Size => 0
+   is
+      pragma Task_Name ("events_timer");
    end Timer;
 
    task body Timer is
@@ -237,23 +136,29 @@ package body Ada.Real_Time.Timing_Events is
       Next : Time := Time_First;
       Period : constant Time_Span := Milliseconds (5);
 
-      --  This is a simplistic implementation.
-      --
       --  If there is no next event, Process_Queued_Events returns
       --  Time_First, and this task delays for Period before looking
       --  again.
       --
       --  If there is a next event, Process_Queued_Events returns the
       --  time when that event is to fire, and this task delays until
-      --  then.
+      --  the earlier of that time and the time Period ahead.
       --
-      --  In either case, events which are scheduled during this
-      --  task's delay are not considered until the delay expires.
+      --  In either case, events which are posted during this task's
+      --  delay to run during that delay are not considered until the
+      --  delay expires.
 
    begin
       loop
          Process_Queued_Events (Next_Event_Time => Next);
-         delay until (if Next = Time_First then Clock + Period else Next);
+         declare
+            Now_Plus_Period : constant Time := Clock + Period;
+         begin
+            delay until (if Next = Time_First
+                           or Next > Now_Plus_Period
+                         then Now_Plus_Period
+                         else Next);
+         end;
       end loop;
    end Timer;
 
@@ -479,5 +384,128 @@ package body Ada.Real_Time.Timing_Events is
    begin
       System.FreeRTOS.Tasks.Enable_Interrupts;
    end Unlock;
+
+   ----------------
+   -- Event_List --
+   ----------------
+
+   package body Event_List
+   is
+
+      --  Event comparisons are in terms of the events' timeouts.
+      function Less_For_Sort (Left, Right : Any_Timing_Event) return Boolean
+      is (Left.Timeout < Right.Timeout);
+      function Equal_For_Sort (Left, Right : Any_Timing_Event) return Boolean
+      is (Left.Timeout = Right.Timeout);
+
+      function Is_Empty (L : List) return Boolean
+      is (L.Head = null);
+
+      procedure Append (L : in out List; Item : Any_Timing_Event)
+      is
+      begin
+         if L.Head = null then
+            L.Head := Item;
+            L.Tail := Item;
+            pragma Assert (L.Head = Item
+                           and then L.Tail = Item
+                           and then L.Head.Next = null
+                           and then L.Head.Prev = null);
+         elsif Less_For_Sort (Item, L.Head) then
+            --  Insert before the list head.
+            L.Head.Prev := Item;
+            Item.Next := L.Head;
+            L.Head := Item;
+            pragma Assert (L.Head = Item
+                           and then L.Head.Prev = null
+                           and then L.Head.Next.Prev = L.Head);
+         elsif Less_For_Sort (L.Tail, Item)
+           or else Equal_For_Sort (L.Tail, Item)
+         then
+            --  Insert after the list tail.
+            L.Tail.Next := Item;
+            Item.Prev := L.Tail;
+            L.Tail := Item;
+            pragma Assert (L.Tail = Item
+                           and then L.Tail.Next = null
+                           and then L.Tail.Prev.Next = L.Tail);
+         else
+            --  Need to insert after the last item in the list which is
+            --  less than or equal to this item.
+            --
+            --  We don't need to alter the list head or tail.
+            declare
+               P : Any_Timing_Event := L.Head;
+            begin
+               while Less_For_Sort (P.Next, Item)
+                 or else Equal_For_Sort (P.Next, Item) loop
+                  P := P.Next;
+               end loop;
+               P.Next.Prev := Item;
+               Item.Next := P.Next;
+               Item.Prev := P;
+               P.Next := Item;
+            end;
+            pragma Assert (Item.Next.Prev = Item
+                           and then Item.Prev.Next = Item);
+         end if;
+      end Append;
+
+      function First_Element (L : List) return Any_Timing_Event
+      is (L.Head);
+
+      procedure Delete_First (L : in out List)
+      is
+         First : constant Any_Timing_Event := L.Head;
+      begin
+         L.Head := First.Next;
+         if L.Head = null then
+            L.Tail := null;
+         else
+            L.Head.Prev := null;
+         end if;
+
+         --  Remove links from the removed event.
+         First.Next := null;
+         First.Prev := null;
+      end Delete_First;
+
+      function Find (L : List; Item : Any_Timing_Event) return Cursor
+      is
+         Result : Any_Timing_Event := L.Head;
+      begin
+         loop
+            if Result = null then
+               return No_Element;
+            elsif Result = Item then
+               return Cursor (Result);
+            else
+               Result := Result.Next;
+            end if;
+         end loop;
+      end Find;
+
+      procedure Delete (L : in out List; C : in out Cursor)
+      is
+      begin
+         if C.Prev = null then
+            L.Head := C.Next;
+         else
+            C.Prev.Next := C.Next;
+         end if;
+         if C.Next = null then
+            L.Tail := C.Prev;
+         else
+            C.Next.Prev := C.Prev;
+         end if;
+
+         --  Remove links from the removed event.
+         C.Next := null;
+         C.Prev := null;
+
+         C := No_Element;
+      end Delete;
+
+   end Event_List;
 
 end Ada.Real_Time.Timing_Events;

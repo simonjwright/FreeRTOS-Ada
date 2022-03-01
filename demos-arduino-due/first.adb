@@ -17,8 +17,9 @@
 --  <http://www.gnu.org/licenses/>.
 
 with First_Task;
-with Start_FreeRTOS_Scheduler;
+pragma Unreferenced (First_Task);
+with Ada.Real_Time;
 procedure First is
 begin
-   Start_FreeRTOS_Scheduler;
+   delay until Ada.Real_Time.Time_Last;
 end First;

@@ -1,3 +1,0 @@
-gpr_file=build_runtime.gpr
-target=arm-eabi-
-runtime=.

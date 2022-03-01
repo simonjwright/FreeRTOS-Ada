@@ -1,4 +1,4 @@
---  Copyright (C) 2016 Free Software Foundation, Inc.
+--  Copyright (C) 2016, 2019, 2020 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -18,19 +18,23 @@
 
 --  This package, in file debounce_hardware.adb, is the
 --  hardware-implemented version of debouncing.
+--
+--  To run, connect a pushbutton between GND and pin 53. On button-up,
+--  the LED will flash a number of times indicating how many button-up
+--  interrupts were received,
+--
+--  To check, comment out the line where debounce is enabled (:132).
 
 with Ada.Interrupts.Names;
 with Ada.Real_Time;
-with Interfaces;
 with System;
 
-with Registers.ATSAM3X8.PIO;
-with Registers.ATSAM3X8.PMC;
-with Registers.ATSAM3X8.Peripheral_Identifiers;
+with ATSAM3X8E.PIO;
+with ATSAM3X8E.PMC;
 
-use Registers.ATSAM3X8.PIO;
-use Registers.ATSAM3X8.PMC;
-use Registers.ATSAM3X8.Peripheral_Identifiers;
+use ATSAM3X8E;
+use ATSAM3X8E.PIO;
+use ATSAM3X8E.PMC;
 
 package body Debounce_Impl is
 
@@ -65,10 +69,9 @@ package body Debounce_Impl is
       end Wait;
 
       procedure Handler is
-         Status : constant Registers.Bits_32x1 := PIOB.ISR;
-         use type Registers.Bits_1;
+         Status : constant PIOA_ISR_Register := PIOB_Periph.ISR;
       begin
-         if Status (Input_Pin) /= 0 then
+         if Status.Arr (Input_Pin) /= 0 then
             Interrupts := Interrupts + 1;
             Triggered := True;
          end if;
@@ -77,10 +80,9 @@ package body Debounce_Impl is
 
    task body T is
       use type Ada.Real_Time.Time;
-      use type Registers.Bits_1;
    begin
       --  Clear the output pin
-      PIOB.CODR := (Output_Pin => 1, others => 0);
+      PIOB_Periph.CODR.Arr := (Output_Pin => 1, others => 0);
 
       loop
          declare
@@ -89,10 +91,10 @@ package body Debounce_Impl is
             Button.Wait (Interrupts => Interrupts_Received);
 
             for J in 1 .. Interrupts_Received loop
-               PIOB.SODR := (Output_Pin => 1, others => 0);
+               PIOB_Periph.SODR.Arr := (Output_Pin => 1, others => 0);
                delay until
                  Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (100);
-               PIOB.CODR := (Output_Pin => 1, others => 0);
+               PIOB_Periph.CODR.Arr := (Output_Pin => 1, others => 0);
                delay until
                  Ada.Real_Time.Clock + Ada.Real_Time.Milliseconds (100);
             end loop;
@@ -100,19 +102,19 @@ package body Debounce_Impl is
       end loop;
    end T;
 
-   use type Interfaces.Unsigned_32;
 begin
    --  Enable PIOB
-   PMC.PCER0 := (PIOB_IRQ => 1, others => 0);
+   PMC_Periph.PMC_PCER0.PID.Arr := (Ada.Interrupts.Names.PIOB_IRQ => 1,
+                                    others => 0);
 
    --  Enable PB14 ..
-   PIOB.PER := (Input_Pin => 1, others => 0);
+   PIOB_Periph.PER.Arr := (Input_Pin => 1, others => 0);
 
    --  .. enable additional interrupt modes ..
-   PIOB.AIMER := (Input_Pin => 1, others => 0);
+   PIOB_Periph.AIMER.Arr := (Input_Pin => 1, others => 0);
 
    --  .. enable interrupts on rising edge (button-up) ..
-   PIOB.REHLSR := (Input_Pin => 1, others => 0);
+   PIOB_Periph.REHLSR.Arr := (Input_Pin => 1, others => 0);
 
    --  .. debounce slow clock multiplier (32 kHz; we want 5 ms, 200 Hz) ..
 
@@ -121,21 +123,21 @@ begin
    --  so
    --     DIV = Tdiv_slclk/Tslow_clock/2 - 1
    --         = Fslow_clock/Fslclk/2 - 1
-   PIOB.SCDR := 32768 / 200 / 2 - 1;
+   PIOB_Periph.SCDR.DIV := UInt14 (32768 / 200 / 2 - 1);
 
    --  .. debounce vs glitch ..
-   PIOB.DIFSR := (Input_Pin => 1, others => 0);
+   PIOB_Periph.DIFSR.Arr := (Input_Pin => 1, others => 0);
 
-   --  .. enable debounce ..
-   PIOB.IFER := (Input_Pin => 1, others => 0);
+   --  .. enable debounce (comment-out to disable) ..
+   PIOB_Periph.IFER.Arr := (Input_Pin => 1, others => 0);
 
    --  .. enable interrupts.
-   PIOB.IER := (Input_Pin => 1, others => 0);
+   PIOB_Periph.IER.Arr := (Input_Pin => 1, others => 0);
 
    --  Enable PB27 ..
-   PIOB.PER := (Output_Pin => 1, others => 0);
+   PIOB_Periph.PER.Arr := (Output_Pin => 1, others => 0);
 
    --  .. as output.
-   PIOB.OER := (Output_Pin => 1, others => 0);
+   PIOB_Periph.OER.Arr := (Output_Pin => 1, others => 0);
 
 end Debounce_Impl;

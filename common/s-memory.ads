@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 S p e c                                  --
 --                                                                          --
---    Copyright (C) 2001-2013, 2016, 2018, Free Software Foundation, Inc.   --
+--           Copyright (C) 2001-2022 Free Software Foundation, Inc.         --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -41,8 +41,6 @@
 
 --  This unit may be used directly from an application program by providing
 --  an appropriate WITH, and the interface can be expected to remain stable.
-
-pragma Compiler_Unit_Warning;
 
 package System.Memory is
    pragma Preelaborate;

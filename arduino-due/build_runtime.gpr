@@ -1,4 +1,4 @@
---  Copyright (C) 2016-2018 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2021 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -21,7 +21,7 @@ with "../FreeRTOS";
 
 library project Build_Runtime is
 
-   for Languages use ("Ada", "C");
+   for Languages use ("Ada", "C", "ASM");
 
    for Library_Auto_Init use "False";
    for Library_Name use "gnat";
@@ -44,18 +44,34 @@ library project Build_Runtime is
    type Build_Type is ("Production", "Debug");
    Build : Build_Type := external ("BUILD", "Debug");
 
+   type Callgraph_Type is ("yes", "no");
+   Callgraph : Callgraph_Type := external ("CALLGRAPH", "no");
+
    package Compiler is
       COMMON_FLAGS := ("-ffunction-sections", "-fdata-sections");
       case Build is
         when "Production" =>
-           COMMON_FLAGS := COMMON_FLAGS & ("-O2");
+           COMMON_FLAGS := COMMON_FLAGS & ("-g", "-O2");
         when "Debug" =>
-           COMMON_FLAGS := COMMON_FLAGS & ("-g", "-O0");
+           COMMON_FLAGS := COMMON_FLAGS & ("-g", "-Og");
+           -- -O0 is costly, e.g. in the Timer_Events task.
+      end case;
+      case Callgraph is
+         when "yes" =>
+            COMMON_FLAGS := COMMON_FLAGS & ("-fcallgraph-info=su,da");
+         when "no" =>
+            null;
       end case;
       ALL_ADAFLAGS :=
-        ("-gnatpgn", "-gnatqQ", "-nostdinc")
+        ("-gnatwae", "-gnatpgn", "-gnatqQ", "-nostdinc")
         & COMMON_FLAGS
         & external_as_list ("EXTRA_ADAFLAGS", " ");
+      case Build is
+        when "Production" =>
+           null;
+        when "Debug" =>
+           ALL_ADAFLAGS := ALL_ADAFLAGS & "-gnata";
+      end case;
       ALL_CFLAGS :=
         external_as_list("INCLUDES", " ")
         & external_as_list("DEFINES", " ")
@@ -79,14 +95,11 @@ library project Build_Runtime is
       for Switches ("s-assert.adb") use ALL_ADAFLAGS & ("-g");
       for Switches ("a-tags.adb") use ALL_ADAFLAGS & ("-g");
       for Switches ("last_chance_handler.c") use ALL_CFLAGS & ("-g", "-O0");
-      for Switches ("hardfault_handling.adb") use ALL_ADAFLAGS & ("-g", "-O0");
+      for Switches ("s-harhan.adb") use ALL_ADAFLAGS & ("-g", "-O0");
   end Compiler;
 
-   type Install_Locally is ("yes", "no");
-   Local : Install_Locally := external ("INSTALL_LOCALLY", "no");
-
    package Install is
-      case Local is
+      case Common.Local is
          when "no" =>
             for Prefix use "arm-eabi/lib/gnat/";
          when "yes" =>

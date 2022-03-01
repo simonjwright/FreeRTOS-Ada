@@ -1,8 +1,8 @@
+pragma Style_Checks (Off);
+
 --  This spec has been automatically generated from ATSAM3X8E.svd
---  see https://github.com/simonjwright/svd2ada
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -14,42 +14,38 @@ package ATSAM3X8E.UART is
    -- Registers --
    ---------------
 
-   -----------------
-   -- CR_Register --
-   -----------------
-
-   subtype CR_RSTRX_Field is ATSAM3X8E.Bit;
-   subtype CR_RSTTX_Field is ATSAM3X8E.Bit;
-   subtype CR_RXEN_Field is ATSAM3X8E.Bit;
-   subtype CR_RXDIS_Field is ATSAM3X8E.Bit;
-   subtype CR_TXEN_Field is ATSAM3X8E.Bit;
-   subtype CR_TXDIS_Field is ATSAM3X8E.Bit;
-   subtype CR_RSTSTA_Field is ATSAM3X8E.Bit;
+   subtype UART_CR_RSTRX_Field is ATSAM3X8E.Bit;
+   subtype UART_CR_RSTTX_Field is ATSAM3X8E.Bit;
+   subtype UART_CR_RXEN_Field is ATSAM3X8E.Bit;
+   subtype UART_CR_RXDIS_Field is ATSAM3X8E.Bit;
+   subtype UART_CR_TXEN_Field is ATSAM3X8E.Bit;
+   subtype UART_CR_TXDIS_Field is ATSAM3X8E.Bit;
+   subtype UART_CR_RSTSTA_Field is ATSAM3X8E.Bit;
 
    --  Control Register
-   type CR_Register is record
+   type UART_CR_Register is record
       --  unspecified
       Reserved_0_1  : ATSAM3X8E.UInt2 := 16#0#;
       --  Write-only. Reset Receiver
-      RSTRX         : CR_RSTRX_Field := 16#0#;
+      RSTRX         : UART_CR_RSTRX_Field := 16#0#;
       --  Write-only. Reset Transmitter
-      RSTTX         : CR_RSTTX_Field := 16#0#;
+      RSTTX         : UART_CR_RSTTX_Field := 16#0#;
       --  Write-only. Receiver Enable
-      RXEN          : CR_RXEN_Field := 16#0#;
+      RXEN          : UART_CR_RXEN_Field := 16#0#;
       --  Write-only. Receiver Disable
-      RXDIS         : CR_RXDIS_Field := 16#0#;
+      RXDIS         : UART_CR_RXDIS_Field := 16#0#;
       --  Write-only. Transmitter Enable
-      TXEN          : CR_TXEN_Field := 16#0#;
+      TXEN          : UART_CR_TXEN_Field := 16#0#;
       --  Write-only. Transmitter Disable
-      TXDIS         : CR_TXDIS_Field := 16#0#;
+      TXDIS         : UART_CR_TXDIS_Field := 16#0#;
       --  Write-only. Reset Status Bits
-      RSTSTA        : CR_RSTSTA_Field := 16#0#;
+      RSTSTA        : UART_CR_RSTSTA_Field := 16#0#;
       --  unspecified
       Reserved_9_31 : ATSAM3X8E.UInt23 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for CR_Register use record
+   for UART_CR_Register use record
       Reserved_0_1  at 0 range 0 .. 1;
       RSTRX         at 0 range 2 .. 2;
       RSTTX         at 0 range 3 .. 3;
@@ -61,65 +57,59 @@ package ATSAM3X8E.UART is
       Reserved_9_31 at 0 range 9 .. 31;
    end record;
 
-   -----------------
-   -- MR_Register --
-   -----------------
-
    --  Parity Type
-   type PAR_Field is
-     (
-      --  Even parity
-      Even,
+   type MR_PAR_Field is
+     (--  Even parity
+      EVEN,
       --  Odd parity
-      Odd,
+      ODD,
       --  Space: parity forced to 0
-      Space,
+      SPACE,
       --  Mark: parity forced to 1
-      Mark,
+      MARK,
       --  No parity
-      No)
+      NO)
      with Size => 3;
-   for PAR_Field use
-     (Even => 0,
-      Odd => 1,
-      Space => 2,
-      Mark => 3,
-      No => 4);
+   for MR_PAR_Field use
+     (EVEN => 0,
+      ODD => 1,
+      SPACE => 2,
+      MARK => 3,
+      NO => 4);
 
    --  Channel Mode
-   type CHMODE_Field is
-     (
-      --  Normal Mode
-      Normal,
+   type MR_CHMODE_Field is
+     (--  Normal Mode
+      NORMAL,
       --  Automatic Echo
-      Automatic,
+      AUTOMATIC,
       --  Local Loopback
-      Local_Loopback,
+      LOCAL_LOOPBACK,
       --  Remote Loopback
-      Remote_Loopback)
+      REMOTE_LOOPBACK)
      with Size => 2;
-   for CHMODE_Field use
-     (Normal => 0,
-      Automatic => 1,
-      Local_Loopback => 2,
-      Remote_Loopback => 3);
+   for MR_CHMODE_Field use
+     (NORMAL => 0,
+      AUTOMATIC => 1,
+      LOCAL_LOOPBACK => 2,
+      REMOTE_LOOPBACK => 3);
 
    --  Mode Register
-   type MR_Register is record
+   type UART_MR_Register is record
       --  unspecified
       Reserved_0_8   : ATSAM3X8E.UInt9 := 16#0#;
       --  Parity Type
-      PAR            : PAR_Field := Even;
+      PAR            : MR_PAR_Field := ATSAM3X8E.UART.EVEN;
       --  unspecified
       Reserved_12_13 : ATSAM3X8E.UInt2 := 16#0#;
       --  Channel Mode
-      CHMODE         : CHMODE_Field := Normal;
+      CHMODE         : MR_CHMODE_Field := ATSAM3X8E.UART.NORMAL;
       --  unspecified
-      Reserved_16_31 : ATSAM3X8E.Short := 16#0#;
+      Reserved_16_31 : ATSAM3X8E.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for MR_Register use record
+   for UART_MR_Register use record
       Reserved_0_8   at 0 range 0 .. 8;
       PAR            at 0 range 9 .. 11;
       Reserved_12_13 at 0 range 12 .. 13;
@@ -127,55 +117,51 @@ package ATSAM3X8E.UART is
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   ------------------
-   -- IER_Register --
-   ------------------
-
-   subtype IER_RXRDY_Field is ATSAM3X8E.Bit;
-   subtype IER_TXRDY_Field is ATSAM3X8E.Bit;
-   subtype IER_ENDRX_Field is ATSAM3X8E.Bit;
-   subtype IER_ENDTX_Field is ATSAM3X8E.Bit;
-   subtype IER_OVRE_Field is ATSAM3X8E.Bit;
-   subtype IER_FRAME_Field is ATSAM3X8E.Bit;
-   subtype IER_PARE_Field is ATSAM3X8E.Bit;
-   subtype IER_TXEMPTY_Field is ATSAM3X8E.Bit;
-   subtype IER_TXBUFE_Field is ATSAM3X8E.Bit;
-   subtype IER_RXBUFF_Field is ATSAM3X8E.Bit;
+   subtype UART_IER_RXRDY_Field is ATSAM3X8E.Bit;
+   subtype UART_IER_TXRDY_Field is ATSAM3X8E.Bit;
+   subtype UART_IER_ENDRX_Field is ATSAM3X8E.Bit;
+   subtype UART_IER_ENDTX_Field is ATSAM3X8E.Bit;
+   subtype UART_IER_OVRE_Field is ATSAM3X8E.Bit;
+   subtype UART_IER_FRAME_Field is ATSAM3X8E.Bit;
+   subtype UART_IER_PARE_Field is ATSAM3X8E.Bit;
+   subtype UART_IER_TXEMPTY_Field is ATSAM3X8E.Bit;
+   subtype UART_IER_TXBUFE_Field is ATSAM3X8E.Bit;
+   subtype UART_IER_RXBUFF_Field is ATSAM3X8E.Bit;
 
    --  Interrupt Enable Register
-   type IER_Register is record
+   type UART_IER_Register is record
       --  Write-only. Enable RXRDY Interrupt
-      RXRDY          : IER_RXRDY_Field := 16#0#;
+      RXRDY          : UART_IER_RXRDY_Field := 16#0#;
       --  Write-only. Enable TXRDY Interrupt
-      TXRDY          : IER_TXRDY_Field := 16#0#;
+      TXRDY          : UART_IER_TXRDY_Field := 16#0#;
       --  unspecified
       Reserved_2_2   : ATSAM3X8E.Bit := 16#0#;
       --  Write-only. Enable End of Receive Transfer Interrupt
-      ENDRX          : IER_ENDRX_Field := 16#0#;
+      ENDRX          : UART_IER_ENDRX_Field := 16#0#;
       --  Write-only. Enable End of Transmit Interrupt
-      ENDTX          : IER_ENDTX_Field := 16#0#;
+      ENDTX          : UART_IER_ENDTX_Field := 16#0#;
       --  Write-only. Enable Overrun Error Interrupt
-      OVRE           : IER_OVRE_Field := 16#0#;
+      OVRE           : UART_IER_OVRE_Field := 16#0#;
       --  Write-only. Enable Framing Error Interrupt
-      FRAME          : IER_FRAME_Field := 16#0#;
+      FRAME          : UART_IER_FRAME_Field := 16#0#;
       --  Write-only. Enable Parity Error Interrupt
-      PARE           : IER_PARE_Field := 16#0#;
+      PARE           : UART_IER_PARE_Field := 16#0#;
       --  unspecified
       Reserved_8_8   : ATSAM3X8E.Bit := 16#0#;
       --  Write-only. Enable TXEMPTY Interrupt
-      TXEMPTY        : IER_TXEMPTY_Field := 16#0#;
+      TXEMPTY        : UART_IER_TXEMPTY_Field := 16#0#;
       --  unspecified
       Reserved_10_10 : ATSAM3X8E.Bit := 16#0#;
       --  Write-only. Enable Buffer Empty Interrupt
-      TXBUFE         : IER_TXBUFE_Field := 16#0#;
+      TXBUFE         : UART_IER_TXBUFE_Field := 16#0#;
       --  Write-only. Enable Buffer Full Interrupt
-      RXBUFF         : IER_RXBUFF_Field := 16#0#;
+      RXBUFF         : UART_IER_RXBUFF_Field := 16#0#;
       --  unspecified
       Reserved_13_31 : ATSAM3X8E.UInt19 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for IER_Register use record
+   for UART_IER_Register use record
       RXRDY          at 0 range 0 .. 0;
       TXRDY          at 0 range 1 .. 1;
       Reserved_2_2   at 0 range 2 .. 2;
@@ -192,55 +178,51 @@ package ATSAM3X8E.UART is
       Reserved_13_31 at 0 range 13 .. 31;
    end record;
 
-   ------------------
-   -- IDR_Register --
-   ------------------
-
-   subtype IDR_RXRDY_Field is ATSAM3X8E.Bit;
-   subtype IDR_TXRDY_Field is ATSAM3X8E.Bit;
-   subtype IDR_ENDRX_Field is ATSAM3X8E.Bit;
-   subtype IDR_ENDTX_Field is ATSAM3X8E.Bit;
-   subtype IDR_OVRE_Field is ATSAM3X8E.Bit;
-   subtype IDR_FRAME_Field is ATSAM3X8E.Bit;
-   subtype IDR_PARE_Field is ATSAM3X8E.Bit;
-   subtype IDR_TXEMPTY_Field is ATSAM3X8E.Bit;
-   subtype IDR_TXBUFE_Field is ATSAM3X8E.Bit;
-   subtype IDR_RXBUFF_Field is ATSAM3X8E.Bit;
+   subtype UART_IDR_RXRDY_Field is ATSAM3X8E.Bit;
+   subtype UART_IDR_TXRDY_Field is ATSAM3X8E.Bit;
+   subtype UART_IDR_ENDRX_Field is ATSAM3X8E.Bit;
+   subtype UART_IDR_ENDTX_Field is ATSAM3X8E.Bit;
+   subtype UART_IDR_OVRE_Field is ATSAM3X8E.Bit;
+   subtype UART_IDR_FRAME_Field is ATSAM3X8E.Bit;
+   subtype UART_IDR_PARE_Field is ATSAM3X8E.Bit;
+   subtype UART_IDR_TXEMPTY_Field is ATSAM3X8E.Bit;
+   subtype UART_IDR_TXBUFE_Field is ATSAM3X8E.Bit;
+   subtype UART_IDR_RXBUFF_Field is ATSAM3X8E.Bit;
 
    --  Interrupt Disable Register
-   type IDR_Register is record
+   type UART_IDR_Register is record
       --  Write-only. Disable RXRDY Interrupt
-      RXRDY          : IDR_RXRDY_Field := 16#0#;
+      RXRDY          : UART_IDR_RXRDY_Field := 16#0#;
       --  Write-only. Disable TXRDY Interrupt
-      TXRDY          : IDR_TXRDY_Field := 16#0#;
+      TXRDY          : UART_IDR_TXRDY_Field := 16#0#;
       --  unspecified
       Reserved_2_2   : ATSAM3X8E.Bit := 16#0#;
       --  Write-only. Disable End of Receive Transfer Interrupt
-      ENDRX          : IDR_ENDRX_Field := 16#0#;
+      ENDRX          : UART_IDR_ENDRX_Field := 16#0#;
       --  Write-only. Disable End of Transmit Interrupt
-      ENDTX          : IDR_ENDTX_Field := 16#0#;
+      ENDTX          : UART_IDR_ENDTX_Field := 16#0#;
       --  Write-only. Disable Overrun Error Interrupt
-      OVRE           : IDR_OVRE_Field := 16#0#;
+      OVRE           : UART_IDR_OVRE_Field := 16#0#;
       --  Write-only. Disable Framing Error Interrupt
-      FRAME          : IDR_FRAME_Field := 16#0#;
+      FRAME          : UART_IDR_FRAME_Field := 16#0#;
       --  Write-only. Disable Parity Error Interrupt
-      PARE           : IDR_PARE_Field := 16#0#;
+      PARE           : UART_IDR_PARE_Field := 16#0#;
       --  unspecified
       Reserved_8_8   : ATSAM3X8E.Bit := 16#0#;
       --  Write-only. Disable TXEMPTY Interrupt
-      TXEMPTY        : IDR_TXEMPTY_Field := 16#0#;
+      TXEMPTY        : UART_IDR_TXEMPTY_Field := 16#0#;
       --  unspecified
       Reserved_10_10 : ATSAM3X8E.Bit := 16#0#;
       --  Write-only. Disable Buffer Empty Interrupt
-      TXBUFE         : IDR_TXBUFE_Field := 16#0#;
+      TXBUFE         : UART_IDR_TXBUFE_Field := 16#0#;
       --  Write-only. Disable Buffer Full Interrupt
-      RXBUFF         : IDR_RXBUFF_Field := 16#0#;
+      RXBUFF         : UART_IDR_RXBUFF_Field := 16#0#;
       --  unspecified
       Reserved_13_31 : ATSAM3X8E.UInt19 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for IDR_Register use record
+   for UART_IDR_Register use record
       RXRDY          at 0 range 0 .. 0;
       TXRDY          at 0 range 1 .. 1;
       Reserved_2_2   at 0 range 2 .. 2;
@@ -257,55 +239,51 @@ package ATSAM3X8E.UART is
       Reserved_13_31 at 0 range 13 .. 31;
    end record;
 
-   ------------------
-   -- IMR_Register --
-   ------------------
-
-   subtype IMR_RXRDY_Field is ATSAM3X8E.Bit;
-   subtype IMR_TXRDY_Field is ATSAM3X8E.Bit;
-   subtype IMR_ENDRX_Field is ATSAM3X8E.Bit;
-   subtype IMR_ENDTX_Field is ATSAM3X8E.Bit;
-   subtype IMR_OVRE_Field is ATSAM3X8E.Bit;
-   subtype IMR_FRAME_Field is ATSAM3X8E.Bit;
-   subtype IMR_PARE_Field is ATSAM3X8E.Bit;
-   subtype IMR_TXEMPTY_Field is ATSAM3X8E.Bit;
-   subtype IMR_TXBUFE_Field is ATSAM3X8E.Bit;
-   subtype IMR_RXBUFF_Field is ATSAM3X8E.Bit;
+   subtype UART_IMR_RXRDY_Field is ATSAM3X8E.Bit;
+   subtype UART_IMR_TXRDY_Field is ATSAM3X8E.Bit;
+   subtype UART_IMR_ENDRX_Field is ATSAM3X8E.Bit;
+   subtype UART_IMR_ENDTX_Field is ATSAM3X8E.Bit;
+   subtype UART_IMR_OVRE_Field is ATSAM3X8E.Bit;
+   subtype UART_IMR_FRAME_Field is ATSAM3X8E.Bit;
+   subtype UART_IMR_PARE_Field is ATSAM3X8E.Bit;
+   subtype UART_IMR_TXEMPTY_Field is ATSAM3X8E.Bit;
+   subtype UART_IMR_TXBUFE_Field is ATSAM3X8E.Bit;
+   subtype UART_IMR_RXBUFF_Field is ATSAM3X8E.Bit;
 
    --  Interrupt Mask Register
-   type IMR_Register is record
+   type UART_IMR_Register is record
       --  Read-only. Mask RXRDY Interrupt
-      RXRDY          : IMR_RXRDY_Field := 16#0#;
+      RXRDY          : UART_IMR_RXRDY_Field;
       --  Read-only. Disable TXRDY Interrupt
-      TXRDY          : IMR_TXRDY_Field := 16#0#;
+      TXRDY          : UART_IMR_TXRDY_Field;
       --  unspecified
       Reserved_2_2   : ATSAM3X8E.Bit;
       --  Read-only. Mask End of Receive Transfer Interrupt
-      ENDRX          : IMR_ENDRX_Field := 16#0#;
+      ENDRX          : UART_IMR_ENDRX_Field;
       --  Read-only. Mask End of Transmit Interrupt
-      ENDTX          : IMR_ENDTX_Field := 16#0#;
+      ENDTX          : UART_IMR_ENDTX_Field;
       --  Read-only. Mask Overrun Error Interrupt
-      OVRE           : IMR_OVRE_Field := 16#0#;
+      OVRE           : UART_IMR_OVRE_Field;
       --  Read-only. Mask Framing Error Interrupt
-      FRAME          : IMR_FRAME_Field := 16#0#;
+      FRAME          : UART_IMR_FRAME_Field;
       --  Read-only. Mask Parity Error Interrupt
-      PARE           : IMR_PARE_Field := 16#0#;
+      PARE           : UART_IMR_PARE_Field;
       --  unspecified
       Reserved_8_8   : ATSAM3X8E.Bit;
       --  Read-only. Mask TXEMPTY Interrupt
-      TXEMPTY        : IMR_TXEMPTY_Field := 16#0#;
+      TXEMPTY        : UART_IMR_TXEMPTY_Field;
       --  unspecified
       Reserved_10_10 : ATSAM3X8E.Bit;
       --  Read-only. Mask TXBUFE Interrupt
-      TXBUFE         : IMR_TXBUFE_Field := 16#0#;
+      TXBUFE         : UART_IMR_TXBUFE_Field;
       --  Read-only. Mask RXBUFF Interrupt
-      RXBUFF         : IMR_RXBUFF_Field := 16#0#;
+      RXBUFF         : UART_IMR_RXBUFF_Field;
       --  unspecified
       Reserved_13_31 : ATSAM3X8E.UInt19;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for IMR_Register use record
+   for UART_IMR_Register use record
       RXRDY          at 0 range 0 .. 0;
       TXRDY          at 0 range 1 .. 1;
       Reserved_2_2   at 0 range 2 .. 2;
@@ -322,55 +300,51 @@ package ATSAM3X8E.UART is
       Reserved_13_31 at 0 range 13 .. 31;
    end record;
 
-   -----------------
-   -- SR_Register --
-   -----------------
-
-   subtype SR_RXRDY_Field is ATSAM3X8E.Bit;
-   subtype SR_TXRDY_Field is ATSAM3X8E.Bit;
-   subtype SR_ENDRX_Field is ATSAM3X8E.Bit;
-   subtype SR_ENDTX_Field is ATSAM3X8E.Bit;
-   subtype SR_OVRE_Field is ATSAM3X8E.Bit;
-   subtype SR_FRAME_Field is ATSAM3X8E.Bit;
-   subtype SR_PARE_Field is ATSAM3X8E.Bit;
-   subtype SR_TXEMPTY_Field is ATSAM3X8E.Bit;
-   subtype SR_TXBUFE_Field is ATSAM3X8E.Bit;
-   subtype SR_RXBUFF_Field is ATSAM3X8E.Bit;
+   subtype UART_SR_RXRDY_Field is ATSAM3X8E.Bit;
+   subtype UART_SR_TXRDY_Field is ATSAM3X8E.Bit;
+   subtype UART_SR_ENDRX_Field is ATSAM3X8E.Bit;
+   subtype UART_SR_ENDTX_Field is ATSAM3X8E.Bit;
+   subtype UART_SR_OVRE_Field is ATSAM3X8E.Bit;
+   subtype UART_SR_FRAME_Field is ATSAM3X8E.Bit;
+   subtype UART_SR_PARE_Field is ATSAM3X8E.Bit;
+   subtype UART_SR_TXEMPTY_Field is ATSAM3X8E.Bit;
+   subtype UART_SR_TXBUFE_Field is ATSAM3X8E.Bit;
+   subtype UART_SR_RXBUFF_Field is ATSAM3X8E.Bit;
 
    --  Status Register
-   type SR_Register is record
+   type UART_SR_Register is record
       --  Read-only. Receiver Ready
-      RXRDY          : SR_RXRDY_Field := 16#0#;
+      RXRDY          : UART_SR_RXRDY_Field;
       --  Read-only. Transmitter Ready
-      TXRDY          : SR_TXRDY_Field := 16#0#;
+      TXRDY          : UART_SR_TXRDY_Field;
       --  unspecified
       Reserved_2_2   : ATSAM3X8E.Bit;
       --  Read-only. End of Receiver Transfer
-      ENDRX          : SR_ENDRX_Field := 16#0#;
+      ENDRX          : UART_SR_ENDRX_Field;
       --  Read-only. End of Transmitter Transfer
-      ENDTX          : SR_ENDTX_Field := 16#0#;
+      ENDTX          : UART_SR_ENDTX_Field;
       --  Read-only. Overrun Error
-      OVRE           : SR_OVRE_Field := 16#0#;
+      OVRE           : UART_SR_OVRE_Field;
       --  Read-only. Framing Error
-      FRAME          : SR_FRAME_Field := 16#0#;
+      FRAME          : UART_SR_FRAME_Field;
       --  Read-only. Parity Error
-      PARE           : SR_PARE_Field := 16#0#;
+      PARE           : UART_SR_PARE_Field;
       --  unspecified
       Reserved_8_8   : ATSAM3X8E.Bit;
       --  Read-only. Transmitter Empty
-      TXEMPTY        : SR_TXEMPTY_Field := 16#0#;
+      TXEMPTY        : UART_SR_TXEMPTY_Field;
       --  unspecified
       Reserved_10_10 : ATSAM3X8E.Bit;
       --  Read-only. Transmission Buffer Empty
-      TXBUFE         : SR_TXBUFE_Field := 16#0#;
+      TXBUFE         : UART_SR_TXBUFE_Field;
       --  Read-only. Receive Buffer Full
-      RXBUFF         : SR_RXBUFF_Field := 16#0#;
+      RXBUFF         : UART_SR_RXBUFF_Field;
       --  unspecified
       Reserved_13_31 : ATSAM3X8E.UInt19;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for SR_Register use record
+   for UART_SR_Register use record
       RXRDY          at 0 range 0 .. 0;
       TXRDY          at 0 range 1 .. 1;
       Reserved_2_2   at 0 range 2 .. 2;
@@ -387,173 +361,141 @@ package ATSAM3X8E.UART is
       Reserved_13_31 at 0 range 13 .. 31;
    end record;
 
-   ------------------
-   -- RHR_Register --
-   ------------------
-
-   subtype RHR_RXCHR_Field is ATSAM3X8E.Byte;
+   subtype UART_RHR_RXCHR_Field is ATSAM3X8E.Byte;
 
    --  Receive Holding Register
-   type RHR_Register is record
+   type UART_RHR_Register is record
       --  Read-only. Received Character
-      RXCHR         : RHR_RXCHR_Field := 16#0#;
+      RXCHR         : UART_RHR_RXCHR_Field;
       --  unspecified
       Reserved_8_31 : ATSAM3X8E.UInt24;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for RHR_Register use record
+   for UART_RHR_Register use record
       RXCHR         at 0 range 0 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
 
-   ------------------
-   -- THR_Register --
-   ------------------
-
-   subtype THR_TXCHR_Field is ATSAM3X8E.Byte;
+   subtype UART_THR_TXCHR_Field is ATSAM3X8E.Byte;
 
    --  Transmit Holding Register
-   type THR_Register is record
+   type UART_THR_Register is record
       --  Write-only. Character to be Transmitted
-      TXCHR         : THR_TXCHR_Field := 16#0#;
+      TXCHR         : UART_THR_TXCHR_Field := 16#0#;
       --  unspecified
       Reserved_8_31 : ATSAM3X8E.UInt24 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for THR_Register use record
+   for UART_THR_Register use record
       TXCHR         at 0 range 0 .. 7;
       Reserved_8_31 at 0 range 8 .. 31;
    end record;
 
-   -------------------
-   -- BRGR_Register --
-   -------------------
-
-   subtype BRGR_CD_Field is ATSAM3X8E.Short;
+   subtype UART_BRGR_CD_Field is ATSAM3X8E.UInt16;
 
    --  Baud Rate Generator Register
-   type BRGR_Register is record
+   type UART_BRGR_Register is record
       --  Clock Divisor
-      CD             : BRGR_CD_Field := 16#0#;
+      CD             : UART_BRGR_CD_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : ATSAM3X8E.Short := 16#0#;
+      Reserved_16_31 : ATSAM3X8E.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for BRGR_Register use record
+   for UART_BRGR_Register use record
       CD             at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   ------------------
-   -- RCR_Register --
-   ------------------
-
-   subtype RCR_RXCTR_Field is ATSAM3X8E.Short;
+   subtype UART_RCR_RXCTR_Field is ATSAM3X8E.UInt16;
 
    --  Receive Counter Register
-   type RCR_Register is record
+   type UART_RCR_Register is record
       --  Receive Counter Register
-      RXCTR          : RCR_RXCTR_Field := 16#0#;
+      RXCTR          : UART_RCR_RXCTR_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : ATSAM3X8E.Short := 16#0#;
+      Reserved_16_31 : ATSAM3X8E.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for RCR_Register use record
+   for UART_RCR_Register use record
       RXCTR          at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   ------------------
-   -- TCR_Register --
-   ------------------
-
-   subtype TCR_TXCTR_Field is ATSAM3X8E.Short;
+   subtype UART_TCR_TXCTR_Field is ATSAM3X8E.UInt16;
 
    --  Transmit Counter Register
-   type TCR_Register is record
+   type UART_TCR_Register is record
       --  Transmit Counter Register
-      TXCTR          : TCR_TXCTR_Field := 16#0#;
+      TXCTR          : UART_TCR_TXCTR_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : ATSAM3X8E.Short := 16#0#;
+      Reserved_16_31 : ATSAM3X8E.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for TCR_Register use record
+   for UART_TCR_Register use record
       TXCTR          at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   -------------------
-   -- RNCR_Register --
-   -------------------
-
-   subtype RNCR_RXNCTR_Field is ATSAM3X8E.Short;
+   subtype UART_RNCR_RXNCTR_Field is ATSAM3X8E.UInt16;
 
    --  Receive Next Counter Register
-   type RNCR_Register is record
+   type UART_RNCR_Register is record
       --  Receive Next Counter
-      RXNCTR         : RNCR_RXNCTR_Field := 16#0#;
+      RXNCTR         : UART_RNCR_RXNCTR_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : ATSAM3X8E.Short := 16#0#;
+      Reserved_16_31 : ATSAM3X8E.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for RNCR_Register use record
+   for UART_RNCR_Register use record
       RXNCTR         at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   -------------------
-   -- TNCR_Register --
-   -------------------
-
-   subtype TNCR_TXNCTR_Field is ATSAM3X8E.Short;
+   subtype UART_TNCR_TXNCTR_Field is ATSAM3X8E.UInt16;
 
    --  Transmit Next Counter Register
-   type TNCR_Register is record
+   type UART_TNCR_Register is record
       --  Transmit Counter Next
-      TXNCTR         : TNCR_TXNCTR_Field := 16#0#;
+      TXNCTR         : UART_TNCR_TXNCTR_Field := 16#0#;
       --  unspecified
-      Reserved_16_31 : ATSAM3X8E.Short := 16#0#;
+      Reserved_16_31 : ATSAM3X8E.UInt16 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for TNCR_Register use record
+   for UART_TNCR_Register use record
       TXNCTR         at 0 range 0 .. 15;
       Reserved_16_31 at 0 range 16 .. 31;
    end record;
 
-   -------------------
-   -- PTCR_Register --
-   -------------------
-
-   subtype PTCR_RXTEN_Field is ATSAM3X8E.Bit;
-   subtype PTCR_RXTDIS_Field is ATSAM3X8E.Bit;
-   subtype PTCR_TXTEN_Field is ATSAM3X8E.Bit;
-   subtype PTCR_TXTDIS_Field is ATSAM3X8E.Bit;
+   subtype UART_PTCR_RXTEN_Field is ATSAM3X8E.Bit;
+   subtype UART_PTCR_RXTDIS_Field is ATSAM3X8E.Bit;
+   subtype UART_PTCR_TXTEN_Field is ATSAM3X8E.Bit;
+   subtype UART_PTCR_TXTDIS_Field is ATSAM3X8E.Bit;
 
    --  Transfer Control Register
-   type PTCR_Register is record
+   type UART_PTCR_Register is record
       --  Write-only. Receiver Transfer Enable
-      RXTEN          : PTCR_RXTEN_Field := 16#0#;
+      RXTEN          : UART_PTCR_RXTEN_Field := 16#0#;
       --  Write-only. Receiver Transfer Disable
-      RXTDIS         : PTCR_RXTDIS_Field := 16#0#;
+      RXTDIS         : UART_PTCR_RXTDIS_Field := 16#0#;
       --  unspecified
       Reserved_2_7   : ATSAM3X8E.UInt6 := 16#0#;
       --  Write-only. Transmitter Transfer Enable
-      TXTEN          : PTCR_TXTEN_Field := 16#0#;
+      TXTEN          : UART_PTCR_TXTEN_Field := 16#0#;
       --  Write-only. Transmitter Transfer Disable
-      TXTDIS         : PTCR_TXTDIS_Field := 16#0#;
+      TXTDIS         : UART_PTCR_TXTDIS_Field := 16#0#;
       --  unspecified
       Reserved_10_31 : ATSAM3X8E.UInt22 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for PTCR_Register use record
+   for UART_PTCR_Register use record
       RXTEN          at 0 range 0 .. 0;
       RXTDIS         at 0 range 1 .. 1;
       Reserved_2_7   at 0 range 2 .. 7;
@@ -562,27 +504,23 @@ package ATSAM3X8E.UART is
       Reserved_10_31 at 0 range 10 .. 31;
    end record;
 
-   -------------------
-   -- PTSR_Register --
-   -------------------
-
-   subtype PTSR_RXTEN_Field is ATSAM3X8E.Bit;
-   subtype PTSR_TXTEN_Field is ATSAM3X8E.Bit;
+   subtype UART_PTSR_RXTEN_Field is ATSAM3X8E.Bit;
+   subtype UART_PTSR_TXTEN_Field is ATSAM3X8E.Bit;
 
    --  Transfer Status Register
-   type PTSR_Register is record
+   type UART_PTSR_Register is record
       --  Read-only. Receiver Transfer Enable
-      RXTEN         : PTSR_RXTEN_Field := 16#0#;
+      RXTEN         : UART_PTSR_RXTEN_Field;
       --  unspecified
       Reserved_1_7  : ATSAM3X8E.UInt7;
       --  Read-only. Transmitter Transfer Enable
-      TXTEN         : PTSR_TXTEN_Field := 16#0#;
+      TXTEN         : UART_PTSR_TXTEN_Field;
       --  unspecified
       Reserved_9_31 : ATSAM3X8E.UInt23;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for PTSR_Register use record
+   for UART_PTSR_Register use record
       RXTEN         at 0 range 0 .. 0;
       Reserved_1_7  at 0 range 1 .. 7;
       TXTEN         at 0 range 8 .. 8;
@@ -596,66 +534,81 @@ package ATSAM3X8E.UART is
    --  Universal Asynchronous Receiver Transmitter
    type UART_Peripheral is record
       --  Control Register
-      CR   : CR_Register;
+      CR   : aliased UART_CR_Register;
+      pragma Volatile_Full_Access (CR);
       --  Mode Register
-      MR   : MR_Register;
+      MR   : aliased UART_MR_Register;
+      pragma Volatile_Full_Access (MR);
       --  Interrupt Enable Register
-      IER  : IER_Register;
+      IER  : aliased UART_IER_Register;
+      pragma Volatile_Full_Access (IER);
       --  Interrupt Disable Register
-      IDR  : IDR_Register;
+      IDR  : aliased UART_IDR_Register;
+      pragma Volatile_Full_Access (IDR);
       --  Interrupt Mask Register
-      IMR  : IMR_Register;
+      IMR  : aliased UART_IMR_Register;
+      pragma Volatile_Full_Access (IMR);
       --  Status Register
-      SR   : SR_Register;
+      SR   : aliased UART_SR_Register;
+      pragma Volatile_Full_Access (SR);
       --  Receive Holding Register
-      RHR  : RHR_Register;
+      RHR  : aliased UART_RHR_Register;
+      pragma Volatile_Full_Access (RHR);
       --  Transmit Holding Register
-      THR  : THR_Register;
+      THR  : aliased UART_THR_Register;
+      pragma Volatile_Full_Access (THR);
       --  Baud Rate Generator Register
-      BRGR : BRGR_Register;
+      BRGR : aliased UART_BRGR_Register;
+      pragma Volatile_Full_Access (BRGR);
       --  Receive Pointer Register
-      RPR  : ATSAM3X8E.Word;
+      RPR  : aliased ATSAM3X8E.UInt32;
       --  Receive Counter Register
-      RCR  : RCR_Register;
+      RCR  : aliased UART_RCR_Register;
+      pragma Volatile_Full_Access (RCR);
       --  Transmit Pointer Register
-      TPR  : ATSAM3X8E.Word;
+      TPR  : aliased ATSAM3X8E.UInt32;
       --  Transmit Counter Register
-      TCR  : TCR_Register;
+      TCR  : aliased UART_TCR_Register;
+      pragma Volatile_Full_Access (TCR);
       --  Receive Next Pointer Register
-      RNPR : ATSAM3X8E.Word;
+      RNPR : aliased ATSAM3X8E.UInt32;
       --  Receive Next Counter Register
-      RNCR : RNCR_Register;
+      RNCR : aliased UART_RNCR_Register;
+      pragma Volatile_Full_Access (RNCR);
       --  Transmit Next Pointer Register
-      TNPR : ATSAM3X8E.Word;
+      TNPR : aliased ATSAM3X8E.UInt32;
       --  Transmit Next Counter Register
-      TNCR : TNCR_Register;
+      TNCR : aliased UART_TNCR_Register;
+      pragma Volatile_Full_Access (TNCR);
       --  Transfer Control Register
-      PTCR : PTCR_Register;
+      PTCR : aliased UART_PTCR_Register;
+      pragma Volatile_Full_Access (PTCR);
       --  Transfer Status Register
-      PTSR : PTSR_Register;
+      PTSR : aliased UART_PTSR_Register;
+      pragma Volatile_Full_Access (PTSR);
    end record
      with Volatile;
 
    for UART_Peripheral use record
-      CR   at 0 range 0 .. 31;
-      MR   at 4 range 0 .. 31;
-      IER  at 8 range 0 .. 31;
-      IDR  at 12 range 0 .. 31;
-      IMR  at 16 range 0 .. 31;
-      SR   at 20 range 0 .. 31;
-      RHR  at 24 range 0 .. 31;
-      THR  at 28 range 0 .. 31;
-      BRGR at 32 range 0 .. 31;
-      RPR  at 256 range 0 .. 31;
-      RCR  at 260 range 0 .. 31;
-      TPR  at 264 range 0 .. 31;
-      TCR  at 268 range 0 .. 31;
-      RNPR at 272 range 0 .. 31;
-      RNCR at 276 range 0 .. 31;
-      TNPR at 280 range 0 .. 31;
-      TNCR at 284 range 0 .. 31;
-      PTCR at 288 range 0 .. 31;
-      PTSR at 292 range 0 .. 31;
+      CR   at 16#0# range 0 .. 31;
+      MR   at 16#4# range 0 .. 31;
+      IER  at 16#8# range 0 .. 31;
+      IDR  at 16#C# range 0 .. 31;
+      IMR  at 16#10# range 0 .. 31;
+      SR   at 16#14# range 0 .. 31;
+      RHR  at 16#18# range 0 .. 31;
+      THR  at 16#1C# range 0 .. 31;
+      BRGR at 16#20# range 0 .. 31;
+      RPR  at 16#100# range 0 .. 31;
+      RCR  at 16#104# range 0 .. 31;
+      TPR  at 16#108# range 0 .. 31;
+      TCR  at 16#10C# range 0 .. 31;
+      RNPR at 16#110# range 0 .. 31;
+      RNCR at 16#114# range 0 .. 31;
+      TNPR at 16#118# range 0 .. 31;
+      TNCR at 16#11C# range 0 .. 31;
+      PTCR at 16#120# range 0 .. 31;
+      PTSR at 16#124# range 0 .. 31;
    end record;
 
    --  Universal Asynchronous Receiver Transmitter

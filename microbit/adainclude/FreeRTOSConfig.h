@@ -31,15 +31,15 @@
 #define configUSE_IDLE_HOOK			0
 #define configUSE_TICK_HOOK			0
 #define configCPU_CLOCK_HZ			( 16000000 )
-#define configTICK_RATE_HZ			( ( portTickType ) 1024 )
+#define configTICK_RATE_HZ			( ( TickType_t ) 1024 )
 
 /* Extend the number of priority levels to cope with Ada ceiling
    priorities, which mean we need to raise a task waiting for an ISR
    to a priority corresponding to that interrupt's priority. So we
-   need the additional priorities 8 (interrupt priority 3) to 9
-   (interrupt priority 2, the highest that can use API interrupt-safe
+   need the additional priorities 8 (interrupt priority 3) to 10
+   (interrupt priority 1, the highest that can use API interrupt-safe
    functions). */
-#define configMAX_PRIORITIES			( 9 )
+#define configMAX_PRIORITIES			( 10 )
 
 #define configMINIMAL_STACK_SIZE		( ( unsigned short ) 128 )
 #define configTOTAL_HEAP_SIZE			( ( size_t ) ( 16 * 1024 ) )
@@ -55,6 +55,7 @@
 #define configUSE_APPLICATION_TASK_TAG	        1 /* for Task_Id in TCB */
 #define configUSE_COUNTING_SEMAPHORES	        0
 #define configGENERATE_RUN_TIME_STATS	        0
+#define configUSE_QUEUE_SETS			0
 
 #define configUSE_TIME_SLICING                  0 /* don't want round-robin */
 
@@ -105,6 +106,7 @@ function. */
 routine that makes calls to interrupt safe FreeRTOS API functions.  DO NOT CALL
 INTERRUPT SAFE FREERTOS API FUNCTIONS FROM ANY INTERRUPT THAT HAS A HIGHER
 PRIORITY THAN THIS! (higher priorities are lower numeric values. */
+/* UNCLEAR THAT THIS IS TRUE FOR A CM0 PART, WHICH DOESN'T HAVE BASEPRI */
 #define configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY	1
 
 /* Interrupt priorities used by the kernel port layer itself.  These are generic
@@ -122,7 +124,6 @@ header file. */
 standard names. */
 #define vPortSVCHandler SVC_Handler
 #define xPortPendSVHandler PendSV_Handler
-
 #define xPortSysTickHandler SysTick_Handler
 
 #endif /* FREERTOS_CONFIG_H */

@@ -25,7 +25,7 @@
 #include <task.h>
 
 void vApplicationStackOverflowHook(TaskHandle_t xTask,
-                                   signed char *pcTaskName) {
+                                   char *pcTaskName) {
   // Endless loop (for checking via debugger)
   for (;;);
 }

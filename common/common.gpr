@@ -1,4 +1,4 @@
---  Copyright (C) 2018 Free Software Foundation, Inc.
+--  Copyright (C) 2018-2021 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -18,11 +18,23 @@
 
 abstract project Common is
 
-   type Compiler_Release is ("gcc6", "gnat-gpl-2017", "gcc7", "gcc8");
-   Release : Compiler_Release := external ("RELEASE");
+   type Compiler_Release is
+     ("gcc6", "gnat-gpl-2017", "gcc7", "gcc8", "gnat-ce-2020",
+      "gcc11", "gcc12");
+   Release : Compiler_Release := external ("RELEASE", "gcc11");
+   Release_Path := Release;
+   case Release is
+      when "gcc11" =>
+         Release_Path := "gnat-ce-2020";
+      when others =>
+         null;
+   end case;
+
+   type Install_Locally is ("yes", "no");
+   Local : Install_Locally := external ("INSTALL_LOCALLY", "yes");
 
    Paths := (project'Project_Dir,
              project'Project_Dir & "math",
-             project'Project_Dir & Release);
+             project'Project_Dir & Release_Path);
 
 end Common;

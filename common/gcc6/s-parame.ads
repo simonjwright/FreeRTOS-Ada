@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 S p e c                                  --
 --                                                                          --
---    Copyright (C) 1992-2013, 2016-2018, Free Software Foundation, Inc.    --
+--    Copyright (C) 1992-2013, 2016-2021, Free Software Foundation, Inc.    --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -73,5 +73,23 @@ package System.Parameters is
    function Secondary_Stack_Size (Stack_Size : Size_Type) return Size_Type;
    --  The secondary stack is allocated as part of the task's stack,
    --  whose size is passed in Stack_Size.
+
+   ----------------------------------------------
+   -- Characteristics of types in Interfaces.C --
+   ----------------------------------------------
+
+   long_bits : constant := Long_Integer'Size;
+   --  Number of bits in type long and unsigned_long. The normal convention
+   --  is that this is the same as type Long_Integer, but this is not true
+   --  of all targets. For example, in OpenVMS long /= Long_Integer.
+
+   ptr_bits  : constant := Standard'Address_Size;
+   subtype C_Address is System.Address;
+   --  Number of bits in Interfaces.C pointers, normally a standard address,
+   --  except on 64-bit VMS where they are 32-bit addresses, for compatibility
+   --  with legacy code.
+
+   C_Malloc_Linkname : constant String := "__gnat_malloc";
+   --  Name of runtime function used to allocate such a pointer
 
 end System.Parameters;

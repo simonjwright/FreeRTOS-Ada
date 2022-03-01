@@ -16,13 +16,22 @@
 # along with this program; see the file COPYING3. If not, see
 # <http://www.gnu.org/licenses/>.
 
-all:
+SVD2ADA ?= ~/adacore/svd2ada
+
+all: atsam3x8e
 	gprbuild -p -P build_runtime.gpr
+
+atsam3x8e:
+	$(SVD2ADA)/svd2ada			\
+	  --output=atsam3x8e			\
+	  --no-vfa-on-types			\
+	$(SVD2ADA)/CMSIS-SVD/ATMEL/ATSAM3X8E.svd
 
 install: all
 	gprinstall -p -P build_runtime.gpr -f
 
 clean:
-	gprclean -P build_runtime.gpr
+	-gprclean -P build_runtime.gpr
+	rm -rf atsam3x8e
 
 .PHONY: all install clean

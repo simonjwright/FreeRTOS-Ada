@@ -1,4 +1,4 @@
---  Copyright (C) 2018 Free Software Foundation, Inc.
+--  Copyright (C) 2018, 2020 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -34,19 +34,13 @@ package body Lights is
       type Coord_Pair is record
          R : Coord;
          C : Coord;
-         Scaling : Positive; -- multiplies basic interval
       end record;
       type LED_Sequence is array (Positive range <>) of Coord_Pair;
-      Spiral_Clockwise : constant LED_Sequence :=
-        ((1, 1, 1), (1, 2, 1), (1, 3, 1), (1, 4, 1), (1, 5, 1),
-         (2, 5, 1), (3, 5, 1), (4, 5, 1), (5, 5, 1),
-         (5, 4, 1), (5, 3, 1), (5, 2, 1), (5, 1, 1),
-         (4, 1, 1), (3, 1, 1), (2, 1, 1),
-         (2, 2, 2), (2, 3, 2), (2, 4, 2),
-         (3, 4, 2), (4, 4, 2),
-         (4, 3, 2), (4, 2, 2),
-         (3, 2, 3),
-         (3, 3, 4));
+      Clockwise : constant LED_Sequence :=
+        ((1, 1), (1, 2), (1, 3), (1, 4), (1, 5),
+         (2, 5), (3, 5), (4, 5), (5, 5),
+         (5, 4), (5, 3), (5, 2), (5, 1),
+         (4, 1), (3, 1), (2, 1));
 
       function Interval return Ada.Real_Time.Time_Span is
         (case Buttons.Button_State (Buttons.A) is
@@ -60,18 +54,18 @@ package body Lights is
       loop
          case Buttons.Button_State (Buttons.B) is
             when Buttons.Off =>
-               for S of Spiral_Clockwise loop
+               for S of Clockwise loop
                   exit when Buttons.Button_State (Buttons.B) = Buttons.On;
                   Clear_All_LEDs;
                   Set_One_LED (S.R, S.C);
-                  delay until Ada.Real_Time.Clock + Interval * S.Scaling;
+                  delay until Ada.Real_Time.Clock + Interval;
                end loop;
             when Buttons.On =>
-               for S of reverse Spiral_Clockwise loop
+               for S of reverse Clockwise loop
                   exit when Buttons.Button_State (Buttons.B) = Buttons.Off;
                   Clear_All_LEDs;
                   Set_One_LED (S.R, S.C);
-                  delay until Ada.Real_Time.Clock + Interval * S.Scaling;
+                  delay until Ada.Real_Time.Clock + Interval;
                end loop;
          end case;
       end loop;

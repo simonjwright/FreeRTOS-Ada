@@ -1,8 +1,8 @@
+pragma Style_Checks (Off);
+
 --  This spec has been automatically generated from ATSAM3X8E.svd
---  see https://github.com/simonjwright/svd2ada
 
 pragma Restrictions (No_Elaboration_Code);
-pragma Ada_2012;
 
 with System;
 
@@ -13,1351 +13,1179 @@ package ATSAM3X8E.PIO is
    -- Registers --
    ---------------
 
-   ------------------
-   -- PER_Register --
-   ------------------
+   --  PIOA_PER_P array element
+   subtype PIOA_PER_P_Element is ATSAM3X8E.Bit;
 
-   --  PER_P array element
-   subtype PER_P_Element is ATSAM3X8E.Bit;
-
-   --  PER_P array
-   type PER_P_Field_Array is array (0 .. 31) of PER_P_Element
+   --  PIOA_PER_P array
+   type PIOA_PER_P_Field_Array is array (0 .. 31) of PIOA_PER_P_Element
      with Component_Size => 1, Size => 32;
 
    --  PIO Enable Register
-   type PER_Register
+   type PIOA_PER_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : PER_P_Field_Array;
+            Arr : PIOA_PER_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for PER_Register use record
+   for PIOA_PER_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- PDR_Register --
-   ------------------
+   --  PIOA_PDR_P array element
+   subtype PIOA_PDR_P_Element is ATSAM3X8E.Bit;
 
-   --  PDR_P array element
-   subtype PDR_P_Element is ATSAM3X8E.Bit;
-
-   --  PDR_P array
-   type PDR_P_Field_Array is array (0 .. 31) of PDR_P_Element
+   --  PIOA_PDR_P array
+   type PIOA_PDR_P_Field_Array is array (0 .. 31) of PIOA_PDR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  PIO Disable Register
-   type PDR_Register
+   type PIOA_PDR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : PDR_P_Field_Array;
+            Arr : PIOA_PDR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for PDR_Register use record
+   for PIOA_PDR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- PSR_Register --
-   ------------------
+   --  PIOA_PSR_P array element
+   subtype PIOA_PSR_P_Element is ATSAM3X8E.Bit;
 
-   --  PSR_P array element
-   subtype PSR_P_Element is ATSAM3X8E.Bit;
-
-   --  PSR_P array
-   type PSR_P_Field_Array is array (0 .. 31) of PSR_P_Element
+   --  PIOA_PSR_P array
+   type PIOA_PSR_P_Field_Array is array (0 .. 31) of PIOA_PSR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  PIO Status Register
-   type PSR_Register
+   type PIOA_PSR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : PSR_P_Field_Array;
+            Arr : PIOA_PSR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for PSR_Register use record
+   for PIOA_PSR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- OER_Register --
-   ------------------
+   --  PIOA_OER_P array element
+   subtype PIOA_OER_P_Element is ATSAM3X8E.Bit;
 
-   --  OER_P array element
-   subtype OER_P_Element is ATSAM3X8E.Bit;
-
-   --  OER_P array
-   type OER_P_Field_Array is array (0 .. 31) of OER_P_Element
+   --  PIOA_OER_P array
+   type PIOA_OER_P_Field_Array is array (0 .. 31) of PIOA_OER_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Output Enable Register
-   type OER_Register
+   type PIOA_OER_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : OER_P_Field_Array;
+            Arr : PIOA_OER_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for OER_Register use record
+   for PIOA_OER_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- ODR_Register --
-   ------------------
+   --  PIOA_ODR_P array element
+   subtype PIOA_ODR_P_Element is ATSAM3X8E.Bit;
 
-   --  ODR_P array element
-   subtype ODR_P_Element is ATSAM3X8E.Bit;
-
-   --  ODR_P array
-   type ODR_P_Field_Array is array (0 .. 31) of ODR_P_Element
+   --  PIOA_ODR_P array
+   type PIOA_ODR_P_Field_Array is array (0 .. 31) of PIOA_ODR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Output Disable Register
-   type ODR_Register
+   type PIOA_ODR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : ODR_P_Field_Array;
+            Arr : PIOA_ODR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for ODR_Register use record
+   for PIOA_ODR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- OSR_Register --
-   ------------------
+   --  PIOA_OSR_P array element
+   subtype PIOA_OSR_P_Element is ATSAM3X8E.Bit;
 
-   --  OSR_P array element
-   subtype OSR_P_Element is ATSAM3X8E.Bit;
-
-   --  OSR_P array
-   type OSR_P_Field_Array is array (0 .. 31) of OSR_P_Element
+   --  PIOA_OSR_P array
+   type PIOA_OSR_P_Field_Array is array (0 .. 31) of PIOA_OSR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Output Status Register
-   type OSR_Register
+   type PIOA_OSR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : OSR_P_Field_Array;
+            Arr : PIOA_OSR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for OSR_Register use record
+   for PIOA_OSR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- IFER_Register --
-   -------------------
+   --  PIOA_IFER_P array element
+   subtype PIOA_IFER_P_Element is ATSAM3X8E.Bit;
 
-   --  IFER_P array element
-   subtype IFER_P_Element is ATSAM3X8E.Bit;
-
-   --  IFER_P array
-   type IFER_P_Field_Array is array (0 .. 31) of IFER_P_Element
+   --  PIOA_IFER_P array
+   type PIOA_IFER_P_Field_Array is array (0 .. 31) of PIOA_IFER_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Glitch Input Filter Enable Register
-   type IFER_Register
+   type PIOA_IFER_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : IFER_P_Field_Array;
+            Arr : PIOA_IFER_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for IFER_Register use record
+   for PIOA_IFER_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- IFDR_Register --
-   -------------------
+   --  PIOA_IFDR_P array element
+   subtype PIOA_IFDR_P_Element is ATSAM3X8E.Bit;
 
-   --  IFDR_P array element
-   subtype IFDR_P_Element is ATSAM3X8E.Bit;
-
-   --  IFDR_P array
-   type IFDR_P_Field_Array is array (0 .. 31) of IFDR_P_Element
+   --  PIOA_IFDR_P array
+   type PIOA_IFDR_P_Field_Array is array (0 .. 31) of PIOA_IFDR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Glitch Input Filter Disable Register
-   type IFDR_Register
+   type PIOA_IFDR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : IFDR_P_Field_Array;
+            Arr : PIOA_IFDR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for IFDR_Register use record
+   for PIOA_IFDR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- IFSR_Register --
-   -------------------
+   --  PIOA_IFSR_P array element
+   subtype PIOA_IFSR_P_Element is ATSAM3X8E.Bit;
 
-   --  IFSR_P array element
-   subtype IFSR_P_Element is ATSAM3X8E.Bit;
-
-   --  IFSR_P array
-   type IFSR_P_Field_Array is array (0 .. 31) of IFSR_P_Element
+   --  PIOA_IFSR_P array
+   type PIOA_IFSR_P_Field_Array is array (0 .. 31) of PIOA_IFSR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Glitch Input Filter Status Register
-   type IFSR_Register
+   type PIOA_IFSR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : IFSR_P_Field_Array;
+            Arr : PIOA_IFSR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for IFSR_Register use record
+   for PIOA_IFSR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- SODR_Register --
-   -------------------
+   --  PIOA_SODR_P array element
+   subtype PIOA_SODR_P_Element is ATSAM3X8E.Bit;
 
-   --  SODR_P array element
-   subtype SODR_P_Element is ATSAM3X8E.Bit;
-
-   --  SODR_P array
-   type SODR_P_Field_Array is array (0 .. 31) of SODR_P_Element
+   --  PIOA_SODR_P array
+   type PIOA_SODR_P_Field_Array is array (0 .. 31) of PIOA_SODR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Set Output Data Register
-   type SODR_Register
+   type PIOA_SODR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : SODR_P_Field_Array;
+            Arr : PIOA_SODR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for SODR_Register use record
+   for PIOA_SODR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- CODR_Register --
-   -------------------
+   --  PIOA_CODR_P array element
+   subtype PIOA_CODR_P_Element is ATSAM3X8E.Bit;
 
-   --  CODR_P array element
-   subtype CODR_P_Element is ATSAM3X8E.Bit;
-
-   --  CODR_P array
-   type CODR_P_Field_Array is array (0 .. 31) of CODR_P_Element
+   --  PIOA_CODR_P array
+   type PIOA_CODR_P_Field_Array is array (0 .. 31) of PIOA_CODR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Clear Output Data Register
-   type CODR_Register
+   type PIOA_CODR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : CODR_P_Field_Array;
+            Arr : PIOA_CODR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for CODR_Register use record
+   for PIOA_CODR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- ODSR_Register --
-   -------------------
+   --  PIOA_ODSR_P array element
+   subtype PIOA_ODSR_P_Element is ATSAM3X8E.Bit;
 
-   --  ODSR_P array element
-   subtype ODSR_P_Element is ATSAM3X8E.Bit;
-
-   --  ODSR_P array
-   type ODSR_P_Field_Array is array (0 .. 31) of ODSR_P_Element
+   --  PIOA_ODSR_P array
+   type PIOA_ODSR_P_Field_Array is array (0 .. 31) of PIOA_ODSR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Output Data Status Register
-   type ODSR_Register
+   type PIOA_ODSR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : ODSR_P_Field_Array;
+            Arr : PIOA_ODSR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for ODSR_Register use record
+   for PIOA_ODSR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- PDSR_Register --
-   -------------------
+   --  PIOA_PDSR_P array element
+   subtype PIOA_PDSR_P_Element is ATSAM3X8E.Bit;
 
-   --  PDSR_P array element
-   subtype PDSR_P_Element is ATSAM3X8E.Bit;
-
-   --  PDSR_P array
-   type PDSR_P_Field_Array is array (0 .. 31) of PDSR_P_Element
+   --  PIOA_PDSR_P array
+   type PIOA_PDSR_P_Field_Array is array (0 .. 31) of PIOA_PDSR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Pin Data Status Register
-   type PDSR_Register
+   type PIOA_PDSR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : PDSR_P_Field_Array;
+            Arr : PIOA_PDSR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for PDSR_Register use record
+   for PIOA_PDSR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- IER_Register --
-   ------------------
+   --  PIOA_IER_P array element
+   subtype PIOA_IER_P_Element is ATSAM3X8E.Bit;
 
-   --  IER_P array element
-   subtype IER_P_Element is ATSAM3X8E.Bit;
-
-   --  IER_P array
-   type IER_P_Field_Array is array (0 .. 31) of IER_P_Element
+   --  PIOA_IER_P array
+   type PIOA_IER_P_Field_Array is array (0 .. 31) of PIOA_IER_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Interrupt Enable Register
-   type IER_Register
+   type PIOA_IER_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : IER_P_Field_Array;
+            Arr : PIOA_IER_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for IER_Register use record
+   for PIOA_IER_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- IDR_Register --
-   ------------------
+   --  PIOA_IDR_P array element
+   subtype PIOA_IDR_P_Element is ATSAM3X8E.Bit;
 
-   --  IDR_P array element
-   subtype IDR_P_Element is ATSAM3X8E.Bit;
-
-   --  IDR_P array
-   type IDR_P_Field_Array is array (0 .. 31) of IDR_P_Element
+   --  PIOA_IDR_P array
+   type PIOA_IDR_P_Field_Array is array (0 .. 31) of PIOA_IDR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Interrupt Disable Register
-   type IDR_Register
+   type PIOA_IDR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : IDR_P_Field_Array;
+            Arr : PIOA_IDR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for IDR_Register use record
+   for PIOA_IDR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- IMR_Register --
-   ------------------
+   --  PIOA_IMR_P array element
+   subtype PIOA_IMR_P_Element is ATSAM3X8E.Bit;
 
-   --  IMR_P array element
-   subtype IMR_P_Element is ATSAM3X8E.Bit;
-
-   --  IMR_P array
-   type IMR_P_Field_Array is array (0 .. 31) of IMR_P_Element
+   --  PIOA_IMR_P array
+   type PIOA_IMR_P_Field_Array is array (0 .. 31) of PIOA_IMR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Interrupt Mask Register
-   type IMR_Register
+   type PIOA_IMR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : IMR_P_Field_Array;
+            Arr : PIOA_IMR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for IMR_Register use record
+   for PIOA_IMR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- ISR_Register --
-   ------------------
+   --  PIOA_ISR_P array element
+   subtype PIOA_ISR_P_Element is ATSAM3X8E.Bit;
 
-   --  ISR_P array element
-   subtype ISR_P_Element is ATSAM3X8E.Bit;
-
-   --  ISR_P array
-   type ISR_P_Field_Array is array (0 .. 31) of ISR_P_Element
+   --  PIOA_ISR_P array
+   type PIOA_ISR_P_Field_Array is array (0 .. 31) of PIOA_ISR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Interrupt Status Register
-   type ISR_Register
+   type PIOA_ISR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : ISR_P_Field_Array;
+            Arr : PIOA_ISR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for ISR_Register use record
+   for PIOA_ISR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- MDER_Register --
-   -------------------
+   --  PIOA_MDER_P array element
+   subtype PIOA_MDER_P_Element is ATSAM3X8E.Bit;
 
-   --  MDER_P array element
-   subtype MDER_P_Element is ATSAM3X8E.Bit;
-
-   --  MDER_P array
-   type MDER_P_Field_Array is array (0 .. 31) of MDER_P_Element
+   --  PIOA_MDER_P array
+   type PIOA_MDER_P_Field_Array is array (0 .. 31) of PIOA_MDER_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Multi-driver Enable Register
-   type MDER_Register
+   type PIOA_MDER_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : MDER_P_Field_Array;
+            Arr : PIOA_MDER_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for MDER_Register use record
+   for PIOA_MDER_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- MDDR_Register --
-   -------------------
+   --  PIOA_MDDR_P array element
+   subtype PIOA_MDDR_P_Element is ATSAM3X8E.Bit;
 
-   --  MDDR_P array element
-   subtype MDDR_P_Element is ATSAM3X8E.Bit;
-
-   --  MDDR_P array
-   type MDDR_P_Field_Array is array (0 .. 31) of MDDR_P_Element
+   --  PIOA_MDDR_P array
+   type PIOA_MDDR_P_Field_Array is array (0 .. 31) of PIOA_MDDR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Multi-driver Disable Register
-   type MDDR_Register
+   type PIOA_MDDR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : MDDR_P_Field_Array;
+            Arr : PIOA_MDDR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for MDDR_Register use record
+   for PIOA_MDDR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- MDSR_Register --
-   -------------------
+   --  PIOA_MDSR_P array element
+   subtype PIOA_MDSR_P_Element is ATSAM3X8E.Bit;
 
-   --  MDSR_P array element
-   subtype MDSR_P_Element is ATSAM3X8E.Bit;
-
-   --  MDSR_P array
-   type MDSR_P_Field_Array is array (0 .. 31) of MDSR_P_Element
+   --  PIOA_MDSR_P array
+   type PIOA_MDSR_P_Field_Array is array (0 .. 31) of PIOA_MDSR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Multi-driver Status Register
-   type MDSR_Register
+   type PIOA_MDSR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : MDSR_P_Field_Array;
+            Arr : PIOA_MDSR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for MDSR_Register use record
+   for PIOA_MDSR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- PUDR_Register --
-   -------------------
+   --  PIOA_PUDR_P array element
+   subtype PIOA_PUDR_P_Element is ATSAM3X8E.Bit;
 
-   --  PUDR_P array element
-   subtype PUDR_P_Element is ATSAM3X8E.Bit;
-
-   --  PUDR_P array
-   type PUDR_P_Field_Array is array (0 .. 31) of PUDR_P_Element
+   --  PIOA_PUDR_P array
+   type PIOA_PUDR_P_Field_Array is array (0 .. 31) of PIOA_PUDR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Pull-up Disable Register
-   type PUDR_Register
+   type PIOA_PUDR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : PUDR_P_Field_Array;
+            Arr : PIOA_PUDR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for PUDR_Register use record
+   for PIOA_PUDR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- PUER_Register --
-   -------------------
+   --  PIOA_PUER_P array element
+   subtype PIOA_PUER_P_Element is ATSAM3X8E.Bit;
 
-   --  PUER_P array element
-   subtype PUER_P_Element is ATSAM3X8E.Bit;
-
-   --  PUER_P array
-   type PUER_P_Field_Array is array (0 .. 31) of PUER_P_Element
+   --  PIOA_PUER_P array
+   type PIOA_PUER_P_Field_Array is array (0 .. 31) of PIOA_PUER_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Pull-up Enable Register
-   type PUER_Register
+   type PIOA_PUER_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : PUER_P_Field_Array;
+            Arr : PIOA_PUER_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for PUER_Register use record
+   for PIOA_PUER_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- PUSR_Register --
-   -------------------
+   --  PIOA_PUSR_P array element
+   subtype PIOA_PUSR_P_Element is ATSAM3X8E.Bit;
 
-   --  PUSR_P array element
-   subtype PUSR_P_Element is ATSAM3X8E.Bit;
-
-   --  PUSR_P array
-   type PUSR_P_Field_Array is array (0 .. 31) of PUSR_P_Element
+   --  PIOA_PUSR_P array
+   type PIOA_PUSR_P_Field_Array is array (0 .. 31) of PIOA_PUSR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Pad Pull-up Status Register
-   type PUSR_Register
+   type PIOA_PUSR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : PUSR_P_Field_Array;
+            Arr : PIOA_PUSR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for PUSR_Register use record
+   for PIOA_PUSR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- ABSR_Register --
-   -------------------
+   --  PIOA_ABSR_P array element
+   subtype PIOA_ABSR_P_Element is ATSAM3X8E.Bit;
 
-   --  ABSR_P array element
-   subtype ABSR_P_Element is ATSAM3X8E.Bit;
-
-   --  ABSR_P array
-   type ABSR_P_Field_Array is array (0 .. 31) of ABSR_P_Element
+   --  PIOA_ABSR_P array
+   type PIOA_ABSR_P_Field_Array is array (0 .. 31) of PIOA_ABSR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Peripheral AB Select Register
-   type ABSR_Register
+   type PIOA_ABSR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : ABSR_P_Field_Array;
+            Arr : PIOA_ABSR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for ABSR_Register use record
+   for PIOA_ABSR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   ---------------------
-   -- SCIFSR_Register --
-   ---------------------
+   --  PIOA_SCIFSR_P array element
+   subtype PIOA_SCIFSR_P_Element is ATSAM3X8E.Bit;
 
-   --  SCIFSR_P array element
-   subtype SCIFSR_P_Element is ATSAM3X8E.Bit;
-
-   --  SCIFSR_P array
-   type SCIFSR_P_Field_Array is array (0 .. 31) of SCIFSR_P_Element
+   --  PIOA_SCIFSR_P array
+   type PIOA_SCIFSR_P_Field_Array is array (0 .. 31) of PIOA_SCIFSR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  System Clock Glitch Input Filter Select Register
-   type SCIFSR_Register
+   type PIOA_SCIFSR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : SCIFSR_P_Field_Array;
+            Arr : PIOA_SCIFSR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for SCIFSR_Register use record
+   for PIOA_SCIFSR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   --------------------
-   -- DIFSR_Register --
-   --------------------
+   --  PIOA_DIFSR_P array element
+   subtype PIOA_DIFSR_P_Element is ATSAM3X8E.Bit;
 
-   --  DIFSR_P array element
-   subtype DIFSR_P_Element is ATSAM3X8E.Bit;
-
-   --  DIFSR_P array
-   type DIFSR_P_Field_Array is array (0 .. 31) of DIFSR_P_Element
+   --  PIOA_DIFSR_P array
+   type PIOA_DIFSR_P_Field_Array is array (0 .. 31) of PIOA_DIFSR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Debouncing Input Filter Select Register
-   type DIFSR_Register
+   type PIOA_DIFSR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : DIFSR_P_Field_Array;
+            Arr : PIOA_DIFSR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for DIFSR_Register use record
+   for PIOA_DIFSR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   ---------------------
-   -- IFDGSR_Register --
-   ---------------------
+   --  PIOA_IFDGSR_P array element
+   subtype PIOA_IFDGSR_P_Element is ATSAM3X8E.Bit;
 
-   --  IFDGSR_P array element
-   subtype IFDGSR_P_Element is ATSAM3X8E.Bit;
-
-   --  IFDGSR_P array
-   type IFDGSR_P_Field_Array is array (0 .. 31) of IFDGSR_P_Element
+   --  PIOA_IFDGSR_P array
+   type PIOA_IFDGSR_P_Field_Array is array (0 .. 31) of PIOA_IFDGSR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Glitch or Debouncing Input Filter Clock Selection Status Register
-   type IFDGSR_Register
+   type PIOA_IFDGSR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : IFDGSR_P_Field_Array;
+            Arr : PIOA_IFDGSR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for IFDGSR_Register use record
+   for PIOA_IFDGSR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- SCDR_Register --
-   -------------------
-
-   subtype SCDR_DIV_Field is ATSAM3X8E.UInt14;
+   subtype PIOA_SCDR_DIV_Field is ATSAM3X8E.UInt14;
 
    --  Slow Clock Divider Debouncing Register
-   type SCDR_Register is record
+   type PIOA_SCDR_Register is record
       --  Slow Clock Divider Selection for Debouncing
-      DIV            : SCDR_DIV_Field := 16#0#;
+      DIV            : PIOA_SCDR_DIV_Field := 16#0#;
       --  unspecified
       Reserved_14_31 : ATSAM3X8E.UInt18 := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for SCDR_Register use record
+   for PIOA_SCDR_Register use record
       DIV            at 0 range 0 .. 13;
       Reserved_14_31 at 0 range 14 .. 31;
    end record;
 
-   -------------------
-   -- OWER_Register --
-   -------------------
+   --  PIOA_OWER_P array element
+   subtype PIOA_OWER_P_Element is ATSAM3X8E.Bit;
 
-   --  OWER_P array element
-   subtype OWER_P_Element is ATSAM3X8E.Bit;
-
-   --  OWER_P array
-   type OWER_P_Field_Array is array (0 .. 31) of OWER_P_Element
+   --  PIOA_OWER_P array
+   type PIOA_OWER_P_Field_Array is array (0 .. 31) of PIOA_OWER_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Output Write Enable
-   type OWER_Register
+   type PIOA_OWER_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : OWER_P_Field_Array;
+            Arr : PIOA_OWER_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for OWER_Register use record
+   for PIOA_OWER_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- OWDR_Register --
-   -------------------
+   --  PIOA_OWDR_P array element
+   subtype PIOA_OWDR_P_Element is ATSAM3X8E.Bit;
 
-   --  OWDR_P array element
-   subtype OWDR_P_Element is ATSAM3X8E.Bit;
-
-   --  OWDR_P array
-   type OWDR_P_Field_Array is array (0 .. 31) of OWDR_P_Element
+   --  PIOA_OWDR_P array
+   type PIOA_OWDR_P_Field_Array is array (0 .. 31) of PIOA_OWDR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Output Write Disable
-   type OWDR_Register
+   type PIOA_OWDR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : OWDR_P_Field_Array;
+            Arr : PIOA_OWDR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for OWDR_Register use record
+   for PIOA_OWDR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- OWSR_Register --
-   -------------------
+   --  PIOA_OWSR_P array element
+   subtype PIOA_OWSR_P_Element is ATSAM3X8E.Bit;
 
-   --  OWSR_P array element
-   subtype OWSR_P_Element is ATSAM3X8E.Bit;
-
-   --  OWSR_P array
-   type OWSR_P_Field_Array is array (0 .. 31) of OWSR_P_Element
+   --  PIOA_OWSR_P array
+   type PIOA_OWSR_P_Field_Array is array (0 .. 31) of PIOA_OWSR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Output Write Status Register
-   type OWSR_Register
+   type PIOA_OWSR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : OWSR_P_Field_Array;
+            Arr : PIOA_OWSR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for OWSR_Register use record
+   for PIOA_OWSR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   --------------------
-   -- AIMER_Register --
-   --------------------
+   --  PIOA_AIMER_P array element
+   subtype PIOA_AIMER_P_Element is ATSAM3X8E.Bit;
 
-   --  AIMER_P array element
-   subtype AIMER_P_Element is ATSAM3X8E.Bit;
-
-   --  AIMER_P array
-   type AIMER_P_Field_Array is array (0 .. 31) of AIMER_P_Element
+   --  PIOA_AIMER_P array
+   type PIOA_AIMER_P_Field_Array is array (0 .. 31) of PIOA_AIMER_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Additional Interrupt Modes Enable Register
-   type AIMER_Register
+   type PIOA_AIMER_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : AIMER_P_Field_Array;
+            Arr : PIOA_AIMER_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for AIMER_Register use record
+   for PIOA_AIMER_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   --------------------
-   -- AIMDR_Register --
-   --------------------
+   --  PIOA_AIMDR_P array element
+   subtype PIOA_AIMDR_P_Element is ATSAM3X8E.Bit;
 
-   --  AIMDR_P array element
-   subtype AIMDR_P_Element is ATSAM3X8E.Bit;
-
-   --  AIMDR_P array
-   type AIMDR_P_Field_Array is array (0 .. 31) of AIMDR_P_Element
+   --  PIOA_AIMDR_P array
+   type PIOA_AIMDR_P_Field_Array is array (0 .. 31) of PIOA_AIMDR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Additional Interrupt Modes Disables Register
-   type AIMDR_Register
+   type PIOA_AIMDR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : AIMDR_P_Field_Array;
+            Arr : PIOA_AIMDR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for AIMDR_Register use record
+   for PIOA_AIMDR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   --------------------
-   -- AIMMR_Register --
-   --------------------
+   --  PIOA_AIMMR_P array element
+   subtype PIOA_AIMMR_P_Element is ATSAM3X8E.Bit;
 
-   --  AIMMR_P array element
-   subtype AIMMR_P_Element is ATSAM3X8E.Bit;
-
-   --  AIMMR_P array
-   type AIMMR_P_Field_Array is array (0 .. 31) of AIMMR_P_Element
+   --  PIOA_AIMMR_P array
+   type PIOA_AIMMR_P_Field_Array is array (0 .. 31) of PIOA_AIMMR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Additional Interrupt Modes Mask Register
-   type AIMMR_Register
+   type PIOA_AIMMR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : AIMMR_P_Field_Array;
+            Arr : PIOA_AIMMR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for AIMMR_Register use record
+   for PIOA_AIMMR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- ESR_Register --
-   ------------------
+   --  PIOA_ESR_P array element
+   subtype PIOA_ESR_P_Element is ATSAM3X8E.Bit;
 
-   --  ESR_P array element
-   subtype ESR_P_Element is ATSAM3X8E.Bit;
-
-   --  ESR_P array
-   type ESR_P_Field_Array is array (0 .. 31) of ESR_P_Element
+   --  PIOA_ESR_P array
+   type PIOA_ESR_P_Field_Array is array (0 .. 31) of PIOA_ESR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Edge Select Register
-   type ESR_Register
+   type PIOA_ESR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : ESR_P_Field_Array;
+            Arr : PIOA_ESR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for ESR_Register use record
+   for PIOA_ESR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   ------------------
-   -- LSR_Register --
-   ------------------
+   --  PIOA_LSR_P array element
+   subtype PIOA_LSR_P_Element is ATSAM3X8E.Bit;
 
-   --  LSR_P array element
-   subtype LSR_P_Element is ATSAM3X8E.Bit;
-
-   --  LSR_P array
-   type LSR_P_Field_Array is array (0 .. 31) of LSR_P_Element
+   --  PIOA_LSR_P array
+   type PIOA_LSR_P_Field_Array is array (0 .. 31) of PIOA_LSR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Level Select Register
-   type LSR_Register
+   type PIOA_LSR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : LSR_P_Field_Array;
+            Arr : PIOA_LSR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for LSR_Register use record
+   for PIOA_LSR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- ELSR_Register --
-   -------------------
+   --  PIOA_ELSR_P array element
+   subtype PIOA_ELSR_P_Element is ATSAM3X8E.Bit;
 
-   --  ELSR_P array element
-   subtype ELSR_P_Element is ATSAM3X8E.Bit;
-
-   --  ELSR_P array
-   type ELSR_P_Field_Array is array (0 .. 31) of ELSR_P_Element
+   --  PIOA_ELSR_P array
+   type PIOA_ELSR_P_Field_Array is array (0 .. 31) of PIOA_ELSR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Edge/Level Status Register
-   type ELSR_Register
+   type PIOA_ELSR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : ELSR_P_Field_Array;
+            Arr : PIOA_ELSR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for ELSR_Register use record
+   for PIOA_ELSR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   ---------------------
-   -- FELLSR_Register --
-   ---------------------
+   --  PIOA_FELLSR_P array element
+   subtype PIOA_FELLSR_P_Element is ATSAM3X8E.Bit;
 
-   --  FELLSR_P array element
-   subtype FELLSR_P_Element is ATSAM3X8E.Bit;
-
-   --  FELLSR_P array
-   type FELLSR_P_Field_Array is array (0 .. 31) of FELLSR_P_Element
+   --  PIOA_FELLSR_P array
+   type PIOA_FELLSR_P_Field_Array is array (0 .. 31) of PIOA_FELLSR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Falling Edge/Low Level Select Register
-   type FELLSR_Register
+   type PIOA_FELLSR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : FELLSR_P_Field_Array;
+            Arr : PIOA_FELLSR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for FELLSR_Register use record
+   for PIOA_FELLSR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   ---------------------
-   -- REHLSR_Register --
-   ---------------------
+   --  PIOA_REHLSR_P array element
+   subtype PIOA_REHLSR_P_Element is ATSAM3X8E.Bit;
 
-   --  REHLSR_P array element
-   subtype REHLSR_P_Element is ATSAM3X8E.Bit;
-
-   --  REHLSR_P array
-   type REHLSR_P_Field_Array is array (0 .. 31) of REHLSR_P_Element
+   --  PIOA_REHLSR_P array
+   type PIOA_REHLSR_P_Field_Array is array (0 .. 31) of PIOA_REHLSR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Rising Edge/ High Level Select Register
-   type REHLSR_Register
+   type PIOA_REHLSR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : REHLSR_P_Field_Array;
+            Arr : PIOA_REHLSR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for REHLSR_Register use record
+   for PIOA_REHLSR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   ---------------------
-   -- FRLHSR_Register --
-   ---------------------
+   --  PIOA_FRLHSR_P array element
+   subtype PIOA_FRLHSR_P_Element is ATSAM3X8E.Bit;
 
-   --  FRLHSR_P array element
-   subtype FRLHSR_P_Element is ATSAM3X8E.Bit;
-
-   --  FRLHSR_P array
-   type FRLHSR_P_Field_Array is array (0 .. 31) of FRLHSR_P_Element
+   --  PIOA_FRLHSR_P array
+   type PIOA_FRLHSR_P_Field_Array is array (0 .. 31) of PIOA_FRLHSR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Fall/Rise - Low/High Status Register
-   type FRLHSR_Register
+   type PIOA_FRLHSR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : FRLHSR_P_Field_Array;
+            Arr : PIOA_FRLHSR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for FRLHSR_Register use record
+   for PIOA_FRLHSR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   ---------------------
-   -- LOCKSR_Register --
-   ---------------------
+   --  PIOA_LOCKSR_P array element
+   subtype PIOA_LOCKSR_P_Element is ATSAM3X8E.Bit;
 
-   --  LOCKSR_P array element
-   subtype LOCKSR_P_Element is ATSAM3X8E.Bit;
-
-   --  LOCKSR_P array
-   type LOCKSR_P_Field_Array is array (0 .. 31) of LOCKSR_P_Element
+   --  PIOA_LOCKSR_P array
+   type PIOA_LOCKSR_P_Field_Array is array (0 .. 31) of PIOA_LOCKSR_P_Element
      with Component_Size => 1, Size => 32;
 
    --  Lock Status
-   type LOCKSR_Register
+   type PIOA_LOCKSR_Register
      (As_Array : Boolean := False)
    is record
       case As_Array is
          when False =>
             --  P as a value
-            Val : ATSAM3X8E.Word;
+            Val : ATSAM3X8E.UInt32;
          when True =>
             --  P as an array
-            Arr : LOCKSR_P_Field_Array;
+            Arr : PIOA_LOCKSR_P_Field_Array;
       end case;
    end record
-     with Unchecked_Union, Size => 32, Volatile,
+     with Unchecked_Union, Size => 32, Object_Size => 32,
           Bit_Order => System.Low_Order_First;
 
-   for LOCKSR_Register use record
+   for PIOA_LOCKSR_Register use record
       Val at 0 range 0 .. 31;
       Arr at 0 range 0 .. 31;
    end record;
 
-   -------------------
-   -- WPMR_Register --
-   -------------------
-
-   subtype WPMR_WPEN_Field is ATSAM3X8E.Bit;
-   subtype WPMR_WPKEY_Field is ATSAM3X8E.UInt24;
+   subtype PIOA_WPMR_WPEN_Field is ATSAM3X8E.Bit;
+   subtype PIOA_WPMR_WPKEY_Field is ATSAM3X8E.UInt24;
 
    --  Write Protect Mode Register
-   type WPMR_Register is record
+   type PIOA_WPMR_Register is record
       --  Write Protect Enable
-      WPEN         : WPMR_WPEN_Field := 16#0#;
+      WPEN         : PIOA_WPMR_WPEN_Field := 16#0#;
       --  unspecified
       Reserved_1_7 : ATSAM3X8E.UInt7 := 16#0#;
       --  Write Protect KEY
-      WPKEY        : WPMR_WPKEY_Field := 16#0#;
+      WPKEY        : PIOA_WPMR_WPKEY_Field := 16#0#;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for WPMR_Register use record
+   for PIOA_WPMR_Register use record
       WPEN         at 0 range 0 .. 0;
       Reserved_1_7 at 0 range 1 .. 7;
       WPKEY        at 0 range 8 .. 31;
    end record;
 
-   -------------------
-   -- WPSR_Register --
-   -------------------
-
-   subtype WPSR_WPVS_Field is ATSAM3X8E.Bit;
-   subtype WPSR_WPVSRC_Field is ATSAM3X8E.Short;
+   subtype PIOA_WPSR_WPVS_Field is ATSAM3X8E.Bit;
+   subtype PIOA_WPSR_WPVSRC_Field is ATSAM3X8E.UInt16;
 
    --  Write Protect Status Register
-   type WPSR_Register is record
+   type PIOA_WPSR_Register is record
       --  Read-only. Write Protect Violation Status
-      WPVS           : WPSR_WPVS_Field := 16#0#;
+      WPVS           : PIOA_WPSR_WPVS_Field;
       --  unspecified
       Reserved_1_7   : ATSAM3X8E.UInt7;
       --  Read-only. Write Protect Violation Source
-      WPVSRC         : WPSR_WPVSRC_Field := 16#0#;
+      WPVSRC         : PIOA_WPSR_WPVSRC_Field;
       --  unspecified
       Reserved_24_31 : ATSAM3X8E.Byte;
    end record
-     with Volatile, Size => 32, Bit_Order => System.Low_Order_First;
+     with Object_Size => 32, Bit_Order => System.Low_Order_First;
 
-   for WPSR_Register use record
+   for PIOA_WPSR_Register use record
       WPVS           at 0 range 0 .. 0;
       Reserved_1_7   at 0 range 1 .. 7;
       WPVSRC         at 0 range 8 .. 23;
@@ -1371,138 +1199,181 @@ package ATSAM3X8E.PIO is
    --  Parallel Input/Output Controller A
    type PIO_Peripheral is record
       --  PIO Enable Register
-      PER    : PER_Register;
+      PER    : aliased PIOA_PER_Register;
+      pragma Volatile_Full_Access (PER);
       --  PIO Disable Register
-      PDR    : PDR_Register;
+      PDR    : aliased PIOA_PDR_Register;
+      pragma Volatile_Full_Access (PDR);
       --  PIO Status Register
-      PSR    : PSR_Register;
+      PSR    : aliased PIOA_PSR_Register;
+      pragma Volatile_Full_Access (PSR);
       --  Output Enable Register
-      OER    : OER_Register;
+      OER    : aliased PIOA_OER_Register;
+      pragma Volatile_Full_Access (OER);
       --  Output Disable Register
-      ODR    : ODR_Register;
+      ODR    : aliased PIOA_ODR_Register;
+      pragma Volatile_Full_Access (ODR);
       --  Output Status Register
-      OSR    : OSR_Register;
+      OSR    : aliased PIOA_OSR_Register;
+      pragma Volatile_Full_Access (OSR);
       --  Glitch Input Filter Enable Register
-      IFER   : IFER_Register;
+      IFER   : aliased PIOA_IFER_Register;
+      pragma Volatile_Full_Access (IFER);
       --  Glitch Input Filter Disable Register
-      IFDR   : IFDR_Register;
+      IFDR   : aliased PIOA_IFDR_Register;
+      pragma Volatile_Full_Access (IFDR);
       --  Glitch Input Filter Status Register
-      IFSR   : IFSR_Register;
+      IFSR   : aliased PIOA_IFSR_Register;
+      pragma Volatile_Full_Access (IFSR);
       --  Set Output Data Register
-      SODR   : SODR_Register;
+      SODR   : aliased PIOA_SODR_Register;
+      pragma Volatile_Full_Access (SODR);
       --  Clear Output Data Register
-      CODR   : CODR_Register;
+      CODR   : aliased PIOA_CODR_Register;
+      pragma Volatile_Full_Access (CODR);
       --  Output Data Status Register
-      ODSR   : ODSR_Register;
+      ODSR   : aliased PIOA_ODSR_Register;
+      pragma Volatile_Full_Access (ODSR);
       --  Pin Data Status Register
-      PDSR   : PDSR_Register;
+      PDSR   : aliased PIOA_PDSR_Register;
+      pragma Volatile_Full_Access (PDSR);
       --  Interrupt Enable Register
-      IER    : IER_Register;
+      IER    : aliased PIOA_IER_Register;
+      pragma Volatile_Full_Access (IER);
       --  Interrupt Disable Register
-      IDR    : IDR_Register;
+      IDR    : aliased PIOA_IDR_Register;
+      pragma Volatile_Full_Access (IDR);
       --  Interrupt Mask Register
-      IMR    : IMR_Register;
+      IMR    : aliased PIOA_IMR_Register;
+      pragma Volatile_Full_Access (IMR);
       --  Interrupt Status Register
-      ISR    : ISR_Register;
+      ISR    : aliased PIOA_ISR_Register;
+      pragma Volatile_Full_Access (ISR);
       --  Multi-driver Enable Register
-      MDER   : MDER_Register;
+      MDER   : aliased PIOA_MDER_Register;
+      pragma Volatile_Full_Access (MDER);
       --  Multi-driver Disable Register
-      MDDR   : MDDR_Register;
+      MDDR   : aliased PIOA_MDDR_Register;
+      pragma Volatile_Full_Access (MDDR);
       --  Multi-driver Status Register
-      MDSR   : MDSR_Register;
+      MDSR   : aliased PIOA_MDSR_Register;
+      pragma Volatile_Full_Access (MDSR);
       --  Pull-up Disable Register
-      PUDR   : PUDR_Register;
+      PUDR   : aliased PIOA_PUDR_Register;
+      pragma Volatile_Full_Access (PUDR);
       --  Pull-up Enable Register
-      PUER   : PUER_Register;
+      PUER   : aliased PIOA_PUER_Register;
+      pragma Volatile_Full_Access (PUER);
       --  Pad Pull-up Status Register
-      PUSR   : PUSR_Register;
+      PUSR   : aliased PIOA_PUSR_Register;
+      pragma Volatile_Full_Access (PUSR);
       --  Peripheral AB Select Register
-      ABSR   : ABSR_Register;
+      ABSR   : aliased PIOA_ABSR_Register;
+      pragma Volatile_Full_Access (ABSR);
       --  System Clock Glitch Input Filter Select Register
-      SCIFSR : SCIFSR_Register;
+      SCIFSR : aliased PIOA_SCIFSR_Register;
+      pragma Volatile_Full_Access (SCIFSR);
       --  Debouncing Input Filter Select Register
-      DIFSR  : DIFSR_Register;
+      DIFSR  : aliased PIOA_DIFSR_Register;
+      pragma Volatile_Full_Access (DIFSR);
       --  Glitch or Debouncing Input Filter Clock Selection Status Register
-      IFDGSR : IFDGSR_Register;
+      IFDGSR : aliased PIOA_IFDGSR_Register;
+      pragma Volatile_Full_Access (IFDGSR);
       --  Slow Clock Divider Debouncing Register
-      SCDR   : SCDR_Register;
+      SCDR   : aliased PIOA_SCDR_Register;
+      pragma Volatile_Full_Access (SCDR);
       --  Output Write Enable
-      OWER   : OWER_Register;
+      OWER   : aliased PIOA_OWER_Register;
+      pragma Volatile_Full_Access (OWER);
       --  Output Write Disable
-      OWDR   : OWDR_Register;
+      OWDR   : aliased PIOA_OWDR_Register;
+      pragma Volatile_Full_Access (OWDR);
       --  Output Write Status Register
-      OWSR   : OWSR_Register;
+      OWSR   : aliased PIOA_OWSR_Register;
+      pragma Volatile_Full_Access (OWSR);
       --  Additional Interrupt Modes Enable Register
-      AIMER  : AIMER_Register;
+      AIMER  : aliased PIOA_AIMER_Register;
+      pragma Volatile_Full_Access (AIMER);
       --  Additional Interrupt Modes Disables Register
-      AIMDR  : AIMDR_Register;
+      AIMDR  : aliased PIOA_AIMDR_Register;
+      pragma Volatile_Full_Access (AIMDR);
       --  Additional Interrupt Modes Mask Register
-      AIMMR  : AIMMR_Register;
+      AIMMR  : aliased PIOA_AIMMR_Register;
+      pragma Volatile_Full_Access (AIMMR);
       --  Edge Select Register
-      ESR    : ESR_Register;
+      ESR    : aliased PIOA_ESR_Register;
+      pragma Volatile_Full_Access (ESR);
       --  Level Select Register
-      LSR    : LSR_Register;
+      LSR    : aliased PIOA_LSR_Register;
+      pragma Volatile_Full_Access (LSR);
       --  Edge/Level Status Register
-      ELSR   : ELSR_Register;
+      ELSR   : aliased PIOA_ELSR_Register;
+      pragma Volatile_Full_Access (ELSR);
       --  Falling Edge/Low Level Select Register
-      FELLSR : FELLSR_Register;
+      FELLSR : aliased PIOA_FELLSR_Register;
+      pragma Volatile_Full_Access (FELLSR);
       --  Rising Edge/ High Level Select Register
-      REHLSR : REHLSR_Register;
+      REHLSR : aliased PIOA_REHLSR_Register;
+      pragma Volatile_Full_Access (REHLSR);
       --  Fall/Rise - Low/High Status Register
-      FRLHSR : FRLHSR_Register;
+      FRLHSR : aliased PIOA_FRLHSR_Register;
+      pragma Volatile_Full_Access (FRLHSR);
       --  Lock Status
-      LOCKSR : LOCKSR_Register;
+      LOCKSR : aliased PIOA_LOCKSR_Register;
+      pragma Volatile_Full_Access (LOCKSR);
       --  Write Protect Mode Register
-      WPMR   : WPMR_Register;
+      WPMR   : aliased PIOA_WPMR_Register;
+      pragma Volatile_Full_Access (WPMR);
       --  Write Protect Status Register
-      WPSR   : WPSR_Register;
+      WPSR   : aliased PIOA_WPSR_Register;
+      pragma Volatile_Full_Access (WPSR);
    end record
      with Volatile;
 
    for PIO_Peripheral use record
-      PER    at 0 range 0 .. 31;
-      PDR    at 4 range 0 .. 31;
-      PSR    at 8 range 0 .. 31;
-      OER    at 16 range 0 .. 31;
-      ODR    at 20 range 0 .. 31;
-      OSR    at 24 range 0 .. 31;
-      IFER   at 32 range 0 .. 31;
-      IFDR   at 36 range 0 .. 31;
-      IFSR   at 40 range 0 .. 31;
-      SODR   at 48 range 0 .. 31;
-      CODR   at 52 range 0 .. 31;
-      ODSR   at 56 range 0 .. 31;
-      PDSR   at 60 range 0 .. 31;
-      IER    at 64 range 0 .. 31;
-      IDR    at 68 range 0 .. 31;
-      IMR    at 72 range 0 .. 31;
-      ISR    at 76 range 0 .. 31;
-      MDER   at 80 range 0 .. 31;
-      MDDR   at 84 range 0 .. 31;
-      MDSR   at 88 range 0 .. 31;
-      PUDR   at 96 range 0 .. 31;
-      PUER   at 100 range 0 .. 31;
-      PUSR   at 104 range 0 .. 31;
-      ABSR   at 112 range 0 .. 31;
-      SCIFSR at 128 range 0 .. 31;
-      DIFSR  at 132 range 0 .. 31;
-      IFDGSR at 136 range 0 .. 31;
-      SCDR   at 140 range 0 .. 31;
-      OWER   at 160 range 0 .. 31;
-      OWDR   at 164 range 0 .. 31;
-      OWSR   at 168 range 0 .. 31;
-      AIMER  at 176 range 0 .. 31;
-      AIMDR  at 180 range 0 .. 31;
-      AIMMR  at 184 range 0 .. 31;
-      ESR    at 192 range 0 .. 31;
-      LSR    at 196 range 0 .. 31;
-      ELSR   at 200 range 0 .. 31;
-      FELLSR at 208 range 0 .. 31;
-      REHLSR at 212 range 0 .. 31;
-      FRLHSR at 216 range 0 .. 31;
-      LOCKSR at 224 range 0 .. 31;
-      WPMR   at 228 range 0 .. 31;
-      WPSR   at 232 range 0 .. 31;
+      PER    at 16#0# range 0 .. 31;
+      PDR    at 16#4# range 0 .. 31;
+      PSR    at 16#8# range 0 .. 31;
+      OER    at 16#10# range 0 .. 31;
+      ODR    at 16#14# range 0 .. 31;
+      OSR    at 16#18# range 0 .. 31;
+      IFER   at 16#20# range 0 .. 31;
+      IFDR   at 16#24# range 0 .. 31;
+      IFSR   at 16#28# range 0 .. 31;
+      SODR   at 16#30# range 0 .. 31;
+      CODR   at 16#34# range 0 .. 31;
+      ODSR   at 16#38# range 0 .. 31;
+      PDSR   at 16#3C# range 0 .. 31;
+      IER    at 16#40# range 0 .. 31;
+      IDR    at 16#44# range 0 .. 31;
+      IMR    at 16#48# range 0 .. 31;
+      ISR    at 16#4C# range 0 .. 31;
+      MDER   at 16#50# range 0 .. 31;
+      MDDR   at 16#54# range 0 .. 31;
+      MDSR   at 16#58# range 0 .. 31;
+      PUDR   at 16#60# range 0 .. 31;
+      PUER   at 16#64# range 0 .. 31;
+      PUSR   at 16#68# range 0 .. 31;
+      ABSR   at 16#70# range 0 .. 31;
+      SCIFSR at 16#80# range 0 .. 31;
+      DIFSR  at 16#84# range 0 .. 31;
+      IFDGSR at 16#88# range 0 .. 31;
+      SCDR   at 16#8C# range 0 .. 31;
+      OWER   at 16#A0# range 0 .. 31;
+      OWDR   at 16#A4# range 0 .. 31;
+      OWSR   at 16#A8# range 0 .. 31;
+      AIMER  at 16#B0# range 0 .. 31;
+      AIMDR  at 16#B4# range 0 .. 31;
+      AIMMR  at 16#B8# range 0 .. 31;
+      ESR    at 16#C0# range 0 .. 31;
+      LSR    at 16#C4# range 0 .. 31;
+      ELSR   at 16#C8# range 0 .. 31;
+      FELLSR at 16#D0# range 0 .. 31;
+      REHLSR at 16#D4# range 0 .. 31;
+      FRLHSR at 16#D8# range 0 .. 31;
+      LOCKSR at 16#E0# range 0 .. 31;
+      WPMR   at 16#E4# range 0 .. 31;
+      WPSR   at 16#E8# range 0 .. 31;
    end record;
 
    --  Parallel Input/Output Controller A

@@ -1,4 +1,4 @@
---  Copyright (C) 2016-2018 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2021 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
@@ -18,7 +18,6 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
-with Ada.Interrupts.Names;
 with Interfaces;
 with System.Machine_Code;
 with System.Parameters;
@@ -67,6 +66,8 @@ package body Startup is
       --  _edata:  the first address after read/write data in SRAM
       --  _sbss:   the start of BSS (to be initialized to zero)
       --  _ebss:   the first address after BSS.
+      --
+      --  _isr_vector is set up in interrupt_vectors.s.
 
       use System.Storage_Elements;
 
@@ -144,29 +145,19 @@ package body Startup is
       System.FreeRTOS.Tasks.Start_Scheduler;
    end Program_Initialization;
 
-   -------------------------
-   --  Interrupt vectors  --
-   -------------------------
+   --------------------------
+   --  Interrupt Handlers  --
+   --------------------------
 
-   --  Vector Table, STM32F4xxxx Reference Manual DocID018909 Rev 11
-   --  Table 62.
+   --  The interrupt vector is set up in interrupt_vectors.s, using
+   --  the handlers defined here.
 
-   procedure Dummy_Handler;
-   procedure Dummy_Handler is
-      IPSR : Interfaces.Unsigned_32
-        with Volatile; -- don't want it to be optimised away
-   begin
-      System.Machine_Code.Asm
-        ("mrs %0, ipsr",
-         Outputs => Interfaces.Unsigned_32'Asm_Output ("=r", IPSR),
-         Volatile => True);
-      loop
-         null;
-      end loop;
-   end Dummy_Handler;
+   --  These handlers are all defined as Weak so that they can be
+   --  replaced by real handlers at link time.
 
-   --  The remaining handlers are all defined as Weak so that they can
-   --  be replaced by real handlers at link time.
+   --  If we defined the weak handlers in interrupt_vectors.s, the
+   --  references would be satisfied internally and so couldn't be
+   --  replaced by the real handler.
 
    procedure HardFault_Handler
    with Export, Convention => Ada, External_Name => "HardFault_Handler";
@@ -178,6 +169,7 @@ package body Startup is
       end loop;
    end HardFault_Handler;
 
+   --  Provided by FreeRTOS.
    procedure SVC_Handler
    with Export, Convention => Ada, External_Name => "SVC_Handler";
    pragma Weak_External (SVC_Handler);
@@ -188,6 +180,7 @@ package body Startup is
       end loop;
    end SVC_Handler;
 
+   --  Provided by FreeRTOS.
    procedure PendSV_Handler
    with Export, Convention => Ada, External_Name => "PendSV_Handler";
    pragma Weak_External (PendSV_Handler);
@@ -198,6 +191,7 @@ package body Startup is
       end loop;
    end PendSV_Handler;
 
+   --  Provided by FreeRTOS.
    procedure SysTick_Handler
    with Export, Convention => Ada, External_Name => "SysTick_Handler";
    pragma Weak_External (SysTick_Handler);
@@ -225,25 +219,5 @@ package body Startup is
          null;
       end loop;
    end IRQ_Handler;
-
-   type Handler is access procedure;
-
-   use type Ada.Interrupts.Interrupt_ID;
-   Vectors : array (-14 .. Ada.Interrupts.Names.FPU_IRQ) of Handler :=
-     (-9 .. -6 | -4 .. -3 => null,                      -- reserved
-      -14                 => Dummy_Handler'Access,      -- NMI
-      -13                 => HardFault_Handler'Access,  -- HardFault
-      -12                 => Dummy_Handler'Access,      -- MemManagement
-      -11                 => Dummy_Handler'Access,      -- BusFault
-      -10                 => Dummy_Handler'Access,      -- UsageFault
-      -5                  => SVC_Handler'Access,        -- SVCall
-      -2                  => PendSV_Handler'Access,     -- PendSV
-      -1                  => SysTick_Handler'Access,    -- SysTick
-      others              => IRQ_Handler'Access)
-     with
-       Export,
-       Convention         => Ada,
-       External_Name      => "isr_vector";
-   pragma Linker_Section (Vectors, ".isr_vector");
 
 end Startup;

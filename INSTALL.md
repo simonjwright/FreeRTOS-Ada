@@ -1,17 +1,16 @@
 # Installing and using Cortex GNAT RTS #
 
+## FreeRTOS ##
+
+This repository uses a Git submodule for FreeRTOS. If you want to use a stand-alone release of FreeRTOS, you'll need to edit `FreeRTOS.gpr` in the top-level directory to match. Otherwise, after cloning the repository,
+```
+git submodule init
+git submodule update
+```
+
 ## Installing ##
 
 The runtimes are supplied unbuilt. In order to build them, some scenario variables need to be set.
-
-### FreeRTOS ###
-
-The compiler has to find the FreeRTOS sources.
-
-| Variable | Use | Default |
-| ---------|-----|-------- |
-| `FREERTOS_PARENT` | where FreeRTOS is installed | `HOME` |
-| `FREERTOS_RELEASE` | version | `FreeRTOSv10.0.1` |
 
 ### Compiler release ###
 
@@ -19,7 +18,7 @@ During compiler development, the interface between the compiler and the run time
 
 | Variable | Default |
 | ---------|-------- |
-| `RELEASE` | none |
+| `RELEASE` | gcc11 |
 
 Values for `RELEASE` are as below:
 
@@ -28,9 +27,15 @@ Values for `RELEASE` are as below:
 | FSF GCC 6 | `gcc6` |
 | FSF GCC 7 | `gcc7` |
 | FSF GCC 8 | `gcc8` |
+| FSF GCC 9 | `gcc8` |
+| FSF GCC 10 | `gcc8` |
+| FSF GCC 11 | `gcc11` |
+| FSF GCC 12 | `gcc12` |
 | GNAT GPL 2016 | `gcc6` |
 | GNAT GPL 2017 | `gnat-gpl-2017` |
 | GNAT CE 2018 | `gcc8` |
+| GNAT CE 2019 | `gcc8` |
+| GNAT CE 2020 | `gnat-ce-2020` |
 
 Build by running
 <tt>make&nbsp;RELEASE=<i>release</i>&nbsp;all</tt> at the top level (or, if you only want one runtime, by <tt>make&nbsp;RELEASE=<i>release</i></tt> in that runtime's subdirectory).
@@ -51,7 +56,7 @@ It used to be possible to use a runtime from its build directory (for example, `
 
 | Variable | Default |
 | ---------|-------- |
-| `INSTALL_LOCALLY` | `no` |
+| `INSTALL_LOCALLY` | `yes` |
 
 <pre>
 make RELEASE=<i>release</i> INSTALL_LOCALLY=yes install

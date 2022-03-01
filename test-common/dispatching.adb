@@ -1,4 +1,4 @@
---  Copyright (C) 2016, 2017 Free Software Foundation, Inc.
+--  Copyright (C) 2016, 2017, 2020 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -29,7 +29,8 @@ package body Dispatching is
    end T;
 
    task body T is
-      D : constant access Base'Class := new Derived;
+      type Base_P is access Base'Class;
+      D : constant Base_P := new Derived;
    begin
       loop
          declare

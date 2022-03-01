@@ -1,4 +1,4 @@
---  Copyright (C) 2016 Free Software Foundation, Inc.
+--  Copyright (C) 2016, 2019 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -16,8 +16,6 @@
 --  along with this program; see the file COPYING3.  If not, see
 --  <http://www.gnu.org/licenses/>.
 
-with "../arduino-due-bsp/arduino_due_bsp";
-
 project Debounce is
 
    type Implementation_Type is ("software", "hardware");
@@ -25,9 +23,10 @@ project Debounce is
 
    for Main use ("debounce.adb");
    for Target use "arm-eabi";
-   for Runtime ("ada") use project'Project_Dir & "../arduino-due";
+   for Runtime ("ada") use project'Project_Dir & "../local/arduino-due";
    for Object_Dir use ".build-" & Implementation;
    for Exec_Dir use ".";
+   for Create_Missing_Dirs use "true";
 
    package Naming is
       for Body ("Debounce_Impl") use "debounce_" & Implementation & ".adb";
@@ -35,13 +34,15 @@ project Debounce is
 
    package Builder is
       for Executable ("debounce.adb") use "debounce_" & Implementation;
-      for Default_Switches ("ada") use
+      for Switches (others) use
         (
          "-g",
-         "-Og",
+         "-Og"
+        );
+      for Global_Compilation_Switches ("ada") use
+        (
          "-ffunction-sections",
-         "-fdata-sections",
-         "--create-map-file"
+         "-fdata-sections"
         );
    end Builder;
    package Compiler is
@@ -55,7 +56,10 @@ project Debounce is
       for Default_Switches ("ada") use
         (
          "-Wl,-gc-sections",
-         "-Wl,-Map," & project'Project_Dir
+         "-Wl,-Map,"
+         & project'Project_Dir
+         & "/" & Builder'Executable ("debounce.adb")
+         & ".map"
         );
    end Linker;
 end Debounce;

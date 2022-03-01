@@ -18,8 +18,11 @@
          Common_Required_Switches;
    end Compiler;
 
+   --  Note, we have to force the link of _isr_vector, because in the m0
+   --  it can't be relocated, so not referenced from startup.adb.
    package Linker is
       for Required_Switches use Linker'Required_Switches &amp;
+        ("-Wl,--require-defined=_isr_vector") &amp;
         ("${RUNTIME_DIR(ada)}/adalib/libgnat.a") &amp;
         Compiler.Common_Required_Switches &amp;
         ("-nostdlib", "-lm", "-lgcc", "-lc");

@@ -15,15 +15,16 @@ obj
 test
 doc
 cortex-gnat-rts*
-
-stm32f429xx_h.ads
+.DS_Store
 
 auto.cgpr
 gnatinspect.db
+gpr_query.*
 
 local/
 
-demos-arduino-due/debounce
+demos-arduino-due/debounce_hardware
+demos-arduino-due/debounce_software
 demos-arduino-due/first
 
 test-arduino-due/

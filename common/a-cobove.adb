@@ -6,7 +6,7 @@
 --                                                                          --
 --                                 B o d y                                  --
 --                                                                          --
---       Copyright (C) 2004-2013, 2016, Free Software Foundation, Inc.      --
+--          Copyright (C) 2004-2021, Free Software Foundation, Inc.         --
 --                                                                          --
 -- GNAT is free software;  you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -32,6 +32,8 @@ with Ada.Containers.Generic_Array_Sort;
 with System; use type System.Address;
 
 package body Ada.Containers.Bounded_Vectors is
+
+   pragma Warnings (Off, "*others* choice is redundant");
 
    -----------------------
    -- Local Subprograms --

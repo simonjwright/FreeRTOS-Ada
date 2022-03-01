@@ -110,13 +110,14 @@ package body System.Tasking.Protected_Objects is
          declare
             Self_Id : constant Task_Id := Self;
          begin
-            --  If pragma Detect_Blocking is active then, as described
-            --  in the ARM 9.5.1, par. 15, we must check whether this
-            --  is an external call on a protected subprogram with the
-            --  same target object as that of the protected action
-            --  that is currently in progress (i.e., if the caller is
-            --  already the protected object's owner). If this is the
-            --  case Program_Error must be raised.
+            --  If pragma Detect_Blocking is active (which it is, this
+            --  is a restricted profile) then, as described in the ARM
+            --  9.5.1, par. 15, we must check whether this is an
+            --  external call on a protected subprogram with the same
+            --  target object as that of the protected action that is
+            --  currently in progress (i.e., if the caller is already
+            --  the protected object's owner). If this is the case
+            --  Program_Error must be raised.
             if Object.Owner = Self_Id then
                raise Program_Error with "external call on same object";
             end if;
@@ -130,6 +131,10 @@ package body System.Tasking.Protected_Objects is
             --  We are entering in a protected action, so that we
             --  increase the protected object nesting level and update
             --  the protected object's owner.
+            --
+            --  In the non-restricted RTS, this is only done if pragma
+            --  Detect_Blocking is active, but this is a restricted
+            --  profile, so no need to check.
 
             --  Update the protected object's owner
             Object.Owner := Self_Id;
@@ -159,13 +164,14 @@ package body System.Tasking.Protected_Objects is
          declare
             Self_Id : constant Task_Id := Self;
          begin
-            --  If pragma Detect_Blocking is active then, as described
-            --  in the ARM 9.5.1, par. 15, we must check whether this
-            --  is an external call on protected subprogram with the
-            --  same target object as that of the protected action
-            --  that is currently in progress (i.e., if the caller is
-            --  already the protected object's owner). If this is the
-            --  case hence Program_Error must be raised.
+            --  If pragma Detect_Blocking is active (which it is, this
+            --  is a restricted profile) then, as described in the ARM
+            --  9.5.1, par. 15, we must check whether this is an
+            --  external call on protected subprogram with the same
+            --  target object as that of the protected action that is
+            --  currently in progress (i.e., if the caller is already
+            --  the protected object's owner). If this is the case
+            --  hence Program_Error must be raised.
             --
             --  Note that in this case (getting read access), several
             --  tasks may have read ownership of the protected object,
@@ -190,6 +196,10 @@ package body System.Tasking.Protected_Objects is
 
             --  We are entering in a protected action, so we increase
             --  the protected object nesting level.
+            --
+            --  In the non-restricted RTS, this is only done if pragma
+            --  Detect_Blocking is active, but this is a restricted
+            --  profile, so no need to check.
 
             --  Update the protected object's owner
             Object.Owner := Self_Id;

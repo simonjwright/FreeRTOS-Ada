@@ -16,7 +16,7 @@
 --  along with this program; see the file COPYING3.  If not, see
 --  <http://www.gnu.org/licenses/>.
 
-with nrf51.GPIO;
+with nRF.GPIO;
 
 package body LEDs is
 
@@ -31,9 +31,25 @@ package body LEDs is
    type Row_Pin is (R1, R2, R3);
    for Row_Pin use (R1 => 13, R2 => 14, R3 => 15);
 
+   Row_Points : array (Row_Pin) of nRF.GPIO.GPIO_Point
+     := (R1 => (Pin => R1'Enum_Rep),
+         R2 => (Pin => R2'Enum_Rep),
+         R3 => (Pin => R3'Enum_Rep));
+
    type Col_Pin is (C1, C2, C3, C4, C5, C6, C7, C8, C9);
    for Col_Pin use (C1 => 4, C2 => 5, C3 => 6, C4 => 7, C5 => 8,
                     C6 => 9, C7 => 10, C8 => 11, C9 => 12);
+
+   Col_Points : array (Col_Pin) of nRF.GPIO.GPIO_Point
+     := (C1 => (Pin => C1'Enum_Rep),
+         C2 => (Pin => C2'Enum_Rep),
+         C3 => (Pin => C3'Enum_Rep),
+         C4 => (Pin => C4'Enum_Rep),
+         C5 => (Pin => C5'Enum_Rep),
+         C6 => (Pin => C6'Enum_Rep),
+         C7 => (Pin => C7'Enum_Rep),
+         C8 => (Pin => C8'Enum_Rep),
+         C9 => (Pin => C9'Enum_Rep));
 
    type LED_Pins is record
       R : Row_Pin;
@@ -48,38 +64,39 @@ package body LEDs is
       ((R3, C3), (R2, C7), (R3, C1), (R2, C6), (R3, C2)));
 
    procedure Clear_All_LEDs is
-      use nrf51.GPIO;
+      use nRF.GPIO;
    begin
       for R in Row_Pin loop
-         GPIO_Periph.OUT_k.Arr (R'Enum_Rep) := Low;
+         Row_Points (R).Clear;
       end loop;
       for C in Col_Pin loop
-         GPIO_Periph.OUT_k.Arr (C'Enum_Rep) := High;
+         Col_Points (C).Set;
       end loop;
    end Clear_All_LEDs;
 
    procedure Set_One_LED (Row, Col : Coord) is
       Pins : constant LED_Pins := LEDs (Row, Col);
-      use nrf51.GPIO;
+      use nRF.GPIO;
    begin
-      GPIO_Periph.OUT_k.Arr (Pins.R'Enum_Rep) := High;
-      GPIO_Periph.OUT_k.Arr (Pins.C'Enum_Rep) := Low;
+      Row_Points (Pins.R).Set;
+      Col_Points (Pins.C).Clear;
    end Set_One_LED;
 
    procedure Initialize;
    procedure Initialize is
-      use nrf51.GPIO;
+      use nRF.GPIO;
+      Config : constant GPIO_Configuration := (Mode      => Mode_Out,
+                                               Resistors => Pull_Up,
+                                               others    => <>);
    begin
       --  LED matrix
       for R in Row_Pin loop
-         GPIO_Periph.PIN_CNF (R'Enum_Rep) := (DIR    => Output,
-                                              PULL   => Pullup,
-                                              others => <>);
+         Configure_IO (This   => (Pin => R'Enum_Rep),
+                       Config => Config);
       end loop;
       for C in Col_Pin loop
-         GPIO_Periph.PIN_CNF (C'Enum_Rep) := (DIR    => Output,
-                                              PULL   => Pullup,
-                                              others => <>);
+         Configure_IO (This   => (Pin => C'Enum_Rep),
+                       Config => Config);
       end loop;
 
       Clear_All_LEDs;
