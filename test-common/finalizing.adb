@@ -65,6 +65,7 @@ package body Finalizing is
    end Adjust;
 
    procedure Finalize (Obj : in out F) is
+      pragma Unreferenced (Obj);
    begin
       Finalize_Called := True;
    end Finalize;

@@ -30,6 +30,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
+with Ada.Unchecked_Deallocation;
 with System.String_Hash;
 
 package body System.HTable is
