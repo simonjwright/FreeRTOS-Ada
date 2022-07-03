@@ -1,4 +1,4 @@
-# Copyright (C) 2018 Free Software Foundation, Inc.
+# Copyright (C) 2018-2022 Free Software Foundation, Inc.
 
 # This file is part of the Cortex GNAT RTS package.
 
@@ -51,7 +51,7 @@ class Stacks(gdb.Command):
     """stacks: report Ada task free stacks."""
 
     tcb_t = gdb.lookup_type("TCB_t")
-    int_t = gdb.lookup_type("int")
+    unsigned_int_t = gdb.lookup_type("unsigned int")
 
     def __init__(self):
         super(Stacks, self).__init__("stacks", gdb.COMMAND_USER)
@@ -69,14 +69,14 @@ class Stacks(gdb.Command):
             thread = atcb["common"]["thread"]
 
             tcb = thread.cast(Stacks.tcb_t.pointer()).dereference()
-            stk = tcb["pxStack"].cast(Stacks.int_t.pointer())
+            stk = tcb["pxStack"].cast(Stacks.unsigned_int_t.pointer())
 
             free = 0
             while stk[free] == 0xa5a5a5a5:
                 free = free + 1
 
-            print "min free: ", free * 4, \
-                ", tag: ", tcb["pxTaskTag"]
+            print("min free: ", free * 4, \
+                ", tag: ", tcb["pxTaskTag"])
 
             # Fetch the next ATCB in the chain, if any, from
             # <ATCB>.Common.All_Tasks_Link.
