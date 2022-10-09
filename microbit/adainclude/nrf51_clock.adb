@@ -43,8 +43,16 @@ with System;
 package body nRF51_Clock is
 
    procedure Start is
+      use type nrf51.CLOCK.HFCLKSTAT_STATE_Field;
       use type nrf51.CLOCK.LFCLKSTAT_STATE_Field;
    begin
+
+      --  Wait until the high frequency clock is running (it should
+      --  start automatically, but ...)
+      loop
+         exit when nrf51.CLOCK.CLOCK_Periph.HFCLKSTAT.STATE =
+           nrf51.CLOCK.Running;
+      end loop;
 
       --  Start the board low frequency clock, running off the high
       --  frequency clock (which runs automatically).
@@ -153,6 +161,8 @@ package body nRF51_Clock is
 
       --  Start the RTC tasks
       nrf51.RTC.RTC1_Periph.TASKS_START := 1;
+
+      null;
    end Start;
 
    --  Startup has set up a weak RTC1_IRQHandler at interrupt 17.
