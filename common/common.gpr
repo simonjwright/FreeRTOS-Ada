@@ -21,6 +21,9 @@ abstract project Common is
    type Compiler_Release is
      ("gcc6", "gnat-gpl-2017", "gcc7", "gcc8", "gnat-ce-2020",
       "gcc11", "gcc12");
+
+   --  We need to cope with changes to tasking and tag code between
+   --  compiler releases.
    Release : Compiler_Release := external ("RELEASE", "gcc11");
    Release_Path := Release;
    case Release is
@@ -29,12 +32,22 @@ abstract project Common is
       when others =>
          null;
    end case;
+   --  We also need to cope with the Ada2022 changes to 'Image code
+   --  and the new aggregate syntax, which is the same up to GCC12.
+   Image_Path := "";
+   case Release is
+      when "gcc12" =>
+         Image_Path := "post-gcc12";
+      when others =>
+         Image_Path := "pre-gcc12";
+   end case;
 
    type Install_Locally is ("yes", "no");
    Local : Install_Locally := external ("INSTALL_LOCALLY", "yes");
 
    Paths := (project'Project_Dir,
              project'Project_Dir & "math",
-             project'Project_Dir & Release_Path);
+             project'Project_Dir & Release_Path,
+             project'Project_Dir & Image_Path);
 
 end Common;
