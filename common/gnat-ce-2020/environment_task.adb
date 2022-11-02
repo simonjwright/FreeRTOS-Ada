@@ -1,4 +1,4 @@
---  Copyright (C) 2016-2018 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2022 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
@@ -18,7 +18,10 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
+with System.Address_To_Access_Conversions;
+with System.Memory;
 with System.Parameters;
+with System.Secondary_Stack;
 with System.Tasking.Restricted.Stages;
 with System.Task_Info;
 
@@ -54,13 +57,59 @@ package body Environment_Task is
      External_Name => "_environment_task_storage_size";
    pragma Weak_External (Environment_Task_Storage_Size);
 
+   --  If the link includes a symbol _environment_task_secondary_stack_size,
+   --  use this as the storage size: otherwise, use the default (10%
+   --  of the task storage size).
+   Environment_Task_Secondary_Stack_Size : constant System.Parameters.Size_Type
+   with
+     Import,
+     Convention => Ada,
+     External_Name => "_environment_task_secondary_stack_size";
+   pragma Weak_External (Environment_Task_Secondary_Stack_Size);
+
    procedure Create is
       --  Will be overwritten by binder-generated code if the main
       --  program has pragma Priority.
       Main_Priority : Integer;
       pragma Import (C, Main_Priority, "__gl_main_priority");
+
+      --  Handling the secondary stack size & allocation; these are
+      --  the default settings, the secondary stack is allocated from
+      --  the task stack.
+      Sec_Stack_Address : System.Address := System.Null_Address;
+      Sec_Stack_Size : System.Parameters.Size_Type
+        := System.Parameters.Unspecified_Size;
+
+      --  A secondary stack of size s consists of management data
+      --  followed by s bytes of actual stack.
+      subtype Null_Secondary_Stack is System.Secondary_Stack.SS_Stack (0);
+      Basic_Secondary_Stack_Size : constant System.Parameters.Size_Type
+        := Null_Secondary_Stack'Max_Size_In_Storage_Elements;
+
+      package Stack_Address_Conversions
+      is new System.Address_To_Access_Conversions
+        (Object => System.Secondary_Stack.SS_Stack);
+
       use type System.Address;
+      use type System.Parameters.Size_Type;
    begin
+      --  If the secondary stack size is specified, allocate it (in
+      --  heap; the compiler would have allocated it in BSS for a
+      --  source-language task).
+      if Environment_Task_Secondary_Stack_Size'Address /=
+        System.Null_Address
+      then
+         Sec_Stack_Size := Environment_Task_Secondary_Stack_Size;
+         Sec_Stack_Address
+           := System.Memory.Alloc
+             (System.Memory.size_t (Sec_Stack_Size
+                                      + Basic_Secondary_Stack_Size));
+         if Sec_Stack_Address = System.Null_Address then
+            raise Storage_Error with
+              "couldn't allocate secondary stack for environment task";
+         end if;
+      end if;
+
       System.Tasking.Restricted.Stages.Create_Restricted_Task
         (Priority             => Main_Priority,
          Stack_Address        => System.Null_Address,
@@ -68,8 +117,10 @@ package body Environment_Task is
            (if Environment_Task_Storage_Size'Address = System.Null_Address
             then 1536
             else Environment_Task_Storage_Size),
-         Sec_Stack_Address    => null,
-         Secondary_Stack_Size => System.Parameters.Unspecified_Size,
+         Sec_Stack_Address    =>
+           Stack_Address_Conversions.To_Pointer (Sec_Stack_Address)
+             .all'Unchecked_Access,
+         Secondary_Stack_Size => Sec_Stack_Size,
          Task_Info            => System.Task_Info.Unspecified_Task_Info,
          CPU                  => System.Tasking.Unspecified_CPU,
          State                => Environment_Task'Access,

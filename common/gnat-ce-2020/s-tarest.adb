@@ -6,7 +6,7 @@
 --                                                                          --
 --                                  B o d y                                 --
 --                                                                          --
---      Copyright (C) 2016-2018, 2020 Free Software Foundation, Inc.        --
+--         Copyright (C) 2016-2022 Free Software Foundation, Inc.           --
 --                                                                          --
 -- GNARL is free software; you can  redistribute it  and/or modify it under --
 -- terms of the  GNU General Public License as published  by the Free Soft- --
@@ -138,6 +138,7 @@ package body System.Tasking.Restricted.Stages is
 
       Actual_Stack_Size : constant System.Parameters.Size_Type :=
         System.Parameters.Adjust_Storage_Size (Size);
+      Actual_Secondary_Stack_Size : System.Parameters.Size_Type;
 
       Wrapper_Parameter_Address : constant System.Address :=
         Memory.Alloc (Parameters'Max_Size_In_Storage_Elements);
@@ -145,9 +146,42 @@ package body System.Tasking.Restricted.Stages is
         constant Parameters_Conversion.Object_Pointer :=
         Parameters_Conversion.To_Pointer (Wrapper_Parameter_Address);
 
-      use type System.Parameters.Size_Type;
       use type FreeRTOS.Tasks.Task_Handle;
    begin
+
+      Calculate_Secondary_Stack_Size :
+      declare
+         use type System.Secondary_Stack.SS_Stack_Ptr;
+         use type System.Parameters.Size_Type;
+      begin
+         if Sec_Stack_Address = null then
+            if Secondary_Stack_Size = System.Parameters.Unspecified_Size
+            then
+               --  The Default_Secondary_Stack_Size if non-zero, or
+               --  10% of the task's stack size
+               Actual_Secondary_Stack_Size :=
+                 System.Parameters.Secondary_Stack_Size (Actual_Stack_Size);
+               if Actual_Secondary_Stack_Size > Actual_Stack_Size then
+                  raise Program_Error with
+                    "secondary stack larger than primary stack";
+               end if;
+            else
+               raise Program_Error with
+                 "compiler should have allocated secondary stack";
+            end if;
+         else
+            --  The programmer has specified the secondary stack size,
+            --  and the compiler has allocated space for it in BSS
+            if Secondary_Stack_Size = System.Parameters.Unspecified_Size
+            then
+               raise Program_Error with
+                 "compiler should have specified secondary stack size";
+            else
+               Actual_Secondary_Stack_Size := Secondary_Stack_Size;
+            end if;
+         end if;
+      end Calculate_Secondary_Stack_Size;
+
       if Wrapper_Parameter_Address = System.Null_Address then
          raise Storage_Error with "couldn't allocate task wrapper";
       end if;
@@ -156,10 +190,7 @@ package body System.Tasking.Restricted.Stages is
          Task_Proc     => State,
          Discriminants => Discriminants,
          SStack_Addr   => Sec_Stack_Address,
-         SStack_Size   =>
-           (if Secondary_Stack_Size = System.Parameters.Unspecified_Size
-            then System.Parameters.Secondary_Stack_Size (Actual_Stack_Size)
-            else Secondary_Stack_Size));  -- don't think this will happen?
+         SStack_Size   => Actual_Secondary_Stack_Size);
 
       Created_Task.Common.Base_Priority := (if Priority = Unspecified_Priority
                                             then System.Default_Priority
