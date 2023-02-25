@@ -24,7 +24,7 @@ abstract project Common is
 
    --  We need to cope with changes to tasking and tag code between
    --  compiler releases.
-   Release : Compiler_Release := external ("RELEASE", "gcc11");
+   Release : Compiler_Release := external ("RELEASE", "gcc12");
    Release_Path := Release;
    case Release is
       when "gcc11" =>

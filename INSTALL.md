@@ -18,7 +18,7 @@ During compiler development, the interface between the compiler and the run time
 
 | Variable | Default |
 | ---------|-------- |
-| `RELEASE` | gcc11 |
+| `RELEASE` | gcc12 |
 
 Values for `RELEASE` are as below:
 
@@ -31,6 +31,7 @@ Values for `RELEASE` are as below:
 | FSF GCC 10 | `gcc8` |
 | FSF GCC 11 | `gcc11` |
 | FSF GCC 12 | `gcc12` |
+| FSF GCC 13 | `gcc12` |
 | GNAT GPL 2016 | `gcc6` |
 | GNAT GPL 2017 | `gnat-gpl-2017` |
 | GNAT CE 2018 | `gcc8` |
@@ -45,21 +46,21 @@ Build by running
 The runtimes must be installed. To install the runtime(s) with your compiler (you may need to use `sudo`),
 
 <pre>
-make RELEASE=<i>release</i> install
+make RELEASE=<i>release</i> INSTALL_LOCALLY=no install
 </pre>
 
 either at top level for all runtimes, or in the individual runtime's subdirectory.
 
 ### Local installation ###
 
-It used to be possible to use a runtime from its build directory (for example, `--RTS=$HOME/cortex-gnat-rts/stm32f4`), but this isn't possible with the new multi-release structure. Instead, the runtimes must be installed locally.
+It used to be possible to use a runtime from its build directory (for example, `--RTS=$HOME/cortex-gnat-rts/stm32f4`), but this isn't possible with the new multi-release structure. Instead, the runtimes must be installed; local installation is the default.
 
 | Variable | Default |
 | ---------|-------- |
 | `INSTALL_LOCALLY` | `yes` |
 
 <pre>
-make RELEASE=<i>release</i> INSTALL_LOCALLY=yes install
+make RELEASE=<i>release</i> install
 </pre>
 
 allowing `--RTS=$HOME/cortex-gnat-rts/local/stm32f4`.
@@ -77,18 +78,18 @@ You should always use `gprbuild` and a GNAT Project (GPR) to do cross-builds. Gn
 ### Target ###
 
 You need to specify the target (`arm-eabi`). If you're only going to use the command line, you can specify `--target=arm-eabi` on the command line, or in a GPR using the project-level attribute `Target`:
-
-    for Target use "arm-eabi";
-
+```
+for Target use "arm-eabi";
+```
 If you're going to use GPS or Emacs ada-mode, use the `Target` attribute.
 
 ### Run time system ###
 
 To use an RTS installed with the compiler, for example `stm32f4`, you can specify it on the command line, using `--RTS=stm32f4`, or with a recent `gprbuild` in the project file:
-
-    for Runtime ("ada") use "stm32f4";
-
+```
+for Runtime ("ada") use "stm32f4";
+```
 If using a locally-installed RTS, use a relative or absolute path:
-
-    for Runtime ("ada")
-      use Project’Project_Dir & "../local/stm32f4";
+```
+for Runtime ("ada") use external ("HOME") & "/cortex-gnat-rts/local/stm32f4";
+```
