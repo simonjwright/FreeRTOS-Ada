@@ -1,4 +1,4 @@
---  Copyright (C) 2016-2021 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2023 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -42,7 +42,8 @@ library project Build_Runtime is
    for Runtime ("ada") use Build_Runtime'Project_Dir;
 
    type Build_Type is ("Production", "Debug");
-   Build : Build_Type := external ("BUILD", "Debug");
+   Build : Build_Type := external ("CORTEX_GNAT_RTS_BUILD",
+                                   external ("BUILD", "Debug"));
 
    type Callgraph_Type is ("yes", "no");
    Callgraph : Callgraph_Type := external ("CALLGRAPH", "no");
