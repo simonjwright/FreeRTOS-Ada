@@ -16,9 +16,9 @@
 #  along with this program; see the file COPYING3.  If not, see
 #  <http://www.gnu.org/licenses/>.
 
-all: circle.hex events.hex seconds.hex
+all: circle.hex events.hex seconds.hex accelerometer.hex
 
-circle events seconds: rebuild.stamp
+circle events seconds accelerometer: rebuild.stamp
 rebuild.stamp: force
 	gprbuild -p -P tests
 	touch $@

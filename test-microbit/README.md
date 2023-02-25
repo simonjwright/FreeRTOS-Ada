@@ -1,12 +1,14 @@
 # micro:bit tests and demos #
 
-There are three programs built by `make` (or `gprbuild`, but `make` goes on to build hex files that can be dropped onto the micro:bit):
+There are four programs built by `make` (or `gprbuild`, but `make` goes on to build hex files that can be dropped onto the micro:bit):
 
 * `circle` displays a circle running round the LEDs: pressing button A alters the speed, button B alters the direction (clockwise/anticlockwise). The buttons are interrupt-driven.
 
 * `events` demonstrates `Timing_Events`. The top-left LED (row 1, column 1) flashes every 2 seconds, the LED in row 4, column 5 flashes every 5 seconds. _Why not the bottom right LED? because of the complicated mapping of GPIOs to LEDS_.
 
 * `seconds` checks out `Clock` functionality by flashing the centre LED once a second. You get to time a number of flashes with a stopwatch to make sure it really is once a second.
+
+* `accelerometer` displays a single LED: if the card is level, in the centre; as the card is tilted, the lit LED moves to the lowest edge.
 
 The tests interact with the micro:bit hardware using the [Ada\_Drivers\_Library](https://github.com/AdaCore/Ada_Drivers_Library). Configure it using that library's `project_wizard.py`:
 ```

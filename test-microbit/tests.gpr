@@ -1,4 +1,4 @@
---  Copyright (C) 2018, 2020 Free Software Foundation, Inc.
+--  Copyright (C) 2018-2023 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -20,7 +20,10 @@ with "Ada_Drivers_Library/ada_drivers_library";
 
 project Tests is
 
-   for Main use ("circle.adb", "events.adb", "seconds.adb");
+   for Main use ("circle.adb",
+                 "events.adb",
+                 "seconds.adb",
+                 "accelerometer.adb");
    for Languages use ("Ada");
    for Source_Dirs use (".", "../test-common");
    for Object_Dir use ".build";
