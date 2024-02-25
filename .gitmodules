@@ -1,3 +1,9 @@
 [submodule "FreeRTOS-Kernel"]
 	path = FreeRTOS-Kernel
 	url = git@github.com:FreeRTOS/FreeRTOS-Kernel.git
+[submodule "Ada_Drivers_Library"]
+	path = Ada_Drivers_Library
+	url = https://github.com/AdaCore/Ada_Drivers_Library.git
+[submodule "svd2ada"]
+	path = svd2ada
+	url = https://github.com/AdaCore/svd2ada.git
