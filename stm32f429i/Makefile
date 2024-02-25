@@ -1,4 +1,4 @@
-# Copyright (C) 2016-2021 Free Software Foundation, Inc.
+# Copyright (C) 2016-2024 Free Software Foundation, Inc.
 #
 # This file is part of the Cortex GNAT RTS package.
 #
@@ -16,16 +16,22 @@
 # along with this program; see the file COPYING3. If not, see
 # <http://www.gnu.org/licenses/>.
 
-SVD2ADA ?= ~/adacore/svd2ada
+SVD2ADA = ../svd2ada
 
-all:
+all: build
+
+build: stm32f429x force
 	gprbuild -p -P build_runtime.gpr
 
-stm32f429x:
-	$(SVD2ADA)/svd2ada			\
+stm32f429x: svd2ada-stamp
+	$(SVD2ADA)/bin/svd2ada			\
 	  --output=stm32f429x			\
 	  --no-vfa-on-types			\
 	$(SVD2ADA)/CMSIS-SVD/ST/STM32F429x.svd
+
+svd2ada-stamp:
+	cd $(SVD2ADA); alr build
+	touch $@
 
 install: all
 	gprinstall -p -P build_runtime.gpr -f
@@ -33,4 +39,4 @@ install: all
 clean:
 	-gprclean -P build_runtime.gpr
 
-.PHONY: all install clean
+.PHONY: all force install clean

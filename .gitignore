@@ -7,6 +7,7 @@
 *.bin
 *.map
 *-loc.xml
+*-stamp
 
 b__*.ad?
 

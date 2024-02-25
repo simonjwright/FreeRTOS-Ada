@@ -1,4 +1,4 @@
-# Copyright (C) 2016, 2018, 2020 Free Software Foundation, Inc.
+# Copyright (C) 2016-2024 Free Software Foundation, Inc.
 #
 # This file is part of the Cortex GNAT RTS package.
 #
@@ -16,17 +16,23 @@
 # along with this program; see the file COPYING3. If not, see
 # <http://www.gnu.org/licenses/>.
 
-SVD2ADA ?= ~/adacore/svd2ada
+SVD2ADA ?= ../svd2ada
 
-all:
+all: build
+
+build: nrf51 force
 	gprbuild -p -P build_runtime.gpr
 
-nrf51:
+nrf51: svd2ada-stamp
 	$(SVD2ADA)/svd2ada			\
 	  --output=nrf51			\
 	$(SVD2ADA)/CMSIS-SVD/Nordic/nrf51.svd
 # would have liked to specify --no-vfa-on-types but this suppresses the use
 # of arrays.
+
+svd2ada-stamp:
+	cd $(SVD2ADA); alr build
+	touch $@
 
 install: all
 	gprinstall -p -P build_runtime.gpr -f
@@ -35,4 +41,4 @@ clean:
 	-gprclean -P build_runtime.gpr
 	rm -rf nrf51
 
-.PHONY: all install clean
+.PHONY: all force install clean

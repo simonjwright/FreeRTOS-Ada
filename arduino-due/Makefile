@@ -1,4 +1,4 @@
-# Copyright (C) 2016, 2018 Free Software Foundation, Inc.
+# Copyright (C) 2016-2024 Free Software Foundation, Inc.
 #
 # This file is part of the Cortex GNAT RTS package.
 #
@@ -16,16 +16,22 @@
 # along with this program; see the file COPYING3. If not, see
 # <http://www.gnu.org/licenses/>.
 
-SVD2ADA ?= ~/adacore/svd2ada
+SVD2ADA = ../svd2ada
 
-all: atsam3x8e
+all: build
+
+build: atsam3x8e force
 	gprbuild -p -P build_runtime.gpr
 
-atsam3x8e:
-	$(SVD2ADA)/svd2ada			\
+atsam3x8e: svd2ada-stamp
+	$(SVD2ADA)/bin/svd2ada			\
 	  --output=atsam3x8e			\
 	  --no-vfa-on-types			\
 	$(SVD2ADA)/CMSIS-SVD/ATMEL/ATSAM3X8E.svd
+
+svd2ada-stamp:
+	cd $(SVD2ADA); alr build
+	touch $@
 
 install: all
 	gprinstall -p -P build_runtime.gpr -f
@@ -34,4 +40,4 @@ clean:
 	-gprclean -P build_runtime.gpr
 	rm -rf atsam3x8e
 
-.PHONY: all install clean
+.PHONY: all force install clean
