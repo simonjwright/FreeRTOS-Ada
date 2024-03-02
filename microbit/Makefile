@@ -24,7 +24,7 @@ build: nrf51 force
 	gprbuild -p -P build_runtime.gpr
 
 nrf51: svd2ada-stamp
-	$(SVD2ADA)/svd2ada			\
+	$(SVD2ADA)/bin/svd2ada			\
 	  --output=nrf51			\
 	$(SVD2ADA)/CMSIS-SVD/Nordic/nrf51.svd
 # would have liked to specify --no-vfa-on-types but this suppresses the use
