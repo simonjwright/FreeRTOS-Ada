@@ -16,6 +16,10 @@
 #  along with this program; see the file COPYING3.  If not, see
 #  <http://www.gnu.org/licenses/>.
 
+export ADL_BUILD=Debug
+export ADL_BUILD_CHECKS=Disabled
+export CALLGRAPHS=Disabled
+
 all: testbed.bin
 
 testbed: force
