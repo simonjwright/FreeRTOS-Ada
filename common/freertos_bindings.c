@@ -1,4 +1,4 @@
-// Copyright (C) 2016-2018 Free Software Foundation, Inc.
+// Copyright (C) 2016-2024 Free Software Foundation, Inc.
 //
 // GNAT is free software;  you can  redistribute it  and/or modify it under
 // terms of the  GNU General Public License as published  by the Free Soft-
@@ -52,52 +52,52 @@ void _gnat_yield_from_isr(int switch_required) {
   portEND_SWITCHING_ISR(switch_required);
 }
 
-xQueueHandle _gnat_xQueueCreate(unsigned portBASE_TYPE uxQueueLength,
-                                unsigned portBASE_TYPE uxItemSize) {
+QueueHandle_t _gnat_xQueueCreate(portBASE_TYPE uxQueueLength,
+                                 portBASE_TYPE uxItemSize) {
   return xQueueCreate(uxQueueLength, uxItemSize);
 }
 
 // We only need to append new items to the queue.
-portBASE_TYPE _gnat_xQueueSend(xQueueHandle xQueue,
+portBASE_TYPE _gnat_xQueueSend(QueueHandle_t xQueue,
                                const void *pvItemToQueue,
-                               portTickType xTicksToWait) {
+                               TickType_t xTicksToWait) {
   return xQueueSendToBack(xQueue, pvItemToQueue, xTicksToWait);
 }
 
 portBASE_TYPE _gnat_xQueueSendFromISR
-  (xQueueHandle xQueue,
+  (QueueHandle_t xQueue,
    const void *pvItemToQueue,
    portBASE_TYPE *pxHigherPriorityTaskWoken) {
   return xQueueSendToBackFromISR
     (xQueue, pvItemToQueue, pxHigherPriorityTaskWoken);
 }
 
-portBASE_TYPE _gnat_xQueueOverwrite(xQueueHandle xQueue,
+portBASE_TYPE _gnat_xQueueOverwrite(QueueHandle_t xQueue,
                                     const void *pvItemToQueue) {
   return xQueueOverwrite(xQueue, pvItemToQueue);
 }
 
-portBASE_TYPE _gnat_xQueueReceive(xQueueHandle xQueue,
+portBASE_TYPE _gnat_xQueueReceive(QueueHandle_t xQueue,
                                   void *pvBuffer,
-                                  portTickType xTicksToWait) {
+                                  TickType_t xTicksToWait) {
   return xQueueReceive(xQueue, pvBuffer, xTicksToWait);
 }
 
-xSemaphoreHandle _gnat_xSemaphoreCreateBinary() {
-  return xSemaphoreCreateBinary();
+SemaphoreHandle_t _gnat_xSemaphoreCreateBinary() {
+   return xSemaphoreCreateBinary();
+ }
+
+ portBASE_TYPE _gnat_xSemaphoreGive(SemaphoreHandle_t xSemaphore) {
+   return xSemaphoreGive(xSemaphore);
 }
 
-portBASE_TYPE _gnat_xSemaphoreGive(xSemaphoreHandle xSemaphore) {
-  return xSemaphoreGive(xSemaphore);
-}
-
-portBASE_TYPE _gnat_xSemaphoreTake(xSemaphoreHandle xSemaphore,
-                                   portTickType xBlockTime) {
+portBASE_TYPE _gnat_xSemaphoreTake(SemaphoreHandle_t xSemaphore,
+                                   TickType_t xBlockTime) {
   return xSemaphoreTake(xSemaphore, xBlockTime);
 }
 
 portBASE_TYPE _gnat_xSemaphoreGiveFromISR
-  (xSemaphoreHandle xSemaphore,
+  (SemaphoreHandle_t xSemaphore,
    portBASE_TYPE *pxHigherPriorityTaskWoken) {
   return xSemaphoreGiveFromISR(xSemaphore, pxHigherPriorityTaskWoken);
 }
