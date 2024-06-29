@@ -1,4 +1,4 @@
---  Copyright (C) 2016, 2017 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2024 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -57,8 +57,6 @@ with Last_Chance_Handler;
 pragma Unreferenced (Last_Chance_Handler);
 --  Check we can supply our own version, replacing libgnat's weak one.
 
-with Ada.Numerics.Elementary_Functions;
-
 with SO;
 pragma Unreferenced (SO);
 --  Check suspension objects.
@@ -94,15 +92,6 @@ begin
         with Unreferenced;
    begin
       null;
-   end;
-
-   declare
-      Result : Float := 0.0 with Volatile, Unreferenced;
-   begin
-      Result := Ada.Numerics.Elementary_Functions.Sqrt (2.0);
-      --  need a valid statement inside the block for 'next' to get to
-      --  in the debugger
-      delay until Ada.Real_Time.Clock;
    end;
 
    --  Check streams

@@ -1,4 +1,4 @@
---  Copyright (C) 2016, 2017 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2024 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -16,6 +16,8 @@
 --  along with this program; see the file COPYING3.  If not, see
 --  <http://www.gnu.org/licenses/>.
 
+with Ada.Numerics.Elementary_Functions;
+with Ada.Numerics.Long_Elementary_Functions;
 with Ada.Real_Time;
 
 package body Floating_Point is
@@ -32,6 +34,10 @@ package body Floating_Point is
       Result : Float with Volatile;
    begin
       loop
+         Result := Ada.Numerics.Elementary_Functions.Sqrt (2.0);
+         if Result not in 1.4 .. 1.5 then
+            raise Constraint_Error with "sqrt error";
+         end if;
          Result := Square (Forty_Two);
          if Result / Forty_Two /= Forty_Two then
             raise Constraint_Error with "float mismatch";
@@ -52,6 +58,10 @@ package body Floating_Point is
       Result : Long_Float with Volatile;
    begin
       loop
+         Result := Ada.Numerics.Long_Elementary_Functions.Sqrt (2.0);
+         if Result not in 1.4 .. 1.5 then
+            raise Constraint_Error with "long sqrt error";
+         end if;
          Result := Square (Forty_Two);
          if Result / Forty_Two /= Forty_Two then
             raise Constraint_Error with "long float mismatch";

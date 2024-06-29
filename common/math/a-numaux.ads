@@ -5,7 +5,7 @@
 --                     A D A . N U M E R I C S . A U X                      --
 --                                                                          --
 --                                 S p e c                                  --
---                       (C Library Version for x86)                        --
+--                       (C Library Version, non-x86)                       --
 --                                                                          --
 --          Copyright (C) 1992-2014, Free Software Foundation, Inc.         --
 --                                                                          --
@@ -30,7 +30,20 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  This version is for ARM.
+--  This package provides the basic computational interface for the generic
+--  elementary functions. The C library version interfaces with the routines
+--  in the C mathematical library, and is thus quite portable, although it may
+--  not necessarily meet the requirements for accuracy in the numerics annex.
+--  One advantage of using this package is that it will interface directly to
+--  hardware instructions, such as the those provided on the Intel x86.
+
+--  This version here is for use with normal Unix math functions. Alternative
+--  versions are provided for special situations:
+
+--    a-numaux-darwin    For OS/X (special handling of sin/cos for accuracy)
+--    a-numaux-libc-x86  For the x86, using 80-bit long double format
+--    a-numaux-x86       For the x86, using 64-bit IEEE (inline asm statements)
+--    a-numaux-vxworks   For use on VxWorks (where we have no libm.a library)
 
 package Ada.Numerics.Aux is
    pragma Pure;
@@ -38,60 +51,61 @@ package Ada.Numerics.Aux is
    pragma Linker_Options ("-lm");
 
    type Double is digits 15;
+   --  Type Double is the type used to call the C routines
 
    --  We import these functions directly from C. Note that we label them
    --  all as pure functions, because indeed all of them are in fact pure.
 
    function Sin (X : Double) return Double;
-   pragma Import (C, Sin, "sinl");
+   pragma Import (C, Sin, "sin");
    pragma Pure_Function (Sin);
 
    function Cos (X : Double) return Double;
-   pragma Import (C, Cos, "cosl");
+   pragma Import (C, Cos, "cos");
    pragma Pure_Function (Cos);
 
    function Tan (X : Double) return Double;
-   pragma Import (C, Tan, "tanl");
+   pragma Import (C, Tan, "tan");
    pragma Pure_Function (Tan);
 
    function Exp (X : Double) return Double;
-   pragma Import (C, Exp, "expl");
+   pragma Import (C, Exp, "exp");
    pragma Pure_Function (Exp);
 
    function Sqrt (X : Double) return Double;
-   pragma Import (C, Sqrt, "sqrtl");
+   pragma Import (C, Sqrt, "sqrt");
    pragma Pure_Function (Sqrt);
 
    function Log (X : Double) return Double;
-   pragma Import (C, Log, "logl");
+   pragma Import (C, Log, "log");
    pragma Pure_Function (Log);
 
    function Acos (X : Double) return Double;
-   pragma Import (C, Acos, "acosl");
+   pragma Import (C, Acos, "acos");
    pragma Pure_Function (Acos);
 
    function Asin (X : Double) return Double;
-   pragma Import (C, Asin, "asinl");
+   pragma Import (C, Asin, "asin");
    pragma Pure_Function (Asin);
 
    function Atan (X : Double) return Double;
-   pragma Import (C, Atan, "atanl");
+   pragma Import (C, Atan, "atan");
    pragma Pure_Function (Atan);
 
    function Sinh (X : Double) return Double;
-   pragma Import (C, Sinh, "sinhl");
+   pragma Import (C, Sinh, "sinh");
    pragma Pure_Function (Sinh);
 
    function Cosh (X : Double) return Double;
-   pragma Import (C, Cosh, "coshl");
+   pragma Import (C, Cosh, "cosh");
    pragma Pure_Function (Cosh);
 
    function Tanh (X : Double) return Double;
-   pragma Import (C, Tanh, "tanhl");
+   pragma Import (C, Tanh, "tanh");
    pragma Pure_Function (Tanh);
 
    function Pow (X, Y : Double) return Double;
-   pragma Import (C, Pow, "powl");
+   pragma Import (C, Pow, "pow");
    pragma Pure_Function (Pow);
 
 end Ada.Numerics.Aux;
