@@ -1,7 +1,7 @@
 /* The MIT License
  *
  * Copyright (c) 2007, 2008, 2009, 2010 Dado Sutter and Bogdan Marinescu
- * Copyright (c) 2012-2021 Simon Wright <simon@pushface.org>
+ * Copyright (c) 2012-2024 Simon Wright <simon@pushface.org>
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -26,6 +26,17 @@
 /*
  * Originally copied from https://github.com/\
  * jsnyder/elua/blob/bikeNomad-master/src/platform/stm32f4/stm32.ld
+ */
+
+/*
+ * The following symbols are exported for use by the program startup code:
+ *
+ * _start_flash_data: where rw data to be copied to sram starts in flash
+ * _start_sram_data:  where rw data is to be copied to in sram
+ * _end_sram_data:    first free location after rw data in sram
+ * _start_bss:        where to start initializing bss to zero
+ * _end_bss:          first free location after bss
+ * _end_stack:        first free location after stack
  */
 
 /* Entry Point */
@@ -120,14 +131,14 @@ SECTIONS
         PROVIDE(__fini_array_end = .);
     } >flash
 
-    /* Where .data will actually be loaded */
-    _sidata = LOADADDR(.data);
+    /* Where rw data starts in flash */
+    _start_flash_data = LOADADDR(.data);
 
     /* Initialized data copied from flash to sram at startup */
     .data :
     {
         . = ALIGN(4);
-        _sdata = .;
+        _start_sram_data = .;
         *(.ramfunc)
         *(.ramfunc.*)
         *(.fastrun)
@@ -136,25 +147,24 @@ SECTIONS
         *(.data.*)
         *(.gnu.linkonce.d.*)
         . = ALIGN(4);
-        _edata = .;
+        _end_sram_data = .;
     } >sram AT>flash
 
     .bss (NOLOAD) : {
 	. = ALIGN(4);
-        /* This is used by the startup in order to initialize the .bss secion */
-        _sbss = .;
-        __bss_start__ = _sbss;
+        /* This is used by the startup in order to initialize the .bss
+           section */
+        _start_bss = .;
         *(.bss)
         *(.bss.*)
         *(.gnu.linkonce.b.*)
         *(COMMON)
         . = ALIGN(4);
-        _ebss = .;
-        __bss_end__ = _ebss;
+        _end_bss = .;
     } >sram
 
     end = .;
-    PROVIDE(_estack = ORIGIN(sram) + LENGTH(sram));
+    PROVIDE(_end_stack = ORIGIN(sram) + LENGTH(sram));
 
     /DISCARD/ : { *(.note.GNU-stack) *(.gnu_debuglink) *(.gnu.lto_*) }
 

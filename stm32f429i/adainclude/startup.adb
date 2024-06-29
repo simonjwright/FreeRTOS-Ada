@@ -1,4 +1,4 @@
---  Copyright (C) 2016-2021 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2024 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
@@ -58,15 +58,15 @@ package body Startup is
    procedure Set_Up_Clock is separate;
 
    procedure Program_Initialization is
-      --  The following symbols are set up in the linker script:
+      --  The following symbols must be exported from the linker script:
       --
-      --  _sidata: the start of read/write data in Flash, to be copied
-      --           to SRAM
-      --  _sdata:  where read/write data is to be copied to
-      --  _edata:  the first address after read/write data in SRAM
-      --  _sbss:   the start of BSS (to be initialized to zero)
-      --  _ebss:   the first address after BSS.
-      --
+      --  _start_flash_data: where rw data to be copied to sram starts in flash
+      --  _start_sram_data:  where rw data is to be copied to in sram
+      --  _end_sram_data:    first free location after rw data in sram
+      --  _start_bss:        where to start initializing bss to zero
+      --  _end_bss:          first free location after bss
+      --  _end_stack:        first free location after stack
+
       --  _isr_vector is set up in interrupt_vectors.s.
 
       use System.Storage_Elements;
@@ -74,27 +74,27 @@ package body Startup is
       ISR_Vector : Storage_Element
         with Import, Convention => Asm, External_Name => "_isr_vector";
       Sdata : Storage_Element
-        with Import, Convention => Asm, External_Name => "_sdata";
+        with Import, Convention => Asm, External_Name => "_start_sram_data";
       Edata : Storage_Element
-        with Import, Convention => Asm, External_Name => "_edata";
+        with Import, Convention => Asm, External_Name => "_end_sram_data";
       Sbss : Storage_Element
-        with Import, Convention => Asm, External_Name => "_sbss";
+        with Import, Convention => Asm, External_Name => "_start_bss";
       Ebss : Storage_Element
-        with Import, Convention => Asm, External_Name => "_ebss";
+        with Import, Convention => Asm, External_Name => "_end_bss";
 
       Data_Size : constant Storage_Offset := Edata'Address - Sdata'Address;
 
       --  Index from 1 so as to avoid subtracting 1 from the size
       Data_In_Flash : Storage_Array (1 .. Data_Size)
-        with Import, Convention => Asm, External_Name => "_sidata";
+        with Import, Convention => Asm, External_Name => "_start_flash_data";
 
       Data_In_Sram : Storage_Array (1 .. Data_Size)
-        with Import, Convention => Asm, External_Name => "_sdata";
+        with Import, Convention => Asm, External_Name => "_start_sram_data";
 
       Bss_Size : constant Storage_Offset := Ebss'Address - Sbss'Address;
 
       Bss : Storage_Array (1 .. Bss_Size)
-        with Import, Convention => Ada, External_Name => "_sbss";
+        with Import, Convention => Ada, External_Name => "_start_bss";
 
       type CP_Access is (Denied, Privileged, Reserved, Full)
       with

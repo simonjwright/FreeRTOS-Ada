@@ -26,6 +26,8 @@
 	extern uint32_t SystemCoreClock;
 #endif
 
+/* ARM_CM0 requires new define in FreeRTOS V11.1.0 */
+#define configENABLE_MPU                        0
 
 #define configUSE_PREEMPTION			1
 #define configUSE_IDLE_HOOK			0

@@ -1,4 +1,4 @@
-        @ Copyright (C) 2021 Free Software Foundation, Inc.
+        @ Copyright (C) 2021-24 Free Software Foundation, Inc.
 
         @ This file is part of the Cortex GNAT RTS project. This file is
 	@ free software; you can redistribute it and/or modify it under
@@ -36,7 +36,7 @@
 
 _isr_vector:
         /* Startup */
-        .word   _estack            /* top of stack, from linker script. */
+        .word   _end_stack              /* top of stack, from linker script. */
         .word   program_initialization  /* entry point */
 
 	/* Cortex-M core interrupts */
