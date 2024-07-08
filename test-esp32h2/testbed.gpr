@@ -1,0 +1,60 @@
+--  Copyright (C) 2016-2024 Free Software Foundation, Inc.
+--
+--  This file is part of the Cortex GNAT RTS package.
+--
+--  The Cortex GNAT RTS package is free software; you can redistribute
+--  it and/or modify it under the terms of the GNU General Public
+--  License as published by the Free Software Foundation; either
+--  version 3 of the License, or (at your option) any later version.
+--
+--  This program is distributed in the hope that it will be useful,
+--  but WITHOUT ANY WARRANTY; without even the implied warranty of
+--  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+--  General Public License for more details.
+--
+--  You should have received a copy of the GNU General Public License
+--  along with this program; see the file COPYING3.  If not, see
+--  <http://www.gnu.org/licenses/>.
+
+project Testbed is
+
+   for Main use ("testbed.adb");
+   for Source_Dirs use (".", "../test-common");
+   for Object_Dir use ".build";
+   for Exec_Dir use ".";
+   for Target use "riscv64-elf";
+   for Runtime ("ada") use project'Project_Dir & "../local/esp32h2";
+
+   for Create_Missing_Dirs use "true";
+
+   package Builder is
+      for Global_Compilation_Switches ("ada") use
+        (
+         "-g",
+         "-O0",
+         "-ffunction-sections",
+         "-fdata-sections"
+        );
+      for Switches ("ada") use ("--create-map-file");
+   end Builder;
+
+   package Compiler is
+      for Default_Switches ("ada") use
+        (
+         "-gnatqQafoy",
+         "-gnatwaL.X"
+        );
+   end Compiler;
+
+   package Linker is
+      for Default_Switches ("ada") use ("-Wl,-gc-sections");
+      for Map_File_Option use "-Wl,-Map," & project'Project_Dir;
+   end Linker;
+
+   --  package IDE is
+   --     for Connection_Tool use "gdbserver-sam3x8e";
+   --     for Program_Host use "*:2331";  -- using Segger j-link
+   --     for Communication_Protocol use "remote";
+   --  end IDE;
+
+end Testbed;

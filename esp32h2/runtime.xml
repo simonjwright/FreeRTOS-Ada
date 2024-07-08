@@ -1,0 +1,60 @@
+<?xml version="1.0" ?>
+
+<gprconfig>
+  <configuration>
+   <config><![CDATA[
+   type Loaders is ("ROM", "FLASH", "RAM", "SRAM", "USER");
+   Loader : Loaders := external("LOADER", "ROM");
+
+   package Compiler is
+      Common_Required_Switches :=
+         ("-march=rv32imac_zicsr_zifencei", "-mabi=ilp32");
+
+      for Leading_Required_Switches ("Ada") use
+         Compiler'Leading_Required_Switches ("Ada") &
+         Common_Required_Switches;
+      for Leading_Required_Switches ("C") use
+         Compiler'Leading_Required_Switches ("C") &
+         Common_Required_Switches;
+     for Leading_Required_Switches ("Asm") use
+         Compiler'Leading_Required_Switches ("Asm") &
+         Common_Required_Switches;
+      for Leading_Required_Switches ("Asm2") use
+         Compiler'Leading_Required_Switches ("Asm2") &
+         Common_Required_Switches;
+      for Leading_Required_Switches ("Asm_Cpp") use
+         Compiler'Leading_Required_Switches ("Asm_Cpp") &
+         Common_Required_Switches;
+   end Compiler;
+
+   package Linker is
+      for Required_Switches use Linker'Required_Switches &
+        ("${RUNTIME_DIR(ada)}/adalib/libgnat.a") &
+        Compiler.Common_Required_Switches &
+        ("-nostdlib", "-lm", "-lgcc", "-lc");
+
+      case Loader is
+         when "ROM" | "FLASH" =>
+            for Required_Switches use Linker'Required_Switches &
+             ("-T", "${RUNTIME_DIR(ada)}/adalib/esp32h2-flash.ld");
+         when "RAM" | "SRAM" =>
+           for Required_Switches use Linker'Required_Switches &
+             ("-T", "${RUNTIME_DIR(ada)}/adalib/esp32h2-ram.ld");
+             when "USER" =>
+      end case;
+
+      --  This avoids a security warning. In general, an executable
+      --  segment shouldn't be writable; but we have to load both
+      --  text and data into one segment (normally flash).
+      for Required_Switches use Linker'Required_Switches &
+        ("-Wl,--no-warn-rwx-segments");
+   end Linker;
+
+   package Binder is
+      for Required_Switches ("Ada") use Binder'Required_Switches ("Ada")
+        & ("-nostdlib");
+   end Binder;
+]]>
+   </config>
+  </configuration>
+</gprconfig>

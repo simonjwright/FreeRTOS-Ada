@@ -1,0 +1,133 @@
+--  Copyright (C) 2016-2024 Free Software Foundation, Inc.
+
+--  This file is part of the Cortex GNAT RTS package.
+--
+--  The Cortex GNAT RTS package is free software; you can redistribute
+--  it and/or modify it under the terms of the GNU General Public
+--  License as published by the Free Software Foundation; either
+--  version 3 of the License, or (at your option) any later version.
+--
+--  This program is distributed in the hope that it will be useful,
+--  but WITHOUT ANY WARRANTY; without even the implied warranty of
+--  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+--  General Public License for more details.
+--
+--  You should have received a copy of the GNU General Public License
+--  along with this program; see the file COPYING3.  If not, see
+--  <http://www.gnu.org/licenses/>.
+
+with "../common/common";
+with "../FreeRTOS";
+
+library project Build_Runtime is
+
+   for Languages use ("Ada", "C", "ASM_CPP");
+
+   for Library_Auto_Init use "False";
+   for Library_Name use "gnat";
+   for Library_Kind use "static";
+
+   for Library_Dir use "adalib";
+   for Object_Dir use ".build";
+
+   for Source_Dirs use Common.Paths &
+     (
+      "adainclude",
+      "esp32h2_svd"
+      ,
+      FreeRTOS.Source,
+      FreeRTOS.Portable_Base & "RISC-V"
+     );
+
+   for Excluded_Source_Files use
+     ("esp32_h2-rmt.ads",
+      "s-harhan.ads",
+      "s-harhan.adb",
+      "stream_buffer.c");
+
+   for Target use external ("TARGET", "riscv64-elf");
+   for Runtime ("ada") use Build_Runtime'Project_Dir;
+
+   type Build_Type is ("Production", "Debug");
+   Build : Build_Type := external ("CORTEX_GNAT_RTS_BUILD",
+                                   external ("BUILD", "Debug"));
+
+   type Callgraph_Type is ("yes", "no");
+   Callgraph : Callgraph_Type := external ("CALLGRAPH", "no");
+   package Compiler is
+      COMMON_FLAGS := ("-ffunction-sections", "-fdata-sections");
+      case Build is
+        when "Production" =>
+           COMMON_FLAGS := COMMON_FLAGS & ("-g", "-O2");
+        when "Debug" =>
+           COMMON_FLAGS := COMMON_FLAGS & ("-g", "-O0");
+           -- -O0 is costly, e.g. in the Timer_Events task.
+      end case;
+      case Callgraph is
+         when "yes" =>
+            COMMON_FLAGS := COMMON_FLAGS & ("-fcallgraph-info=su,da");
+         when "no" =>
+            null;
+      end case;
+      ALL_ADAFLAGS :=
+        ("-gnatwae", "-gnatpgn", "-gnatqQ", "-nostdinc")
+        & COMMON_FLAGS
+        & external_as_list ("EXTRA_ADAFLAGS", " ");
+      case Build is
+        when "Production" =>
+           null;
+        when "Debug" =>
+           ALL_ADAFLAGS := ALL_ADAFLAGS & ("-gnata");--, "-gnatwn", "-gnatwJ");
+      end case;
+      ALL_CFLAGS :=
+        external_as_list("INCLUDES", " ")
+        & external_as_list("DEFINES", " ")
+        & ("-I" & FreeRTOS.Include,
+           "-Iadainclude",  -- for freertos_risc_v_chip_specific_extensions.h
+           "-DIN_RTS", "-Dinhibit_libc")
+        & COMMON_FLAGS;
+
+      NO_SIBLING_ADAFLAGS := ("-fno-optimize-sibling-calls");
+      NO_REORDER_ADAFLAGS := ("-fno-toplevel-reorder");
+
+      for Switches ("C") use ALL_CFLAGS;
+      for Switches ("Ada") use ALL_ADAFLAGS;
+      for Switches ("Asm_CPP") use COMMON_FLAGS;
+
+      for Switches ("startup.adb") use ALL_ADAFLAGS & ("-Wno-attributes");
+      for Switches ("s-traceb.adb") use ALL_ADAFLAGS & ("-g")
+        & NO_SIBLING_ADAFLAGS & ("-fno-inline-functions-called-once");
+      for Switches ("s-tasdeb.adb") use ALL_ADAFLAGS & ("-g", "-O0");
+      for Switches ("a-except.adb") use ALL_ADAFLAGS
+        & ("-g", "-O1", "-fno-inline") & NO_REORDER_ADAFLAGS;
+      for Switches ("s-excdeb.adb") use ALL_ADAFLAGS & ("-g", "-O0");
+      for Switches ("s-assert.adb") use ALL_ADAFLAGS & ("-g");
+      for Switches ("a-tags.adb") use ALL_ADAFLAGS & ("-g");
+      for Switches ("last_chance_handler.c") use ALL_CFLAGS & ("-g", "-O0");
+      for Switches ("s-harhan.adb") use ALL_ADAFLAGS & ("-g", "-O0");
+
+      --  This is a workround for
+      --  esp32_h2-rng.ads:9:06: warning: unit "System" is not referenced
+      for Switches ("esp32_h2-rng.ads") use ALL_ADAFLAGS & "-gnatwn";
+  end Compiler;
+
+   package Install is
+      case Common.Local is
+         when "no" =>
+            for Prefix use "riscv/lib/gnat/";
+         when "yes" =>
+            for Prefix use project'Project_Dir & "../local/";
+      end case;
+      for Prefix use Install'Prefix & "esp32h2";
+      for Sources_Subdir use "adainclude";
+      for Ali_Subdir use "adalib";
+      for Lib_Subdir use "adalib";
+      for Required_Artifacts (".") use ("runtime.xml");
+      for Required_Artifacts ("adalib")
+      use ("adalib/esp32h2-flash.ld",
+           "adalib/esp32h2-ram.ld",
+           "adalib/memory.ld");
+      for Install_Project use "false";
+   end Install;
+
+end Build_Runtime;

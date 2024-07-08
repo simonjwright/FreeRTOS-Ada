@@ -22,7 +22,7 @@ with Ada.Real_Time;
 
 package body Iteration is
 
-   task Arrays with Storage_Size => 1024 is
+   task Arrays with Storage_Size => 2048 is
       pragma Task_Name ("iteration.arrays");
    end Arrays;
    task body Arrays is
@@ -71,7 +71,7 @@ package body Iteration is
       end loop;
    end Vectors;
 
-   task Maps with Storage_Size => 3072 is
+   task Maps with Storage_Size => 4096 is
       pragma Task_Name ("iteration.maps");
    end Maps;
    task body Maps is
