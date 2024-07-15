@@ -1,4 +1,4 @@
---  Copyright (C) 2016-2023 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2024 Free Software Foundation, Inc.
 
 --  This file is part of the Cortex GNAT RTS package.
 --
@@ -111,7 +111,7 @@ library project Build_Runtime is
       for Ali_Subdir use "adalib";
       for Lib_Subdir use "adalib";
       for Required_Artifacts (".") use ("runtime.xml");
-      for Required_Artifacts ("adalib") use ("adalib/due-flash.ld");
+      for Required_Artifacts ("ld") use ("ld/due-flash.ld");
       for Install_Project use "false";
    end Install;
 

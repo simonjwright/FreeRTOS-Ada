@@ -2,7 +2,7 @@
 
 <gprconfig>
   <configuration>
-   <config>
+   <config><![CDATA[
 
    package Compiler is
       Common_Required_Switches :=
@@ -10,31 +10,32 @@
           "-mcpu=cortex-m0", "-mthumb");
 
       for Leading_Required_Switches ("Ada") use
-         Compiler'Leading_Required_Switches ("Ada") &amp;
+         Compiler'Leading_Required_Switches ("Ada") &
          Common_Required_Switches;
 
       for Leading_Required_Switches ("C") use
-         Compiler'Leading_Required_Switches ("C") &amp;
+         Compiler'Leading_Required_Switches ("C") &
          Common_Required_Switches;
    end Compiler;
 
    --  Note, we have to force the link of _isr_vector, because in the m0
    --  it can't be relocated, so not referenced from startup.adb.
    package Linker is
-      for Required_Switches use Linker'Required_Switches &amp;
-        ("-Wl,--require-defined=_isr_vector") &amp;
-        ("${RUNTIME_DIR(ada)}/adalib/libgnat.a") &amp;
-        Compiler.Common_Required_Switches &amp;
+      for Required_Switches use Linker'Required_Switches &
+        ("-Wl,--require-defined=_isr_vector") &
+        ("${RUNTIME_DIR(ada)}/adalib/libgnat.a") &
+        Compiler.Common_Required_Switches &
         ("-nostdlib", "-lm", "-lgcc", "-lc");
 
-      for Required_Switches use Linker'Required_Switches &amp;
-	("-T", "${RUNTIME_DIR(ada)}/adalib/nrf51.ld");
+      for Required_Switches use Linker'Required_Switches &
+	("-T", "${RUNTIME_DIR(ada)}/ld/nrf51.ld");
    end Linker;
 
    package Binder is
       for Required_Switches ("Ada") use Binder'Required_Switches ("Ada")
-        &amp; ("-nostdlib");
+        & ("-nostdlib");
    end Binder;
+]]>
    </config>
   </configuration>
 </gprconfig>
