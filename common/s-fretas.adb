@@ -19,7 +19,7 @@
 --  If not, see <http://www.gnu.org/licenses/>.
 
 with Interfaces;
-with System.Machine_Code;
+--  with System.Machine_Code;
 
 package body System.FreeRTOS.Tasks is
 
@@ -101,14 +101,15 @@ package body System.FreeRTOS.Tasks is
    end Set_Priority;
 
    function In_ISR return Boolean is
-      IPSR : Interfaces.Unsigned_32;
-      use type Interfaces.Unsigned_32;
+      --  IPSR : Interfaces.Unsigned_32;
+      --  use type Interfaces.Unsigned_32;
    begin
-      System.Machine_Code.Asm
-        ("mrs %0, ipsr",
-         Outputs => Interfaces.Unsigned_32'Asm_Output ("=r", IPSR),
-         Volatile => True);
-      return (IPSR and 16#ff#) /= 0;
+      --  System.Machine_Code.Asm
+      --    ("mrs %0, ipsr",
+      --     Outputs => Interfaces.Unsigned_32'Asm_Output ("=r", IPSR),
+      --     Volatile => True);
+      --  return (IPSR and 16#ff#) /= 0;
+      return False;  -- XXXXX
    end In_ISR;
 
    function Scheduler_Is_Running return Boolean is
