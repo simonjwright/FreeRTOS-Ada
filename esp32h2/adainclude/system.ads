@@ -108,14 +108,16 @@ package System is
 
    --  Priority-related Declarations (RM D.1)
 
-   --  These declarations correspond to FreeRTOS as originally
-   --  configured in STM Cube (thread priorities 0 .. 7), with
-   --  priorities 8 to 18 mapped to Cortex interrupt priorities 15
-   --  (lowest) to 5 (highest that can be used by ISRs that call
-   --  interrupt-safe FreeRTOS API functions).
+   --  We have thread priorities (0 .. 7), as specified by
+   --  configMAX_PRIORITIES in FreeRTOSConfig.h, with priorities 8
+   --  .. 22 mapped to ESP32-H2 interrupt priorities 1 .. 15 (TRM
+   --  9.5.2).
+   --  We don't need to worry about reserving interrupt priorities for
+   --  FreeRTOS, because (so far) all locking is done by inhibiting
+   --  interrupts.
 
    Max_Priority           : constant Positive := 7;
-   Max_Interrupt_Priority : constant Positive := 8 + (15 - 5);
+   Max_Interrupt_Priority : constant Positive := 8 + (15 - 1);
 
    subtype Any_Priority       is Integer range 0 .. Max_Interrupt_Priority;
    subtype Priority           is Any_Priority

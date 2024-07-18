@@ -18,15 +18,17 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
+--  This package is for ESP32-H2.
+
 package System.Interrupts is
-   pragma Preelaborate;
 
    Default_Interrupt_Priority : constant System.Interrupt_Priority :=
      System.Interrupt_Priority'Last;
    --  Used (via rtsfind) when Interrupt_Priority isn't specified for
    --  a PO. This can only happen if the pragma form is used.
 
-   type Interrupt_ID is range 0 .. 44;  -- XXX fix up for esp32-h2
+   type Interrupt_ID is range 0 .. 64;
+   --  See TRM 9.5.2.
 
    subtype System_Interrupt_ID is Interrupt_ID;
    --  This synonym is introduced so that the type is accessible through

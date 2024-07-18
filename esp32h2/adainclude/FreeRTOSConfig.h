@@ -77,7 +77,7 @@ CMSIS standard names. */
 /* configMAX_PRIORITIES Sets the number of available task priorities.
  * Tasks can be assigned priorities of 0 to (configMAX_PRIORITIES -
  * 1).  Zero is the lowest priority. */
-#define configMAX_PRIORITIES                       19
+#define configMAX_PRIORITIES                       8
 
 /* configMINIMAL_STACK_SIZE defines the size of the stack used by the
  * Idle task (in words, not in bytes!).  The kernel does not use this

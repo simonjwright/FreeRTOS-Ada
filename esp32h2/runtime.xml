@@ -30,16 +30,17 @@
    package Linker is
       for Required_Switches use Linker'Required_Switches &
         ("${RUNTIME_DIR(ada)}/adalib/libgnat.a") &
+        ("-L${RUNTIME_DIR(ada)}/ld") &
         Compiler.Common_Required_Switches &
         ("-nostdlib", "-lm", "-lgcc", "-lc");
 
       case Loader is
          when "ROM" | "FLASH" =>
             for Required_Switches use Linker'Required_Switches &
-             ("-T", "${RUNTIME_DIR(ada)}/adalib/esp32h2-flash.ld");
+             ("-T", "esp32h2-flash.ld");
          when "RAM" | "SRAM" =>
            for Required_Switches use Linker'Required_Switches &
-             ("-T", "${RUNTIME_DIR(ada)}/adalib/esp32h2-ram.ld");
+             ("-T", "esp32h2-ram.ld");
              when "USER" =>
       end case;
 

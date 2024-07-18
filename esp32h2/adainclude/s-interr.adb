@@ -18,21 +18,52 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
+--  This package is for ESP32-H2.
+
 with Ada.Unchecked_Conversion;
 with Interfaces;
---  with System.Machine_Code;
+with System.Machine_Code;
 
 package body System.Interrupts is
+
+   type Machine_Interrupt_ID is range 0 .. 31;
+   subtype Machine_Interrupt_Priority is Integer range 1 .. 15;
+   --  See TRM 9.5.2.
+
+   type Machine_Interrupt_Data (Available : Boolean := True;
+                                Allocated : Boolean := False) is
+      record
+         case Available is
+            when True =>
+               case Allocated is
+                  when True =>
+                     Interrupt : Interrupt_ID;
+                  when False =>
+                     null;
+               end case;
+            when False =>
+               null;
+         end case;
+      end record;
+   --  A particular machine interrupt may be Available (because not
+   --  used for core-local interrupts, CLINTs), and if so may be
+   --  Allocated to a particular peripheral source (Interrupt_ID).
+
+   Machine_Interrupts : array (Machine_Interrupt_ID)
+     of Machine_Interrupt_Data
+     := (0 | 3 | 4 | 7 => (Available => False, Allocated => False),
+         others => <>);
 
    type Handler_Wrapper is access procedure (Obj : System.Address);
 
    type Handler_With_Parameter is record
-      Wrapper   : Handler_Wrapper;
-      Parameter : System.Address;
+      Machine_Interrupt : Machine_Interrupt_ID;
+      Wrapper           : Handler_Wrapper;
+      Parameter         : System.Address;
    end record;
 
    Interrupt_Handlers : array (Interrupt_ID) of Handler_With_Parameter
-     := (others => (null, System.Null_Address));
+     := (others => (0, null, System.Null_Address));
 
    type Parameterless_Handler_Impl is record
       Object  : System.Address;
@@ -40,109 +71,130 @@ package body System.Interrupts is
    end record
    with
      Size => 64;
+   --  This is the blob the compiler gives us:
+   --  Wrapper is the address of the handler procedure.
+   --  Object contains any parameters it might take.
 
    function To_Impl_View
      is new Ada.Unchecked_Conversion (Parameterless_Handler,
                                       Parameterless_Handler_Impl);
 
-   --  --  Nested Vectored Interrupt Controller, 11057 23-Mar-15, Chapter
-   --  --  10.20; more detail at http://infocenter.arm.com/
+   procedure Enable_Machine_Interrupt_Handler
+     (For_Interrupt           : Interrupt_ID;
+      Using_Machine_Interrupt : Machine_Interrupt_ID;
+      At_Priority             : Machine_Interrupt_Priority);
 
-   --  type Bits_1 is mod 2   with Size => 1;
-   --  type Bits_8 is mod 256 with Size => 8;
-
-   --  type Bits_32x1 is array (0 .. 31) of Bits_1 with Pack, Size => 32;
-   --  type Bits_32x8 is array (0 .. 3)  of Bits_8 with Pack, Size => 32;
-
-   --  type Bits_32x1_Array is array (Natural range <>) of Bits_32x1;
-   --  type Bits_32x8_Array is array (Natural range <>) of Bits_32x8;
-
-   --  type NVIC_T is record
-   --     ISER : Bits_32x1_Array (0 .. 7);
-   --     ICER : Bits_32x1_Array (0 .. 7);
-   --     ISPR : Bits_32x1_Array (0 .. 7);
-   --     ICPR : Bits_32x1_Array (0 .. 7);
-   --     IABR : Bits_32x1_Array (0 .. 7);
-   --     IPR  : Bits_32x8_Array (0 .. 59);
-   --     STIR : Interfaces.Unsigned_32;
-   --  end record
-   --  with Convention => Ada, Volatile, Size => 8 * (16#0E00# + 4);
-   --  --  See ARMv7M Architecture Reference Manual, 2 Dec 2014, Table B3-8
-
-   --  for NVIC_T use record
-   --     ISER at 16#0000# range 0 .. 255;
-   --     ICER at 16#0080# range 0 .. 255;
-   --     ISPR at 16#0100# range 0 .. 255;
-   --     ICPR at 16#0180# range 0 .. 255;
-   --     IABR at 16#0200# range 0 .. 255;
-   --     IPR  at 16#0300# range 0 .. 1919;
-   --     STIR at 16#0E00# range 0 .. 31;
-   --  end record;
-
-   --  NVIC : NVIC_T
-   --    with
-   --      Import,
-   --      Convention => Ada,
-   --      Address => System'To_Address (16#E000E100#);
+   procedure Enable_Machine_Interrupt_Handler
+     (For_Interrupt           : Interrupt_ID;
+      Using_Machine_Interrupt : Machine_Interrupt_ID;
+      At_Priority             : Machine_Interrupt_Priority) is separate;
 
    procedure Install_Restricted_Handlers
      (Prio     : Any_Priority;
       Handlers : New_Handler_Array) is
-      --  Note, because the NVIC is configured to have 4 priority bits
-      --  and no subpriority bits, the actual interrupt priority is to
-      --  be held in the top 4 bits of NVIC.IPR (n).
-      --
-      --  The lowest interrupt priority is 15, the highest permissible
-      --  one to avoid trampling on FreeRTOS is 5 (see
-      --  FreeRTOSConfig.h).
-      Dummy : Any_Priority := Prio;
+      Machine_Priority : constant Machine_Interrupt_Priority
+        := (if Prio in System.Interrupt_Priority
+            then Prio - System.Max_Priority
+            else raise Program_Error with "not interrupt priority");
    begin
       for H of Handlers loop
+         Install_One_Handler :
          declare
+            --  Get the implementation view of the actual handler.
             Impl : constant Parameterless_Handler_Impl :=
               To_Impl_View (H.Handler);
-            Interrupt : constant Natural := Natural (H.Interrupt)
-              with Unreferenced;
+            Handler_Installed : Boolean := False;
+            --  Check whether we found a free machine interrupt.
+            --  PE already raised if the interrupt is already registered.
          begin
-            if Interrupt_Handlers (H.Interrupt).Wrapper /= null then
-               raise Program_Error with "interrupt already registered";
+            if (for some MI of Machine_Interrupts =>
+                  MI.Available
+                    and then MI.Allocated
+                    and then MI.Interrupt = H.Interrupt)
+            then
+               raise Program_Error with "interrupt already registered (1)";
             end if;
-            Interrupt_Handlers (H.Interrupt) := (Impl.Wrapper, Impl.Object);
-         end;
+            if Interrupt_Handlers (H.Interrupt).Wrapper /= null then
+               raise Program_Error with "interrupt already registered (2)";
+            end if;
+            Find_Free_Machine_Interrupt :
+            for M in Machine_Interrupts'Range loop
+               if Machine_Interrupts (M).Available
+                 and then not Machine_Interrupts (M).Allocated
+               then
+                  Interrupt_Handlers (H.Interrupt) :=
+                    (Machine_Interrupt => M,
+                     Wrapper           => Impl.Wrapper,
+                     Parameter         => Impl.Object);
+
+                  Machine_Interrupts (M) :=
+                    (Available => True,
+                     Allocated => True,
+                     Interrupt => H.Interrupt);
+
+                  Enable_Machine_Interrupt_Handler
+                    (For_Interrupt           => H.Interrupt,
+                     Using_Machine_Interrupt => M,
+                     At_Priority             => Machine_Priority);
+
+                  Handler_Installed := True;
+                  exit Find_Free_Machine_Interrupt;
+               end if;
+            end loop Find_Free_Machine_Interrupt;
+            if not Handler_Installed then
+               raise Program_Error with "no free machine interrupt";
+            end if;
+         end Install_One_Handler;
       end loop;
    end Install_Restricted_Handlers;
 
-   --  Startup contains a weak definition of this symbol; so when this
-   --  package is called in, during the link of user code that
-   --  actually uses interrupts, this definition will be used instead.
-   --
    --  IRQ_Handler is called for all peripheral interrupts.
-   procedure IRQ_Handler
-   with Export, Convention => Ada, External_Name => "IRQ_Handler";
+   procedure IRQ_Handler (Cause : Machine_Interrupt_ID)
+   with Export, Convention => C, External_Name => "IRQ_Handler";
 
-   procedure IRQ_Handler is
-      IPSR : Interfaces.Unsigned_32;
-      ID : Interrupt_ID;
-      use type Interfaces.Unsigned_32;
+   procedure IRQ_Handler (Cause : Machine_Interrupt_ID) is
+      Interrupt : constant Machine_Interrupt_Data
+        := Machine_Interrupts (Cause);
    begin
-      --  System.Machine_Code.Asm
-      --    ("mrs %0, ipsr",
-      --     Outputs => Interfaces.Unsigned_32'Asm_Output ("=r", IPSR),
-      --     Volatile => True);
-
-      --  The IPSR is the offset in the interrupt vector, which
-      --  includes all the hardware/RTOS interrupts. We only care
-      --  about peripheral interrupts.
-      IPSR := 16;  -- XXXXXX
-      ID := Interrupt_ID (IPSR - 16);
-
-      --  Is there a handler installed?
-      if Interrupt_Handlers (ID).Wrapper = null then
-         raise Program_Error with "interrupt not installed";
+      if not Interrupt.Available
+      then
+         raise Program_Error with "interrupt not available";
       end if;
 
-      --  Call the installed handler
-      Interrupt_Handlers (ID).Wrapper (Interrupt_Handlers (ID).Parameter);
+      if not Interrupt.Allocated then
+         raise Program_Error with "interrupt not allocated";
+      end if;
+
+      declare
+         ID : constant Interrupt_ID := Interrupt.Interrupt;
+      begin
+         if Interrupt_Handlers (ID).Wrapper = null then
+            raise Program_Error with "interrupt not installed";
+         end if;
+
+         --  Call the installed handler
+         Interrupt_Handlers (ID).Wrapper (Interrupt_Handlers (ID).Parameter);
+      end;
    end IRQ_Handler;
 
+begin
+   --  The V11.1.0 FreeRTOS xPortStartScheduler enables machine
+   --  interrupt 11, which in a RISC-V-conforming arcitecture would
+   --  enable external interrupts. We need to disable it, because in
+   --  ESP32-H2 it enables machine interrupt 11.
+   System.Machine_Code.Asm
+     ("csrc mie, %0",
+      Inputs   => Interfaces.Unsigned_32'Asm_Input ("r", 2#1000_0000_0000#),
+      Volatile => True);
+
+   --  This is just a check.
+   declare
+      MIE : Interfaces.Unsigned_32;
+   begin
+      System.Machine_Code.Asm
+        ("csrr %0, mie",
+         Outputs  => Interfaces.Unsigned_32'Asm_Output ("=r", MIE),
+         Volatile => True);
+      null;
+   end;
 end System.Interrupts;

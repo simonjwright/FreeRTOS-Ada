@@ -86,13 +86,16 @@ library project Build_Runtime is
            "-Iadainclude",  -- for freertos_risc_v_chip_specific_extensions.h
            "-DIN_RTS", "-Dinhibit_libc")
         & COMMON_FLAGS;
+      ALL_ASM_FLAGS :=
+        ("-DportasmHANDLE_INTERRUPT=IRQ_Handler")
+        & COMMON_FLAGS;
 
       NO_SIBLING_ADAFLAGS := ("-fno-optimize-sibling-calls");
       NO_REORDER_ADAFLAGS := ("-fno-toplevel-reorder");
 
       for Switches ("C") use ALL_CFLAGS;
       for Switches ("Ada") use ALL_ADAFLAGS;
-      for Switches ("Asm_CPP") use COMMON_FLAGS;
+      for Switches ("Asm_CPP") use ALL_ASM_FLAGS;
 
       for Switches ("startup.adb") use ALL_ADAFLAGS & ("-Wno-attributes");
       for Switches ("s-traceb.adb") use ALL_ADAFLAGS & ("-g")
@@ -123,10 +126,10 @@ library project Build_Runtime is
       for Ali_Subdir use "adalib";
       for Lib_Subdir use "adalib";
       for Required_Artifacts (".") use ("runtime.xml");
-      for Required_Artifacts ("adalib")
-      use ("adalib/esp32h2-flash.ld",
-           "adalib/esp32h2-ram.ld",
-           "adalib/memory.ld");
+      for Required_Artifacts ("ld")
+      use ("ld/esp32h2-flash.ld",
+           "ld/esp32h2-ram.ld",
+           "ld/memory.ld");
       for Install_Project use "false";
    end Install;
 
