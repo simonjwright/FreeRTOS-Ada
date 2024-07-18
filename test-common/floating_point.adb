@@ -48,28 +48,28 @@ package body Floating_Point is
 
    function Square (F : Float) return Float is (F * F);
 
-   --  function Square (F : Long_Float) return Long_Float;
+   function Square (F : Long_Float) return Long_Float;
 
-   --  task Long_Floats is
-   --     pragma Task_Name ("floating_point.long_floats");
-   --  end Long_Floats;
-   --  task body Long_Floats is
-   --     Forty_Two : constant Long_Float := 42.0;
-   --     Result : Long_Float with Volatile;
-   --  begin
-   --     loop
-   --        Result := Ada.Numerics.Long_Elementary_Functions.Sqrt (2.0);
-   --        if Result not in 1.4 .. 1.5 then
-   --           raise Constraint_Error with "long sqrt error";
-   --        end if;
-   --        Result := Square (Forty_Two);
-   --        if Result / Forty_Two /= Forty_Two then
-   --           raise Constraint_Error with "long float mismatch";
-   --        end if;
-   --        delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds (2);
-   --     end loop;
-   --  end Long_Floats;
+   task Long_Floats is
+      pragma Task_Name ("floating_point.long_floats");
+   end Long_Floats;
+   task body Long_Floats is
+      Forty_Two : constant Long_Float := 42.0;
+      Result : Long_Float with Volatile;
+   begin
+      loop
+         Result := Ada.Numerics.Long_Elementary_Functions.Sqrt (2.0);
+         if Result not in 1.4 .. 1.5 then
+            raise Constraint_Error with "long sqrt error";
+         end if;
+         Result := Square (Forty_Two);
+         if Result / Forty_Two /= Forty_Two then
+            raise Constraint_Error with "long float mismatch";
+         end if;
+         delay until Ada.Real_Time.Clock + Ada.Real_Time.Seconds (2);
+      end loop;
+   end Long_Floats;
 
-   --  function Square (F : Long_Float) return Long_Float is (F * F);
+   function Square (F : Long_Float) return Long_Float is (F * F);
 
 end Floating_Point;
