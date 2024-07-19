@@ -45,12 +45,103 @@ begin
    --  (highest)
 
    case Using_Machine_Interrupt is
+      --  UGH
+      when 0 =>
+         INTPRI_Periph.CPU_INT_PRI_0 :=
+           (CPU_PRI_0_MAP => UInt4 (At_Priority), others => <>);
       when 1 =>
+         INTPRI_Periph.CPU_INT_PRI_1 :=
+           (CPU_PRI_1_MAP => UInt4 (At_Priority), others => <>);
+      when 2 =>
+         INTPRI_Periph.CPU_INT_PRI_2 :=
+           (CPU_PRI_2_MAP => UInt4 (At_Priority), others => <>);
+      when 3 =>
+         INTPRI_Periph.CPU_INT_PRI_3 :=
+           (CPU_PRI_3_MAP => UInt4 (At_Priority), others => <>);
+      when 4 =>
+         INTPRI_Periph.CPU_INT_PRI_4 :=
+           (CPU_PRI_4_MAP => UInt4 (At_Priority), others => <>);
+      when 5 =>
+         INTPRI_Periph.CPU_INT_PRI_5 :=
+           (CPU_PRI_5_MAP => UInt4 (At_Priority), others => <>);
+      when 6 =>
+         INTPRI_Periph.CPU_INT_PRI_6 :=
+           (CPU_PRI_6_MAP => UInt4 (At_Priority), others => <>);
+      when 7 =>
+         INTPRI_Periph.CPU_INT_PRI_7 :=
+           (CPU_PRI_7_MAP => UInt4 (At_Priority), others => <>);
+      when 8 =>
+         INTPRI_Periph.CPU_INT_PRI_8 :=
+           (CPU_PRI_8_MAP => UInt4 (At_Priority), others => <>);
+      when 9 =>
+         INTPRI_Periph.CPU_INT_PRI_9 :=
+           (CPU_PRI_9_MAP => UInt4 (At_Priority), others => <>);
+      when 10 =>
+         INTPRI_Periph.CPU_INT_PRI_10 :=
+           (CPU_PRI_10_MAP => UInt4 (At_Priority), others => <>);
+      when 11 =>
+         INTPRI_Periph.CPU_INT_PRI_11 :=
+           (CPU_PRI_11_MAP => UInt4 (At_Priority), others => <>);
+      when 12 =>
+         INTPRI_Periph.CPU_INT_PRI_12 :=
+           (CPU_PRI_12_MAP => UInt4 (At_Priority), others => <>);
+      when 13 =>
+         INTPRI_Periph.CPU_INT_PRI_13 :=
+           (CPU_PRI_13_MAP => UInt4 (At_Priority), others => <>);
+      when 14 =>
+         INTPRI_Periph.CPU_INT_PRI_14 :=
+           (CPU_PRI_14_MAP => UInt4 (At_Priority), others => <>);
+      when 15 =>
+         INTPRI_Periph.CPU_INT_PRI_15 :=
+           (CPU_PRI_15_MAP => UInt4 (At_Priority), others => <>);
+      when 16 =>
+         INTPRI_Periph.CPU_INT_PRI_16 :=
+           (CPU_PRI_16_MAP => UInt4 (At_Priority), others => <>);
+      when 17 =>
+         INTPRI_Periph.CPU_INT_PRI_17 :=
+           (CPU_PRI_17_MAP => UInt4 (At_Priority), others => <>);
+      when 18 =>
+         INTPRI_Periph.CPU_INT_PRI_18 :=
+           (CPU_PRI_18_MAP => UInt4 (At_Priority), others => <>);
+      when 19 =>
+         INTPRI_Periph.CPU_INT_PRI_19 :=
+           (CPU_PRI_19_MAP => UInt4 (At_Priority), others => <>);
+      when 20 =>
+         INTPRI_Periph.CPU_INT_PRI_20 :=
+           (CPU_PRI_20_MAP => UInt4 (At_Priority), others => <>);
+      when 21 =>
+         INTPRI_Periph.CPU_INT_PRI_21 :=
+           (CPU_PRI_21_MAP => UInt4 (At_Priority), others => <>);
+      when 22 =>
          INTPRI_Periph.CPU_INT_PRI_22 :=
            (CPU_PRI_22_MAP => UInt4 (At_Priority), others => <>);
-      when others =>
-         raise Program_Error
-           with "unhandled machine interrupt" & Using_Machine_Interrupt'Image;
+      when 23 =>
+         INTPRI_Periph.CPU_INT_PRI_23 :=
+           (CPU_PRI_23_MAP => UInt4 (At_Priority), others => <>);
+      when 24 =>
+         INTPRI_Periph.CPU_INT_PRI_24 :=
+           (CPU_PRI_24_MAP => UInt4 (At_Priority), others => <>);
+      when 25 =>
+         INTPRI_Periph.CPU_INT_PRI_25 :=
+           (CPU_PRI_25_MAP => UInt4 (At_Priority), others => <>);
+      when 26 =>
+         INTPRI_Periph.CPU_INT_PRI_26 :=
+           (CPU_PRI_26_MAP => UInt4 (At_Priority), others => <>);
+      when 27 =>
+         INTPRI_Periph.CPU_INT_PRI_27 :=
+           (CPU_PRI_27_MAP => UInt4 (At_Priority), others => <>);
+      when 28 =>
+         INTPRI_Periph.CPU_INT_PRI_28 :=
+           (CPU_PRI_28_MAP => UInt4 (At_Priority), others => <>);
+      when 29 =>
+         INTPRI_Periph.CPU_INT_PRI_29 :=
+           (CPU_PRI_29_MAP => UInt4 (At_Priority), others => <>);
+      when 30 =>
+         INTPRI_Periph.CPU_INT_PRI_30 :=
+           (CPU_PRI_30_MAP => UInt4 (At_Priority), others => <>);
+      when 31 =>
+         INTPRI_Periph.CPU_INT_PRI_31 :=
+           (CPU_PRI_31_MAP => UInt4 (At_Priority), others => <>);
    end case;
 
    --  4. set the nth bit of INTPRI_CORE0_CPU_INT_ENABLE_REG
@@ -59,10 +150,12 @@ begin
 
    --  4A. assign the source to the interrupt. Not mentioned in TRM
    --  1.3.6.2, but clearly necessary!
+   --  Guessing here that it's the machine interrupt # that has to be
+   --  stored.
    case For_Interrupt is
       when GPIO_Interrupt =>
          INTERRUPT_CORE0_Periph.GPIO_INTERRUPT_PRO_MAP :=
-           (GPIO_INTERRUPT_PRO_MAP => UInt5 (For_Interrupt),
+           (GPIO_INTERRUPT_PRO_MAP => UInt5 (Using_Machine_Interrupt),
             others => <>);
       when others =>
          raise Program_Error

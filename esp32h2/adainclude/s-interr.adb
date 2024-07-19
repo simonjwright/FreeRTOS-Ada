@@ -172,6 +172,10 @@ package body System.Interrupts is
             raise Program_Error with "interrupt not installed";
          end if;
 
+         --  All our interrupts are level, not edge, so the source of
+         --  the interrupt has to be cleared **in the installed
+         --  handler**.
+
          --  Call the installed handler
          Interrupt_Handlers (ID).Wrapper (Interrupt_Handlers (ID).Parameter);
       end;

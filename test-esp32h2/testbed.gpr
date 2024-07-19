@@ -18,7 +18,10 @@
 
 project Testbed is
 
-   for Main use ("testbed.adb");
+   for Main use ("device_user.adb",
+                 "flasher.adb",
+                 "simple_io.adb",
+                 "testbed.adb");
    for Source_Dirs use (".", "../test-common");
    for Object_Dir use ".build";
    for Exec_Dir use ".";
