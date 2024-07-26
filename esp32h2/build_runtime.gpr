@@ -86,9 +86,7 @@ library project Build_Runtime is
            "-Iadainclude",  -- for freertos_risc_v_chip_specific_extensions.h
            "-DIN_RTS", "-Dinhibit_libc")
         & COMMON_FLAGS;
-      ALL_ASM_FLAGS :=
-        ("-DportasmHANDLE_INTERRUPT=IRQ_Handler")
-        & COMMON_FLAGS;
+      ALL_ASM_FLAGS := COMMON_FLAGS;
 
       NO_SIBLING_ADAFLAGS := ("-fno-optimize-sibling-calls");
       NO_REORDER_ADAFLAGS := ("-fno-toplevel-reorder");
