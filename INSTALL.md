@@ -1,4 +1,4 @@
-# Installing and using Cortex GNAT RTS #
+# Installing and using FreeRTOS-Ada #
 
 ## FreeRTOS ##
 
@@ -32,6 +32,7 @@ Values for `RELEASE` are as below:
 | FSF GCC 11 | `gcc11` |
 | FSF GCC 12 | `gcc12` |
 | FSF GCC 13 | `gcc12` |
+| FSF GCC 14 | `gcc12` |
 | GNAT GPL 2016 | `gcc6` |
 | GNAT GPL 2017 | `gnat-gpl-2017` |
 | GNAT CE 2018 | `gcc8` |
@@ -53,7 +54,7 @@ either at top level for all runtimes, or in the individual runtime's subdirector
 
 ### Local installation ###
 
-It used to be possible to use a runtime from its build directory (for example, `--RTS=$HOME/cortex-gnat-rts/stm32f4`), but this isn't possible with the new multi-release structure. Instead, the runtimes must be installed; local installation is the default.
+It used to be possible to use a runtime from its build directory (for example, `--RTS=$HOME/FreeRTOS-Ada/stm32f4`), but this isn't possible with the new multi-release structure. Instead, the runtimes must be installed; local installation is the default.
 
 | Variable | Default |
 | ---------|-------- |
@@ -63,7 +64,7 @@ It used to be possible to use a runtime from its build directory (for example, `
 make RELEASE=<i>release</i> install
 </pre>
 
-allowing `--RTS=$HOME/cortex-gnat-rts/local/stm32f4`.
+allowing `--RTS=$HOME/FreeRTOS-Ada/local/stm32f4`.
 
 ## Using ##
 
@@ -91,5 +92,5 @@ for Runtime ("ada") use "stm32f4";
 ```
 If using a locally-installed RTS, use a relative or absolute path:
 ```
-for Runtime ("ada") use external ("HOME") & "/cortex-gnat-rts/local/stm32f4";
+for Runtime ("ada") use external ("HOME") & "/FreeRTOS-Ada/local/stm32f4";
 ```
