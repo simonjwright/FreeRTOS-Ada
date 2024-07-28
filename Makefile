@@ -1,8 +1,8 @@
-# This file is part of the Cortex GNAT RTS package.
+# This file is part of the FreeRTOS-Ada package.
 #
-# Copyright (C) 2016, 2018 Free Software Foundation, Inc.
+# Copyright (C) 2016-2024 Free Software Foundation, Inc.
 #
-# The Cortex GNAT RTS package is free software; you can redistribute
+# The FreeRTOS-Ada package is free software; you can redistribute
 # it and/or modify it under the terms of the GNU General Public
 # License as published by the Free Software Foundation; either version
 # 3 of the License, or (at your option) any later version.
@@ -20,7 +20,7 @@ first:
 	@echo "\t'make all' to build the runtimes,"
 	@echo "\t'make install' to install the runtimes."
 
-runtimes = arduino-due microbit stm32f4 stm32f429i
+runtimes = arduino-due esp32h2 microbit stm32f4 stm32f429i
 
 all install clean:
 	for f in $(runtimes); do		\

@@ -18,10 +18,10 @@
 
 all:: testbed testbed.bin
 
-programs = testbed
+programs = device_user flasher simple_io testbed
 
-testbed: force
-	gprbuild -p -P testbed.gpr
+$(programs): force
+	gprbuild -P testbed.gpr
 
 %.bin: %
 	riscv64-elf-objcopy -O binary $< $@

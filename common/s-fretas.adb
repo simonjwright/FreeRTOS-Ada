@@ -1,6 +1,6 @@
---  Copyright (C) 2016, 2017 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2024 Free Software Foundation, Inc.
 --
---  This file is part of the Cortex GNAT RTS project. This file is
+--  This file is part of the FreeRTOS-Ada project. This file is
 --  free software; you can redistribute it and/or modify it under
 --  terms of the GNU General Public License as published by the Free
 --  Software Foundation; either version 3, or (at your option) any
@@ -19,7 +19,6 @@
 --  If not, see <http://www.gnu.org/licenses/>.
 
 with Interfaces;
---  with System.Machine_Code;
 
 package body System.FreeRTOS.Tasks is
 
@@ -100,17 +99,8 @@ package body System.FreeRTOS.Tasks is
                         New_Priority => Unsigned_Base_Type (To));
    end Set_Priority;
 
-   function In_ISR return Boolean is
-      --  IPSR : Interfaces.Unsigned_32;
-      --  use type Interfaces.Unsigned_32;
-   begin
-      --  System.Machine_Code.Asm
-      --    ("mrs %0, ipsr",
-      --     Outputs => Interfaces.Unsigned_32'Asm_Output ("=r", IPSR),
-      --     Volatile => True);
-      --  return (IPSR and 16#ff#) /= 0;
-      return False;  -- XXXXX
-   end In_ISR;
+   function In_ISR return Boolean is separate;
+   --  Cortex/RiscV versions supported.
 
    function Scheduler_Is_Running return Boolean is
       function XTaskGetSchedulerState return Base_Type
@@ -118,7 +108,7 @@ package body System.FreeRTOS.Tasks is
         Import,
         Convention => C,
         External_Name => "xTaskGetSchedulerState";
-      --  Possible values are (FreeRTOS 8.1.2)
+      --  Possible values are (FreeRTOS 8.1.2, checked in 11.1.0)
       --  #define taskSCHEDULER_SUSPENDED       ( ( BaseType_t ) 0 )
       --  #define taskSCHEDULER_NOT_STARTED     ( ( BaseType_t ) 1 )
       --  #define taskSCHEDULER_RUNNING         ( ( BaseType_t ) 2 )

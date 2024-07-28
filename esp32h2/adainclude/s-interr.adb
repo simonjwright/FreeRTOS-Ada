@@ -24,6 +24,8 @@ with Ada.Unchecked_Conversion;
 with Interfaces;
 with System.Machine_Code;
 
+with ESP32_H2.INTPRI;
+
 package body System.Interrupts is
 
    type Machine_Interrupt_ID is range 0 .. 31;
@@ -105,7 +107,7 @@ package body System.Interrupts is
               To_Impl_View (H.Handler);
             Handler_Installed : Boolean := False;
             --  Check whether we found a free machine interrupt.
-            --  PE already raised if the interrupt is already registered.
+            --  Raise PE if the interrupt is already registered.
          begin
             if (for some MI of Machine_Interrupts =>
                   MI.Available
@@ -149,28 +151,49 @@ package body System.Interrupts is
    end Install_Restricted_Handlers;
 
    --  IRQ_Handler is called for all peripheral interrupts.
-   procedure IRQ_Handler (Cause : Machine_Interrupt_ID)
-   with Export, Convention => C, External_Name => "IRQ_Handler";
 
-   procedure IRQ_Handler (Cause : Machine_Interrupt_ID) is
-      Interrupt : constant Machine_Interrupt_Data
-        := Machine_Interrupts (Cause);
+   --  The parameter Cause, from the MCAUSE register, will have bit 31
+   --  set; the lower 5 bits are the machine interrupt, 0 .. 31.
+   procedure IRQ_Handler (Cause : Interfaces.Unsigned_32)
+   with Export,
+     Convention => C,
+     External_Name => "freertos_risc_v_application_interrupt_handler";
+
+   procedure IRQ_Handler (Cause : Interfaces.Unsigned_32) is
+      use type Interfaces.Unsigned_32;
+      Interrupt_Data : constant Machine_Interrupt_Data
+        := Machine_Interrupts (Machine_Interrupt_ID (Cause and 16#1f#));
    begin
-      if not Interrupt.Available
+      if not Interrupt_Data.Available
       then
          raise Program_Error with "interrupt not available";
       end if;
 
-      if not Interrupt.Allocated then
+      if not Interrupt_Data.Allocated then
          raise Program_Error with "interrupt not allocated";
       end if;
 
       declare
-         ID : constant Interrupt_ID := Interrupt.Interrupt;
+         ID : constant Interrupt_ID := Interrupt_Data.Interrupt;
       begin
          if Interrupt_Handlers (ID).Wrapper = null then
             raise Program_Error with "interrupt not installed";
          end if;
+
+         --  Confusingly, there are level/edge CPU interrupts, and
+         --  level/edge GPIO interrupts. I believe that all our
+         --  interrupts are going to be edge, so the interrupt must be
+         --  cleared here.
+
+         declare
+            use ESP32_H2;
+            Int_Bit : constant UInt32 := Shift_Left (1, Natural (ID));
+            use ESP32_H2.INTPRI;
+         begin
+            --  TRM 1.6.2(6): set, then clear.
+            INTPRI_Periph.CPU_INT_CLEAR := @ or Int_Bit;
+            INTPRI_Periph.CPU_INT_CLEAR := @ and not Int_Bit;
+         end;
 
          --  Call the installed handler
          Interrupt_Handlers (ID).Wrapper (Interrupt_Handlers (ID).Parameter);
@@ -178,13 +201,16 @@ package body System.Interrupts is
    end IRQ_Handler;
 
 begin
-   --  The V11.1.0 FreeRTOS xPortStartScheduler enables machine
-   --  interrupt 11, which in a RISC-V-conforming arcitecture would
-   --  enable external interrupts. We need to disable it, because in
-   --  ESP32-H2 it enables machine interrupt 11.
+   --  The V11.1.0 FreeRTOS xPortStartScheduler sets MIE bit 11, which
+   --  in a RISC-V-conforming arcitecture would enable external
+   --  interrupts. We need to disable it, because in ESP32-H2 it
+   --  enables machine interrupt 11.
+   --
+   --  XXXX just pro tem, I'm going to clear *all* the bits except bit
+   --  7, because of random settings ...
    System.Machine_Code.Asm
      ("csrc mie, %0",
-      Inputs   => Interfaces.Unsigned_32'Asm_Input ("r", 2#1000_0000_0000#),
+      Inputs   => Interfaces.Unsigned_32'Asm_Input ("r", 16#ffff_ff7f#),
       Volatile => True);
 
    --  This is just a check.

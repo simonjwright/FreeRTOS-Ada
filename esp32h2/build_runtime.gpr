@@ -1,8 +1,8 @@
 --  Copyright (C) 2016-2024 Free Software Foundation, Inc.
 
---  This file is part of the Cortex GNAT RTS package.
+--  This file is part of the FreeRTOS-Ada package.
 --
---  The Cortex GNAT RTS package is free software; you can redistribute
+--  The FreeRTOS-Ada package is free software; you can redistribute
 --  it and/or modify it under the terms of the GNU General Public
 --  License as published by the Free Software Foundation; either
 --  version 3 of the License, or (at your option) any later version.
@@ -86,9 +86,7 @@ library project Build_Runtime is
            "-Iadainclude",  -- for freertos_risc_v_chip_specific_extensions.h
            "-DIN_RTS", "-Dinhibit_libc")
         & COMMON_FLAGS;
-      ALL_ASM_FLAGS :=
-        ("-DportasmHANDLE_INTERRUPT=IRQ_Handler")
-        & COMMON_FLAGS;
+      ALL_ASM_FLAGS := COMMON_FLAGS;
 
       NO_SIBLING_ADAFLAGS := ("-fno-optimize-sibling-calls");
       NO_REORDER_ADAFLAGS := ("-fno-toplevel-reorder");
@@ -117,7 +115,7 @@ library project Build_Runtime is
    package Install is
       case Common.Local is
          when "no" =>
-            for Prefix use "riscv/lib/gnat/";
+            for Prefix use "riscv64-elf/lib/gnat/";
          when "yes" =>
             for Prefix use project'Project_Dir & "../local/";
       end case;
