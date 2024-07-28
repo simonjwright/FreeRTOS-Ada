@@ -1,8 +1,8 @@
 # Copyright (C) 2016-2024 Free Software Foundation, Inc.
 #
-# This file is part of the Cortex GNAT RTS package.
+# This file is part of the FreeRTOS-Ada package.
 #
-# The Cortex GNAT RTS package is free software; you can redistribute
+# The FreeRTOS-Ada package is free software; you can redistribute
 # it and/or modify it under the terms of the GNU General Public
 # License as published by the Free Software Foundation; either version
 # 3 of the License, or (at your option) any later version.
@@ -17,11 +17,12 @@
 # <http://www.gnu.org/licenses/>.
 
 SVD2ADA = ~/.alire/bin/svd2ada
+# alr get svd2ada; cd svd2ada*; alr build; alr install
 
 all: build
 
 build: esp32h2_svd force
-	gprbuild -p -P build_runtime.gpr
+	gprbuild -p -P build_runtime.gpr -XARCH=riscv
 
 # SVD2Ada generates peripheral definitions and interrupt names. It
 # also generates an assembler file to handle the interrupts - but
