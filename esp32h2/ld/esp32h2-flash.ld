@@ -161,11 +161,11 @@ SECTIONS
     /* Top of stack for main and (after main finishes) interrupts. */
     PROVIDE(__freertos_irq_stack_top =  ORIGIN(sram) + LENGTH(sram));
 
-    /* Top of stack for tasks. Reserves 1k for interrupt stack.
+    /* Top of stack for tasks. Reserves 2k for interrupt stack.
      * THIS IS NOT FINAL.
      *
      * DO NOT define configISR_STACK_SIZE_WORDS in FreeRTOSConfig.h. */
-    PROVIDE(_end_stack = __freertos_irq_stack_top - 1K);
+    PROVIDE(_end_stack = __freertos_irq_stack_top - 2K);
 
     /* This is to do with riscv 'relax' processing.
      * See https://github.com/espressif/esp32c3-direct-boot-example/blob/\
