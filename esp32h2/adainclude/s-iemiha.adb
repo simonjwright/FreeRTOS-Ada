@@ -174,6 +174,7 @@ begin
       Inputs   => UInt32'Asm_Input ("r", Saved_MIE),
       Volatile => True);
 
+   --  This is for debug only.
    declare
       Current_MIE : UInt32;
    begin
@@ -183,4 +184,5 @@ begin
          Volatile => True);
       null;
    end;
+
 end Enable_Machine_Interrupt_Handler;
