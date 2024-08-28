@@ -19,18 +19,16 @@ is
    use ESP32_H2.INTMTX_CORE0;
    use ESP32_H2.INTPRI;
 
-   Saved_MIE : UInt32;
+   Saved_MSTATUS : UInt32;
 begin
    --  Procedure for setting interrupt info, per TRM 1.6.3.2; with
    --  omissions rectified.
 
-   --  1. save the state of MIE and clear MIE to 0
-   --  I think this should be in one instruction.             XXXXX
+   --  1. save the state of MSTATUS and clear MSTATUS.MIE (bit 3).
    System.Machine_Code.Asm
-     ("csrr %0, mie" & ASCII.LF
-        & "csrc mie, %1",
-      Outputs  => UInt32'Asm_Output ("=r", Saved_MIE),
-      Inputs   => UInt32'Asm_Input ("r", 16#FFFF_FFFF#),
+     ("csrrc %1, mstatus, %0",
+      Outputs  => UInt32'Asm_Output ("=r", Saved_MSTATUS),
+      Inputs   => UInt32'Asm_Input ("r", 2#1000#),
       Volatile => True);
 
    --  2. depending upon the type of the interrupt (edge/level),
@@ -161,28 +159,30 @@ begin
            with "unhandled peripheral interrupt" & For_Interrupt'Image;
    end case;
 
-   --  5. execute FENCE instruction
-   System.Machine_Code.Asm
-     ("fence",
-      Volatile => True);
-
-   --  6. restore the state of MIE + _this_ machine interrupt.
-   Saved_MIE :=
-     @ or Shift_Left (1, Integer (Using_Machine_Interrupt));
+   --  Set this machine interrupt's bit in MIE.
    System.Machine_Code.Asm
      ("csrs mie, %0",
-      Inputs   => UInt32'Asm_Input ("r", Saved_MIE),
+      Inputs   => UInt32'Asm_Input
+        ("r", Shift_Left (1, Integer (Using_Machine_Interrupt))),
       Volatile => True);
 
-   --  This is for debug only.
-   declare
-      Current_MIE : UInt32;
-   begin
-      System.Machine_Code.Asm
-        ("csrr %0, mie",
-         Outputs  => UInt32'Asm_Output ("=r", Current_MIE),
-         Volatile => True);
-      null;
-   end;
+   --  5. execute FENCE instruction
+   System.Machine_Code.Asm
+     ("fence.i",
+      Volatile => True);
+
+   --  6. If it was previously set, set MSTATUS.MIE. Assume no one has
+   --  changed any of the other bits in MSTATUS while interrupts were
+   --  inhibited.
+   System.Machine_Code.Asm
+     ("csrs mstatus, %0",
+      Inputs   => UInt32'Asm_Input ("r", Saved_MSTATUS),
+      Volatile => True);
+
+   --  (tmp) clear MSTATUS.MPIE.
+   System.Machine_Code.Asm
+     ("csrc mstatus, %0",
+      Inputs   => UInt32'Asm_Input ("r", 2#1000_0000#),
+      Volatile => True);
 
 end Enable_Machine_Interrupt_Handler;
