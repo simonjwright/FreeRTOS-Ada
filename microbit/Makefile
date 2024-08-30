@@ -16,23 +16,20 @@
 # along with this program; see the file COPYING3. If not, see
 # <http://www.gnu.org/licenses/>.
 
-SVD2ADA ?= ../svd2ada
+SVD2ADA = ~/.alire/bin/svd2ada
+# alr get svd2ada; cd svd2ada*; alr build; alr install
 
 all: build
 
 build: nrf51 force
 	gprbuild -p -P build_runtime.gpr
 
-nrf51: svd2ada-stamp
-	$(SVD2ADA)/bin/svd2ada			\
+nrf51: ../svd2ada/CMSIS-SVD/Nordic/nrf51.svd
+	$(SVD2ADA)				\
 	  --output=nrf51			\
-	$(SVD2ADA)/CMSIS-SVD/Nordic/nrf51.svd
+	  $<
 # would have liked to specify --no-vfa-on-types but this suppresses the use
 # of arrays.
-
-svd2ada-stamp:
-	cd $(SVD2ADA); alr build
-	touch $@
 
 install: all
 	gprinstall -p -P build_runtime.gpr -f
