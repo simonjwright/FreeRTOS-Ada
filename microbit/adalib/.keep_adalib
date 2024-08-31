@@ -1,0 +1,4 @@
+This file is registered in git: the point is, without an adalib/,
+gprbuild won't recognise .. as a valid RTS.
+
+We could also use a file ada_object_path, but it'd be meaningless.
