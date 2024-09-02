@@ -22,7 +22,7 @@ SVD2ADA = ~/.alire/bin/svd2ada
 all: build
 
 build: esp32h2_svd force
-	gprbuild -p -P build_runtime.gpr -XARCH=riscv
+	gprbuild -p -P build_runtime.gpr
 
 # SVD2Ada generates peripheral definitions and interrupt names. It
 # also generates an assembler file to handle the interrupts - but
@@ -35,11 +35,6 @@ esp32h2_svd: svd/esp32h2.svd
 	  --gen-interrupts			\
 	  $<
 	rm $@/handler.S
-
-svd2ada-stamp:
-	alr get --build svd2ada
-	cd svd2ada*; alr install
-	touch $@
 
 install: all
 	gprinstall -p -P build_runtime.gpr -f
