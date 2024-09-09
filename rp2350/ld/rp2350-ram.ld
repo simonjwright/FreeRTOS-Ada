@@ -157,7 +157,7 @@ SECTIONS
      * THIS IS NOT FINAL.
      *
      * DO NOT define configISR_STACK_SIZE_WORDS in FreeRTOSConfig.h. */
-    PROVIDE(_end_stack = __freertos_irq_stack_top - 1K);
+    PROVIDE(_end_stack = __freertos_irq_stack_top);
 
     /* This is to do with riscv 'relax' processing.
      * See https://github.com/espressif/esp32c3-direct-boot-example/blob/\

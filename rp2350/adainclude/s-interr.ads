@@ -18,7 +18,7 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
---  This package is for ESP32-H2.
+--  This package is for RP2350.
 
 package System.Interrupts is
 

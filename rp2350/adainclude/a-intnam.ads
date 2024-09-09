@@ -1,4 +1,4 @@
---  Copyright (C) 2016 Free Software Foundation, Inc.
+--  Copyright (C) 2016-2024 Free Software Foundation, Inc.
 --
 --  This file is part of the Cortex GNAT RTS project. This file is
 --  free software; you can redistribute it and/or modify it under
@@ -18,8 +18,8 @@
 --  program; see the files COPYING3 and COPYING.RUNTIME respectively.
 --  If not, see <http://www.gnu.org/licenses/>.
 
---  Interrupts for the ESP32-H2; renaming of the description generated
---  by SVD2Ada for esp32h2.svd.
+--  Interrupts for the RP2350; renaming of the description generated
+--  by SVD2Ada for RP2350.svd.
 
 with RP2350.Interrupts;
 package Ada.Interrupts.Names renames RP2350.Interrupts;

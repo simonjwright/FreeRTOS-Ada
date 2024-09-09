@@ -1,0 +1,11 @@
+# Emacs ada-mode project file for RP2350 RTS.
+
+$HOME=/Users/simon
+
+gpr_file=build_runtime.gpr
+
+casing=$HOME/.emacs_case_exceptions
+#casing=emacs_case_exceptions
+
+target=riscv32-elf-
+$RUNTIME=$HOME/Developer/FreeRTOS-Ada/rp2350
