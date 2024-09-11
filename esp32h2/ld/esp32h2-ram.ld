@@ -60,25 +60,10 @@ INCLUDE memory.ld
 SECTIONS
 {
     /*
-     * See information on the "direct boot" feature:
-     * https://github.com/espressif/esp32c3-direct-boot-example/blob/main/\
-     * README.md.
+     * This version of the linker script places the executable in RAM,
+     * because of difficulty writing to flash on this hardware.
      */
-
-/*
-    .header :
-    {
-        _rom_start = .;
-        LONG(0xaedb041d)
-        LONG(0xaedb041d)
-    } >flash
-
-    .text.entry ORIGIN(flash) + 8 :
-    {
-        KEEP(*(.program_entry))
-    } >flash
-*/
-
+     
     .text.entry ORIGIN(sram) :
     {
         KEEP(*(.program_entry))
@@ -171,7 +156,7 @@ SECTIONS
      * THIS IS NOT FINAL.
      *
      * DO NOT define configISR_STACK_SIZE_WORDS in FreeRTOSConfig.h. */
-    PROVIDE(_end_stack = __freertos_irq_stack_top - 1K);
+    PROVIDE(_end_stack = __freertos_irq_stack_top );
 
     /* This is to do with riscv 'relax' processing.
      * See https://github.com/espressif/esp32c3-direct-boot-example/blob/\

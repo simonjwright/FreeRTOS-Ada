@@ -26,15 +26,13 @@ with System.Machine_Code;
 separate (System.FreeRTOS.Tasks)
 function In_ISR return Boolean
 is
-   MIE : Interfaces.Unsigned_32;
+   MSTATUS : Interfaces.Unsigned_32;
    use type Interfaces.Unsigned_32;
 begin
-   --  This is a bit of an assumption! Certainly true for the
-   --  ESP32-H2, so long as no one tries implementing nested
-   --  interrupts. Don't know what standard RISC-V would need.
    System.Machine_Code.Asm
-     ("csrr %0, mie",
-      Outputs  => Interfaces.Unsigned_32'Asm_Output ("=r", MIE),
+     ("csrr %0, mstatus",
+      Outputs  => Interfaces.Unsigned_32'Asm_Output ("=r", MSTATUS),
       Volatile => True);
-   return MIE = 0;
+   --  bit 3 is MIE, enable the global machine mode interrupt.
+   return (MSTATUS and 2#1000#) = 0;
 end In_ISR;

@@ -106,9 +106,9 @@ package body System.Interrupts is
             Impl : constant Parameterless_Handler_Impl :=
               To_Impl_View (H.Handler);
             Handler_Installed : Boolean := False;
-            --  Check whether we found a free machine interrupt.
-            --  Raise PE if the interrupt is already registered.
          begin
+            --  Check whether there's a free machine interrupt.
+            --  Raise PE if the interrupt is already registered.
             if (for some MI of Machine_Interrupts =>
                   MI.Available
                     and then MI.Allocated
@@ -161,8 +161,10 @@ package body System.Interrupts is
 
    procedure IRQ_Handler (Cause : Interfaces.Unsigned_32) is
       use type Interfaces.Unsigned_32;
+      Machine_Interrupt : constant Machine_Interrupt_ID
+        := Machine_Interrupt_ID (Cause and 16#1f#);
       Interrupt_Data : constant Machine_Interrupt_Data
-        := Machine_Interrupts (Machine_Interrupt_ID (Cause and 16#1f#));
+        := Machine_Interrupts (Machine_Interrupt);
    begin
       if not Interrupt_Data.Available
       then
@@ -185,15 +187,16 @@ package body System.Interrupts is
          --  interrupts are going to be edge, so the interrupt must be
          --  cleared here.
 
-         declare
+         Clear_The_Machine_Interrupt : declare
             use ESP32_H2;
-            Int_Bit : constant UInt32 := Shift_Left (1, Natural (ID));
+            Int_Bit : constant UInt32
+              := Shift_Left (1, Natural (Machine_Interrupt));
             use ESP32_H2.INTPRI;
          begin
             --  TRM 1.6.2(6): set, then clear.
             INTPRI_Periph.CPU_INT_CLEAR := @ or Int_Bit;
             INTPRI_Periph.CPU_INT_CLEAR := @ and not Int_Bit;
-         end;
+         end Clear_The_Machine_Interrupt;
 
          --  Call the installed handler
          Interrupt_Handlers (ID).Wrapper (Interrupt_Handlers (ID).Parameter);
