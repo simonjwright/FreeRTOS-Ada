@@ -68,8 +68,7 @@ package body System.Interrupts is
             Interrupt_Handlers (H.Interrupt) := (Impl.Wrapper, Impl.Object);
 
             Xh3irq.Enable_Interrupt (H.Interrupt);
-            Xh3irq.Set_Priority (H.Interrupt, Prio);
-            Xh3irq.Read_Bit_Array;
+            Xh3irq.Set_Priority (H.Interrupt, Prio - Interrupt_Priority'First);
          end;
       end loop;
    end Install_Restricted_Handlers;

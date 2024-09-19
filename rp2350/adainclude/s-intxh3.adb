@@ -170,7 +170,7 @@ package body System.Interrupts.Xh3irq is
       Data : MEIPRA_Data;
    begin
       Data.INDEX := UInt5 (ID / 4);
-      Data.WINDOW (Integer (ID mod 16)) := RP2350.UInt4 (To);
+      Data.WINDOW (Integer (ID mod 4)) := RP2350.UInt4 (To);
       System.Machine_Code.Asm
         ("csrs meipra, %0",
          Inputs  => Xh3irq.MEIPRA_Data'Asm_Input
