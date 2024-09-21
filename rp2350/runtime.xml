@@ -4,7 +4,8 @@
   <configuration>
    <config><![CDATA[
    type Loaders is ("ROM", "FLASH", "RAM", "SRAM", "USER");
-   Loader : Loaders := external("LOADER", "RAM");
+   Loader : Loaders := external("RP2350_LOADER",
+                                external ("LOADER", "RAM"));
 
    package Compiler is
       Common_Required_Switches :=

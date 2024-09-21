@@ -59,23 +59,36 @@ INCLUDE memory.ld
 
 SECTIONS
 {
-    /*
-     * See information on the "direct boot" feature:
-     * https://github.com/espressif/esp32c3-direct-boot-example/blob/main/\
-     * README.md.
-     */
-
-    /* This header enables the Direct Boot feature. */
-    .header : /* AT(0) */
+    .text.entry ORIGIN(flash):
     {
-        _rom_start = .;
-        LONG(0xaedb041d)
-        LONG(0xaedb041d)
-    } >flash
+        /*
+         * This is from startup.adb. It sets up the stack & global
+         * pointers, and jumps to the program entry point.
+         */
+        KEEP(*(.program_entry));
 
-    .text.entry ORIGIN(flash) + 8 :
-    {
-        KEEP(*(.program_entry))
+        /*
+         * This is the minimum valid Risc-V "IMAGE_DEF" . see TDS 5.9.5:
+         *
+         * A minimum amount of metadata (i.e. a valid IMAGE_DEF block) must be
+         * embedded in any binary for the bootrom to recognise it as a valid
+         * program image, as opposed to, for example, blank flash contents or
+         * a disconnected flash device. This must appear within the first 4 kB
+         * of a flash image, or anywhere in a RAM or OTP image.
+         *
+         * (5.9.5.2)
+         *
+         * Since the [above] block does not specify an explicit entry point,
+         * the bootrom will enter the binary at its lowest address, which is
+         * the default behaviour on RISC-V.
+         */
+
+        . = ALIGN(4);
+        LONG(0xffffded3)
+        LONG(0x11010142)
+        LONG(0x000001ff)
+        LONG(0x00000000)
+        LONG(0xab123579)
     } >flash
 
     .text :
@@ -161,11 +174,11 @@ SECTIONS
     /* Top of stack for main and (after main finishes) interrupts. */
     PROVIDE(__freertos_irq_stack_top =  ORIGIN(sram) + LENGTH(sram));
 
-    /* Top of stack for tasks. Reserves 2k for interrupt stack.
+    /* Top of stack for tasks. Reserves 1k for interrupt stack.
      * THIS IS NOT FINAL.
      *
      * DO NOT define configISR_STACK_SIZE_WORDS in FreeRTOSConfig.h. */
-    PROVIDE(_end_stack = __freertos_irq_stack_top - 2K);
+    PROVIDE(_end_stack = __freertos_irq_stack_top);
 
     /* This is to do with riscv 'relax' processing.
      * See https://github.com/espressif/esp32c3-direct-boot-example/blob/\
