@@ -174,10 +174,10 @@ SECTIONS
     /* Top of stack for main and (after main finishes) interrupts. */
     PROVIDE(__freertos_irq_stack_top =  ORIGIN(sram) + LENGTH(sram));
 
-    /* Top of stack for tasks. Reserves 1k for interrupt stack.
-     * THIS IS NOT FINAL.
-     *
-     * DO NOT define configISR_STACK_SIZE_WORDS in FreeRTOSConfig.h. */
+    /* Passed through to Set_Up_Heap, which MUST reserve space for ISR
+     * stack use (i.e top of space for heap is (_end_stack - ISR space).
+     */
+    /* DO NOT define configISR_STACK_SIZE_WORDS in FreeRTOSConfig.h. */
     PROVIDE(_end_stack = __freertos_irq_stack_top);
 
     /* This is to do with riscv 'relax' processing.
