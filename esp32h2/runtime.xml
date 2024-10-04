@@ -4,7 +4,7 @@
   <configuration>
    <config><![CDATA[
    type Loaders is ("ROM", "FLASH", "RAM", "SRAM", "USER");
-   Loader : Loaders := external("ESP32H2_LOADER", "ROM");
+   Loader : Loaders := external("ESP32H2_LOADER", external ("LOADER", "ROM"));
 
    package Compiler is
       Common_Required_Switches :=
