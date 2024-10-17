@@ -127,4 +127,13 @@ library project Build_Runtime is
       for Install_Project use "false";
    end Install;
 
+   package Pretty_Printer is
+      for Switches ("ada") use
+        (
+         "--layout=compact",
+         "--par-threshold=2",
+         "--call-threshold=2"
+        );
+   end Pretty_Printer;
+
 end Build_Runtime;
