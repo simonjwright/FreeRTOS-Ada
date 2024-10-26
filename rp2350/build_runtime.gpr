@@ -30,14 +30,14 @@ library project Build_Runtime is
    for Library_Dir use "adalib";
    for Object_Dir use ".build";
 
-   for Source_Dirs use Common.Paths &
-     (
-      "adainclude",
-      "rp2350_svd"
-      ,
-      FreeRTOS.Source,
-      FreeRTOS.Portable_Base & "RISC-V"
-     );
+   for Source_Dirs use
+     Common.Paths &
+       (
+        "adainclude",
+        "rp2350_svd",
+        FreeRTOS.Source,
+        FreeRTOS.Portable_Base & "RISC-V"
+       );
 
    for Excluded_Source_Files use
      ("s-harhan.ads",
@@ -56,11 +56,11 @@ library project Build_Runtime is
    package Compiler is
       COMMON_FLAGS := ("-ffunction-sections", "-fdata-sections");
       case Build is
-        when "Production" =>
-           COMMON_FLAGS := COMMON_FLAGS & ("-g", "-O2");
-        when "Debug" =>
-           COMMON_FLAGS := COMMON_FLAGS & ("-g", "-O0");
-           -- -O0 is costly, e.g. in the Timer_Events task.
+         when "Production" =>
+            COMMON_FLAGS := COMMON_FLAGS & ("-g", "-O2");
+         when "Debug" =>
+            COMMON_FLAGS := COMMON_FLAGS & ("-g", "-O0");
+         -- -O0 is costly, e.g. in the Timer_Events task.
       end case;
       case Callgraph is
          when "yes" =>
@@ -70,21 +70,21 @@ library project Build_Runtime is
       end case;
       ALL_ADAFLAGS :=
         ("-gnatwae", "-gnatpgn", "-gnatqQ", "-nostdinc")
-        & COMMON_FLAGS
-        & external_as_list ("EXTRA_ADAFLAGS", " ");
+          & COMMON_FLAGS
+          & external_as_list ("EXTRA_ADAFLAGS", " ");
       case Build is
-        when "Production" =>
-           null;
-        when "Debug" =>
-           ALL_ADAFLAGS := ALL_ADAFLAGS & ("-gnata");--, "-gnatwn", "-gnatwJ");
+         when "Production" =>
+            null;
+         when "Debug" =>
+            ALL_ADAFLAGS := ALL_ADAFLAGS & ("-gnata");--, "-gnatwn", "-gnatwJ");
       end case;
       ALL_CFLAGS :=
         external_as_list("INCLUDES", " ")
-        & external_as_list("DEFINES", " ")
-        & ("-I" & FreeRTOS.Include,
-           "-Iadainclude",  -- for freertos_risc_v_chip_specific_extensions.h
-           "-DIN_RTS", "-Dinhibit_libc")
-        & COMMON_FLAGS;
+          & external_as_list("DEFINES", " ")
+          & ("-I" & FreeRTOS.Include,
+             "-Iadainclude",  -- for freertos_risc_v_chip_specific_extensions.h
+             "-DIN_RTS", "-Dinhibit_libc")
+          & COMMON_FLAGS;
       ALL_ASM_FLAGS := COMMON_FLAGS;
 
       NO_SIBLING_ADAFLAGS := ("-fno-optimize-sibling-calls");
@@ -95,18 +95,22 @@ library project Build_Runtime is
       for Switches ("Asm_CPP") use ALL_ASM_FLAGS;
 
       for Switches ("startup.adb") use ALL_ADAFLAGS & ("-Wno-attributes");
-      for Switches ("s-traceb.adb") use ALL_ADAFLAGS & ("-g")
-        & NO_SIBLING_ADAFLAGS & ("-fno-inline-functions-called-once");
+      for Switches ("s-traceb.adb") use
+        ALL_ADAFLAGS & ("-g")
+          & NO_SIBLING_ADAFLAGS
+          & ("-fno-inline-functions-called-once");
       for Switches ("s-tasdeb.adb") use ALL_ADAFLAGS & ("-g", "-O0");
-      for Switches ("a-except.adb") use ALL_ADAFLAGS
-        & ("-g", "-O1", "-fno-inline") & NO_REORDER_ADAFLAGS;
+      for Switches ("a-except.adb") use
+        ALL_ADAFLAGS
+          & ("-g", "-O1", "-fno-inline")
+          & NO_REORDER_ADAFLAGS;
       for Switches ("s-excdeb.adb") use ALL_ADAFLAGS & ("-g", "-O0");
       for Switches ("s-assert.adb") use ALL_ADAFLAGS & ("-g");
       for Switches ("a-tags.adb") use ALL_ADAFLAGS & ("-g");
       for Switches ("last_chance_handler.c") use ALL_CFLAGS & ("-g", "-O0");
       for Switches ("s-harhan.adb") use ALL_ADAFLAGS & ("-g", "-O0");
 
-  end Compiler;
+   end Compiler;
 
    package Install is
       case Common.Local is
@@ -130,9 +134,8 @@ library project Build_Runtime is
    package Pretty_Printer is
       for Switches ("ada") use
         (
-         "--layout=compact",
-         "--par-threshold=2",
-         "--call-threshold=2"
+         "--source-line-breaks",
+         "--layout=minimal"
         );
    end Pretty_Printer;
 

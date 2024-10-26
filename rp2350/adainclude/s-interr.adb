@@ -31,30 +31,28 @@ package body System.Interrupts is
    type Handler_Wrapper is access procedure (Obj : System.Address);
 
    type Handler_With_Parameter is record
-      Wrapper           : Handler_Wrapper;
-      Parameter         : System.Address;
+      Wrapper   : Handler_Wrapper;
+      Parameter : System.Address;
    end record;
 
-   Interrupt_Handlers : array (Interrupt_ID) of Handler_With_Parameter
-      := (others => (null, System.Null_Address));
+   Interrupt_Handlers : array (Interrupt_ID) of Handler_With_Parameter :=
+     (others => (null, System.Null_Address));
 
    type Parameterless_Handler_Impl is record
       Object  : System.Address;
       Wrapper : Handler_Wrapper;
-   end record
-   with
+   end record with
      Size => 64;
    --  This is the blob the compiler gives us:
    --  Wrapper is the address of the handler procedure.
    --  Object contains any parameters it might take.
 
-   function To_Impl_View
-     is new Ada.Unchecked_Conversion (Parameterless_Handler,
-                                      Parameterless_Handler_Impl);
+   function To_Impl_View is new Ada.Unchecked_Conversion
+     (Parameterless_Handler, Parameterless_Handler_Impl);
 
    procedure Install_Restricted_Handlers
-     (Prio     : Any_Priority;
-      Handlers : New_Handler_Array) is
+     (Prio : Any_Priority; Handlers : New_Handler_Array)
+   is
    begin
       for H of Handlers loop
          declare
@@ -77,10 +75,9 @@ package body System.Interrupts is
 
    --  The parameter Cause, from the MCAUSE register, will have bit 31
    --  set; the lower 5 bits are the machine interrupt, 0 .. 31.
-   procedure IRQ_Handler (Cause : Interfaces.Unsigned_32)
-   with Export,
-     Convention => C,
-     External_Name => "freertos_risc_v_application_interrupt_handler";
+   procedure IRQ_Handler (Cause : Interfaces.Unsigned_32) with
+     Export, Convention => C,
+     External_Name      => "freertos_risc_v_application_interrupt_handler";
 
    procedure IRQ_Handler (Cause : Interfaces.Unsigned_32) is
       pragma Unreferenced (Cause);
@@ -98,8 +95,8 @@ package body System.Interrupts is
          end if;
 
          --  Call the installed handler
-         Interrupt_Handlers (Next_Interrupt.ID)
-           .Wrapper (Interrupt_Handlers (Next_Interrupt.ID).Parameter);
+         Interrupt_Handlers (Next_Interrupt.ID).Wrapper
+           (Interrupt_Handlers (Next_Interrupt.ID).Parameter);
       end loop Get_Next_Interrupt;
    end IRQ_Handler;
 

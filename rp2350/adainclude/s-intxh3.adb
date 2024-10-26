@@ -34,9 +34,7 @@ package body System.Interrupts.Xh3irq is
    end record;
 
    function Get_Next_Interrupt return Next_Interrupt_Info is
-
       Next_Interrupt : MEINEXT_Register;
-
    begin
       --  This sets UPDATE before reading the register.
       System.Machine_Code.Asm
@@ -51,6 +49,7 @@ package body System.Interrupts.Xh3irq is
          end if;
       end return;
    end Get_Next_Interrupt;
+
    --  This type is subtyped for MEIEA, MEIPA, MEIFA.
 
    type Bit_Window_Content is array (0 .. 15) of Boolean with
@@ -73,9 +72,7 @@ package body System.Interrupts.Xh3irq is
    subtype MEIFA_Data is CSR_Bit_Data;
 
    procedure Enable_Interrupt (ID : Interrupt_ID) is
-
       Data : MEIEA_Data;
-
    begin
       Data.INDEX                        := UInt5 (ID / 16);
       Data.WINDOW (Integer (ID mod 16)) := True;
@@ -86,9 +83,7 @@ package body System.Interrupts.Xh3irq is
    end Enable_Interrupt;
 
    function Enable_Interrupt (ID : Interrupt_ID) return Boolean is
-
       Data : MEIEA_Data;
-
    begin
       System.Machine_Code.Asm
         ("csrrs %1, meiea, %0",
@@ -99,9 +94,7 @@ package body System.Interrupts.Xh3irq is
    end Enable_Interrupt;
 
    procedure Force_Interrupt (ID : Interrupt_ID) is
-
       Data : MEIFA_Data;
-
    begin
       Data.INDEX                        := UInt5 (ID / 16);
       Data.WINDOW (Integer (ID mod 16)) := True;
@@ -112,9 +105,7 @@ package body System.Interrupts.Xh3irq is
    end Force_Interrupt;
 
    function Force_Interrupt (ID : Interrupt_ID) return Boolean is
-
       Data : MEIFA_Data;
-
    begin
       System.Machine_Code.Asm
         ("csrrs %1, meifa, %0",
@@ -125,9 +116,7 @@ package body System.Interrupts.Xh3irq is
    end Force_Interrupt;
 
    procedure Pending_Interrupt (ID : Interrupt_ID) is
-
       Data : MEIPA_Data;
-
    begin
       Data.INDEX                        := UInt5 (ID / 16);
       Data.WINDOW (Integer (ID mod 16)) := True;
@@ -138,9 +127,7 @@ package body System.Interrupts.Xh3irq is
    end Pending_Interrupt;
 
    function Pending_Interrupt (ID : Interrupt_ID) return Boolean is
-
       Data : MEIPA_Data;
-
    begin
       System.Machine_Code.Asm
         ("csrrs %1, meipa, %0",
@@ -167,11 +154,10 @@ package body System.Interrupts.Xh3irq is
       WINDOW   at 0 range 16 .. 31;
    end record;
 
-   procedure Set_Priority (ID : Interrupt_ID; To : System.Interrupt_Priority)
+   procedure Set_Priority
+     (ID : Interrupt_ID; To : System.Interrupt_Priority)
    is
-
       Data : MEIPRA_Data;
-
    begin
       Data.INDEX                       := UInt5 (ID / 4);
       Data.WINDOW (Integer (ID mod 4)) := RP2350.UInt4 (To);
@@ -180,15 +166,13 @@ package body System.Interrupts.Xh3irq is
          Inputs   => Xh3irq.MEIPRA_Data'Asm_Input ("r", Data),
          Volatile => True);
    end Set_Priority;
+
    --  This is for checking out what happens with the array of 512 bits.
-
    procedure Read_Bit_Array is
-
       type Bit_Array is array (0 .. 15) of RP2350.Bit with
         Pack, Size => 16, Default_Component_Value => 0;
       Bit_Array_Array : array (0 .. 31) of Bit_Array with
         Size => 512;
-
    begin
       for Index in Bit_Array_Array'Range loop
          System.Machine_Code.Asm
