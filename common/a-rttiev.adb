@@ -29,7 +29,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  Adapted from the GCC 7.1.0 version for Cortex GNAT RTS.
+--  Adapted from the GCC 7.1.0 version for FreeRTOS-Ada.
 
 --  This implementation doesn't follow the implemntation advice of ARM
 --  D.15(25) (that the protected handler procedure should be executed

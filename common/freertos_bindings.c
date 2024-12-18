@@ -16,7 +16,7 @@
 // see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 // <http://www.gnu.org/licenses/>.
 //
-// This interface to FreeRTOS is part of the Cortex GNAT RTS project.
+// This interface to FreeRTOS is part of the FreeRTOS-Ada project.
 //
 // This file creates callable interfaces to some FreeRTOS macros.  The
 // alternative is to code in Ada what the macros translate to; this is

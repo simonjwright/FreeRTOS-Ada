@@ -29,7 +29,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  Modified from GCC 7.1.0 to remove recursion for Cortex GNAT RTS.
+--  Modified from GCC 7.1.0 to remove recursion for FreeRTOS-Ada.
 
 package body System.Img_LLI is
 

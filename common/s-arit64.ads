@@ -33,7 +33,7 @@
 --  signed integer values in cases where either overflow checking is
 --  required, or intermediate results are longer than 64 bits.
 
---  For Cortex GNAT RTS, re-imported from the FSF GCC 11 release.
+--  For FreeRTOS-Ada, re-imported from the FSF GCC 11 release.
 
 pragma Restrictions (No_Elaboration_Code);
 --  Allow direct call from gigi generated code

@@ -44,7 +44,7 @@
 --  Note: do not introduce any pragma Inline statements into this unit, since
 --  otherwise the relinking and rebinding capability would be deactivated.
 
---  Modified from GCC 4.9.1 for Cortex GNAT RTS.
+--  Modified from GCC 4.9.1 for FreeRTOS-Ada.
 
 package System.Parameters is
    pragma Pure;

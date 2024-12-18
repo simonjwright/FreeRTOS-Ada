@@ -35,7 +35,7 @@
 --  Any changes to this interface may require corresponding compiler changes.
 
 --  This file has been extensively modified from the GCC 4.9.1 version
---  for the Cortex GNAT RTS project.
+--  for the FreeRTOS-Ada project.
 
 with System.FreeRTOS.Tasks;
 with System.Secondary_Stack;
@@ -607,7 +607,7 @@ package System.Tasking is
       All_Tasks_Link : Task_Id;
       --  Used to link this task to the list of all tasks in the system.
       --
-      --  Protection: (Cortex GNAT RTS) Set at task creation,
+      --  Protection: (FreeRTOS-Ada) Set at task creation,
       --  thereafter ony referenced from the debugger.
       --
       --  FreeRTOS doesn't provide a straightforward way of accessing
@@ -1225,7 +1225,7 @@ private
    --  Associate an array of strings denotinge entry [family] names with a task
 
    Task_Chain : Task_Id;
-   --  Used in Cortex GNAT RTS as head of a chain through all the
+   --  Used in FreeRTOS-Ada as head of a chain through all the
    --  tasks, to allow finding them in GDB. FreeRTOS doesn't provide a
    --  straightforward way of accessing tasks queued on protected
    --  objects (via semaphores or queues).

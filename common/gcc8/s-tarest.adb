@@ -35,7 +35,7 @@
 --  This package represents the high level tasking interface used by the
 --  compiler to expand Ada 95 tasking constructs into simpler run time calls.
 
---  This is the version for the Cortex GNAT RTS project.
+--  This is the version for the FreeRTOS-Ada project.
 
 with Ada.Unchecked_Conversion;
 with System.Address_To_Access_Conversions;

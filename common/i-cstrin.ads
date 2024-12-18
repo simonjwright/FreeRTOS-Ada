@@ -33,7 +33,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  Modified from GCC 4.9.1 for Cortex GNAT RTS.
+--  Modified from GCC 4.9.1 for FreeRTOS-Ada.
 
 package Interfaces.C.Strings is
    pragma Preelaborate;

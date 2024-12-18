@@ -29,7 +29,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  Modified from GCC 4.9.1 for Cortex GNAT RTS.
+--  Modified from GCC 4.9.1 for FreeRTOS-Ada.
 
 with System; use System;
 with System.Storage_Elements; use System.Storage_Elements;

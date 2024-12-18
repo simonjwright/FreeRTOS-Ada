@@ -33,7 +33,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  Modified from GCC 4.9.1, then GCC 7.1.0, for Cortex GNAT RTS.
+--  Modified from GCC 4.9.1, then GCC 7.1.0, for FreeRTOS-Ada.
 
 package Ada.Real_Time with
   SPARK_Mode,
@@ -134,7 +134,7 @@ is
    --  number of seconds is 2**63/10**9 = 8*10**9 which does not quite
    --  fit in 32 bits.
    --
-   --  (For Cortex GNAT RTS: this comment isn't true.)
+   --  (For FreeRTOS-Ada: this comment isn't true.)
 
    procedure Split (T : Time; SC : out Seconds_Count; TS : out Time_Span)
    with

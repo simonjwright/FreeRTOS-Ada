@@ -29,7 +29,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  This is the version for Cortex GNAT RTS.
+--  This is the version for FreeRTOS-Ada.
 
 package body System.Parameters is
 
