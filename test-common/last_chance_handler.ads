@@ -1,8 +1,8 @@
 --  Copyright (C) 2016-2024 Free Software Foundation, Inc.
 --
---  This file is part of the Cortex GNAT RTS package.
+--  This file is part of the FreeRTOS-Ada package.
 --
---  The Cortex GNAT RTS package is free software; you can redistribute
+--  The FreeRTOS-Ada package is free software; you can redistribute
 --  it and/or modify it under the terms of the GNU General Public
 --  License as published by the Free Software Foundation; either
 --  version 3 of the License, or (at your option) any later version.
@@ -21,6 +21,6 @@ with Interfaces.C.Strings;
 procedure Last_Chance_Handler
   (Message : Interfaces.C.Strings.chars_ptr; Line : Integer) with
     Preelaborate  => True,
-    Export        => True, 
+    Export        => True,
     Convention    => C,
     External_Name => "__gnat_last_chance_handler";

@@ -29,7 +29,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  Modified from GCC 4.9.1 for Cortex GNAT RTS.
+--  Modified from GCC 4.9.1 for FreeRTOS-Ada.
 --  The main change is the omission of wide characters.
 
 package body Interfaces.C is
