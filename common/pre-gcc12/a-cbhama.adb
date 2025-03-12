@@ -27,7 +27,7 @@
 -- This unit was originally developed by Matthew J Heaney.                  --
 ------------------------------------------------------------------------------
 
---  Modified from the 4.9.1 release for the Cortex GNAT Runtime System
+--  Modified from the 4.9.1 release for the FreeRTOS-Ada
 --  project.
 --
 --  The changes consist of suppressing finalization (not supported in

@@ -33,7 +33,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  Modified from the GCC 7.1.0 version for Cortex GNAT RTS.
+--  Modified from the GCC 7.1.0 version for FreeRTOS-Ada.
 
 package Ada.Real_Time.Timing_Events is
 

@@ -39,7 +39,7 @@
 --  This unit may be used directly from an application program by providing
 --  an appropriate WITH, and the interface can be expected to remain stable.
 
---  This is the Cortex GNAT RTS version of this module.
+--  This is the FreeRTOS-Ada version of this module.
 
 package System.Task_Info is
    pragma Preelaborate;

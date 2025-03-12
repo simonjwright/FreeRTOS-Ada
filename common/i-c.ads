@@ -13,7 +13,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  Modified from GCC 4.9.1 for Cortex GNAT RTS.
+--  Modified from GCC 4.9.1 for FreeRTOS-Ada.
 --  The main change is the omission of wide characters.
 
 package Interfaces.C is
@@ -32,7 +32,7 @@ package Interfaces.C is
    --  Note: the Integer qualifications used in the declaration of type long
    --  avoid ambiguities when compiling in the presence of s-auxdec.ads and
    --  a non-private system.address type.
-   --  Note: not applicable in the Cortex GNAT RTS version.
+   --  Note: not applicable in the FreeRTOS-Ada version.
 
    type int   is new Integer;
    type short is new Short_Integer;
@@ -53,7 +53,7 @@ package Interfaces.C is
    --  Note: the Integer qualifications used in the declaration of ptrdiff_t
    --  avoid ambiguities when compiling in the presence of s-auxdec.ads and
    --  a non-private system.address type.
-   --  Note: not applicable in the Cortex GNAT RTS version.
+   --  Note: not applicable in the FreeRTOS-Ada version.
 
    type ptrdiff_t is
      range -(2 ** (Standard'Address_Size - Integer'(1))) ..

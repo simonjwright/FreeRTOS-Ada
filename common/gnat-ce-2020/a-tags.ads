@@ -65,7 +65,7 @@
 --    length depends on the number of interfaces covered by a tagged type.
 
 --  This file has been modified from the gcc-mirror version at
---  commit [ead7594] for Cortex GNAT RTS (only by commenting-out the
+--  commit [ead7594] for FreeRTOS-Ada (only by commenting-out the
 --  Wide_*Expanded_Name functions).
 
 with System.Storage_Elements;

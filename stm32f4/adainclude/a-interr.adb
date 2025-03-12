@@ -33,7 +33,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  Modified from the GCC 4.9.1 version for the Cortex GNAT RTS
+--  Modified from the GCC 4.9.1 version for the FreeRTOS-Ada
 --  project, for STM32F4.
 
 package body Ada.Interrupts is
