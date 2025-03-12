@@ -131,4 +131,11 @@ library project Build_Runtime is
       for Install_Project use "false";
    end Install;
 
+   package Pretty_Printer is
+      for Switches ("ada") use
+        (
+         "--source-line-breaks"
+        );
+   end Pretty_Printer;
+
 end Build_Runtime;

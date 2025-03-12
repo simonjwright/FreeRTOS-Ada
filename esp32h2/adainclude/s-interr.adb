@@ -109,13 +109,13 @@ package body System.Interrupts is
          begin
             --  Check whether there's a free machine interrupt.
             --  Raise PE if the interrupt is already registered.
-            if (for some MI of Machine_Interrupts =>
-                  MI.Available
-                    and then MI.Allocated
-                    and then MI.Interrupt = H.Interrupt)
-            then
-               raise Program_Error with "interrupt already registered (1)";
-            end if;
+            --  if (for some MI of Machine_Interrupts =>
+            --        MI.Available
+            --          and then MI.Allocated
+            --          and then MI.Interrupt = H.Interrupt)
+            --  then
+            --     raise Program_Error with "interrupt already registered (1)";
+            --  end if;
             if Interrupt_Handlers (H.Interrupt).Wrapper /= null then
                raise Program_Error with "interrupt already registered (2)";
             end if;
@@ -161,6 +161,7 @@ package body System.Interrupts is
 
    procedure IRQ_Handler (Cause : Interfaces.Unsigned_32) is
       use type Interfaces.Unsigned_32;
+      pragma Assert ((Cause and 16#8000_0000#) /= 0, "not an interrupt");
       Machine_Interrupt : constant Machine_Interrupt_ID
         := Machine_Interrupt_ID (Cause and 16#1f#);
       Interrupt_Data : constant Machine_Interrupt_Data

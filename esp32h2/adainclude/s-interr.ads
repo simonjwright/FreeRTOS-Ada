@@ -28,7 +28,7 @@ package System.Interrupts is
    --  a PO. This can only happen if the pragma form is used.
 
    type Interrupt_ID is range 0 .. 64;
-   --  See TRM 9.5.2.
+   --  See TRM 9.5.2ff.
 
    subtype System_Interrupt_ID is Interrupt_ID;
    --  This synonym is introduced so that the type is accessible through
