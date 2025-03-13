@@ -1,6 +1,6 @@
 --  Copyright (C) 2020 Free Software Foundation, Inc.
 
---  This file is part of the Cortex GNAT RTS package.
+--  This file is part of the FreeRTOS-Ada package.
 --
 --  Copying and distribution of this file, with or without
 --  modification, are permitted in any medium without royalty provided

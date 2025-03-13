@@ -34,7 +34,7 @@
 ------------------------------------------------------------------------------
 
 --  This file has been modified from the GCC 4.9.1 version for the
---  Cortex GNAT RTS project.
+--  FreeRTOS-Ada project.
 
 package Ada.Synchronous_Task_Control is
    pragma Preelaborate;

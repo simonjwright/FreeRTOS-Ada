@@ -44,7 +44,7 @@
 --  The restricted GNARLI is also composed of System.Protected_Objects and
 --  System.Protected_Objects.Single_Entry
 
---  Modified for the Cortex GNAT RTS, by leaving out parts that aren't
+--  Modified for the FreeRTOS-Ada, by leaving out parts that aren't
 --  called.
 --
 --  If the user compiles with Partition_Elaboration_Policy set to
@@ -53,7 +53,7 @@
 --  Create_Restricted_Task, and at the end calls
 --  Activate_All_Tasks_Sequential.
 --
---  In Cortex GNAT RTS, the environment task is created and then the
+--  In FreeRTOS-Ada, the environment task is created and then the
 --  FreeRTOS scheduler is started to run it. It executes the
 --  binder-generated adainit() to perform elaboration and then
 --  executes the Ada main program.
@@ -141,7 +141,7 @@ package System.Tasking.Restricted.Stages is
    --  Chain is a linked list of task that needs to be created. On
    --  exit, Created_Task.Activation_Link will be Chain.T_ID, and
    --  Chain.T_ID will be Created_Task (the created task will be
-   --  linked at the front of Chain). Not used in Cortex GNAT RTS.
+   --  linked at the front of Chain). Not used in FreeRTOS-Ada.
    --
    --  Task_Image is a string created by the compiler that the run
    --  time can store to ease the debugging and the

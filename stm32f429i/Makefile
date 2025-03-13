@@ -1,8 +1,8 @@
 # Copyright (C) 2016-2024 Free Software Foundation, Inc.
 #
-# This file is part of the Cortex GNAT RTS package.
+# This file is part of the FreeRTOS-Ada package.
 #
-# The Cortex GNAT RTS package is free software; you can redistribute
+# The FreeRTOS-Ada package is free software; you can redistribute
 # it and/or modify it under the terms of the GNU General Public
 # License as published by the Free Software Foundation; either version
 # 3 of the License, or (at your option) any later version.
@@ -16,18 +16,19 @@
 # along with this program; see the file COPYING3. If not, see
 # <http://www.gnu.org/licenses/>.
 
-SVD2ADA = ../svd2ada
+SVD2ADA = ~/.alire/bin/svd2ada
+# alr get svd2ada; cd svd2ada*; alr build; alr install
 
 all: build
 
 build: stm32f429x force
 	gprbuild -p -P build_runtime.gpr
 
-stm32f429x: svd2ada-stamp
-	$(SVD2ADA)/bin/svd2ada			\
+stm32f429x: ../svd2ada//CMSIS-SVD/ST/STM32F429x.svd
+	$(SVD2ADA)				\
 	  --output=stm32f429x			\
 	  --no-vfa-on-types			\
-	$(SVD2ADA)/CMSIS-SVD/ST/STM32F429x.svd
+	  $<
 
 svd2ada-stamp:
 	cd $(SVD2ADA); alr build

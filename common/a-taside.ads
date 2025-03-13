@@ -33,7 +33,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  Modified from GCC 4.9.1 for Cortex GNAT RTS, which has Ravenscar
+--  Modified from GCC 4.9.1 for FreeRTOS-Ada, which has Ravenscar
 --  restrictions.
 
 with System;

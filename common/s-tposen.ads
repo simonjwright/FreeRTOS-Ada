@@ -56,7 +56,7 @@
 --  in exp_ch9.adb and possibly exp_ch7.adb
 
 --  This file has been extensively modified from the GCC 4.9.1 version
---  for the Cortex GNAT RTS project.
+--  for the FreeRTOS-Ada project.
 
 pragma Restrictions (No_Elaboration_Code);
 package System.Tasking.Protected_Objects.Single_Entry is

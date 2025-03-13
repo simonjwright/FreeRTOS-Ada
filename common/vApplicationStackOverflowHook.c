@@ -1,6 +1,6 @@
 // Copyright (C) 2016 Free Software Foundation, Inc.
 //
-// This file is part of the Cortex GNAT RTS project. This file is
+// This file is part of the FreeRTOS-Ada project. This file is
 // free software; you can redistribute it and/or modify it under
 // terms of the GNU General Public License as published by the Free
 // Software Foundation; either version 3, or (at your option) any

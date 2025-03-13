@@ -36,7 +36,7 @@
 --                                                                          --
 ------------------------------------------------------------------------------
 
---  This file has been extensively modified for the Cortex GNAT RTS
+--  This file has been extensively modified for the FreeRTOS-Ada
 --  project.
 
 pragma Profile (Ravenscar);
