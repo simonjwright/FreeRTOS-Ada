@@ -18,17 +18,13 @@
 
 abstract project FreeRTOS is
 
-   -- ** Uncomment these if you have FreeRTOS installed externally **
-   -- Parent := external ("FREERTOS_PARENT", external ("HOME"));
-   -- Release := external ("FREERTOS_RELEASE", "FreeRTOSv10.0.1");
-   -- Base := Parent & "/" & Release & "/";
-   -- Source := Base & "FreeRTOS/Source/";
+   Freertos_Kernel := external ("FREERTOS_KERNEL",
+                                project'Project_Dir & "FreeRTOS-Kernel")
+                        & "/";
 
-   -- ** Comment this if you have FreeRTOS installed externally **
-   Source := project'Project_Dir & "FreeRTOS-Kernel/";
-
-   Include := Source & "include";
-   Portable_Base := Source & "portable/GCC/";
+   Source := Freertos_Kernel;
+   Include := Freertos_Kernel & "include";
+   Portable_Base := Freertos_Kernel & "portable/GCC/";
    --  You'll need to add e.g. "ARM_CM3" for your processor
 
 end FreeRTOS;
